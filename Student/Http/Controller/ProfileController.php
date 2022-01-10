@@ -49,7 +49,6 @@ class ProfileController extends BaseController
     public function update(Request $request)
     {
         $data = $request->all();
-
         try {
             $profile = $this->profileRepository->update($data,Auth::user()->id);
             if ($profile == false) {

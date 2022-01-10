@@ -15,12 +15,24 @@
 
         <!-- Main content -->
         <div class="content">
+            <div class="card">
+                <div class="card-body">
+                    <ul id="progressbar">
+                        <li id="account"><strong>Personal Information</strong></li>
+                        <li id="personal"><strong>Guardian Information</strong></li>
+                        <li class="active" id="payment"><strong>Specific Information</strong></li>
+                        <li id="confirm"><strong>Document</strong></li>
+                    </ul> <!-- fieldsets -->
+                </div>
+         </div>
 
-
+            <form method="POST" action="{{ url('student/dashboard/student/data/update') }}">
+                @csrf
             <div class="content">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="text-black">Specific Information</h4>
+
                         <div class="row">
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
@@ -198,8 +210,8 @@
                     and
                     Next</button>
             </div>
+            </form>
         </div>
-
 
         <!-- /.content -->
     </div>

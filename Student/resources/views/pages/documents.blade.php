@@ -15,7 +15,16 @@
 
         <!-- Main content -->
         <div class="content">
-
+            <div class="card">
+                <div class="card-body">
+                    <ul id="progressbar">
+                        <li id="account"><strong>Personal Information</strong></li>
+                        <li id="personal"><strong>Guardian Information</strong></li>
+                        <li  id="payment"><strong>Specific Information</strong></li>
+                        <li class="active" id="confirm"><strong>Document</strong></li>
+                    </ul> <!-- fieldsets -->
+                </div>
+            </div>
             <h4 class="text-black">Qualification Certificates</h4>
             <div class="content">
                 <div class="card">
