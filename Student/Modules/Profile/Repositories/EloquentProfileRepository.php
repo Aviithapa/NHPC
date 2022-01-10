@@ -4,12 +4,13 @@
 namespace Student\Modules\Profile\Repositories;
 
 
+
 use Student\Models\Profile;
-use App\Modules\Framework\RepositoryImplementation;
+use Student\Modules\Framework\RepositoryImplementation;
 
 class EloquentProfileRepository extends RepositoryImplementation implements ProfileRepository
 {
-    protected $entity_name="Profile";
+    protected $entity_name="profiles";
     /**
      * @inheritDoc
      */

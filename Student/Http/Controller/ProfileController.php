@@ -32,15 +32,13 @@ class ProfileController extends BaseController
     {
         $data = $request->all();
         $data['user_id'] = Auth::user()->id;
-        dd($data);
-        $data['image'] = $data['blogger_pic'];
         try {
             $profile = $this->profileRepository->create($data);
             if ($profile == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
-            session()->flash('success', 'Student Profile Setup successfully');
+            session()->flash('success', 'Personal Details Setup successfully');
             return redirect()->route('student.dashboard');
         } catch (\Exception $e) {
             session()->flash('danger', 'Oops! Something went wrong.');
@@ -51,8 +49,9 @@ class ProfileController extends BaseController
     public function update(Request $request)
     {
         $data = $request->all();
+
         try {
-            $profile = $this->profileRepository->create($data);
+            $profile = $this->profileRepository->update($data,Auth::user()->id);
             if ($profile == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
