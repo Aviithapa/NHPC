@@ -29,7 +29,7 @@
             <form method="POST" id="saveForm" enctype="multipart/form-data">
                 @csrf
                 <div class="col-md-12">
-                    <input type="file" name="profile" onclick="anyFileUploader('profile')" id="profile input-file-now" class="dropify" />
+                    <input type="file" name="profile_image" onclick="anyFileUploader('profile')" id="profile" class="dropify" />
                     <input type="hidden" id="profile_path" name="profile" class="form-control"
                            value=""/>
                     <button type="button" class="btn btn-primary btn-block" id="saveImage">Save</button>
@@ -177,50 +177,17 @@
        console.log(id);
        $('#'+id).fileupload({
 
-           url: '{{ url('/save_image') }}' + '/' + id,
+           url: '{{ url('student/dashboard/save_image') }}' + '/' + id,
            done: function(e, data) {
-               console.log('you are here');
+               console.log(data);
                $('#'+id+'_path').val(data.result.image_name);
            },
            error: function(e,data){
-               console.log('you are here');
+               console.log(e);
            },
 
        });
    }
 
-        $(function () {
-            $(document).on("click", "#saveImage", function (event) {
-                let myForm = document.getElementById('saveForm');
-                let formData = new FormData(myForm);
-                console.log(myForm);
-
-            });
-        });
-        function uploadImage(formData) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                url: "{{ route('save_image') }}",
-                success: function (data) {
-                    console.log(data.path)
-                    // if (data.status) {
-                    //
-                    // } else {
-                    //
-                    // }
-                },
-                error: function (err) {
-                    console.log(err)
-                }
-            });
-        }
     </script>
     @endpush
