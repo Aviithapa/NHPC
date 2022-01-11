@@ -5881,6 +5881,11 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e73f7c', endCo
     content: "\f02d"
 }
 
+#progressbar #check:before {
+    font-family: FontAwesome;
+    content: "\f00c"
+}
+
 #progressbar li:before {
     width: 50px;
     height: 50px;
@@ -5909,3 +5914,47 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e73f7c', endCo
 #progressbar li.active:after {
     background: skyblue
 }
+
+.thank-you-pop{
+    width:100%;
+    padding:20px;
+    text-align:center;
+}
+.thank-you-pop img{
+    width:50px;
+    height:auto;
+    margin:0 auto;
+    display:block;
+    margin-bottom:25px;
+}
+
+.thank-you-pop h1{
+    font-size: 24px;
+    margin-bottom: 25px;
+    color:#5C5C5C;
+}
+.thank-you-pop p{
+    font-size: 20px;
+    margin-bottom: 27px;
+    color:#5C5C5C;
+}
+.thank-you-pop h3.cupon-pop{
+    font-size: 25px;
+    margin-bottom: 40px;
+    color:#222;
+    display:inline-block;
+    text-align:center;
+    padding:10px 20px;
+    border:2px dashed #222;
+    clear:both;
+    font-weight:normal;
+}
+.thank-you-pop h3.cupon-pop span{
+    color:#03A9F4;
+}
+
+
+#ignismyModal .modal-header{
+    border:0px;
+}
+/*--thank you pop ends here--*/

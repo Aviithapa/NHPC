@@ -13,6 +13,7 @@
 @include('student::layout.header')
 @include('student::layout.sidebar')
 <!-- BEGIN CONTAINER -->
+@include('student::pages.flash-message')
 
 @yield('content')
 <!-- END CONTAINER -->

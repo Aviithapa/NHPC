@@ -18,8 +18,8 @@
             <div class="card">
                 <div class="card-body">
                     <ul id="progressbar">
-                        <li id="account"><strong>Personal Information</strong></li>
-                        <li id="personal"><strong>Guardian Information</strong></li>
+                        <li class="active" id="check"><strong>Personal Information</strong></li>
+                        <li class="active" id="check"><strong>Guardian Information</strong></li>
                         <li class="active" id="payment"><strong>Specific Information</strong></li>
                         <li id="confirm"><strong>Document</strong></li>
                     </ul> <!-- fieldsets -->
@@ -37,7 +37,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Development Region</label>
-                                    <select class="form-control" name="Gender">
+                                    <select class="form-control" name="development_region">
                                         <option value="">Select Development Region</option>
                                         <option value="female">Chettri</option>
                                         <option value="other">Brahmin</option>
@@ -47,7 +47,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Zone</label>
-                                    <select class="form-control" name="Gender">
+                                    <select class="form-control" name="zone">
                                         <option value="">Select Zone </option>
                                         <option value="female">Chettri</option>
                                         <option value="other">Brahmin</option>
@@ -57,7 +57,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>District</label>
-                                    <select class="form-control" name="Gender">
+                                    <select class="form-control" name="district">
                                         <option value="">Select District</option>
                                         <option value="female">Chettri</option>
                                         <option value="other">Brahmin</option>
@@ -66,34 +66,34 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4">
-                                <fieldset class="form-group">
-                                    <label>VDC Municiplality</label>
-                                    <input name="first_name_nepali" class="form-control" id="basicInput"
-                                           type="text">
-                                </fieldset>
-                            </div>
-                            <div class="col-lg-4">
-                                <fieldset class="form-group">
-                                    <label>Ward No</label>
-                                    <input name="middle_name_nepali" class="form-control" id="basicInput"
-                                           type="text">
-                                </fieldset>
-                            </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label>VDC Municiplality</label>
+                                <input name="vdc_municiplality" class="form-control" id="basicInput"
+                                       type="text">
+                            </fieldset>
                         </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label>Ward No</label>
+                                <input name="ward_no" class="form-control" id="basicInput"
+                                       type="text">
+                            </fieldset>
+                        </div>
+                    </div>
 
                         <h4 class="text-black">Collage Information</h4>
                         <div class="row">
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Admission Year </label>
-                                    <input name="dob_nepali" class="form-control" id="basicInput" type="date">
+                                    <input name="admission_year" class="form-control" id="basicInput" type="date">
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Collage Name</label>
-                                    <select class="form-control" name="Gender">
+                                    <select class="form-control" name="collage_name">
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
                                         <option value="other">Other</option>
@@ -103,7 +103,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Program Name</label>
-                                    <select class="form-control" name="Gender">
+                                    <select class="form-control" name="program_name">
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
                                         <option value="other">Other</option>
@@ -115,19 +115,19 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Registration Number</label>
-                                    <input name="mobile_number" class="form-control" id="basicInput" type="text">
+                                    <input name="registration_number" class="form-control" id="basicInput" type="text">
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Hospital Name</label>
-                                    <input name="phone_number" class="form-control" id="basicInput" type="text">
+                                    <input name="hospital_name" class="form-control" id="basicInput" type="text">
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Is Registrated</label>
-                                    <select class="form-control" name="Gender">
+                                    <select class="form-control" name="is_registrated">
                                         <option value=""></option>
                                         <option value="female">Yes</option>
                                         <option value="other">No</option>
@@ -182,7 +182,7 @@
                             </tr>
                             <tr>
                                 <th scope="row">2</th>
-                                <td>SLC</td>
+                                <td>TSLC</td>
                                 <td>
                                     <fieldset class="form-group">
 

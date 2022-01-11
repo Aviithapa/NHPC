@@ -36,7 +36,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>First Name</label>
-                                    <input name="first_name" class="form-control" id="basicInput" type="text">
+                                    <input name="first_name" class="form-control" id="basicInput" type="text" required>
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
@@ -48,7 +48,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Last Name</label>
-                                    <input name="last_name" class="form-control" id="basicInput" type="text">
+                                    <input name="last_name" class="form-control" id="basicInput" type="text" required>
                                 </fieldset>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Date of Birth (B.S) </label>
-                                    <input name="dob_nep" class="form-control" id="basicInput" type="date">
+                                    <input name="dob_nep" class="form-control" id="basicInput" type="date" required>
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
@@ -90,7 +90,8 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Sex</label>
-                                    <select class="form-control" name="sex">
+                                    <select class="form-control" name="sex" required>
+                                        <option value="">Select</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
                                         <option value="other">Other</option>
@@ -102,7 +103,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Mobile Number</label>
-                                    <input name="mobile_number" class="form-control" id="basicInput" type="text">
+                                    <input name="mobile_number" class="form-control" id="basicInput" type="text" value="{{\Illuminate\Support\Facades\Auth::user()->phone_number}}">
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
@@ -114,7 +115,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Email</label>
-                                    <input name="email" class="form-control" id="basicInput" type="email">
+                                    <input name="email" class="form-control" id="basicInput" type="email" value="{{\Illuminate\Support\Facades\Auth::user()->email}}">
                                 </fieldset>
                             </div>
                         </div>
@@ -122,7 +123,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Ethinic </label>
-                                    <select class="form-control" name="ethinic">
+                                    <select class="form-control" name="ethinic" required>
                                         <option value="">Select Ethinic</option>
                                         <option value="female">Brahmin/Chettri</option>
                                         <option value="other">Other</option>
@@ -132,7 +133,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Cast</label>
-                                    <select class="form-control" name="cast">
+                                    <select class="form-control" name="cast" required>
                                         <option value="">Select Cast</option>
                                         <option value="female">Chettri</option>
                                         <option value="other">Brahmin</option>
@@ -142,10 +143,10 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Marital Status</label>
-                                    <select class="form-control" name="marital_status">
+                                    <select class="form-control" name="marital_status" required>
                                         <option value="">Select</option>
                                         <option value="married">Married</option>
-                                        <option value="unmarried">UN Married</option>
+                                        <option value="unmarried">Unmarried</option>
                                     </select>
                                 </fieldset>
                             </div>
@@ -154,19 +155,19 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>CitizenShip Number</label>
-                                    <input name="citizenship_number" class="form-control" id="basicInput" type="text">
+                                    <input name="citizenship_number" class="form-control" id="basicInput" type="text" required>
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>CitizenShip Issue Date</label>
-                                    <input name="citizenship_issue_date" class="form-control" id="basicInput" type="date">
+                                    <input name="citizenship_issue_date" class="form-control" id="basicInput" type="date" required>
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Issue District</label>
-                                    <input name="issue_district" class="form-control" id="basicInput" type="text">
+                                    <input name="issue_district" class="form-control" id="basicInput" type="text" required>
                                 </fieldset>
                             </div>
                         </div>

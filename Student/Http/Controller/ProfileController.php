@@ -20,43 +20,91 @@ class ProfileController extends BaseController
 
 
     public function index(){
-        dd("Hello World");
+        $data=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+        if(!$data){
+            return view('student::pages.personal');
+        }else{
+            if(!$data["citizenship_number"]) {
+                return view('student::pages.personal');
+            }else{
+                return redirect()->route('student.guardian')->with('already','Personal Information has already Setup');
+            }
+        }
+
+    }
+
+
+    public function guardianIndex(){
+        $data=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+        if(!$data){
+            return view('student::pages.guardian');
+        }else{
+            if(!$data["father_name"]) {
+                return view('student::pages.guardian');
+            }else{
+                return redirect()->route('student.specific')->with('already','All Information upto here has already Setup');
+            }
+        }
+    }
+
+    public function specificIndex(){
+        $data=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+        if(!$data){
+            return view('student::pages.specific');
+        }else{
+            if(!$data["collage_name"]) {
+                return view('student::pages.specific');
+            }else{
+                return back()->with('already','documents');
+            }
+        }
+
     }
     /**
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $data['user_id'] = Auth::user()->id;
-        try {
-            $profile = $this->profileRepository->create($data);
-            if ($profile == false) {
+
+            $data = $request->all();
+            $data['user_id'] = Auth::user()->id;
+            try {
+                $profile = $this->profileRepository->create($data);
+                if ($profile == false) {
+                    session()->flash('danger', 'Oops! Something went wrong.');
+                    return redirect()->back()->withInput();
+                }
+                return redirect()->route('student.guardian')->with('success','Personal Information have been Saved Successfully');
+            } catch (\Exception $e) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
-            session()->flash('success', 'Personal Details Setup successfully');
-            return redirect()->route('student.dashboard');
-        } catch (\Exception $e) {
-            session()->flash('danger', 'Oops! Something went wrong.');
-            return redirect()->back()->withInput();
         }
-    }
+
+
 
     public function update(Request $request)
     {
         $data = $request->all();
         try {
-            $profile = $this->profileRepository->update($data,Auth::user()->id);
+            $id=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+            $profile = $this->profileRepository->update($data,$id['id']);
             if ($profile == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
-            session()->flash('success', 'Student Profile Setup successfully');
-            return redirect()->route('student.dashboard');
+
+            if ($data['father_name']){
+                return redirect()->route('student.specific')->with('success','Guardian Information have been saved successfully');
+            }elseif ($data['collage_name']){
+                return redirect()->route('student.documents')->with('success','Specific Information have been saved successfully');
+            }else{
+                return redirect()->route('student.dashboard');
+            }
+//
         } catch (\Exception $e) {
             session()->flash('danger', 'Oops! Something went wrong.');
             return redirect()->back()->withInput();
