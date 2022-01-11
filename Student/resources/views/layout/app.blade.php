@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel = "icon" class="img-fluid" href ="" type = "image/x-icon">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title></title>
     @include('student::layout.style')
     @stack('styles')

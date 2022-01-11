@@ -112,6 +112,28 @@ class ProfileController extends BaseController
     }
 
 
+    public function save_image(Request $request,$fieldName)
+    {
+        try{
+            $path =  $request->{$fieldName.'_image'}->store('public/'.$fieldName);
+            if (!$path)
+                return url('storage');
+            $dirs = explode('/', $path);
+            if ($dirs[0] === 'public')
+                $dirs[0] = 'storage';
+            $response['full_url'] = url(implode('/', $dirs));
+            $response['image_name'] = ($request->{$fieldName.'_image'})->hashName();
+            return $response;
+
+        }
+        catch (\Exception $e)
+        {
+            dd($e);
+        }
+
+
+    }
+
 
 }
 

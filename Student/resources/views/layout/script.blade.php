@@ -18,47 +18,68 @@
 
 <!-- dropify -->
 <script src="{{asset('dist/plugins/dropify/dropify.min.js')}}"></script>
-<script>
-    $(document).ready(function () {
-        // Basic
-        $('.dropify').dropify();
-
-        // Translated
-        $('.dropify-fr').dropify({
-            messages: {
-                default: 'Glissez-déposez un fichier ici ou cliquez',
-                replace: 'Glissez-déposez un fichier ou cliquez pour remplacer',
-                remove: 'Supprimer',
-                error: 'Désolé, le fichier trop volumineux'
-            }
-        });
-
-        // Used events
-        var drEvent = $('#input-file-events').dropify();
-
-        drEvent.on('dropify.beforeClear', function (event, element) {
-            return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
-        });
-
-        drEvent.on('dropify.afterClear', function (event, element) {
-            alert('File deleted');
-        });
-
-        drEvent.on('dropify.errors', function (event, element) {
-            console.log('Has Errors');
-        });
-
-        var drDestroy = $('#input-file-to-destroy').dropify();
-        drDestroy = drDestroy.data('dropify')
-        $('#toggleDropify').on('click', function (e) {
-            e.preventDefault();
-            if (drDestroy.isDropified()) {
-                drDestroy.destroy();
-            } else {
-                drDestroy.init();
-            }
-        })
-    });
 
 
-</script>
+
+{{--<script>--}}
+{{--    $(document).ready(function () {--}}
+{{--        // Basic--}}
+{{--        $('.dropify').dropify();--}}
+
+{{--        $(function () {--}}
+{{--            $(document).on("click", "#saveImage", function (event) {--}}
+{{--                let myForm = document.getElementById('saveForm');--}}
+{{--                console.log("You are here");--}}
+{{--                let formData = new FormData(myForm);--}}
+{{--                console.log(formData);--}}
+{{--                console.log(formData);--}}
+{{--            });--}}
+{{--            function uploadImage(formData) {--}}
+{{--                $.ajaxSetup({--}}
+{{--                    headers: {--}}
+{{--                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')--}}
+{{--                    }--}}
+{{--                });--}}
+{{--                $.ajax({--}}
+{{--                    type: "POST",--}}
+{{--                    data: formData,--}}
+{{--                    dataType: 'JSON',--}}
+{{--                    contentType: false,--}}
+{{--                    processData: false,--}}
+{{--                    url: "{{ route('save_image') }}",--}}
+{{--                    success: function (data) {--}}
+{{--                        if (data.status) {--}}
+{{--                            console.log(data.message);--}}
+{{--                        } else {--}}
+{{--                            console.log(data.error)--}}
+{{--                        }--}}
+{{--                    },--}}
+{{--                    error: function (err) {--}}
+{{--                        console.log('Something went Wrong!')--}}
+{{--                    }--}}
+{{--                });--}}
+{{--            }--}}
+{{--        });--}}
+
+
+
+
+
+
+{{--        var drDestroy = $('#input-file-to-destroy').dropify();--}}
+{{--        drDestroy = drDestroy.data('dropify')--}}
+{{--        $('#toggleDropify').on('click', function (e) {--}}
+{{--            e.preventDefault();--}}
+{{--            if (drDestroy.isDropified()) {--}}
+{{--                drDestroy.destroy();--}}
+{{--            } else {--}}
+{{--                drDestroy.init();--}}
+{{--            }--}}
+{{--        })--}}
+{{--    });--}}
+
+
+{{--</script>--}}
+
+<script src="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v3.7.min.js" type="text/javascript"></script>
+

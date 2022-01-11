@@ -14,3 +14,6 @@
 <link rel="stylesheet" href="{{asset('/dist/css/themify-icons/themify-icons.css')}}" />
 <link rel="stylesheet" href="{{asset('dist/css/simple-lineicon/simple-line-icons.css')}}" />
 <link rel="stylesheet" href="{{asset("dist/plugins/dropify/dropify.min.css")}}">
+/* Use online reference */
+<link href="http://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/css/nepali.datepicker.v3.7.min.css" rel="stylesheet" type="text/css"/>
+

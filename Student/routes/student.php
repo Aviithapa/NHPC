@@ -20,6 +20,8 @@ Route::get('/student/documents',function (){
 //Route::get('/student/specific',function (){
 //    return view('student::pages.specific');
 //})->middleware(['auth'])->name('specific');
+
+Route::post('/save_image/{id?}', [\Student\Http\Controller\ProfileController::class, 'save_image'])->middleware(['auth'])->name('save_image');
 Route::get('/student/specific', [\Student\Http\Controller\ProfileController::class, 'specificIndex'])->middleware(['auth'])->name('student.specific');
 Route::get('/student/guardian', [\Student\Http\Controller\ProfileController::class, 'guardianIndex'])->middleware(['auth'])->name('student.guardian');
 Route::get('/student/personal', [\Student\Http\Controller\ProfileController::class, 'index'])->middleware(['auth'])->name('personal');

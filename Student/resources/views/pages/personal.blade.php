@@ -78,7 +78,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Date of Birth (B.S) </label>
-                                    <input name="dob_nep" class="form-control" id="basicInput" type="date" required>
+                                    <input name="dob_nep" class="form-control" id="nepali_dob" type="date" required>
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
@@ -125,8 +125,12 @@
                                     <label>Ethinic </label>
                                     <select class="form-control" name="ethinic" required>
                                         <option value="">Select Ethinic</option>
-                                        <option value="female">Brahmin/Chettri</option>
+                                        <option value="brahamin/Chettri">Brahamin/Chettri</option>
+                                        <option value="dalits">Dalits</option>
+                                        <option value="janjati">Janjati</option>
+                                        <option value="tarai/madhesi">Tarai/Madhesi</option>
                                         <option value="other">Other</option>
+
                                     </select>
                                 </fieldset>
                             </div>
@@ -155,13 +159,13 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>CitizenShip Number</label>
-                                    <input name="citizenship_number" class="form-control" id="basicInput" type="text" required>
+                                    <input name="citizenship_number" class="form-control" id="basicInput" type="number" required>
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>CitizenShip Issue Date</label>
-                                    <input name="citizenship_issue_date" class="form-control" id="basicInput" type="date" required>
+                                    <input name="citizenship_issue_date" class="form-control" id="nepali_dob_issue" type="text" required>
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
@@ -188,3 +192,13 @@
 
 
 @endsection
+@push('scripts')
+     <script>
+         window.onload = function() {
+             var mainInput = document.getElementById("nepali_dob");
+             var issue = document.getElementById("nepali_dob_issue");
+             mainInput.nepaliDatePicker();
+             issue.nepaliDatePicker();
+         }
+     </script>
+    @endpush
