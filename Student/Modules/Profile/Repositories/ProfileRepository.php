@@ -9,4 +9,5 @@ use Student\Modules\Framework\Repository;
 interface ProfileRepository extends Repository
 {
 
+
 }

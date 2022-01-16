@@ -176,11 +176,26 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\DependencyInjectionServiceProvider::class,
 
+        /*
+        |
+        |Student Providers
+        |
+        */
+
         \Student\Providers\StudentRouteServiceProvider::class,
         \Student\Providers\StudentServiceProvider::class,
         \Student\Providers\StudentDependencyInjectionServiceProvider::class,
 
+        /*
+        |
+        |Operator Providers
+        |
+        */
 
+
+        \Operator\Providers\OperatorDependencyInjectionServiceProvider::class,
+        \Operator\Providers\OperatorRouteServiceProvider::class,
+        \Operator\Providers\OperatorServiceProvider::class,
     ],
 
     /*

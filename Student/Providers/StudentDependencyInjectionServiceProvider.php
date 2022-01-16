@@ -4,6 +4,8 @@ namespace Student\Providers;
 
 use Student\Modules\Profile\Repositories\EloquentProfileRepository;
 use Student\Modules\Profile\Repositories\ProfileRepository;
+use Student\Modules\Qualification\Repositories\EloquentQualificationRepository;
+use Student\Modules\Qualification\Repositories\QualificationRepository;
 use Student\Providers\StudentServiceProvider;
 
 class StudentDependencyInjectionServiceProvider extends StudentServiceProvider
@@ -31,6 +33,12 @@ class StudentDependencyInjectionServiceProvider extends StudentServiceProvider
         $this->app->bind(
              ProfileRepository::class,
             EloquentProfileRepository::class
+        );
+
+        $this->app->bind(
+
+            QualificationRepository::class,
+            EloquentQualificationRepository::class
         );
 
 

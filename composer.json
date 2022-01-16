@@ -28,8 +28,8 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Student\\": "Student/"
-
+            "Student\\": "Student/",
+            "Operator\\": "Operator/"
         }
     },
     "autoload-dev": {

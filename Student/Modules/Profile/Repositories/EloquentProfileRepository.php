@@ -5,6 +5,7 @@ namespace Student\Modules\Profile\Repositories;
 
 
 
+use Illuminate\Support\Facades\Auth;
 use Student\Models\Profile;
 use Student\Modules\Framework\RepositoryImplementation;
 
@@ -18,4 +19,7 @@ class EloquentProfileRepository extends RepositoryImplementation implements Prof
     {
         return new Profile();
     }
+
+
+
 }
