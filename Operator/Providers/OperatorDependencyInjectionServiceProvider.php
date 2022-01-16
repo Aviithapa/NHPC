@@ -3,8 +3,7 @@
 
 namespace Operator\Providers;
 
-
-class OperatorDependencyInjectionServiceProvider extends OperatorServiceProvider
+class OperatorDependencyInjectionServiceProvider extends OperatorAppServiceProvider
 {
     /**
      * Bootstrap the application services.

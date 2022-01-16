@@ -4,10 +4,9 @@
 namespace Operator\Providers;
 
 
-
 use Illuminate\Support\ServiceProvider;
 
-class OperatorServiceProvider extends ServiceProvider
+class OperatorAppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -28,5 +27,4 @@ class OperatorServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(base_path('Operator/resources/views'),'operator');
     }
-
 }

@@ -191,11 +191,10 @@ return [
         |Operator Providers
         |
         */
-
-
-        \Operator\Providers\OperatorDependencyInjectionServiceProvider::class,
+         \Operator\Providers\OperatorAppServiceProvider::class,
         \Operator\Providers\OperatorRouteServiceProvider::class,
-        \Operator\Providers\OperatorServiceProvider::class,
+        \Operator\Providers\OperatorDependencyInjectionServiceProvider::class,
+
     ],
 
     /*
