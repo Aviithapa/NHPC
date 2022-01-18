@@ -24,12 +24,14 @@ class ProfileController extends BaseController
     public function index($slug = null){
         $slug = $slug ? $slug : 'personal';
         $data=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+        $authUser = $this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
         $file_path = base_path().DIRECTORY_SEPARATOR.'Student'.DIRECTORY_SEPARATOR. 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'pages' . DIRECTORY_SEPARATOR . $slug . '.blade.php';
         if (file_exists($file_path)) {
             switch ($slug) {
                 case 'personal':
+
                          if (!$data){
-                             return view('student::pages.personal');
+                             return view('student::pages.personal',compact('authUser'));
                          }else{
                              if(!$data["citizenship_number"]) {
                                  return view('student::pages.personal');
@@ -41,10 +43,10 @@ class ProfileController extends BaseController
                     break;
                 case 'guardian':
                     if(!$data){
-                        return view('student::pages.guardian');
+                        return view('student::pages.guardian',compact('authUser'));
                     }else{
                         if(!$data["father_name"]) {
-                            return view('student::pages.guardian');
+                            return view('student::pages.guardian',compact('authUser'));
                         }else{
                             session()->flash('already','All Information upto guardian  already Setup');
                             return redirect()->to('student/dashboard/student/specific');

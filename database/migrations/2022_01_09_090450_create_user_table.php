@@ -20,6 +20,7 @@ class CreateUserTable extends Migration
             $table->string('phone_number')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('verification_code')->nullable();
             $table->enum('status', ['active', 'in-active'])->nullable()->default('in-active');
             $table->rememberToken();
             $table->timestamps();

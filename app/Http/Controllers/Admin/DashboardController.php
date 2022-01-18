@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Admin;
 
 
 use Illuminate\Support\Facades\Auth;
+use Student\Modules\Profile\Repositories\ProfileRepository;
 
 class DashboardController extends BaseController
 {
 
-    public function __construct()
+    private $profileRepository;
+    public function __construct(ProfileRepository $profileRepository)
     {
-
+     $this->profileRepository = $profileRepository;
 
         parent::__construct();
     }
@@ -21,7 +23,8 @@ class DashboardController extends BaseController
         $role = Auth::user()->mainRole()?Auth::user()->mainRole()->name:'default';
         switch ($role) {
             case 'Student':
-                return $this->view('dashboard.administrator');
+                $authUser = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+                return $this->view('dashboard.administrator',compact('authUser'));
                 break;
 
             default:

@@ -35,7 +35,7 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
-                                    <label>First Name</label>
+                                    <label>First Name *</label>
                                     <input name="first_name" class="form-control" id="basicInput" type="text" required>
                                 </fieldset>
                             </div>
@@ -47,7 +47,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
-                                    <label>Last Name</label>
+                                    <label>Last Name *</label>
                                     <input name="last_name" class="form-control" id="basicInput" type="text" required>
                                 </fieldset>
                             </div>
@@ -77,19 +77,19 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
-                                    <label>Date of Birth (B.S) </label>
+                                    <label>Date of Birth (B.S) *</label>
                                     <input name="dob_nep" class="form-control" id="nepali_dob" type="date" required>
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
-                                    <label>Date of Birth (A.D) </label>
+                                    <label>Date of Birth (A.D) *</label>
                                     <input name="dob_eng" class="form-control" id="basicInput" type="date">
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
-                                    <label>Sex</label>
+                                    <label>Sex *</label>
                                     <select class="form-control" name="sex" required>
                                         <option value="">Select</option>
                                         <option value="male">Male</option>
@@ -122,7 +122,7 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
-                                    <label>Ethinic </label>
+                                    <label>Ethinic *</label>
                                     <select class="form-control" name="ethinic" required>
                                         <option value="">Select Ethinic</option>
                                         <option value="brahamin/Chettri">Brahamin/Chettri</option>
@@ -136,7 +136,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
-                                    <label>Cast</label>
+                                    <label>Cast *</label>
                                     <select class="form-control" name="cast" required>
                                         <option value="">Select Cast</option>
                                         <option value="female">Chettri</option>
@@ -146,7 +146,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
-                                    <label>Marital Status</label>
+                                    <label>Marital Status *</label>
                                     <select class="form-control" name="marital_status" required>
                                         <option value="">Select</option>
                                         <option value="married">Married</option>
@@ -158,19 +158,19 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
-                                    <label>Citizenship Number</label>
+                                    <label>Citizenship Number *</label>
                                     <input name="citizenship_number" class="form-control" id="basicInput" type="text" placeholder="73-01-74-0XXXX" required>
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
-                                    <label>Citizenship Issue Date</label>
+                                    <label>Citizenship Issue Date *</label>
                                     <input name="citizenship_issue_date" class="form-control" id="nepali_dob_issue" type="date" required>
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
-                                    <label>Issue District</label>
+                                    <label>Issue District *</label>
                                     <input name="issue_district" class="form-control" id="basicInput" type="text" required>
                                 </fieldset>
                             </div>
@@ -181,7 +181,7 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <fieldset class="form-group">
-                                            <label>Provision</label>
+                                            <label>Provision *</label>
                                             <select class="form-control" name="development_region">
                                                 <option value="">Select Development Region</option>
                                                 <option value="female">Chettri</option>
@@ -191,7 +191,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <fieldset class="form-group">
-                                            <label>District</label>
+                                            <label>District *</label>
                                             <select class="form-control" name="district">
                                                 <option value="">Select District</option>
                                                 <option value="female">Chettri</option>
@@ -201,7 +201,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <fieldset class="form-group">
-                                            <label>VDC Municiplality</label>
+                                            <label>VDC Municiplality *</label>
                                             <input name="vdc_municiplality" class="form-control" id="basicInput"
                                                    type="text">
                                         </fieldset>
@@ -211,7 +211,7 @@
 
                                     <div class="col-lg-4">
                                         <fieldset class="form-group">
-                                            <label>Ward No</label>
+                                            <label>Ward No *</label>
                                             <input name="ward_no" class="form-control" id="basicInput"
                                                    type="text">
                                         </fieldset>
@@ -220,21 +220,27 @@
 
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <label>Citizenship Front</label>
+                                        <label>Citizenship Front *</label>
                                         <input type="file" name="citizenship_front_image" onclick="anyFileUploader('citizenship_front')" id="input-file-max-fs" class="dropify" />
                                         <input type="hidden" id="citizenship_front_path" name="citizenship_front" class="form-control"
-                                               value=""/>
+                                               value="" required/>
                                     </div>
                                     <div class="col-lg-4">
-                                        <label>Citizenship Back</label>
+                                        <label>Citizenship Back *</label>
                                         <input type="file" name="citizenship_back_image" onclick="anyFileUploader('citizenship_back')" id="input-file-max-fs" class="dropify" />
-                                        <input type="hidden" id="citizenship_back_path" name="citizenship_back" class="form-control" value=""/>
+                                        <input type="hidden" id="citizenship_back_path" name="citizenship_back" class="form-control" value="" required/>
                                     </div>
                                     <div class="col-lg-4">
-                                        <label>Student Signature</label>
+                                        <label>Student Signature *</label>
                                         <input type="file" name="student_signature_image" onclick="anyFileUploader('student_signature')" id="input-file-max-fs" class="dropify" />
                                         <input type="hidden" id="student_signature_path" name="signature_image" class="form-control"
-                                               value=""/>
+                                               value="" required/>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label>Student Profile Picture *</label>
+                                        <input type="file" name="student_profile_image" onclick="anyFileUploader('student_profile')" id="input-file-max-fs" class="dropify" />
+                                        <input type="hidden" id="student_profile_path" name="profile_picture" class="form-control"
+                                               value="" required/>
                                     </div>
                                 </div>
 

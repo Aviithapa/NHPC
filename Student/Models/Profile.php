@@ -3,6 +3,8 @@
 namespace Student\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 class Profile extends  Model
@@ -60,6 +62,11 @@ class Profile extends  Model
         'registration_subject',
         'registration_level'
     ];
+
+    public function getProfileImage()
+    {
+            return Storage::url('documents/DfLFaaRJGRujUMvkfqce9WM3C2lzeoiQUIYPprC3.jpg');
+    }
 
 
 
