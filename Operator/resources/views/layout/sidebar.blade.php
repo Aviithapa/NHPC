@@ -18,26 +18,16 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">PERSONAL</li>
             <li class="active">
-                <a href="{{route('student.dashboard')}}">
+                <a href="{{route('operator.dashboard')}}">
                     <i class="icon-home"></i> <span>Dashboard</span>
 
                 </a>
             </li>
 
-            <li class="treeview"> <a href="#"> <i class="icon-user"></i> <span>Profile</span> <span
-                        class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
-                <ul class="treeview-menu">
-                    <li><a href=" {{url("student/dashboard/student/personal")}}"><i class="fa fa-angle-right"></i> Personal Details</a></li>
-                    <li><a href="{{url("student/dashboard/student/guardian")}}"><i class="fa fa-angle-right"></i> Guardian
-                            Information</a>
-                    </li>
-                    <li><a href="{{url("student/dashboard/student/specific")}}"><i class="fa fa-angle-right"></i> Collage Information </a>
-                    </li>
-                </ul>
-            </li>
+
             <li class="">
-                <a href="{{route('qualification.index')}}">
-                    <i class="icon-book-open"></i> <span>Qualification</span>
+                <a href="#">
+                    <i class="icon-book-open"></i> <span>Application List</span>
                 </a>
             </li>
         </ul>

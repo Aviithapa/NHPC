@@ -45,7 +45,7 @@
                                     <li>
                                         <a href="#">
                                             <div class="pull-left">
-                                                <img src="{{$authUser->getProfileImage()}}" class="img-circle" alt="User Image" />
+                                                <img src="" class="img-circle" alt="User Image" />
                                                 <span class="profile-status online pull-right"></span>
                                             </div>
                                             <h4>Notification</h4>
