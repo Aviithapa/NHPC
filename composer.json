@@ -29,7 +29,8 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Student\\": "Student/",
-            "Operator\\": "Operator/"
+            "Operator\\": "Operator/",
+            "officer\\" : "officer/"
         }
     },
     "autoload-dev": {

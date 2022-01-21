@@ -5,8 +5,8 @@ namespace App\Modules\Backend\Authentication\User\Repositories;
 
 use App\Models\Auth\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Contracts\Logging\Log;
 use Auth;
+use Illuminate\Support\Facades\Log;
 
 class EloquentUserRepository  implements UserRepository
 {

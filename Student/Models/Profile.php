@@ -65,8 +65,21 @@ class Profile extends  Model
 
     public function getProfileImage()
     {
-            return Storage::url('documents/DfLFaaRJGRujUMvkfqce9WM3C2lzeoiQUIYPprC3.jpg');
+            return Storage::url('documents/' .$this->profile_picture);
     }
+    public function getCitizenshipFrontImage()
+    {
+        return Storage::url('documents/' .$this->citizenship_front);
+    }
+    public function getCitizenshipBackImage()
+    {
+        return Storage::url('documents/' .$this->citizenship_back);
+    }
+    public function getSignatureImage()
+    {
+        return Storage::url('documents/' .$this->signature_image);
+    }
+
 
 
 

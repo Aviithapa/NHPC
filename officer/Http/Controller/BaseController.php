@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Operator\Http\Controller;
+namespace officer\Http\Controller;
 
 
 use Illuminate\Support\Facades\View;
-use Operator\Modules\Framework\Request;
+use officer\Modules\Framework\Request;
 
 class BaseController extends Controller
 {

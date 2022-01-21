@@ -34,7 +34,7 @@ class QualificationController extends BaseController
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['name'] = $data['level_name'];
+        $data['name'] = $data['level'];
         $data['user_id'] = Auth::user()->id;
         $profiles['registration_level'] =$data['level'];
         try {

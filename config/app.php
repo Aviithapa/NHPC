@@ -195,6 +195,15 @@ return [
         \Operator\Providers\OperatorRouteServiceProvider::class,
         \Operator\Providers\OperatorDependencyInjectionServiceProvider::class,
 
+        /*
+       |
+       |Officer Providers
+       |
+//       */
+//        \officer\Providers\OfficerAppServiceProvider::class,
+//        \officer\Providers\OfficerRouteServiceProvider::class,
+//        \officer\Providers\OfficerDependencyInjectionServiceProvider::class,
+
     ],
 
     /*

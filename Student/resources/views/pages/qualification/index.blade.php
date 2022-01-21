@@ -48,16 +48,17 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
+
                                             @foreach($qualifications as $qualification)
+                                                <tr>
                                             <td><a href="#">{{$qualification->name}}</a></td>
                                             <td>{{$qualification->board_university}}</td>
                                             <td>{{$qualification->program_id}}</td>
                                             <td>{{$qualification->collage_id}}</td>
                                             <td>{{$qualification->registration_number}}</td>
-                                            <td><span class="label label-success">Apply</span></td>
+                                                </tr>
                                                 @endforeach
-                                        </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
