@@ -2,6 +2,7 @@
 
 namespace Student\Models;
 
+use App\Models\Admin\Level;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -60,7 +61,8 @@ class Profile extends  Model
         'registration_date',
         'registration_number',
         'registration_subject',
-        'registration_level'
+        'registration_level',
+        'profile_status',
     ];
 
     public function getProfileImage()
@@ -80,7 +82,11 @@ class Profile extends  Model
         return Storage::url('documents/' .$this->signature_image);
     }
 
+    public function getLevel(){
+        return $this->hasOne(Level::class,'id','registration_level');
+    }
 
-
-
+    public function getLevelName(){
+      return $this->getLevel->name;
+    }
 }

@@ -5,4 +5,8 @@ Route::get('/',  function() {
 
 
 Route::get('/operator/applicant-list',[\Operator\Http\Controller\OperatorController::class,'index'])->middleware(['auth'])->name('operator.applicant.list');
+Route::get('/operator/applicant-profile-list',[\Operator\Http\Controller\OperatorController::class,'profile'])->middleware(['auth'])->name('operator.applicant.profile.list');
+Route::get('/operator/reject-applicant-profile-list',[\Operator\Http\Controller\OperatorController::class,'reject'])->middleware(['auth'])->name('operator.reject.applicant.profile.list');
+Route::get('/operator/verified-applicant-profile-list',[\Operator\Http\Controller\OperatorController::class,'verified'])->middleware(['auth'])->name('operator.verified.applicant.profile.list');
+Route::post('/operator/applicant-profile-list',[\Operator\Http\Controller\OperatorController::class,'status'])->middleware(['auth'])->name('operator.applicant.profile.list.status');
 Route::get('/operator/applicant-list/{id}',[\Operator\Http\Controller\OperatorController::class,'edit'])->middleware(['auth'])->name('operator.applicant.list.review');

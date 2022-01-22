@@ -41,15 +41,15 @@
                                     </thead>
                                     <tbody>
 
-                                        @foreach($data as $datas)
-                                            <tr>
+                                    @foreach($data as $datas)
+                                        <tr>
                                             <td>{{$datas->first_name}}</td>
                                             <td>{{$datas->citizenship_number}}</td>
-                                                <td>{{$datas->dob_nep}}</td>
+                                            <td>{{$datas->dob_nep}}</td>
                                             <td> <a href="#"><span class="label label-danger">{{$datas->profile_status}}</span></a></td>
                                             <td> <a href="{{url("operator/dashboard/operator/applicant-list/".$datas->id)}}"><span class="label label-success">View</span></a></td>
-                                            </tr>
-                                        @endforeach
+                                        </tr>
+                                    @endforeach
 
                                     </tbody>
                                 </table>

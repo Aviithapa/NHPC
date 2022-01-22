@@ -19,21 +19,23 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="user-profile-box m-b-3 bg-black">
+                        <div style="margin-top: -2rem">
+                            <a href="#"><span class="label label-danger">{{$data->profile_status}}</span></a>
+                        </div>
                         <div class="box-profile text-white">
-                            <i class="fa fa-check"></i>
                             <img class="profile-user-img img-responsive m-b-2" src="{{$data->getProfileImage()}}" alt="User profile picture">
-                            <h3 class="profile-username text-center">{{$user_data->name}}</h3>
-                            <p class="text-center">{{$user_data->email}}</p>
+{{--                            <h3 class="profile-username text-center">{{$user_data->name}}</h3>--}}
+{{--                            <p class="text-center">{{$user_data->email}}</p>--}}
                          </div>
                     </div>
                     <div class="card m-b-3">
                         <div class="card-body">
                             <div class="box-body">
                                 <strong><i class="fa fa-envelope margin-r-5"></i> Email address </strong>
-                                <p class="text-muted">{{$user_data->email}}</p>
+{{--                                <p class="text-muted">{{$user_data->email}}</p>--}}
                                 <hr>
                                 <strong><i class="fa fa-phone margin-r-5"></i> Phone</strong>
-                                <p>{{$user_data->phone_number}} </p>
+{{--                                <p>{{$user_data->phone_number}} </p>--}}
 
                             </div>
                             <!-- /.box-body -->
@@ -44,8 +46,9 @@
                     <div class="info-box">
                         <div class="card tab-style1">
                             <!-- Nav tabs -->
-                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                            <ul class="nav nav-tabs profile-tab table-responsive" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-expanded="true">Details Information</a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-expanded="false">Documents</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#review" role="tab">Review Details</a> </li>
@@ -108,36 +111,28 @@
                                                             <td>{{$data->citizenship_number}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-bold">Grand Father Name</td>
-                                                            <td>{{$data->grandfather_name}} | {{$data->grandfather_name_nep}}</td>
+                                                            <td class="text-bold">Citizenship issue date</td>
+                                                            <td>{{$data->citizenship_issue_date}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-bold">Father Name</td>
-                                                            <td>{{$data->father_name}} |  {{$data->father_name_nep}}</td>
+                                                            <td class="text-bold">Citizenship Issue District</td>
+                                                            <td>{{$data->issue_district}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-bold">Mother Name</td>
-                                                            <td>{{$data->mother_name}} | {{$data->mother_name_nep}} </td>
+                                                            <td class="text-bold">Province</td>
+                                                            <td>{{$data->development_region}}  </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-bold">Sex</td>
-                                                            <td>{{$data->sex}}  </td>
+                                                            <td class="text-bold">District</td>
+                                                            <td>{{$data->district}}  </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-bold">Marital Status</td>
-                                                            <td>{{$data->sex}}  </td>
+                                                            <td class="text-bold">Municipality</td>
+                                                            <td>{{$data->vdc_municiplality}}  </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-bold">Ethics</td>
-                                                            <td>{{$data->sex}}  </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="text-bold">Cast</td>
-                                                            <td>{{$data->sex}}  </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="text-bold">Date of Birth</td>
-                                                            <td>A.D. {{$data->dob_eng}} | B.S. {{$data->dob_nep}} </td>
+                                                            <td class="text-bold">Ward No</td>
+                                                            <td>{{$data->ward_no}}  </td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -147,6 +142,36 @@
                                     </div>
                                 </div>
                                 <!--second tab-->
+                                <div class="tab-pane " id="education" role="tabpanel" aria-expanded="true">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                          <td>S.N.</td>
+                                                          <td>Name</td>
+                                                          <td>Board University</td>
+                                                          <td>Program Name</td>
+                                                          <td>Collage Name</td>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($qualification as $qualifications)
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>{{$qualifications->name}}</td>
+                                                            <td>{{$qualifications->board_university}}</td>
+                                                            <td>{{$qualifications->getProgramName()}}</td>
+                                                            <td>{{$qualifications->collage_id}}</td>
+                                                        </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="tab-pane" id="profile" role="tabpanel" aria-expanded="false">
                                     <div class="card-body">
                                         <div class="row">
@@ -227,23 +252,24 @@
                                 </div>
                                 <div class="tab-pane" id="settings" role="tabpanel">
                                     <div class="card-body">
-                                        <form class="form-horizontal form-material">
+                                        <form class="form-horizontal form-material" action="{{route("operator.applicant.profile.list.status")}}" method="POST">
+                                            @csrf
 
+                                            <input type="hidden" name="user_id" value="{{$data->id}}">
                                             <div class="form-group">
                                                 <label class="col-md-12">Message</label>
                                                 <div class="col-md-12">
-                                                    <textarea rows="5" class="form-control form-control-line"></textarea>
+                                                    <textarea rows="5" name="review_message" class="form-control form-control-line"></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-12">Select Status</label>
                                                 <div class="col-sm-12">
-                                                    <select class="form-control form-control-line">
-                                                        <option>London</option>
-                                                        <option>India</option>
-                                                        <option>Usa</option>
-                                                        <option>Canada</option>
-                                                        <option>Thailand</option>
+                                                    <select class="form-control form-control-line" name="profile_status" required>
+                                                        <option >{{$data->profile_status}}</option>
+                                                        <option value="Reviewing">Reviewing</option>
+                                                        <option value="Verified">Verified</option>
+                                                        <option value="Rejected">Rejected</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -264,7 +290,56 @@
                     </div>
                 </div>
             </div>
+
             <!-- Main row -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="info-box">
+                        <div class="card tab-style1">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#abc" role="tab" aria-expanded="true">Licence Exam Applied</a> </li>
+
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <!--second tab-->
+                                <div class="tab-pane active" id="abc" role="tabpanel" aria-expanded="true">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                        <td>S.N.</td>
+                                                        <td>Name</td>
+                                                        <td>Board University</td>
+                                                        <td>Program Name</td>
+                                                        <td>Collage Name</td>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($qualification as $qualifications)
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>{{$qualifications->name}}</td>
+                                                                <td>{{$qualifications->board_university}}</td>
+                                                                <td>{{$qualifications->getProgramName()}}</td>
+                                                                <td>{{$qualifications->collage_id}}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- /.content -->
         <!-- /.content -->

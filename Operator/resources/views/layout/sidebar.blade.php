@@ -24,7 +24,7 @@
                 </a>
             </li>
             <li class="">
-                <a href="{{route("operator.applicant.list")}}">
+                <a href="{{route("operator.applicant.profile.list")}}">
                     <i class="icon-book-open"></i> <span>Applicant Profile List</span>
                 </a>
             </li>
@@ -32,6 +32,19 @@
             <li class="">
                 <a href="{{route("operator.applicant.list")}}">
                     <i class="icon-book-open"></i> <span>Application List</span>
+                </a>
+            </li>
+
+
+            <li class="">
+                <a href="{{route("operator.reject.applicant.profile.list")}}">
+                    <i class="icon-ban"></i> <span>Reject Applicant Profile List</span>
+                </a>
+            </li>
+
+            <li class="">
+                <a href="{{route("operator.verified.applicant.profile.list")}}">
+                    <i class="icon-badge"></i> <span>Verified Applicant Profile List</span>
                 </a>
             </li>
         </ul>

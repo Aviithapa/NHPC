@@ -23,17 +23,17 @@
 
                 </a>
             </li>
-            <li class="">
-                <a href="{{route("operator.applicant.list")}}">
-                    <i class="icon-book-open"></i> <span>Applicant Profile List</span>
-                </a>
-            </li>
+{{--            <li class="">--}}
+{{--                <a href="{{route("operator.applicant.list")}}">--}}
+{{--                    <i class="icon-book-open"></i> <span>Applicant Profile List</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
 
-            <li class="">
-                <a href="{{route("operator.applicant.list")}}">
-                    <i class="icon-book-open"></i> <span>Application List</span>
-                </a>
-            </li>
+{{--            <li class="">--}}
+{{--                <a href="{{route("operator.applicant.list")}}">--}}
+{{--                    <i class="icon-book-open"></i> <span>Application List</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
         </ul>
     </div>
     <!-- /.sidebar -->

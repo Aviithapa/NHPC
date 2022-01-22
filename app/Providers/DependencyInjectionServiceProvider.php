@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Modules\Backend\Admin\Category\Repositories\CategoryRepository;
+use App\Modules\Backend\Admin\Category\Repositories\EloquentCategoryRepository;
+use App\Modules\Backend\Admin\Level\Repositories\EloquentLevelRepository;
+use App\Modules\Backend\Admin\Level\Repositories\LevelRepository;
+use App\Modules\Backend\Admin\Program\Repositories\EloquentProgramRepository;
+use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use Illuminate\Support\ServiceProvider;
 
 class DependencyInjectionServiceProvider extends ServiceProvider
@@ -48,6 +54,18 @@ class DependencyInjectionServiceProvider extends ServiceProvider
         );
 
 
+          $this->app->bind(
+                LevelRepository::class,
+                EloquentLevelRepository::class
+          );
 
+          $this->app->bind(
+              ProgramRepository::class,
+              EloquentProgramRepository::class
+          );
+          $this->app->bind(
+              CategoryRepository::class,
+              EloquentCategoryRepository::class
+          );
     }
 }

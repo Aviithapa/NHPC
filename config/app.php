@@ -199,10 +199,10 @@ return [
        |
        |Officer Providers
        |
-//       */
-//        \officer\Providers\OfficerAppServiceProvider::class,
-//        \officer\Providers\OfficerRouteServiceProvider::class,
-//        \officer\Providers\OfficerDependencyInjectionServiceProvider::class,
+       */
+        \officer\Providers\OfficerAppServiceProvider::class,
+        \officer\Providers\OfficerRouteServiceProvider::class,
+        \officer\Providers\OfficerDependencyInjectionServiceProvider::class,
 
     ],
 

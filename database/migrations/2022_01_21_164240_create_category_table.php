@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLevelTable extends Migration
+class CreateCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateLevelTable extends Migration
      */
     public function up()
     {
-        Schema::create('level', function (Blueprint $table) {
+        Schema::create('category', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->string('level_')->nullable();
-            $table->integer('level_number')->nullable();
-            $table->string('level_nepali')->nullable();
-            $table->string('level_code')->nullable();
-            $table->tinyInteger('higher_section')->nullable();
+            $table->string('nepali_name')->nullable();
+            $table->string('description')->nullable();
             $table->integer('created_by')->nullable();
             $table->tinyInteger('sub_delete')->nullable();
             $table->date('created_date')->nullable();
@@ -35,6 +32,6 @@ class CreateLevelTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('level');
+        Schema::dropIfExists('category');
     }
 }

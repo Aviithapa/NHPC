@@ -43,13 +43,17 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
+
                                                 @foreach($data as $datas)
-                                                <td>{{$datas->first_name}}</td>
-                                                    <td> <a href="#"><span class="label label-danger">Not-Verified</span></a></td>
-                                                <td> <a href="{{url("operator/dashboard/operator/applicant-list/".$datas->id)}}"><span class="label label-success">View</span></a></td>
+                                                    <tr>
+                                                        <td>{{$datas->first_name}}</td>
+                                                        <td></td>
+                                                        <td>{{$datas->getLevelName()}}</td>
+                                                            <td> <a href="#"><span class="label label-danger">Not-Verified</span></a></td>
+                                                        <td> <a href="{{url("operator/dashboard/operator/applicant-list/".$datas->id)}}"><span class="label label-success">View</span></a></td>
+                                                            </tr>
                                                 @endforeach
-                                            </tr>
+
                                             </tbody>
                                         </table>
                                     </div>
