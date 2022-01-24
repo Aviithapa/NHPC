@@ -192,7 +192,7 @@ class EloquentCategoryRepository  implements CategoryRepository
             return $this->getModel()->query()->where('user_id', $user->id);
 
         }
-    }
 
+    }
 }
 

@@ -18,7 +18,6 @@ class CreateRegistrationProcessDetails extends Migration
             $table->integer('registration_processing_id')->nullable();
             $table->integer('registration_id')->nullable();
             $table->integer('category_id')->nullable();
-            $table->integer('created_by')->nullable();
             $table->enum('state_', ['computer_operator','registrar','subject_committee','exam_committee','officer','onhold','council'])->nullable();
             $table->enum('status_', ['pending','progress','accepted','rejected'])->nullable();
             $table->string('remarks')->nullable();
