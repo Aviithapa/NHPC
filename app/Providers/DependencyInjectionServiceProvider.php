@@ -8,6 +8,10 @@ use App\Modules\Backend\Admin\Level\Repositories\EloquentLevelRepository;
 use App\Modules\Backend\Admin\Level\Repositories\LevelRepository;
 use App\Modules\Backend\Admin\Program\Repositories\EloquentProgramRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
+use App\Modules\Backend\Profile\Profilelogs\Repositories\EloquentProfileLogsRepository;
+use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
+use App\Modules\Backend\Profile\ProfileProcessing\Repositories\EloquentProfileProcessingRepository;
+use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Illuminate\Support\ServiceProvider;
 
 class DependencyInjectionServiceProvider extends ServiceProvider
@@ -66,6 +70,18 @@ class DependencyInjectionServiceProvider extends ServiceProvider
           $this->app->bind(
               CategoryRepository::class,
               EloquentCategoryRepository::class
+          );
+
+          $this->app->bind(
+              ProfileProcessingRepository::class,
+              EloquentProfileProcessingRepository::class,
+
+          );
+
+
+        $this->app->bind(
+            ProfileLogsRepository::class,
+            EloquentProfileLogsRepository::class
           );
     }
 }

@@ -4,11 +4,13 @@
 namespace Operator\Http\Controller;
 
 
+use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use Illuminate\Support\Facades\View;
 use Operator\Modules\Framework\Request;
 
 class BaseController extends Controller
 {
+    private $profileLogsRepository;
     public function __construct()
     {
 
@@ -40,4 +42,6 @@ class BaseController extends Controller
         }
 
     }
+
+
 }

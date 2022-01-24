@@ -1,4 +1,4 @@
-@extends('operator::layout.app')
+@extends('officer::layout.app')
 
 @section('content')
 

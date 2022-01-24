@@ -16,7 +16,7 @@ class BaseController extends Controller
 
     public function view($view, $data)
     {
-        return View::make('operator::'.$view, compact('data'));
+        return View::make('officer::'.$view, compact('data'));
     }
 
     public function save_image(Request $request,$fieldName)

@@ -30,7 +30,7 @@ class CreateRegistrationProcessing extends Migration
             $table->integer('approval_exam')->nullable();
             $table->integer('approval_council')->nullable();
             $table->integer('approval_levels')->nullable();
-            $table->enum('check_state/', ['computer_operator','registrar','subject_committee','exam_committee','officer','onhold','council'])->nullable();
+            $table->enum('check_state', ['computer_operator','registrar','subject_committee','exam_committee','officer','onhold','council'])->nullable();
             $table->string('subject_committee_minute')->nullable();
             $table->integer('routing_number')->nullable();
             $table->dateTime('subject_committee_accepted_date')->nullable();

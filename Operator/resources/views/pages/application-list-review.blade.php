@@ -257,9 +257,9 @@
 
                                             <input type="hidden" name="user_id" value="{{$data->id}}">
                                             <div class="form-group">
-                                                <label class="col-md-12">Message</label>
+                                                <label class="col-md-12">Remarks</label>
                                                 <div class="col-md-12">
-                                                    <textarea rows="5" name="review_message" class="form-control form-control-line"></textarea>
+                                                    <textarea rows="5" name="remarks" class="form-control form-control-line"></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -283,6 +283,28 @@
                                 </div>
                                 <div class="tab-pane" id="review" role="tabpanel">
                                     <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                        <td>State</td>
+                                                        <td>Status</td>
+                                                        <td>Remarks</td>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($profile_logs as $profile_log)
+                                                            <tr>
+                                                                <td>{{$profile_log->state}}</td>
+                                                                <td>{{$profile_log->status}}</td>
+                                                                <td>{{$profile_log->remarks}}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

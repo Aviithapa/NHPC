@@ -18,22 +18,22 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">PERSONAL</li>
             <li class="active">
-                <a href="{{route('operator.dashboard')}}">
+                <a href="{{route('officer.dashboard')}}">
                     <i class="icon-home"></i> <span>Dashboard</span>
 
                 </a>
             </li>
-{{--            <li class="">--}}
-{{--                <a href="{{route("operator.applicant.list")}}">--}}
-{{--                    <i class="icon-book-open"></i> <span>Applicant Profile List</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
+            <li class="">
+                <a href="{{route("officer.applicant.profile.list")}}">
+                    <i class="icon-book-open"></i> <span>Applicant Profile List</span>
+                </a>
+            </li>
 
 {{--            <li class="">--}}
 {{--                <a href="{{route("operator.applicant.list")}}">--}}
 {{--                    <i class="icon-book-open"></i> <span>Application List</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
+            {{--                </a>--}}
+            {{--            </li>--}}
         </ul>
     </div>
     <!-- /.sidebar -->
