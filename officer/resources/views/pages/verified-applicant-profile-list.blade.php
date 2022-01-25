@@ -2,6 +2,8 @@
 
 @section('content')
 
+
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -38,24 +40,16 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if($data === null)
-                                        <tr>
-                                            <td> No Applicant List found at officer</td>
-                                        </tr>
 
-                                    @else
-                                        @foreach($data as $datas)
-                                             @foreach($datas as $data)
+                                    @foreach($data as $datas)
                                         <tr>
-                                            <td>{{$data->first_name}}</td>
-                                            <td>{{$data->citizenship_number}}</td>
-                                            <td>{{$data->dob_nep}}</td>
-                                            <td> <a href="#"><span class="label label-danger">{{$data->profile_status}}</span></a></td>
-                                            <td> <a href="{{url("officer/dashboard/officer/applicant-list/".$data->id)}}"><span class="label label-success">View</span></a></td>
+                                            <td>{{$datas->first_name}}</td>
+                                            <td>{{$datas->citizenship_number}}</td>
+                                            <td>{{$datas->dob_nep}}</td>
+                                            <td> <a href="#"><span class="label label-danger">{{$datas->profile_status}}</span></a></td>
+                                            <td> <a href="{{url("officer/dashboard/officer/applicant-list/".$datas->id)}}"><span class="label label-success">View</span></a></td>
                                         </tr>
-                                            @endforeach
-                                         @endforeach
-                                    @endif
+                                    @endforeach
 
                                     </tbody>
                                 </table>
@@ -70,6 +64,7 @@
     </div>
     <!-- /.content -->
     </div>
+
 
 
 @endsection

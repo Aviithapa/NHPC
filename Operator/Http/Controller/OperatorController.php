@@ -17,7 +17,9 @@ use Yajra\DataTables\Facades\DataTables;
 
 class OperatorController extends BaseController
 {
-    private  $log,$profileProcessing, $profileRepository, $userRepository, $qualificationRepository,$user_data, $profileLogsRepository,$profileProcessingRepository;
+    private  $log,$profileProcessing, $profileRepository,
+        $userRepository, $qualificationRepository,
+        $user_data, $profileLogsRepository,$profileProcessingRepository, $examRepository;
     private $commonView='operator::pages.';
     private $commonMessage='Profile ';
     private $commonName='Profile ';

@@ -34,6 +34,11 @@
 {{--                    <i class="icon-book-open"></i> <span>Application List</span>--}}
             {{--                </a>--}}
             {{--            </li>--}}
+            <li class="">
+                <a href="{{route("officer.verified.applicant.profile.list")}}">
+                    <i class="icon-badge"></i> <span>Verified Applicant Profile List</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- /.sidebar -->
