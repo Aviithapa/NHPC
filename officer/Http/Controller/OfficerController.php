@@ -4,7 +4,10 @@
 namespace officer\Http\Controller;
 
 
+use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
+use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
+use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +17,12 @@ use Student\Modules\Qualification\Repositories\QualificationRepository;
 
 class OfficerController extends BaseController
 {
-    private  $log,$profileProcessing, $profileRepository, $userRepository, $qualificationRepository,$user_data, $profileLogsRepository,$profileProcessingRepository;
-    private $viewData;
+    private  $log,$profileProcessing,
+         $profileRepository, $userRepository,
+        $qualificationRepository,$user_data,
+        $profileLogsRepository,$profileProcessingRepository,
+        $examRepository,$examProcessingRepository;
+    private $viewData, $exam_processing;
 
     /**
      * PermissionController constructor.
@@ -24,16 +31,21 @@ class OfficerController extends BaseController
      * @param QualificationRepository $qualificationRepository
      * @param ProfileLogsRepository $profileLogsRepository
      * @param ProfileProcessingRepository $profileProcessingRepository
+     * @param ExamRepository $examRepository
+     * @param ExamProcessingRepository $examProcessingRepository
      */
 
     public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
-                                ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository)
+                                ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
+                                ExamRepository $examRepository,ExamProcessingRepository $examProcessingRepository)
     {
         $this->profileRepository=$profileRepository;
         $this->userRepository=$userRepository;
         $this->qualificationRepository=$qualificationRepository;
         $this->profileLogsRepository = $profileLogsRepository;
         $this->profileProcessingRepository = $profileProcessingRepository;
+        $this->examRepository=$examRepository;
+        $this->examProcessingRepository=$examProcessingRepository;
         parent::__construct();
     }
 
@@ -59,7 +71,8 @@ class OfficerController extends BaseController
         $qualification = $this->qualificationRepository->getAll()->where('user_id','=',$data['user_id']);
         $profile_logs = $this->profileLogsRepository->getAll()->where('profile_id','=',$id);
         $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id','=',$id)->first();
-        return view('officer::pages.application-list-review',compact('data','user_data','qualification','profile_logs','profile_processing'));
+        $exams = $this->examProcessingRepository->getAll()->where('profile_id','=',$id);
+        return view('officer::pages.application-list-review',compact('data','user_data','qualification','profile_logs','profile_processing','exams'));
     }
 
     public function status(Request $request)
@@ -122,6 +135,19 @@ class OfficerController extends BaseController
     {
         $users = $this->profileRepository->getAll()->where('profile_status','=','Verified');
         return $this->view('pages.verified-applicant-profile-list',$users);
+    }
+
+
+    public function ExamApplyView($id){
+        $exam_processing = $this->examProcessingRepository->findbyid($id);
+        $exam = $this->examRepository->findbyid($exam_processing->exam_id);
+        $profile = $this->profileRepository->findById($exam_processing->profile_id);
+        $qualification = $this->qualificationRepository->getAll()->where( 'user_id','=', $profile->user_id );
+        return response()->json([
+            'exam' => $exam,
+            'profile' => $profile,
+            'qualification' => $qualification,
+        ]);
     }
 }
 

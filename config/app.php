@@ -182,27 +182,27 @@ return [
         |
         */
 
-        \Student\Providers\StudentRouteServiceProvider::class,
-        \Student\Providers\StudentServiceProvider::class,
-        \Student\Providers\StudentDependencyInjectionServiceProvider::class,
+        Student\Providers\StudentRouteServiceProvider::class,
+        Student\Providers\StudentServiceProvider::class,
+        Student\Providers\StudentDependencyInjectionServiceProvider::class,
 
         /*
         |
         |Operator Providers
         |
         */
-         \Operator\Providers\OperatorAppServiceProvider::class,
-        \Operator\Providers\OperatorRouteServiceProvider::class,
-        \Operator\Providers\OperatorDependencyInjectionServiceProvider::class,
+         Operator\Providers\OperatorAppServiceProvider::class,
+        Operator\Providers\OperatorRouteServiceProvider::class,
+        Operator\Providers\OperatorDependencyInjectionServiceProvider::class,
 
         /*
        |
        |Officer Providers
        |
        */
-        \officer\Providers\OfficerAppServiceProvider::class,
-        \officer\Providers\OfficerRouteServiceProvider::class,
-        \officer\Providers\OfficerDependencyInjectionServiceProvider::class,
+        officer\Providers\OfficerAppServiceProvider::class,
+        officer\Providers\OfficerRouteServiceProvider::class,
+        officer\Providers\OfficerDependencyInjectionServiceProvider::class,
 
     ],
 

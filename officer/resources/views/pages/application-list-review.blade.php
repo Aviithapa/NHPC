@@ -337,21 +337,32 @@
                                                     <table class="table table-bordered">
                                                         <thead>
                                                         <td>S.N.</td>
-                                                        <td>Name</td>
-                                                        <td>Board University</td>
-                                                        <td>Program Name</td>
-                                                        <td>Collage Name</td>
+                                                        <td>Exam Name</td>
+                                                        <td>Voucher Image</td>
+                                                        <td>Applied Date</td>
+                                                        <td>Status</td>
+                                                        <td>Action</td>
                                                         </thead>
                                                         <tbody>
-                                                        @foreach($qualification as $qualifications)
+                                                        @if($exams === null)
                                                             <tr>
-                                                                <td>1</td>
-                                                                <td>{{$qualifications->name}}</td>
-                                                                <td>{{$qualifications->board_university}}</td>
-                                                                <td>{{$qualifications->getProgramName()}}</td>
-                                                                <td>{{$qualifications->collage_id}}</td>
+                                                                <td> No Applicant List found at officer</td>
                                                             </tr>
-                                                        @endforeach
+
+                                                        @else
+                                                            @foreach($exams as $exam)
+                                                                    <tr>
+                                                                        <td>1</td>
+                                                                        <td>{{$exam->getExamName()}}</td>
+                                                                        <td><img src="{{$exam->getVoucherImage()}}" src="voucher image" height="150" width="150"/></td>
+                                                                        <td>{{$exam->created_at}}</td>
+                                                                        <td> <a href="#"><span class="label label-danger">{{$data->profile_status}}</span></a></td>
+                                                                        <td>
+                                                                            <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $exam->id }}">Edit</a>
+                                                                        </td>
+                                                                    </tr>
+                                                            @endforeach
+                                                        @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -367,6 +378,9 @@
         </div>
         <!-- /.content -->
         <!-- /.content -->
+
+        <!-- Modal -->
+       @include("officer::layout.modal")
     </div>
 
 
@@ -378,3 +392,41 @@
 
 
 @endsection
+@push('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('body').on('click', '#editCompany', function (event) {
+
+                event.preventDefault();
+                var id = $(this).data('id');
+                console.log(id);
+                $.get('/officer/dashboard/officer/apply-exam-details/' +id , function (data) {
+                    console.log(data.exam);
+                    $.each(data.qualification, function(k, v) {
+                        /// do stuff
+                        console.log(v.name)
+                    });
+                    console.log(data.user);
+
+                    $('#userCrudModal').html("Edit category");
+                    $('#submit').val("Edit category");
+                    $('#practice_modal').modal('show');
+                    $('#color_id').val(data.exam);
+                    $('#name').val(data.profile);
+                    for (var i=0; i<data.qualification.length; i++) {
+                        var row = $('<tr><td>' + data[i].zipcode+ '</td><td>' + data[i].city + '</td><td>' + data[i].county + '</td></tr>');
+                        $('#myTable').append(row);
+                    }
+
+                })
+            });
+
+        });
+
+    </script>
+    @endpush
