@@ -46,7 +46,9 @@
 
 @endsection
 
-
 @push('scripts')
-
-    @endpush
+    <script>
+        $('.dropify').dropify();
+    </script>
+    @include('student::parties.common.file-upload')
+@endpush

@@ -1,12 +1,11 @@
 @extends('operator::layout.app')
 
 @section('content')
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header sty-one">
-            <h1>Current State</h1>
+            <h1>Current State :: <span class="text-uppercase text-bold">{{$profile_processing->current_state}}</span></h1>
             <ol class="breadcrumb">
                 <li><a href="#">Dashboard</a></li>
                 <li><i class="fa fa-angle-right"></i>Applicant List</li>
@@ -19,23 +18,26 @@
             <div class="row">
                 <div class="col-lg-4">
                     <div class="user-profile-box m-b-3 bg-black">
-                        <div style="margin-top: -2rem">
-                            <a href="#"><span class="label label-danger">{{$data->profile_status}}</span></a>
+                        <div class="verified-section">
+                            <span>Verified by</span><br>
+                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                                @include('officer::layout.verified-level-icon')
+                            </ul>
                         </div>
                         <div class="box-profile text-white">
                             <img class="profile-user-img img-responsive m-b-2" src="{{$data->getProfileImage()}}" alt="User profile picture">
-{{--                            <h3 class="profile-username text-center">{{$user_data->name}}</h3>--}}
-{{--                            <p class="text-center">{{$user_data->email}}</p>--}}
-                         </div>
+                            <h3 class="profile-username text-center">{{$user_data->name}}</h3>
+                            <p class="text-center">{{$user_data->email}}</p>
+                        </div>
                     </div>
                     <div class="card m-b-3">
                         <div class="card-body">
                             <div class="box-body">
                                 <strong><i class="fa fa-envelope margin-r-5"></i> Email address </strong>
-{{--                                <p class="text-muted">{{$user_data->email}}</p>--}}
+                                <p class="text-muted">{{$user_data->email}}</p>
                                 <hr>
                                 <strong><i class="fa fa-phone margin-r-5"></i> Phone</strong>
-{{--                                <p>{{$user_data->phone_number}} </p>--}}
+                                <p>{{$user_data->phone_number}} </p>
 
                             </div>
                             <!-- /.box-body -->
@@ -50,7 +52,9 @@
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-expanded="true">Details Information</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-expanded="false">Documents</a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
+                                @if($profile_processing->current_state === "computer_operator")
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
+                                @endif
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#review" role="tab">Review Details</a> </li>
                             </ul>
                             <!-- Tab panes -->
@@ -59,48 +63,48 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-bordered">
-                                                            <tbody>
-                                                            <tr>
-                                                                <td class="text-bold">Name</td>
-                                                                <td>{{$data->first_name}} {{$data->middle_name}} {{$data->last_name}}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-bold">Grand Father Name</td>
-                                                                <td>{{$data->grandfather_name}} | {{$data->grandfather_name_nep}}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-bold">Father Name</td>
-                                                                <td>{{$data->father_name}} |  {{$data->father_name_nep}}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-bold">Mother Name</td>
-                                                                <td>{{$data->mother_name}} | {{$data->mother_name_nep}} </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-bold">Sex</td>
-                                                                <td>{{$data->sex}}  </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-bold">Marital Status</td>
-                                                                <td>{{$data->marital_status}}  </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-bold">Ethics</td>
-                                                                <td>{{$data->ethics}}  </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-bold">Cast</td>
-                                                                <td>{{$data->cast}}  </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="text-bold">Date of Birth</td>
-                                                                <td>A.D. {{$data->dob_eng}} | B.S. {{$data->dob_nep}} </td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td class="text-bold">Name</td>
+                                                            <td>{{$data->first_name}} {{$data->middle_name}} {{$data->last_name}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-bold">Grand Father Name</td>
+                                                            <td>{{$data->grandfather_name}} | {{$data->grandfather_name_nep}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-bold">Father Name</td>
+                                                            <td>{{$data->father_name}} |  {{$data->father_name_nep}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-bold">Mother Name</td>
+                                                            <td>{{$data->mother_name}} | {{$data->mother_name_nep}} </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-bold">Sex</td>
+                                                            <td>{{$data->sex}}  </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-bold">Marital Status</td>
+                                                            <td>{{$data->marital_status}}  </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-bold">Ethics</td>
+                                                            <td>{{$data->ethics}}  </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-bold">Cast</td>
+                                                            <td>{{$data->cast}}  </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-bold">Date of Birth</td>
+                                                            <td>A.D. {{$data->dob_eng}} | B.S. {{$data->dob_nep}} </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="table-responsive">
@@ -149,22 +153,22 @@
                                                 <div class="table-responsive">
                                                     <table class="table table-bordered">
                                                         <thead>
-                                                          <td>S.N.</td>
-                                                          <td>Name</td>
-                                                          <td>Board University</td>
-                                                          <td>Program Name</td>
-                                                          <td>Collage Name</td>
+                                                        <td>S.N.</td>
+                                                        <td>Name</td>
+                                                        <td>Board University</td>
+                                                        <td>Program Name</td>
+                                                        <td>Collage Name</td>
                                                         </thead>
                                                         <tbody>
                                                         @foreach($qualification as $qualifications)
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>{{$qualifications->name}}</td>
-                                                            <td>{{$qualifications->board_university}}</td>
-                                                            <td>{{$qualifications->getProgramName()}}</td>
-                                                            <td>{{$qualifications->collage_id}}</td>
-                                                        </tr>
-                                                            @endforeach
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>{{$qualifications->name}}</td>
+                                                                <td>{{$qualifications->board_university}}</td>
+                                                                <td>{{$qualifications->getProgramName()}}</td>
+                                                                <td>{{$qualifications->collage_id}}</td>
+                                                            </tr>
+                                                        @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -214,13 +218,13 @@
                                                 <header>Supportive Documents</header>
                                                 <table class="table table-bordered">
                                                     <thead>
-{{--                                                    <tr>--}}
-{{--                                                        <th scope="col">#</th>--}}
-{{--                                                        <th scope="col">level</th>--}}
-{{--                                                        <th scope="col">Certificate</th>--}}
-{{--                                                        <th scope="col">Transcript</th>--}}
-{{--                                                        <th scope="col">Provisional</th>--}}
-{{--                                                    </tr>--}}
+                                                    {{--                                                    <tr>--}}
+                                                    {{--                                                        <th scope="col">#</th>--}}
+                                                    {{--                                                        <th scope="col">level</th>--}}
+                                                    {{--                                                        <th scope="col">Certificate</th>--}}
+                                                    {{--                                                        <th scope="col">Transcript</th>--}}
+                                                    {{--                                                        <th scope="col">Provisional</th>--}}
+                                                    {{--                                                    </tr>--}}
                                                     </thead>
                                                     <tbody>
                                                     <tr>
@@ -335,21 +339,37 @@
                                                     <table class="table table-bordered">
                                                         <thead>
                                                         <td>S.N.</td>
-                                                        <td>Name</td>
-                                                        <td>Board University</td>
-                                                        <td>Program Name</td>
-                                                        <td>Collage Name</td>
+                                                        <td>Exam Name</td>
+                                                        <td>Voucher Image</td>
+                                                        <td>Applied Date</td>
+                                                        <td>State</td>
+                                                        <td>Status</td>
+                                                        <td>Action</td>
                                                         </thead>
                                                         <tbody>
-                                                        @foreach($qualification as $qualifications)
+                                                        @if($exams === null)
                                                             <tr>
-                                                                <td>1</td>
-                                                                <td>{{$qualifications->name}}</td>
-                                                                <td>{{$qualifications->board_university}}</td>
-                                                                <td>{{$qualifications->getProgramName()}}</td>
-                                                                <td>{{$qualifications->collage_id}}</td>
+                                                                <td> No Applicant List found at Computer Operator</td>
                                                             </tr>
-                                                        @endforeach
+
+                                                        @else
+                                                            @foreach($exams as $exam)
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>{{$exam->getExamName()}}</td>
+                                                                    <td><img src="{{$exam->getVoucherImage()}}" src="voucher image" height="150" width="150"/></td>
+                                                                    <td>{{$exam->created_at}}</td>
+                                                                    <td>{{$exam->state}}</td>
+                                                                    <td>{{$exam->status}}</td>
+                                                                    <td>
+                                                                        @if($exam->state === "computer_operator")
+                                                                            <a href="{{url('operator/dashboard/operator/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
+                                                                            <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -365,6 +385,40 @@
         </div>
         <!-- /.content -->
         <!-- /.content -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="practice_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Reject Applicant Licence Applied ? </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal form-material" action="{{route("operator.reject.exam.apply")}}" method="POST">
+                            @csrf
+                            <input type="hidden" class="form-control" name="id" id="idkl" value="">
+                            <div class="form-group">
+                                <label class="col-md-12">Remarks</label>
+                                <div class="col-md-12">
+                                    <textarea rows="5" name="remarks" class="form-control form-control-line" required></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -375,5 +429,23 @@
 
 
 
+@endsection
+@push('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-    @endsection
+    <script>
+
+        $(document).ready(function () {
+
+            $('body').on('click', '#editCompany', function (event) {
+
+                event.preventDefault();
+                var id = $(this).data('id');
+                $("#idkl").val( id );
+            });
+
+        });
+
+    </script>
+@endpush

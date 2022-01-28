@@ -8,4 +8,6 @@ Route::get('/officer/applicant-list/{id}',[\officer\Http\Controller\OfficerContr
 Route::post('/officer/applicant-profile-list',[\officer\Http\Controller\OfficerController::class,'status'])->middleware(['auth'])->name('officer.applicant.profile.list.status');
 Route::get('/officer/verified-applicant-profile-list',[\officer\Http\Controller\OfficerController::class,'verified'])->middleware(['auth'])->name('officer.verified.applicant.profile.list');
 Route::get('/officer/apply-exam-details/{id}',[\officer\Http\Controller\OfficerController::class,"ExamApplyView"])->middleware(['auth'])->name('officer.exam.apply');
+Route::get('/officer/accept-exam-applied/{id}',[\officer\Http\Controller\OfficerController::class,"AcceptExamProcessing"])->middleware(['auth'])->name('officer.accept.exam.apply');
+Route::post('/officer/rejected-exam-applied',[\officer\Http\Controller\OfficerController::class,"RejectExamProcessing"])->middleware(['auth'])->name('officer.reject.exam.apply');
 

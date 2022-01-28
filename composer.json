@@ -30,7 +30,8 @@
             "Database\\Seeders\\": "database/seeders/",
             "Student\\": "Student/",
             "Operator\\": "Operator/",
-            "officer\\" : "officer/"
+            "officer\\" : "officer/",
+            "Registrar\\": "Registrar"
         }
     },
     "autoload-dev": {

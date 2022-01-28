@@ -203,7 +203,13 @@ return [
         officer\Providers\OfficerAppServiceProvider::class,
         officer\Providers\OfficerRouteServiceProvider::class,
         officer\Providers\OfficerDependencyInjectionServiceProvider::class,
-
+         /*
+          * |
+          * | Registrar Providers
+          * |
+          **/
+           \Registrar\Providers\RegistrarRouteServiceProvider::class,
+          \Registrar\Providers\RegistrarAppServiceProvider::class,
     ],
 
     /*

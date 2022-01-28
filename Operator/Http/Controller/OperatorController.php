@@ -5,6 +5,8 @@ namespace Operator\Http\Controller;
 
 
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
+use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
+use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +21,7 @@ class OperatorController extends BaseController
 {
     private  $log,$profileProcessing, $profileRepository,
         $userRepository, $qualificationRepository,
-        $user_data, $profileLogsRepository,$profileProcessingRepository, $examRepository;
+        $user_data, $profileLogsRepository,$profileProcessingRepository, $examRepository, $examProcessingRepository;
     private $commonView='operator::pages.';
     private $commonMessage='Profile ';
     private $commonName='Profile ';
@@ -33,10 +35,13 @@ class OperatorController extends BaseController
      * @param QualificationRepository $qualificationRepository
      * @param ProfileLogsRepository $profileLogsRepository
      * @param ProfileProcessingRepository $profileProcessingRepository
+     * @param ExamRepository $examRepository
+     * @param ExamProcessingRepository $examProcessingRepository
      */
 
     public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
-                           ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository)
+                           ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
+                            ExamRepository $examRepository, ExamProcessingRepository $examProcessingRepository)
     {
         $this->viewData['commonRoute']=$this->commonRoute;
         $this->viewData['commonView']='operator::'.$this->commonView;
@@ -47,6 +52,8 @@ class OperatorController extends BaseController
         $this->qualificationRepository=$qualificationRepository;
         $this->profileLogsRepository = $profileLogsRepository;
         $this->profileProcessingRepository = $profileProcessingRepository;
+        $this->examRepository = $examRepository;
+        $this->examProcessingRepository = $examProcessingRepository;
         parent::__construct();
     }
 
@@ -76,11 +83,13 @@ class OperatorController extends BaseController
     public function edit($id)
     {
         $data = $this->profileRepository->findById($id);
-        $user_data = $this->userRepository->findById($data['user_id']);
-        $data['user_data']=$user_data;
+        $user_id=$data['user_id'];
+        $user_data = $this->userRepository->findById($user_id);
         $qualification = $this->qualificationRepository->getAll()->where('user_id','=',$data['user_id']);
         $profile_logs = $this->profileLogsRepository->getAll()->where('profile_id','=',$id);
-        return view('operator::pages.application-list-review',compact('data','user_data','qualification','profile_logs'));
+        $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id','=',$id)->first();
+        $exams = $this->examProcessingRepository->getAll()->where('profile_id','=',$id);
+        return view('operator::pages.application-list-review',compact('data','user_data','qualification','profile_logs','profile_processing','exams'));
     }
 
     public function store(Request $request, $id)
@@ -139,6 +148,46 @@ class OperatorController extends BaseController
         if($profileProcessings == false)
             return false;
         return true;
+
+    }
+
+
+    public function RejectExamProcessing(Request $request){
+        $data= $request->all();
+        $id = $data['id'];
+        $data['status'] = 'rejected';
+        $data['state'] = 'computer_operator';
+        try{
+            $exam_processing = $this->examProcessingRepository->update($data,$id);
+            if ($exam_processing == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success','Application have been Rejected');
+            return redirect()->back();
+
+        } catch (\Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function AcceptExamProcessing($id){
+        $data['status'] = 'accepted';
+        $data['state'] = 'officer';
+        try {
+            $exam_processing = $this->examProcessingRepository->update($data,$id);
+            if ($exam_processing == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success','Application Move to forward for Verification');
+            return redirect()->back()->refresh()->withInput();
+
+        } catch (\Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
 
     }
 }

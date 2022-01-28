@@ -36,6 +36,9 @@ class QualificationController extends BaseController
         $data = $request->all();
         $data['name'] = $data['level'];
         $data['user_id'] = Auth::user()->id;
+        $data['transcript_image'] = $data['transcript'];
+        $data['provisional_image'] = $data['provisional'];
+        $data['character_image'] = $data['character'];
         $profiles['registration_level'] =$data['level'];
         try {
             $qualification = $this->qualificationRepository->create($data);

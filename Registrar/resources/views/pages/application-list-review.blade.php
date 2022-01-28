@@ -1,4 +1,4 @@
-@extends('officer::layout.app')
+@extends('registrar::layout.app')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -21,7 +21,7 @@
                         <div class="verified-section">
                             <span>Verified by</span><br>
                             <ul class="nav nav-tabs profile-tab" role="tablist">
-                                @include('officer::layout.verified-level-icon')
+                                @include('registrar::layout.verified-level-icon')
                             </ul>
                         </div>
                         <div class="box-profile text-white">
@@ -52,7 +52,7 @@
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-expanded="true">Details Information</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-expanded="false">Documents</a> </li>
-                                @if($profile_processing->current_state === "officer")
+                                @if($profile_processing->current_state === "registrar")
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
                                 @endif
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#review" role="tab">Review Details</a> </li>
@@ -256,7 +256,7 @@
                                 </div>
                                 <div class="tab-pane" id="settings" role="tabpanel">
                                     <div class="card-body">
-                                        <form class="form-horizontal form-material" action="{{route("officer.applicant.profile.list.status")}}" method="POST">
+                                        <form class="form-horizontal form-material" action="{{route("registrar.applicant.profile.list.status")}}" method="POST">
                                             @csrf
 
                                             <input type="hidden" name="user_id" value="{{$data->id}}">
@@ -349,7 +349,7 @@
                                                         <tbody>
                                                         @if($exams === null)
                                                             <tr>
-                                                                <td> No Applicant List found at officer</td>
+                                                                <td> No Applicant List found at registrar</td>
                                                             </tr>
 
                                                         @else
@@ -362,8 +362,8 @@
                                                                         <td>{{$exam->state}}</td>
                                                                         <td>{{$exam->status}}</td>
                                                                         <td>
-                                                                            @if($exam->state === "officer")
-                                                                            <a href="{{url('officer/dashboard/officer/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
+                                                                            @if($exam->state === "registrar")
+                                                                            <a href="{{url('registrar/dashboard/registrar/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
                                                                             <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>
                                                                                 @endif
                                                                         </td>
@@ -397,7 +397,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class="form-horizontal form-material" action="{{route("officer.reject.exam.apply")}}" method="POST">
+                        <form class="form-horizontal form-material" action="{{route("registrar.reject.exam.apply")}}" method="POST">
                             @csrf
                             <input type="hidden" class="form-control" name="id" id="idkl" value="">
                              <div class="form-group">

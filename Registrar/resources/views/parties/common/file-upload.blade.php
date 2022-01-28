@@ -6,15 +6,17 @@
     $('.dropify').dropify();
 
     function anyFileUploader(id){
+        console.log(id);
 
         $('input[name$="'+id+'_image"]').fileupload({
 
             url: '{{ url('student/dashboard/save_image') }}' + '/' + id,
             done: function(e, data) {
+                console.log(data);
                 $('#'+id+'_path').val(data.result.image_name);
             },
             error: function(e,data){
-                console.log("Error Calling" +e);
+                console.log(e);
             },
 
         });

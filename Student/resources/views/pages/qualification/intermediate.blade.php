@@ -110,10 +110,4 @@
 </div>
 
 
-@push('scripts')
-    <script>
-        $('.dropify').dropify();
-    </script>
-    @include('student::parties.common.file-upload')
-@endpush
 @endif
