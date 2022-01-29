@@ -6,6 +6,7 @@ namespace App\Models\Exam;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Student\Models\Profile;
 
 class ExamProcessing extends Model
 {
@@ -20,6 +21,15 @@ class ExamProcessing extends Model
 
     public function getExamName(){
         return $this->getExam->Exam_name;
+    }
+
+    public function getProfile(){
+        return $this->hasOne(Profile::class,'id','profile_id');
+    }
+
+    public function getFirstName(){
+        $name= $this->getProfile->first_name  ;
+        return $name;
     }
 
     public function getVoucherImage(){

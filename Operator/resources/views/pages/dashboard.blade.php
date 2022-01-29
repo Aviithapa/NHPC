@@ -21,7 +21,7 @@
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">1234</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Reviewing')}}</span>
                                 <span class="info-box-text">New Applicant Profile List</span> </div>
                         </div>
                     </div>
@@ -29,24 +29,24 @@
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">456</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Pending')}}</span>
                                 <span class="info-box-text">Applicant Pending Profile</span></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
-                        <div class="card-body"><span class="info-box-icon bg-yellow"><i class="icon-book-open"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">$41234</span>
-                                <span class="info-box-text">Applicant Application List</span></div>
+                        <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Rejected')}}</span>
+                                <span class="info-box-text">Rejected Application List </span></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
-                        <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">$81234</span>
-                                <span class="info-box-text">Rejected Application List </span></div>
+                        <div class="card-body"><span class="info-box-icon bg-yellow"><i class="icon-book-open"></i></span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getExamApplicantList('pending')}}</span>
+                                <span class="info-box-text">Exam Applied Application List</span></div>
                         </div>
                     </div>
                 </div>
@@ -56,8 +56,24 @@
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">1234</span>
-                                <span class="info-box-text">Today's Applicant Profile List</span> </div>
+                            <div class="info-box-content"> <span class="info-box-number">{{getExamApplicantList('accepted')}}</span>
+                                <span class="info-box-text">Exam Applicant Accepted List</span> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <div class="card">
+                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getExamApplicantList('rejected')}}</span>
+                                <span class="info-box-text">Exam Applicant Rejected List</span> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <div class="card">
+                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getExamApplicantList('processing')}}</span>
+                                <span class="info-box-text">Exam Applicant Processing List</span> </div>
                         </div>
                     </div>
                 </div>

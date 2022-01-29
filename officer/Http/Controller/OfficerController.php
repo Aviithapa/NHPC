@@ -49,10 +49,10 @@ class OfficerController  extends BaseController
         parent::__construct();
     }
 
-    public function index()
+    public function profile($status, $current_state)
     {
-        $users = $this->profileProcessingRepository->getAll()->where('current_state', '=','officer');
-
+        $users = $this->profileProcessingRepository->getAll()->where('current_state', '=',$current_state)
+            ->where('status','=',$status);
         if ($users->isEmpty())
             $profile = null;
         else {
@@ -61,6 +61,13 @@ class OfficerController  extends BaseController
             }
         }
         return $this->view('pages.applicant-profile-list',$profile);
+    }
+
+    public function exam($status)
+    {
+        $users = $this->examProcessingRepository->getAll()->where('status' ,'=',$status)
+        ->where('state','=','officer');
+        return $this->view('pages.application-list',$users);
     }
 
     public function edit($id)
@@ -128,13 +135,6 @@ class OfficerController  extends BaseController
             return false;
         return true;
 
-    }
-
-
-    public function verified()
-    {
-        $users = $this->profileRepository->getAll()->where('profile_status','=','Verified');
-        return $this->view('pages.verified-applicant-profile-list',$users);
     }
 
 

@@ -1,3 +1,5 @@
+@if($profile_processing)
+
 @if($profile_processing->current_state === 'officer')
     <li class="nav-item" style="color: #2596be;"><div class="popover__wrapper">
             <a href="#">
@@ -200,4 +202,5 @@
     @endif
 @else
 
+@endif
 @endif

@@ -63,8 +63,14 @@ class QualificationController extends BaseController
 
     public function checkLevel($profiles){
         $id=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
-        if ($id['registration_level'] < $profiles['registration_level'])
-            $profile = $this->profileRepository->update($profiles,$id['id']);
+        if ($id['registration_level'] < $profiles['registration_level']){
+            $profiles['profile_status'] = "Reviewing";
+
+        }else{
+            $pros['profile_status'] = "Reviewing";
+            $profile = $this->profileRepository->update($pros,$id['id']);
+        }
+
 
     }
 

@@ -40,6 +40,8 @@ class AuthenticatedSessionController extends Controller
                     return  redirect()->route('student.dashboard');
                 }  else if (Auth::user()->mainRole()->name === 'operator') {
                     return  redirect()->route('operator.dashboard');
+                } else if (Auth::user()->mainRole()->name === 'officer') {
+                    return  redirect()->route('officer.dashboard');
                 }
             }
             else{

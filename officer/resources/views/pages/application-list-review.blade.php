@@ -185,32 +185,23 @@
                                                     <tr>
                                                         <th scope="col">#</th>
                                                         <th scope="col">level</th>
-                                                        <th scope="col">Certificate</th>
                                                         <th scope="col">Transcript</th>
+                                                        <th scope="col">Certificate</th>
+
                                                         <th scope="col">Provisional</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    @foreach($qualification as $qualifications)
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>{{$qualifications->name}}</td>
+                                                            <td><img src="{{$qualifications->getTranscriptImage()}}"  alt="Transcript Image" width="200" height="200"></td>
+                                                            <td><img src="{{$qualifications->getCharacterImage()}}" alt="Character Image" width="200" height="200"></td>
+                                                            <td><img src="{{$qualifications->getProvisionalImage()}}" alt="Provisional Image" width="200" height="200"></td>
+                                                        </tr>
+                                                    @endforeach
                                                     <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                    </tr>
                                                     </tbody>
                                                 </table>
                                             </div>

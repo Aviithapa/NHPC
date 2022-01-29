@@ -5,7 +5,14 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header sty-one">
-            <h1>Current State :: <span class="text-uppercase text-bold">{{$profile_processing->current_state}}</span></h1>
+            <h1>Current State :: <span class="text-uppercase text-bold">
+                    @if($profile_processing)
+                    {{$profile_processing->current_state}}
+                        @else
+                        Computer Operator
+                        @endif
+
+                </span></h1>
             <ol class="breadcrumb">
                 <li><a href="#">Dashboard</a></li>
                 <li><i class="fa fa-angle-right"></i>Applicant List</li>
@@ -52,9 +59,13 @@
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-expanded="true">Details Information</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-expanded="false">Documents</a> </li>
+                                @if($profile_processing)
                                 @if($profile_processing->current_state === "computer_operator")
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
                                 @endif
+                                @else
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
+                              @endif
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#review" role="tab">Review Details</a> </li>
                             </ul>
                             <!-- Tab panes -->
@@ -185,32 +196,23 @@
                                                     <tr>
                                                         <th scope="col">#</th>
                                                         <th scope="col">level</th>
-                                                        <th scope="col">Certificate</th>
                                                         <th scope="col">Transcript</th>
+                                                        <th scope="col">Certificate</th>
+
                                                         <th scope="col">Provisional</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    @foreach($qualification as $qualifications)
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>{{$qualifications->name}}</td>
+                                                            <td><img src="{{$qualifications->getTranscriptImage()}}"  alt="Transcript Image" width="200" height="200"></td>
+                                                            <td><img src="{{$qualifications->getCharacterImage()}}" alt="Character Image" width="200" height="200"></td>
+                                                            <td><img src="{{$qualifications->getProvisionalImage()}}" alt="Provisional Image" width="200" height="200"></td>
+                                                        </tr>
+                                                    @endforeach
                                                     <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                    </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -218,13 +220,6 @@
                                                 <header>Supportive Documents</header>
                                                 <table class="table table-bordered">
                                                     <thead>
-                                                    {{--                                                    <tr>--}}
-                                                    {{--                                                        <th scope="col">#</th>--}}
-                                                    {{--                                                        <th scope="col">level</th>--}}
-                                                    {{--                                                        <th scope="col">Certificate</th>--}}
-                                                    {{--                                                        <th scope="col">Transcript</th>--}}
-                                                    {{--                                                        <th scope="col">Provisional</th>--}}
-                                                    {{--                                                    </tr>--}}
                                                     </thead>
                                                     <tbody>
                                                     <tr>

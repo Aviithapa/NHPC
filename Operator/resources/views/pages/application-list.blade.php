@@ -31,30 +31,47 @@
                                     <div class="table-responsive">
                                         <table id="data-table" class="table no-margin">
                                             <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Category</th>
-                                                <th>Program</th>
-                                                <th>Applied By</th>
-                                                <th>Verified Profile</th>
-                                                <th>Level</th>
-                                                <th>State</th>
-                                                <th>Status</th>
-                                            </tr>
+                                            <td>S.N.</td>
+                                            <td>Exam Name</td>
+                                            <td>Voucher Image</td>
+                                            <td>Applied Date</td>
+                                            <td>State</td>
+                                            <td>Status</td>
+                                            <td>Applied By</td>
+                                            <td>Action</td>
                                             </thead>
                                             <tbody>
+                                            @if($data === null)
+                                                <tr>
+                                                    <td> No Applicant List found at Computer Operator</td>
+                                                </tr>
 
-                                                @foreach($data as $datas)
+                                            @else
+                                                @foreach($data as $exam)
                                                     <tr>
-                                                        <td>{{$datas->first_name}}</td>
-                                                        <td></td>
-                                                        <td>{{$datas->getLevelName()}}</td>
-                                                            <td> <a href="#"><span class="label label-danger">Not-Verified</span></a></td>
-                                                        <td> <a href="{{url("operator/dashboard/operator/applicant-list/".$datas->id)}}"><span class="label label-success">View</span></a></td>
-                                                            </tr>
+                                                        <td>1</td>
+                                                        <td>{{$exam->getExamName()}}</td>
+                                                        <td><img src="{{$exam->getVoucherImage()}}" src="voucher image" height="150" width="150"/></td>
+                                                        <td>{{$exam->created_at}}</td>
+                                                        <td>{{$exam->state}}</td>
+                                                        <td>{{$exam->status}}</td>
+                                                        <td>{{$exam->getFirstName()}}</td>
+                                                        <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$exam->profile_id)}}"><span class="label label-success">View</span></a></td>
+                                                    </tr>
                                                 @endforeach
-
+                                            @endif
                                             </tbody>
+{{--                                                @foreach($data as $datas)--}}
+{{--                                                    <tr>--}}
+{{--                                                        <td>{{$datas->first_name}}</td>--}}
+{{--                                                        <td></td>--}}
+{{--                                                        <td>{{$datas->getLevelName()}}</td>--}}
+{{--                                                            <td> <a href="#"><span class="label label-danger">Not-Verified</span></a></td>--}}
+{{--                                                        <td> <a href="{{url("operator/dashboard/operator/applicant-list/".$datas->id)}}"><span class="label label-success">View</span></a></td>--}}
+{{--                                                            </tr>--}}
+{{--                                                @endforeach--}}
+
+{{--                                            </tbody>--}}
                                         </table>
                                     </div>
                                     <!-- /.table-responsive -->

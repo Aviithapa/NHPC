@@ -51,7 +51,7 @@
                                             <td>{{$data->citizenship_number}}</td>
                                             <td>{{$data->dob_nep}}</td>
                                             <td> <a href="#"><span class="label label-danger">{{$data->profile_status}}</span></a></td>
-                                            <td> <a href="{{url("officer/dashboard/officer/applicant-list/".$data->id)}}"><span class="label label-success">View</span></a></td>
+                                            <td> <a href="{{url("officer/dashboard/officer/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
                                         </tr>
                                             @endforeach
                                          @endforeach

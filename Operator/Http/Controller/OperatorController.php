@@ -57,29 +57,18 @@ class OperatorController extends BaseController
         parent::__construct();
     }
 
-    public function index()
+    public function exam($status)
     {
-        $users = $this->profileRepository->getAll();
+        $users = $this->examProcessingRepository->getAll()->where('status' ,'=',$status);
         return $this->view('pages.application-list',$users);
     }
 
-    public function profile()
+    public function profile($status)
     {
-        $users = $this->profileRepository->getAll()->where('profile_status','=','Reviewing');
+        $users = $this->profileRepository->getAll()->where('profile_status','=',$status);
         return $this->view('pages.applicant-profile-list',$users);
     }
 
-    public function reject()
-    {
-        $users = $this->profileRepository->getAll()->where('profile_status','=','Rejected');
-        return $this->view('pages.reject-applicant-profile-list',$users);
-    }
-
-    public function verified()
-    {
-        $users = $this->profileRepository->getAll()->where('profile_status','=','Verified');
-        return $this->view('pages.verified-applicant-profile-list',$users);
-    }
     public function edit($id)
     {
         $data = $this->profileRepository->findById($id);

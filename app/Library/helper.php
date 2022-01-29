@@ -19,6 +19,41 @@ if (! function_exists('uploadedAsset')) {
     }
 }
 
+if (! function_exists('getApplicantCount')) {
+    /**
+     * Generates an asset path for the uploads.
+     * @param null $path
+     * @param null $file_name
+     * @return string
+     */
+    function getApplicantCount($status)
+    {
+         $count =0;
+         $profiles = \Student\Models\Profile::all()->where("profile_status",'=' ,$status);
+         foreach ($profiles as $profile)
+             $count++;
+        return $count;
+    }
+}
+
+
+if (! function_exists('getExamApplicantList')) {
+    /**
+     * Generates an asset path for the uploads.
+     * @param null $path
+     * @param null $file_name
+     * @return string
+     */
+    function getExamApplicantList($status)
+    {
+        $count =0;
+        $profiles = \App\Models\Exam\ExamProcessing::all()->where("status",'=' ,$status);
+        foreach ($profiles as $profile)
+            $count++;
+        return $count;
+    }
+}
+
 
 if(!function_exists('imageNotFound')) {
     /**
