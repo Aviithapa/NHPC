@@ -29,6 +29,10 @@ class RedirectIfAuthenticated
                 return  redirect()->route('operator.dashboard');
             }elseif (Auth::user()->mainRole()->name ==='officer'){
                 return  redirect()->route('officer.dashboard');
+            } else if (Auth::user()->mainRole()->name === 'registrar') {
+                return  redirect()->route('registrar.dashboard');
+            } else if (Auth::user()->mainRole()->name === 'subject_committee') {
+                return  redirect()->route('subjectCommittee.dashboard');
             }
         }
 

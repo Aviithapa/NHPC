@@ -57,7 +57,7 @@
                                                 <td>{{$exam->state}}</td>
                                                 <td>{{$exam->status}}</td>
                                                 <td>{{$exam->getFirstName()}}</td>
-                                                <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$exam->profile_id)}}"><span class="label label-success">View</span></a></td>
+                                                <td> <a href="{{url("officer/dashboard/officer/applicant-list-view/".$exam->profile_id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>
                                         @endforeach
                                     @endif

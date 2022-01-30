@@ -23,22 +23,49 @@
 
                 </a>
             </li>
-            <li class="">
-                <a href="{{route("registrar.applicant.profile.list")}}">
-                    <i class="icon-book-open"></i> <span>Applicant Profile List</span>
-                </a>
+            <li class="treeview"> <a href="#"> <i class="icon-grid"></i> <span>Applicant Profile</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+                <ul class="treeview-menu">
+                    <li class="">
+                        <a href="{{route("registrar.applicant.profile.list", ['status'=> 'progress','current_state' => 'registrar'])}}">
+                            <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantCount('Reviewing')}}</span></span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{route("registrar.applicant.profile.list", ['status'=> 'rejected','current_state' => 'registrar'])}}">
+                            <i class="icon-ban"></i> <span>Reject Profile List <span class="badge badge-pill badge-danger">{{getApplicantCount('Rejected')}}</span></span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="{{route("registrar.applicant.profile.list", ['status'=> 'progress','current_state' => 'subject_committee'])}}">
+                            <i class="icon-badge"></i> <span>Verified Profile List <span class="badge badge-pill badge-danger">{{getApplicantCount('Verified')}}</span></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="treeview"> <a href="#"> <i class="icon-grid"></i> <span>Exam Applied</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+                <ul class="treeview-menu">
+                    <li class="">
+                        <a href="{{route("registrar.applicant.list", ['status'=> 'progress','current_state' => 'registrar'])}}">
+                            <i class="icon-book-open"></i> <span>Exam Applied List <span class="badge badge-pill badge-success">{{getExamApplicantList('pending')}}</span></span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{route("registrar.applicant.list",['status'=> 'progress','current_state' => 'subject_committee'])}}">
+                            <i class="icon-book-open"></i> <span>Exam Applied Verified List <span class="badge badge-pill badge-success">{{getExamApplicantList('progress')}}</span></span>
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a href="{{route("registrar.applicant.list",['status'=> 'rejected','current_state' => 'officer'])}}">
+                            <i class="icon-book-open"></i> <span>Exam Applied Rejected List <span class="badge badge-pill badge-danger">{{getExamApplicantList('rejected')}}</span></span>
+                        </a>
+                    </li>
+                </ul>
             </li>
 
-{{--            <li class="">--}}
-{{--                <a href="{{route("operator.applicant.list")}}">--}}
-{{--                    <i class="icon-book-open"></i> <span>Application List</span>--}}
-            {{--                </a>--}}
-            {{--            </li>--}}
-            <li class="">
-                <a href="{{route("registrar.verified.applicant.profile.list")}}">
-                    <i class="icon-badge"></i> <span>Verified Applicant Profile List</span>
-                </a>
-            </li>
+
+
         </ul>
     </div>
     <!-- /.sidebar -->

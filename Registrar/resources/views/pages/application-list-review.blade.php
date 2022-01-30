@@ -34,10 +34,10 @@
                         <div class="card-body">
                             <div class="box-body">
                                 <strong><i class="fa fa-envelope margin-r-5"></i> Email address </strong>
-                                                                <p class="text-muted">{{$user_data->email}}</p>
+                                <p class="text-muted">{{$user_data->email}}</p>
                                 <hr>
                                 <strong><i class="fa fa-phone margin-r-5"></i> Phone</strong>
-                                                                <p>{{$user_data->phone_number}} </p>
+                                <p>{{$user_data->phone_number}} </p>
 
                             </div>
                             <!-- /.box-body -->
@@ -53,7 +53,7 @@
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-expanded="false">Documents</a> </li>
                                 @if($profile_processing->current_state === "registrar")
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
                                 @endif
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#review" role="tab">Review Details</a> </li>
                             </ul>
@@ -185,32 +185,23 @@
                                                     <tr>
                                                         <th scope="col">#</th>
                                                         <th scope="col">level</th>
-                                                        <th scope="col">Certificate</th>
                                                         <th scope="col">Transcript</th>
+                                                        <th scope="col">Certificate</th>
+
                                                         <th scope="col">Provisional</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
+                                                    @foreach($qualification as $qualifications)
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>{{$qualifications->name}}</td>
+                                                            <td><img src="{{$qualifications->getTranscriptImage()}}"  alt="Transcript Image" width="200" height="200"></td>
+                                                            <td><img src="{{$qualifications->getCharacterImage()}}" alt="Character Image" width="200" height="200"></td>
+                                                            <td><img src="{{$qualifications->getProvisionalImage()}}" alt="Provisional Image" width="200" height="200"></td>
+                                                        </tr>
+                                                    @endforeach
                                                     <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                        <td>  <img src="https://thumbs.dreamstime.com/b/document-icon-vector-stack-paper-sheets-illustration-131104983.jpg" width="200" height="200">
-                                                        </td>
-                                                    </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -259,7 +250,7 @@
                                         <form class="form-horizontal form-material" action="{{route("registrar.applicant.profile.list.status")}}" method="POST">
                                             @csrf
 
-                                            <input type="hidden" name="user_id" value="{{$data->id}}">
+                                            <input type="hidden" name="profile_id" value="{{$data->id}}">
                                             <div class="form-group">
                                                 <label class="col-md-12">Remarks</label>
                                                 <div class="col-md-12">
@@ -354,20 +345,20 @@
 
                                                         @else
                                                             @foreach($exams as $exam)
-                                                                    <tr>
-                                                                        <td>1</td>
-                                                                        <td>{{$exam->getExamName()}}</td>
-                                                                        <td><img src="{{$exam->getVoucherImage()}}" src="voucher image" height="150" width="150"/></td>
-                                                                        <td>{{$exam->created_at}}</td>
-                                                                        <td>{{$exam->state}}</td>
-                                                                        <td>{{$exam->status}}</td>
-                                                                        <td>
-                                                                            @if($exam->state === "registrar")
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>{{$exam->getExamName()}}</td>
+                                                                    <td><img src="{{$exam->getVoucherImage()}}" src="voucher image" height="150" width="150"/></td>
+                                                                    <td>{{$exam->created_at}}</td>
+                                                                    <td>{{$exam->state}}</td>
+                                                                    <td>{{$exam->status}}</td>
+                                                                    <td>
+                                                                        @if($exam->state === "registrar")
                                                                             <a href="{{url('registrar/dashboard/registrar/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
                                                                             <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>
-                                                                                @endif
-                                                                        </td>
-                                                                    </tr>
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
                                                             @endforeach
                                                         @endif
                                                         </tbody>
@@ -400,7 +391,7 @@
                         <form class="form-horizontal form-material" action="{{route("registrar.reject.exam.apply")}}" method="POST">
                             @csrf
                             <input type="hidden" class="form-control" name="id" id="idkl" value="">
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label class="col-md-12">Remarks</label>
                                 <div class="col-md-12">
                                     <textarea rows="5" name="remarks" class="form-control form-control-line" required></textarea>
@@ -448,4 +439,4 @@
         });
 
     </script>
-    @endpush
+@endpush

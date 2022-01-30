@@ -31,11 +31,11 @@
                          <div class="col-lg-4">
                              <fieldset class="form-group">
                                  <label>Program Name</label>
-                                 <select class="form-control" name="program_name" required>
+                                 <select class="form-control" name="program_id" required>
                                      <option value=""></option>
-                                     <option value="male">Male</option>
-                                     <option value="female">Female</option>
-                                     <option value="other">Other</option>
+                                     <option value="1">Male</option>
+                                     <option value="2">Female</option>
+                                     <option value="3">Other</option>
                                  </select>
                              </fieldset>
                          </div>

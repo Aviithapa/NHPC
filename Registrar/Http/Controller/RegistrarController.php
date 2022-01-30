@@ -48,9 +48,10 @@ class RegistrarController  extends BaseController
         parent::__construct();
     }
 
-    public function index()
+    public function profile($status, $current_state)
     {
-        $users = $this->profileProcessingRepository->getAll()->where('current_state', '=','registrar');
+        $users = $this->profileProcessingRepository->getAll()->where('current_state', '=',$current_state)
+            ->where('status','=',$status);
         if ($users->isEmpty())
             $profile = null;
         else {
@@ -59,6 +60,13 @@ class RegistrarController  extends BaseController
             }
         }
         return $this->view('pages.applicant-profile-list',$profile);
+    }
+
+    public function exam($status, $state)
+    {
+        $users = $this->examProcessingRepository->getAll()->where('status' ,'=',$status)
+            ->where('state','=', $state);
+        return $this->view('pages.application-list',$users);
     }
 
     public function edit($id)
@@ -77,13 +85,13 @@ class RegistrarController  extends BaseController
     {
         $data = $request->all();
         try {
-            $id=$data['user_id'];
+            $id=$data['profile_id'];
             $data['created_by'] = Auth::user()->id;
-            $data['state'] = 'Registrar';
+            $data['state'] =  'registrar';
 
             if ( $data['profile_status']=== "Verified"){
                 $data['status'] =  'accepted';
-                $data['remarks'] =  'Profile is forward to Subject Committee Members';
+                $data['remarks'] =  'Profile is forward to Subject Committee';
                 $data['review_status'] =  'Successful';
                 $this->profileLog($data);
                 $this->profileProcessing($id);
@@ -108,7 +116,6 @@ class RegistrarController  extends BaseController
     }
 
     public function profileLog( array  $data ){
-        $data['profile_id'] = $data['user_id'];
         $logs = $this->profileLogsRepository->create($data);
         if($logs == false)
             return false;
@@ -119,20 +126,13 @@ class RegistrarController  extends BaseController
     public function profileProcessing( $id ){
         $profileProcessing['profile_id'] = $id;
         $profileProcessing['current_state'] = "subject_committee";
-        $profileProcessing['status'] = "pending";
+        $profileProcessing['status'] = "progress";
         $id= $this->profileProcessingRepository->getAll()->where('profile_id' ,'=',$id)->first();
         $profileProcessings = $this->profileProcessingRepository->update($profileProcessing,$id['id']);
         if($profileProcessings == false)
             return false;
         return true;
 
-    }
-
-
-    public function verified()
-    {
-        $users = $this->profileRepository->getAll()->where('profile_status','=','Verified');
-        return $this->view('pages.verified-applicant-profile-list',$users);
     }
 
 
@@ -157,7 +157,7 @@ class RegistrarController  extends BaseController
     }
 
     public function AcceptExamProcessing($id){
-        $data['status'] = 'accepted';
+        $data['status'] = 'progress';
         $data['state'] = 'subject_committee';
         try {
             $exam_processing = $this->examProcessingRepository->update($data,$id);

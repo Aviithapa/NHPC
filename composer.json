@@ -31,7 +31,9 @@
             "Student\\": "Student/",
             "Operator\\": "Operator/",
             "officer\\" : "officer/",
-            "Registrar\\": "Registrar"
+            "Registrar\\": "Registrar",
+            "SubjectCommittee\\" : "SubjectCommittee",
+            "ExamCommittee\\" : "ExamCommittee"
         }
     },
     "autoload-dev": {

@@ -40,6 +40,16 @@
                     <i class="icon-book-open"></i> <span>Qualification</span>
                 </a>
             </li>
+            <li class="">
+                <a href="{{route('status.index', ['status'=> 'profile'])}}">
+                    <i class="icon-book-open"></i> <span>Profile Status</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="{{route('status.index', ['status'=> 'exam'])}}">
+                    <i class="icon-book-open"></i> <span>Exam Status</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- /.sidebar -->

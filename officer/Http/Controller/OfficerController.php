@@ -86,7 +86,7 @@ class OfficerController  extends BaseController
     {
         $data = $request->all();
         try {
-            $id=$data['user_id'];
+            $id=$data['profile_id'];
             $data['created_by'] = Auth::user()->id;
             $data['state'] =  'officer';
 
@@ -128,7 +128,7 @@ class OfficerController  extends BaseController
     public function profileProcessing( $id ){
         $profileProcessing['profile_id'] = $id;
         $profileProcessing['current_state'] = "registrar";
-        $profileProcessing['status'] = "pending";
+        $profileProcessing['status'] = "progress";
         $id= $this->profileProcessingRepository->getAll()->where('profile_id' ,'=',$id)->first();
         $profileProcessings = $this->profileProcessingRepository->update($profileProcessing,$id['id']);
         if($profileProcessings == false)

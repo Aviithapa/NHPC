@@ -40,6 +40,7 @@ class QualificationController extends BaseController
         $data['provisional_image'] = $data['provisional'];
         $data['character_image'] = $data['character'];
         $profiles['registration_level'] =$data['level'];
+
         try {
             $qualification = $this->qualificationRepository->create($data);
             if ($qualification == false) {
@@ -65,7 +66,7 @@ class QualificationController extends BaseController
         $id=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
         if ($id['registration_level'] < $profiles['registration_level']){
             $profiles['profile_status'] = "Reviewing";
-
+            $profile = $this->profileRepository->update($profiles,$id['id']);
         }else{
             $pros['profile_status'] = "Reviewing";
             $profile = $this->profileRepository->update($pros,$id['id']);

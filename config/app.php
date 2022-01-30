@@ -210,6 +210,23 @@ return [
           **/
            \Registrar\Providers\RegistrarRouteServiceProvider::class,
           \Registrar\Providers\RegistrarAppServiceProvider::class,
+
+
+        /*
+          * |
+          * | Subject Committee Providers
+          * |
+          **/
+             \SubjectCommittee\Providers\SubjectCommitteeAppServiceProvider::class,
+            \SubjectCommittee\Providers\SubjectCommitteeRouteServiceProvider::class,
+
+        /*
+         * |
+         * | Exam Committee Providers
+         * |
+         **/
+            \ExamCommittee\Providers\ExamCommitteeAppServiceProvider::class,
+        \ExamCommittee\Providers\ExamCommitteeRouteServiceProvider::class,
     ],
 
     /*

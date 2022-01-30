@@ -10,5 +10,5 @@ class ProfileProcessing extends Model
 {
     protected $table='profile_processing';
     protected $fillable=['profile_id','current_state',
-        'status','remarks'];
+        'status','remarks','subject_committee_accepted_num'];
 }

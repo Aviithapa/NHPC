@@ -250,7 +250,7 @@
                                         <form class="form-horizontal form-material" action="{{route("officer.applicant.profile.list.status")}}" method="POST">
                                             @csrf
 
-                                            <input type="hidden" name="user_id" value="{{$data->id}}">
+                                            <input type="hidden" name="profile_id" value="{{$data->id}}">
                                             <div class="form-group">
                                                 <label class="col-md-12">Remarks</label>
                                                 <div class="col-md-12">

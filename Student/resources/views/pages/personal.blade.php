@@ -181,11 +181,16 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <fieldset class="form-group">
-                                            <label>Provision *</label>
+                                            <label>Province *</label>
                                             <select class="form-control" name="development_region">
                                                 <option value="">Select Development Region</option>
-                                                <option value="female">Chettri</option>
-                                                <option value="other">Brahmin</option>
+                                                <option value="provision-1">Province 1</option>
+                                                <option value="madhesh-province">Madhesh Province</option>
+                                                <option value="bagmati-province">Bagmati Province</option>
+                                                <option value="gandaki-province">Gandaki Province</option>
+                                                <option value="lumbani-province">Lumbani Province</option>
+                                                <option value="karnali-province">Karnali Province</option>
+                                                <option value="sudurpaschim-province">Sudurpaschim Province</option>
                                             </select>
                                         </fieldset>
                                     </div>
@@ -194,16 +199,25 @@
                                             <label>District *</label>
                                             <select class="form-control" name="district">
                                                 <option value="">Select District</option>
-                                                <option value="female">Chettri</option>
-                                                <option value="other">Brahmin</option>
+                                                <option value="Baitadi">Baitadi</option>
+                                                <option value="Darchula">Darchula</option>
+                                                <option value="Kailali">Kailali</option>
+                                                <option value="Dadeldhura">Dadeldhura</option>
+                                                <option value="Kanchanpur">Kanchanpur</option>
                                             </select>
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-4">
                                         <fieldset class="form-group">
-                                            <label>VDC Municiplality *</label>
-                                            <input name="vdc_municiplality" class="form-control" id="basicInput"
-                                                   type="text">
+                                            <label>Municipality *</label>
+                                            <select class="form-control" name="vdc_municiplality">
+                                                <option value="">Select District</option>
+                                                <option value="Baitadi">Baitadi</option>
+                                                <option value="Darchula">Darchula</option>
+                                                <option value="Kailali">Kailali</option>
+                                                <option value="Dadeldhura">Dadeldhura</option>
+                                                <option value="Kanchanpur">Kanchanpur</option>
+                                            </select>
                                         </fieldset>
                                     </div>
                                 </div>

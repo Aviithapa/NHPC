@@ -90,10 +90,10 @@ class OperatorController extends BaseController
     {
         $data = $request->all();
         try {
-            $id=$data['user_id'];
+            $id=$data['profile_id'];
             $data['created_by'] = Auth::user()->id;
             $data['state'] =  'computer_operator';
-            if ( $data['profile_status']=== "Verified"){
+            if ( $data['profile_status'] === "Verified"){
                 $data['status'] =  'accepted';
                 $data['remarks'] =  'Profile is forward to Officer';
                 $data['review_status'] =  'Successful';
@@ -121,7 +121,6 @@ class OperatorController extends BaseController
     }
 
     public function profileLog( array  $data ){
-        $data['profile_id'] = $data['user_id'];
         $logs = $this->profileLogsRepository->create($data);
         if($logs == false)
             return false;
@@ -132,12 +131,11 @@ class OperatorController extends BaseController
     public function profileProcessing( $id ){
         $profileProcessing['profile_id'] = $id;
         $profileProcessing['current_state'] = "officer";
-        $profileProcessing['status'] = "pending";
+        $profileProcessing['status'] = "progress";
         $profileProcessings = $this->profileProcessingRepository->create($profileProcessing);
         if($profileProcessings == false)
             return false;
         return true;
-
     }
 
 

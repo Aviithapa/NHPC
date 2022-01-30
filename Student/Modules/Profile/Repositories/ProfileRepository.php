@@ -9,5 +9,6 @@ use Student\Modules\Framework\Repository;
 interface ProfileRepository extends Repository
 {
 
+    public function getAllProfileList($id);
 
 }

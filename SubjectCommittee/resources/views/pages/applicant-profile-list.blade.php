@@ -1,14 +1,12 @@
-@extends('registrar::layout.app')
+@extends('subjectCommittee::layout.app')
 
 @section('content')
-
-
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header sty-one">
-            <h1>Operator Dashboard</h1>
+            <h1>Subject Committee Dashboard</h1>
             <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
                 <li><i class="fa fa-angle-right"></i> Applicant Profile Details</li>
@@ -40,16 +38,24 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-
-                                    @foreach($data as $datas)
+                                    @if($data === null)
                                         <tr>
-                                            <td>{{$datas->first_name}}</td>
-                                            <td>{{$datas->citizenship_number}}</td>
-                                            <td>{{$datas->dob_nep}}</td>
-                                            <td> <a href="#"><span class="label label-danger">{{$datas->profile_status}}</span></a></td>
-                                            <td> <a href="{{url("registrar/dashboard/registrar/applicant-list/".$datas->id)}}"><span class="label label-success">View</span></a></td>
+                                            <td> No Applicant List found at Subject Committee</td>
                                         </tr>
-                                    @endforeach
+
+                                    @else
+                                        @foreach($data as $datas)
+                                             @foreach($datas as $data)
+                                        <tr>
+                                            <td>{{$data->first_name}}</td>
+                                            <td>{{$data->citizenship_number}}</td>
+                                            <td>{{$data->dob_nep}}</td>
+                                            <td> <a href="#"><span class="label label-danger">{{$data->profile_status}}</span></a></td>
+                                            <td> <a href="{{url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
+                                        </tr>
+                                            @endforeach
+                                         @endforeach
+                                    @endif
 
                                     </tbody>
                                 </table>
@@ -64,7 +70,6 @@
     </div>
     <!-- /.content -->
     </div>
-
 
 
 @endsection
