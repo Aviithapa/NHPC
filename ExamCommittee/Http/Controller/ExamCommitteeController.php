@@ -4,15 +4,19 @@
 namespace ExamCommittee\Http\Controller;
 
 
+use App\Exports\ResultExport;
+use App\Imports\ResultImport;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
+use App\Modules\Backend\Result\Repositories\ExamResultRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Maatwebsite\Excel\Facades\Excel;
 use Operator\Modules\Framework\Request;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
@@ -23,7 +27,7 @@ class ExamCommitteeController extends BaseController
         $profileRepository, $userRepository,
         $qualificationRepository,$user_data,
         $profileLogsRepository,$profileProcessingRepository,
-        $examRepository,$examProcessingRepository,$admitCardRepository;
+        $examRepository,$examProcessingRepository,$admitCardRepository,$examResultRepository;
     private $viewData, $exam_processing;
 
     /**
@@ -36,12 +40,13 @@ class ExamCommitteeController extends BaseController
      * @param ExamRepository $examRepository
      * @param ExamProcessingRepository $examProcessingRepository
      * @param AdmitCardRepository $admitCardRepository
+     * @param ExamResultRepository $examResultRepository
      */
 
     public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
                                 ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
                                 ExamRepository $examRepository,ExamProcessingRepository $examProcessingRepository,
-AdmitCardRepository $admitCardRepository)
+                                AdmitCardRepository $admitCardRepository, ExamResultRepository $examResultRepository)
     {
         $this->profileRepository=$profileRepository;
         $this->userRepository=$userRepository;
@@ -51,6 +56,7 @@ AdmitCardRepository $admitCardRepository)
         $this->examRepository=$examRepository;
         $this->examProcessingRepository=$examProcessingRepository;
         $this->admitCardRepository=$admitCardRepository;
+        $this->examResultRepository=$examResultRepository;
         parent::__construct();
     }
 
@@ -101,6 +107,32 @@ AdmitCardRepository $admitCardRepository)
       $exam= $this->examProcessingRepository->findById($admitcard['exam_processing_id']);
 
       return \view('examCommittee::pages.view-admit-card',compact('admitcard','profileDetails','exam'));
+    }
+
+    public function fileImport(Request $request)
+    {
+        Excel::import(new ResultImport(), $request->file('file')->store('temp'));
+        $this->FileForwardCouncil();
+        return back();
+    }
+
+    public function FileForwardCouncil(){
+        $passed_list = $this->examResultRepository->getAll()->where('status','=','pass');
+        foreach ($passed_list as $pass){
+            $admit_card = $this->admitCardRepository->getAll()->where('symbol_number','=',$pass['symbol_number']);
+              foreach ($admit_card as $admit){
+                   $data['state'] = 'council';
+                   $examProcesing = $this->examProcessingRepository->update($data,$admit['exam_processing_id']);
+              }
+        }
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function fileExport()
+    {
+        return Excel::download(new ResultExport(), 'users-collection.xlsx');
     }
 
 //    public function edit($id)

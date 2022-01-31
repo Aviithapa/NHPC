@@ -20,6 +20,8 @@ use App\Modules\Backend\Profile\Profilelogs\Repositories\EloquentProfileLogsRepo
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\EloquentProfileProcessingRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
+use App\Modules\Backend\Result\Repositories\EloquentExamResultRepository;
+use App\Modules\Backend\Result\Repositories\ExamResultRepository;
 use Illuminate\Support\ServiceProvider;
 
 class DependencyInjectionServiceProvider extends ServiceProvider
@@ -110,6 +112,11 @@ class DependencyInjectionServiceProvider extends ServiceProvider
         $this->app->bind(
             AdmitCardRepository::class,
             EloquentAdmitCardRepository::class,
+        );
+
+        $this->app->bind(
+            ExamResultRepository::class,
+            EloquentExamResultRepository::class,
         );
     }
 }

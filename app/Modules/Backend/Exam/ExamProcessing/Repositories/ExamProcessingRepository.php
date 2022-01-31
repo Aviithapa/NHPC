@@ -4,7 +4,9 @@
 namespace App\Modules\Backend\Exam\ExamProcessing\Repositories;
 
 
-interface ExamProcessingRepository
+use App\Modules\Framework\Repository;
+
+interface ExamProcessingRepository extends Repository
 {
 
 }

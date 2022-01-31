@@ -12,7 +12,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.5",
-        "phpoffice/phpspreadsheet": "dev-NumberFormatMask-Helpers",
+        "maatwebsite/excel": "^3.1",
         "santigarcor/laratrust": "^6.3"
     },
     "require-dev": {
@@ -34,7 +34,8 @@
             "officer\\" : "officer/",
             "Registrar\\": "Registrar",
             "SubjectCommittee\\" : "SubjectCommittee",
-            "ExamCommittee\\" : "ExamCommittee"
+            "ExamCommittee\\" : "ExamCommittee",
+            "Council\\" : "Council"
         }
     },
     "autoload-dev": {

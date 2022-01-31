@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li class="">
-                <a href="{{route("examCommittee.admit.card.generate", ['status'=> 'progress','current_state' => 'exam_committee'])}}">
+                <a href="{{route("examCommittee.all.user", ['status'=> 'progress','current_state' => 'exam_committee'])}}">
                     <i class="icon-book-open"></i> <span>Admit Card Generate</span>
                 </a>
             </li>

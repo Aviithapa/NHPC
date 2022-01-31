@@ -182,6 +182,9 @@ return [
         |
         */
 
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
+
         Student\Providers\StudentRouteServiceProvider::class,
         Student\Providers\StudentServiceProvider::class,
         Student\Providers\StudentDependencyInjectionServiceProvider::class,
@@ -227,6 +230,14 @@ return [
          **/
             \ExamCommittee\Providers\ExamCommitteeAppServiceProvider::class,
         \ExamCommittee\Providers\ExamCommitteeRouteServiceProvider::class,
+
+        /*
+       * |
+       * | Council Providers
+       * |
+       **/
+        \Council\Providers\CouncilAppServiceProvider::class,
+        \Council\Providers\CouncilRouteServiceProvider::class,
     ],
 
     /*
@@ -281,6 +292,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
 
     ],
 
