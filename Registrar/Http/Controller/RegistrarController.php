@@ -161,6 +161,7 @@ class RegistrarController  extends BaseController
         $data['state'] = 'subject_committee';
         try {
             $exam_processing = $this->examProcessingRepository->update($data,$id);
+
             if ($exam_processing == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();

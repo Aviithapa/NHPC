@@ -12,6 +12,8 @@ use App\Modules\Backend\Exam\Exam\Repositories\EloquentExamRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\EloquentExamProcessingRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
+use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\EloquentExamProcessingDetailsRepository;
+use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDetailsRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\EloquentProfileLogsRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\EloquentProfileProcessingRepository;
@@ -96,6 +98,11 @@ class DependencyInjectionServiceProvider extends ServiceProvider
         $this->app->bind(
             ExamProcessingRepository::class,
             EloquentExamProcessingRepository::class
+        );
+
+        $this->app->bind(
+            ExamProcessingDetailsRepository::class,
+              EloquentExamProcessingDetailsRepository::class
         );
     }
 }

@@ -358,12 +358,12 @@
                                                                     <td>{{$exam->status}}</td>
                                                                     <td>
                                                                         @if($exam->state === "computer_operator")
-                                                                            <a href="{{url('operator/dashboard/operator/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
+                                                                             <a href="{{url('operator/dashboard/operator/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
                                                                             <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>
                                                                         @endif
                                                                     </td>
                                                                 </tr>
-                                                            @endforeach
+                                                             @endforeach
                                                         @endif
                                                         </tbody>
                                                     </table>

@@ -12,7 +12,7 @@ class ExamProcessing extends Model
 {
 
      protected $table='exam_registration';
-     protected $fillable=['exam_id','profile_id','voucher_image','state','status','remarks'];
+     protected $fillable=['exam_id','profile_id','voucher_image','state','status','remarks','subject_committee_count'];
 
 
     public function getExam(){
