@@ -33,6 +33,8 @@ class RedirectIfAuthenticated
                 return  redirect()->route('registrar.dashboard');
             } else if (Auth::user()->mainRole()->name === 'subject_committee') {
                 return  redirect()->route('subjectCommittee.dashboard');
+            } else if (Auth::user()->mainRole()->name === 'exam_committee') {
+                return  redirect()->route('examCommittee.dashboard');
             }
         }
 

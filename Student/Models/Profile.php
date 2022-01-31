@@ -89,4 +89,12 @@ class Profile extends  Model
     public function getLevelName(){
       return $this->getLevel->name;
     }
+
+    public function getFullName(){
+        $first_name = $this->first_name;
+        $middle_name = $this->middle_name;
+        $last_name = $this->last_name;
+        $full_name = $first_name . ' ' . $middle_name .' '. $last_name;
+        return $full_name;
+    }
 }

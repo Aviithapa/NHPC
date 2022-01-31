@@ -22,57 +22,54 @@
             <div class="row">
                 <div class="col-lg-12 m-b-3">
                     <div class="box box-info">
-                        <div class="box-header with-border p-t-1">
-                            <h3 class="box-title text-black">Applicant List</h3>
-                            <div class="pull-right">
+                        <div class="row">
+                            <div class="col-lg-12 m-b-3 ml-4">
+                                <a href="{{route("examCommittee.admit.card.generate", ['status'=> 'progress','current_state' => 'exam_committee'])}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
+                                    Generate Admit Cards</a>
+                                <a href="{{url("student/dashboard/student/qualification/from")}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
+                                    Upload Results</a>
                             </div>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
-                                <table id="data-table" class="table no-margin">
-                                    <thead>
+                                <table id="data-table" class="table no-margin" style=" font-size: 14px ;">
+                                    <thead style=" font-size: 14px ; font-weight: bold;">
                                     <td>S.N.</td>
-                                    <td>Exam Name</td>
-                                    <td>Voucher Image</td>
-                                    <td>Applied Date</td>
-                                    <td>State</td>
-                                    <td>Status</td>
-                                    <td>Applied By</td>
+                                    <td>First Name</td>
+                                    <td>Middle Name</td>
+                                    <td>Last Name</td>
+                                    <td>Symbol Number</td>
+                                    <td>Gender</td>
+                                    <td>Program Name</td>
+                                    <td>Level</td>
+                                    <td>Photo</td>
                                     <td>Action</td>
                                     </thead>
                                     <tbody>
                                     @if($data === null)
                                         <tr>
-                                            <td> No Applicant List found at Computer Operator</td>
+                                            <td> No Applicant List found </td>
                                         </tr>
 
                                     @else
                                         @foreach($data as $exam)
                                             <tr>
                                                 <td>1</td>
-                                                <td>{{$exam->getExamName()}}</td>
-                                                <td><img src="{{$exam->getVoucherImage()}}" src="voucher image" height="150" width="150"/></td>
-                                                <td>{{$exam->created_at}}</td>
-                                                <td>{{$exam->state}}</td>
-                                                <td>{{$exam->status}}</td>
+
                                                 <td>{{$exam->getFirstName()}}</td>
-                                                <td> <a href="{{url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$exam->profile_id)}}"><span class="label label-success">View</span></a></td>
+                                                <td>{{$exam->getMiddleName()}}</td>
+                                                <td>{{$exam->getLastName()}}</td>
+                                                <td>Symbol Number</td>
+                                                <td>{{$exam->getGender()}}</td>
+                                                <td>{{$exam->getProgramName()}}</td>
+                                                <td>{{$exam->getLevelName()}}</td>
+                                                <td><img src="{{$exam->getProfileImage()}}" src="Student Profile image" height="100" width="100"/></td>
+                                                <td> <a href="{{route("examCommittee.view.admit.card",['id' =>$exam->id])}}"><span class="label label-success">View</span></a></td>
                                             </tr>
                                         @endforeach
                                     @endif
                                     </tbody>
-                                    {{--                                                @foreach($data as $datas)--}}
-                                    {{--                                                    <tr>--}}
-                                    {{--                                                        <td>{{$datas->first_name}}</td>--}}
-                                    {{--                                                        <td></td>--}}
-                                    {{--                                                        <td>{{$datas->getLevelName()}}</td>--}}
-                                    {{--                                                            <td> <a href="#"><span class="label label-danger">Not-Verified</span></a></td>--}}
-                                    {{--                                                        <td> <a href="{{url("operator/dashboard/operator/applicant-list/".$datas->id)}}"><span class="label label-success">View</span></a></td>--}}
-                                    {{--                                                            </tr>--}}
-                                    {{--                                                @endforeach--}}
-
-                                    {{--                                            </tbody>--}}
                                 </table>
                             </div>
                             <!-- /.table-responsive -->
