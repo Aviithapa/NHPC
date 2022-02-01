@@ -63,11 +63,17 @@ class Profile extends  Model
         'registration_subject',
         'registration_level',
         'profile_status',
+        'level'
     ];
 
     public function getProfileImage()
     {
+        if(isset($this->profile_picture)) {
             return Storage::url('documents/' .$this->profile_picture);
+        }
+        else {
+            return imageNotFound();
+        }
     }
     public function getCitizenshipFrontImage()
     {

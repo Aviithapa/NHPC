@@ -5855,7 +5855,7 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e73f7c', endCo
 #progressbar li {
     list-style-type: none;
     font-size: 12px;
-    width: 25%;
+    width: 33.33%;
     float: left;
     position: relative;
     text-align: center;

@@ -20,9 +20,23 @@
                     <ul id="progressbar">
                         <li class="active" id="account"><strong>Personal Information</strong></li>
                         <li id="personal"><strong>Guardian Information</strong></li>
-                        <li  id="payment"><strong>Specific Information</strong></li>
-                        <li  id="confirm"><strong>Document</strong></li>
+                        <li  id="payment"><strong>Collage Information</strong></li>
                     </ul> <!-- fieldsets -->
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body conatiner">
+                    <span class="text-justify text-danger">
+                        अनलाइन फर्म भर्दै हुनु हुन्छ भने कृपया कोष्ठमा भएको विबरण
+                        अनिबार्य रुपमा पढेर सम्वन्धित स्थानमा सहि सुचना मात्र भर्नुहोला अन्यथा तपाईले भरेको
+                        सुचना गलत पर्न सक्छ र तपाईको सर्टि्फिकट लगायतमा गलत सुचना पर्न सक्छ ।
+                        नेपालीमा भर्न भनिएको कोष्ठमा नेपाली र अंग्रेजीमा भनिएको कोष्ठमा अंग्रेजीमै भर्न पर्ने हुन्छ।
+                        जस्तै तपाईका विबरणहरू, जिल्लाको नाम टोलको नाम आदि । नोट: तलको फर्म भर्न भन्दा
+                        पहिला तपाईले आफ्नो कम्प्युटरमा प्रिति फन्ट छैन भने स्टल गर्न पर्ने हुन्छ|
+
+                    </span>
+
                 </div>
             </div>
 
@@ -70,7 +84,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>थर</label>
-                                    <input name="last_name_nep" class="form-control" id="basicInput" type="text">
+                                    <input name="last_name_nep" class="form-control" id="basicInput" type="text" >
                                 </fieldset>
                             </div>
                         </div>
@@ -78,13 +92,13 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Date of Birth (B.S) *</label>
-                                    <input name="dob_nep" class="form-control" id="nepali_dob" type="date" required>
+                                    <input name="dob_nep" class="form-control" id="nepali_dob" placeholder="YYYY/MM/DD" required>
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Date of Birth (A.D) *</label>
-                                    <input name="dob_eng" class="form-control" id="basicInput" type="date">
+                                    <input name="dob_eng" class="form-control" id="english_date" type="date" placeholder="YYYY/MM/DD">
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
@@ -165,7 +179,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Citizenship Issue Date *</label>
-                                    <input name="citizenship_issue_date" class="form-control" id="nepali_dob_issue" type="date" required>
+                                    <input name="citizenship_issue_date" class="form-control" id="citizenship_issue" type="text" placeholder="YYYY/MM/DD" required>
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
@@ -277,14 +291,30 @@
 
 @endsection
 @push('scripts')
-     <script>
+    <script>
          $('.dropify').dropify();
          window.onload = function() {
              var mainInput = document.getElementById("nepali_dob");
-             var issue = document.getElementById("nepali_dob_issue");
-             mainInput.nepaliDatePicker();
-             issue.nepaliDatePicker();
+             mainInput.nepaliDatePicker({
+                 ndpYear: true,
+                 ndpMonth: true,
+             });
+             var mainInputs = document.getElementById("citizenship_issue");
+             mainInputs.nepaliDatePicker({
+                 ndpYear: true,
+                 ndpMonth: true,
+             });
          }
-     </script>
+         function convertToAD() {
+             var mainInput = document.getElementById("nepali_dob").value;
+             console.log(mainInput);
+             var date = mainInput.split("-");
+             var addate = NepaliFunctions.BS2AD({year: date[0], month: date[1], day: date[2]})
+             console.log(addate);
+
+         }
+
+
+    </script>
      @include('student::parties.common.file-upload')
     @endpush

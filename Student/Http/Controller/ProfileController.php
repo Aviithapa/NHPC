@@ -3,6 +3,8 @@
 
 namespace Student\Http\Controller;
 
+use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
+use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Student\Modules\Framework\Request;
@@ -11,15 +13,24 @@ use Student\Modules\Qualification\Repositories\QualificationRepository;
 
 class ProfileController extends BaseController
 {
-   private $profileRepository,$log, $qualificationRepository;
-    public function __construct(Log $log, ProfileRepository $profileRepository, QualificationRepository $qualificationRepository)
+   private $profileRepository,$log, $qualificationRepository, $programRepository,$examProcessingRepository;
+    public function __construct(Log $log, ProfileRepository $profileRepository,
+                                QualificationRepository $qualificationRepository,
+                                ProgramRepository $programRepository,
+                                ExamProcessingRepository $examProcessingRepository)
     {
         $this->profileRepository=$profileRepository;
         $this->qualificationRepository=$qualificationRepository;
+        $this->programRepository=$programRepository;
+        $this->examProcessingRepository=$examProcessingRepository;
         $this->log=$log;
         parent::__construct();
     }
 
+
+    public function dashboard(){
+        return view('student::pages.dashboard');
+    }
 
     public function index($slug = null){
         $slug = $slug ? $slug : 'personal';
@@ -29,7 +40,6 @@ class ProfileController extends BaseController
         if (file_exists($file_path)) {
             switch ($slug) {
                 case 'personal':
-
                          if (!$data){
                              return view('student::pages.personal',compact('authUser'));
                          }else{
@@ -58,8 +68,12 @@ class ProfileController extends BaseController
                     $plus_2 = $this->qualificationRepository->pclData(Auth::user()->id);
                     $bachelor = $this->qualificationRepository->bachelorData(Auth::user()->id);
                     $master = $this->qualificationRepository->masterData(Auth::user()->id);
-
-                    return view('student::pages.specific',compact('slc_data','plus_2','bachelor','master'));
+                    $slc_program = $this->programRepository->getAll()->where('level_id','=',4);
+                    $plus_2_program = $this->programRepository->getAll()->where('level_id','=',3);
+                    $bachelor_program = $this->programRepository->getAll()->where('level_id','=',2);
+                    $master_program = $this->programRepository->getAll()->where('level_id','=',1);
+                    return view('student::pages.specific',compact('slc_data','plus_2','bachelor','master','slc_program',
+                                                                            'plus_2_program','bachelor_program','master_program'));
                     break;
                 default :
                     return view('student::pages.404');
@@ -123,9 +137,62 @@ class ProfileController extends BaseController
 
 
 
+    public function applyforExam(){
+        $profile = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        if ($profile){
+            if ($profile['level'] === 0 || $profile['level'] === null){
+                session()->flash('success', 'Please fill your qualification details');
+                return redirect()->to('student/dashboard/student/specific');
+            }else{
+                $specific_program=$this->getAllLicencePassedRecord($profile['id']);
+                $level_related_program = $this->programRepository->getAll()->where('level_id','=', $specific_program['level_id']);
+                return view('student::pages.apply-exam', compact('level_related_program','specific_program'));
+
+            }
+        }else{
+            session()->flash('success', 'Please setup your profile details');
+            return redirect()->to('student/dashboard/student/personal');
+        }
+    }
+
+
+    public function getAllLicencePassedRecord($id){
+        $exam = $this->examProcessingRepository->getAll()->where('profile_id','=',$id);
+        if ($exam->isEmpty()){
+            $qualification = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+            $specific_program = $this->programRepository->findById($qualification['program_id']);
+            return $specific_program;
+
+        }else{
+            dd("false");
+            return false;
+        }
+    }
 
 
 
+    public function applyExam(Request $request){
+        $data= $request->all();
+        $profile_id = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        $data["profile_id"] = $profile_id['id'];
+        $data["state"] = 'computer_operator';
+        $data["status"] = 'pending';
+         $level = $this->programRepository->findById($data['program_id']);
+        $data['level_id'] = $level['level_id'];
+        $data['voucher_image'] = $data['voucher'];
+        try {
+            $exam = $this->examProcessingRepository->create($data);
+            if ($exam == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success','Exam Processing has been started');
+            return redirect()->to('student/dashboard');
+        } catch (\Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
 
 
 

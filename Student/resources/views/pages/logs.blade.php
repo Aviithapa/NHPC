@@ -34,7 +34,7 @@
                                     <td>Remarks</td>
                                     </thead>
                                     <tbody>
-                                    @if($logs === null)
+                                    @if($logs->isEmpty())
                                         <tr>
                                             <td> Application is under Reviewing</td>
                                         </tr>

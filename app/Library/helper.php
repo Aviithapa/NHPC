@@ -101,12 +101,24 @@ if(!function_exists('imageNotFound')) {
                 return 'https://via.placeholder.com/350x150';
                 break;
             default:
-                return 'https://via.placeholder.com/350x150';
+                return 'dist/img/avatar.png';
             //return asset('images/default.png');
 
         }
     }
 }
+
+if (!function_exists('getProfileImage')){
+    function getProfileImage(){
+        $data = \Student\Models\Profile::all()->where('user_id','=', Auth::user()->id)->first();
+        if (!$data){
+           return asset('dist/img/avatar.png');
+        }else{
+            return $data->getProfileImage();
+        }
+    }
+}
+
 
 if(!function_exists('profileImage')) {
     /**
@@ -117,5 +129,20 @@ if(!function_exists('profileImage')) {
     {
             return  \Student\Models\Profile::getProfileImage();
 
+    }
+}
+if(!function_exists('levelExits')) {
+    /**
+     * @param null $type
+     * @return string
+     */
+    function levelExits()
+    {
+        $data = \Student\Models\Profile::all()->where('user_id','=', Auth::user()->id)->first();
+        if ($data['level'] === 0){
+            return false;
+        }else{
+            return true;
+        }
     }
 }

@@ -90,13 +90,13 @@
                     <!-- User Account  -->
                     <li class="dropdown user user-menu p-ph-res">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{asset('dist/img/img1.jpg')}}" class="user-image" alt="User Image" />
+                            <img src="{{getProfileImage()}}" class="user-image" alt="User Image" />
                             <span class="hidden-xs">{{ Auth::user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
                                 <div class="pull-left user-img">
-                                    <img src="{{asset('dist/img/avatar.png')}}" class="img-responsive img-circle" alt="User" />
+                                    <img src="{{getProfileImage()}}" class="img-responsive img-circle" alt="User" />
                                 </div>
                                 <p class="text-left">
                                     {{ Auth::user()->name }} <small style="font-size: 8px;">{{ Auth::user()->email }}</small>

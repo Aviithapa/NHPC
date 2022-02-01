@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4b7a9efbad389225bb79d8158873df6",
+    "content-hash": "7c998be222d18dcc4a5e67ef779da0e0",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1059,6 +1059,71 @@
                 "source": "https://github.com/kkszymanowski/traitor"
             },
             "time": "2018-04-19T12:24:36+00:00"
+        },
+        {
+            "name": "krishnahimself/laravel-ad-to-bs-converter",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/krishnahimself/laravel-ad-to-bs-converter.git",
+                "reference": "33ea994084c730e4e21f8f1b3d1d5199da59674e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/krishnahimself/laravel-ad-to-bs-converter/zipball/33ea994084c730e4e21f8f1b3d1d5199da59674e",
+                "reference": "33ea994084c730e4e21f8f1b3d1d5199da59674e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^8.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^9.3",
+                "vimeo/psalm": "^3.11"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Krishnahimself\\DateConverter\\DateConverterServiceProvider"
+                    ],
+                    "aliases": {
+                        "DateConverter": "Krishnahimself\\DateConverter\\DateConverterFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Krishnahimself\\DateConverter\\": "src",
+                    "Krishnahimself\\DateConverter\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Krishna Bhandari",
+                    "email": "krishnabhandariweb@gmail.com",
+                    "homepage": "http://krishna-bhandari.com.np",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Convert English date to Nepali date.",
+            "homepage": "https://github.com/krishnahimself/laravel-ad-to-bs-converter",
+            "keywords": [
+                "krishnahimself",
+                "laravel-ad-to-bs-converter"
+            ],
+            "support": {
+                "issues": "https://github.com/krishnahimself/laravel-ad-to-bs-converter/issues",
+                "source": "https://github.com/krishnahimself/laravel-ad-to-bs-converter/tree/1.0.1"
+            },
+            "time": "2021-10-17T21:33:43+00:00"
         },
         {
             "name": "laravel/framework",

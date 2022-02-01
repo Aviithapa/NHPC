@@ -33,9 +33,9 @@
                                  <label>Program Name</label>
                                  <select class="form-control" name="program_id" required>
                                      <option value=""></option>
-                                     <option value="1">Male</option>
-                                     <option value="2">Female</option>
-                                     <option value="3">Other</option>
+                                     @foreach($slc_program as $program)
+                                     <option value="{{$program->id}}">{{$program->name}}</option>
+                                     @endforeach
                                  </select>
                              </fieldset>
                          </div>

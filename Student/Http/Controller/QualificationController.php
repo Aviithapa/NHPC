@@ -39,8 +39,7 @@ class QualificationController extends BaseController
         $data['transcript_image'] = $data['transcript'];
         $data['provisional_image'] = $data['provisional'];
         $data['character_image'] = $data['character'];
-        $profiles['registration_level'] =$data['level'];
-
+        $profiles['level'] =$data['level'];
         try {
             $qualification = $this->qualificationRepository->create($data);
             if ($qualification == false) {
@@ -64,7 +63,7 @@ class QualificationController extends BaseController
 
     public function checkLevel($profiles){
         $id=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
-        if ($id['registration_level'] < $profiles['registration_level']){
+        if ($id['level'] < $profiles['level']){
             $profiles['profile_status'] = "Reviewing";
             $profile = $this->profileRepository->update($profiles,$id['id']);
         }else{

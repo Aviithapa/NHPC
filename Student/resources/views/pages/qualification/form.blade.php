@@ -21,7 +21,7 @@
 
                     <div class="card-body">
 
-                        <h4 class="text-black">Master Information</h4>
+                        <h4 class="text-black">Additional Education Information</h4>
                         <form method="POST" action="{{url('student/dashboard/student/collage/data')}}">
                             @csrf
 

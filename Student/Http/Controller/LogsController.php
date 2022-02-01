@@ -11,9 +11,10 @@ use Student\Modules\Profile\Repositories\ProfileRepository;
 
 class LogsController extends BaseController
 {
-    private $profileLogsRepository, $examProcessingRepository,$log,$profileRepository;
-    public function __construct( ProfileLogsRepository $profileLogsRepository, ExamProcessingRepository $examProcessingRepository,
-ProfileRepository $profileRepository)
+    private $profileLogsRepository, $examProcessingRepository,$logs,$profileRepository;
+    public function __construct( ProfileLogsRepository $profileLogsRepository,
+                                 ExamProcessingRepository $examProcessingRepository,
+                                 ProfileRepository $profileRepository)
     {
         $this->profileLogsRepository=$profileLogsRepository;
         $this->examProcessingRepository=$examProcessingRepository;
@@ -24,12 +25,16 @@ ProfileRepository $profileRepository)
 
     public function index($status){
         $data= $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
-        $profile_id = $data['id'];
-        if ($status === "profile"){
-            $logs = $this->profileLogsRepository->getAll()->where('profile_id','=',$profile_id);
+        if ($data) {
+            $profile_id = $data['id'];
+            if ($status === "profile") {
+                $logs = $this->profileLogsRepository->getAll()->where('profile_id', '=', $profile_id);
 
-        }elseif ($status === "exam"){
-            $logs = $this->examProcessingRepository->getAll()->where('profile_id','=',Auth::user()->id);
+            } elseif ($status === "exam") {
+                $logs = $this->examProcessingRepository->getAll()->where('profile_id', '=', Auth::user()->id);
+            }
+        }else{
+            $logs = "";
         }
         return view('student::pages.logs',compact('logs'));
 
