@@ -1,18 +1,15 @@
-@extends('examCommittee::layout.app')
+@extends('council::layout.app')
 
 @section('content')
 
 
-
-
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header sty-one">
-            <h1>Exam Committee Dashboard</h1>
+            <h1>Council Dashboard</h1>
             <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
-                <li><i class="fa fa-angle-right"></i> Subject Committee Dashboard</li>
+                <li><i class="fa fa-angle-right"></i> Council Dashboard</li>
             </ol>
         </div>
 
@@ -24,10 +21,8 @@
                     <div class="box box-info">
                         <div class="row">
                             <div class="col-lg-12 m-b-3 ml-4">
-                                <a href="{{route("examCommittee.admit.card.generate", ['status'=> 'progress','current_state' => 'exam_committee'])}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
-                                    Generate Admit Cards</a>
-                                <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal'><span class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
-                                    Uploads Results</span> </a>
+                                <a href="{{route("council.move.to.darta.book")}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
+                                    Move to Dartabook</a>
                             </div>
                         </div>
                         <!-- /.box-header -->
@@ -44,7 +39,7 @@
                                     <td>Program Name</td>
                                     <td>Level</td>
                                     <td>Photo</td>
-                                    <td>Action</td>
+                                    <td>Result Status</td>
                                     </thead>
                                     <tbody>
                                     @if($data === null)
@@ -60,12 +55,12 @@
                                                 <td>{{$exam->getFirstName()}}</td>
                                                 <td>{{$exam->getMiddleName()}}</td>
                                                 <td>{{$exam->getLastName()}}</td>
-                                                <td>Symbol Number</td>
+                                                <td>{{$exam->getSymbolNumber()}}</td>
                                                 <td>{{$exam->getGender()}}</td>
                                                 <td>{{$exam->getProgramName()}}</td>
                                                 <td>{{$exam->getLevelName()}}</td>
                                                 <td><img src="{{$exam->getProfileImage()}}" src="Student Profile image" height="100" width="100"/></td>
-                                                <td> <a href="{{route("examCommittee.view.admit.card",['id' =>$exam->id])}}"><span class="label label-success">View</span></a></td>
+                                                <td>{{$exam->getPassedStatus}}</td>
                                             </tr>
                                         @endforeach
                                     @endif
@@ -94,10 +89,10 @@
                         @csrf
                         <div class="form-group">
                             <div class="col-md-12">
-                                    <div class="custom-file text-left">
-                                        <input type="file" name="file" class="custom-file-input" id="customFile">
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
+                                <div class="custom-file text-left">
+                                    <input type="file" name="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -115,6 +110,7 @@
     </div>
     <!-- /.content -->
     </div>
+
 
 
 

@@ -4,6 +4,7 @@
 namespace App\Modules\Backend\Admin\Level\Repositories;
 
 
+use App\Models\Admin\Level;
 use App\Models\Auth\User;
 use Illuminate\Support\Facades\Log;
 
@@ -24,7 +25,7 @@ class EloquentLevelRepository implements LevelRepository
 
     public function getModel()
     {
-        return new User();
+        return new Level();
     }
 
     public function getAll()

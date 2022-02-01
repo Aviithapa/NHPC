@@ -6,6 +6,8 @@ namespace ExamCommittee\Http\Controller;
 
 use App\Exports\ResultExport;
 use App\Imports\ResultImport;
+use App\Models\AdmitCard\AdmitCard;
+use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
@@ -69,14 +71,19 @@ class ExamCommitteeController extends BaseController
             return redirect()->back()->withInput();
         }else {
             $i = 1;
+            $index = ExamProcessing::orderBy('darta_number', 'desc')->first();
+            $darta_number = $index['darta_number'];
+
             foreach ($users as $user) {
                 $index = $i++;
+                $darta = ++$darta_number;
                 $data['profile_id'] = $user['profile_id'];
                 $data['exam_processing_id'] = $user['id'];
                 $data['symbol_number'] = $this->generateSymbolNumber($index);
                 $data['created_by'] = Auth::user()->id;
                 $this->admitCardRepository->create($data);
                 $exam_data['is_admit_card_generate'] = 'yes';
+                $exam_data['darta_number'] = $darta;
                 $this->examProcessingRepository->update($exam_data, $user['id']);
             }
             session()->flash('success', 'Admit Card Successfully Generated');
@@ -118,13 +125,16 @@ class ExamCommitteeController extends BaseController
 
     public function FileForwardCouncil(){
         $passed_list = $this->examResultRepository->getAll()->where('status','=','pass');
+
         foreach ($passed_list as $pass){
-            $admit_card = $this->admitCardRepository->getAll()->where('symbol_number','=',$pass['symbol_number']);
-              foreach ($admit_card as $admit){
+            $admit_card = AdmitCard::all()->where('symbol_number','=', $pass['symbol_number']);
+            foreach ($admit_card as $admit){
                    $data['state'] = 'council';
                    $examProcesing = $this->examProcessingRepository->update($data,$admit['exam_processing_id']);
-              }
+            }
         }
+        session()->flash('success', 'Passed Student has been forwarded to council');
+        return redirect()->back()->withInput();
     }
 
     /**

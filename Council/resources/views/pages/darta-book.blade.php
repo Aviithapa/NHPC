@@ -1,0 +1,108 @@
+@extends('council::layout.app')
+
+@section('content')
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header sty-one">
+            <h1>Council Dashboard</h1>
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><i class="fa fa-angle-right"></i> Darta Book</li>
+            </ol>
+        </div>
+
+        <!-- Main content -->
+        <div class="content">
+
+            <div class="row">
+                <div class="col-lg-12 m-b-3">
+                    <div class="box box-info">
+                        <div class="box-header with-border p-t-1">
+                            <h3 class="box-title text-black">Darta Book</h3>
+                            <div class="pull-right">
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="data-table" class="table no-margin" style=" font-size: 14px ;">
+                                    <thead style=" font-size: 14px ; font-weight: bold;">
+                                    <td>S.N.</td>
+                                    <td>Level</td>
+                                    <td>Program</td>
+                                    <td>Total</td>
+                                    <td>Darta Number</td>
+                                    <td>Action</td>
+                                    </thead>
+                                    <tbody>
+
+                                    @foreach($programs as $key => $program)
+                                        <tr>
+                                            <td>{{$key +1}}</td>
+                                            <td>{{$program->getLevelName()}}</td>
+                                            <td>{{$program->code_}}</td>
+                                            <td>{{getProgramLicenceCount($program->id)}}</td>
+                                            <td>@foreach(getDartaNumber($program->id) as $darta)
+                                                             {{$darta->srn}} ,
+                                                    @endforeach
+                                              </td>
+                                            <td> <a href="{{route("applicant.darta.details",['id' =>$program->id])}}"><span class="label label-success">View</span></a></td>
+
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="practice_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upload Result </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal form-material" action="{{ route('examCommittee.import.result') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="custom-file text-left">
+                                    <input type="file" name="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.content -->
+    </div>
+
+
+
+@endsection
+
+@push('scripts')
+
+@endpush

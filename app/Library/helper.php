@@ -37,6 +37,37 @@ if (! function_exists('getApplicantCount')) {
 }
 
 
+if (! function_exists('getProgramLicenceCount')) {
+    /**
+     * Generates an asset path for the uploads.
+     * @param null $path
+     * @param null $file_name
+     * @return string
+     */
+    function getProgramLicenceCount($id)
+    {
+        $count =0;
+        $exam = \App\Models\Exam\ExamProcessing::all()->where("state",'=' ,'council');
+        foreach ($exam as $ex)
+            if ($ex['program_id'] === $id)
+                  $count++;
+        return $count;
+    }
+}
+if (! function_exists('getDartaNumber')) {
+    /**
+     * Generates an asset path for the uploads.
+     * @param null $path
+     * @param null $file_name
+     * @return string
+     */
+    function getDartaNumber($id)
+    {
+        $exam = \App\Models\Certificate\Certificate::all()->where("program_id",'=' ,$id);
+        return $exam;
+    }
+}
+
 if (! function_exists('getExamApplicantList')) {
     /**
      * Generates an asset path for the uploads.

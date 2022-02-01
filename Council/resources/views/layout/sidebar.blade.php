@@ -24,6 +24,17 @@
 
                 </a>
             </li>
+            <li class="">
+                <a href="{{route("council.pass.list")}}">
+                    <i class="icon-graduation"></i> <span>View all Passed List</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="{{route('council.darta.book')}}">
+                    <i class="icon-book-open"></i> <span>Darta Book</span>
+
+                </a>
+            </li>
 
         </ul>
     </div>

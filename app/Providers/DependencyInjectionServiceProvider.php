@@ -10,6 +10,8 @@ use App\Modules\Backend\Admin\Program\Repositories\EloquentProgramRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
 use App\Modules\Backend\AdmitCard\Repositories\EloquentAdmitCardRepository;
+use App\Modules\Backend\Certificate\Repositories\CertificateRepository;
+use App\Modules\Backend\Certificate\Repositories\EloquentCertificateRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\EloquentExamRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\EloquentExamProcessingRepository;
@@ -117,6 +119,11 @@ class DependencyInjectionServiceProvider extends ServiceProvider
         $this->app->bind(
             ExamResultRepository::class,
             EloquentExamResultRepository::class,
+        );
+
+        $this->app->bind(
+            CertificateRepository::class,
+            EloquentCertificateRepository::class,
         );
     }
 }

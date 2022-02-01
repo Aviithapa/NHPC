@@ -4,6 +4,7 @@
 namespace App\Modules\Backend\Admin\Program\Repositories;
 
 
+use App\Models\Admin\Program;
 use App\Models\Auth\User;
 use Illuminate\Support\Facades\Log;
 
@@ -24,7 +25,7 @@ class EloquentProgramRepository  implements ProgramRepository
 
     public function getModel()
     {
-        return new User();
+        return new Program();
     }
 
     public function getAll()
