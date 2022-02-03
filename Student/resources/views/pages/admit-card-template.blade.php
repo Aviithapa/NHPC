@@ -12,31 +12,34 @@
                 <li><i class="fa fa-angle-right"></i> Student Dashboard</li>
             </ol>
         </div>
+        <div class="button ml-5 mt-2">
+            <button onclick="printDiv()" class="btn btn-primary">Print Admit Card</button>
+        </div>
 
         <!-- Main content -->
-        <div class="content">
+        <div class="content" id="printContent">
 
             <div class="row">
                 <div class="col-lg-12 m-b-3">
                     <div class="box box-info">
                         <div class="box-header with-border p-t-1">
                                 <div class="col-lg-4">
-                                <img class="img-responsive" width="100" height="100" style="left: 0%; position: absolute; padding-left: 3%; padding-top:-10px" src="https://nhpc.gov.np/beta//assets/img/nhpc_logo.jpg">
+                                <img class="img-responsive" width="100" height="100" style="left: 0%; position: absolute; padding-left: 3%; padding-top:-10px; " src="https://nhpc.gov.np/beta//assets/img/nhpc_logo.jpg">
                                 </div>
-                                <div class="col-lg-8 text-center align-content-center" style="  margin: auto;width: 60%; line-height: 1.6;">
+                                <div class="col-lg-8 text-center align-content-center" style=" text-align: center; margin: auto;width: 60%; line-height: 0.4;">
                                 <h1 class="box-title text-black">नेपाल स्वास्थ्य व्यवसायी परिषद</h1><br>
                                 <h3 class="box-title text-black">स्वास्थ्य व्यवसायी नाम दर्ता प्रमाण–पत्र परीक्षा</h3><br>
-                                <h4 class="box-title text-black">२०७८ <br>
-                                    प्रवेश पत्र</h4>
+                                <h4 class="box-title text-black">२०७८</h4>
+                                    <h4 class="box-title text-black">प्रवेश पत्र</h4>
                                 </div>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body container mt-3">
                             <span>परीक्षार्थीको लागि</span>
-                            <div class="student-admit-card-body mt-3" style="border: 1px solid #000; padding: 20px;">
+                            <div class="student-admit-card-body mt-3" style="border: 1px solid #000; padding: 20px;height: 500px;">
                                    <div class="row">
                                        <div class="col-lg-8">
-                                           <div style="width:800px;">
+                                           <div style="width:60%; float: left;">
                                                    <img src="https://nhpc.gov.np/beta/uploads/qrcode/Name:Amit T-Qrcode55.png">
                                                    <p>रोल नम्बर<span style="padding-left:1em;">:
                                                            @if($admit_card)
@@ -62,7 +65,7 @@
                                                </span></div>
                                        </div>
                                        <div class="col-lg-4">
-                                           <div style="">
+                                           <div style="width: 40%; float: left;">
                                                <div style="display:flex;">
                                                    <img width="180px;" height="180px; object-fit: cover; object-position: 50% 100%;" src="{{$profile->getProfileImage()}}">
                                                    <div style="border-style:dashed; border-width: 1px;height: 170px;width: 170px; object-position: 50% 100%; padding:10px; line-height:1.5">
@@ -188,3 +191,18 @@
 
 
 @endsection
+
+@push('scripts')
+    <script>
+        function printDiv() {
+            var divContents = document.getElementById("printContent").innerHTML;
+            var a = window.open('', '', 'height=800, width=800');
+            a.document.write('<html>');
+            a.document.write('<body>');
+            a.document.write(divContents);
+            a.document.write('</body></html>');
+            a.document.close();
+            a.print();
+        }
+    </script>
+    @endpush

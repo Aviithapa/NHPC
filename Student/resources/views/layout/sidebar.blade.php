@@ -39,7 +39,7 @@
             @endif
             @if(admitCard())
             <li class="">
-                <a href="{{route('admit.index')}}">
+                <a href="{{route('admit.card.template')}}">
                     <i class="icon-book-open"></i> <span>Admit Card</span>
                 </a>
             </li>
