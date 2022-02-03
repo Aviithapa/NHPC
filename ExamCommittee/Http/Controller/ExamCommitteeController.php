@@ -22,6 +22,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Operator\Modules\Framework\Request;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
+use function Livewire\str;
 
 class ExamCommitteeController extends BaseController
 {
@@ -79,7 +80,7 @@ class ExamCommitteeController extends BaseController
                 $darta = ++$darta_number;
                 $data['profile_id'] = $user['profile_id'];
                 $data['exam_processing_id'] = $user['id'];
-                $data['symbol_number'] = $this->generateSymbolNumber($index);
+                $data['symbol_number'] = $this->generateSymbolNumber($index,$user['level_id'],$user['program_id']);
                 $data['created_by'] = Auth::user()->id;
                 $this->admitCardRepository->create($data);
                 $exam_data['is_admit_card_generate'] = 'yes';
@@ -91,12 +92,14 @@ class ExamCommitteeController extends BaseController
         }
     }
 
-    public function generateSymbolNumber($index){
+    public function generateSymbolNumber($index,$level,$program){
         $now = Carbon::now();
         $year = $now->year;
         $year = substr( $year, -2);
         $month = $now->format('m');
-        $num =$year.$month.str_pad($index, 3, "0", STR_PAD_LEFT);
+        $level_id =str_pad($level,2,"0",STR_PAD_LEFT);
+        $program_id =str_pad($program,2,"0",STR_PAD_LEFT);
+        $num =$year.$month.$level_id.$program_id.str_pad($index, 3, "0", STR_PAD_LEFT);
         return $num;
     }
 

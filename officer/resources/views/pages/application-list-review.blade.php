@@ -50,11 +50,7 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs profile-tab table-responsive" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-expanded="true">Details Information</a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-expanded="false">Documents</a> </li>
-                                @if($profile_processing->current_state === "officer")
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
-                                @endif
+
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#review" role="tab">Review Details</a> </li>
                             </ul>
                             <!-- Tab panes -->
@@ -146,7 +142,49 @@
                                     </div>
                                 </div>
                                 <!--second tab-->
-                                <div class="tab-pane " id="education" role="tabpanel" aria-expanded="true">
+                                <div class="tab-pane" id="review" role="tabpanel">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                        <td>State</td>
+                                                        <td>Status</td>
+                                                        <td>Remarks</td>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($profile_logs as $profile_log)
+                                                            <tr>
+                                                                <td>{{$profile_log->state}}</td>
+                                                                <td>{{$profile_log->status}}</td>
+                                                                <td>{{$profile_log->remarks}}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main row -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="info-box">
+                        <div class="card tab-style1">
+                            <ul class="nav nav-tabs profile-tab table-responsive" role="tablist">
+                                <li class="nav-item active"> <a class="nav-link" data-toggle="tab" href="#education" role="tab" aria-expanded="true">Qualification</a> </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="education" role="tabpanel" aria-expanded="true">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-lg-12">
@@ -176,7 +214,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="profile" role="tabpanel" aria-expanded="false">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="info-box">
+                        <div class="card tab-style1">
+                            <ul class="nav nav-tabs profile-tab table-responsive" role="tablist">
+                                <li class="nav-item active"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-expanded="true">Documents</a> </li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="profile" role="tabpanel" aria-expanded="false">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="table-responsive">
@@ -245,7 +298,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="settings" role="tabpanel">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if($profile_processing->current_state === "officer")
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="info-box">
+                        <div class="card tab-style1">
+                            <ul class="nav nav-tabs profile-tab table-responsive" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#settings" role="tab" aria-expanded="true">Settings</a> </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="settings" role="tabpanel">
                                     <div class="card-body">
                                         <form class="form-horizontal form-material" action="{{route("officer.applicant.profile.list.status")}}" method="POST">
                                             @csrf
@@ -261,9 +330,9 @@
                                                 <label class="col-sm-12">Select Status</label>
                                                 <div class="col-sm-12">
                                                     <select class="form-control form-control-line" name="profile_status" required>
-                                                        <option >{{$data->profile_status}}</option>
+                                                        <option disabled>{{$data->profile_status}}</option>
                                                         <option value="Reviewing">Reviewing</option>
-                                                        <option value="Verified">Verified</option>
+                                                        <option value="Reviewing">Verified</option>
                                                         <option value="Rejected">Rejected</option>
                                                     </select>
                                                 </div>
@@ -276,39 +345,14 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="review" role="tabpanel">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                        <td>State</td>
-                                                        <td>Status</td>
-                                                        <td>Remarks</td>
-                                                        </thead>
-                                                        <tbody>
-                                                        @foreach($profile_logs as $profile_log)
-                                                            <tr>
-                                                                <td>{{$profile_log->state}}</td>
-                                                                <td>{{$profile_log->status}}</td>
-                                                                <td>{{$profile_log->remarks}}</td>
-                                                            </tr>
-                                                        @endforeach
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
 
-            <!-- Main row -->
 
             <div class="row">
                 <div class="col-lg-12">
@@ -373,6 +417,8 @@
                     </div>
                 </div>
             </div>
+
+
         </div>
         <!-- /.content -->
         <!-- /.content -->

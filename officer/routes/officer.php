@@ -4,7 +4,7 @@ Route::get('/',  function() {
     return view('officer::pages.dashboard');})->middleware(['auth'])->name('officer.dashboard');
 
 
-Route::get('/officer/applicant-list/{status}',[\officer\Http\Controller\OfficerController::class,'exam'])->middleware(['auth'])->name('officer.applicant.list');
+Route::get('/officer/applicant-list/{status}/{state}',[\officer\Http\Controller\OfficerController::class,'exam'])->middleware(['auth'])->name('officer.applicant.list');
 Route::get('/officer/applicant-profile-list/{status}/{current_state}',[\officer\Http\Controller\OfficerController::class,'profile'])->middleware(['auth'])->name('officer.applicant.profile.list');
 Route::get('/officer/applicant-list-view/{id}',[\officer\Http\Controller\OfficerController::class,'edit'])->middleware(['auth'])->name('officer.applicant.list.review');
 Route::post('/officer/applicant-profile-list',[\officer\Http\Controller\OfficerController::class,'status'])->middleware(['auth'])->name('officer.applicant.profile.list.status');

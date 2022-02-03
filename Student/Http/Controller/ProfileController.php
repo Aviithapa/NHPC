@@ -4,6 +4,7 @@
 namespace Student\Http\Controller;
 
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
+use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -13,22 +14,25 @@ use Student\Modules\Qualification\Repositories\QualificationRepository;
 
 class ProfileController extends BaseController
 {
-   private $profileRepository,$log, $qualificationRepository, $programRepository,$examProcessingRepository;
+   private $profileRepository,$log, $qualificationRepository, $programRepository,$examProcessingRepository,$admitCardRepository;
     public function __construct(Log $log, ProfileRepository $profileRepository,
                                 QualificationRepository $qualificationRepository,
                                 ProgramRepository $programRepository,
-                                ExamProcessingRepository $examProcessingRepository)
+                                ExamProcessingRepository $examProcessingRepository,
+                                AdmitCardRepository $admitCardRepository)
     {
         $this->profileRepository=$profileRepository;
         $this->qualificationRepository=$qualificationRepository;
         $this->programRepository=$programRepository;
         $this->examProcessingRepository=$examProcessingRepository;
+        $this->admitCardRepository=$admitCardRepository;
         $this->log=$log;
         parent::__construct();
     }
 
 
     public function dashboard(){
+
         return view('student::pages.dashboard');
     }
 
@@ -145,9 +149,13 @@ class ProfileController extends BaseController
                 return redirect()->to('student/dashboard/student/specific');
             }else{
                 $specific_program=$this->getAllLicencePassedRecord($profile['id']);
-                $level_related_program = $this->programRepository->getAll()->where('level_id','=', $specific_program['level_id']);
-                return view('student::pages.apply-exam', compact('level_related_program','specific_program'));
-
+                if($specific_program) {
+                    $level_related_program = $this->programRepository->getAll()->where('level_id', '=', $specific_program['level_id']);
+                    return view('student::pages.apply-exam', compact('level_related_program', 'specific_program'));
+                }else{
+                    session()->flash('success', 'You have already enrolled in licence Exam ');
+                    return redirect()->back();
+                }
             }
         }else{
             session()->flash('success', 'Please setup your profile details');
@@ -164,7 +172,6 @@ class ProfileController extends BaseController
             return $specific_program;
 
         }else{
-            dd("false");
             return false;
         }
     }
@@ -192,6 +199,20 @@ class ProfileController extends BaseController
             session()->flash('danger', 'Oops! Something went wrong.');
             return redirect()->back()->withInput();
         }
+    }
+
+
+    public function admitCardTemplate()
+    {
+        $profile = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        $admit_card = $this->admitCardRepository->getAll()->where('user_id','=',$profile['id'])->first();
+        if ($admit_card != null) {
+            $exam_applied = $this->examProcessingRepository->getAll()->where('id', '=', $admit_card['exam_processing_id'])
+                ->where('profile_id', '=', $profile['id'])->first();
+        }else {
+            $exam_applied = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->first();
+        }
+        return view('student::pages.admit-card-template',compact('profile','admit_card','exam_applied'));
     }
 
 

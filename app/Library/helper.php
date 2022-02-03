@@ -146,3 +146,20 @@ if(!function_exists('levelExits')) {
         }
     }
 }
+
+if(!function_exists('admitCard')) {
+    /**
+     * @param null $type
+     * @return string
+     */
+    function admitCard()
+    {
+        $data = \Student\Models\Profile::all()->where('user_id','=', Auth::user()->id)->first();
+        $exam= \App\Models\Exam\ExamProcessing::all()->where('profile_id','=',$data['id'])->first();
+        if ($exam['is_admit_card_generate'] === 'no'){
+            return false;
+        }else{
+            return true;
+        }
+    }
+}

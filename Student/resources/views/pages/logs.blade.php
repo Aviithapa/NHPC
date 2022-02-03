@@ -32,6 +32,7 @@
                                     <td>State</td>
                                     <td>Status</td>
                                     <td>Remarks</td>
+                                    <td>Time</td>
                                     </thead>
                                     <tbody>
                                     @if($logs->isEmpty())
@@ -45,6 +46,7 @@
                                                 <td>{{$profile_log->state}}</td>
                                                 <td>{{$profile_log->status}}</td>
                                                 <td>{{$profile_log->remarks}}</td>
+                                                <td>{{$profile_log->created_at}}</td>
                                             </tr>
                                         @endforeach
                                     @endif

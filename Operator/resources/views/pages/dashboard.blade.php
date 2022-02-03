@@ -21,7 +21,7 @@
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Reviewing')}}</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Pending')}}</span>
                                 <span class="info-box-text">New Applicant Profile List</span> </div>
                         </div>
                     </div>

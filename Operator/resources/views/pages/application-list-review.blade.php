@@ -57,16 +57,8 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs profile-tab table-responsive" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-expanded="true">Details Information</a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-expanded="false">Documents</a> </li>
-                                @if($profile_processing)
-                                @if($profile_processing->current_state === "computer_operator")
-                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
-                                @endif
-                                @else
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
-                              @endif
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#review" role="tab">Review Details</a> </li>
+
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
@@ -157,7 +149,50 @@
                                     </div>
                                 </div>
                                 <!--second tab-->
-                                <div class="tab-pane " id="education" role="tabpanel" aria-expanded="true">
+                                <div class="tab-pane" id="review" role="tabpanel">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                        <td>State</td>
+                                                        <td>Status</td>
+                                                        <td>Remarks</td>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($profile_logs as $profile_log)
+                                                            <tr>
+                                                                <td>{{$profile_log->state}}</td>
+                                                                <td>{{$profile_log->status}}</td>
+                                                                <td>{{$profile_log->remarks}}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="info-box">
+                        <div class="card tab-style1">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="education" role="tabpanel" aria-expanded="true">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-lg-12">
@@ -187,7 +222,25 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="profile" role="tabpanel" aria-expanded="false">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="info-box">
+                        <div class="card tab-style1">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile" role="tab" aria-expanded="false">Documents</a> </li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="profile" role="tabpanel" aria-expanded="false">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="table-responsive">
@@ -249,7 +302,27 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="settings" role="tabpanel">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            @if($profile_processing)
+                @if($profile_processing->current_state === "computer_operator")
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="info-box">
+                        <div class="card tab-style1">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="settings" role="tabpanel">
                                     <div class="card-body">
                                         <form class="form-horizontal form-material" action="{{route("operator.applicant.profile.list.status")}}" method="POST">
                                             @csrf
@@ -267,7 +340,7 @@
                                                     <select class="form-control form-control-line" name="profile_status" required>
                                                         <option >{{$data->profile_status}}</option>
                                                         <option value="Reviewing">Reviewing</option>
-                                                        <option value="Verified">Verified</option>
+                                                        <option value="Reviewing">Verified</option>
                                                         <option value="Rejected">Rejected</option>
                                                     </select>
                                                 </div>
@@ -280,37 +353,67 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="review" role="tabpanel">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                        <td>State</td>
-                                                        <td>Status</td>
-                                                        <td>Remarks</td>
-                                                        </thead>
-                                                        <tbody>
-                                                        @foreach($profile_logs as $profile_log)
-                                                            <tr>
-                                                                <td>{{$profile_log->state}}</td>
-                                                                <td>{{$profile_log->status}}</td>
-                                                                <td>{{$profile_log->remarks}}</td>
-                                                            </tr>
-                                                        @endforeach
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            @endif
+        @else
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="info-box">
+                            <div class="card tab-style1">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs profile-tab" role="tablist">
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
+
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="settings" role="tabpanel">
+                                        <div class="card-body">
+                                            <form class="form-horizontal form-material" action="{{route("operator.applicant.profile.list.status")}}" method="POST">
+                                                @csrf
+
+                                                <input type="hidden" name="profile_id" value="{{$data->id}}">
+                                                <div class="form-group">
+                                                    <label class="col-md-12">Remarks</label>
+                                                    <div class="col-md-12">
+                                                        <textarea rows="5" name="remarks" class="form-control form-control-line"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-12">Select Status</label>
+                                                    <div class="col-sm-12">
+                                                        <select class="form-control form-control-line" name="profile_status" required>
+                                                            <option >{{$data->profile_status}}</option>
+                                                            <option value="Reviewing">Reviewing</option>
+                                                            <option value="Reviewing">Verified</option>
+                                                            <option value="Rejected">Rejected</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-12">
+                                                        <button class="btn btn-success">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                @endif
+
+
+
 
             <!-- Main row -->
 

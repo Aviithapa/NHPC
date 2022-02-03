@@ -26,8 +26,8 @@
             <li class="treeview"> <a href="#"> <i class="icon-grid"></i> <span>Applicant Profile</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
                 <ul class="treeview-menu">
                     <li class="">
-                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing'])}}">
-                            <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantCount('Reviewing')}}</span></span>
+                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'Pending'])}}">
+                            <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantCount('Pending')}}</span></span>
                         </a>
                     </li>
                     <li class="">
@@ -37,8 +37,8 @@
                     </li>
 
                     <li class="">
-                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'Verified'])}}">
-                            <i class="icon-badge"></i> <span>Verified Profile List <span class="badge badge-pill badge-danger">{{getApplicantCount('Verified')}}</span></span>
+                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing'])}}">
+                            <i class="icon-badge"></i> <span>Operator Verified Profile List <span class="badge badge-pill badge-danger">{{getApplicantCount('Progress')}}</span></span>
                         </a>
                     </li>
                 </ul>
@@ -52,7 +52,7 @@
                     </li>
                     <li class="">
                         <a href="{{route("operator.applicant.list",['status'=> 'progress'])}}">
-                            <i class="icon-book-open"></i> <span>Exam Applied Verified List <span class="badge badge-pill badge-success">{{getExamApplicantList('progress')}}</span></span>
+                            <i class="icon-book-open"></i> <span>Exam Applied Progress List <span class="badge badge-pill badge-success">{{getExamApplicantList('progress')}}</span></span>
                         </a>
                     </li>
 

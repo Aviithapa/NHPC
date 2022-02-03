@@ -55,28 +55,37 @@ class OfficerController  extends BaseController
 
     public function profile($status, $current_state)
     {
-        $users = $this->profileProcessingRepository->getAll()->where('current_state', '=',$current_state)
-            ->where('status','=',$status);
-        if ($users->isEmpty())
-            $profile = null;
-        else {
-            foreach ($users as $user) {
-                $profile[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id']);
+        if (Auth::user()->mainRole()->name === 'officer') {
+            $users = $this->profileProcessingRepository->getAll()->where('current_state', '=', $current_state)
+                ->where('status', '=', $status);
+            if ($users->isEmpty())
+                $profile = null;
+            else {
+                foreach ($users as $user) {
+                    $profile[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id']);
+                }
             }
-        }
-        return $this->view('pages.applicant-profile-list',$profile);
+            return $this->view('pages.applicant-profile-list', $profile);
+        }else {
+                return redirect()->route('login');
+            }
     }
 
-    public function exam($status)
+    public function exam($status,$state)
     {
-        $users = $this->examProcessingRepository->getAll()->where('status' ,'=',$status)
-        ->where('state','=','officer');
+        if (Auth::user()->mainRole()->name === 'officer') {
+            $users = $this->examProcessingRepository->getAll()->where('status' ,'=',$status)
+        ->where('state','=',$state);
         return $this->view('pages.application-list',$users);
+        }else {
+            return redirect()->route('login');
+        }
     }
 
     public function edit($id)
     {
-        $data = $this->profileRepository->findById($id);
+        if (Auth::user()->mainRole()->name === 'officer') {
+            $data = $this->profileRepository->findById($id);
         $user_id=$data['user_id'];
         $user_data = $this->userRepository->findById($user_id);
         $qualification = $this->qualificationRepository->getAll()->where('user_id','=',$data['user_id']);
@@ -84,26 +93,31 @@ class OfficerController  extends BaseController
         $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id','=',$id)->first();
         $exams = $this->examProcessingRepository->getAll()->where('profile_id','=',$id);
         return view('officer::pages.application-list-review',compact('data','user_data','qualification','profile_logs','profile_processing','exams'));
+        }else {
+            return redirect()->route('login');
+        }
+
     }
 
     public function status(Request $request)
     {
-        $data = $request->all();
+        if (Auth::user()->mainRole()->name === 'officer') {
+            $data = $request->all();
         try {
             $id=$data['profile_id'];
             $data['created_by'] = Auth::user()->id;
             $data['state'] =  'officer';
-
-            if ( $data['profile_status']=== "Verified"){
-                $data['status'] =  'accepted';
+            if ( $data['profile_status']=== "Verified" || $data['profile_status'] === "Reviewing"){
+                $data['status'] =  'Reviewing';
                 $data['remarks'] =  'Profile is forward to Registrar';
                 $data['review_status'] =  'Successful';
                 $this->profileLog($data);
-                $this->profileProcessing($id);
+                $this->profileProcessing($id,'progress');
             }elseif($data['profile_status']=== "Rejected"){
                 $data['status'] =  'rejected';
                 $data['review_status'] =  'Rejected';
                 $this->profileLog($data);
+                $this->profileProcessing($id, 'rejected');
             }
             $profile = $this->profileRepository->update($data,$id);
             if ($profile == false) {
@@ -117,11 +131,15 @@ class OfficerController  extends BaseController
             session()->flash('danger', 'Oops! Something went wrong.');
             return redirect()->back()->withInput();
         }
+        }else {
+             return redirect()->route('login');
+        }
 
-    }
 
-    public function profileLog( array  $data ){
-        $data['profile_id'] = $data['user_id'];
+}
+
+    public function profileLog($data){
+        $data['status'] ='progress';
         $logs = $this->profileLogsRepository->create($data);
         if($logs == false)
             return false;
@@ -129,10 +147,15 @@ class OfficerController  extends BaseController
 
     }
 
-    public function profileProcessing( $id ){
+    public function profileProcessing( $id , $status){
         $profileProcessing['profile_id'] = $id;
-        $profileProcessing['current_state'] = "registrar";
-        $profileProcessing['status'] = "progress";
+        if ($status === 'progress') {
+            $profileProcessing['current_state'] = "registrar";
+            $profileProcessing['status'] = "progress";
+        }else{
+            $profileProcessing['current_state'] = "officer";
+            $profileProcessing['status'] = "rejected";
+        }
         $id= $this->profileProcessingRepository->getAll()->where('profile_id' ,'=',$id)->first();
         $profileProcessings = $this->profileProcessingRepository->update($profileProcessing,$id['id']);
         if($profileProcessings == false)
@@ -143,46 +166,53 @@ class OfficerController  extends BaseController
 
 
     public function RejectExamProcessing(Request $request){
-        $data= $request->all();
-        $id = $data['id'];
-        $data['status'] = 'rejected';
-        $data['state'] = 'computer_operator';
-        try{
-        $exam_processing = $this->examProcessingRepository->update($data,$id);
-            $profile_id=$exam_processing['profile_id'];
-            $this->ExamProcessingLog($data, $id,$profile_id);
-        if ($exam_processing == false) {
-            session()->flash('danger', 'Oops! Something went wrong.');
-            return redirect()->back()->withInput();
-        }
-        session()->flash('success','Exam Application have been Rejected');
-        return redirect()->back();
+        if (Auth::user()->mainRole()->name === 'officer') {
+            $data = $request->all();
+            $id = $data['id'];
+            $data['status'] = 'rejected';
+            $data['state'] = 'computer_operator';
+            try {
+                $exam_processing = $this->examProcessingRepository->update($data, $id);
+                $profile_id = $exam_processing['profile_id'];
+                $this->ExamProcessingLog($data, $id, $profile_id);
+                if ($exam_processing == false) {
+                    session()->flash('danger', 'Oops! Something went wrong.');
+                    return redirect()->back()->withInput();
+                }
+                session()->flash('success', 'Exam Application have been Rejected');
+                return redirect()->back();
 
             } catch (\Exception $e) {
-        session()->flash('danger', 'Oops! Something went wrong.');
-        return redirect()->back()->withInput();
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+        }else{
+            return redirect()->route('login');
         }
     }
 
     public function AcceptExamProcessing($id){
-        $data['status'] = 'accepted';
-        $data['state'] = 'registrar';
-        try {
-            $exam_processing = $this->examProcessingRepository->update($data,$id);
-            $profile_id=$exam_processing['profile_id'];
-            $this->ExamProcessingLog($data, $id,$profile_id);
-            if ($exam_processing == false) {
-                session()->flash('danger', 'Oops! Something went wrong.');
-                return redirect()->back()->withInput();
+            if (Auth::user()->mainRole()->name === 'officer') {
+                $data['status'] = 'progress';
+                $data['state'] = 'registrar';
+                try {
+                    $exam_processing = $this->examProcessingRepository->update($data, $id);
+                    $profile_id = $exam_processing['profile_id'];
+                    $this->ExamProcessingLog($data, $id, $profile_id);
+                    if ($exam_processing == false) {
+                        session()->flash('danger', 'Oops! Something went wrong.');
+                        return redirect()->back()->withInput();
+                    }
+                    session()->flash('success', 'Exam Registration file has been Moved forward for further more Verification');
+                    return redirect()->back()->refresh()->withInput();
+
+                } catch (\Exception $e) {
+                    session()->flash('danger', 'Oops! Something went wrong.');
+                    return redirect()->back()->withInput();
+                }
+            }else{
+                return redirect()->route('login');
             }
-                session()->flash('success','Exam Registration file has been Moved forward for further more Verification');
-               return redirect()->back()->refresh()->withInput();
-
-        } catch (\Exception $e) {
-            session()->flash('danger', 'Oops! Something went wrong.');
-            return redirect()->back()->withInput();
-        }
-
     }
 
     public function ExamProcessingLog($data, $id,$profile_id){

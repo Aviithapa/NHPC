@@ -37,6 +37,13 @@
                 </a>
             </li>
             @endif
+            @if(admitCard())
+            <li class="">
+                <a href="{{route('admit.index')}}">
+                    <i class="icon-book-open"></i> <span>Admit Card</span>
+                </a>
+            </li>
+            @endif
             <li class="">
                 <a href="{{route('status.index', ['status'=> 'profile'])}}">
                     <i class="icon-book-open"></i> <span>Profile Status</span>

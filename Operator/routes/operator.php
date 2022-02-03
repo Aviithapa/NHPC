@@ -1,7 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 Route::get('/',  function() {
-    return view('operator::pages.dashboard');})->middleware(['auth'])->name('operator.dashboard');
+        if (Auth::user()->mainRole()->name === 'operator') {
+            return view('operator::pages.dashboard');
+         }else{
+        return redirect()->route('login');
+         }
+})->middleware(['auth'])->name('operator.dashboard');
 Route::get('/operator/applicant-list/{status}',[\Operator\Http\Controller\OperatorController::class,'exam'])->middleware(['auth'])->name('operator.applicant.list');
 Route::get('/operator/applicant-profile-list/{status}',[\Operator\Http\Controller\OperatorController::class,'profile'])->middleware(['auth'])->name('operator.applicant.profile.list');
 Route::post('/operator/applicant-profile-list',[\Operator\Http\Controller\OperatorController::class,'status'])->middleware(['auth'])->name('operator.applicant.profile.list.status');
