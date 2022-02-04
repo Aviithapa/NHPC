@@ -161,7 +161,6 @@ class OperatorController extends BaseController
     public function profileProcessing($id)
     {
         if (Auth::user()->mainRole()->name === 'operator') {
-
             $profileProcessing['profile_id'] = $id;
             $profileProcessing['current_state'] = "officer";
             $profileProcessing['status'] = "progress";

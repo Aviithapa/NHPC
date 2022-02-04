@@ -238,6 +238,16 @@ return [
        **/
         \Council\Providers\CouncilAppServiceProvider::class,
         \Council\Providers\CouncilRouteServiceProvider::class,
+
+        /*
+         *
+         * SuperAdmin
+         *
+         * */
+
+        \SuperAdmin\Providers\SuperAdminDependencyInjectionServiceProvider::class,
+        \SuperAdmin\Providers\SuperAdminRouteServiceProvider::class,
+        \SuperAdmin\Providers\SuperAdminServiceProvider::class,
     ],
 
     /*

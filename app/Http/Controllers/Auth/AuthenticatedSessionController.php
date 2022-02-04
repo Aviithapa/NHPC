@@ -48,6 +48,8 @@ class AuthenticatedSessionController extends Controller
                     return  redirect()->route('subjectCommittee.dashboard');
                 } else if (Auth::user()->mainRole()->name === 'exam_committee') {
                     return  redirect()->route('examCommittee.dashboard');
+                } else if (Auth::user()->mainRole()->name === 'council') {
+                    return  redirect()->route('council.dashboard');
                 }
             }
             else{

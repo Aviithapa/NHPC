@@ -1,7 +1,7 @@
 <div class="wrapper boxed-wrapper">
     <header class="main-header">
         <!-- Logo -->
-        <a href="dashboard.html" class="logo blue-bg">
+        <a href="#" class="logo blue-bg">
             <!-- mini logo for sidebar mini 50x50 pixels -->
             <span class="logo-mini"><img src="{{asset('dist/img/logo-n-blue.png')}}" alt="" /></span>
             <!-- logo for regular state and mobile devices -->
@@ -18,7 +18,7 @@
             <div class="pull-left search-box">
                 <form action="#" method="get" class="search-form">
                     <div class="input-group">
-                        <input name="search" class="form-control" placeholder="" type="text" />
+                        <input name="search" class="form-control" id="searchValue" placeholder="Search Here" type="text" />
                         <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat">
                   <i class="fa fa-search"></i>
@@ -121,3 +121,14 @@
             </div>
         </nav>
     </header>
+
+
+@push('scripts')
+  <script>
+      $("#searchValue").keyup(function () {
+
+
+      });
+
+      </script>
+@endpush

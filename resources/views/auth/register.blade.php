@@ -1,8 +1,7 @@
+@extends('web.layouts.app')
+@section('content')
 <x-guest-layout>
     <x-auth-card>
-        <x-slot name="logo">
-
-        </x-slot>
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
@@ -62,3 +61,5 @@
         </form>
     </x-auth-card>
 </x-guest-layout>
+
+    @endsection

@@ -74,7 +74,6 @@ class ExamCommitteeController extends BaseController
             $i = 1;
             $index = ExamProcessing::orderBy('darta_number', 'desc')->first();
             $darta_number = $index['darta_number'];
-
             foreach ($users as $user) {
                 $index = $i++;
                 $darta = ++$darta_number;
@@ -107,7 +106,6 @@ class ExamCommitteeController extends BaseController
     {
         $users = $this->examProcessingRepository->getAll()->where('status' ,'=',$status)
             ->where('state','=',$current_state);
-
         return $this->view('pages.application-list',$users);
     }
 

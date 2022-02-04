@@ -60,7 +60,7 @@
                                                 <td>{{$exam->getFirstName()}}</td>
                                                 <td>{{$exam->getMiddleName()}}</td>
                                                 <td>{{$exam->getLastName()}}</td>
-                                                <td>Symbol Number</td>
+                                                <td>{{symbolNumber($exam->id)}}</td>
                                                 <td>{{$exam->getGender()}}</td>
                                                 <td>{{$exam->getProgramName()}}</td>
                                                 <td>{{$exam->getLevelName()}}</td>

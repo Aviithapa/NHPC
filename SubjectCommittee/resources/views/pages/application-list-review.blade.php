@@ -34,10 +34,10 @@
                         <div class="card-body">
                             <div class="box-body">
                                 <strong><i class="fa fa-envelope margin-r-5"></i> Email address </strong>
-                                                                <p class="text-muted">{{$user_data->email}}</p>
+                                <p class="text-muted">{{$user_data->email}}</p>
                                 <hr>
                                 <strong><i class="fa fa-phone margin-r-5"></i> Phone</strong>
-                                                                <p>{{$user_data->phone_number}} </p>
+                                <p>{{$user_data->phone_number}} </p>
 
                             </div>
                             <!-- /.box-body -->
@@ -50,14 +50,8 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs profile-tab table-responsive" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-expanded="true">Details Information</a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-expanded="false">Documents</a> </li>
-                                @if($profile_processing->current_state === "subject_committee")
-                                    @if(!$current_user)
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
-                                        @endif
-                                @endif
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#review" role="tab">Review Details</a> </li>
+
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
@@ -148,136 +142,6 @@
                                     </div>
                                 </div>
                                 <!--second tab-->
-                                <div class="tab-pane " id="education" role="tabpanel" aria-expanded="true">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                        <td>S.N.</td>
-                                                        <td>Name</td>
-                                                        <td>Board University</td>
-                                                        <td>Program Name</td>
-                                                        <td>Collage Name</td>
-                                                        </thead>
-                                                        <tbody>
-                                                        @foreach($qualification as $qualifications)
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>{{$qualifications->name}}</td>
-                                                                <td>{{$qualifications->board_university}}</td>
-                                                                <td>{{$qualifications->getProgramName()}}</td>
-                                                                <td>{{$qualifications->collage_id}}</td>
-                                                            </tr>
-                                                        @endforeach
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="profile" role="tabpanel" aria-expanded="false">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                    <tr>
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">level</th>
-                                                        <th scope="col">Transcript</th>
-                                                        <th scope="col">Certificate</th>
-
-                                                        <th scope="col">Provisional</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    @foreach($qualification as $qualifications)
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>{{$qualifications->name}}</td>
-                                                            <td><img src="{{$qualifications->getTranscriptImage()}}"  alt="Transcript Image" width="200" height="200"></td>
-                                                            <td><img src="{{$qualifications->getCharacterImage()}}" alt="Character Image" width="200" height="200"></td>
-                                                            <td><img src="{{$qualifications->getProvisionalImage()}}" alt="Provisional Image" width="200" height="200"></td>
-                                                        </tr>
-                                                    @endforeach
-                                                    <tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="table-responsive">
-                                                <header>Supportive Documents</header>
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                    {{--                                                    <tr>--}}
-                                                    {{--                                                        <th scope="col">#</th>--}}
-                                                    {{--                                                        <th scope="col">level</th>--}}
-                                                    {{--                                                        <th scope="col">Certificate</th>--}}
-                                                    {{--                                                        <th scope="col">Transcript</th>--}}
-                                                    {{--                                                        <th scope="col">Provisional</th>--}}
-                                                    {{--                                                    </tr>--}}
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Citizenship</td>
-                                                        <td>  <img src="{{$data->getCitizenshipFrontImage()}}" width="200" height="200">
-                                                        </td>
-                                                        <td>  <img src="{{$data->getCitizenshipBackImage()}}" width="200" height="200">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Signature</td>
-                                                        <td>  <img src="{{$data->getSignatureImage()}}" width="200" height="200">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>OJT</td>
-                                                        <td>  <img src="{{$data->getSignatureImage()}}" width="200" height="200">
-                                                        </td>
-
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="settings" role="tabpanel">
-                                    <div class="card-body">
-                                        <form class="form-horizontal form-material" action="{{route("subjectCommittee.applicant.profile.list.status")}}" method="POST">
-                                            @csrf
-
-                                            <input type="hidden" name="profile_id" value="{{$data->id}}">
-                                            <div class="form-group">
-                                                <label class="col-md-12">Remarks</label>
-                                                <div class="col-md-12">
-                                                    <textarea rows="5" name="remarks" class="form-control form-control-line"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-12">Select Status</label>
-                                                <div class="col-sm-12">
-                                                    <select class="form-control form-control-line" name="profile_status" required>
-                                                        <option >{{$data->profile_status}}</option>
-                                                        <option value="Reviewing">Reviewing</option>
-                                                        <option value="Verified">Verified</option>
-                                                        <option value="Rejected">Rejected</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-12">
-                                                    <button class="btn btn-success">Submit</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
                                 <div class="tab-pane" id="review" role="tabpanel">
                                     <div class="card-body">
                                         <div class="row">
@@ -310,7 +174,192 @@
                 </div>
             </div>
 
-            <!-- Main row -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="info-box">
+                        <div class="card tab-style1">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="education" role="tabpanel" aria-expanded="true">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                        <td>S.N.</td>
+                                                        <td>Name</td>
+                                                        <td>Board University</td>
+                                                        <td>Program Name</td>
+                                                        <td>Collage Name</td>
+                                                        </thead>
+                                                        <tbody>
+                                                        @foreach($qualification as $qualifications)
+                                                            <tr>
+                                                                <td>1</td>
+                                                                <td>{{$qualifications->name}}</td>
+                                                                <td>{{$qualifications->board_university}}</td>
+                                                                <td>{{$qualifications->getProgramName()}}</td>
+                                                                <td>{{$qualifications->collage_id}}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="info-box">
+                        <div class="card tab-style1">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile" role="tab" aria-expanded="false">Documents</a> </li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="profile" role="tabpanel" aria-expanded="false">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">level</th>
+                                                        <th scope="col">Transcript</th>
+                                                        <th scope="col">Certificate</th>
+
+                                                        <th scope="col">Provisional</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($qualification as $qualifications)
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>{{$qualifications->name}}</td>
+                                                            <td><img src="{{$qualifications->getTranscriptImage()}}"  alt="Transcript Image" width="200" height="200"></td>
+                                                            <td><img src="{{$qualifications->getCharacterImage()}}" alt="Character Image" width="200" height="200"></td>
+                                                            <td><img src="{{$qualifications->getProvisionalImage()}}" alt="Provisional Image" width="200" height="200"></td>
+                                                        </tr>
+                                                    @endforeach
+                                                    <tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="table-responsive">
+                                                <header>Supportive Documents</header>
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>Citizenship</td>
+                                                        <td>  <img src="{{$data->getCitizenshipFrontImage()}}" width="200" height="200">
+                                                        </td>
+                                                        <td>  <img src="{{$data->getCitizenshipBackImage()}}" width="200" height="200">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">2</th>
+                                                        <td>Signature</td>
+                                                        <td>  <img src="{{$data->getSignatureImage()}}" width="200" height="200">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">3</th>
+                                                        <td>OJT</td>
+                                                        <td>  <img src="{{$data->getSignatureImage()}}" width="200" height="200">
+                                                        </td>
+
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+                @if($profile_processing->current_state === "subject_committee")
+                    @if($current_user->isEmpty())
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="info-box">
+                                <div class="card tab-style1">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs profile-tab" role="tablist">
+                                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
+
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="settings" role="tabpanel">
+                                            <div class="card-body">
+                                                <form class="form-horizontal form-material" action="{{route("subjectCommittee.applicant.profile.list.status")}}" method="POST">
+                                                    @csrf
+
+                                                    <input type="hidden" name="profile_id" value="{{$data->id}}">
+                                                    <div class="form-group">
+                                                        <label class="col-md-12">Remarks</label>
+                                                        <div class="col-md-12">
+                                                            <textarea rows="5" name="remarks" class="form-control form-control-line"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-12">Select Status</label>
+                                                        <div class="col-sm-12">
+                                                            <select class="form-control form-control-line" name="profile_status" required>
+                                                                <option >{{$data->profile_status}}</option>
+                                                                <option value="Reviewing">Reviewing</option>
+                                                                <option value="Reviewing">Verified</option>
+                                                                <option value="Rejected">Rejected</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <button class="btn btn-success">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+        @endif
+
+
+
+
+        <!-- Main row -->
+
 
             <div class="row">
                 <div class="col-lg-12">
@@ -347,20 +396,22 @@
 
                                                         @else
                                                             @foreach($exams as $exam)
-                                                                    <tr>
-                                                                        <td>1</td>
-                                                                        <td>{{$exam->getExamName()}}</td>
-                                                                        <td><img src="{{$exam->getVoucherImage()}}" src="voucher image" height="150" width="150"/></td>
-                                                                        <td>{{$exam->created_at}}</td>
-                                                                        <td>{{$exam->state}}</td>
-                                                                        <td>{{$exam->status}}</td>
-                                                                        <td>
-                                                                            @if($exam->state === "subject_committee")
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>{{$exam->getExamName()}}</td>
+                                                                    <td><img src="{{$exam->getVoucherImage()}}" src="voucher image" height="150" width="150"/></td>
+                                                                    <td>{{$exam->created_at}}</td>
+                                                                    <td>{{$exam->state}}</td>
+                                                                    <td>{{$exam->status}}</td>
+                                                                    <td>
+                                                                        @if($exam->state === "subject_committee")
+                                                                            @if($current_exam_user->isEmpty())
                                                                             <a href="{{url('subjectCommittee/dashboard/subjectCommittee/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
                                                                             <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>
-                                                                                @endif
-                                                                        </td>
-                                                                    </tr>
+                                                                            @endif
+                                                                        @endif
+                                                                    </td>
+                                                                </tr>
                                                             @endforeach
                                                         @endif
                                                         </tbody>
@@ -393,7 +444,7 @@
                         <form class="form-horizontal form-material" action="{{route("subjectCommittee.reject.exam.apply")}}" method="POST">
                             @csrf
                             <input type="hidden" class="form-control" name="id" id="idkl" value="">
-                             <div class="form-group">
+                            <div class="form-group">
                                 <label class="col-md-12">Remarks</label>
                                 <div class="col-md-12">
                                     <textarea rows="5" name="remarks" class="form-control form-control-line" required></textarea>
@@ -440,4 +491,4 @@
         });
 
     </script>
-    @endpush
+@endpush

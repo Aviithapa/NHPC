@@ -163,3 +163,40 @@ if(!function_exists('admitCard')) {
         }
     }
 }
+
+
+if(!function_exists('symbolNumber')) {
+    /**
+     * @param null $type
+     * @return string
+     */
+    function symbolNumber($id)
+    {
+        $exam= \App\Models\Exam\ExamProcessing::all()->where('id','=',$id)->first();
+        if ($exam['is_admit_card_generate'] === 'no'){
+            return "Not Generated yet";
+        }else{
+            $admit_card = \App\Models\AdmitCard\AdmitCard::all()->where('exam_processing_id','=',$id)->first();
+            return $admit_card['symbol_number'];
+        }
+    }
+}
+
+
+if(!function_exists('countAdmitCard')) {
+    /**
+     * @param null $type
+     * @return string
+     */
+    function countAdmitCard()
+    {
+        $count = 0;
+        $exams= \App\Models\Exam\ExamProcessing::all();
+        foreach ($exams as $exam) {
+            if ($exam['is_admit_card_generate'] === 'no') {
+                 $count = ++$count;
+            }
+        }
+        return $count;
+    }
+}

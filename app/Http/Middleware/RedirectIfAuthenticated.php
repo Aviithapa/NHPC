@@ -20,7 +20,7 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next, ...$guards)
     {
         if (Auth::guard($guards)->check()) {
-            if(Auth::user()->mainRole()->name ==='administrator') {
+            if(Auth::user()->mainRole()->name ==='council') {
                 dd("Admin");
             }
             elseif(Auth::user()->mainRole()->name ==='Student'){
@@ -35,6 +35,8 @@ class RedirectIfAuthenticated
                 return  redirect()->route('subjectCommittee.dashboard');
             } else if (Auth::user()->mainRole()->name === 'exam_committee') {
                 return  redirect()->route('examCommittee.dashboard');
+            } else if (Auth::user()->mainRole()->name === 'council') {
+                return  redirect()->route('council.dashboard');
             }
         }
 

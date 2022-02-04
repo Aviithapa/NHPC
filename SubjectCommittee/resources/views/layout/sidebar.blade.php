@@ -21,7 +21,6 @@
             <li class="active">
                 <a href="{{route('subjectCommittee.dashboard')}}">
                     <i class="icon-home"></i> <span>Dashboard</span>
-
                 </a>
             </li>
             <li class="treeview"> <a href="#"> <i class="icon-grid"></i> <span>Applicant Profile</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
@@ -47,7 +46,7 @@
             <li class="treeview"> <a href="#"> <i class="icon-grid"></i> <span>Exam Applied</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
                 <ul class="treeview-menu">
                     <li class="">
-                        <a href="{{route("subjectCommittee.applicant.list", ['status'=> 'pending','current_state' => 'subject_committee'])}}">
+                        <a href="{{route("subjectCommittee.applicant.list", ['status'=> 'progress','current_state' => 'subject_committee'])}}">
                             <i class="icon-book-open"></i> <span>Exam Applied List <span class="badge badge-pill badge-success">{{getExamApplicantList('pending')}}</span></span>
                         </a>
                     </li>
@@ -64,9 +63,6 @@
                     </li>
                 </ul>
             </li>
-
-
-
         </ul>
     </div>
     <!-- /.sidebar -->
