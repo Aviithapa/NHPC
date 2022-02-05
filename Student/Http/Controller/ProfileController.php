@@ -6,6 +6,7 @@ namespace Student\Http\Controller;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
+use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -15,12 +16,13 @@ use Student\Modules\Qualification\Repositories\QualificationRepository;
 
 class ProfileController extends BaseController
 {
-   private $profileRepository,$log, $qualificationRepository, $programRepository,$examProcessingRepository,$admitCardRepository,$profileProcessingRepository;
+   private $profileRepository,$log, $qualificationRepository,$profileLogsRepository, $programRepository,$examProcessingRepository,$admitCardRepository,$profileProcessingRepository;
     public function __construct(Log $log, ProfileRepository $profileRepository,
                                 QualificationRepository $qualificationRepository,
                                 ProgramRepository $programRepository,
                                 ExamProcessingRepository $examProcessingRepository,
-                                AdmitCardRepository $admitCardRepository, ProfileProcessingRepository $profileProcessingRepository)
+                                AdmitCardRepository $admitCardRepository, ProfileProcessingRepository $profileProcessingRepository,
+                                ProfileLogsRepository $profileLogsRepository)
     {
         $this->profileRepository=$profileRepository;
         $this->qualificationRepository=$qualificationRepository;
@@ -28,6 +30,7 @@ class ProfileController extends BaseController
         $this->examProcessingRepository=$examProcessingRepository;
         $this->admitCardRepository=$admitCardRepository;
         $this->profileProcessingRepository=$profileProcessingRepository;
+        $this->profileLogsRepository=$profileLogsRepository;
         $this->log=$log;
         parent::__construct();
     }
@@ -230,7 +233,7 @@ class ProfileController extends BaseController
             $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
             $profiles['status'] = 'progress';
             $profiles_processing = $this->profileProcessingRepository->update($profiles,$profile_processing['id']);
-
+            $this->profileLog();
             if ($profile == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
@@ -246,6 +249,17 @@ class ProfileController extends BaseController
     }
 
 
+
+    public function profileLog()
+    {
+            $data['remarks'] = "Profile Updated by". Auth::user()->name;
+            $data['status'] = "progress";
+            $logs = $this->profileLogsRepository->create($data);
+            if ($logs == false)
+                return false;
+            return true;
+
+    }
 
 }
 

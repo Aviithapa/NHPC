@@ -4,6 +4,7 @@
 namespace Student\Http\Controller;
 
 
+use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -13,13 +14,15 @@ use Student\Modules\Qualification\Repositories\QualificationRepository;
 
 class QualificationController extends BaseController
 {
-    private $qualificationRepository,$log, $profileRepository,$profileProcessingRepository;
+    private $qualificationRepository,$log, $profileRepository,$profileProcessingRepository,$profileLogsRepository;
     public function __construct(Log $log, QualificationRepository $qualificationRepository, ProfileRepository $profileRepository,
-                                                                        ProfileProcessingRepository $profileProcessingRepository)
+                                                                        ProfileProcessingRepository $profileProcessingRepository,
+                                                            ProfileLogsRepository $profileLogsRepository)
     {
         $this->qualificationRepository=$qualificationRepository;
         $this->profileRepository=$profileRepository;
         $this->profileProcessingRepository=$profileProcessingRepository;
+        $this->profileLogsRepository=$profileLogsRepository;
         $this->log=$log;
         parent::__construct();
     }
@@ -113,6 +116,17 @@ class QualificationController extends BaseController
             session()->flash('danger', 'Oops! Something went wrong.');
             return redirect()->back()->withInput();
         }
+    }
+
+    public function profileLog()
+    {
+        $data['remarks'] = "Profile Updated by". Auth::user()->name;
+        $data['status'] = "progress";
+        $logs = $this->profileLogsRepository->create($data);
+        if ($logs == false)
+            return false;
+        return true;
+
     }
 
 

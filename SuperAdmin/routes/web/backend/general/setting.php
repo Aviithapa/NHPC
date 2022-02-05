@@ -11,7 +11,6 @@ Route::group(['namespace' => 'Settings'], function () {
     Route::post('/site-settings/update', 'SiteSettingController@updateSiteSettings')->name('dashboard.site-settings.update');
 
     Route::resource('site-settings', 'SiteSettingController', [
-        'except' => ['create', 'store', 'update', 'edit'],
         'names' => [
             'index' => 'dashboard.site-settings.index',
             'create' => 'dashboard.site-settings.create',

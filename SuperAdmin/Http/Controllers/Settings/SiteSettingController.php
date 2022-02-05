@@ -6,9 +6,7 @@ use SuperAdmin\Http\Controllers\BaseController;
 use App\Modules\Backend\Settings\SiteSetting\Repositories\SiteSettingRepository;
 use App\Modules\Backend\Settings\SiteSetting\Requests\CreateSiteSettingRequest;
 use App\Modules\Backend\Settings\SiteSetting\Requests\UpdateSiteSettingRequest;
-use Illuminate\Contracts\Logging\Log;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 
 class SiteSettingController extends BaseController
@@ -32,7 +30,6 @@ class SiteSettingController extends BaseController
      */
     public function index()
     {
-        $this->authorize('read', $this->siteSettingRepository->getModel());
         if(\request()->ajax()) {
             $site_settings = $this->siteSettingRepository->getAllForDataTable();
             return DataTables::of($site_settings)
@@ -49,13 +46,11 @@ class SiteSettingController extends BaseController
      */
     public function create()
     {
-        $this->authorize('create', $this->siteSettingRepository->getModel());
         return $this->view('settings.site-setting.create');
     }
 
     public function store(CreateSiteSettingRequest $createSiteSettingRequest)
     {
-        $this->authorize('create', $this->siteSettingRepository->getModel());
         $data = $createSiteSettingRequest->all();
         try {
             if(isset($data['make_crud']) && $data['make_crud'] == 'on') {
@@ -86,7 +81,6 @@ class SiteSettingController extends BaseController
      */
     public function edit($id)
     {
-        $this->authorize('read', $this->siteSettingRepository->getModel());
         $site_setting = $this->siteSettingRepository->findById($id);
         return $this->view('settings.site-setting.edit', compact('site_setting'));
     }
@@ -98,7 +92,6 @@ class SiteSettingController extends BaseController
      */
     public function update(UpdateSiteSettingRequest $updateSiteSettingRequest, $id)
     {
-        $this->authorize('update', $this->siteSettingRepository->getModel());
         $data = $updateSiteSettingRequest->all();
         try {
             $this->siteSettingRepository->update($data, $id);
@@ -118,7 +111,6 @@ class SiteSettingController extends BaseController
      */
     public function destroy($id)
     {
-        $this->authorize('delete', $this->siteSettingRepository->getModel());
         try {
             if(isset($request->hard_delete))
                 $this->siteSettingRepository->hardDelete($id);
@@ -140,7 +132,6 @@ class SiteSettingController extends BaseController
      */
     public function getUpdateSiteSettings()
     {
-        $this->authorize('update', $this->siteSettingRepository->getModel());
         return $this->view('settings.site-setting.update');
     }
 
@@ -150,7 +141,6 @@ class SiteSettingController extends BaseController
      */
     public function getImageSiteSettings()
     {
-        $this->authorize('update', $this->siteSettingRepository->getModel());
         return $this->view('settings.site-setting.images');
     }
 

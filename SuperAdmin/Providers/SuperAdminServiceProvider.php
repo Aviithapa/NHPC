@@ -25,6 +25,6 @@ class SuperAdminServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(base_path('SuperAdmin/resources/views'),'super_admin');
+        $this->loadViewsFrom(base_path('SuperAdmin/resources/views'),'superAdmin');
     }
 }

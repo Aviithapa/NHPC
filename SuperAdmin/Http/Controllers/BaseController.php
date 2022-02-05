@@ -18,7 +18,7 @@ class BaseController extends Controller
 
     public function view($view, $data = array(), $mergeData = array())
     {
-        return View::make('admin.'.$view, $data, $mergeData);
+        return View::make('superAdmin::admin.'.$view, $data, $mergeData);
     }
 
     /**
