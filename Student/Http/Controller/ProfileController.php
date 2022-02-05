@@ -6,6 +6,7 @@ namespace Student\Http\Controller;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
+use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Student\Modules\Framework\Request;
@@ -14,18 +15,19 @@ use Student\Modules\Qualification\Repositories\QualificationRepository;
 
 class ProfileController extends BaseController
 {
-   private $profileRepository,$log, $qualificationRepository, $programRepository,$examProcessingRepository,$admitCardRepository;
+   private $profileRepository,$log, $qualificationRepository, $programRepository,$examProcessingRepository,$admitCardRepository,$profileProcessingRepository;
     public function __construct(Log $log, ProfileRepository $profileRepository,
                                 QualificationRepository $qualificationRepository,
                                 ProgramRepository $programRepository,
                                 ExamProcessingRepository $examProcessingRepository,
-                                AdmitCardRepository $admitCardRepository)
+                                AdmitCardRepository $admitCardRepository, ProfileProcessingRepository $profileProcessingRepository)
     {
         $this->profileRepository=$profileRepository;
         $this->qualificationRepository=$qualificationRepository;
         $this->programRepository=$programRepository;
         $this->examProcessingRepository=$examProcessingRepository;
         $this->admitCardRepository=$admitCardRepository;
+        $this->profileProcessingRepository=$profileProcessingRepository;
         $this->log=$log;
         parent::__construct();
     }
@@ -219,6 +221,29 @@ class ProfileController extends BaseController
         return view('student::pages.admit-card-template',compact('profile','admit_card','exam_applied'));
     }
 
+
+    public function updateInformation(Request $request, $id){
+        $data = $request->all();
+        $data['profile_status'] = 'Reviewing';
+        try {
+            $profile = $this->profileRepository->update($data,$id);
+            $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
+            $profiles['status'] = 'progress';
+            $profiles_processing = $this->profileProcessingRepository->update($profiles,$profile_processing['id']);
+
+            if ($profile == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+                session()->flash('success','All Information have been Updated successfully');
+                return redirect()->route('student.dashboard');
+//
+        } catch (\Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+
+    }
 
 
 

@@ -42,9 +42,9 @@
                                             <th>Name</th>
                                             <th>Board / University</th>
                                             <th>Program Name</th>
-                                            <th>Collage Name</th>
                                             <th>Registration Number</th>
                                             <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -53,9 +53,12 @@
                                                 <tr>
                                             <td><a href="#">{{$qualification->name}}</a></td>
                                             <td>{{$qualification->board_university}}</td>
-                                            <td>{{$qualification->program_id}}</td>
-                                            <td>{{$qualification->collage_id}}</td>
+                                            <td>{{$qualification->getProgramName()}}</td>
                                             <td>{{$qualification->registration_number}}</td>
+                                            <td>{{$profile->profile_status}}</td>
+                                                    @if($profile->profile_status === "Rejected")
+                                                        <td><a href="{{route('qualification.edit',["id" => $qualification->id])}}"><span class="label label-success">Edit</span></a></td>
+                                                    @endif
                                                 </tr>
                                                 @endforeach
 

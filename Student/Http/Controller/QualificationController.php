@@ -4,6 +4,7 @@
 namespace Student\Http\Controller;
 
 
+use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Student\Modules\Framework\Request;
@@ -12,11 +13,13 @@ use Student\Modules\Qualification\Repositories\QualificationRepository;
 
 class QualificationController extends BaseController
 {
-    private $qualificationRepository,$log, $profileRepository;
-    public function __construct(Log $log, QualificationRepository $qualificationRepository, ProfileRepository $profileRepository)
+    private $qualificationRepository,$log, $profileRepository,$profileProcessingRepository;
+    public function __construct(Log $log, QualificationRepository $qualificationRepository, ProfileRepository $profileRepository,
+                                                                        ProfileProcessingRepository $profileProcessingRepository)
     {
         $this->qualificationRepository=$qualificationRepository;
         $this->profileRepository=$profileRepository;
+        $this->profileProcessingRepository=$profileProcessingRepository;
         $this->log=$log;
         parent::__construct();
     }
@@ -24,7 +27,8 @@ class QualificationController extends BaseController
 
     public function index(Request $request){
         $qualifications = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id);
-       return view('student::pages.qualification.index',compact('qualifications'));
+        $profile = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+       return view('student::pages.qualification.index',compact('qualifications','profile'));
     }
 
     public function create(Request $request){
@@ -74,6 +78,42 @@ class QualificationController extends BaseController
 
     }
 
+    public function edit($id){
+        $qualification = $this->qualificationRepository->findById($id);
+        return view('student::pages.qualification.edit-qualification',compact('qualification'));
+    }
+
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $data['name'] = $data['level'];
+        $data['user_id'] = Auth::user()->id;
+        $data['transcript_image'] = $data['transcript'];
+        $data['provisional_image'] = $data['provisional'];
+        $data['character_image'] = $data['character'];
+        try {
+            $post = $this->qualificationRepository->update($data, $id);
+            $profile = $this->profileRepository->getAll()->where('user_id','=', Auth::user()->id)->first();
+            $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id','=', $profile['id'])->first();
+            $data['profile_status'] = 'Reviewing';
+            $profile = $this->profileRepository->update($data,$profile['id']);
+
+            $profiles['status'] = 'progress';
+            $profiles_processing = $this->profileProcessingRepository->update($profiles,$profile_processing['id']);
+            if($post == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success', 'Qualification updated successfully');
+            return redirect()->route('qualification.index');
+        }
+        catch (\Exception $e) {
+            $this->log->error('Content update : '.$e->getMessage());
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
 
 
 }

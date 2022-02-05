@@ -13,3 +13,6 @@ Route::get('/student/status/index/{status}', [\Student\Http\Controller\LogsContr
 Route::get('/apply/for/exam', [\Student\Http\Controller\ProfileController::class, 'applyforExam'])->middleware(['auth'])->name('apply.for.exam');
 Route::get('/admit/card/template', [\Student\Http\Controller\ProfileController::class, 'admitCardTemplate'])->middleware(['auth'])->name('admit.card.template');
 Route::post('/apply/exam', [\Student\Http\Controller\ProfileController::class, 'applyExam'])->middleware(['auth'])->name('apply.exam');
+Route::get('/qualification/edit/{id}', [\Student\Http\Controller\QualificationController::class, 'edit'])->middleware(['auth'])->name('qualification.edit');
+Route::post('/qualification/update/{id}', [\Student\Http\Controller\QualificationController::class, 'update'])->middleware(['auth'])->name('qualification.update');
+Route::post('/student/update/data/{id}', [\Student\Http\Controller\ProfileController::class, 'updateInformation'])->middleware(['auth'])->name('profile.update');

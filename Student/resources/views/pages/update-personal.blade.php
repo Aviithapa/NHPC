@@ -39,7 +39,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="text-black">Personal Information</h4>
-                        <form method="POST" action="{{ url('student/dashboard/student/data') }}">
+                        <form method="POST" action="{{ url('student/dashboard/student/update/data/'.$data->id) }}">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-4">
@@ -315,7 +315,7 @@
                                         <input type="file" id="citizenship_front_image" name="citizenship_front_image"
                                                onclick="anyFileUploader('citizenship_front')">
                                         <input type="hidden" id="citizenship_front_path" name="citizenship_front" class="form-control"
-                                               value="{{isset($data)?$data->image:''}}"/>
+                                               value="{{isset($data)?$data->citizenship_front:''}}"/>
                                         {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                     </div>
                                 </div>
@@ -339,7 +339,7 @@
                                     <input type="file" id="citizenship_back_image" name="citizenship_back_image"
                                            onclick="anyFileUploader('citizenship_back')">
                                     <input type="hidden" id="citizenship_back_path" name="citizenship_back" class="form-control"
-                                           value="{{isset($data)?$data->image:''}}"/>
+                                           value="{{isset($data)?$data->citizenship_back:''}}"/>
                                     {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                 </div>
                             </div>
@@ -363,7 +363,7 @@
                                             <input type="file" id="signature_image" name="signature_image"
                                                    onclick="anyFileUploader('signature_image')">
                                             <input type="hidden" id="signature_image_path" name="signature_image" class="form-control"
-                                                   value="{{isset($data)?$data->image:''}}"/>
+                                                   value="{{isset($data)?$data->signature_image:''}}"/>
                                             {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                         </div>
                                     </div>
@@ -390,7 +390,7 @@
                                         <input type="file" id="student_profile_image" name="student_profile_image"
                                                onclick="anyFileUploader('student_profile')">
                                         <input type="hidden" id="student_profile_path" name="profile_picture" class="form-control"
-                                               value="{{isset($data)?$data->image:''}}"/>
+                                               value="{{isset($data)?$data->student_profile:''}}"/>
                                         {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                     </div>
                                 </div>
