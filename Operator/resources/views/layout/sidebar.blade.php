@@ -26,8 +26,8 @@
             <li class="treeview"> <a href="#"> <i class="icon-grid"></i> <span>Applicant Profile</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
                 <ul class="treeview-menu">
                     <li class="">
-                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'Pending'])}}">
-                            <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantCount('Pending')}}</span></span>
+                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing'])}}">
+                            <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantCount('Reviewing')}}</span></span>
                         </a>
                     </li>
                     <li class="">

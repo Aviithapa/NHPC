@@ -106,7 +106,7 @@ class RegistrarController  extends BaseController
                 $data['state'] = 'registrar';
 
                 if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
-                    $data['status'] = 'Reviewing';
+                    $data['status'] = 'progress';
                     $data['remarks'] = 'Profile is forward to Subject Committee';
                     $data['review_status'] = 'Successful';
                     $this->profileLog($data);
@@ -137,7 +137,6 @@ class RegistrarController  extends BaseController
     }
 
     public function profileLog( array  $data ){
-        $data['status'] ='progress';
         $logs = $this->profileLogsRepository->create($data);
         if($logs == false)
             return false;

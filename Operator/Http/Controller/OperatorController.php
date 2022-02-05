@@ -111,7 +111,7 @@ class OperatorController extends BaseController
                 $data['created_by'] = Auth::user()->id;
                 $data['state'] = 'computer_operator';
                 if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
-                    $data['status'] = 'Reviewing';
+                    $data['status'] = 'progress';
                     $data['remarks'] = 'Profile is forward to Officer';
                     $data['review_status'] = 'Successful';
                     $this->profileLog($data);
@@ -147,7 +147,6 @@ class OperatorController extends BaseController
     public function profileLog(array $data)
     {
         if (Auth::user()->mainRole()->name === 'operator') {
-            $data['status'] = "progress";
             $logs = $this->profileLogsRepository->create($data);
             if ($logs == false)
                 return false;

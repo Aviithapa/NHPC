@@ -139,10 +139,14 @@ if(!function_exists('levelExits')) {
     function levelExits()
     {
         $data = \Student\Models\Profile::all()->where('user_id','=', Auth::user()->id)->first();
-        if ($data['level'] === 0){
-            return false;
+        if ($data != null) {
+            if ($data['level'] === 0) {
+                return false;
+            } else {
+                return true;
+            }
         }else{
-            return true;
+            return false;
         }
     }
 }
@@ -155,11 +159,17 @@ if(!function_exists('admitCard')) {
     function admitCard()
     {
         $data = \Student\Models\Profile::all()->where('user_id','=', Auth::user()->id)->first();
-        $exam= \App\Models\Exam\ExamProcessing::all()->where('profile_id','=',$data['id'])->first();
-        if ($exam['is_admit_card_generate'] === 'no'){
-            return false;
+        if ($data != null) {
+            $exam = \App\Models\Exam\ExamProcessing::all()->where('profile_id', '=', $data['id'])->first();
+            if ($exam != null) {
+                if ($exam['is_admit_card_generate'] === 'no') {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
         }else{
-            return true;
+            return false;
         }
     }
 }

@@ -35,7 +35,7 @@
                                     <td>Time</td>
                                     </thead>
                                     <tbody>
-                                    @if($logs->isEmpty())
+                                    @if(!$logs)
                                         <tr>
                                             <td> Application is under Reviewing</td>
                                         </tr>

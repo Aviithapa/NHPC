@@ -108,7 +108,7 @@ class OfficerController  extends BaseController
             $data['created_by'] = Auth::user()->id;
             $data['state'] =  'officer';
             if ( $data['profile_status']=== "Verified" || $data['profile_status'] === "Reviewing"){
-                $data['status'] =  'Reviewing';
+                $data['status'] = 'progress';
                 $data['remarks'] =  'Profile is forward to Registrar';
                 $data['review_status'] =  'Successful';
                 $this->profileLog($data);
@@ -139,7 +139,6 @@ class OfficerController  extends BaseController
 }
 
     public function profileLog($data){
-        $data['status'] ='progress';
         $logs = $this->profileLogsRepository->create($data);
         if($logs == false)
             return false;

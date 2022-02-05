@@ -304,7 +304,7 @@
 
 
                 @if($profile_processing->current_state === "subject_committee")
-                    @if($current_user->isEmpty())
+                    @if($current_user === null || $current_user->isEmpty())
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="info-box">
@@ -405,7 +405,7 @@
                                                                     <td>{{$exam->status}}</td>
                                                                     <td>
                                                                         @if($exam->state === "subject_committee")
-                                                                            @if($current_exam_user->isEmpty())
+                                                                            @if($current_exam_user=== null || $current_exam_user->isEmpty())
                                                                             <a href="{{url('subjectCommittee/dashboard/subjectCommittee/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
                                                                             <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>
                                                                             @endif

@@ -49,20 +49,19 @@ class ProfileController extends BaseController
         if (file_exists($file_path)) {
             switch ($slug) {
                 case 'personal':
-                         if ($data['profile_status'] === "Rejected"){
-                             return view('student::pages.update-personal', compact('authUser', 'data'));
-                         }else {
                              if (!$data) {
                                  return view('student::pages.personal', compact('authUser'));
                              } else {
-                                 if (!$data["citizenship_number"]) {
+                                 if ($data['profile_status'] === "Rejected"){
+                                     return view('student::pages.update-personal', compact('authUser', 'data'));
+                                 }else if (!$data["citizenship_number"]) {
                                      return view('student::pages.personal');
                                  } else {
                                      session()->flash('already', 'Personal Information has already Setup');
                                      return redirect()->to('student/dashboard/student/guardian');
                                  }
                              }
-                         }
+
                     break;
                 case 'guardian':
                     if(!$data){
