@@ -59,62 +59,65 @@
                         <div class="collapse navbar-collapse float-left" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item ">
-                                    <a href="index.html" class="nav-link">गृह</a>
+                                    <a href="#" class="nav-link">Home</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a href="intro.html" class="nav-link dropdown-toggle" data-toggle="dropdown">हाम्रो बारेमा</a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">About us</a>
                                     <ul class="list-unstyled dropdown">
                                         <li class="nav-item ">
-                                            <a href="intro.html" class="">परिचय</a>
+                                            <a href="#" class="">Introduction</a>
                                         </li>
 
                                         <li class="nav-item ">
-                                            <a href="#" class="">सङ्गठन संरचना</a>
+                                            <a href="#" class="">Subject Committee Members</a>
                                         </li>
                                         <li class="nav-item ">
-                                            <a href="" class="">कर्मचारी</a>
+                                            <a href="#" class="">Board Members</a>
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a href="#" class="">Staff</a>
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a href="publication.html" class="nav-link dropdown-toggle" data-toggle="dropdown">प्रकाशन</a>
-                                    <ul class="list-unstyled dropdown">
-                                        <li class="nav-item ">
-                                            <a href="publication.html" class="">निर्णय/परिपत्र/निर्देशन</a>
-                                        </li>
+{{--                                <li class="nav-item dropdown">--}}
+{{--                                    <a href="publication.html" class="nav-link dropdown-toggle" data-toggle="dropdown">प्रकाशन</a>--}}
+{{--                                    <ul class="list-unstyled dropdown">--}}
+{{--                                        <li class="nav-item ">--}}
+{{--                                            <a href="publication.html" class="">निर्णय/परिपत्र/निर्देशन</a>--}}
+{{--                                        </li>--}}
 
-                                        <li class="nav-item ">
-                                            <a href="#" class="">ऐन तथा नियमहरु</a>
-                                        </li>
-                                        <li class="nav-item ">
-                                            <a href="" class="">दैनिक विपद् बुलेटिन</a>
-                                        </li>
-                                        <li class="nav-item ">
-                                            <a href="" class="">नीतिहरु/निर्देशिका</a>
-                                        </li>
-                                        <li class="nav-item ">
-                                            <a href="" class="">लेखहरु</a>
-                                        </li>
-                                        <li class="nav-item ">
-                                            <a href="" class="">बैठक रिपोर्ट</a>
-                                        </li>
-                                        <li class="nav-item ">
-                                            <a href="" class="">परिपत्र</a>
-                                        </li>
-                                        <li class="nav-item ">
-                                            <a href="" class="">प्रेस नोट / प्रेस विज्ञप्ती</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="" class="nav-link">बारम्बार सोधिने प्रश्नहरु</a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="phone.html" class="nav-link">महत्वपूर्ण सम्पर्क नम्बर</a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a href="contact.html" class="nav-link">सम्पर्क</a>
-                                </li>
+{{--                                        <li class="nav-item ">--}}
+{{--                                            <a href="#" class="">ऐन तथा नियमहरु</a>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="nav-item ">--}}
+{{--                                            <a href="" class="">दैनिक विपद् बुलेटिन</a>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="nav-item ">--}}
+{{--                                            <a href="" class="">नीतिहरु/निर्देशिका</a>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="nav-item ">--}}
+{{--                                            <a href="" class="">लेखहरु</a>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="nav-item ">--}}
+{{--                                            <a href="" class="">बैठक रिपोर्ट</a>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="nav-item ">--}}
+{{--                                            <a href="" class="">परिपत्र</a>--}}
+{{--                                        </li>--}}
+{{--                                        <li class="nav-item ">--}}
+{{--                                            <a href="" class="">प्रेस नोट / प्रेस विज्ञप्ती</a>--}}
+{{--                                        </li>--}}
+{{--                                    </ul>--}}
+{{--                                </li>--}}
+{{--                                <li class="nav-item ">--}}
+{{--                                    <a href="" class="nav-link">बारम्बार सोधिने प्रश्नहरु</a>--}}
+{{--                                </li>--}}
+{{--                                <li class="nav-item ">--}}
+{{--                                    <a href="phone.html" class="nav-link">महत्वपूर्ण सम्पर्क नम्बर</a>--}}
+{{--                                </li>--}}
+{{--                                <li class="nav-item ">--}}
+{{--                                    <a href="contact.html" class="nav-link">सम्पर्क</a>--}}
+{{--                                </li>--}}
 
                         </div>
                     </div>

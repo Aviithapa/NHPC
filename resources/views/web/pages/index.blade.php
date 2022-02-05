@@ -37,19 +37,182 @@
     </section>
 
 
-    <section>
-        <div class="about_nhpc  mt-2  ml-5 mr-5">
-            <h3 class="text-center">News and Result</h3>
-            <div class="card" style="width: 10rem; height: 14rem">
-                <img class="img-responsive" style="height:8rem;" src="https://nhpc.gov.np/beta/uploads/news/5d002e419a3e1305106b68db24c81bc9.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Retotaling Notice</h5>
+    <section class="banner-sec">
+        <div class="container-fluid p-3">
+                <h3 class="text-center">News and Notice</h3>
+            <div class="row p-3">
+                <div class="col-md-3">
+                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/politics.jpg" alt="">
+                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">News</span> </div>
+                        <div class="card-body">
+                            <div class="news-title">
+                                <h2 class=" title-small"><a href="#">Syria war: Why the battle for Aleppo matters</a></h2>
+                            </div>
+                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
+                        </div>
+                    </div>
+                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/travel.jpg" alt="">
+                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">Politics</span> </div>
+                        <div class="card-body">
+                            <div class="news-title">
+                                <h2 class=" title-small"><a href="#">Key Republicans sign letter warning against</a></h2>
+                            </div>
+                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/business1.jpg" alt="">
+                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">Travel</span> </div>
+                        <div class="card-body">
+                            <div class="news-title">
+                                <h2 class=" title-small"><a href="#">Obamacare Appears to Be Making People Healthier</a></h2>
+                            </div>
+                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
+                        </div>
+                    </div>
+                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/food.jpg" alt="">
+                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">News</span> </div>
+                        <div class="card-body">
+                            <div class="news-title">
+                                <h2 class=" title-small"><a href="#">‘S.N.L.’ to Lose Two Longtime Cast Members</a></h2>
+                            </div>
+                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/business1.jpg" alt="">
+                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">Travel</span> </div>
+                        <div class="card-body">
+                            <div class="news-title">
+                                <h2 class=" title-small"><a href="#">Obamacare Appears to Be Making People Healthier</a></h2>
+                            </div>
+                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
+                        </div>
+                    </div>
+                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/food.jpg" alt="">
+                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">News</span> </div>
+                        <div class="card-body">
+                            <div class="news-title">
+                                <h2 class=" title-small"><a href="#">‘S.N.L.’ to Lose Two Longtime Cast Members</a></h2>
+                            </div>
+                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/business1.jpg" alt="">
+                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">Travel</span> </div>
+                        <div class="card-body">
+                            <div class="news-title">
+                                <h2 class=" title-small"><a href="#">Obamacare Appears to Be Making People Healthier</a></h2>
+                            </div>
+                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
+                        </div>
+                    </div>
+                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/food.jpg" alt="">
+                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">News</span> </div>
+                        <div class="card-body">
+                            <div class="news-title">
+                                <h2 class=" title-small"><a href="#">‘S.N.L.’ to Lose Two Longtime Cast Members</a></h2>
+                            </div>
+                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
     </section>
-{{--        <section class="bipad-notice section-padding mt-3">--}}
+
+    <section class="pt-5 pb-5 mt-5">
+        <div class="container-fluid" style="height: 650px; margin-top: 10px">
+            <h2 class="text-center">Messages</h2>
+            <hr class="midline">
+            <div class="card col-md-12 mt-2">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" data-interval="100000">
+                    <div class="w-100 carousel-inner mb-5" role="listbox">
+                        <div class="carousel-item active">
+                            <div class="bg"></div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="carousel-caption">
+                                        <div class="row">
+                                            <div class="col-sm-3 col-4 align-items-start">
+                                                <img src="https://s17.postimg.org/mqjuw14bz/profile1.png" alt="" class="rounded-circle img-fluid">
+                                            </div>
+                                            <div class="col-sm-9 col-8">
+                                                <h2>Dr. Mohan Krishna Shrestha - <span>Chairperson</span></h2>
+                                                <small>Well incremented. Comes with recommended workout. I'm using it to help with bladder leakage issues that I've been experiencing since a recent vasectomy.</small>
+                                                <small class="smallest mute">- willi</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="carousel-caption">
+                                        <div class="row">
+                                            <div class="col-sm-3 col-4 align-items-start">
+                                                <img src="https://s17.postimg.org/5q0yndefz/profile2.png" alt="" class="rounded-circle img-fluid">
+                                            </div>
+                                            <div class="col-sm-9 col-8">
+                                                <h2>Mr. Puspa Raj Khanal - <span>Registrar</span></h2>
+                                                <small>Well incremented. Comes with recommended workout. I'm using it to help with bladder leakage issues that I've been experiencing since a recent vasectomy.</small>
+                                                <small class="smallest mute">- willi</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div class="bg"></div>
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="carousel-caption">
+                                        <div class="row">
+                                            <div class="col-sm-3 col-4 align-items-start">
+                                                <img src="https://s17.postimg.org/7ulbog0n3/profile3.png" alt="" class="rounded-circle img-fluid">
+                                            </div>
+                                            <div class="col-sm-9 col-8">
+                                                <h2>John Doe - <span>Ceo Mobile company</span></h2>
+                                                <small>Well incremented. Comes with recommended workout. I'm using it to help with bladder leakage issues that I've been experiencing since a recent vasectomy.</small>
+                                                <small class="smallest mute">- willi</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="carousel-caption">
+                                        <div class="row">
+                                            <div class="col-sm-3 col-4 align-items-start">
+                                                <img src="https://s17.postimg.org/u6j4hu7gv/profile4.png" alt="" class="rounded-circle img-fluid">
+                                            </div>
+                                            <div class="col-sm-9 col-8">
+                                                <h2>Helena Doe - <span>Architect</span></h2>
+                                                <small>Well incremented. Comes with recommended workout. I'm using it to help with bladder leakage issues that I've been experiencing since a recent vasectomy.</small>
+                                                <small class="smallest mute">- willi</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fas fa-chevron-left"></i></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"><i class="fas fa-chevron-right"></i></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{--        <section class="bipad-notice section-padding mt-3">--}}
 {{--            <div class="row">--}}
 {{--                <div class="col-sm-12">--}}
 {{--                    <div class="bipad-notice__tabs wow animated fadeInUp" data-wow-duration=".5s" data-wow-delay=".5s">--}}

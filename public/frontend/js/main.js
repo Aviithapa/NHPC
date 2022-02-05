@@ -23,6 +23,8 @@ $('#owl3').owlCarousel({
     }
 });
 
+
+
 $('#owl2').owlCarousel({
     loop: true,
     margin: 10,
