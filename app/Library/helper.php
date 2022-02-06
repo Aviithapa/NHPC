@@ -95,7 +95,7 @@ if(!function_exists('imageNotFound')) {
     {
         switch ($type){
             case 'user':
-                return 'dist/img/img1.jpg';
+                return 'https://media.accessiblecms.com.au/uploads/opan/2021/12/200.jpeg';
                 break;
             case 'small':
                 return 'https://via.placeholder.com/350x150';

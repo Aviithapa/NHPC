@@ -98,7 +98,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Date of Birth (A.D) *</label>
-                                    <input name="dob_eng" class="form-control" id="english_date" type="date" placeholder="YYYY/MM/DD">
+                                    <input name="dob_eng" class="form-control" id="english_date" type="text" placeholder="YYYY/MM/DD" disabled>
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
@@ -123,7 +123,7 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Phone Number</label>
-                                    <input name="phone_number" class="form-control" id="basicInput" type="text">
+                                    <input name="phone_number" minlength="10" maxlength="10" class="form-control" id="basicInput" type="number">
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">
@@ -241,36 +241,113 @@
                                         <fieldset class="form-group">
                                             <label>Ward No *</label>
                                             <input name="ward_no" class="form-control" id="basicInput"
-                                                   type="text">
+                                                   type="number">
                                         </fieldset>
                                     </div>
                                 </div>
 
+                            <div class="grid-body ">
                                 <div class="row">
                                     <div class="col-lg-4">
-                                        <label>Citizenship Front *</label>
-                                        <input type="file" name="citizenship_front_image" onclick="anyFileUploader('citizenship_front')" id="input-file-max-fs" class="dropify" />
-                                        <input type="hidden" id="citizenship_front_path" name="citizenship_front" class="form-control"
-                                               value="" required/>
+                                        <div class="col-md-12 col-lg-12">
+                                            <label>Citizenship Front Image *</label>
+                                            @if(isset($data))
+                                                <img src="{{url(isset($data)?$data->getCitizenshipFrontImage():imageNotFound())}}" height="250" width="200"
+                                                     id="citizenship_front_img">
+
+                                            @else
+                                                <img src="{{isset($data)?$data->getCitizenshipFrontImage():imageNotFound('user')}}" height="250" width="200"
+                                                     id="citizenship_front_img">
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-lg-12">
+                                            <small>Size: 1600*622 px</small>
+                                            <input type="file" id="citizenship_front_image" name="citizenship_front_image"
+                                                   onclick="anyFileUploader('citizenship_front')">
+                                            <input type="hidden" id="citizenship_front_path" name="citizenship_front" class="form-control"
+                                                   value="{{isset($data)?$data->citizenship_front:''}}"/>
+                                            {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                        </div>
                                     </div>
+
                                     <div class="col-lg-4">
-                                        <label>Citizenship Back *</label>
-                                        <input type="file" name="citizenship_back_image" onclick="anyFileUploader('citizenship_back')" id="input-file-max-fs" class="dropify" />
-                                        <input type="hidden" id="citizenship_back_path" name="citizenship_back" class="form-control" value="" required/>
+
+                                        <div class="col-md-12 col-lg-12">
+                                            <label>Citizenship Back Image *</label>
+                                            @if(isset($data))
+                                                <img src="{{url(isset($data)?$data->getCitizenshipBackImage():imageNotFound())}}" height="250"
+                                                     id="citizenship_back_img">
+
+                                            @else
+                                                <img src="{{isset($data)?$data->getCitizenshipBackImage():imageNotFound("user")}}" height="250"
+                                                     id="citizenship_back_img">
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-lg-12">
+                                            <small>Size: 1600*622 px</small>
+                                            <input type="file" id="citizenship_back_image" name="citizenship_back_image"
+                                                   onclick="anyFileUploader('citizenship_back')">
+                                            <input type="hidden" id="citizenship_back_path" name="citizenship_back" class="form-control"
+                                                   value="{{isset($data)?$data->citizenship_back:''}}"/>
+                                            {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                        </div>
                                     </div>
+
                                     <div class="col-lg-4">
-                                        <label>Student Signature *</label>
-                                        <input type="file" name="student_signature_image" onclick="anyFileUploader('student_signature')" id="input-file-max-fs" class="dropify" />
-                                        <input type="hidden" id="student_signature_path" name="signature_image" class="form-control"
-                                               value="" required/>
+
+                                        <div class="col-md-8 col-lg-8">
+                                            <label>Signature  Image *</label>
+                                            @if(isset($data))
+                                                <img src="{{url(isset($data)?$data->getSignatureImage():imageNotFound())}}" height="250" width="300"
+                                                     id="signature_img">
+
+                                            @else
+                                                <img src="{{isset($data)?$data->getSignatureImage():imageNotFound('user')}}" height="250" width="300"
+                                                     id="signature_img">
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-lg-12">
+                                            <small>Size: 1600*622 px</small>
+                                            <input type="file" id="signature_image" name="signature_image"
+                                                   onclick="anyFileUploader('signature')">
+                                            <input type="hidden" id="signature_image_path" name="signature_image" class="form-control"
+                                                   value="{{isset($data)?$data->signature_image:''}}"/>
+                                            {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                        </div>
                                     </div>
+
+                                </div>
+
+                                <div class="row">
                                     <div class="col-lg-4">
-                                        <label>Student Profile Picture *</label>
-                                        <input type="file" name="student_profile_image" onclick="anyFileUploader('student_profile')" id="input-file-max-fs" class="dropify" />
-                                        <input type="hidden" id="student_profile_path" name="profile_picture" class="form-control"
-                                               value="" required/>
+
+                                        <div class="col-md-8 col-lg-8">
+                                            <label>Profile Image *</label>
+                                            @if(isset($data))
+                                                <img src="{{url(isset($data)?$data->getProfileImage():imageNotFound())}}" height="250"
+                                                     id="student_profile_img">
+
+                                            @else
+                                                <img src="{{isset($data)?$data->getProfileImage():imageNotFound('user')}}" height="250"
+                                                     id="student_profile_img">
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-lg-12">
+                                            <small>Size: 1600*622 px</small>
+                                            <input type="file" id="student_profile_image" name="student_profile_image"
+                                                   onclick="anyFileUploader('student_profile')">
+                                            <input type="hidden" id="student_profile_path" name="profile_picture" class="form-control"
+                                                   value="{{isset($data)?$data->student_profile:''}}"/>
+                                            {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                        </div>
                                     </div>
                                 </div>
+
+                            </div>
 
 
                         <button type="submit" class="btn btn-primary mt-5 float-right"><i class="fa fa-check"></i> Save
@@ -298,6 +375,17 @@
              mainInput.nepaliDatePicker({
                  ndpYear: true,
                  ndpMonth: true,
+                 disableAfter: "2061-01-25",
+
+                 onChange: function() {
+                     var mainInput = document.getElementById("nepali_dob").value;
+                     console.log(mainInput);
+                     var date = mainInput.split("-");
+                     var addate = NepaliFunctions.BS2AD({year: date[0], month: date[1], day: date[2]});
+                     var dtate = NepaliFunctions.ConvertDateFormat(addate, "YYYY/MM/DD");
+                     document.getElementById("english_date").value = dtate;
+
+                 }
              });
              var mainInputs = document.getElementById("citizenship_issue");
              mainInputs.nepaliDatePicker({
@@ -306,11 +394,7 @@
              });
          }
          function convertToAD() {
-             var mainInput = document.getElementById("nepali_dob").value;
-             console.log(mainInput);
-             var date = mainInput.split("-");
-             var addate = NepaliFunctions.BS2AD({year: date[0], month: date[1], day: date[2]})
-             console.log(addate);
+
 
          }
 

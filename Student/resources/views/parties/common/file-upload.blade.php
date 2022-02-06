@@ -11,6 +11,7 @@
 
             url: '{{ url('student/dashboard/save_image') }}' + '/' + id,
             done: function(e, data) {
+                $('#'+id+'_img').attr('src', data.result.full_url);
                 $('#'+id+'_path').val(data.result.image_name);
             },
             error: function(e,data){
