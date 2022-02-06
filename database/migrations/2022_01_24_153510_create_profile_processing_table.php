@@ -19,6 +19,7 @@ class CreateProfileProcessingTable extends Migration
             $table->enum('current_state', ['computer_operator','registrar','subject_committee','exam_committee','officer','onhold','council'])->nullable();
             $table->enum('status', ['pending','progress','accepted','rejected'])->nullable();
             $table->string('remarks')->nullable();
+            $table->integer('subject_committee_accepted_num')->default(0);
             $table->timestamps();
         });
     }

@@ -24,6 +24,11 @@ class CreateRegistrantQualificationTable extends Migration
             $table->integer('user_id')->nullable();
             $table->integer('level')->nullable();
             $table->bigInteger('registration_number')->nullable();
+            $table->string('transcript_image')->nullable();
+            $table->string('provisional_image	')->nullable();
+            $table->string('character_image')->nullable();
+            $table->string('migration_image')->nullable();
+            $table->string('ojt_image')->nullable();
             $table->timestamps();
         });
     }

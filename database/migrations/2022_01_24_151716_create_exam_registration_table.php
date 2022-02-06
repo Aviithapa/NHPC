@@ -17,6 +17,15 @@ class CreateExamRegistrationTable extends Migration
             $table->id();
             $table->string('exam_id')->nullable();
             $table->string('profile_id')->nullable();
+            $table->string('voucher_image')->nullable();
+            $table->string('remarks')->nullable();
+            $table->integer('subject_committee_count')->nullable();
+            $table->integer('level_id')->nullable();
+            $table->integer('program_id')->nullable();
+            $table->integer('darta_number')->nullable();
+            $table->enum('is_admit_card_generate',['yes','no'])->default('no');
+            $table->enum('state', ['computer_operator','registrar','subject_committee','exam_committee','officer','onhold','council'])->nullable();
+            $table->enum('status', ['pending','progress','accepted','rejected'])->nullable();
             $table->timestamps();
         });
     }
