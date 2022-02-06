@@ -1,3 +1,5 @@
+<?php $nav_profile = 'active'; ?>
+
 @extends('student::layout.app')
 
 @section('content')
@@ -198,13 +200,9 @@
                                             <label>Province *</label>
                                             <select class="form-control" name="development_region">
                                                 <option value="">Select Development Region</option>
-                                                <option value="provision-1">Province 1</option>
-                                                <option value="madhesh-province">Madhesh Province</option>
-                                                <option value="bagmati-province">Bagmati Province</option>
-                                                <option value="gandaki-province">Gandaki Province</option>
-                                                <option value="lumbani-province">Lumbani Province</option>
-                                                <option value="karnali-province">Karnali Province</option>
-                                                <option value="sudurpaschim-province">Sudurpaschim Province</option>
+                                                @foreach(getProvince() as $key => $value)
+                                                    <option value="{{$key}}">{{$value}}</option>
+                                                @endforeach
                                             </select>
                                         </fieldset>
                                     </div>
@@ -213,11 +211,6 @@
                                             <label>District *</label>
                                             <select class="form-control" name="district">
                                                 <option value="">Select District</option>
-                                                <option value="Baitadi">Baitadi</option>
-                                                <option value="Darchula">Darchula</option>
-                                                <option value="Kailali">Kailali</option>
-                                                <option value="Dadeldhura">Dadeldhura</option>
-                                                <option value="Kanchanpur">Kanchanpur</option>
                                             </select>
                                         </fieldset>
                                     </div>
@@ -313,7 +306,7 @@
                                             <small>Size: 1600*622 px</small>
                                             <input type="file" id="signature_image" name="signature_image"
                                                    onclick="anyFileUploader('signature')">
-                                            <input type="hidden" id="signature_image_path" name="signature_image" class="form-control"
+                                            <input type="hidden" id="signature_path" name="signature_image" class="form-control"
                                                    value="{{isset($data)?$data->signature_image:''}}"/>
                                             {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                         </div>
@@ -399,6 +392,53 @@
          }
 
 
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $('select[name="development_region"]').on('change',function(){
+                var development_region= $(this).val();
+                console.log(development_region);
+                switch(development_region){
+                    case 'province-1':
+                        console.log("you are here");
+                        document.getElementById("province").style.display = "block";
+                         $('#province').hide();
+                        break;
+                    case 'madhesh':
+                        break;
+                    case 'bagmati':
+                        break;
+                    case 'gandaki':
+                        break;
+                    case 'lumbani':
+                        break;
+                    case 'karnali':
+                        break;
+                    case 'sudurpaschim':
+                        break;
+                }
+            });
+            $('select[name="state"]').on('change',function(){
+                var state_id= $(this).val();
+                if (state_id) {
+                    $.ajax({
+                        url: "{{url('/getCities/')}}/"+state_id,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data){
+                            console.log(data);
+                            $('select[name="city"]').empty();
+                            $.each(data,function(key,value){
+                                $('select[name="city"]').append('<option value="'+key+'">'+value+'</option>');
+                            });
+                        }
+                    });
+                }else {
+                    $('select[name="city"]').empty();
+                }
+            });
+        });
     </script>
      @include('student::parties.common.file-upload')
     @endpush

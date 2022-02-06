@@ -62,6 +62,80 @@
     <!-- /.content -->
 </div>
 
+    @if($rejected != null)
+        <div class="modal"  role="dialog" id="popup" style="display: block;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" onclick="$('.modal').css('display','none')" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="thank-you-pop">
+                            <img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+                            <h1>Warning! Warning! Warning!<br>
+                                Profile has been rejected please review it</h1>
+                            <p></p>
+                            <button onclick="$('.modal').css('display','none')" class="btn btn-primary  mt-2"><i class="fa fa-check"></i>
+                                Ok</button>
+                            <a href="{{url("student/dashboard/student/status/index/profile")}}"><button class="btn btn-primary  mt-2"><i class="fa fa-check"></i>
+                                    Check Profile logs</button></a>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @endif
+        <div class="modal"  role="dialog" id="popup">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" onclick="$('.modal').css('display','none')" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="thank-you-pop">
+                        <img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+                        <h1>Thank You for Registration!<br>
+                        Please Setup your Profile First for Further Operation</h1>
+                        <p></p>
+                        <button onclick="$('.modal').css('display','none')" class="btn btn-primary  mt-2"><i class="fa fa-check"></i>
+                            Ok</button>
+                        <a href="{{url("student/dashboard/student/personal")}}"><button class="btn btn-primary  mt-2"><i class="fa fa-check"></i>
+                            Setup Profile</button></a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 @endsection
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    console.log("hello");
+    $( document ).ready(function() {
+
+        if(localStorage.getItem('popState') != 'shown'){
+            $("#popup").delay(2000).fadeIn();
+            console.log("you are pop");
+            localStorage.setItem('popState','shown')
+        }
+
+        $('#popup-close, #popup').click(function(e) // You are clicking the close button
+        {
+            $('#popup').fadeOut(); // Now the pop up is hiden.
+        });
+    });
+    window.onload(function() {
+
+    });
+</script>

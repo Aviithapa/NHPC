@@ -37,8 +37,14 @@ class ProfileController extends BaseController
 
 
     public function dashboard(){
-
-        return view('student::pages.dashboard');
+        $data=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+        $rejected = null;
+        if ($data) {
+            if ($data['profile_status'] === "Rejected") {
+                $rejected = "Your application has been rejected";
+            }
+        }
+        return view('student::pages.dashboard',compact('rejected'));
     }
 
     public function index($slug = null){

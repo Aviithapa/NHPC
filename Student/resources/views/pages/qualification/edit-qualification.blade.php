@@ -38,12 +38,7 @@
                                 <div class="col-lg-4">
                                     <fieldset class="form-group">
                                         <label>Collage Name</label>
-                                        <select class="form-control" name="collage_name" required>
-                                            <option value="{{$qualification->collage_name}}">{{$qualification->collage_name}}</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                            <option value="other">Other</option>
-                                        </select>
+                                            <input name="collage_name" class="form-control" id="basicInput" type="text" value="{{$qualification->collage_name}}">
                                     </fieldset>
                                 </div>
                                 <div class="col-lg-4">
@@ -78,7 +73,7 @@
                                 <div class="col-lg-4">
                                     <fieldset class="form-group">
                                         <label>Registration Number</label>
-                                        <input name="registration_number" value="{{$qualification->registration_number}}" class="form-control" id="basicInput" type="text" required>
+                                        <input name="registration_number" value="{{$qualification->registration_number}}" class="form-control" id="basicInput" type="number" required>
                                     </fieldset>
                                 </div>
                                 <div class="col-lg-4">
@@ -97,70 +92,74 @@
                                         </select>
                                     </fieldset>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="col-md-4 col-lg-4">
+                                <div class="grid-body ">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="col-md-12 col-lg-12">
+                                                <label>Transcript Image *</label>
+                                                @if(isset($qualification))
+                                                    <img src="{{url(isset($qualification)?$qualification->getTranscriptImage():imageNotFound())}}" height="250" width="200"
+                                                         id="transcript_img">
 
-                                        @if(isset($qualification))
-                                            <img src="{{url(isset($qualification)?$qualification->getTranscriptImage():imageNotFound())}}" height="250"
-                                                 id="blogger_pic_img">
+                                                @else
+                                                    <img src="{{isset($qualification)?$qualification->getTranscriptImage():imageNotFound('user')}}" height="250" width="200"
+                                                         id="transcript_img">
+                                                @endif
+                                            </div>
 
-                                        @else
-                                            <img src="{{isset($qualification)?$qualification->getTranscriptImage():imageNotFound()}}" height="250"
-                                                 id="blogger_pic_img">
-                                        @endif
-                                    </div>
+                                            <div class="form-group col-md-12 col-lg-12">
+                                                <small>Size: 1600*622 px</small>
+                                                <input type="file" id="transcript_image" name="transcript_image"
+                                                       onclick="anyFileUploader('transcript')">
+                                                <input type="hidden" id="transcript_path" name="transcript" class="form-control"
+                                                       value="{{isset($qualification)?$qualification->transcript_image:''}}"/>
+                                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="col-md-12 col-lg-12">
+                                                <label>Provisional Image *</label>
+                                                @if(isset($qualification))
+                                                    <img src="{{url(isset($qualification)?$qualification->getProvisionalImage():imageNotFound())}}" height="250" width="200"
+                                                         id="provisional_img">
 
-                                    <div class="form-group col-md-12 col-lg-12">
-                                        <small>Size: 1600*622 px</small>
-                                        <input type="file" id="transcript_image" name="transcript_image"
-                                               onclick="anyFileUploader('transcript')">
-                                        <input type="hidden" id="transcript_path" name="transcript" class="form-control"
-                                               value="{{isset($qualification)?$qualification->transcript_image:''}}"/>
-                                        {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="col-md-4 col-lg-4">
+                                                @else
+                                                    <img src="{{isset($qualification)?$qualification->getProvisionalImage():imageNotFound('user')}}" height="250" width="200"
+                                                         id="provisional_img">
+                                                @endif
+                                            </div>
 
-                                        @if(isset($qualification))
-                                            <img src="{{url(isset($qualification)?$qualification->getProvisionalImage():imageNotFound())}}" height="250"
-                                                 id="blogger_pic_img">
+                                            <div class="form-group col-md-12 col-lg-12">
+                                                <small>Size: 1600*622 px</small>
+                                                <input type="file" id="provisional_image" name="provisional_image"
+                                                       onclick="anyFileUploader('provisional')">
+                                                <input type="hidden" id="provisional_path" name="provisional" class="form-control"
+                                                       value="{{isset($qualification)?$qualification->provisional_image:''}}"/>
+                                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="col-md-12 col-lg-12">
+                                                <label>Character Image *</label>
+                                                @if(isset($qualification))
+                                                    <img src="{{url(isset($qualification)?$qualification->getCharacterImage():imageNotFound())}}" height="250" width="200"
+                                                         id="character_img">
 
-                                        @else
-                                            <img src="{{isset($qualification)?$qualification->getProvisionalImage():imageNotFound()}}" height="250"
-                                                 id="blogger_pic_img">
-                                        @endif
-                                    </div>
+                                                @else
+                                                    <img src="{{isset($qualification)?$qualification->getCharacterImage():imageNotFound('user')}}" height="250" width="200"
+                                                         id="character_img">
+                                                @endif
+                                            </div>
 
-                                    <div class="form-group col-md-12 col-lg-12">
-                                        <small>Size: 1600*622 px</small>
-                                        <input type="file" id="provisional_image" name="provisional_image"
-                                               onclick="anyFileUploader('provisional')">
-                                        <input type="hidden" id="provisional_path" name="provisional" class="form-control"
-                                               value="{{isset($qualification)?$qualification->provisional_image:''}}"/>
-                                        {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="col-md-4 col-lg-4">
-
-                                        @if(isset($qualification))
-                                            <img src="{{url(isset($qualification)?$qualification->getCharacterImage():imageNotFound())}}" height="250"
-                                                 id="blogger_pic_img">
-
-                                        @else
-                                            <img src="{{isset($qualification)?$qualification->getCharacterImage():imageNotFound()}}" height="250"
-                                                 id="blogger_pic_img">
-                                        @endif
-                                    </div>
-
-                                    <div class="form-group col-md-12 col-lg-12">
-                                        <small>Size: 1600*622 px</small>
-                                        <input type="file" id="character_image" name="character_image"
-                                               onclick="anyFileUploader('character')">
-                                        <input type="hidden" id="character_path" name="character" class="form-control"
-                                               value="{{isset($qualification)?$qualification->character_image:''}}"/>
-                                        {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                            <div class="form-group col-md-12 col-lg-12">
+                                                <small>Size: 1600*622 px</small>
+                                                <input type="file" id="character_image" name="character_image"
+                                                       onclick="anyFileUploader('character')">
+                                                <input type="hidden" id="character_path" name="character" class="form-control"
+                                                       value="{{isset($qualification)?$qualification->character_image:''}}"/>
+                                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 

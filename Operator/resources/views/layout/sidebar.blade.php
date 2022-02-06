@@ -64,6 +64,12 @@
                 </ul>
             </li>
 
+            <li class="">
+                <a href="{{route("search.student")}}">
+                    <i class="icon-book-open"></i> <span>Search applicant</span>
+                </a>
+            </li>
+
 
 
         </ul>

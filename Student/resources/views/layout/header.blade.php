@@ -39,7 +39,7 @@
                             </div>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 4 new messages</li>
+                            <li class="header">You have  new messages</li>
                             <li>
                                 <ul class="menu">
                                     <li>
@@ -49,13 +49,11 @@
                                                 <span class="profile-status online pull-right"></span>
                                             </div>
                                             <h4>Notification</h4>
-                                            <p>I've finished it! See you so...</p>
-                                            <p><span class="time">9:30 AM</span></p>
+                                            <p>Registered Successful</p>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">View All Messages</a></li>
                         </ul>
                     </li>
                     <!-- Notifications  -->
@@ -76,14 +74,12 @@
                                                 <i class="icon-lightbulb"></i>
                                             </div>
                                             <h4>{{ Auth::user()->name }}</h4>
-                                            <p>I've finished it! See you so...</p>
-                                            <p><span class="time">9:30 AM</span></p>
+                                            <p>Register Sucessful.</p>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="footer">
-                                <a href="#">Check all Notifications</a>
                             </li>
                         </ul>
                     </li>

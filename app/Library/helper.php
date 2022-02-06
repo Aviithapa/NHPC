@@ -569,4 +569,18 @@ if (!function_exists('removeKeyFromArray')) {
 
 
 
-
+if (!function_exists('getProvince')) {
+    function getProvince()
+    {
+        $status = [
+            'province-1' => 'Province 1',
+            'madhesh' => 'Madhesh Province',
+            'bagmati' => 'Bagmati',
+            'gandaki' => 'Gandaki',
+            'lumbani' => 'Lumbani',
+            'karnali' => 'Karnali',
+            'sudurpaschim' => 'Sudurpaschim'
+        ];
+        return $status;
+    }
+}
