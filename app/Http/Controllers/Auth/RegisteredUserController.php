@@ -42,7 +42,8 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone_number' => ['required', 'string', 'max:13','unique:users'],
+            'phone_number' => ['required', 'string', 'min:10','max:10','unique:users'],
+            'captcha' => ['required','captcha']
         ]);
     }
 

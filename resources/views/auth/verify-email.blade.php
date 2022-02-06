@@ -7,7 +7,11 @@
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+            {{ __("Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? We will gladly send you another if you didn't receive the email.") }}
+
+        </div>
+        <div class="mb-4 text-sm text-gray-600">
+            {{ __("साइन अप गर्नुभएकोमा धन्यवाद! सुरु गर्नु अघि, हामीले भर्खरै तपाईलाई इमेल गरेको लिङ्कमा क्लिक गरेर तपाईले आफ्नो इमेल ठेगाना प्रमाणित गर्न सक्नुहुन्छ? यदि तपाईले इमेल प्राप्त गर्नुभएन भने हामी खुशीसाथ तपाईलाई अर्को पठाउनेछौं।") }}
         </div>
 
         @if (session('status') == 'verification-link-sent')

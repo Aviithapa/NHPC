@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\CaptchaValidationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('web.pages.index');
 });
-;
+
+
+Route::get('reload-captcha', [CaptchaValidationController::class, 'reloadCaptcha']);
+
 
 require __DIR__.'/auth.php';
