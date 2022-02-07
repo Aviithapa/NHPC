@@ -60,7 +60,7 @@ class QualificationController extends BaseController
                 $data['transcript_image'] = $data['transcript_pcl'];
                 $data['provisional_image'] = $data['provisional_pcl'];
                 $data['character_image'] = $data['character_pcl'];
-                $data['ojt_image'] = $data['ojt_pcl'];
+                $data['ojt_image'] = $data['ojt_pcl_image'];
                 break;
             case 4 :
                 $data['transcript_image'] = $data['transcript_bac'];

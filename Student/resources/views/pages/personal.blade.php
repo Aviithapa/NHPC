@@ -63,7 +63,7 @@
                                     </div>
 
                                     <div class="form-group col-md-12 col-lg-12">
-                                        <small>Size: 1600*622 px</small><br>
+                                        <small>Below 1 mb</small><br>
                                         <small id="student_profile_help_text" class="help-block"></small>
                                         <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
                                              aria-valuemax="100"
@@ -297,7 +297,7 @@
                                         </div>
 
                                         <div class="form-group col-md-12 col-lg-12">
-                                            <small>Size: 1600*622 px</small>
+                                            <small>Below 1 mb</small>
                                             <br>
                                             <small id="citizenship_front_help_text" class="help-block"></small>
                                             <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
@@ -329,7 +329,7 @@
                                         </div>
 
                                         <div class="form-group col-md-12 col-lg-12">
-                                            <small>Size: 1600*622 px</small><br>
+                                            <small>Below 1 mb</small><br>
                                             <small id="citizenship_back_help_text" class="help-block"></small>
                                             <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
                                                  aria-valuemax="100"
@@ -361,7 +361,7 @@
                                         </div>
 
                                         <div class="form-group col-md-12 col-lg-12">
-                                            <small>Size: 1600*622 px</small><br>
+                                            <small>Below 1 mb</small><br>
                                             <small id="signature_help_text" class="help-block"></small>
                                             <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
                                                  aria-valuemax="100"
