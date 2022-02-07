@@ -189,7 +189,12 @@
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Issue District *</label>
-                                    <input name="issue_district" class="form-control" id="basicInput" type="text" required>
+                                    <select class="form-control" name="issue_district" required>
+                                        <option value="">Select District</option>
+                                        @foreach(getProvince1() as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endforeach
+                                    </select>
                                 </fieldset>
                             </div>
                         </div>
