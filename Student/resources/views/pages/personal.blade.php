@@ -150,18 +150,18 @@
                                     </select>
                                 </fieldset>
                             </div>
-                            <div class="col-lg-4">
-                                <fieldset class="form-group">
-                                    <label>Cast *</label>
-                                    <select class="form-control" name="cast" required>
-                                        <option value="">Select Cast</option>
-                                        <option value="female">A</option>
-                                        <option value="other">B</option>
-                                        <option value="other">C</option>
-                                        <option value="other">D</option>
-                                    </select>
-                                </fieldset>
-                            </div>
+{{--                            <div class="col-lg-4">--}}
+{{--                                <fieldset class="form-group">--}}
+{{--                                    <label>Cast *</label>--}}
+{{--                                    <select class="form-control" name="cast" required>--}}
+{{--                                        <option value="">Select Cast</option>--}}
+{{--                                        <option value="female">A</option>--}}
+{{--                                        <option value="other">B</option>--}}
+{{--                                        <option value="other">C</option>--}}
+{{--                                        <option value="other">D</option>--}}
+{{--                                    </select>--}}
+{{--                                </fieldset>--}}
+{{--                            </div>--}}
                             <div class="col-lg-4">
                                 <fieldset class="form-group">
                                     <label>Marital Status *</label>
