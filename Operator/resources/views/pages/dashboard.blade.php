@@ -19,28 +19,34 @@
         <div class="content">
             <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing'])}}">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Pending')}}</span>
                                 <span class="info-box-text">New Applicant Profile List</span> </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Pending'])}}">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Pending')}}</span>
                                 <span class="info-box-text">Applicant Pending Profile</span></div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Rejected'])}}">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Rejected')}}</span>
                                 <span class="info-box-text">Rejected Application List </span></div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
