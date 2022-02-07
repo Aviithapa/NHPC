@@ -200,7 +200,7 @@
                                     <div class="col-lg-4">
                                         <fieldset class="form-group">
                                             <label>Province *</label>
-                                            <select class="form-control" name="development_region">
+                                            <select class="form-control" name="development_region" required>
                                                 <option value="">Select Development Region</option>
                                                 @foreach(getProvince() as $key => $value)
                                                     <option value="{{$key}}">{{$value}}</option>
@@ -211,7 +211,7 @@
                                     <div class="col-lg-4">
                                         <fieldset class="form-group">
                                             <label>District *</label>
-                                            <select class="form-control" name="district">
+                                            <select class="form-control" name="district" required>
                                                 <option value="">Select District</option>
                                                 @foreach(getProvince1() as $key => $value)
                                                     <option value="{{$key}}">{{$value}}</option>
@@ -222,7 +222,7 @@
                                     <div class="col-lg-4">
                                         <fieldset class="form-group">
                                             <label>Municipality *</label>
-                                            <select class="form-control" name="vdc_municiplality">
+                                            <select class="form-control" name="vdc_municiplality" required>
                                                 <option value="">Select District</option>
                                                 <option value="Baitadi">Baitadi</option>
                                                 <option value="Darchula">Darchula</option>
@@ -239,16 +239,39 @@
                                         <fieldset class="form-group">
                                             <label>Ward No *</label>
                                             <input name="ward_no" class="form-control" id="basicInput"
-                                                   type="number">
+                                                   type="number" required>
                                         </fieldset>
                                     </div>
                                 </div>
 
                             <div class="grid-body ">
                                 <div class="row">
+                                        <div class="col-lg-4">
+
+                                            <div class="col-md-8 col-lg-8">
+                                                <label>Profile Image</label>
+                                                @if(isset($data))
+                                                    <img src="{{url(isset($data)?$data->getProfileImage():imageNotFound())}}" height="250"
+                                                         id="student_profile_img">
+
+                                                @else
+                                                    <img src="{{isset($data)?$data->getProfileImage():imageNotFound('user')}}" height="250"
+                                                         id="student_profile_img">
+                                                @endif
+                                            </div>
+
+                                            <div class="form-group col-md-12 col-lg-12">
+                                                <small>Size: 1600*622 px</small>
+                                                <input type="file" id="student_profile_image" name="student_profile_image"
+                                                       onclick="anyFileUploader('student_profile')">
+                                                <input type="hidden" id="student_profile_path" name="profile_picture" class="form-control"
+                                                       value="{{isset($data)?$data->student_profile:''}}" />
+                                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                            </div>
+                                        </div>
                                     <div class="col-lg-4">
                                         <div class="col-md-12 col-lg-12">
-                                            <label>Citizenship Front Image *</label>
+                                            <label>Citizenship Front Image</label>
                                             @if(isset($data))
                                                 <img src="{{url(isset($data)?$data->getCitizenshipFrontImage():imageNotFound())}}" height="250" width="200"
                                                      id="citizenship_front_img">
@@ -262,9 +285,9 @@
                                         <div class="form-group col-md-12 col-lg-12">
                                             <small>Size: 1600*622 px</small>
                                             <input type="file" id="citizenship_front_image" name="citizenship_front_image"
-                                                   onclick="anyFileUploader('citizenship_front')">
+                                                   onclick="anyFileUploader('citizenship_front')" required>
                                             <input type="hidden" id="citizenship_front_path" name="citizenship_front" class="form-control"
-                                                   value="{{isset($data)?$data->citizenship_front:''}}"/>
+                                                   value="{{isset($data)?$data->citizenship_front:''}}" required/>
                                             {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                         </div>
                                     </div>
@@ -272,7 +295,7 @@
                                     <div class="col-lg-4">
 
                                         <div class="col-md-12 col-lg-12">
-                                            <label>Citizenship Back Image *</label>
+                                            <label>Citizenship Back Image</label>
                                             @if(isset($data))
                                                 <img src="{{url(isset($data)?$data->getCitizenshipBackImage():imageNotFound())}}" height="250"
                                                      id="citizenship_back_img">
@@ -286,9 +309,9 @@
                                         <div class="form-group col-md-12 col-lg-12">
                                             <small>Size: 1600*622 px</small>
                                             <input type="file" id="citizenship_back_image" name="citizenship_back_image"
-                                                   onclick="anyFileUploader('citizenship_back')">
+                                                   onclick="anyFileUploader('citizenship_back')" required>
                                             <input type="hidden" id="citizenship_back_path" name="citizenship_back" class="form-control"
-                                                   value="{{isset($data)?$data->citizenship_back:''}}"/>
+                                                   value="{{isset($data)?$data->citizenship_back:''}}" required/>
                                             {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                         </div>
                                     </div>
@@ -296,7 +319,7 @@
                                     <div class="col-lg-4">
 
                                         <div class="col-md-8 col-lg-8">
-                                            <label>Signature  Image *</label>
+                                            <label>Signature  Image </label>
                                             @if(isset($data))
                                                 <img src="{{url(isset($data)?$data->getSignatureImage():imageNotFound())}}" height="250" width="300"
                                                      id="signature_img">
@@ -310,40 +333,16 @@
                                         <div class="form-group col-md-12 col-lg-12">
                                             <small>Size: 1600*622 px</small>
                                             <input type="file" id="signature_image" name="signature_image"
-                                                   onclick="anyFileUploader('signature')">
+                                                   onclick="anyFileUploader('signature')" required>
                                             <input type="hidden" id="signature_path" name="signature_image" class="form-control"
-                                                   value="{{isset($data)?$data->signature_image:''}}"/>
+                                                   value="{{isset($data)?$data->signature_image:''}}" required/>
                                             {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                         </div>
                                     </div>
 
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-lg-4">
 
-                                        <div class="col-md-8 col-lg-8">
-                                            <label>Profile Image *</label>
-                                            @if(isset($data))
-                                                <img src="{{url(isset($data)?$data->getProfileImage():imageNotFound())}}" height="250"
-                                                     id="student_profile_img">
-
-                                            @else
-                                                <img src="{{isset($data)?$data->getProfileImage():imageNotFound('user')}}" height="250"
-                                                     id="student_profile_img">
-                                            @endif
-                                        </div>
-
-                                        <div class="form-group col-md-12 col-lg-12">
-                                            <small>Size: 1600*622 px</small>
-                                            <input type="file" id="student_profile_image" name="student_profile_image"
-                                                   onclick="anyFileUploader('student_profile')">
-                                            <input type="hidden" id="student_profile_path" name="profile_picture" class="form-control"
-                                                   value="{{isset($data)?$data->student_profile:''}}"/>
-                                            {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
-                                        </div>
-                                    </div>
-                                </div>
 
                             </div>
 
