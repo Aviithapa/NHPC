@@ -56,11 +56,12 @@ class QualificationController extends BaseController
             $this->checkLevel($profiles);
             session()->flash('success', $data["level_name"].' Qualification have been Saved Successfully');
             $slc_data = $this->qualificationRepository->slcData(Auth::user()->id);
+            $tslc_data = $this->qualificationRepository->tslcData(Auth::user()->id);
             $plus_2 = $this->qualificationRepository->pclData(Auth::user()->id);
             $bachelor = $this->qualificationRepository->bachelorData(Auth::user()->id);
             $master = $this->qualificationRepository->masterData(Auth::user()->id);
 
-            return redirect()->route('student.specific',compact('slc_data','plus_2','bachelor','master'));
+            return redirect()->route('student.specific',compact('slc_data','plus_2','bachelor','master','tslc_data'));
         } catch (\Exception $e) {
             session()->flash('danger', 'Oops! Something went wrong.');
             return redirect()->back()->withInput();

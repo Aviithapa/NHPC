@@ -24,22 +24,26 @@ class EloquentQualificationRepository extends RepositoryImplementation implement
             ->where('level','=','1')
             ->isEmpty();
     }
-
-    public function pclData($id){
+    public function tslcData($id){
         return $this->getAll()->where('user_id','=',$id)
             ->where('level','=','2')
             ->isEmpty();
     }
-
-    public function bachelorData($id){
+    public function pclData($id){
         return $this->getAll()->where('user_id','=',$id)
             ->where('level','=','3')
             ->isEmpty();
     }
 
-    public function masterData($id){
+    public function bachelorData($id){
         return $this->getAll()->where('user_id','=',$id)
             ->where('level','=','4')
+            ->isEmpty();
+    }
+
+    public function masterData($id){
+        return $this->getAll()->where('user_id','=',$id)
+            ->where('level','=','5')
             ->isEmpty();
     }
 }

@@ -16,7 +16,7 @@ class Qualification extends Model
 
     protected $fillable = [
         'name', 'board_university', 'passed_year','admission_year','program_id','collage_id','user_id','level','registration_number',
-        'transcript_image','provisional_image','character_image'
+        'transcript_image','provisional_image','character_image','ojt_image'
     ];
 
     public function user()
@@ -51,5 +51,10 @@ class Qualification extends Model
     public function getCharacterImage()
     {
         return Storage::url('documents/' .$this->character_image);
+    }
+
+    public function getOJTImage()
+    {
+        return Storage::url('documents/' .$this->ojt_image);
     }
 }

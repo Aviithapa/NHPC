@@ -7,13 +7,11 @@
                  <h4 class="text-black">SLC Information</h4>
                  <form method="POST" action="{{url('student/dashboard/student/collage/data')}}">
                      @csrf
-
-
                      <div class="row">
                          <div class="col-lg-4">
                              <fieldset class="form-group">
                                  <label>Level</label>
-                                 <input name="level_name" class="form-control" id="basicInput" type="text" value="SLC/TSLC" readonly>
+                                 <input name="level_name" class="form-control" id="basicInput" type="text" value="SLC" readonly>
                                  <input type="hidden" name="level" class="form-control" value="1"/>
                              </fieldset>
                          </div>
@@ -25,53 +23,20 @@
                          </div>
                          <div class="col-lg-4">
                              <fieldset class="form-group">
-                                 <label>Program Name</label>
-                                 <select class="form-control" name="program_id" required>
-                                     <option value=""></option>
-                                     @foreach($slc_program as $program)
-                                     <option value="{{$program->id}}">{{$program->name}}</option>
-                                     @endforeach
-                                 </select>
-                             </fieldset>
-                         </div>
-                         <div class="col-lg-4">
-                             <fieldset class="form-group">
                                  <label>Admission Year </label>
-                                 <input name="admission_year" class="form-control" id="basicInput" type="date" required>
+                                 <input name="admission_year" class="form-control" id="basicInput" type="number" min="2050" max="2078" step="1" value="2075" required/>
                              </fieldset>
                          </div>
                          <div class="col-lg-4">
                              <fieldset class="form-group">
                                  <label>Passed Year </label>
-                                 <input name="passed_year" class="form-control" id="basicInput" type="date" required>
+                                 <input name="passed_year" class="form-control" id="basicInput" type="number" min="2050" max="2078" step="1" value="2075" required/>
                              </fieldset>
                          </div>
                          <div class="col-lg-4">
                              <fieldset class="form-group">
-                                 <label>Board University</label>
+                                 <label>Board</label>
                                  <input name="board_university" class="form-control" id="basicInput" type="text" required>
-                             </fieldset>
-                         </div>
-                         <div class="col-lg-4">
-                             <fieldset class="form-group">
-                                 <label>Registration Number</label>
-                                 <input name="registration_number" class="form-control" id="basicInput" type="number" required>
-                             </fieldset>
-                         </div>
-                         <div class="col-lg-4">
-                             <fieldset class="form-group">
-                                 <label>Hospital Name</label>
-                                 <input name="hospital_name" class="form-control" id="basicInput" type="text">
-                             </fieldset>
-                         </div>
-                         <div class="col-lg-4">
-                             <fieldset class="form-group">
-                                 <label>Is Registrated</label>
-                                 <select class="form-control" name="is_registrated">
-                                     <option value=""></option>
-                                     <option value="female">Yes</option>
-                                     <option value="other">No</option>
-                                 </select>
                              </fieldset>
                          </div>
                          <div class="grid-body ">
@@ -120,6 +85,7 @@
                                          {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                      </div>
                                  </div>
+
                                  <div class="col-lg-4">
                                      <div class="col-md-12 col-lg-12">
                                          <label>Character Image *</label>
@@ -142,6 +108,7 @@
                                          {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                      </div>
                                  </div>
+
                              </div>
                          </div>
 

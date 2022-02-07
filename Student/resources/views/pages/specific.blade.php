@@ -42,6 +42,9 @@
 
             <div class="content">
                         @include('student::pages.qualification.slc')
+                    <div id="tslc" >
+                        @include('student::pages.qualification.tslc')
+                    </div>
                     <div id="pcl" >
                         @include('student::pages.qualification.intermediate')
                     </div>

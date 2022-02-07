@@ -83,6 +83,7 @@ class ProfileController extends BaseController
                     break;
                 case 'specific':
                     $slc_data = $this->qualificationRepository->slcData(Auth::user()->id);
+                    $tslc_data = $this->qualificationRepository->tslcData(Auth::user()->id);
                     $plus_2 = $this->qualificationRepository->pclData(Auth::user()->id);
                     $bachelor = $this->qualificationRepository->bachelorData(Auth::user()->id);
                     $master = $this->qualificationRepository->masterData(Auth::user()->id);
@@ -91,7 +92,7 @@ class ProfileController extends BaseController
                     $bachelor_program = $this->programRepository->getAll()->where('level_id','=',2);
                     $master_program = $this->programRepository->getAll()->where('level_id','=',1);
                     return view('student::pages.specific',compact('slc_data','plus_2','bachelor','master','slc_program',
-                                                                            'plus_2_program','bachelor_program','master_program'));
+                                                                            'plus_2_program','bachelor_program','master_program','tslc_data'));
                     break;
                 default :
                     return view('student::pages.404');
