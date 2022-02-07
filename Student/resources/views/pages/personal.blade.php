@@ -155,8 +155,10 @@
                                     <label>Cast *</label>
                                     <select class="form-control" name="cast" required>
                                         <option value="">Select Cast</option>
-                                        <option value="female">Chettri</option>
-                                        <option value="other">Brahmin</option>
+                                        <option value="female">A</option>
+                                        <option value="other">B</option>
+                                        <option value="other">C</option>
+                                        <option value="other">D</option>
                                     </select>
                                 </fieldset>
                             </div>
@@ -211,6 +213,9 @@
                                             <label>District *</label>
                                             <select class="form-control" name="district">
                                                 <option value="">Select District</option>
+                                                @foreach(getProvince1() as $key => $value)
+                                                    <option value="{{$key}}">{{$value}}</option>
+                                                @endforeach
                                             </select>
                                         </fieldset>
                                     </div>

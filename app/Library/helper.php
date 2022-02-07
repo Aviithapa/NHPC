@@ -584,3 +584,25 @@ if (!function_exists('getProvince')) {
         return $status;
     }
 }
+if (!function_exists('getProvince1')) {
+    function getProvince1()
+    {
+        $status = [
+            'Taplejung' => 'Taplejung',
+            'Bhojpur' => 'Bhojpur',
+            'Dhankuta' => 'Dhankuta',
+            'Ilam' => 'Ilam',
+            'Jhapa' => 'Jhapa',
+            'Khotang' => 'Khotang',
+            'Morang' => 'Morang',
+            'Okhaldhunga' => 'Okhaldhunga',
+            'Panchthar' => 'Panchthar',
+            'Sankhuwasabha ' => 'Sankhuwasabha ',
+            'Solukhumbu ' => 'Solukhumbu ',
+            'Sunsari ' => 'Sunsari ',
+            'Terhathum ' => 'Terhathum ',
+            'Udayapur ' => 'Udayapur ',
+        ];
+        return $status;
+    }
+}
