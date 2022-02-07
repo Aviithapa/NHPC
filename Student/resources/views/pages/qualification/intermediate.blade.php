@@ -20,7 +20,7 @@
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Collage Type</label>
-                        <select class="form-control" name="collage_type" id="collageType" onchange="chnageType()" required>
+                        <select class="form-control" name="collage_type" id="collageType" onchange="chnagePclType()" required>
                             <option value="nepal">Nepal</option>
                             <option value="international">International</option>
                         </select>
@@ -209,7 +209,7 @@
 
 @push('scripts')
     <script>
-        function chnageType() {
+        function chnagePclType() {
 
             const sb = document.querySelector('#collageType');
 

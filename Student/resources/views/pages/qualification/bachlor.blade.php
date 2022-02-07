@@ -21,7 +21,7 @@
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Collage Type</label>
-                        <select class="form-control" name="collage_type" id="bachorcollageType" onchange="chnageType()" required>
+                        <select class="form-control" name="collage_type" id="bachorcollageType" onchange="chnageBachorType()" required>
                             <option value="nepal">Nepal</option>
                             <option value="international">International</option>
                         </select>
@@ -276,7 +276,7 @@
 
 @push('scripts')
     <script>
-        function chnageType() {
+        function chnageBachorType() {
 
             const sb = document.querySelector('#bachorcollageType');
 

@@ -19,8 +19,29 @@
                     </div>
                     <div class="col-lg-4">
                         <fieldset class="form-group">
+                            <label>Collage Type</label>
+                            <select class="form-control" name="collage_type" id="tslccollageType" onchange="chnagetslcType()" required>
+                                <option value="nepal">Nepal</option>
+                                <option value="international">International</option>
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4" id="tslcnepal">
+                        <fieldset class="form-group">
                             <label>Collage Name</label>
-                            <input name="collage_name" class="form-control" id="basicInput" type="text">
+
+                            <select class="form-control" name="collage_name"  id="tslcnepalValue" required>
+                                <option value=""></option>
+                                @foreach($collage as $program)
+                                    <option value="{{$program->name}}">{{$program->name}}</option>
+                                @endforeach
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4" id="tslcinternational">
+                        <fieldset class="form-group">
+                            <label>Collage Name</label>
+                            <input name="collage_name" class="form-control" id="tslcinternationalValue" type="text">
                         </fieldset>
                     </div>
                     <div class="col-lg-4">
@@ -180,7 +201,35 @@
     </div>
 
 
+    @push('scripts')
+        <script>
+            function chnagetslcType() {
 
+                const sb = document.querySelector('#tslccollageType');
+
+                switch (sb.value) {
+                    case 'nepal':
+                        $("#tslcnepal").show();
+                        $("#tslcinternational").hide();
+                        $("#tslcinternationalValue").attr('name', 'nothing');
+                        $('#tslcnepalValue').attr('name', 'collage_name');
+
+                        break;
+                    case 'international':
+                        $("#tslcnepal").hide();
+                        $("#tslcinternational").show();
+                        $('#tslcnepalValue').attr('name', 'nothing');
+                        $("#tslcinternationalValue").attr('name', 'collage_name');
+
+                        break;
+
+
+                }
+
+            }
+
+        </script>
+    @endpush
 
 
 

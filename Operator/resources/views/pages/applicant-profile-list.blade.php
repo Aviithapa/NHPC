@@ -34,7 +34,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Citizenship</th>
-                                        <th>Date of birth</th>
+                                        <th>Registration Date</th>
                                         <th>Profile Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -45,7 +45,7 @@
                                             <tr>
                                             <td>{{$datas->first_name}}</td>
                                             <td>{{$datas->citizenship_number}}</td>
-                                                <td>{{$datas->dob_nep}}</td>
+                                                <td>{{$datas->created_at->toDateString()}}</td>
                                             <td> <a href="#"><span class="label label-danger">{{$datas->profile_status}}</span></a></td>
                                             <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>
