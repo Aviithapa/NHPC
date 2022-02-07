@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Modules\Backend\Admin\Category\Repositories\CategoryRepository;
 use App\Modules\Backend\Admin\Category\Repositories\EloquentCategoryRepository;
+use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
+use App\Modules\Backend\Admin\College\Repositories\EloquentCollageRepository;
 use App\Modules\Backend\Admin\Level\Repositories\EloquentLevelRepository;
 use App\Modules\Backend\Admin\Level\Repositories\LevelRepository;
 use App\Modules\Backend\Admin\Program\Repositories\EloquentProgramRepository;
@@ -124,6 +126,11 @@ class DependencyInjectionServiceProvider extends ServiceProvider
         $this->app->bind(
             CertificateRepository::class,
             EloquentCertificateRepository::class,
+        );
+
+        $this->app->bind(
+            CollegeRepository::class,
+            EloquentCollageRepository::class
         );
     }
 }

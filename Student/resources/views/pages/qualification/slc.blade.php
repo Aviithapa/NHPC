@@ -17,7 +17,7 @@
                          </div>
                          <div class="col-lg-4">
                              <fieldset class="form-group">
-                                 <label>Collage Name</label>
+                                 <label>School Name</label>
                                  <input name="collage_name" class="form-control" id="basicInput" type="text">
                              </fieldset>
                          </div>
@@ -46,19 +46,19 @@
                                          <label>Transcript Image *</label>
                                          @if(isset($data))
                                              <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
-                                                  id="transcript_img">
+                                                  id="transcript_slc_img">
 
                                          @else
                                              <img src="{{isset($data)?$data->getTranscriptImage():imageNotFound('user')}}" height="250" width="200"
-                                                  id="transcript_img">
+                                                  id="transcript_slc_img">
                                          @endif
                                      </div>
 
                                      <div class="form-group col-md-12 col-lg-12">
                                          <small>Size: 1600*622 px</small>
-                                         <input type="file" id="transcript_image" name="transcript_image"
-                                                onclick="anyFileUploader('transcript')">
-                                         <input type="hidden" id="transcript_path" name="transcript" class="form-control"
+                                         <input type="file" id="transcript_slc_image" name="transcript_slc_image"
+                                                onclick="anyFileUploader('transcript_slc')">
+                                         <input type="hidden" id="transcript_slc_path" name="transcript_slc" class="form-control"
                                                 value="{{isset($data)?$data->transcript_image:''}}"/>
                                          {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                      </div>
@@ -68,19 +68,19 @@
                                          <label>Provisional Image *</label>
                                          @if(isset($data))
                                              <img src="{{url(isset($data)?$data->getProvisionalImage():imageNotFound())}}" height="250" width="200"
-                                                  id="provisional_img">
+                                                  id="provisional_slc_img">
 
                                          @else
                                              <img src="{{isset($data)?$data->getProvisionalImage():imageNotFound('user')}}" height="250" width="200"
-                                                  id="provisional_img">
+                                                  id="provisional_slc_img">
                                          @endif
                                      </div>
 
                                      <div class="form-group col-md-12 col-lg-12">
                                          <small>Size: 1600*622 px</small>
-                                         <input type="file" id="provisional_image" name="provisional_image"
-                                                onclick="anyFileUploader('provisional')">
-                                         <input type="hidden" id="provisional_path" name="provisional" class="form-control"
+                                         <input type="file" id="provisional_slc_image" name="provisional_slc_image"
+                                                onclick="anyFileUploader('provisional_slc')">
+                                         <input type="hidden" id="provisional_slc_path" name="provisional_slc" class="form-control"
                                                 value="{{isset($data)?$data->provisional_image:''}}"/>
                                          {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                      </div>
@@ -91,19 +91,19 @@
                                          <label>Character Image *</label>
                                          @if(isset($data))
                                              <img src="{{url(isset($data)?$data->getCharacterImage():imageNotFound())}}" height="250" width="200"
-                                                  id="character_img">
+                                                  id="character_slc_img">
 
                                          @else
                                              <img src="{{isset($data)?$data->getCharacterImage():imageNotFound('user')}}" height="250" width="200"
-                                                  id="character_img">
+                                                  id="character_slc_img">
                                          @endif
                                      </div>
 
                                      <div class="form-group col-md-12 col-lg-12">
                                          <small>Size: 1600*622 px</small>
-                                         <input type="file" id="character_image" name="character_image"
-                                                onclick="anyFileUploader('character')">
-                                         <input type="hidden" id="character_path" name="character" class="form-control"
+                                         <input type="file" id="character_slc_image" name="character_slc_image"
+                                                onclick="anyFileUploader('character_slc')">
+                                         <input type="hidden" id="character_slc_path" name="character_slc" class="form-control"
                                                 value="{{isset($data)?$data->character_image:''}}"/>
                                          {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                      </div>

@@ -16,7 +16,7 @@ class Qualification extends Model
 
     protected $fillable = [
         'name', 'board_university', 'passed_year','admission_year','program_id','collage_id','user_id','level','registration_number',
-        'transcript_image','provisional_image','character_image','ojt_image'
+        'transcript_image','provisional_image','character_image','ojt_image','intership_image','visa_image','noc_image','passport_image'
     ];
 
     public function user()
@@ -29,7 +29,12 @@ class Qualification extends Model
     }
 
     public function getLevelName(){
-        return $this->getLevel->name;
+        if(isset($this->getLevel->name)) {
+            return $this->getLevel->name;
+        }
+        else {
+            return "";
+        }
     }
 
 
@@ -38,7 +43,12 @@ class Qualification extends Model
     }
 
     public function getProgramName(){
-        return $this->getProgram->name;
+        if(isset($this->getProgram->name)) {
+            return $this->getProgram->name;
+        }
+        else {
+            return "";
+        }
     }
     public function getTranscriptImage()
     {

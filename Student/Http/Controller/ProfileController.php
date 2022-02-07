@@ -3,6 +3,7 @@
 
 namespace Student\Http\Controller;
 
+use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
@@ -16,13 +17,13 @@ use Student\Modules\Qualification\Repositories\QualificationRepository;
 
 class ProfileController extends BaseController
 {
-   private $profileRepository,$log, $qualificationRepository,$profileLogsRepository, $programRepository,$examProcessingRepository,$admitCardRepository,$profileProcessingRepository;
+   private $profileRepository,$log, $collegeRepository, $qualificationRepository,$profileLogsRepository, $programRepository,$examProcessingRepository,$admitCardRepository,$profileProcessingRepository;
     public function __construct(Log $log, ProfileRepository $profileRepository,
                                 QualificationRepository $qualificationRepository,
                                 ProgramRepository $programRepository,
                                 ExamProcessingRepository $examProcessingRepository,
                                 AdmitCardRepository $admitCardRepository, ProfileProcessingRepository $profileProcessingRepository,
-                                ProfileLogsRepository $profileLogsRepository)
+                                ProfileLogsRepository $profileLogsRepository,CollegeRepository $collegeRepository)
     {
         $this->profileRepository=$profileRepository;
         $this->qualificationRepository=$qualificationRepository;
@@ -31,6 +32,7 @@ class ProfileController extends BaseController
         $this->admitCardRepository=$admitCardRepository;
         $this->profileProcessingRepository=$profileProcessingRepository;
         $this->profileLogsRepository=$profileLogsRepository;
+        $this->collegeRepository=$collegeRepository;
         $this->log=$log;
         parent::__construct();
     }
@@ -91,8 +93,9 @@ class ProfileController extends BaseController
                     $plus_2_program = $this->programRepository->getAll()->where('level_id','=',3);
                     $bachelor_program = $this->programRepository->getAll()->where('level_id','=',2);
                     $master_program = $this->programRepository->getAll()->where('level_id','=',1);
+                    $collage = $this->collegeRepository->getAll();
                     return view('student::pages.specific',compact('slc_data','plus_2','bachelor','master','slc_program',
-                                                                            'plus_2_program','bachelor_program','master_program','tslc_data'));
+                                                                            'plus_2_program','bachelor_program','master_program','tslc_data','collage'));
                     break;
                 default :
                     return view('student::pages.404');

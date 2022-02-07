@@ -43,9 +43,46 @@ class QualificationController extends BaseController
         $data = $request->all();
         $data['name'] = $data['level'];
         $data['user_id'] = Auth::user()->id;
-        $data['transcript_image'] = $data['transcript'];
-        $data['provisional_image'] = $data['provisional'];
-        $data['character_image'] = $data['character'];
+
+        switch ($data['level']){
+            case 1 :
+                $data['transcript_image'] = $data['transcript_slc'];
+                $data['provisional_image'] = $data['provisional_slc'];
+                $data['character_image'] = $data['character_slc'];
+                break;
+                case 2 :
+                $data['transcript_image'] = $data['transcript_tslc'];
+                $data['provisional_image'] = $data['provisional_tslc'];
+                $data['character_image'] = $data['character_tslc'];
+                $data['ojt_image'] = $data['ojt_tslc'];
+                break;
+                case 3 :
+                $data['transcript_image'] = $data['transcript_pcl'];
+                $data['provisional_image'] = $data['provisional_pcl'];
+                $data['character_image'] = $data['character_pcl'];
+                $data['ojt_image'] = $data['ojt_pcl'];
+                break;
+            case 4 :
+                $data['transcript_image'] = $data['transcript_bac'];
+                $data['provisional_image'] = $data['provisional_bac'];
+                $data['character_image'] = $data['character_bac'];
+                $data['intership_image'] = $data['intership_bac'];
+                $data['noc_image'] = $data['noc_bac'];
+                $data['visa_image'] = $data['visa_bac'];
+                $data['passport_image'] = $data['passport_bac'];
+                break;
+                case 5:
+                $data['transcript_image'] = $data['transcript_mas'];
+                $data['provisional_image'] = $data['provisional_mas'];
+                $data['character_image'] = $data['character_mas'];
+                $data['intership_image'] = $data['intership_mas'];
+                $data['noc_image'] = $data['noc_mas'];
+                $data['visa_image'] = $data['visa_mas'];
+                $data['passport_image'] = $data['passport_mas'];
+                break;
+
+
+        }
         $profiles['level'] =$data['level'];
         try {
             $qualification = $this->qualificationRepository->create($data);
