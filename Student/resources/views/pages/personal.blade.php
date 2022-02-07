@@ -270,8 +270,8 @@
                                             </div>
                                         </div>
                                     <div class="col-lg-4">
+                                        <label>Citizenship Front Image</label>
                                         <div class="col-md-12 col-lg-12">
-                                            <label>Citizenship Front Image</label>
                                             @if(isset($data))
                                                 <img src="{{url(isset($data)?$data->getCitizenshipFrontImage():imageNotFound())}}" height="250" width="200"
                                                      id="citizenship_front_img">
@@ -285,17 +285,16 @@
                                         <div class="form-group col-md-12 col-lg-12">
                                             <small>Size: 1600*622 px</small>
                                             <input type="file" id="citizenship_front_image" name="citizenship_front_image"
-                                                   onclick="anyFileUploader('citizenship_front')" required>
+                                                   onclick="anyFileUploader('citizenship_front')">
                                             <input type="hidden" id="citizenship_front_path" name="citizenship_front" class="form-control"
-                                                   value="{{isset($data)?$data->citizenship_front:''}}" required/>
+                                                   value="{{isset($data)?$data->citizenship_front:''}}"/>
                                             {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                         </div>
                                     </div>
 
                                     <div class="col-lg-4">
-
+                                        <label>Citizenship Back Image</label>
                                         <div class="col-md-12 col-lg-12">
-                                            <label>Citizenship Back Image</label>
                                             @if(isset($data))
                                                 <img src="{{url(isset($data)?$data->getCitizenshipBackImage():imageNotFound())}}" height="250"
                                                      id="citizenship_back_img">
@@ -309,17 +308,17 @@
                                         <div class="form-group col-md-12 col-lg-12">
                                             <small>Size: 1600*622 px</small>
                                             <input type="file" id="citizenship_back_image" name="citizenship_back_image"
-                                                   onclick="anyFileUploader('citizenship_back')" required>
+                                                   onclick="anyFileUploader('citizenship_back')">
                                             <input type="hidden" id="citizenship_back_path" name="citizenship_back" class="form-control"
-                                                   value="{{isset($data)?$data->citizenship_back:''}}" required/>
+                                                   value="{{isset($data)?$data->citizenship_back:''}}"/>
                                             {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                         </div>
                                     </div>
 
                                     <div class="col-lg-4">
 
+                                        <label>Signature  Image </label>
                                         <div class="col-md-8 col-lg-8">
-                                            <label>Signature  Image </label>
                                             @if(isset($data))
                                                 <img src="{{url(isset($data)?$data->getSignatureImage():imageNotFound())}}" height="250" width="300"
                                                      id="signature_img">
@@ -333,9 +332,9 @@
                                         <div class="form-group col-md-12 col-lg-12">
                                             <small>Size: 1600*622 px</small>
                                             <input type="file" id="signature_image" name="signature_image"
-                                                   onclick="anyFileUploader('signature')" required>
+                                                   onclick="anyFileUploader('signature')">
                                             <input type="hidden" id="signature_path" name="signature_image" class="form-control"
-                                                   value="{{isset($data)?$data->signature_image:''}}" required/>
+                                                   value="{{isset($data)?$data->signature_image:''}}"/>
                                             {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                         </div>
                                     </div>

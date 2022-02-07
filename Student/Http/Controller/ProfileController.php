@@ -115,6 +115,7 @@ class ProfileController extends BaseController
      */
     public function store(Request $request)
     {
+
             $data = $request->all();
             $data['user_id'] = Auth::user()->id;
             try {
