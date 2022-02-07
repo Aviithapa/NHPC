@@ -13,10 +13,18 @@
             done: function(e, data) {
                 $('#'+id+'_img').attr('src', data.result.full_url);
                 $('#'+id+'_path').val(data.result.image_name);
+                $('#'+ id +'_progress').parent().removeClass('progress-striped');
+                $('#'+id+'_help_text').text('Image Upload Successfully');
             },
             error: function(e,data){
-                console.log("Error Calling" +e);
+                $('#'+id+'_help_text').text(eval('e.responseJSON.'+id+'_image')[0]);
+                $('#'+ id +'_progress').css('width','0%');
+                console.log(e.responseText);
             },
+            progress: function(e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#'+ id +'_progress').css('width', progress + '%');
+            }
 
         });
     }
