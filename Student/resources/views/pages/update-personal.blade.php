@@ -147,16 +147,6 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <fieldset class="form-group">
-                                        <label>Cast *</label>
-                                        <select class="form-control" name="cast" required>
-                                            <option value="{{$data->cast}}">{{$data->cast}}</option>
-                                            <option value="female">Chettri</option>
-                                            <option value="other">Brahmin</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-lg-4">
-                                    <fieldset class="form-group">
                                         <label>Marital Status *</label>
                                         <select class="form-control" name="marital_status" required>
                                             <option value="{{$data->marital_status}}">{{$data->marital_status}}</option>
@@ -182,7 +172,13 @@
                                 <div class="col-lg-4">
                                     <fieldset class="form-group">
                                         <label>Issue District *</label>
-                                        <input name="issue_district" value="{{$data->issue_district}}"class="form-control" id="basicInput" type="text" required>
+                                        <select class="form-control" name="issue_district">
+                                            <option value="{{$data->issue_district}}">{{$data->issue_district}}</option>
+                                            @foreach(getProvince() as $key => $value)
+                                                <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
+                                        </select>
+
                                     </fieldset>
                                 </div>
                             </div>
@@ -195,13 +191,9 @@
                                         <label>Province *</label>
                                         <select class="form-control" name="development_region">
                                             <option value="{{$data->development_region}}">{{$data->development_region}}</option>
-                                            <option value="provision-1">Province 1</option>
-                                            <option value="madhesh-province">Madhesh Province</option>
-                                            <option value="bagmati-province">Bagmati Province</option>
-                                            <option value="gandaki-province">Gandaki Province</option>
-                                            <option value="lumbani-province">Lumbani Province</option>
-                                            <option value="karnali-province">Karnali Province</option>
-                                            <option value="sudurpaschim-province">Sudurpaschim Province</option>
+                                            @foreach(getProvince() as $key => $value)
+                                                <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
                                         </select>
                                     </fieldset>
                                 </div>
@@ -210,11 +202,9 @@
                                         <label>District *</label>
                                         <select class="form-control" name="district">
                                             <option value="{{$data->district}}">{{$data->district}}</option>
-                                            <option value="Baitadi">Baitadi</option>
-                                            <option value="Darchula">Darchula</option>
-                                            <option value="Kailali">Kailali</option>
-                                            <option value="Dadeldhura">Dadeldhura</option>
-                                            <option value="Kanchanpur">Kanchanpur</option>
+                                            @foreach(getProvince1() as $key => $value)
+                                                <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
                                         </select>
                                     </fieldset>
                                 </div>
@@ -249,14 +239,14 @@
                                 <div class="col-lg-6">
                                     <fieldset class="form-group">
                                         <label>Father Name *</label>
-                                        <input name="father_name" class="form-control" id="basicInput" type="text" required>
+                                        <input name="father_name" class="form-control" value="{{$data->father_name}}" id="basicInput" type="text" required>
                                     </fieldset>
                                 </div>
                                 <div class="col-lg-6">
                                     <fieldset class="form-group">
                                         <label>
                                             बुबाको नाम</label>
-                                        <input name="father_name_nep" class="form-control" id="basicInput"
+                                        <input name="father_name_nep" class="form-control" id="basicInput" value="{{$data->father_name_nep}}"
                                                type="text">
                                     </fieldset>
                                 </div>
@@ -266,14 +256,14 @@
                                 <div class="col-lg-6">
                                     <fieldset class="form-group">
                                         <label>Grandfather Name *</label>
-                                        <input name="grandfather_name" class="form-control" id="basicInput" type="text" required>
+                                        <input name="grandfather_name" class="form-control" id="basicInput" {{$data->grandfather_name}}type="text" required>
                                     </fieldset>
                                 </div>
                                 <div class="col-lg-6">
                                     <fieldset class="form-group">
                                         <label>हजुरबुबाको नाम </label>
                                         <input name="grandfather_name_nep" class="form-control" id="basicInput"
-                                               type="text" >
+                                               type="text" {{$data->grandfather_name_nep}}>
                                     </fieldset>
                                 </div>
 
@@ -283,13 +273,13 @@
                                     <fieldset class="form-group">
                                         <label>Mother Name *</label>
                                         <input name="mother_name" class="form-control" id="basicInput"
-                                               type="text" required>
+                                               type="text" value="{{$data->mother_name}}" required>
                                     </fieldset>
                                 </div>
                                 <div class="col-lg-6">
                                     <fieldset class="form-group">
                                         <label>आमाको नाम</label>
-                                        <input name="mother_name_nep" class="form-control" id="basicInput" type="text" >
+                                        <input name="mother_name_nep" {{$data->mother_name_nep}}class="form-control" id="basicInput" type="text" >
                                     </fieldset>
                                 </div>
 
@@ -298,15 +288,17 @@
                             <div class="grid-body ">
                                 <div class="row">
                                     <div class="col-lg-4">
-                                    <div class="col-md-4 col-lg-4">
+                                        <label>Citizenship Front Image</label>
+
+                                        <div class="col-md-4 col-lg-4">
 
                                         @if(isset($data))
                                             <img src="{{url(isset($data)?$data->getCitizenshipFrontImage():imageNotFound())}}" height="250"
-                                                 id="blogger_pic_img">
+                                                 id="citizenship_front_img">
 
                                         @else
                                             <img src="{{isset($data)?$data->getCitizenshipFrontImage():imageNotFound()}}" height="250"
-                                                 id="blogger_pic_img">
+                                                 id="citizenship_front_img">
                                         @endif
                                     </div>
 
@@ -321,16 +313,16 @@
                                 </div>
 
                                     <div class="col-lg-4">
-
+                                        <label>Citizenship Front Image</label>
                                     <div class="col-md-12 col-lg-12">
 
                                     @if(isset($data))
                                         <img src="{{url(isset($data)?$data->getCitizenshipBackImage():imageNotFound())}}" height="250"
-                                             id="blogger_pic_img">
+                                             id="citizenship_back_img">
 
                                     @else
                                         <img src="{{isset($data)?$data->getCitizenshipBackImage():imageNotFound()}}" height="250"
-                                             id="blogger_pic_img">
+                                             id="citizenship_back_img">
                                     @endif
                                 </div>
 
@@ -345,16 +337,16 @@
                             </div>
 
                                     <div class="col-lg-4">
-
+                                        <label>Signature Image</label>
                                         <div class="col-md-8 col-lg-8">
 
                                             @if(isset($data))
                                                 <img src="{{url(isset($data)?$data->getSignatureImage():imageNotFound())}}" height="250" width="300"
-                                                     id="blogger_pic_img">
+                                                     id="signature_image_img">
 
                                             @else
                                                 <img src="{{isset($data)?$data->getSignatureImage():imageNotFound()}}" height="250" width="300"
-                                                     id="blogger_pic_img">
+                                                     id="signature_image_img">
                                             @endif
                                         </div>
 
@@ -372,16 +364,16 @@
 
                             <div class="row">
                                 <div class="col-lg-4">
-
+                                    <label>Profile Image</label>
                                     <div class="col-md-8 col-lg-8">
 
                                         @if(isset($data))
                                             <img src="{{url(isset($data)?$data->getProfileImage():imageNotFound())}}" height="250"
-                                                 id="blogger_pic_img">
+                                                 id="student_profile_img">
 
                                         @else
                                             <img src="{{isset($data)?$data->getProfileImage():imageNotFound()}}" height="250"
-                                                 id="blogger_pic_img">
+                                                 id="student_profile_img">
                                         @endif
                                     </div>
 
