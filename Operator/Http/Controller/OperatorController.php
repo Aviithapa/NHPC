@@ -61,20 +61,22 @@ class OperatorController extends BaseController
         parent::__construct();
     }
 
-    public function exam($status)
+    public function exam($status, $state)
     {
         if (Auth::user()->mainRole()->name === 'operator') {
-            $users = $this->examProcessingRepository->getAll()->where('status', '=', $status);
+            $users = $this->examProcessingRepository->getAll()->where('status', '=', $status)
+            ->where('state', '=',$state);
             return $this->view('pages.application-list', $users);
         } else {
             return redirect()->route('login');
         }
     }
 
-    public function profile($status)
+    public function profile($status, $state)
     {
         if (Auth::user()->mainRole()->name === 'operator') {
-            $users = $this->profileRepository->getAll()->where('profile_status', '=', $status);
+            $users = $this->profileRepository->getAll()->where('profile_status', '=', $status)
+                                                       ->where('profile_state','=', $state);
             return $this->view('pages.applicant-profile-list', $users);
         } else {
             return redirect()->route('login');
@@ -110,15 +112,18 @@ class OperatorController extends BaseController
                 $id = $data['profile_id'];
                 $data['created_by'] = Auth::user()->id;
                 $data['state'] = 'computer_operator';
+                $data['profile_state'] = 'officer';
                 if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
                     $data['status'] = 'progress';
                     $data['remarks'] = 'Profile is forward to Officer';
                     $data['review_status'] = 'Successful';
+                    $data['profile_state'] = 'officer';
                     $this->profileLog($data);
                     $this->profileProcessing($id);
                 } elseif ($data['profile_status'] === "Rejected") {
                     $data['status'] = 'rejected';
                     $data['review_status'] = 'Rejected';
+                    $data['profile_state'] = 'student';
                     $this->profileLog($data);
                 } elseif ($data['profile_status'] === "Pending") {
                     $data['status'] = 'pending';
@@ -176,7 +181,6 @@ class OperatorController extends BaseController
     public function RejectExamProcessing(Request $request)
     {
         if (Auth::user()->mainRole()->name === 'operator') {
-
             $data = $request->all();
             $id = $data['id'];
             $data['status'] = 'rejected';
@@ -204,7 +208,6 @@ class OperatorController extends BaseController
     public function AcceptExamProcessing($id)
     {
         if (Auth::user()->mainRole()->name === 'operator') {
-
             $data['status'] = 'progress';
             $data['state'] = 'officer';
             try {

@@ -26,10 +26,11 @@ if (! function_exists('getApplicantCount')) {
      * @param null $file_name
      * @return string
      */
-    function getApplicantCount($status)
+    function getApplicantCount($status, $state)
     {
          $count =0;
-         $profiles = \Student\Models\Profile::all()->where("profile_status",'=' ,$status);
+         $profiles = \Student\Models\Profile::all()->where("profile_status",'=' ,$status)
+                                                    ->where("profile_state",'=',$state);
          foreach ($profiles as $profile)
              $count++;
         return $count;

@@ -63,7 +63,8 @@ class Profile extends  Model
         'registration_subject',
         'registration_level',
         'profile_status',
-        'level'
+        'level',
+        'profile_state',
     ];
 
     public function getProfileImage()

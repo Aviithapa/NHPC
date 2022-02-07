@@ -111,11 +111,13 @@ class OfficerController  extends BaseController
                 $data['status'] = 'progress';
                 $data['remarks'] =  'Profile is forward to Registrar';
                 $data['review_status'] =  'Successful';
+                $data['profile_state'] = 'registrar';
                 $this->profileLog($data);
                 $this->profileProcessing($id,'progress');
             }elseif($data['profile_status']=== "Rejected"){
                 $data['status'] =  'rejected';
                 $data['review_status'] =  'Rejected';
+                $data['profile_state'] = 'student';
                 $this->profileLog($data);
                 $this->profileProcessing($id, 'rejected');
             }

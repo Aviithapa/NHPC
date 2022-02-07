@@ -84,6 +84,7 @@ class QualificationController extends BaseController
 
         }
         $profiles['level'] =$data['level'];
+        $profiles['profile_state'] = 'computer_operator';
         try {
             $qualification = $this->qualificationRepository->create($data);
             if ($qualification == false) {
@@ -113,6 +114,7 @@ class QualificationController extends BaseController
             $profile = $this->profileRepository->update($profiles,$id['id']);
         }else{
             $pros['profile_status'] = "Reviewing";
+            $pros['profile_state'] = "computer_operator";
             $profile = $this->profileRepository->update($pros,$id['id']);
         }
 

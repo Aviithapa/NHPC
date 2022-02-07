@@ -28,18 +28,18 @@
                 <ul class="treeview-menu">
                     <li class="">
                         <a href="{{route("officer.applicant.profile.list", ['status'=> 'progress','current_state' => 'officer'])}}">
-                            <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantCount('Verified')}}</span></span>
+                            <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantCount('Reviewing','officer')}}</span></span>
                         </a>
                     </li>
                     <li class="">
                         <a href="{{route("officer.applicant.profile.list", ['status'=> 'rejected','current_state' => 'officer'])}}">
-                            <i class="icon-ban"></i> <span>Rejected by Officer <span class="badge badge-pill badge-danger">{{getApplicantCount('Rejected')}}</span></span>
+                            <i class="icon-ban"></i> <span>Rejected by Officer <span class="badge badge-pill badge-danger">{{getApplicantCount('Rejected','student')}}</span></span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="{{route("officer.applicant.profile.list", ['status'=> 'progress','current_state' => 'registrar'])}}">
-                            <i class="icon-badge"></i> <span>Verified by Officer<span class="badge badge-pill badge-danger">{{getApplicantCount('Verified')}}</span></span>
+                            <i class="icon-badge"></i> <span>Verified by Officer<span class="badge badge-pill badge-danger">{{getApplicantCount('Reviewing','registrar')}}</span></span>
                         </a>
                     </li>
                 </ul>
