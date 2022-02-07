@@ -43,6 +43,31 @@
                             @csrf
                             <div class="row">
                                 <div class="col-lg-4">
+                                    <label>Profile Image</label>
+                                    <div class="col-md-8 col-lg-8">
+
+                                        @if(isset($data))
+                                            <img src="{{url(isset($data)?$data->getProfileImage():imageNotFound())}}" height="250"
+                                                 id="student_profile_img">
+
+                                        @else
+                                            <img src="{{isset($data)?$data->getProfileImage():imageNotFound()}}" height="250"
+                                                 id="student_profile_img">
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group col-md-12 col-lg-12">
+                                        <small>Size: 1600*622 px</small>
+                                        <input type="file" id="student_profile_image" name="student_profile_image"
+                                               onclick="anyFileUploader('student_profile')">
+                                        <input type="hidden" id="student_profile_path" name="profile_picture" class="form-control"
+                                               value="{{isset($data)?$data->profile_picture:''}}"/>
+                                        {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
                                     <fieldset class="form-group">
                                         <label>First Name *</label>
                                         <input name="first_name" class="form-control" id="basicInput" type="text" value="{{$data->first_name}}" required>
@@ -360,31 +385,7 @@
 
                                 </div>
 
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <label>Profile Image</label>
-                                    <div class="col-md-8 col-lg-8">
 
-                                        @if(isset($data))
-                                            <img src="{{url(isset($data)?$data->getProfileImage():imageNotFound())}}" height="250"
-                                                 id="student_profile_img">
-
-                                        @else
-                                            <img src="{{isset($data)?$data->getProfileImage():imageNotFound()}}" height="250"
-                                                 id="student_profile_img">
-                                        @endif
-                                    </div>
-
-                                    <div class="form-group col-md-12 col-lg-12">
-                                        <small>Size: 1600*622 px</small>
-                                        <input type="file" id="student_profile_image" name="student_profile_image"
-                                               onclick="anyFileUploader('student_profile')">
-                                        <input type="hidden" id="student_profile_path" name="profile_picture" class="form-control"
-                                               value="{{isset($data)?$data->profile_picture:''}}"/>
-                                        {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
-                                    </div>
-                                </div>
-                            </div>
 
                             </div>
 
