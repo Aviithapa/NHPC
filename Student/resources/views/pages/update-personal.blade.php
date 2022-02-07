@@ -87,15 +87,13 @@
                                 <div class="col-lg-4">
                                     <fieldset class="form-group">
                                         <label>Date of Birth (B.S) *</label>
-                                        <input name="dob_nep" class="form-control" id="nepali_dob" placeholder="YYYY/MM/DD" required
-                                               value="{{$data->dob_nep}}">
+                                        <input name="dob_nep" class="form-control" id="nepali_dob" placeholder="YYYY/MM/DD" value="{{$data->dob_nep}}" required>
                                     </fieldset>
                                 </div>
                                 <div class="col-lg-4">
                                     <fieldset class="form-group">
                                         <label>Date of Birth (A.D) *</label>
-                                        <input name="dob_eng" class="form-control" id="english_date" type="date" placeholder="YYYY/MM/DD"
-                                               value="{{$data->dob_eng}}">
+                                        <input name="dob_eng" class="form-control" id="english_date" type="text" value="{{$data->dob_eng}}" disabled>
                                     </fieldset>
                                 </div>
                                 <div class="col-lg-4">
@@ -256,7 +254,7 @@
                                 <div class="col-lg-6">
                                     <fieldset class="form-group">
                                         <label>Grandfather Name *</label>
-                                        <input name="grandfather_name" class="form-control" id="basicInput" {{$data->grandfather_name}}type="text" required>
+                                        <input name="grandfather_name" class="form-control" id="basicInput" value="{{$data->grandfather_name}}" type="text" required>
                                     </fieldset>
                                 </div>
                                 <div class="col-lg-6">
@@ -382,7 +380,7 @@
                                         <input type="file" id="student_profile_image" name="student_profile_image"
                                                onclick="anyFileUploader('student_profile')">
                                         <input type="hidden" id="student_profile_path" name="profile_picture" class="form-control"
-                                               value="{{isset($data)?$data->student_profile:''}}"/>
+                                               value="{{isset($data)?$data->profile_picture:''}}"/>
                                         {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                     </div>
                                 </div>
@@ -418,20 +416,23 @@
             mainInput.nepaliDatePicker({
                 ndpYear: true,
                 ndpMonth: true,
+                disableAfter: "2061-01-25",
+
+                onChange: function() {
+                    var mainInput = document.getElementById("nepali_dob").value;
+                    console.log(mainInput);
+                    var date = mainInput.split("-");
+                    var addate = NepaliFunctions.BS2AD({year: date[0], month: date[1], day: date[2]});
+                    var dtate = NepaliFunctions.ConvertDateFormat(addate, "YYYY/MM/DD");
+                    document.getElementById("english_date").value = dtate;
+
+                }
             });
             var mainInputs = document.getElementById("citizenship_issue");
             mainInputs.nepaliDatePicker({
                 ndpYear: true,
                 ndpMonth: true,
             });
-        }
-        function convertToAD() {
-            var mainInput = document.getElementById("nepali_dob").value;
-            console.log(mainInput);
-            var date = mainInput.split("-");
-            var addate = NepaliFunctions.BS2AD({year: date[0], month: date[1], day: date[2]})
-            console.log(addate);
-
         }
 
 
