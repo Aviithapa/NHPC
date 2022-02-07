@@ -114,9 +114,17 @@
                                     @endif
                                 </div>
 
-                                <div class="form-group col-md-12 col-lg-12">
-                                    <small>Size: 1600*622 px</small>
-                                    <input type="file" id="transcript_mas_image" name="transcript_mas_image"
+                                    <div class="form-group col-md-12 col-lg-12">
+                                        <small>Below 1 mb</small><br>
+                                        <small id="transcript_mas_help_text" class="help-block"></small>
+                                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                             aria-valuemax="100"
+                                             aria-valuenow="0">
+                                            <div id="transcript_mas_progress" class="progress-bar progress-bar-success"
+                                                 style="width: 0%">
+                                            </div>
+                                        </div><br>
+                                        <input type="file" id="transcript_mas_image" name="transcript_mas_image"
                                            onclick="anyFileUploader('transcript_mas')">
                                     <input type="hidden" id="transcript_mas_path" name="transcript_mas" class="form-control"
                                            value="{{isset($data)?$data->transcript_image:''}}"/>
@@ -137,7 +145,16 @@
                                 </div>
 
                                 <div class="form-group col-md-12 col-lg-12">
-                                    <small>Size: 1600*622 px</small>
+
+                                    <small>Below 1 mb</small><br>
+                                    <small id="provisional_mas_help_text" class="help-block"></small>
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         aria-valuenow="0">
+                                        <div id="provisional_mas_progress" class="progress-bar progress-bar-success"
+                                             style="width: 0%">
+                                        </div>
+                                    </div><br>
                                     <input type="file" id="provisional_mas_image" name="provisional_mas_image"
                                            onclick="anyFileUploader('provisional_mas')">
                                     <input type="hidden" id="provisional_mas_path" name="provisional_mas" class="form-control"
@@ -159,7 +176,16 @@
                                 </div>
 
                                 <div class="form-group col-md-12 col-lg-12">
-                                    <small>Size: 1600*622 px</small>
+                                    <small>Below 1 mb</small>
+                                    <small id="character_mas_help_text" class="help-block"></small>
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         aria-valuenow="0">
+                                        <div id="character_mas_progress" class="progress-bar progress-bar-success"
+                                             style="width: 0%">
+                                        </div>
+                                    </div><br>
+
                                     <input type="file" id="character_mas_image" name="character_mas_image"
                                            onclick="anyFileUploader('character_mas')">
                                     <input type="hidden" id="character_mas_path" name="character_mas" class="form-control"
@@ -183,7 +209,15 @@
                                 </div>
 
                                 <div class="form-group col-md-12 col-lg-12">
-                                    <small>Size: 1600*622 px</small>
+                                    <small>Below 1 mb</small><br>
+                                    <small id="internship_mas_help_text" class="help-block"></small>
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         aria-valuenow="0">
+                                        <div id="intership_mas_progress" class="progress-bar progress-bar-success"
+                                             style="width: 0%">
+                                        </div>
+                                    </div><br>
                                     <input type="file" id="intership_mas_image" name="intership_mas_image"
                                            onclick="anyFileUploader('intership_mas')">
                                     <input type="hidden" id="intership_mas_path" name="intership_mas" class="form-control"
@@ -206,7 +240,15 @@
                                 </div>
 
                                 <div class="form-group col-md-12 col-lg-12">
-                                    <small>Size: 1600*622 px</small>
+                                    <small>Below 1 mb</small><br>
+                                    <small id="noc_mas_help_text" class="help-block"></small>
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         aria-valuenow="0">
+                                        <div id="noc_mas_progress" class="progress-bar progress-bar-success"
+                                             style="width: 0%">
+                                        </div>
+                                    </div><br>
                                     <input type="file" id="noc_mas_image" name="noc_mas_image"
                                            onclick="anyFileUploader('noc_mas')">
                                     <input type="hidden" id="noc_mas_path" name="noc_mas" class="form-control"
@@ -229,7 +271,16 @@
                                 </div>
 
                                 <div class="form-group col-md-12 col-lg-12">
-                                    <small>Size: 1600*622 px</small>
+                                    <small>Below 1 mb</small><br>
+                                    <small id="visa_mas_help_text" class="help-block"></small>
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         aria-valuenow="0">
+                                        <div id="visa_mas_progress" class="progress-bar progress-bar-success"
+                                             style="width: 0%">
+                                        </div>
+                                    </div><br>
+
                                     <input type="file" id="visa_mas_image" name="visa_mas_image"
                                            onclick="anyFileUploader('visa_mas')">
                                     <input type="hidden" id="visa_mas_path" name="visa_mas" class="form-control"
@@ -252,7 +303,16 @@
                             </div>
 
                             <div class="form-group col-md-12 col-lg-12">
-                                <small>Size: 1600*622 px</small>
+
+                                <small>Below 1 mb</small><br>
+                                <small id="passport_mas_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="passport_mas_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
                                 <input type="file" id="passport_mas_image" name="passport_mas_image"
                                        onclick="anyFileUploader('passport_mas')">
                                 <input type="hidden" id="passport_mas_path" name="passport_mas" class="form-control"

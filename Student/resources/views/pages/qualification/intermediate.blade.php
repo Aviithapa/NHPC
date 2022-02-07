@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-lg-4">
                     <fieldset class="form-group">
-                        <label>Board University</label>
+                        <label>Board</label>
                         <input name="board_university" class="form-control" id="basicInput" type="text" required>
                     </fieldset>
                 </div>
@@ -111,7 +111,15 @@
                             </div>
 
                             <div class="form-group col-md-12 col-lg-12">
-                                <small>Size: 1600*622 px</small>
+                                <small>Below 1 mb</small><br>
+                                <small id="transcript_pcl_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="transcript_pcl_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
                                 <input type="file" id="transcript_pcl_image" name="transcript_pcl_image"
                                        onclick="anyFileUploader('transcript_pcl')">
                                 <input type="hidden" id="transcript_pcl_path" name="transcript_pcl" class="form-control"
@@ -121,7 +129,7 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Provisional Image *</label>
+                                <label>Provisional Image *</label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getProvisionalImage():imageNotFound())}}" height="250" width="200"
                                          id="provisional_pcl_img">
@@ -133,7 +141,15 @@
                             </div>
 
                             <div class="form-group col-md-12 col-lg-12">
-                                <small>Size: 1600*622 px</small>
+                                <small>Below 1 mb</small><br>
+                                <small id="provisional_pcl_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="provisional_pcl_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
                                 <input type="file" id="provisional_pcl_image" name="provisional_pcl_image"
                                        onclick="anyFileUploader('provisional_pcl')">
                                 <input type="hidden" id="provisional_pcl_path" name="provisional_pcl" class="form-control"
@@ -143,7 +159,7 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Character Image *</label>
+                                <label>Character Image *</label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getCharacterImage():imageNotFound())}}" height="250" width="200"
                                          id="character_pcl_img">
@@ -155,7 +171,15 @@
                             </div>
 
                             <div class="form-group col-md-12 col-lg-12">
-                                <small>Size: 1600*622 px</small>
+                                <small>Below 1 mb</small><br>
+                                <small id="character_pcl_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="character_pcl_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
                                 <input type="file" id="character_pcl_image" name="character_pcl_image"
                                        onclick="anyFileUploader('character_pcl')">
                                 <input type="hidden" id="character_pcl_path" name="character_pcl" class="form-control"
@@ -181,7 +205,15 @@
                             </div>
 
                             <div class="form-group col-md-12 col-lg-12">
-                                <small>Size: 1600*622 px</small>
+                                <small>Below 1 mb</small><br>
+                                <small id="ojt_pcl_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="ojt_pcl_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
                                 <input type="file" id="ojt_pcl_image" name="ojt_pcl_image"
                                        onclick="anyFileUploader('ojt_pcl')">
                                 <input type="hidden" id="ojt_pcl_path" name="ojt_pcl_image" class="form-control"

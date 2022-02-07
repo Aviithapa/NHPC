@@ -101,7 +101,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Transcript Image *</label>
+                                <label>Transcript Image *</label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
                                          id="transcript_bac_img">
@@ -113,7 +113,15 @@
                             </div>
 
                             <div class="form-group col-md-12 col-lg-12">
-                                <small>Size: 1600*622 px</small>
+                                <small>Below 1 mb</small><br>
+                                <small id="transcript_bac_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="transcript_bac_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
                                 <input type="file" id="transcript_bac_image" name="transcript_bac_image"
                                        onclick="anyFileUploader('transcript_bac')">
                                 <input type="hidden" id="transcript_bac_path" name="transcript_bac" class="form-control"
@@ -123,7 +131,7 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Provisional Image *</label>
+                                <label>Provisional Image *</label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getProvisionalImage():imageNotFound())}}" height="250" width="200"
                                          id="provisional_bac_img">
@@ -135,7 +143,15 @@
                             </div>
 
                             <div class="form-group col-md-12 col-lg-12">
-                                <small>Size: 1600*622 px</small>
+                                <small>Below 1 mb</small><br>
+                                <small id="provisional_bac_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="provisional_bac_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
                                 <input type="file" id="provisional_bac_image" name="provisional_bac_image"
                                        onclick="anyFileUploader('provisional_bac')">
                                 <input type="hidden" id="provisional_bac_path" name="provisional_bac" class="form-control"
@@ -145,7 +161,7 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Character Image *</label>
+                                <label>Character Image *</label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getCharacterImage():imageNotFound())}}" height="250" width="200"
                                          id="character_bac_img">
@@ -157,7 +173,15 @@
                             </div>
 
                             <div class="form-group col-md-12 col-lg-12">
-                                <small>Size: 1600*622 px</small>
+                                <small>Below 1 mb</small><br>
+                                <small id="character_bac_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="character_bac_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
                                 <input type="file" id="character_bac_image" name="character_bac_image"
                                        onclick="anyFileUploader('character_bac')">
                                 <input type="hidden" id="character_bac_path" name="character_bac" class="form-control"
@@ -168,7 +192,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-4">
-                            <label>Intership Image *</label>
+                            <label>Intership Image *</label><br>
                             <div class="col-md-12 col-lg-12">
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getIntershipImage():imageNotFound())}}" height="250" width="200"
@@ -181,7 +205,15 @@
                             </div>
 
                             <div class="form-group col-md-12 col-lg-12">
-                                <small>Size: 1600*622 px</small>
+                                <small>Below 1 mb</small><br>
+                                <small id="internship_bac_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="intership_bac_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
                                 <input type="file" id="intership_bac_image" name="intership_bac_image"
                                        onclick="anyFileUploader('intership_bac')">
                                 <input type="hidden" id="intership_bac_path" name="intership_bac" class="form-control"
@@ -190,7 +222,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <label>NOC Image *</label>
+                            <label>NOC Image *</label><br>
                             <div class="col-md-12 col-lg-12">
 
                                 @if(isset($data))
@@ -204,7 +236,15 @@
                             </div>
 
                             <div class="form-group col-md-12 col-lg-12">
-                                <small>Size: 1600*622 px</small>
+                                <small>Below 1 mb</small><br>
+                                <small id="noc_bac_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="noc_bac_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
                                 <input type="file" id="noc_bac_image" name="noc_bac_image"
                                        onclick="anyFileUploader('noc_bac')">
                                 <input type="hidden" id="noc_bac_path" name="noc_bac" class="form-control"
@@ -213,7 +253,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <label>Visa</label>
+                            <label>Visa</label><br>
                             <div class="col-md-12 col-lg-12">
 
                                 @if(isset($data))
@@ -227,7 +267,15 @@
                             </div>
 
                             <div class="form-group col-md-12 col-lg-12">
-                                <small>Size: 1600*622 px</small>
+                                <small>Below 1 mb</small><br>
+                                <small id="visa_bac_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="visa_bac_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
                                 <input type="file" id="visa_bac_image" name="visa_bac_image"
                                        onclick="anyFileUploader('visa_bac')">
                                 <input type="hidden" id="visa_bac_path" name="visa_bac" class="form-control"
@@ -237,7 +285,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <label>Passport</label>
+                        <label>Passport</label><br>
                         <div class="col-md-12 col-lg-12">
                             @if(isset($data))
                                 <img src="{{url(isset($data)?$data->getPassportImage():imageNotFound())}}" height="250" width="200"
@@ -250,7 +298,15 @@
                         </div>
 
                         <div class="form-group col-md-12 col-lg-12">
-                            <small>Size: 1600*622 px</small>
+                            <small>Below 1 mb</small><br>
+                            <small id="passport_bac_help_text" class="help-block"></small>
+                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                 aria-valuemax="100"
+                                 aria-valuenow="0">
+                                <div id="passport_bac_progress" class="progress-bar progress-bar-success"
+                                     style="width: 0%">
+                                </div>
+                            </div><br>
                             <input type="file" id="passport_bac_image" name="passport_bac_image"
                                    onclick="anyFileUploader('passport_bac')">
                             <input type="hidden" id="passport_bac_path" name="passport_bac" class="form-control"

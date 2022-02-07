@@ -57,7 +57,15 @@
                                     </div>
 
                                     <div class="form-group col-md-12 col-lg-12">
-                                        <small>Size: 1600*622 px</small>
+                                        <small>Below 1 mb</small><br>
+                                        <small id="student_profile_help_text" class="help-block"></small>
+                                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                             aria-valuemax="100"
+                                             aria-valuenow="0">
+                                            <div id="student_profile_progress" class="progress-bar progress-bar-success"
+                                                 style="width: 0%">
+                                            </div>
+                                        </div><br>
                                         <input type="file" id="student_profile_image" name="student_profile_image"
                                                onclick="anyFileUploader('student_profile')">
                                         <input type="hidden" id="student_profile_path" name="profile_picture" class="form-control"
@@ -326,7 +334,16 @@
                                     </div>
 
                                     <div class="form-group col-md-12 col-lg-12">
-                                        <small>Size: 1600*622 px</small>
+                                        <small>Below 1 mb</small>
+                                        <br>
+                                        <small id="citizenship_front_help_text" class="help-block"></small>
+                                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                             aria-valuemax="100"
+                                             aria-valuenow="0">
+                                            <div id="citizenship_front_progress" class="progress-bar progress-bar-success"
+                                                 style="width: 0%">
+                                            </div>
+                                        </div><br>
                                         <input type="file" id="citizenship_front_image" name="citizenship_front_image"
                                                onclick="anyFileUploader('citizenship_front')">
                                         <input type="hidden" id="citizenship_front_path" name="citizenship_front" class="form-control"
@@ -350,7 +367,15 @@
                                 </div>
 
                                 <div class="form-group col-md-12 col-lg-12">
-                                    <small>Size: 1600*622 px</small>
+                                    <small>Below 1 mb</small><br>
+                                    <small id="citizenship_back_help_text" class="help-block"></small>
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         aria-valuenow="0">
+                                        <div id="citizenship_back_progress" class="progress-bar progress-bar-success"
+                                             style="width: 0%">
+                                        </div>
+                                    </div><br>
                                     <input type="file" id="citizenship_back_image" name="citizenship_back_image"
                                            onclick="anyFileUploader('citizenship_back')">
                                     <input type="hidden" id="citizenship_back_path" name="citizenship_back" class="form-control"
@@ -374,7 +399,15 @@
                                         </div>
 
                                         <div class="form-group col-md-12 col-lg-12">
-                                            <small>Size: 1600*622 px</small>
+                                            <small>Below 1 mb</small><br>
+                                            <small id="signature_help_text" class="help-block"></small>
+                                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                                 aria-valuemax="100"
+                                                 aria-valuenow="0">
+                                                <div id="signature_progress" class="progress-bar progress-bar-success"
+                                                     style="width: 0%">
+                                                </div>
+                                            </div><br>
                                             <input type="file" id="signature_image" name="signature_image"
                                                    onclick="anyFileUploader('signature_image')">
                                             <input type="hidden" id="signature_image_path" name="signature_image" class="form-control"

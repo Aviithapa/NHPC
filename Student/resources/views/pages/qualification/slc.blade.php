@@ -55,7 +55,15 @@
                                      </div>
 
                                      <div class="form-group col-md-12 col-lg-12">
-                                         <small>Size: 1600*622 px</small>
+                                         <small>Below 1 mb</small><br>
+                                         <small id="transcript_slc_help_text" class="help-block"></small>
+                                         <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                              aria-valuemax="100"
+                                              aria-valuenow="0">
+                                             <div id="transcript_slc_progress" class="progress-bar progress-bar-success"
+                                                  style="width: 0%">
+                                             </div>
+                                         </div><br>
                                          <input type="file" id="transcript_slc_image" name="transcript_slc_image"
                                                 onclick="anyFileUploader('transcript_slc')">
                                          <input type="hidden" id="transcript_slc_path" name="transcript_slc" class="form-control"
@@ -77,7 +85,15 @@
                                      </div>
 
                                      <div class="form-group col-md-12 col-lg-12">
-                                         <small>Size: 1600*622 px</small>
+                                         <small>Below 1 mb</small><br>
+                                         <small id="provisional_slc_help_text" class="help-block"></small>
+                                         <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                              aria-valuemax="100"
+                                              aria-valuenow="0">
+                                             <div id="provisional_slc_progress" class="progress-bar progress-bar-success"
+                                                  style="width: 0%">
+                                             </div>
+                                         </div><br>
                                          <input type="file" id="provisional_slc_image" name="provisional_slc_image"
                                                 onclick="anyFileUploader('provisional_slc')">
                                          <input type="hidden" id="provisional_slc_path" name="provisional_slc" class="form-control"
@@ -100,7 +116,15 @@
                                      </div>
 
                                      <div class="form-group col-md-12 col-lg-12">
-                                         <small>Size: 1600*622 px</small>
+                                         <small>Below 1 mb</small><br>
+                                         <small id="character_slc_help_text" class="help-block"></small>
+                                         <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                              aria-valuemax="100"
+                                              aria-valuenow="0">
+                                             <div id="character_slc_progress" class="progress-bar progress-bar-success"
+                                                  style="width: 0%">
+                                             </div>
+                                         </div><br>
                                          <input type="file" id="character_slc_image" name="character_slc_image"
                                                 onclick="anyFileUploader('character_slc')">
                                          <input type="hidden" id="character_slc_path" name="character_slc" class="form-control"

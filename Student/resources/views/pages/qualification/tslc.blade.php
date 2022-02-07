@@ -99,7 +99,7 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="col-md-12 col-lg-12">
-                                    <label>Transcript Image *</label>
+                                    <label>Transcript Image *</label><br>
                                     @if(isset($data))
                                         <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
                                              id="transcript_tslc_img">
@@ -111,7 +111,15 @@
                                 </div>
 
                                 <div class="form-group col-md-12 col-lg-12">
-                                    <small>Size: 1600*622 px</small>
+                                    <small>Below 1 mb</small><br>
+                                    <small id="transcript_tslc_help_text" class="help-block"></small>
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         aria-valuenow="0">
+                                        <div id="transcript_tslc_progress" class="progress-bar progress-bar-success"
+                                             style="width: 0%">
+                                        </div>
+                                    </div><br>
                                     <input type="file" id="transcript_tslc_image" name="transcript_tslc_image"
                                            onclick="anyFileUploader('transcript_tslc')">
                                     <input type="hidden" id="transcript_tslc_path" name="transcript_tslc" class="form-control"
@@ -121,7 +129,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="col-md-12 col-lg-12">
-                                    <label>Provisional Image *</label>
+                                    <label>Provisional Image *</label><br>
                                     @if(isset($data))
                                         <img src="{{url(isset($data)?$data->getProvisionalImage():imageNotFound())}}" height="250" width="200"
                                              id="provisional_tslc_img">
@@ -133,7 +141,15 @@
                                 </div>
 
                                 <div class="form-group col-md-12 col-lg-12">
-                                    <small>Size: 1600*622 px</small>
+                                    <small>Below 1 mb</small><br>
+                                    <small id="provisional_tslc_help_text" class="help-block"></small>
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         aria-valuenow="0">
+                                        <div id="provisional_tslc_progress" class="progress-bar progress-bar-success"
+                                             style="width: 0%">
+                                        </div>
+                                    </div><br>
                                     <input type="file" id="provisional_tslc_image" name="provisional_tslc_image"
                                            onclick="anyFileUploader('provisional_tslc')">
                                     <input type="hidden" id="provisional_tslc_path" name="provisional_tslc" class="form-control"
@@ -144,7 +160,7 @@
 
                             <div class="col-lg-4">
                                 <div class="col-md-12 col-lg-12">
-                                    <label>Character Image *</label>
+                                    <label>Character Image *</label><br>
                                     @if(isset($data))
                                         <img src="{{url(isset($data)?$data->getCharacterImage():imageNotFound())}}" height="250" width="200"
                                              id="character_tslc_img">
@@ -156,7 +172,15 @@
                                 </div>
 
                                 <div class="form-group col-md-12 col-lg-12">
-                                    <small>Size: 1600*622 px</small>
+                                    <small>Below 1 mb</small><br>
+                                    <small id="character_tslc_help_text" class="help-block"></small>
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         aria-valuenow="0">
+                                        <div id="character_tslc_progress" class="progress-bar progress-bar-success"
+                                             style="width: 0%">
+                                        </div>
+                                    </div><br>
                                     <input type="file" id="character_tslc_image" name="character_tslc_image"
                                            onclick="anyFileUploader('character_tslc')">
                                     <input type="hidden" id="character_tslc_path" name="character_tslc" class="form-control"
@@ -165,7 +189,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-4">
-                                <label>OJT Image *</label>
+                                <label>OJT Image *</label><br>
                                 <div class="col-md-12 col-lg-12">
                                     @if(isset($data))
                                         <img src="{{url(isset($data)?$data->getOJTImage():imageNotFound())}}" height="250" width="200"
@@ -178,7 +202,15 @@
                                 </div>
 
                                 <div class="form-group col-md-12 col-lg-12">
-                                    <small>Size: 1600*622 px</small>
+                                    <small>Below 1 mb</small><br>
+                                    <small id="ojt_tslc_help_text" class="help-block"></small>
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         aria-valuenow="0">
+                                        <div id="ojt_tlc_progress" class="progress-bar progress-bar-success"
+                                             style="width: 0%">
+                                        </div>
+                                    </div><br>
                                     <input type="file" id="ojt_tslc_image" name="ojt_tslc_image"
                                            onclick="anyFileUploader('ojt_tslc')">
                                     <input type="hidden" id="ojt_tslc_path" name="ojt_tslc" class="form-control"
