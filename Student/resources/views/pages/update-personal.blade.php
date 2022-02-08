@@ -353,7 +353,7 @@
                                 </div>
 
                                     <div class="col-lg-4">
-                                        <label>Citizenship Front Image</label>
+                                        <label>Citizenship Back Image</label>
                                     <div class="col-md-12 col-lg-12">
 
                                     @if(isset($data))
