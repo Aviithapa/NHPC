@@ -167,7 +167,7 @@ class SubjectCommitteeController extends BaseController
         $id= $this->profileProcessingRepository->getAll()->where('profile_id' ,'=',$id)->first();
         $profile_processing = $id;
         if ($profile_processing['current_state'] === 'subject_committee'){
-            if($profile_processing->subject_committee_accepted_num < 4)
+            if($profile_processing->subject_committee_accepted_num < 3)
                 $profileProcessing['subject_committee_accepted_num'] = $profile_processing->subject_committee_accepted_num + 1;
             else
                 $profileProcessing['current_state'] = 'exam_committee';
@@ -206,7 +206,7 @@ class SubjectCommitteeController extends BaseController
         $data['status'] = 'progress';
         $exam_processing = $this->examProcessingRepository->findById($id);
         if ($exam_processing->state === 'subject_committee'){
-            if($exam_processing->subject_committee_count < 4)
+            if($exam_processing->subject_committee_count < 3)
                 $data['subject_committee_count'] = $exam_processing->subject_committee_count + 1;
             else
                 $data['state'] = 'exam_committee';
