@@ -22,7 +22,7 @@
                     <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator'])}}">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Pending', 'computer_operator')}}</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Reviewing', 'computer_operator')}}</span>
                                 <span class="info-box-text">New Applicant Profile List</span> </div>
                         </div>
                     </div>
