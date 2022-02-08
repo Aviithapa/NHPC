@@ -38,6 +38,24 @@ if (! function_exists('getApplicantCount')) {
 }
 
 
+if (! function_exists('getApplicantProcessingCount')) {
+    /**
+     * Generates an asset path for the uploads.
+     * @param null $path
+     * @param null $file_name
+     * @return string
+     */
+    function getApplicantProcessingCount($status, $state)
+    {
+        $count =0;
+        $profiles = \App\Models\Profile\ProfileProcessing::all()->where("status",'=' ,$status)
+            ->where("current_state",'=',$state);
+        foreach ($profiles as $profile)
+            $count++;
+        return $count;
+    }
+}
+
 if (! function_exists('getProgramLicenceCount')) {
     /**
      * Generates an asset path for the uploads.
