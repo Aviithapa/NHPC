@@ -390,11 +390,11 @@
 
                                             @if(isset($data))
                                                 <img src="{{url(isset($data)?$data->getSignatureImage():imageNotFound())}}" height="250" width="300"
-                                                     id="signature_image_img">
+                                                     id="signature_img">
 
                                             @else
                                                 <img src="{{isset($data)?$data->getSignatureImage():imageNotFound()}}" height="250" width="300"
-                                                     id="signature_image_img">
+                                                     id="signature_img">
                                             @endif
                                         </div>
 
@@ -409,8 +409,8 @@
                                                 </div>
                                             </div><br>
                                             <input type="file" id="signature_image" name="signature_image"
-                                                   onclick="anyFileUploader('signature_image')">
-                                            <input type="hidden" id="signature_image_path" name="signature_image" class="form-control"
+                                                   onclick="anyFileUploader('signature')">
+                                            <input type="hidden" id="signature_path" name="signature_image" class="form-control"
                                                    value="{{isset($data)?$data->signature_image:''}}"/>
                                             {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                         </div>

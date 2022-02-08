@@ -78,15 +78,30 @@ class Profile extends  Model
     }
     public function getCitizenshipFrontImage()
     {
-        return Storage::url('documents/' .$this->citizenship_front);
+        if(isset($this->citizenship_front)) {
+            return Storage::url('documents/' .$this->citizenship_front);
+        }
+        else {
+            return imageNotFound();
+        }
     }
     public function getCitizenshipBackImage()
     {
-        return Storage::url('documents/' .$this->citizenship_back);
+        if(isset($this->citizenship_back)) {
+            return Storage::url('documents/' .$this->citizenship_back);
+        }
+        else {
+            return imageNotFound();
+        }
     }
     public function getSignatureImage()
     {
-        return Storage::url('documents/' .$this->signature_image);
+        if(isset($this->signature_image)) {
+            return Storage::url('documents/' .$this->signature_image);
+        }
+        else {
+            return imageNotFound();
+        }
     }
 
     public function getLevel(){
@@ -94,7 +109,12 @@ class Profile extends  Model
     }
 
     public function getLevelName(){
-      return $this->getLevel->name;
+        if(isset($this->getLevel->name)) {
+            return $this->getLevel->name;
+        }
+        else {
+            return '';
+        }
     }
 
     public function getFullName(){

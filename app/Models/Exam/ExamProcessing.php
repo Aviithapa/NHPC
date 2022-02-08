@@ -24,7 +24,12 @@ class ExamProcessing extends Model
     }
 
     public function getExamName(){
-        return $this->getExam->Exam_name;
+        if(isset($this->getExam->Exam_name)) {
+            return $this->getExam->Exam_name;
+        }
+        else {
+            return '';
+        }
     }
 
     public function getProfile(){
@@ -55,18 +60,30 @@ class ExamProcessing extends Model
     }
 
     public function getMiddleName(){
-        $name= $this->getProfile->middle_name  ;
-        return $name;
+        if(isset($this->getProfile->middle_name)) {
+            return $this->getProfile->middle_name;
+        }
+        else {
+            return '';
+        }
     }
 
     public function getLastName(){
-        $name= $this->getProfile->last_name  ;
-        return $name;
+        if(isset($this->getProfile->last_name)) {
+            return $this->getProfile->last_name;
+        }
+        else {
+            return '';
+        }
     }
 
     public function getGender(){
-        $name= $this->getProfile->sex  ;
-        return $name;
+        if(isset($this->getProfile->sex)) {
+            return $this->getProfile->sex;
+        }
+        else {
+            return '';
+        }
     }
 
     public function level(){
@@ -75,8 +92,12 @@ class ExamProcessing extends Model
     }
 
     public  function  getLevelName(){
-        $name = $this->level->name;
-        return $name;
+        if(isset($this->level->name)) {
+            return $this->level->name;
+        }
+        else {
+            return '';
+        }
     }
 
 
@@ -86,8 +107,12 @@ class ExamProcessing extends Model
     }
 
     public  function  getProgramName(){
-        $name = $this->program->name;
-        return $name;
+        if(isset($this->program->name)) {
+            return $this->program->name;
+        }
+        else {
+            return '';
+        }
     }
     public function getProfileImage(){
         return Storage::url('documents/' .$this->getProfile->profile_picture);

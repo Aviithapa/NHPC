@@ -16,7 +16,12 @@ class Program extends Model
     }
 
     public function getLevelName(){
-        return $this->getlevel->name;
+        if(isset($this->getlevel->name)) {
+            return $this->getlevel->name;
+        }
+        else {
+            return '';
+        }
     }
 
 
