@@ -97,10 +97,14 @@ class SubjectCommitteeController extends BaseController
             }else {
                 $current_user = null;
             }
-            if ($exam['subject_committee_count'] != 0) {
-                $current_exam_user = $this->examProcessingDetailsRepository->getAll()->where('created_by', '=', Auth::user()->id)
-                                                                                    ->where('profile_id','=',$id);;
-            }else {
+            if ($exam) {
+                if ($exam['subject_committee_count'] != 0) {
+                    $current_exam_user = $this->examProcessingDetailsRepository->getAll()->where('created_by', '=', Auth::user()->id)
+                        ->where('profile_id', '=', $id);;
+                } else {
+                    $current_exam_user = null;
+                }
+            }else{
                 $current_exam_user = null;
             }
             return view('subjectCommittee::pages.application-list-review',compact('data','user_data','qualification','profile_logs','profile_processing','exams','current_user','current_exam_user'));
