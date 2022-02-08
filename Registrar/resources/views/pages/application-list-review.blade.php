@@ -91,10 +91,6 @@
                                                             <td>{{$data->ethics}}  </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-bold">Cast</td>
-                                                            <td>{{$data->cast}}  </td>
-                                                        </tr>
-                                                        <tr>
                                                             <td class="text-bold">Date of Birth</td>
                                                             <td>A.D. {{$data->dob_eng}} | B.S. {{$data->dob_nep}} </td>
                                                         </tr>

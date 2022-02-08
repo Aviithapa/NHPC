@@ -11,4 +11,5 @@ Route::get('/registrar/verified-applicant-profile-list',[\Registrar\Http\Control
 Route::get('/registrar/apply-exam-details/{id}',[\Registrar\Http\Controller\RegistrarController::class,"ExamApplyView"])->middleware(['auth'])->name('registrar.exam.apply');
 Route::get('/registrar/accept-exam-applied/{id}',[\Registrar\Http\Controller\RegistrarController::class,"AcceptExamProcessing"])->middleware(['auth'])->name('registrar.accept.exam.apply');
 Route::post('/registrar/rejected-exam-applied',[\Registrar\Http\Controller\RegistrarController::class,"RejectExamProcessing"])->middleware(['auth'])->name('registrar.reject.exam.apply');
-
+Route::get('/search/student',[\Operator\Http\Controller\SearchController::class,"index"])->middleware(['auth'])->name('search.student');
+Route::get('/search',[\Operator\Http\Controller\SearchController::class,"search"])->middleware(['auth'])->name('search');
