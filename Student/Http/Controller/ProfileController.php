@@ -237,20 +237,21 @@ class ProfileController extends BaseController
 
     public function updateInformation(Request $request, $id){
         $data = $request->all();
-        $data['profile_status'] = 'Reviewing';
-        $data['profile_state'] = 'computer_operator';
+//        $profileCheck = $this->profileRepository->findById($id);
+//        $data['profile_status'] = 'Reviewing';
+//        $data['profile_state'] = 'computer_operator';
         try {
             $profile = $this->profileRepository->update($data,$id);
             $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
-            $profiles['status'] = 'progress';
-            $profiles_processing = $this->profileProcessingRepository->update($profiles,$profile_processing['id']);
+//            $profiles['status'] = 'progress';
+//            $profiles_processing = $this->profileProcessingRepository->update($profiles,$profile_processing['id']);
             $this->profileLog();
             if ($profile == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
-                session()->flash('success','All Information have been Updated successfully');
-                return redirect()->route('student.dashboard');
+                session()->flash('success','Personal Information has been updated');
+                return redirect()->route('qualification.update.index',['id'=>'1']);
 //
         } catch (\Exception $e) {
             session()->flash('danger', 'Oops! Something went wrong.');

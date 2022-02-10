@@ -207,7 +207,7 @@
                                     <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
                                          aria-valuemax="100"
                                          aria-valuenow="0">
-                                        <div id="ojt_tlc_progress" class="progress-bar progress-bar-success"
+                                        <div id="ojt_tslc_progress" class="progress-bar progress-bar-success"
                                              style="width: 0%">
                                         </div>
                                     </div><br>

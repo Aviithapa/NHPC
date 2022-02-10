@@ -4,25 +4,31 @@
 namespace Student\Http\Controller;
 
 
+use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
+use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use mysql_xdevapi\Exception;
+use Student\Models\Qualification;
 use Student\Modules\Framework\Request;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
 
 class QualificationController extends BaseController
 {
-    private $qualificationRepository,$log, $profileRepository,$profileProcessingRepository,$profileLogsRepository;
+    private $qualificationRepository,$log, $profileRepository,$profileProcessingRepository,$profileLogsRepository, $programRepository,$collegeRepository;
     public function __construct(Log $log, QualificationRepository $qualificationRepository, ProfileRepository $profileRepository,
                                                                         ProfileProcessingRepository $profileProcessingRepository,
-                                                            ProfileLogsRepository $profileLogsRepository)
+                                                            ProfileLogsRepository $profileLogsRepository, ProgramRepository $programRepository, CollegeRepository $collegeRepository)
     {
         $this->qualificationRepository=$qualificationRepository;
         $this->profileRepository=$profileRepository;
         $this->profileProcessingRepository=$profileProcessingRepository;
         $this->profileLogsRepository=$profileLogsRepository;
+        $this->programRepository=$programRepository;
+        $this->collegeRepository=$collegeRepository;
         $this->log=$log;
         parent::__construct();
     }
@@ -32,6 +38,97 @@ class QualificationController extends BaseController
         $qualifications = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id);
         $profile = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
        return view('student::pages.qualification.index',compact('qualifications','profile'));
+    }
+
+    public function updateRejectedInformationIndex($id =null){
+        $id = $id ? $id : 1;
+
+        $data = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id)
+                                                      ->where('level','=', $id)->first();
+
+        $slc_program = $this->programRepository->getAll()->where('level_id','=',4);
+        $plus_2_program = $this->programRepository->getAll()->where('level_id','=',3);
+        $bachelor_program = $this->programRepository->getAll()->where('level_id','=',2);
+        $master_program = $this->programRepository->getAll()->where('level_id','=',1);
+        $collage = $this->collegeRepository->getAll();
+        if ($data)
+        return view('student::pages.qualification.update.form',compact('data','slc_program','plus_2_program','bachelor_program','master_program','collage'));
+        else
+            return redirect()->route('student.dashboard');
+
+    }
+
+    public function updateRejectedQualification(Request $request, $id){
+        $data = $request->all();
+
+        $qualification = Qualification::get()->where('user_id','=',Auth::user()->id)->last();
+        if ($data['level'] === $qualification['level']){
+            dd($data);
+            $id=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+            $profile_pro['status'] = 'progress';
+            $profiles_processing = $this->profileProcessingRepository->update($profile_pro,$id['id']);
+            $profiles['profile_status'] = "Reviewing";
+            $profiles['profile_state'] = $profiles_processing['state'];
+            $profile = $this->profileRepository->update($profiles,$id['id']);
+            session()->flash('success', 'Profile is send for Re Revewing');
+            return redirect()->route("student.dashboard");
+
+        }else{
+            try {
+                switch ($data['level']){
+                    case 1 :
+                        $data['transcript_image'] = $data['transcript_slc'];
+                        $data['provisional_image'] = $data['provisional_slc'];
+                        $data['character_image'] = $data['character_slc'];
+                        break;
+                    case 2 :
+                        $data['transcript_image'] = $data['transcript_tslc'];
+                        $data['provisional_image'] = $data['provisional_tslc'];
+                        $data['character_image'] = $data['character_tslc'];
+                        $data['ojt_image'] = $data['ojt_tslc'];
+                        break;
+                    case 3 :
+                        $data['transcript_image'] = $data['transcript_pcl'];
+                        $data['provisional_image'] = $data['provisional_pcl'];
+                        $data['character_image'] = $data['character_pcl'];
+                        $data['ojt_image'] = $data['ojt_pcl_image'];
+                        break;
+                    case 4 :
+                        $data['transcript_image'] = $data['transcript_bac'];
+                        $data['provisional_image'] = $data['provisional_bac'];
+                        $data['character_image'] = $data['character_bac'];
+                        $data['intership_image'] = $data['intership_bac'];
+                        $data['noc_image'] = $data['noc_bac'];
+                        $data['visa_image'] = $data['visa_bac'];
+                        $data['passport_image'] = $data['passport_bac'];
+                        break;
+                    case 5:
+                        $data['transcript_image'] = $data['transcript_mas'];
+                        $data['provisional_image'] = $data['provisional_mas'];
+                        $data['character_image'] = $data['character_mas'];
+                        $data['intership_image'] = $data['intership_mas'];
+                        $data['noc_image'] = $data['noc_mas'];
+                        $data['visa_image'] = $data['visa_mas'];
+                        $data['passport_image'] = $data['passport_mas'];
+                        break;
+
+
+                }
+                $post = $this->qualificationRepository->update($data, $id);
+                if($post == false) {
+                    session()->flash('danger', 'Oops! Something went wrong.');
+                    return redirect()->back()->withInput();
+                }
+                session()->flash('success', 'Qualification updated successfully');
+                return redirect()->route('qualification.update.index', ['id' => ++$data['level']]);
+
+            } catch (\Exception $e) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+        }
+
+
     }
 
     public function create(Request $request){
@@ -98,7 +195,7 @@ class QualificationController extends BaseController
             $plus_2 = $this->qualificationRepository->pclData(Auth::user()->id);
             $bachelor = $this->qualificationRepository->bachelorData(Auth::user()->id);
             $master = $this->qualificationRepository->masterData(Auth::user()->id);
-
+            $collage = $this->collegeRepository->getAll();
             return redirect()->route('student.specific',compact('slc_data','plus_2','bachelor','master','tslc_data'));
         } catch (\Exception $e) {
             session()->flash('danger', 'Oops! Something went wrong.');
