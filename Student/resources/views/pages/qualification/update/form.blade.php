@@ -28,12 +28,12 @@
 
         @break
         @case(4):
-                        @include('student::pages.qualification.update.updateTSLC')
+                        @include('student::pages.qualification.update.updateBachlor')
 
                         @break
         @case(5):
 
-                        @include('student::pages.qualification.update.updateTSLC')
+                        @include('student::pages.qualification.update.updateMaster')
 
                     @endswitch
                     @endif

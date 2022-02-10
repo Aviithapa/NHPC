@@ -4,6 +4,7 @@
 namespace Student\Http\Controller;
 
 
+use App\Models\Profile\ProfileProcessing;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
@@ -45,7 +46,6 @@ class QualificationController extends BaseController
 
         $data = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id)
                                                       ->where('level','=', $id)->first();
-
         $slc_program = $this->programRepository->getAll()->where('level_id','=',4);
         $plus_2_program = $this->programRepository->getAll()->where('level_id','=',3);
         $bachelor_program = $this->programRepository->getAll()->where('level_id','=',2);
@@ -62,13 +62,13 @@ class QualificationController extends BaseController
         $data = $request->all();
 
         $qualification = Qualification::get()->where('user_id','=',Auth::user()->id)->last();
-        if ($data['level'] === $qualification['level']){
-            dd($data);
+        if ($data['level'] == $qualification->level){
             $id=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
             $profile_pro['status'] = 'progress';
-            $profiles_processing = $this->profileProcessingRepository->update($profile_pro,$id['id']);
+            $profile_processing_id = ProfileProcessing::get()->where('profile_id','=',$id['id'])->last();
+            $profiles_processing = $this->profileProcessingRepository->update($profile_pro,$profile_processing_id['id']);
             $profiles['profile_status'] = "Reviewing";
-            $profiles['profile_state'] = $profiles_processing['state'];
+            $profiles['profile_state'] = $profiles_processing['current_state'];
             $profile = $this->profileRepository->update($profiles,$id['id']);
             session()->flash('success', 'Profile is send for Re Revewing');
             return redirect()->route("student.dashboard");
@@ -120,6 +120,7 @@ class QualificationController extends BaseController
                     return redirect()->back()->withInput();
                 }
                 session()->flash('success', 'Qualification updated successfully');
+
                 return redirect()->route('qualification.update.index', ['id' => ++$data['level']]);
 
             } catch (\Exception $e) {

@@ -98,12 +98,8 @@
                                                             <td>{{$data->ethics}}  </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="text-bold">Cast</td>
-                                                            <td>{{$data->cast}}  </td>
-                                                        </tr>
-                                                        <tr>
                                                             <td class="text-bold">Date of Birth</td>
-                                                            <td>A.D. {{$data->dob_eng}} | B.S. {{$data->dob_nep}} </td>
+                                                            <td> B.S. {{$data->dob_nep}} </td>
                                                         </tr>
                                                         </tbody>
                                                     </table>
@@ -210,10 +206,11 @@
                                                         <td>Collage Name</td>
                                                         </thead>
                                                         <tbody>
+                                                        {{$key = 1 }}
                                                         @foreach($qualification as $qualifications)
                                                             <tr>
-                                                                <td>1</td>
-                                                                <td>{{$qualifications->name}}</td>
+                                                                <td>{{$key ++}}</td>
+                                                                <td>{{$qualifications->getLevelName()}}</td>
                                                                 <td>{{$qualifications->board_university}}</td>
                                                                 <td>{{$qualifications->getProgramName()}}</td>
                                                                 <td>{{$qualifications->collage_id}}</td>
@@ -251,23 +248,32 @@
                                                 <table class="table table-bordered">
                                                     <thead>
                                                     <tr>
-                                                        <th scope="col">#</th>
                                                         <th scope="col">level</th>
                                                         <th scope="col">Transcript</th>
                                                         <th scope="col">Certificate</th>
-
                                                         <th scope="col">Provisional</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     @foreach($qualification as $qualifications)
                                                         <tr>
-                                                            <td>1</td>
-                                                            <td>{{$qualifications->name}}</td>
-                                                            <td><img src="{{$qualifications->getTranscriptImage()}}"  alt="Transcript Image" width="200" height="200"></td>
-                                                            <td><img src="{{$qualifications->getCharacterImage()}}" alt="Character Image" width="200" height="200"></td>
-                                                            <td><img src="{{$qualifications->getProvisionalImage()}}" alt="Provisional Image" width="200" height="200"></td>
+                                                            <td>{{$qualifications->getLevelName()}}</td>
+                                                            <td><img src="{{$qualifications->getTranscriptImage()}}" onclick="onClick(this)"  alt="Transcript Image" width="200" height="200"></td>
+                                                            <td><img src="{{$qualifications->getCharacterImage()}}" onclick="onClick(this)"  alt="Character Image" width="200" height="200"></td>
+                                                            <td><img src="{{$qualifications->getProvisionalImage()}}" onclick="onClick(this)"  alt="Provisional Image" width="200" height="200"></td>
                                                         </tr>
+                                                        @if($qualifications['level'] == 4 || $qualifications['level'] == 5)
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><img src="{{$qualifications->getIntershipImage()}}" onclick="onClick(this)"  alt="Transcript Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getNocImage()}}" onclick="onClick(this)"  alt="Character Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getVisaImage()}}" onclick="onClick(this)"  alt="Provisional Image" width="200" height="200"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><img src="{{$qualifications->getPassportImage()}}" onclick="onClick(this)"  alt="Transcript Image" width="200" height="200"></td>
+                                                            </tr>
+                                                            @endif
                                                     @endforeach
                                                     <tr>
                                                     </tbody>
@@ -282,21 +288,21 @@
                                                     <tr>
                                                         <th scope="row">1</th>
                                                         <td>Citizenship</td>
-                                                        <td>  <img src="{{$data->getCitizenshipFrontImage()}}" width="200" height="200">
+                                                        <td>  <img src="{{$data->getCitizenshipFrontImage()}}" onclick="onClick(this)"  width="200" height="200">
                                                         </td>
-                                                        <td>  <img src="{{$data->getCitizenshipBackImage()}}" width="200" height="200">
+                                                        <td>  <img src="{{$data->getCitizenshipBackImage()}}" onclick="onClick(this)" width="200" height="200">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">2</th>
                                                         <td>Signature</td>
-                                                        <td>  <img src="{{$data->getSignatureImage()}}" width="200" height="200">
+                                                        <td>  <img src="{{$data->getSignatureImage()}}" onclick="onClick(this)"  width="200" height="200">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">3</th>
                                                         <td>OJT</td>
-                                                        <td>  <img src="{{$data->getSignatureImage()}}" width="200" height="200">
+                                                        <td>  <img src="{{$data->getSignatureImage()}}" onclick="onClick(this)"  width="200" height="200">
                                                         </td>
 
                                                     </tr>
@@ -459,7 +465,7 @@
                                                                 <tr>
                                                                     <td>1</td>
                                                                     <td>{{$exam->getExamName()}}</td>
-                                                                    <td><img src="{{$exam->getVoucherImage()}}" src="voucher image" height="150" width="150"/></td>
+                                                                    <td><img src="{{$exam->getVoucherImage()}}" onclick="onClick(this)"  alt="voucher image" height="150" width="150"/></td>
                                                                     <td>{{$exam->created_at}}</td>
                                                                     <td>{{$exam->state}}</td>
                                                                     <td>{{$exam->status}}</td>
@@ -487,6 +493,21 @@
         </div>
         <!-- /.content -->
         <!-- /.content -->
+        <div class="modal" id="modal01">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" onclick="$('#modal01').css('display','none')" class="close"  aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="img01" style="max-width:100%">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
         <!-- Modal -->
         <div class="modal fade" id="practice_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -548,6 +569,10 @@
             });
 
         });
+        function onClick(element) {
+            document.getElementById("img01").src = element.src;
+            document.getElementById("modal01").style.display = "block";
+        }
 
     </script>
 @endpush

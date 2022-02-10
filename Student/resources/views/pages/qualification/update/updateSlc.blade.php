@@ -11,7 +11,7 @@
                         <fieldset class="form-group">
                             <label>Level</label>
                             <input name="level_name" class="form-control" id="basicInput" type="text" value="SLC" readonly>
-                            <input type="hidden" name="level" class="form-control" value="1"/>
+                            <input type="hidden" name="level" class="form-control" value="1 "/>
                         </fieldset>
                     </div>
                     <div class="col-lg-4">

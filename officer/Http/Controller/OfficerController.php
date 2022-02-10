@@ -113,13 +113,13 @@ class OfficerController  extends BaseController
                 $data['review_status'] =  'Successful';
                 $data['profile_state'] = 'registrar';
                 $this->profileLog($data);
-                $this->profileProcessing($id,'progress');
+                $this->profileProcessing($id,$data);
             }elseif($data['profile_status']=== "Rejected"){
                 $data['status'] =  'rejected';
                 $data['review_status'] =  'Rejected';
                 $data['profile_state'] = 'student';
                 $this->profileLog($data);
-                $this->profileProcessing($id, 'rejected');
+                $this->profileProcessing($id, $data);
             }
             $profile = $this->profileRepository->update($data,$id);
             if ($profile == false) {
@@ -148,20 +148,30 @@ class OfficerController  extends BaseController
 
     }
 
-    public function profileProcessing( $id , $status){
+    public function profileProcessing( $id , $data){
+
         $profileProcessing['profile_id'] = $id;
-        if ($status === 'progress') {
-            $profileProcessing['current_state'] = "registrar";
-            $profileProcessing['status'] = "progress";
-        }else{
-            $profileProcessing['current_state'] = "officer";
-            $profileProcessing['status'] = "rejected";
+        $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
+        if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
+
+            $data['status'] = 'progress';
+            $data['remarks'] = 'Profile is forward to Registrar';
+            $data['review_status'] = 'Successful';
+            $data['current_state'] = 'registrar';
+            $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
+        } elseif ($data['profile_status'] == "Rejected") {
+
+            $data['status'] = 'rejected';
+            $data['review_status'] = 'Rejected';
+            $data['current_state'] = 'officer';
+            $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
+        } elseif ($data['profile_status'] === "Pending") {
+            $data['status'] = 'pending';
+            $data['review_status'] = 'Pending';
+            $data['current_state'] = 'officer';
+                $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
+
         }
-        $id= $this->profileProcessingRepository->getAll()->where('profile_id' ,'=',$id)->first();
-        $profileProcessings = $this->profileProcessingRepository->update($profileProcessing,$id['id']);
-        if($profileProcessings == false)
-            return false;
-        return true;
 
     }
 

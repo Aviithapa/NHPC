@@ -57,7 +57,7 @@
                                             <td>{{$qualification->registration_number}}</td>
                                             <td>{{$profile->profile_status}}</td>
                                                     @if($profile->profile_status === "Rejected")
-                                                        <td><a href="{{route('qualification.edit',["id" => $qualification->id])}}"><span class="label label-success">Edit</span></a></td>
+                                                        <td><a href="{{route('qualification.update.index',["id" => $qualification->level])}}"><span class="label label-success">Edit</span></a></td>
                                                     @endif
                                                 </tr>
                                                 @endforeach

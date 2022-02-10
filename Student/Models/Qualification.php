@@ -25,7 +25,7 @@ class Qualification extends Model
     }
 
     public function getLevel(){
-        return $this->hasOne(Level::class,'id','level');
+        return $this->hasOne(Level::class,'level_number','level');
     }
 
     public function getLevelName(){
@@ -66,5 +66,22 @@ class Qualification extends Model
     public function getOJTImage()
     {
         return Storage::url('documents/' .$this->ojt_image);
+    }
+
+    public function getIntershipImage()
+    {
+        return Storage::url('documents/' .$this->intership_image);
+    }
+    public function getNocImage()
+    {
+        return Storage::url('documents/' .$this->noc_image);
+    }
+    public function getVisaImage()
+    {
+        return Storage::url('documents/' .$this->visa_image);
+    }
+    public function getPassportImage()
+    {
+        return Storage::url('documents/' .$this->passport_image);
     }
 }
