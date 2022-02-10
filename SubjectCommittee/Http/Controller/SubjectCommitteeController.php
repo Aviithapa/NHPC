@@ -169,8 +169,11 @@ class SubjectCommitteeController extends BaseController
         if ($profile_processing['current_state'] === 'subject_committee'){
             if($profile_processing->subject_committee_accepted_num < 3)
                 $profileProcessing['subject_committee_accepted_num'] = $profile_processing->subject_committee_accepted_num + 1;
-            else
+            else {
+                $profileProcessing['remarks'] = 'Profile is forward to Exam Committee';
+                $profileProcessing['review_status'] = 'Successful';
                 $profileProcessing['current_state'] = 'exam_committee';
+            }
         }
         $profileProcessings = $this->profileProcessingRepository->update($profileProcessing,$id['id']);
         if($profileProcessings == false)

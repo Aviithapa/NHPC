@@ -50,7 +50,7 @@
             </div>
                 <div class="form-group mt-4 mb-4">
                     <div class="captcha">
-                        <span>{!! captcha_img() !!}</span>
+                        <span>{!! captcha_img('flat');!!}</span>
                     </div>
                 </div>
                 <div class="form-group mb-4">
