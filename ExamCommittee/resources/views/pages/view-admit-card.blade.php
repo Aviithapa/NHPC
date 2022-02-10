@@ -25,14 +25,14 @@
                                        Symbol Number : {{$admitcard->symbol_number}}
                                      <div class="row">
                                      <div class="box-profile text-white col-lg-4">
-                                         <img class="img-responsive ml-3" src="{{$profileDetails->getProfileImage()}}" alt="User profile picture" width="200" height="200">
+                                         <img class="img-responsive ml-3" src="{{isset($profileDetails)?$profileDetails->getProfileImage():''}}" alt="User profile picture" width="200" height="200">
                                      </div>
                                          <div class="box-profile text-black col-lg-7 ml-3">
-                                             <h3 class="text-uppercase">{{$profileDetails->getFullName()}}</h3>
+                                             <h3 class="text-uppercase">{{isset($profileDetails)?$profileDetails->getFullName():''}}</h3>
                                              <ul class="sidebar-menu" data-widget="tree" style="width: fit-content !important; font-size: 14px;">
-                                                 <li class="text-uppercase"> <span class="text-bold"> Gender : </span> <span>{{$profileDetails->sex}}</span> </li>
-                                                 <li class="text-uppercase"> <span class="text-bold"> Dob : </span> <span>{{$profileDetails->dob_nep}}B.S. ({{$profileDetails->dob_eng}} A.D)</span> </li>
-                                                 <li class="text-uppercase"> <span class="text-bold"> Collage : </span> <span>{{$profileDetails->sex}}</span> </li>
+                                                 <li class="text-uppercase"> <span class="text-bold"> Gender : </span> <span>{{isset($profileDetails)?$profileDetails->sex:''}}</span> </li>
+                                                 <li class="text-uppercase"> <span class="text-bold"> Dob : </span> <span>{{isset($profileDetails)?$profileDetails->dob_nep:''}}B.S.</span> </li>
+                                                 <li class="text-uppercase"> <span class="text-bold"> Collage : </span> <span>{{isset($profileDetails)?$profileDetails->sex:''}}</span> </li>
                                                  <li class="text-uppercase"> <span class="text-bold"> Program : </span> <span>{{$exam->getProgramName()}}</span> </li>
                                                  <li class="text-uppercase"> <span class="text-bold"> Level : </span> <span>{{$exam->getLevelName()}}</span> </li>
                                              </ul>

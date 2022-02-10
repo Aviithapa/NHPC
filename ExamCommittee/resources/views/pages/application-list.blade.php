@@ -64,7 +64,7 @@
                                                 <td>{{$exam->getGender()}}</td>
                                                 <td>{{$exam->getProgramName()}}</td>
                                                 <td>{{$exam->getLevelName()}}</td>
-                                                <td><img src="{{$exam->getProfileImage()}}" src="Student Profile image" height="100" width="100"/></td>
+                                                <td><img src="{{$exam->getProfileImage()}}" alt="Student Profile image" height="100" width="100"/></td>
                                                 <td> <a href="{{route("examCommittee.view.admit.card",['id' =>$exam->id])}}"><span class="label label-success">View</span></a></td>
                                             </tr>
                                         @endforeach

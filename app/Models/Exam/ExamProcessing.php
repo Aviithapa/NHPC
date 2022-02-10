@@ -115,7 +115,13 @@ class ExamProcessing extends Model
         }
     }
     public function getProfileImage(){
-        return Storage::url('documents/' .$this->getProfile->profile_picture);
+        if(isset($this->getProfile->profile_picture)) {
+            return Storage::url('documents/' .$this->getProfile->profile_picture);
+        }
+        else {
+            return imageNotFound();
+        }
+
     }
     public function getVoucherImage(){
         return Storage::url('documents/' .$this->voucher_image);
