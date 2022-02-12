@@ -104,17 +104,26 @@ class ExamCommitteeController extends BaseController
 
     public function admit($status, $current_state)
     {
-        $users = $this->examProcessingRepository->getAll()->where('status' ,'=',$status)
-            ->where('state','=',$current_state);
-        return $this->view('pages.application-list',$users);
+        if (Auth::user()->mainRole()->name === 'exam_committee') {
+            $users = $this->examProcessingRepository->getAll()->where('status', '=', $status)
+                ->where('state', '=', $current_state);
+            return $this->view('pages.application-list', $users);
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     public function viewAdmitCardDetails($id){
-      $admitcard = $this->admitCardRepository->getAll()->where('exam_processing_id','=',$id)->first();
-      $profileDetails = $this->profileRepository->findById($admitcard['profile_id']);
-      $exam= $this->examProcessingRepository->findById($admitcard['exam_processing_id']);
+        if (Auth::user()->mainRole()->name === 'exam_committee') {
 
-      return \view('examCommittee::pages.view-admit-card',compact('admitcard','profileDetails','exam'));
+            $admitcard = $this->admitCardRepository->getAll()->where('exam_processing_id', '=', $id)->first();
+            $profileDetails = $this->profileRepository->findById($admitcard['profile_id']);
+            $exam = $this->examProcessingRepository->findById($admitcard['exam_processing_id']);
+
+            return \view('examCommittee::pages.view-admit-card', compact('admitcard', 'profileDetails', 'exam'));
+        }else{
+            return redirect()->to('login');
+        }
     }
 
     public function fileImport(Request $request)
@@ -126,7 +135,6 @@ class ExamCommitteeController extends BaseController
 
     public function FileForwardCouncil(){
         $passed_list = $this->examResultRepository->getAll()->where('status','=','pass');
-
         foreach ($passed_list as $pass){
             $admit_card = AdmitCard::all()->where('symbol_number','=', $pass['symbol_number']);
             foreach ($admit_card as $admit){
@@ -146,110 +154,5 @@ class ExamCommitteeController extends BaseController
         return Excel::download(new ResultExport(), 'users-collection.xlsx');
     }
 
-//    public function edit($id)
-//    {
-//        $data = $this->profileRepository->findById($id);
-//        $user_id=$data['user_id'];
-//        $user_data = $this->userRepository->findById($user_id);
-//        $qualification = $this->qualificationRepository->getAll()->where('user_id','=',$data['user_id']);
-//        $profile_logs = $this->profileLogsRepository->getAll()->where('profile_id','=',$id);
-//        $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id','=',$id)->first();
-//        $exams = $this->examProcessingRepository->getAll()->where('profile_id','=',$id);
-//        return view('subjectCommittee::pages.application-list-review',compact('data','user_data','qualification','profile_logs','profile_processing','exams'));
-//    }
-//
-//    public function status(Request $request)
-//    {
-//        $data = $request->all();
-//        try {
-//            $id=$data['user_id'];
-//            $data['created_by'] = Auth::user()->id;
-//            $data['state'] =  'subject_committee';
-//            if ( $data['profile_status']=== "Verified"){
-//                $data['status'] =  'accepted';
-//                $data['remarks'] =  'Profile is Accepted';
-//                $data['review_status'] =  'Successful';
-//                $this->profileLog($data);
-//                $this->profileProcessing($id);
-//            }elseif($data['profile_status']=== "Rejected"){
-//                $data['status'] =  'rejected';
-//                $data['review_status'] =  'Rejected';
-//                $this->profileLog($data);
-//            }
-//            $profile = $this->profileRepository->update($data,$id);
-//            if ($profile == false) {
-//                session()->flash('danger', 'Oops! Something went wrong.');
-//                return redirect()->back()->withInput();
-//            }
-//            session()->flash('success','User Profile Status Information have been saved successfully');
-//            return redirect()->route('subjectCommittee.applicant.profile.list');
-////
-//        } catch (\Exception $e) {
-//            session()->flash('danger', 'Oops! Something went wrong.');
-//            return redirect()->back()->withInput();
-//        }
-//
-//    }
-//
-//    public function profileLog( array  $data ){
-//        $data['profile_id'] = $data['user_id'];
-//        $logs = $this->profileLogsRepository->create($data);
-//        if($logs == false)
-//            return false;
-//        return true;
-//
-//    }
-//
-//    public function profileProcessing( $id ){
-//        $profileProcessing['profile_id'] = $id;
-//        $profileProcessing['current_state'] = "subject_committee";
-//        $profileProcessing['status'] = "progress";
-//        $id= $this->profileProcessingRepository->getAll()->where('profile_id' ,'=',$id)->first();
-//        $profileProcessings = $this->profileProcessingRepository->update($profileProcessing,$id['id']);
-//        if($profileProcessings == false)
-//            return false;
-//        return true;
-//
-//    }
-//
-//
-//    public function RejectExamProcessing(Request $request){
-//        $data= $request->all();
-//        $id = $data['id'];
-//        $data['status'] = 'rejected';
-//        $data['state'] = 'officer';
-//        try{
-//            $exam_processing = $this->examProcessingRepository->update($data,$id);
-//            if ($exam_processing == false) {
-//                session()->flash('danger', 'Oops! Something went wrong.');
-//                return redirect()->back()->withInput();
-//            }
-//            session()->flash('success','Application have been Rejected');
-//            return redirect()->back();
-//
-//        } catch (\Exception $e) {
-//            session()->flash('danger', 'Oops! Something went wrong.');
-//            return redirect()->back()->withInput();
-//        }
-//    }
-//
-//    public function AcceptExamProcessing($id){
-//        $data['status'] = 'accepted';
-//        $data['state'] = 'subject_committee';
-//        try {
-//            $exam_processing = $this->examProcessingRepository->update($data,$id);
-//            if ($exam_processing == false) {
-//                session()->flash('danger', 'Oops! Something went wrong.');
-//                return redirect()->back()->withInput();
-//            }
-//            session()->flash('success','Application Move to forward for Verification');
-//            return redirect()->back()->refresh()->withInput();
-//
-//        } catch (\Exception $e) {
-//            session()->flash('danger', 'Oops! Something went wrong.');
-//            return redirect()->back()->withInput();
-//        }
-//
-//    }
 }
 

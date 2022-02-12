@@ -77,31 +77,56 @@ class CouncilController extends BaseController
 
     public function admit($status, $current_state)
     {
-        $users = $this->examProcessingRepository->getAll()->where('status' ,'=',$status)
-            ->where('state','=',$current_state);
+        if (Auth::user()->mainRole()->name === 'council') {
 
-        return $this->view('pages.application-list',$users);
+            $users = $this->examProcessingRepository->getAll()->where('status', '=', $status)
+                ->where('state', '=', $current_state);
+
+            return $this->view('pages.application-list', $users);
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     public function viewAdmitCardDetails($id){
-        $admitcard = $this->admitCardRepository->getAll()->where('exam_processing_id','=',$id)->first();
-        $profileDetails = $this->profileRepository->findById($admitcard['profile_id']);
-        $exam= $this->examProcessingRepository->findById($admitcard['exam_processing_id']);
-        return \view('examCommittee::pages.view-admit-card',compact('admitcard','profileDetails','exam'));
+        if (Auth::user()->mainRole()->name === 'council') {
+
+            $admitcard = $this->admitCardRepository->getAll()->where('exam_processing_id', '=', $id)->first();
+            $profileDetails = $this->profileRepository->findById($admitcard['profile_id']);
+            $exam = $this->examProcessingRepository->findById($admitcard['exam_processing_id']);
+            return \view('examCommittee::pages.view-admit-card', compact('admitcard', 'profileDetails', 'exam'));
+        }else{
+            return redirect()->route('login');
+        }
     }
     public function dartaBookIndex(){
-        $programs = $this->programRepository->getAll();
-        return \view('council::pages.darta-book',compact('programs'));
+        if (Auth::user()->mainRole()->name === 'council') {
+
+            $programs = $this->programRepository->getAll();
+            return \view('council::pages.darta-book', compact('programs'));
+        }else{
+            return redirect()->route('login');
+        }
     }
     public function applicantdartaBookIndex($id){
-        $certificate = $this->certificateRepository->getAll()->where('program_id','=',$id);
-        return \view('council::pages.darta-book-details',compact('certificate'));
+        if (Auth::user()->mainRole()->name === 'council') {
+
+            $certificate = $this->certificateRepository->getAll()->where('program_id', '=', $id);
+            return \view('council::pages.darta-book-details', compact('certificate'));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     public function getallExamPassedList(){
-        $data = $this->examProcessingRepository->getAll()->where('state','=','council')
-                                                           ->where('status','=','progress');
-        return \view('council::pages.passed-list',compact('data'));
+        if (Auth::user()->mainRole()->name === 'council') {
+
+            $data = $this->examProcessingRepository->getAll()->where('state', '=', 'council')
+                ->where('status', '=', 'progress');
+            return \view('council::pages.passed-list', compact('data'));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
 
