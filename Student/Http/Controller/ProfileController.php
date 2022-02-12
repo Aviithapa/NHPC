@@ -46,7 +46,8 @@ class ProfileController extends BaseController
                 $rejected = "Your application has been rejected";
             }
         }
-        return view('student::pages.dashboard',compact('rejected'));
+        $exam=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+        return view('student::pages.dashboard',compact('rejected','exam'));
     }
 
     public function index($slug = null){
@@ -186,7 +187,9 @@ class ProfileController extends BaseController
     public function getAllLicencePassedRecord($id){
         $exam = $this->examProcessingRepository->getAll()->where('profile_id','=',$id);
         if ($exam->isEmpty()){
-            $qualification = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+            $qualification = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id)
+                ->where('licence','=', 'no')
+                ->where('level','!=','1')->first();
             $specific_program = $this->programRepository->findById($qualification['program_id']);
             return $specific_program;
 

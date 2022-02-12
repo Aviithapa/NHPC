@@ -1,32 +1,40 @@
 @extends('superAdmin::admin.layout.app')
 
 @section('content')
-    <div class="container">
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="grid simple ">
-                    <div class="grid-title">
-                        <a href="{{route('dashboard.site-settings.get-update')}}"  class="btn btn-info btn-cons">
-                            <i class="fa fa-plus-square"></i> Edit Settings
-                        </a>
-                        <div class="tools">
-                            <a href="javascript:;" class="collapse"></a>
+    <div class="content-wrapper">
+
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-12 m-b-3">
+                    <div class="box box-info">
+                        <div class="row">
+                            <div class="col-lg-12 m-b-3 ml-4">
+                                <a href="{{route('dashboard.site-settings.get-update')}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
+                                    Edit Setting</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="grid-body ">
-                        <table class="table table-hover table-condensed" id="data-table">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Display Name</th>
-                            </tr>
-                            </thead>
-                        </table>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="data-table" class="table no-margin" style=" font-size: 14px ;">
+                                    <thead style=" font-size: 14px ; font-weight: bold;">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Display Name</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
+
     </div>
 @endsection
 

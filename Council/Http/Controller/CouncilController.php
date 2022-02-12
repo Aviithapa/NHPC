@@ -143,7 +143,7 @@ class CouncilController extends BaseController
                 $this->certificateRepository->create($data);
                 $examupdate['status'] = "accepted";
                 $this->examProcessingRepository->update($examupdate, $exam['id']);
-
+                $this->updateQualificationHistory($exam['profile_id'],$exam['program_id']);
             }
             session()->flash('success', 'All Application has been Moved to darta book');
             return redirect()->back()->withInput();
@@ -154,10 +154,19 @@ class CouncilController extends BaseController
     private function certRegistrationNumber($level , $srn, $program){
         $level_code = $level['level_code'];
         $program_code= $program['certificate_name'];
-
         return $level_code.'- '.$srn.' '.$program_code;
     }
 
+    public function updateQualificationHistory($id, $programId){
+    $user_id = $this->profileRepository->findById($id);
+    $qualificationData = $this->qualificationRepository->getAll()->where('user_id','=',$user_id['user_id'])
+        ->where('program_id','=',$programId)->first();
+    $qual['licence'] ='yes';
+    $update= $this->qualificationRepository->update($qual,$qualificationData['id']);
+     if ($update == false)
+         return false;
+     return true;
+    }
 
 
 

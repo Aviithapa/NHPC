@@ -1,4 +1,4 @@
 <?php
 
 
-Route::get('/', 'DashBoardController@index')->name('dashboard.index');
+Route::get('/', 'DashBoardController@index')->name('superAdmin.dashboard.index');

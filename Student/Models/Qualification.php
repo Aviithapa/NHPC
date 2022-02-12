@@ -16,7 +16,8 @@ class Qualification extends Model
 
     protected $fillable = [
         'name', 'board_university', 'passed_year','admission_year','program_id','collage_id','user_id','level','registration_number',
-        'transcript_image','provisional_image','character_image','ojt_image','intership_image','visa_image','noc_image','passport_image'
+        'transcript_image','provisional_image','character_image','ojt_image','intership_image','visa_image','noc_image','passport_image',
+        'licence'
     ];
 
     public function user()

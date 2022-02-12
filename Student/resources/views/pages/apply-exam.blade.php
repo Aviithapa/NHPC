@@ -35,6 +35,7 @@
                                         @csrf
 
 
+                                        <input type="hidden" name="exam_id" value="1"/>
 
                                             <div class="row">
                                                 <div class="col-lg-4">
@@ -42,9 +43,6 @@
                                                         <label>Program Name</label>
                                                         <select class="form-control" name="program_id" required>
                                                             <option value="{{$specific_program->id}}">{{$specific_program->name}}</option>
-                                                            @foreach($level_related_program as $program)
-                                                                <option value="{{$program->id}}">{{$program->name}}</option>
-                                                            @endforeach
                                                         </select>
                                                     </fieldset>
                                                 </div>

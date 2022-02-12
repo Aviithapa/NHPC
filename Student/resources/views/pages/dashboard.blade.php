@@ -18,45 +18,46 @@
         <!-- Main content -->
         <div class="content">
 
-{{--            <div class="row">--}}
-{{--                <div class="col-lg-12 m-b-3">--}}
-{{--                    <div class="box box-info">--}}
-{{--                        <div class="box-header with-border p-t-1">--}}
-{{--                            <h3 class="box-title text-black">Opened Licence Exam</h3>--}}
-{{--                            <div class="pull-right">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <!-- /.box-header -->--}}
-{{--                        <div class="box-body">--}}
-{{--                            <div class="table-responsive">--}}
-{{--                                <table class="table no-margin">--}}
-{{--                                    <thead>--}}
-{{--                                    <tr>--}}
-{{--                                        <th>Exam ID</th>--}}
-{{--                                        <th>Exam Name</th>--}}
-{{--                                        <th>Extra</th>--}}
-{{--                                        <th>Exam Form open day</th>--}}
-{{--                                        <th>Exam End Date</th>--}}
-{{--                                        <th>Actions</th>--}}
-{{--                                    </tr>--}}
-{{--                                    </thead>--}}
-{{--                                    <tbody>--}}
-{{--                                    <tr>--}}
-{{--                                        <td><a href="#">OR9842</a></td>--}}
-{{--                                        <td>Abhishek Thapa</td>--}}
-{{--                                        <td>abc</td>--}}
-{{--                                        <td>12-04-2022</td>--}}
-{{--                                        <td>12-05-2022</td>--}}
-{{--                                        <td><a href="{{route('apply.for.exam')}}"><span class="label label-success">Apply</span></a></td>--}}
-{{--                                    </tr>--}}
-{{--                                    </tbody>--}}
-{{--                                </table>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.table-responsive -->--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+            @if($exam)
+            <div class="row">
+                <div class="col-lg-12 m-b-3">
+                    <div class="box box-info">
+                        <div class="box-header with-border p-t-1">
+                            <h3 class="box-title text-black">Opened Licence Exam</h3>
+                            <div class="pull-right">
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table class="table no-margin">
+                                    <thead>
+                                    <tr>
+                                        <th>Exam ID</th>
+                                        <th>Exam Name</th>
+                                        <th>Exam Form Open Date</th>
+                                        <th>Exam Form End Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><a href="#">OR9842</a></td>
+                                        <td>Licence Exam</td>
+                                        <td>2022-12-02</td>
+                                        <td>2023-01-02</td>
+                                        <td><a href="{{route('apply.for.exam')}}"><span class="label label-success">Apply</span></a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                @endif
         </div>
     </div>
     <!-- /.content -->

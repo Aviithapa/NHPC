@@ -4,10 +4,10 @@
 namespace SuperAdmin\Http\Controllers;
 
 
-class DashBoardController
+class DashBoardController extends BaseController
 {
     public function index(){
-        dd("you are in Admin Dashboar");
+        return $this->view('dashboard.administrator');
     }
 
 }
