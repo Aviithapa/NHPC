@@ -190,8 +190,12 @@ class ProfileController extends BaseController
             $qualification = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id)
                 ->where('licence','=', 'no')
                 ->where('level','!=','1')->first();
-            $specific_program = $this->programRepository->findById($qualification['program_id']);
-            return $specific_program;
+            if($qualification != null){
+                $specific_program = $this->programRepository->findById($qualification['program_id']);
+                return $specific_program;
+            }else{
+                return false;
+            }
 
         }else{
             return false;

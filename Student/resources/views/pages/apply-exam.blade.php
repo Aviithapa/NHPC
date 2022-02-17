@@ -49,14 +49,39 @@
                                             </div>
                                         <div class="row">
 
-                                        <div class="col-md-4">
-                                                <label>Voucher Image</label>
-                                                <input type="file" name="voucher_image" onclick="anyFileUploader('voucher')" id="input-file-max-fs" class="dropify" />
-                                                <input type="hidden" id="voucher_path" name="voucher" class="form-control"
-                                                       value=""/>
-                                            </div>
 
+                                            <div class="col-lg-4">
+                                                <div class="col-md-12 col-lg-12">
+                                                    <label>Voucher Image</label><br>
+                                                    @if(isset($data))
+                                                        <img src="{{url(isset($data)?$data->getVoucherImage():imageNotFound())}}" height="250" width="200"
+                                                             id="voucher_img">
+
+                                                    @else
+                                                        <img src="{{isset($data)?$data->getVoucherImage():imageNotFound('user')}}" height="250" width="200"
+                                                             id="voucher_img">
+                                                    @endif
+                                                </div>
+
+                                                <div class="form-group col-md-12 col-lg-12">
+                                                    <small>Below 1 mb</small><br>
+                                                    <small id="voucher_help_text" class="help-block"></small>
+                                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                                         aria-valuemax="100"
+                                                         aria-valuenow="0">
+                                                        <div id="voucher_progress" class="progress-bar progress-bar-success"
+                                                             style="width: 0%">
+                                                        </div>
+                                                    </div><br>
+                                                    <input type="file" id="voucher_image" name="voucher_image"
+                                                           onclick="anyFileUploader('voucher')">
+                                                    <input type="hidden" id="voucher_path" name="voucher" class="form-control"
+                                                           value="{{isset($data)?$data->voucher_image:''}}"/>
+                                                    {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                                </div>
+                                            </div>
                                         </div>
+
 
                                         <button type="submit" class="btn btn-primary float-left mt-2"><i class="fa fa-check"></i>
                                             Apply For Licence</button>
