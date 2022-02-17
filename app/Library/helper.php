@@ -223,7 +223,8 @@ if(!function_exists('countAdmitCard')) {
     function countAdmitCard()
     {
         $count = 0;
-        $exams= \App\Models\Exam\ExamProcessing::all();
+        $exams= \App\Models\Exam\ExamProcessing::all()->where('state','=', 'exam_committee')
+        ->where('status','=','progress');
         foreach ($exams as $exam) {
             if ($exam['is_admit_card_generate'] === 'no') {
                  $count = ++$count;

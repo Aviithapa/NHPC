@@ -65,7 +65,9 @@
                                                 <td>{{$exam->getProgramName()}}</td>
                                                 <td>{{$exam->getLevelName()}}</td>
                                                 <td><img src="{{$exam->getProfileImage()}}" alt="Student Profile image" height="100" width="100"/></td>
+                                                @if($exam['is_admit_card_generate'] === 'yes')
                                                 <td> <a href="{{route("examCommittee.view.admit.card",['id' =>$exam->id])}}"><span class="label label-success">View</span></a></td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     @endif
