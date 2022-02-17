@@ -1,4 +1,4 @@
-@if($profile_processing->current_state === 'officer')
+@if(isset($profile_processing)?$profile_processing->current_state === 'officer':'')
     <li class="nav-item" style="color: #2596be;"><div class="popover__wrapper">
             <a href="#">
                 <i class="fa fa-star fa-2x"></i>
@@ -9,7 +9,7 @@
         </div>
     </li>
 
-@elseif($profile_processing->current_state === 'registrar')
+@elseif(isset($profile_processing)?$profile_processing->current_state === 'registrar':'')
     <li class="nav-item" style="color: #2596be;"><div class="popover__wrapper">
             <a href="#">
                 <i class="fa fa-star fa-2x"></i>
@@ -28,7 +28,7 @@
             </div>
         </div>
     </li>
-@elseif($profile_processing->current_state === 'subject_committee')
+@elseif(isset($profile_processing)?$profile_processing->current_state === 'subject_committee':'')
     <li class="nav-item" style="color: #2596be;"><div class="popover__wrapper">
             <a href="#">
                 <i class="fa fa-star fa-2x"></i>
@@ -56,7 +56,7 @@
             </div>
         </div>
     </li>
-@elseif($profile_processing->current_state === 'exam_committee')
+@elseif(isset($profile_processing)?$profile_processing->current_state === 'exam_committee':'')
     <li class="nav-item" style="color: #2596be;"><div class="popover__wrapper">
             <a href="#">
                 <i class="fa fa-star fa-2x"></i>
@@ -93,8 +93,8 @@
             </div>
         </div>
     </li>
-@elseif($profile_processing->current_state === 'council')
-    @if($profile_processing->status === 'accepted')
+@elseif(isset($profile_processing)?$profile_processing->current_state === 'council':'')
+    @if(isset($profile_processing)?$profile_processing->status === 'accepted':'')
         <li class="nav-item" style="color: #2596be;"><div class="popover__wrapper">
                 <a href="#">
                     <i class="fa fa-star fa-2x"></i>

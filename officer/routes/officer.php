@@ -13,3 +13,5 @@ Route::get('/officer/apply-exam-details/{id}',[\officer\Http\Controller\OfficerC
 Route::get('/officer/accept-exam-applied/{id}',[\officer\Http\Controller\OfficerController::class,"AcceptExamProcessing"])->middleware(['auth'])->name('officer.accept.exam.apply');
 Route::post('/officer/rejected-exam-applied',[\officer\Http\Controller\OfficerController::class,"RejectExamProcessing"])->middleware(['auth'])->name('officer.reject.exam.apply');
 
+Route::get('/search/student',[\officer\Http\Controller\SearchController::class,"index"])->middleware(['auth'])->name('officer.search.student');
+Route::get('/search',[\officer\Http\Controller\SearchController::class,"search"])->middleware(['auth'])->name('search');

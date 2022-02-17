@@ -5,7 +5,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header sty-one">
-            <h1>Current State :: <span class="text-uppercase text-bold">{{$profile_processing->current_state}}</span></h1>
+            <h1>Current State :: <span class="text-uppercase text-bold">{{isset($profile_processing)?$profile_processing->current_state:''}}</span></h1>
             <ol class="breadcrumb">
                 <li><a href="#">Dashboard</a></li>
                 <li><i class="fa fa-angle-right"></i>Applicant List</li>
@@ -317,7 +317,7 @@
                 </div>
             </div>
 
-            @if($profile_processing->current_state === "registrar")
+            @if(isset($profile_processing)?$profile_processing->current_state === "registrar":'')
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="info-box">
