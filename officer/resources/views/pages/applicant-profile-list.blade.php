@@ -6,7 +6,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header sty-one">
-            <h1>Operator Dashboard</h1>
+            <h1>Officer Dashboard</h1>
             <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
                 <li><i class="fa fa-angle-right"></i> Applicant Profile Details</li>

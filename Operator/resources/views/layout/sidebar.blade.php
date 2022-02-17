@@ -47,18 +47,18 @@
                 <ul class="treeview-menu">
                     <li class="">
                         <a href="{{route("operator.applicant.list", ['status'=> 'pending','state' => 'computer_operator'])}}">
-                            <i class="icon-book-open"></i> <span>Exam Applied List <span class="badge badge-pill badge-success">{{getExamApplicantList('pending')}}</span></span>
+                            <i class="icon-book-open"></i> <span>Exam Applied List <span class="badge badge-pill badge-success">{{getExamApplicantList('pending','computer_operator')}}</span></span>
                         </a>
                     </li>
                     <li class="">
                         <a href="{{route("operator.applicant.list",['status'=> 'progress','state' => 'officer'])}}">
-                            <i class="icon-book-open"></i> <span>Exam Applied Progress List <span class="badge badge-pill badge-success">{{getExamApplicantList('progress')}}</span></span>
+                            <i class="icon-book-open"></i> <span>Exam Applied Progress List <span class="badge badge-pill badge-success">{{getExamApplicantList('progress','officer')}}</span></span>
                         </a>
                     </li>
 
                     <li class="">
                         <a href="{{route("operator.applicant.list",['status'=> 'rejected', 'state' => 'computer_operator'])}}">
-                            <i class="icon-book-open"></i> <span>Exam Applied Rejected List <span class="badge badge-pill badge-danger">{{getExamApplicantList('rejected')}}</span></span>
+                            <i class="icon-book-open"></i> <span>Exam Applied Rejected List <span class="badge badge-pill badge-danger">{{getExamApplicantList('rejected','computer_operator')}}</span></span>
                         </a>
                     </li>
                 </ul>

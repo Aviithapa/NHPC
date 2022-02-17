@@ -90,19 +90,22 @@ if (! function_exists('getDartaNumber')) {
 if (! function_exists('getExamApplicantList')) {
     /**
      * Generates an asset path for the uploads.
-     * @param null $path
-     * @param null $file_name
+     * @param $status
+     * @param null $state
      * @return string
      */
-    function getExamApplicantList($status)
+    function getExamApplicantList($status, $state = null)
     {
         $count =0;
-        $profiles = \App\Models\Exam\ExamProcessing::all()->where("status",'=' ,$status);
+        $profiles = \App\Models\Exam\ExamProcessing::all()->where("status",'=' ,$status)
+                                                          ->where("state",'=', $state);
         foreach ($profiles as $profile)
             $count++;
         return $count;
     }
 }
+
+
 
 
 if(!function_exists('imageNotFound')) {

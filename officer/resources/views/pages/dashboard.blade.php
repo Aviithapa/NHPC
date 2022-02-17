@@ -15,43 +15,77 @@
             </ol>
         </div>
 
-{{--        <!-- Main content -->--}}
-{{--        <div class="content">--}}
+        {{--        <!-- Main content -->--}}
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Reviewing', 'current_state' => 'officer'])}}">
+                        <div class="card">
+                            <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>
+                                <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Reviewing', 'officer')}}</span>
+                                    <span class="info-box-text">New Applicant Profile List</span> </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Pending', 'current_state' => 'officer'])}}">
+                        <div class="card">
+                            <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
+                                <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Pending','officer')}}</span>
+                                    <span class="info-box-text">Applicant Pending Profile</span></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Rejected','current_state' => 'student'])}}">
+                        <div class="card">
+                            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
+                                <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Rejected','student')}}</span>
+                                    <span class="info-box-text">Rejected Application List </span></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <div class="card">
+                        <div class="card-body"><span class="info-box-icon bg-yellow"><i class="icon-book-open"></i></span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getExamApplicantList('pending')}}</span>
+                                <span class="info-box-text">Exam Applied Application List</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-{{--            <div class="row">--}}
-{{--                <div class="col-lg-12 m-b-3">--}}
-{{--                    <div class="box box-info">--}}
-{{--                        <div class="box-header with-border p-t-1">--}}
-{{--                            <h3 class="box-title text-black">Exam List</h3>--}}
-{{--                            <div class="pull-right">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <!-- /.box-header -->--}}
-{{--                        <div class="box-body">--}}
-{{--                            <div class="table-responsive">--}}
-{{--                                <table class="table no-margin">--}}
-{{--                                    <thead>--}}
-{{--                                    <tr>--}}
-{{--                                        <th>Exam ID</th>--}}
-{{--                                        <th>Exam Name</th>--}}
-{{--                                        <th>Actions</th>--}}
-{{--                                    </tr>--}}
-{{--                                    </thead>--}}
-{{--                                    <tbody>--}}
-{{--                                    <tr>--}}
-{{--                                        <td><a href="#">OR9842</a></td>--}}
-{{--                                        <td>John Deo</td>--}}
-{{--                                        <td><span class="label label-success">Apply</span></td>--}}
-{{--                                    </tr>--}}
-{{--                                    </tbody>--}}
-{{--                                </table>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.table-responsive -->--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+            <div class="row">
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <div class="card">
+                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getExamApplicantList('accepted')}}</span>
+                                <span class="info-box-text">Exam Applicant Accepted List</span> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <div class="card">
+                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getExamApplicantList('rejected')}}</span>
+                                <span class="info-box-text">Exam Applicant Rejected List</span> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <div class="card">
+                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getExamApplicantList('processing')}}</span>
+                                <span class="info-box-text">Exam Applicant Processing List</span> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     </div>
     <!-- /.content -->

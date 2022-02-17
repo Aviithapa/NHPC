@@ -25,19 +25,19 @@
                             </ul>
                         </div>
                         <div class="box-profile text-white">
-                            <img class="profile-user-img img-responsive m-b-2" src="{{$data->getProfileImage()}}" alt="User profile picture">
-                            <h3 class="profile-username text-center">{{$user_data->name}}</h3>
-                            <p class="text-center">{{$user_data->email}}</p>
+                            <img class="profile-user-img img-responsive m-b-2" src="{{isset($data)?$data->getProfileImage():''}}" alt="User profile picture">
+                            <h3 class="profile-username text-center">{{isset($user_data)?$user_data->name:''}}</h3>
+                            <p class="text-center">{{isset($user_data)?$user_data->email:''}}</p>
                         </div>
                     </div>
                     <div class="card m-b-3">
                         <div class="card-body">
                             <div class="box-body">
                                 <strong><i class="fa fa-envelope margin-r-5"></i> Email address </strong>
-                                                                <p class="text-muted">{{$user_data->email}}</p>
+                                                                <p class="text-muted">{{isset($user_data)?$user_data->email:''}}</p>
                                 <hr>
                                 <strong><i class="fa fa-phone margin-r-5"></i> Phone</strong>
-                                                                <p>{{$user_data->phone_number}} </p>
+                                                                <p>{{isset($user_data)?$user_data->phone_number:''}} </p>
 
                             </div>
                             <!-- /.box-body -->
