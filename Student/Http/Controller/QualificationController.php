@@ -207,6 +207,41 @@ class QualificationController extends BaseController
     }
 
 
+    public function newQualificationStore(Request $request)
+    {
+        $data = $request->all();
+        $data['name'] = $data['level'];
+        $data['user_id'] = Auth::user()->id;
+        $data['transcript_image'] = $data['transcript_mas'];
+        $data['provisional_image'] = $data['provisional_mas'];
+        $data['character_image'] = $data['character_mas'];
+                $data['intership_image'] = $data['intership_mas'];
+                $data['noc_image'] = $data['noc_mas'];
+                $data['visa_image'] = $data['visa_mas'];
+                $data['passport_image'] = $data['passport_mas'];
+        $profiles['level'] =$data['level'];
+        $profiles['profile_state'] = 'computer_operator';
+        try {
+            $qualification = $this->qualificationRepository->create($data);
+            if ($qualification == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            $this->checkLevel($profiles);
+            session()->flash('success', $data["level_name"].' Qualification have been Saved Successfully');
+            $slc_data = $this->qualificationRepository->slcData(Auth::user()->id);
+            $tslc_data = $this->qualificationRepository->tslcData(Auth::user()->id);
+            $plus_2 = $this->qualificationRepository->pclData(Auth::user()->id);
+            $bachelor = $this->qualificationRepository->bachelorData(Auth::user()->id);
+            $master = $this->qualificationRepository->masterData(Auth::user()->id);
+            $collage = $this->collegeRepository->getAll();
+            return redirect()->route('student.specific',compact('slc_data','plus_2','bachelor','master','tslc_data'));
+        } catch (\Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
+
     public function checkLevel($profiles){
         $id=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
         if ($id['level'] < $profiles['level']){

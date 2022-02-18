@@ -23,7 +23,7 @@
 
 
                         <h4 class="text-black">Additional Education Information</h4>
-                        <form method="POST" action="{{url('student/dashboard/student/collage/data')}}">
+                        <form method="POST" action="{{url('student/dashboard/qualification/student/collage/data')}}">
                             @csrf
 
 

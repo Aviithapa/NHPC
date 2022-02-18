@@ -18,6 +18,7 @@ Route::get('/student/qualification/index', [ \Student\Http\Controller\Qualificat
 //Route::get('/student/specific', [ \Student\Http\Controller\ProfileController::class, 'index'])->middleware(['auth'])->name('student.specific');
 Route::get('/student/qualification/slc/{id}', [\Student\Http\Controller\QualificationController::class, 'updateRejectedInformationIndex'])->middleware(['auth'])->name('qualification.update.index');
 Route::post('/student/qualification/data/{id}', [\Student\Http\Controller\QualificationController::class, 'updateRejectedQualification'])->middleware(['auth'])->name('qualification.update.data');
+Route::post('/qualification/student/collage/data', [\Student\Http\Controller\QualificationController::class, 'newQualificationStore'])->middleware(['auth'])->name('new.collage.data');
 
 
 
