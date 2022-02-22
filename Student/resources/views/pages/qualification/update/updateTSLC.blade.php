@@ -217,6 +217,8 @@
                                 {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                             </div>
                         </div>
+
+
                     </div>
                 </div>
 
@@ -245,6 +247,12 @@
                     $("#tslcinternationalValue").attr('name', 'nothing');
                     $('#tslcnepalValue').attr('name', 'collage_name');
 
+
+                    $("#tslcinternationalboard").hide();
+                    $("#tslcnationalboard").show();
+                    $("#tslcinternationalboard").attr('name', 'nothing');
+                    $("#tslcnationalboard").attr('name', 'board_university');
+
                     break;
                 case 'international':
                     $("#tslcnepal").hide();
@@ -252,6 +260,11 @@
                     $('#tslcnepalValue').attr('name', 'nothing');
                     $("#tslcinternationalValue").attr('name', 'collage_name');
 
+
+                    $("#tslcinternationalboard").show();
+                    $("#tslcnationalboard").hide();
+                    $("#tslcinternationalboard").attr('name', 'board_university');
+                    $("#tslcnationalboard").attr('name', 'nothing');
                     break;
 
 

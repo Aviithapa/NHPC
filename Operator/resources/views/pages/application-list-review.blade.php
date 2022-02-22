@@ -262,7 +262,28 @@
                                                             <td><img src="{{$qualifications->getCharacterImage()}}" onclick="onClick(this)"  alt="Character Image" width="200" height="200"></td>
                                                             <td><img src="{{$qualifications->getProvisionalImage()}}" onclick="onClick(this)"  alt="Provisional Image" width="200" height="200"></td>
                                                         </tr>
+                                                        @if($qualifications['level'] == 3)
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><img src="{{$qualifications->getOjtImage()}}" onclick="onClick(this)"  alt="Transcript 1 Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getOjt1Image()}}" onclick="onClick(this)"  alt="Transcript 2 Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getOjt2Image()}}" onclick="onClick(this)"  alt="Transcript 3 Image" width="200" height="200"></td>
+                                                            </tr>
+                                                        @endif
                                                         @if($qualifications['level'] == 4 || $qualifications['level'] == 5)
+                                                            @if($qualifications['level'] == 5)
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><img src="{{$qualifications->getMasMarksheetImage()}}" onclick="onClick(this)"  alt="Transcript Image" width="200" height="200"></td>
+                                                               </tr>
+                                                            @elseif($qualifications['level'] == 4)
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><img src="{{$qualifications->getTranscript1Image()}}" onclick="onClick(this)"  alt="Transcript 1 Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getTranscript2Image()}}" onclick="onClick(this)"  alt="Transcript 2 Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getTranscript3Image()}}" onclick="onClick(this)"  alt="Transcript 3 Image" width="200" height="200"></td>
+                                                            </tr>
+                                                            @endif
                                                             <tr>
                                                                 <td></td>
                                                                 <td><img src="{{$qualifications->getIntershipImage()}}" onclick="onClick(this)"  alt="Transcript Image" width="200" height="200"></td>
@@ -298,13 +319,6 @@
                                                         <td>Signature</td>
                                                         <td>  <img src="{{$data->getSignatureImage()}}" onclick="onClick(this)"  width="200" height="200">
                                                         </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>OJT</td>
-                                                        <td>  <img src="{{$data->getSignatureImage()}}" onclick="onClick(this)"  width="200" height="200">
-                                                        </td>
-
                                                     </tr>
                                                     </tbody>
                                                 </table>

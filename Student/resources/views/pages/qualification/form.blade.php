@@ -25,7 +25,7 @@
                         <h4 class="text-black">Additional Education Information</h4>
                         <form method="POST" action="{{url('student/dashboard/qualification/student/collage/data')}}">
                             @csrf
-
+ 
 
                             <div class="row">
                                 <div class="col-lg-4">

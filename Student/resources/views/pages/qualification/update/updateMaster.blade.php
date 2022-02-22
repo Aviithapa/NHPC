@@ -127,6 +127,39 @@
                                 {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                             </div>
                         </div>
+
+
+                        <div class="col-lg-4">
+                            <div class="col-md-12 col-lg-12">
+                                <label>MarkSheet Image *</label>
+                                @if(isset($data))
+                                    <img src="{{url(isset($data)?$data->getMasMarksheetImage():imageNotFound())}}" height="250" width="200"
+                                         id="transcript_mas_marksheet_img">
+
+                                @else
+                                    <img src="{{isset($data)?$data->getMasMarksheetImage():imageNotFound('user')}}" height="250" width="200"
+                                         id="transcript_mas_marksheet_img">
+                                @endif
+                            </div>
+
+                            <div class="form-group col-md-12 col-lg-12">
+                                <small>Below 1 mb</small><br>
+                                <small id="transcript_mas_marksheet_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="transcript_mas_marksheet_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
+                                <input type="file" id="transcript_mas_marksheet_image" name="transcript_mas_marksheet_image"
+                                       onclick="anyFileUploader('transcript_mas_marksheet')">
+                                <input type="hidden" id="transcript_mas_marksheet_path" name="transcript_mas_marksheet" class="form-control"
+                                       value="{{isset($data)?$data->transcript_image_marksheet:''}}"/>
+                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                            </div>
+                        </div>
+
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
                                 <label>Provisional Image *</label>
@@ -158,6 +191,9 @@
                                 {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                             </div>
                         </div>
+
+                    </div>
+                    <div class="row">
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
                                 <label>Character Image *</label>
@@ -189,8 +225,7 @@
                                 {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
+
                         <div class="col-lg-4">
                             <label>Intership Image *</label>
                             <div class="col-md-12 col-lg-12">
@@ -252,6 +287,8 @@
                                 {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-lg-4">
                             <label>Visa</label>
                             <div class="col-md-12 col-lg-12">
@@ -284,37 +321,38 @@
                                 {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <label>Passport</label>
-                        <div class="col-md-12 col-lg-12">
-                            @if(isset($data))
-                                <img src="{{url(isset($data)?$data->getPassportImage():imageNotFound())}}" height="250" width="200"
-                                     id="passport_mas_img">
+                        <div class="col-lg-4">
+                            <label>Passport</label>
+                            <div class="col-md-12 col-lg-12">
+                                @if(isset($data))
+                                    <img src="{{url(isset($data)?$data->getPassportImage():imageNotFound())}}" height="250" width="200"
+                                         id="passport_mas_img">
 
-                            @else
-                                <img src="{{isset($data)?$data->getPassportImage():imageNotFound('user')}}" height="250" width="200"
-                                     id="passport_mas_img">
-                            @endif
+                                @else
+                                    <img src="{{isset($data)?$data->getPassportImage():imageNotFound('user')}}" height="250" width="200"
+                                         id="passport_mas_img">
+                                @endif
+                            </div>
+
+                            <div class="form-group col-md-12 col-lg-12">
+
+                                <small>Below 1 mb</small><br>
+                                <small id="passport_mas_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="passport_mas_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
+                                <input type="file" id="passport_mas_image" name="passport_mas_image"
+                                       onclick="anyFileUploader('passport_mas')">
+                                <input type="hidden" id="passport_mas_path" name="passport_mas" class="form-control"
+                                       value="{{isset($data)?$data->passport_image:''}}"/>
+                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                            </div>
                         </div>
 
-                        <div class="form-group col-md-12 col-lg-12">
-
-                            <small>Below 1 mb</small><br>
-                            <small id="passport_mas_help_text" class="help-block"></small>
-                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
-                                 aria-valuemax="100"
-                                 aria-valuenow="0">
-                                <div id="passport_mas_progress" class="progress-bar progress-bar-success"
-                                     style="width: 0%">
-                                </div>
-                            </div><br>
-                            <input type="file" id="passport_mas_image" name="passport_mas_image"
-                                   onclick="anyFileUploader('passport_mas')">
-                            <input type="hidden" id="passport_mas_path" name="passport_mas" class="form-control"
-                                   value="{{isset($data)?$data->passport_image:''}}"/>
-                            {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
-                        </div>
                     </div>
                 </div>
 

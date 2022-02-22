@@ -43,7 +43,7 @@
                              <div class="row">
                                  <div class="col-lg-4">
                                      <div class="col-md-12 col-lg-12">
-                                         <label>Transcript Image *</label>
+                                         <label>MarkSheet Image *</label>
                                          @if(isset($data))
                                              <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
                                                   id="transcript_slc_img">

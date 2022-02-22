@@ -97,7 +97,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Transcript Image *</label>
+                                <label>Marksheet Image *</label>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
                                          id="transcript_pcl_img">
@@ -216,6 +216,69 @@
                                        onclick="anyFileUploader('ojt_pcl')">
                                 <input type="hidden" id="ojt_pcl_path" name="ojt_pcl_image" class="form-control"
                                        value="{{isset($data)?$data->ojt_image:''}}"/>
+                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-4">
+                            <label>Clinical / Community Work Image *</label>
+                            <div class="col-md-12 col-lg-12">
+                                @if(isset($data))
+                                    <img src="{{url(isset($data)?$data->getCommunity1Image():imageNotFound())}}" height="250" width="200"
+                                         id="ojt_pcl_community_1_img">
+
+                                @else
+                                    <img src="{{isset($data)?$data->getCommunity1Image():imageNotFound('user')}}" height="250" width="200"
+                                         id="ojt_pcl_community_1_img">
+                                @endif
+                            </div>
+
+                            <div class="form-group col-md-12 col-lg-12">
+                                <small>Below 1 mb</small><br>
+                                <small id="ojt_pcl_community_1_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="ojt_pcl_community_1_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
+                                <input type="file" id="ojt_pcl_community_1_image" name="ojt_pcl_community_1_image"
+                                       onclick="anyFileUploader('ojt_pcl_community_1')">
+                                <input type="hidden" id="ojt_pcl_community_1_path" name="ojt_pcl_community_1_image" class="form-control"
+                                       value="{{isset($data)?$data->ojt_community_1_image:''}}"/>
+                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label>Clinical / Community Work Image *</label>
+                            <div class="col-md-12 col-lg-12">
+                                @if(isset($data))
+                                    <img src="{{url(isset($data)?$data->getCommunity2mage():imageNotFound())}}" height="250" width="200"
+                                         id="ojt_pcl_community_2_img">
+
+                                @else
+                                    <img src="{{isset($data)?$data->getCommunity2Image():imageNotFound('user')}}" height="250" width="200"
+                                         id="ojt_pcl_community_2_img">
+                                @endif
+                            </div>
+
+                            <div class="form-group col-md-12 col-lg-12">
+                                <small>Below 1 mb</small><br>
+                                <small id="ojt_pcl_community_2_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="ojt_pcl_community_2_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
+                                <input type="file" id="ojt_pcl_community_2_image" name="ojt_pcl_community_2_image"
+                                       onclick="anyFileUploader('ojt_pcl_community_2')">
+                                <input type="hidden" id="ojt_pcl_community_2_path" name="ojt_pcl_community_2_image" class="form-control"
+                                       value="{{isset($data)?$data->ojt_community_2_image:''}}"/>
                                 {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                             </div>
                         </div>

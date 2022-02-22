@@ -70,7 +70,8 @@
                     <div class="col-lg-4">
                         <fieldset class="form-group">
                             <label>Board</label>
-                            <input name="board_university" class="form-control" id="basicInput" type="text" required>
+                            <input name="board_university" class="form-control" id="tslcnationalboard" type="text" value="CTEVT NEPAL" readonly>
+                            <input name="board_university" class="form-control" id="tslcinternationalboard" type="text">
                         </fieldset>
                     </div>
                     <div class="col-lg-4">
@@ -90,8 +91,8 @@
                             <label>Is Registrated</label>
                             <select class="form-control" name="is_registrated">
                                 <option value=""></option>
-                                <option value="female">Yes</option>
-                                <option value="other">No</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
                             </select>
                         </fieldset>
                     </div>
@@ -99,7 +100,7 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="col-md-12 col-lg-12">
-                                    <label>Transcript Image *</label><br>
+                                    <label>Marksheet Image *</label><br>
                                     @if(isset($data))
                                         <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
                                              id="transcript_tslc_img">
@@ -243,6 +244,10 @@
                     case 'nepal':
                         $("#tslcnepal").show();
                         $("#tslcinternational").hide();
+                        $("#tslcinternationalboard").hide();
+                        $("#tslcnationalboard").show();
+                        $("#tslcinternationalboard").attr('name', 'nothing');
+                        $("#tslcnationalboard").attr('name', 'board_university');
                         $("#tslcinternationalValue").attr('name', 'nothing');
                         $('#tslcnepalValue').attr('name', 'collage_name');
 
@@ -252,6 +257,11 @@
                         $("#tslcinternational").show();
                         $('#tslcnepalValue').attr('name', 'nothing');
                         $("#tslcinternationalValue").attr('name', 'collage_name');
+
+                        $("#tslcinternationalboard").show();
+                        $("#tslcnationalboard").hide();
+                        $("#tslcinternationalboard").attr('name', 'board_university');
+                        $("#tslcnationalboard").attr('name', 'nothing');
 
                         break;
 

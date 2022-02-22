@@ -70,7 +70,8 @@
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Board</label>
-                        <input name="board_university" class="form-control" id="basicInput" type="text" required>
+                        <input name="board_university" class="form-control" id="pclnationalboard" type="text" value="CTEVT NEPAL" readonly>
+                        <input name="board_university" class="form-control" id="pclinternationalboard" type="text" >
                     </fieldset>
                 </div>
                 <div class="col-lg-4">
@@ -90,8 +91,8 @@
                         <label>Is Registrated</label>
                         <select class="form-control" name="is_registrated">
                             <option value=""></option>
-                            <option value="female">Yes</option>
-                            <option value="other">No</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
                         </select>
                     </fieldset>
                 </div>
@@ -99,7 +100,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Transcript Image *</label>
+                                <label>Marksheet Image *</label>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
                                          id="transcript_pcl_img">
@@ -192,7 +193,7 @@
 
                     <div class="row">
                         <div class="col-lg-4">
-                            <label>OJT Image *</label>
+                            <label>Clinical / Community Work Image *</label>
                             <div class="col-md-12 col-lg-12">
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getOJTImage():imageNotFound())}}" height="250" width="200"
@@ -221,6 +222,7 @@
                                 {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                             </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -252,6 +254,11 @@
                     $("#internationalValue").attr('name', 'nothing');
                     $('#nepalValue').attr('name', 'collage_name');
 
+                    $("#pclinternationalboard").hide();
+                    $("#pclnationalboard").show();
+                    $("#pclinternationalboard").attr('name', 'nothing');
+                    $("#pclcnationalboard").attr('name', 'board_university');
+
                     break;
                     case 'international':
                         $("#nepal").hide();
@@ -259,6 +266,11 @@
                         $('#nepalValue').attr('name', 'nothing');
                         $("#internationalValue").attr('name', 'collage_name');
 
+
+                        $("#pclinternationalboard").show();
+                        $("#pclnationalboard").hide();
+                        $("#pclinternationalboard").attr('name', 'board_university');
+                        $("#pclcnationalboard").attr('name', 'nothing');
                         break;
 
 

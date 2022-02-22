@@ -17,7 +17,8 @@ class Qualification extends Model
     protected $fillable = [
         'name', 'board_university', 'passed_year','admission_year','program_id','collage_id','user_id','level','registration_number',
         'transcript_image','provisional_image','character_image','ojt_image','intership_image','visa_image','noc_image','passport_image',
-        'licence'
+        'licence','ojt_pcl_community_1_image','ojt_pcl_community_2_image','transcript_mas_marksheet','transcript_bac_3','transcript_bac_2'
+        ,'transcript_bac_1'
     ];
 
     public function user()
@@ -84,5 +85,66 @@ class Qualification extends Model
     public function getPassportImage()
     {
         return Storage::url('documents/' .$this->passport_image);
+    }
+
+
+    public function getOjt1Image()
+    {
+        if(isset($this->ojt_pcl_community_1_image)) {
+            return Storage::url('documents/' .$this->ojt_pcl_community_1_image);
+        }
+        else {
+            return imageNotFound();
+        }
+    }
+
+    public function getOjt2Image()
+    {
+        if(isset($this->ojt_pcl_community_2_image)) {
+            return Storage::url('documents/' .$this->ojt_pcl_community_2_image);
+        }
+        else {
+            return imageNotFound();
+        }
+    }
+
+    public function getMasMarksheetImage()
+    {
+        if(isset($this->transcript_mas_marksheet)) {
+            return Storage::url('documents/' .$this->transcript_mas_marksheet);
+        }
+        else {
+            return imageNotFound();
+        }
+    }
+
+    public function getTranscript1Image()
+    {
+        if(isset($this->transcript_bac_1)) {
+            return Storage::url('documents/' .$this->transcript_bac_1);
+        }
+        else {
+            return imageNotFound();
+        }
+    }
+
+    public function getTranscript2Image()
+    {
+        if(isset($this->transcript_bac_2)) {
+            return Storage::url('documents/' .$this->transcript_bac_2);
+        }
+        else {
+            return imageNotFound();
+        }
+    }
+
+    public function getTranscript3Image()
+    {
+        if(isset($this->transcript_bac_3)) {
+            return Storage::url('documents/' .$this->transcript_bac_3);
+        }
+        else {
+            return imageNotFound();
+        }
     }
 }
