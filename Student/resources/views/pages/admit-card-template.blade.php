@@ -67,18 +67,19 @@
                                        <div class="col-lg-4">
                                            <div style="width: 40%; float: left;">
                                                <div style="display:flex;">
-                                                   <img width="180px;" height="180px; object-fit: cover; object-position: 50% 100%;" src="{{$profile->getProfileImage()}}">
+                                                   <img width="180px;" height="180px" src="{{$profile->getProfileImage()}}">
                                                    <div style="border-style:dashed; border-width: 1px;height: 170px;width: 170px; object-position: 50% 100%; padding:10px; line-height:1.5">
                                                        हालसालै खिचेको पासपोर्ट साइजको फोटो
                                                    </div>
+
                                                </div>
                                                <!-- <div style="width: 100%;">परीक्षार्थीको हस्ताक्षर : <img width="120px;" height="80px;" src="http://localhost/nhpcwebapp/backend/web"> -->
 
-                                               <div style="height:50px; padding-top:10px; float:left; padding-left: 8%; padding-right: 8%;">
-                                                   <div style="position:absolute; left:400px; top:30px">
-                                                       <img src="https://nhpc.gov.np/beta/uploads/signature/signature.png" class="signature">
+                                               <div style="height:50px;  float:left; padding-left: 8%; padding-right: 8%;">
+                                                   <div style="margin-top: -20px; z-index: 1000;position: absolute; height: 50px">
+                                                       <img src="https://nhpc.gov.np/beta/uploads/signature/signature.png" class="signature" width="150px" height="70px">
                                                    </div>
-                                                   <div style="position:absolute; left:800px">
+                                                   <div>
                                                        ..................................................<br>
                                                        सदस्य सचिवको हस्ताक्षर
                                                    </div>
@@ -195,14 +196,13 @@
 @push('scripts')
     <script>
         function printDiv() {
-            var divContents = document.getElementById("printContent").innerHTML;
-            var a = window.open('', '', 'height=800, width=800');
-            a.document.write('<html>');
-            a.document.write('<body>');
-            a.document.write(divContents);
-            a.document.write('</body></html>');
-            a.document.close();
-            a.print();
+            var divContents = document.getElementById("printContent");
+            var a = window.open('', 'PRINT ADMIT CARD', 'height=800, width=800');
+
+            a.document.write(divContents.outerHTML);
+
+
+
         }
     </script>
     @endpush

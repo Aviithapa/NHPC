@@ -23,3 +23,5 @@ Route::post('/qualification/student/collage/data', [\Student\Http\Controller\Qua
 
 
 Route::get('/student/status/index/{status}', [\Student\Http\Controller\LogsController::class, 'index'])->middleware(['auth'])->name('status.index');
+Route::get('/address/district', [\Student\Http\Controller\ProfileController::class, 'getDistrict'])->middleware(['auth'])->name('address.district');
+Route::get('/address/municipality', [\Student\Http\Controller\ProfileController::class, 'getMunicipality'])->middleware(['auth'])->name('address.municipality');

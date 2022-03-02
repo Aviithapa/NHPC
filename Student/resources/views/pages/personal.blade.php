@@ -237,10 +237,10 @@
                                     <div class="col-lg-4">
                                         <fieldset class="form-group">
                                             <label>Province *</label>
-                                            <select class="form-control" name="development_region" required>
-                                                <option value="">Select Development Region</option>
-                                                @foreach(getProvince() as $key => $value)
-                                                    <option value="{{$key}}">{{$value}}</option>
+                                            <select class="form-control" name="development_region" id="province" onchange="getDistrict()" required>
+                                                <option value="">Select Your Province</option>
+                                                @foreach($province as $key => $value)
+                                                    <option value="{{$value->id}}">{{$value->province_name}}</option>
                                                 @endforeach
                                             </select>
                                         </fieldset>
@@ -248,24 +248,18 @@
                                     <div class="col-lg-4">
                                         <fieldset class="form-group">
                                             <label>District *</label>
-                                            <select class="form-control" name="district" required>
+                                            <select class="form-control" name="district" id="district" onchange="getMunicipality()" required>
                                                 <option value="">Select District</option>
-                                                @foreach(getProvince1() as $key => $value)
-                                                    <option value="{{$key}}">{{$value}}</option>
-                                                @endforeach
+
                                             </select>
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-4">
                                         <fieldset class="form-group">
                                             <label>Municipality *</label>
-                                            <select class="form-control" name="vdc_municiplality" required>
-                                                <option value="">Select District</option>
-                                                <option value="Baitadi">Baitadi</option>
-                                                <option value="Darchula">Darchula</option>
-                                                <option value="Kailali">Kailali</option>
-                                                <option value="Dadeldhura">Dadeldhura</option>
-                                                <option value="Kanchanpur">Kanchanpur</option>
+                                            <select class="form-control" name="vdc_municiplality" id="municipality" required>
+                                                <option value="">Select Municiplality</option>
+
                                             </select>
                                         </fieldset>
                                     </div>
@@ -435,52 +429,83 @@
 
 
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
     <script>
-        $(document).ready(function(){
-            $('select[name="development_region"]').on('change',function(){
-                var development_region= $(this).val();
-                console.log(development_region);
-                switch(development_region){
-                    case 'province-1':
-                        console.log("you are here");
-                        document.getElementById("province").style.display = "block";
-                         $('#province').hide();
-                        break;
-                    case 'madhesh':
-                        break;
-                    case 'bagmati':
-                        break;
-                    case 'gandaki':
-                        break;
-                    case 'lumbani':
-                        break;
-                    case 'karnali':
-                        break;
-                    case 'sudurpaschim':
-                        break;
+
+        function getDistrict(){
+            var province_id = document.getElementById("province").value;
+            console.log(province_id);
+            $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+            $.ajax({
+                type : 'Get',
+                url : '{{URL::to('student/dashboard/address/district')}}',
+                data:{'province_id':province_id},
+                success:function(data){
+                    console.log(" The data is" + data);
+                    $('#district').html(data);
                 }
             });
-            $('select[name="state"]').on('change',function(){
-                var state_id= $(this).val();
-                if (state_id) {
-                    $.ajax({
-                        url: "{{url('/getCities/')}}/"+state_id,
-                        type: "GET",
-                        dataType: "json",
-                        success: function(data){
-                            console.log(data);
-                            $('select[name="city"]').empty();
-                            $.each(data,function(key,value){
-                                $('select[name="city"]').append('<option value="'+key+'">'+value+'</option>');
-                            });
-                        }
-                    });
-                }else {
-                    $('select[name="city"]').empty();
+        }
+
+        function getMunicipality(){
+            var district_name = document.getElementById("district").value;
+
+            $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+            $.ajax({
+                type : 'Get',
+                url : '{{URL::to('student/dashboard/address/municipality')}}',
+                data:{'district_name':district_name},
+                success:function(data){
+                    console.log(" The data is" + data);
+                    $('#municipality').html(data);
                 }
             });
-        });
+        }
+        {{--$(document).ready(function(){--}}
+        {{--    $('select[name="development_region"]').on('change',function(){--}}
+        {{--        var development_region= $(this).val();--}}
+        {{--        console.log(development_region);--}}
+        {{--        switch(development_region){--}}
+        {{--            case 'province-1':--}}
+        {{--                console.log("you are here");--}}
+        {{--                document.getElementById("province").style.display = "block";--}}
+        {{--                 $('#province').hide();--}}
+        {{--                break;--}}
+        {{--            case 'madhesh':--}}
+        {{--                break;--}}
+        {{--            case 'bagmati':--}}
+        {{--                break;--}}
+        {{--            case 'gandaki':--}}
+        {{--                break;--}}
+        {{--            case 'lumbani':--}}
+        {{--                break;--}}
+        {{--            case 'karnali':--}}
+        {{--                break;--}}
+        {{--            case 'sudurpaschim':--}}
+        {{--                break;--}}
+        {{--        }--}}
+        {{--    });--}}
+        {{--    $('select[name="state"]').on('change',function(){--}}
+        {{--        var state_id= $(this).val();--}}
+        {{--        if (state_id) {--}}
+        {{--            $.ajax({--}}
+        {{--                url: "{{url('/getCities/')}}/"+state_id,--}}
+        {{--                type: "GET",--}}
+        {{--                dataType: "json",--}}
+        {{--                success: function(data){--}}
+        {{--                    console.log(data);--}}
+        {{--                    $('select[name="city"]').empty();--}}
+        {{--                    $.each(data,function(key,value){--}}
+        {{--                        $('select[name="city"]').append('<option value="'+key+'">'+value+'</option>');--}}
+        {{--                    });--}}
+        {{--                }--}}
+        {{--            });--}}
+        {{--        }else {--}}
+        {{--            $('select[name="city"]').empty();--}}
+        {{--        }--}}
+        {{--    });--}}
+        {{--});--}}
     </script>
      @include('student::parties.common.file-upload')
     @endpush

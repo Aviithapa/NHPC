@@ -3,6 +3,9 @@
 
 namespace Student\Http\Controller;
 
+use App\Models\Address\District;
+use App\Models\Address\Municipality;
+use App\Models\Address\Provinces;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
@@ -10,6 +13,7 @@ use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepositor
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Student\Modules\Framework\Request;
 use Student\Modules\Profile\Repositories\ProfileRepository;
@@ -54,17 +58,18 @@ class ProfileController extends BaseController
         $slug = $slug ? $slug : 'personal';
         $data=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
         $authUser = $this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+        $province = Provinces::all();
         $file_path = base_path().DIRECTORY_SEPARATOR.'Student'.DIRECTORY_SEPARATOR. 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'pages' . DIRECTORY_SEPARATOR . $slug . '.blade.php';
         if (file_exists($file_path)) {
             switch ($slug) {
                 case 'personal':
                              if (!$data) {
-                                 return view('student::pages.personal', compact('authUser'));
+                                 return view('student::pages.personal', compact('authUser','province'));
                              } else {
                                  if ($data['profile_status'] === "Rejected"){
-                                     return view('student::pages.update-personal', compact('authUser', 'data'));
+                                     return view('student::pages.update-personal', compact('authUser', 'data','province'));
                                  }else if (!$data["citizenship_number"]) {
-                                     return view('student::pages.personal');
+                                     return view('student::pages.personal', compact('province'));
                                  } else {
                                      session()->flash('already', 'Personal Information has already Setup');
                                      return redirect()->to('student/dashboard/student/guardian');
@@ -96,7 +101,7 @@ class ProfileController extends BaseController
                     $master_program = $this->programRepository->getAll()->where('level_id','=',1);
                     $collage = $this->collegeRepository->getAll();
                     return view('student::pages.specific',compact('slc_data','plus_2','bachelor','master','slc_program',
-                                                                            'plus_2_program','bachelor_program','master_program','tslc_data','collage'));
+                                                                            'plus_2_program','bachelor_program','master_program','tslc_data','collage','province'));
                     break;
                 default :
                     return view('student::pages.404');
@@ -280,6 +285,33 @@ class ProfileController extends BaseController
 
     }
 
+
+
+    public function getDistrict(Request $request){
+
+        if($request->ajax()) {
+            $output = "";
+            $districts = District::all()->where('province_id', '=',  $request->province_id);
+            if ($districts) {
+                foreach ($districts as $district) {
+                    $output .= '<option value='.$district->name.' >' .$district->name.'</option>';
+                }
+                return Response($output);
+            }
+        }
+    }
+    public function getMunicipality(Request $request){
+        if($request->ajax()) {
+            $output = "";
+            $districts = Municipality::all()->where('district_name', '=',  $request->district_name);
+            if ($districts) {
+                foreach ($districts as $district) {
+                    $output .= '<option value='.$district->name.' >' .$district->name.'</option>';
+                }
+                return Response($output);
+            }
+        }
+    }
 }
 
 
