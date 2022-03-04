@@ -59,17 +59,18 @@ class ProfileController extends BaseController
         $data=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
         $authUser = $this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
         $province = Provinces::all();
+        $district = District::all();
         $file_path = base_path().DIRECTORY_SEPARATOR.'Student'.DIRECTORY_SEPARATOR. 'resources' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'pages' . DIRECTORY_SEPARATOR . $slug . '.blade.php';
         if (file_exists($file_path)) {
             switch ($slug) {
                 case 'personal':
                              if (!$data) {
-                                 return view('student::pages.personal', compact('authUser','province'));
+                                 return view('student::pages.personal', compact('authUser','province','district'));
                              } else {
                                  if ($data['profile_status'] === "Rejected"){
-                                     return view('student::pages.update-personal', compact('authUser', 'data','province'));
+                                     return view('student::pages.update-personal', compact('authUser', 'data','province','district'));
                                  }else if (!$data["citizenship_number"]) {
-                                     return view('student::pages.personal', compact('province'));
+                                     return view('student::pages.personal', compact('province','district'));
                                  } else {
                                      session()->flash('already', 'Personal Information has already Setup');
                                      return redirect()->to('student/dashboard/student/guardian');

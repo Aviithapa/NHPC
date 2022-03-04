@@ -223,8 +223,8 @@
                                     <label>Issue District *</label>
                                     <select class="form-control" name="issue_district" required>
                                         <option value="">Select District</option>
-                                        @foreach(getProvince1() as $key => $value)
-                                            <option value="{{$key}}">{{$value}}</option>
+                                        @foreach($district as $districts)
+                                            <option value="{{$districts->name}}">{{$districts->name}}</option>
                                         @endforeach
                                     </select>
                                 </fieldset>
