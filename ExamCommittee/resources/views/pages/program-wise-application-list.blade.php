@@ -24,8 +24,7 @@
                     <div class="box box-info">
                         <div class="row">
                             <div class="col-lg-12 m-b-3 ml-4">
-                                <a href="{{route("examCommittee.admit.card.generate", ['status'=> 'progress','current_state' => 'exam_committee'])}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
-                                    Generate Admit Cards</a>
+
                             </div>
                         </div>
                         <!-- /.box-header -->
@@ -47,14 +46,13 @@
                                     <tbody>
                                     @if($data === null || $data->isEmpty())
                                         <tr>
-                                            <td> Admit cards of all students generated </td>
+                                            <td> No Student find to take exam </td>
                                         </tr>
 
                                     @else
-                                        @foreach($data as $exam)
+                                        @foreach($data as $key => $exam)
                                             <tr>
-                                                <td>1</td>
-
+                                                <td>{{$key++}}</td>
                                                 <td>{{$exam->getFirstName()}}</td>
                                                 <td>{{$exam->getMiddleName()}}</td>
                                                 <td>{{$exam->getLastName()}}</td>
@@ -64,7 +62,7 @@
                                                 <td>{{$exam->getLevelName()}}</td>
                                                 <td><img src="{{$exam->getProfileImage()}}" alt="Student Profile image" height="100" width="100"/></td>
                                                 @if($exam['is_admit_card_generate'] === 'yes')
-                                                <td> <a href="{{route("examCommittee.view.admit.card",['id' =>$exam->id])}}"><span class="label label-success">View</span></a></td>
+                                                    <td> <a href="{{route("examCommittee.view.admit.card",['id' =>$exam->id])}}"><span class="label label-success">View</span></a></td>
                                                 @endif
                                             </tr>
                                         @endforeach
@@ -94,10 +92,10 @@
                         @csrf
                         <div class="form-group">
                             <div class="col-md-12">
-                                    <div class="custom-file text-left">
-                                        <input type="file" name="file" class="custom-file-input" id="customFile">
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
+                                <div class="custom-file text-left">
+                                    <input type="file" name="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">

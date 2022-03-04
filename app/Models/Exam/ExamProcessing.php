@@ -23,6 +23,11 @@ class ExamProcessing extends Model
         return $this->hasOne(Exam::class,'id','exam_id');
     }
 
+    public function getProgram(){
+        return $this->hasOne(Program::class,'id','program_id');
+
+    }
+
     public function getExamName(){
         if(isset($this->getExam->Exam_name)) {
             return $this->getExam->Exam_name;

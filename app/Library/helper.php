@@ -234,6 +234,25 @@ if(!function_exists('countAdmitCard')) {
     }
 }
 
+if(!function_exists('countAdmitGeneratedCard')) {
+    /**
+     * @param null $type
+     * @return string
+     */
+    function countAdmitGeneratedCard()
+    {
+        $count = 0;
+        $exams= \App\Models\Exam\ExamProcessing::all()->where('state','=', 'exam_committee')
+            ->where('status','=','progress');
+        foreach ($exams as $exam) {
+            if ($exam['is_admit_card_generate'] === 'yes') {
+                $count = ++$count;
+            }
+        }
+        return $count;
+    }
+}
+
 
 /**
  * Created by PhpStorm.
@@ -590,42 +609,13 @@ if (!function_exists('removeKeyFromArray')) {
 }
 
 
-
-
-if (!function_exists('getProvince')) {
-    function getProvince()
+if (!function_exists('getApplliedStudent')) {
+    function getApplliedStudent($id)
     {
-        $status = [
-            'province-1' => 'Province 1',
-            'madhesh' => 'Madhesh Province',
-            'bagmati' => 'Bagmati',
-            'gandaki' => 'Gandaki',
-            'lumbani' => 'Lumbani',
-            'karnali' => 'Karnali',
-            'sudurpaschim' => 'Sudurpaschim'
-        ];
-        return $status;
-    }
-}
-if (!function_exists('getProvince1')) {
-    function getProvince1()
-    {
-        $status = [
-            'Taplejung' => 'Taplejung',
-            'Bhojpur' => 'Bhojpur',
-            'Dhankuta' => 'Dhankuta',
-            'Ilam' => 'Ilam',
-            'Jhapa' => 'Jhapa',
-            'Khotang' => 'Khotang',
-            'Morang' => 'Morang',
-            'Okhaldhunga' => 'Okhaldhunga',
-            'Panchthar' => 'Panchthar',
-            'Sankhuwasabha ' => 'Sankhuwasabha ',
-            'Solukhumbu ' => 'Solukhumbu ',
-            'Sunsari ' => 'Sunsari ',
-            'Terhathum ' => 'Terhathum ',
-            'Udayapur ' => 'Udayapur ',
-        ];
-        return $status;
+        $count =0;
+        $student = \App\Models\Exam\ExamProcessing::all()->where("program_id",'=' ,$id);
+        foreach ($student as $student_count)
+            $count++;
+        return $count;
     }
 }

@@ -15,43 +15,24 @@
             </ol>
         </div>
 
-{{--        <!-- Main content -->--}}
-{{--        <div class="content">--}}
+        <!-- Main content -->
+        <div class="content">
 
-{{--            <div class="row">--}}
-{{--                <div class="col-lg-12 m-b-3">--}}
-{{--                    <div class="box box-info">--}}
-{{--                        <div class="box-header with-border p-t-1">--}}
-{{--                            <h3 class="box-title text-black">Exam List</h3>--}}
-{{--                            <div class="pull-right">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <!-- /.box-header -->--}}
-{{--                        <div class="box-body">--}}
-{{--                            <div class="table-responsive">--}}
-{{--                                <table class="table no-margin">--}}
-{{--                                    <thead>--}}
-{{--                                    <tr>--}}
-{{--                                        <th>Exam ID</th>--}}
-{{--                                        <th>Exam Name</th>--}}
-{{--                                        <th>Actions</th>--}}
-{{--                                    </tr>--}}
-{{--                                    </thead>--}}
-{{--                                    <tbody>--}}
-{{--                                    <tr>--}}
-{{--                                        <td><a href="#">OR9842</a></td>--}}
-{{--                                        <td>John Deo</td>--}}
-{{--                                        <td><span class="label label-success">Apply</span></td>--}}
-{{--                                    </tr>--}}
-{{--                                    </tbody>--}}
-{{--                                </table>--}}
-{{--                            </div>--}}
-{{--                            <!-- /.table-responsive -->--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+            <div class="row">
+                @foreach($programs as $program)
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("examCommittee.program.wise.student", ['program_id'=> $program->id])}}">
+                        <div class="card">
+                            <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-book-open"></i></span>
+                                <div class="info-box-content"> <span class="info-box-number">{{getApplliedStudent($program->id)}} <span class="info-box-text" style="font-size: 10px">Student applied for</span></span>
+                                    <span style="font-size: 12px; color: black;">{{$program->name}}</span> </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                    @endforeach
+            </div>
+        </div>
 
     </div>
     <!-- /.content -->

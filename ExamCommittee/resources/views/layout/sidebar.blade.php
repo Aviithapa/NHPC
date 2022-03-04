@@ -18,16 +18,30 @@
         <!-- sidebar menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">PERSONAL</li>
-            <li class="active">
+            <li class="{{ (request()->is('examCommittee/dashboard')) ? 'active':''  }}">
                 <a href="{{route('examCommittee.dashboard')}}">
                     <i class="icon-home"></i> <span>Dashboard</span>
 
                 </a>
             </li>
-            <li class="">
+            <li class="{{ (request()->is('examCommittee/dashboard/examCommittee/admit-card-generate/progress/exam_committee')) ? 'active':''  }}">
                 <a href="{{route("examCommittee.all.user", ['status'=> 'progress','current_state' => 'exam_committee'])}}">
                     <i class="icon-book-open"></i> <span>Admit Card Generate  <span class="badge badge-pill badge-danger heartbit" >{{countAdmitCard()}}</span>
                 </span>
+                </a>
+            </li>
+
+            <li class="{{ (request()->is('examCommittee/dashboard/examCommittee/dashboard/examCommittee/admit-Card-Generated-Student')) ? 'active':''  }}">
+                <a href="{{route("examCommittee.admit.card.generated")}}">
+                    <i class="icon-book-open"></i> <span>Admit Card Students  <span class="badge badge-pill badge-danger heartbit" >{{countAdmitGeneratedCard()}}</span>
+                </span>
+                </a>
+            </li>
+
+
+            <li class="{{ (request()->is('examCommittee/dashboard/search/student')) ? 'active':''  }}">
+                <a href="{{route("examCommittee.search.student")}}">
+                    <i class="icon-book-open"></i> <span>Search applicant</span>
                 </a>
             </li>
 

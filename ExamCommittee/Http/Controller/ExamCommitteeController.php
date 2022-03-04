@@ -5,9 +5,12 @@ namespace ExamCommittee\Http\Controller;
 
 
 use App\Exports\ResultExport;
+use App\Exports\UsersExport;
 use App\Imports\ResultImport;
+use App\Models\Admin\Program;
 use App\Models\AdmitCard\AdmitCard;
 use App\Models\Exam\ExamProcessing;
+use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
@@ -30,7 +33,7 @@ class ExamCommitteeController extends BaseController
         $profileRepository, $userRepository,
         $qualificationRepository,$user_data,
         $profileLogsRepository,$profileProcessingRepository,
-        $examRepository,$examProcessingRepository,$admitCardRepository,$examResultRepository;
+        $examRepository,$examProcessingRepository,$admitCardRepository,$examResultRepository, $programRepository;
     private $viewData, $exam_processing;
 
     /**
@@ -44,12 +47,13 @@ class ExamCommitteeController extends BaseController
      * @param ExamProcessingRepository $examProcessingRepository
      * @param AdmitCardRepository $admitCardRepository
      * @param ExamResultRepository $examResultRepository
+     * @param ProgramRepository $programRepository
      */
 
     public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
                                 ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
                                 ExamRepository $examRepository,ExamProcessingRepository $examProcessingRepository,
-                                AdmitCardRepository $admitCardRepository, ExamResultRepository $examResultRepository)
+                                AdmitCardRepository $admitCardRepository, ExamResultRepository $examResultRepository, ProgramRepository $programRepository)
     {
         $this->profileRepository=$profileRepository;
         $this->userRepository=$userRepository;
@@ -60,7 +64,13 @@ class ExamCommitteeController extends BaseController
         $this->examProcessingRepository=$examProcessingRepository;
         $this->admitCardRepository=$admitCardRepository;
         $this->examResultRepository=$examResultRepository;
+        $this->programRepository = $programRepository;
         parent::__construct();
+    }
+
+    public function index() {
+        $programs = $this->programRepository->getAll();
+        return view('examCommittee::pages.dashboard',compact('programs'));
     }
 
     public function generateAdmitCard($status,$current_state){
@@ -106,7 +116,8 @@ class ExamCommitteeController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'exam_committee') {
             $users = $this->examProcessingRepository->getAll()->where('status', '=', $status)
-                ->where('state', '=', $current_state);
+                ->where('state', '=', $current_state)
+                ->where('is_admit_card_generate', '!=' ,'yes');
             return $this->view('pages.application-list', $users);
         }else{
             return redirect()->route('login');
@@ -153,6 +164,74 @@ class ExamCommitteeController extends BaseController
     {
         return Excel::download(new ResultExport(), 'users-collection.xlsx');
     }
+
+    public function programWiseStudent($id){
+        if (Auth::user()->mainRole()->name === 'exam_committee') {
+            $users = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
+                ->where('state', '=', 'exam_committee')
+                ->where('program_id', '=' ,$id);
+            return $this->view('pages.program-wise-application-list', $users);
+        }else{
+            return redirect()->route('login');
+        }
+    }
+
+    public function admitCardGeneratedStudent(){
+        if (Auth::user()->mainRole()->name === 'exam_committee') {
+            $users = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
+                ->where('state', '=', 'exam_committee')
+                ->where('is_admit_card_generate', '=' ,'yes');
+            return $this->view('pages.admit-card-generated-list', $users);
+        }else{
+            return redirect()->route('login');
+        }
+    }
+
+    public function exportCsv(Request $request)
+    {
+
+        $tasks = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
+            ->where('state', '=', 'exam_committee')
+            ->where('is_admit_card_generate', '=' ,'yes');
+        return Excel::download(new UsersExport($tasks), 'student-collection.xlsx');
+
+//        $fileName = 'admit_card_generated_list.csv';
+//        $tasks = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
+//            ->where('state', '=', 'exam_committee')
+//            ->where('is_admit_card_generate', '=' ,'yes');
+//
+//        $headers = array(
+//            "Content-type"        => "text/csv",
+//            "Content-Disposition" => "attachment; filename=$fileName",
+//            "Pragma"              => "no-cache",
+//            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+//            "Expires"             => "0"
+//        );
+//
+//        $columns = array('Title', 'Assign', 'Description', 'Start Date', 'Due Date');
+//
+//        $callback = function() use($tasks, $columns) {
+//            $file = fopen('php://output', 'w');
+//            fputcsv($file, $columns);
+//
+//            foreach ($tasks as $task) {
+//                $row['First Name']  = $task->getFirstName();
+//                $row['Middle Name']    = $task->getMiddleName();
+//                $row['Last Name']    = $task->getLastName();
+//                $row['Symbol Number']  = $task->symbolNumber($task->id);
+//                $row['Gender']  = $task->getGender();
+//                $row['Program']  = $task->getProgramName();
+//                $row['Level']  = $task->getLevelName;
+//
+//                fputcsv($file, array($row['First Name'], $row['Middle Name'], $row['Last Name'], $row['Symbol Number'], $row['Gender'], $row['Program'], $row['Level']));
+//            }
+//
+//            fclose($file);
+//        };
+//
+//        return  redirect()->back();
+    }
+
 
 }
 
