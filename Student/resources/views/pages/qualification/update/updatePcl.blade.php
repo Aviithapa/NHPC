@@ -225,11 +225,11 @@
                             <label>Clinical / Community Work Image *</label>
                             <div class="col-md-12 col-lg-12">
                                 @if(isset($data))
-                                    <img src="{{url(isset($data)?$data->getCommunity1Image():imageNotFound())}}" height="250" width="200"
+                                    <img src="{{url(isset($data)?$data->getOjt1Image():imageNotFound())}}" height="250" width="200"
                                          id="ojt_pcl_community_1_img">
 
                                 @else
-                                    <img src="{{isset($data)?$data->getCommunity1Image():imageNotFound('user')}}" height="250" width="200"
+                                    <img src="{{isset($data)?$data->getOjt1Image():imageNotFound('user')}}" height="250" width="200"
                                          id="ojt_pcl_community_1_img">
                                 @endif
                             </div>
@@ -256,11 +256,11 @@
                             <label>Clinical / Community Work Image *</label>
                             <div class="col-md-12 col-lg-12">
                                 @if(isset($data))
-                                    <img src="{{url(isset($data)?$data->getCommunity2mage():imageNotFound())}}" height="250" width="200"
+                                    <img src="{{url(isset($data)?$data->getOjt2Image():imageNotFound())}}" height="250" width="200"
                                          id="ojt_pcl_community_2_img">
 
                                 @else
-                                    <img src="{{isset($data)?$data->getCommunity2Image():imageNotFound('user')}}" height="250" width="200"
+                                    <img src="{{isset($data)?$data->getOjt2Image():imageNotFound('user')}}" height="250" width="200"
                                          id="ojt_pcl_community_2_img">
                                 @endif
                             </div>
