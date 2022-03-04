@@ -291,8 +291,10 @@ class ProfileController extends BaseController
     public function getDistrict(Request $request){
 
         if($request->ajax()) {
-            $output = "";
+//            $output = "";
             $districts = District::all()->where('province_id', '=',  $request->province_id);
+            $output = '<option value= >Select District</option>';
+
             if ($districts) {
                 foreach ($districts as $district) {
                     $output .= '<option value='.$district->name.' >' .$district->name.'</option>';
