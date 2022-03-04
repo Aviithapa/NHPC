@@ -412,7 +412,7 @@
                      var date = mainInput.split("-");
                      var addate = NepaliFunctions.BS2AD({year: date[0], month: date[1], day: date[2]});
                      var dtate = NepaliFunctions.ConvertDateFormat(addate, "YYYY/MM/DD");
-                     document.getElementById("english_date").value = dtate;
+                     document.getElementById("english_date").setAttribute("value",dtate);
 
                  }
              });
