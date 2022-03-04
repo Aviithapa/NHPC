@@ -14,7 +14,7 @@ class CreateSiteSettingsTable extends Migration
     public function up()
     {
         Schema::create('site_settings', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->default(1);
             $table->string('display_name')->nullable();
             $table->string('name')->nullable();
             $table->text('value')->nullable()->default(null);
