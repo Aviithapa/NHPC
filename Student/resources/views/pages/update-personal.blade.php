@@ -205,9 +205,9 @@
                                         <label>Issue District *</label>
                                         <select class="form-control" name="issue_district">
                                             <option value="{{$data->issue_district}}">{{$data->issue_district}}</option>
-                                            @foreach(getProvince() as $key => $value)
-                                                <option value="{{$key}}">{{$value}}</option>
-                                            @endforeach
+{{--                                            @foreach(getProvince() as $key => $value)--}}
+{{--                                                <option value="{{$key}}">{{$value}}</option>--}}
+{{--                                            @endforeach--}}
                                         </select>
 
                                     </fieldset>
@@ -222,9 +222,9 @@
                                         <label>Province *</label>
                                         <select class="form-control" name="development_region">
                                             <option value="{{$data->development_region}}">{{$data->development_region}}</option>
-                                            @foreach(getProvince() as $key => $value)
-                                                <option value="{{$key}}">{{$value}}</option>
-                                            @endforeach
+{{--                                            @foreach(getProvince() as $key => $value)--}}
+{{--                                                <option value="{{$key}}">{{$value}}</option>--}}
+{{--                                            @endforeach--}}
                                         </select>
                                     </fieldset>
                                 </div>
@@ -233,9 +233,9 @@
                                         <label>District *</label>
                                         <select class="form-control" name="district">
                                             <option value="{{$data->district}}">{{$data->district}}</option>
-                                            @foreach(getProvince1() as $key => $value)
-                                                <option value="{{$key}}">{{$value}}</option>
-                                            @endforeach
+{{--                                            @foreach(getProvince1() as $key => $value)--}}
+{{--                                                <option value="{{$key}}">{{$value}}</option>--}}
+{{--                                            @endforeach--}}
                                         </select>
                                     </fieldset>
                                 </div>
@@ -244,11 +244,6 @@
                                         <label>Municipality *</label>
                                         <select class="form-control" name="vdc_municiplality">
                                             <option value="{{$data->vdc_municiplality}}">{{$data->vdc_municiplality}}</option>
-                                            <option value="Baitadi">Baitadi</option>
-                                            <option value="Darchula">Darchula</option>
-                                            <option value="Kailali">Kailali</option>
-                                            <option value="Dadeldhura">Dadeldhura</option>
-                                            <option value="Kanchanpur">Kanchanpur</option>
                                         </select>
                                     </fieldset>
                                 </div>

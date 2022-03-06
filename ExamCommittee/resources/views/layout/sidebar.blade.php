@@ -39,7 +39,7 @@
             </li>
 
 
-            <li class="{{ (request()->is('examCommittee/dashboard/search/student')) ? 'active':''  }}">
+            <li class="{{ (request()->is('examCommittee/dashboard/examCommittee/search/student')) ? 'active':''  }}">
                 <a href="{{route("examCommittee.search.student")}}">
                     <i class="icon-book-open"></i> <span>Search applicant</span>
                 </a>

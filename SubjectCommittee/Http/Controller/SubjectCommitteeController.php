@@ -123,7 +123,7 @@ class SubjectCommitteeController extends BaseController
                 $data['created_by'] = Auth::user()->id;
                 $data['state'] = 'subject_committee';
                 if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing" ) {
-                    $data['status'] = 'Reviewing';
+                    $data['status'] = 'progress';
                     $data['remarks'] = 'Profile is Accepted by ' . Auth::user()->name;
                     $data['review_status'] = 'Successful';
                     $this->profileLog($data);
@@ -131,6 +131,7 @@ class SubjectCommitteeController extends BaseController
                 } elseif ($data['profile_status'] === "Rejected") {
                     $data['status'] = 'rejected';
                     $data['review_status'] = 'Rejected';
+                    $this->rejectprofileProcessing($id,$data['remarks']);
                     $this->profileLog($data);
                 }
                 $profile = $this->profileRepository->update($data, $id);
@@ -152,9 +153,23 @@ class SubjectCommitteeController extends BaseController
     }
 
     public function profileLog( array  $data ){
-        $data['status'] = "progress";
         $logs = $this->profileLogsRepository->create($data);
         if($logs == false)
+            return false;
+        return true;
+
+    }
+    public function rejectprofileProcessing($id,$remarks){
+        $profileProcessing['profile_id'] = $id;
+        $profileProcessing['current_state'] = "subject_committee";
+        $profileProcessing['status'] = "rejected";
+        $id= $this->profileProcessingRepository->getAll()->where('profile_id' ,'=',$id)->first();
+        $profile_processing = $id;
+        $profileProcessing['remarks'] = $remarks;
+        $profileProcessing['review_status'] = 'Rejected';
+        $profileProcessing['current_state'] = 'subject_committee';
+        $profileProcessings = $this->profileProcessingRepository->update($profileProcessing,$id['id']);
+        if($profileProcessings == false)
             return false;
         return true;
 

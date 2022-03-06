@@ -1,4 +1,4 @@
-@extends('officer::layout.app')
+@extends('examCommittee::layout.app')
 
 @section('content')
 
@@ -76,7 +76,7 @@
             $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
             $.ajax({
                 type : 'Get',
-                url : '{{URL::to('examCommittee/dashboard/search')}}',
+                url : '{{URL::to('examCommittee/dashboard/examCommittee/search')}}',
                 data:{'search':value},
                 success:function(data){
                     console.log(" The data is" + data);

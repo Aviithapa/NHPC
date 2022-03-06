@@ -69,7 +69,7 @@ class ExamCommitteeController extends BaseController
     }
 
     public function index() {
-        $programs = $this->programRepository->getAll();
+        $programs = $this->programRepository->getAll()->where('level','!=','4');
         return view('examCommittee::pages.dashboard',compact('programs'));
     }
 

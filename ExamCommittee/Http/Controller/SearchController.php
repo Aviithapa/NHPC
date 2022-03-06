@@ -53,12 +53,12 @@ class SearchController extends BaseController
 
     public function index()
     {
-//        if (Auth::user()->mainRole()->name === 'examCommittee') {
+        if (Auth::user()->mainRole()->name === 'exam_committee') {
             $data = null;
             return $this->view('pages.search-student', $data);
-//        } else {
-//            return redirect()->route('login');
-//        }
+        } else {
+            return redirect()->route('login');
+        }
     }
 
 

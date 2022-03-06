@@ -1,7 +1,7 @@
 
 <header>
     <div class="top-nav">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
                 <div class="col-sm-12 col-lg-5">
                     <div class="top-info__list d-flex align-self-center pt-2">
@@ -19,7 +19,7 @@
                             <ul class="list-unstyled d-flex top-nav__language float-right">
                                 <li class=""><a href="{{ route('login') }}" >Login</a></li>
                                 <li class=""><a href="{{ route('register') }}">New Registration</a></li>
-                                <li class=""><a href="#">Admit Card</a></li>
+{{--                                <li class=""><a href="#">Admit Card</a></li>--}}
                             </ul>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
 
     </div>
     <div class="bipad-logo mt-3">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
                 <div class="col-sm-1">
                     <a href="#"><img src="https://nhpc.gov.np/beta//assets/img/nhpc_logo.jpg" width="100" alt="" ></a>
@@ -47,7 +47,7 @@
         </div>
     </div>
     <div class="main-menu mt-3">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="col-sm-12 col-md-12 col-lg-12">
@@ -127,7 +127,7 @@
     </div>
 </header>
 <section class="bipad-highlights">
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <div class="col-md-12 d-flex">
                 <div>
