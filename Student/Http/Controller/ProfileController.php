@@ -6,6 +6,7 @@ namespace Student\Http\Controller;
 use App\Models\Address\District;
 use App\Models\Address\Municipality;
 use App\Models\Address\Provinces;
+use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
@@ -176,9 +177,14 @@ class ProfileController extends BaseController
             }else{
                 $specific_program=$this->getAllLicencePassedRecord($profile['id']);
                 if($specific_program) {
-                    $level_related_program = $this->programRepository->getAll()->where('level_id', '=', $specific_program['level_id']);
-                    return view('student::pages.apply-exam', compact('level_related_program', 'specific_program'));
-                }else{
+                    if ($specific_program['status'] == 'rejected') {
+                        return view('student::pages.update-apply-exam', compact(  'specific_program'));
+                    }else {
+                        $level_related_program = $this->programRepository->getAll()->where('level_id', '=', $specific_program['level_id']);
+                        return view('student::pages.apply-exam', compact('level_related_program', 'specific_program'));
+                    }
+                }
+                else{
                     session()->flash('success', 'You have already enrolled in licence Exam ');
                     return redirect()->back();
                 }
@@ -191,7 +197,7 @@ class ProfileController extends BaseController
 
 
     public function getAllLicencePassedRecord($id){
-        $exam = $this->examProcessingRepository->getAll()->where('profile_id','=',$id);
+        $exam = $this->examProcessingRepository->getAll()->where('profile_id','=',$id)->where('state','!=','council');
         if ($exam->isEmpty()){
             $qualification = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id)
                 ->where('licence','=', 'no')
@@ -203,9 +209,11 @@ class ProfileController extends BaseController
                 return false;
             }
 
-        }else{
-            return false;
+        }else {
+            $exam = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id','=',$id)->where('status','=','rejected')->first();
+            return $exam;
         }
+        return false;
     }
 
 
@@ -226,6 +234,24 @@ class ProfileController extends BaseController
                 return redirect()->back()->withInput();
             }
             session()->flash('success','Exam Processing has been started');
+            return redirect()->to('student/dashboard');
+        } catch (\Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function updateApplyExam(Request $request){
+        $data= $request->all();
+        $data["status"] = 'progress';
+        $data['voucher_image'] = $data['voucher'];
+        try {
+            $exam = $this->examProcessingRepository->update($data,$data['exam_processing_id']);
+            if ($exam == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success','Exam Processing has been updated successfully');
             return redirect()->to('student/dashboard');
         } catch (\Exception $e) {
             session()->flash('danger', 'Oops! Something went wrong.');

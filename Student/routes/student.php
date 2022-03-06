@@ -6,6 +6,7 @@ Route::post('/save_image/{id?}', [\Student\Http\Controller\ProfileController::cl
 Route::post('/student/data', [\Student\Http\Controller\ProfileController::class, 'store'])->middleware(['auth'])->name('specific');
 Route::post('/student/data/update', [\Student\Http\Controller\ProfileController::class, 'update'])->middleware(['auth'])->name('information.update');
 Route::get('/apply/for/exam', [\Student\Http\Controller\ProfileController::class, 'applyforExam'])->middleware(['auth'])->name('apply.for.exam');
+Route::post('/update/apply/exam', [\Student\Http\Controller\ProfileController::class, 'updateApplyExam'])->middleware(['auth'])->name('update.apply.exam');
 Route::get('/admit/card/template', [\Student\Http\Controller\ProfileController::class, 'admitCardTemplate'])->middleware(['auth'])->name('admit.card.template');
 Route::post('/apply/exam', [\Student\Http\Controller\ProfileController::class, 'applyExam'])->middleware(['auth'])->name('apply.exam');
 Route::post('/student/update/data/{id}', [\Student\Http\Controller\ProfileController::class, 'updateInformation'])->middleware(['auth'])->name('profile.update');

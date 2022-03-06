@@ -173,6 +173,17 @@ if(!function_exists('levelExits')) {
     }
 }
 
+if(!function_exists('getProgramName')) {
+    /**
+     * @param null $type
+     * @return string
+     */
+    function getProgramName($id)
+    {
+        $data = \App\Models\Admin\Program::query()->where('id','=',$id)->first();
+        return $data['name'];
+    }
+}
 if(!function_exists('admitCard')) {
     /**
      * @param null $type
