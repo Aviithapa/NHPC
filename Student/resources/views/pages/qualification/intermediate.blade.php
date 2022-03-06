@@ -70,7 +70,7 @@
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Board</label>
-                        <input name="board_university" class="form-control" id="pclnationalboard" type="text" value="CTEVT NEPAL" readonly>
+                        <input name="board_university" class="form-control" id="pclnationalboard" type="text" value="CTEVT, Nepal" readonly>
                         <input name="board_university" class="form-control" id="pclinternationalboard" type="text" >
                     </fieldset>
                 </div>

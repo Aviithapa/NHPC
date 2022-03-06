@@ -22,12 +22,6 @@
                     </div>
                     <div class="col-lg-4">
                         <fieldset class="form-group">
-                            <label>Admission Year </label>
-                            <input name="admission_year" class="form-control" id="basicInput" value="{{$data->admission_year}}" type="number" min="2050" max="2078" step="1"  required/>
-                        </fieldset>
-                    </div>
-                    <div class="col-lg-4">
-                        <fieldset class="form-group">
                             <label>Passed Year </label>
                             <input name="passed_year" class="form-control" id="basicInput" type="number" min="2050" max="2078" step="1" value="{{$data->passed_year}}"  required/>
                         </fieldset>

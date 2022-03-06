@@ -28,7 +28,6 @@
                 <div class="col-lg-4" id="tslcnepal">
                     <fieldset class="form-group">
                         <label>Collage Name</label>
-
                         <select class="form-control" name="collage_name"  id="tslcnepalValue" required>
                             <option value="">{{$data->collage_name}}</option>
                             @foreach($collage as $program)
@@ -52,12 +51,6 @@
                                 <option value="{{$program->id}}">{{$program->name}}</option>
                             @endforeach
                         </select>
-                    </fieldset>
-                </div>
-                <div class="col-lg-4">
-                    <fieldset class="form-group">
-                        <label>Admission Year </label>
-                        <input name="admission_year" class="form-control" id="basicInput" type="number" min="2050" max="2078" step="1" value="{{$data->admission_year}}" required/>
                     </fieldset>
                 </div>
                 <div class="col-lg-4">
