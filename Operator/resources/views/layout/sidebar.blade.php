@@ -46,8 +46,8 @@
             <li class="treeview"> <a href="#"> <i class="icon-grid"></i> <span>Exam Applied</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
                 <ul class="treeview-menu">
                     <li class="">
-                        <a href="{{route("operator.applicant.list", ['status'=> 'pending','state' => 'computer_operator'])}}">
-                            <i class="icon-book-open"></i> <span>Exam Applied List <span class="badge badge-pill badge-success">{{getExamApplicantList('pending','computer_operator')}}</span></span>
+                        <a href="{{route("operator.applicant.list", ['status'=> 'progress','state' => 'computer_operator'])}}">
+                            <i class="icon-book-open"></i> <span>Exam Applied List <span class="badge badge-pill badge-success">{{getExamApplicantList('progress','computer_operator')}}</span></span>
                         </a>
                     </li>
                     <li class="">

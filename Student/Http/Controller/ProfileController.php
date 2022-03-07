@@ -223,7 +223,7 @@ class ProfileController extends BaseController
         $profile_id = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
         $data["profile_id"] = $profile_id['id'];
         $data["state"] = 'computer_operator';
-        $data["status"] = 'pending';
+        $data["status"] = 'progress';
          $level = $this->programRepository->findById($data['program_id']);
         $data['level_id'] = $level['level_id'];
         $data['voucher_image'] = $data['voucher'];
