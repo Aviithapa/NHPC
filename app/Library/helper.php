@@ -630,3 +630,42 @@ if (!function_exists('getApplliedStudent')) {
         return $count;
     }
 }
+
+
+if (!function_exists('getHighteshQualification')) {
+    function getHighteshQualification($qualification)
+    {
+        if ($qualification == 0){
+            return [
+                '1' => 'SLC',
+            ];
+        }else if ($qualification == 1){
+            return [
+                '1' => 'SLC',
+                '2' => 'TSLC',
+            ];
+        }else if ($qualification == 2){
+            return [
+                '1' => 'SLC',
+                '2' => 'TSLC',
+                '3' => 'PCL',
+            ];
+        }else if ($qualification == 3){
+            return [
+                '1' => 'SLC',
+                '2' => 'TSLC',
+                '3' => 'PCL',
+                '4' => 'Bachelor',
+            ];
+        }else if ($qualification == 4){
+            return [
+                '1' => 'SLC',
+                '2' => 'TSLC',
+                '3' => 'PCL',
+                '4' => 'Bachelor',
+                '5' => 'Master',
+            ];
+        }
+    }
+
+}

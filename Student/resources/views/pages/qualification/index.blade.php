@@ -39,23 +39,23 @@
                                     <table class="table no-margin">
                                         <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Board / University</th>
+                                            <th>S.N. </th>
+                                            <th>Level</th>
+                                            <th>Board </th>
                                             <th>Program Name</th>
-                                            <th>Registration Number</th>
-                                            <th>Status</th>
+                                            <th>Registration Number</th> n
                                             <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
 
-                                            @foreach($qualifications as $qualification)
+                                            @foreach($qualifications as $key => $qualification)
                                                 <tr>
-                                            <td><a href="#">{{$qualification->name}}</a></td>
-                                            <td>{{$qualification->board_university}}</td>
+                                            <td><a href="#">{{++$key}}</a></td>
+                                                    <td>{{$qualification->getLevelName()}}</td>
+                                                    <td>{{$qualification->board_university}}</td>
                                             <td>{{$qualification->getProgramName()}}</td>
                                             <td>{{$qualification->registration_number}}</td>
-                                            <td>{{$profile->profile_status}}</td>
                                                     @if($profile->profile_status === "Rejected")
                                                         <td><a href="{{route('qualification.update.index',["id" => $qualification->level])}}"><span class="label label-success">Edit</span></a></td>
                                                     @endif

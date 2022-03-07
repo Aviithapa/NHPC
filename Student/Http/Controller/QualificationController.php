@@ -133,10 +133,20 @@ class QualificationController extends BaseController
     }
 
     public function create(Request $request){
-        $master_program = $this->programRepository->getAll();
+        $profile = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id);
+        $qualifications = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id)->max('level');
+        $slc_data = $this->qualificationRepository->slcData(Auth::user()->id);
+        $tslc_data = $this->qualificationRepository->tslcData(Auth::user()->id);
+        $plus_2 = $this->qualificationRepository->pclData(Auth::user()->id);
+        $bachelor = $this->qualificationRepository->bachelorData(Auth::user()->id);
+        $master = $this->qualificationRepository->masterData(Auth::user()->id);
+        $slc_program = $this->programRepository->getAll()->where('level_id','=',4);
+        $plus_2_program = $this->programRepository->getAll()->where('level_id','=',3);
+        $bachelor_program = $this->programRepository->getAll()->where('level_id','=',2);
+        $master_program = $this->programRepository->getAll()->where('level_id','=',1);
         $collage = $this->collegeRepository->getAll();
-        return view('student::pages.qualification.form',compact('master_program','collage'));
-
+        return view('student::pages.qualification.form',compact('master_program','collage','qualifications','slc_data','plus_2','bachelor','master','slc_program',
+            'plus_2_program','bachelor_program','master_program','tslc_data','collage'));
     }
 
     public function store(Request $request)
@@ -215,10 +225,10 @@ class QualificationController extends BaseController
         $data['transcript_image'] = $data['transcript_mas'];
         $data['provisional_image'] = $data['provisional_mas'];
         $data['character_image'] = $data['character_mas'];
-                $data['intership_image'] = $data['intership_mas'];
-                $data['noc_image'] = $data['noc_mas'];
-                $data['visa_image'] = $data['visa_mas'];
-                $data['passport_image'] = $data['passport_mas'];
+        $data['intership_image'] = $data['intership_mas'];
+        $data['noc_image'] = $data['noc_mas'];
+        $data['visa_image'] = $data['visa_mas'];
+        $data['passport_image'] = $data['passport_mas'];
         $profiles['level'] =$data['level'];
         $profiles['profile_state'] = 'computer_operator';
         try {
