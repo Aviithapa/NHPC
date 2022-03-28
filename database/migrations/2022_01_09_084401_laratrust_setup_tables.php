@@ -13,9 +13,10 @@ class LaratrustSetupTables extends Migration
      */
     public function up()
     {
-        // Create table for storing roles
+
+
         Schema::create('roles', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name')->unique();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
@@ -24,7 +25,7 @@ class LaratrustSetupTables extends Migration
 
         // Create table for storing permissions
         Schema::create('permissions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name')->unique();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
@@ -33,8 +34,8 @@ class LaratrustSetupTables extends Migration
 
         // Create table for associating roles to users and teams (Many To Many Polymorphic)
         Schema::create('role_user', function (Blueprint $table) {
-            $table->bigInteger('role_id');
-            $table->bigInteger('user_id');
+            $table->unsignedInteger('role_id');
+            $table->unsignedInteger('user_id');
             $table->string('user_type');
 
             $table->foreign('role_id')->references('id')->on('roles')
@@ -45,8 +46,8 @@ class LaratrustSetupTables extends Migration
 
         // Create table for associating permissions to users (Many To Many Polymorphic)
         Schema::create('permission_user', function (Blueprint $table) {
-            $table->bigInteger('permission_id');
-            $table->bigInteger('user_id');
+            $table->unsignedInteger('permission_id');
+            $table->unsignedInteger('user_id');
             $table->string('user_type');
 
             $table->foreign('permission_id')->references('id')->on('permissions')
@@ -57,8 +58,8 @@ class LaratrustSetupTables extends Migration
 
         // Create table for associating permissions to roles (Many-to-Many)
         Schema::create('permission_role', function (Blueprint $table) {
-            $table->bigInteger('permission_id');
-            $table->bigInteger('role_id');
+            $table->unsignedInteger('permission_id');
+            $table->unsignedInteger('role_id');
 
             $table->foreign('permission_id')->references('id')->on('permissions')
                 ->onUpdate('cascade')->onDelete('cascade');
