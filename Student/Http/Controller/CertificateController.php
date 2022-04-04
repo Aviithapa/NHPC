@@ -47,5 +47,8 @@ class CertificateController extends BaseController{
             return redirect()->back();
         }
         $user_id = $certificates['registration_id'];
+        session()->flash('success', 'Your application is ready to link with your account');
+        return redirect()->back();
+
     }
 }
