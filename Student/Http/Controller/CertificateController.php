@@ -29,6 +29,7 @@ class CertificateController extends BaseController{
 
 
     public function index(){
+        dd("Your request is utilization");
         $certificates = $this->certificateRepository->getAll()->where('user_id','=',Auth::user()->id);
         $profile = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
        return view('student::pages.certificates.index',compact('certificates','profile'));
