@@ -70,9 +70,11 @@ class ProfileController extends BaseController
                              } else {
                                  if ($data['profile_status'] === "Rejected"){
                                      return view('student::pages.update-personal', compact('authUser', 'data','province','district'));
-                                 }else if (!$data["citizenship_number"]) {
+                                 }else if (!$data["citizenship_number"] && !$data["first_name"]) {
                                      return view('student::pages.personal', compact('province','district'));
-                                 } else {
+                                }else if (!$data["citizenship_number"] || !$data["first_name"]) {
+                                    return view('student::pages.update-personal', compact('authUser', 'data','province','district'));
+                                } else {
                                      session()->flash('already', 'Personal Information has already Setup');
                                      return redirect()->to('student/dashboard/student/guardian');
                                  }

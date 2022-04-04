@@ -49,9 +49,27 @@
 @endif
 
 @if ($message = Session::get('error'))
-    <div class="alert alert-danger alert-block">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>{{ $message }}</strong>
+    <div class="modal in"  role="dialog" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" onclick="$('.modal').css('display','none')" aria-label=""><span>×</span></button>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="thank-you-pop">
+                        <img src="https://e7.pngegg.com/pngimages/833/287/png-clipart-check-mark-international-red-cross-and-red-crescent-movement-american-red-cross-red-cross-mark-round-red-x-logo-miscellaneous-text.png" alt="">
+                        <h1>Sorry!</h1>
+                        <p>{{$message}}</p>
+                        <button onclick="$('.modal').css('display','none')" class="btn btn-primary  mt-2"><i class="fa fa-check"></i>
+                            Ok</button>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 @endif
 

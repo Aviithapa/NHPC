@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
             if(Auth::user()->active()) {
                 if (Auth::user()->mainRole()->name === 'administrator') {
                     dd("Student");
-                } else if (Auth::user()->mainRole()->name === 'Student') {
+                } else if (Auth::user()->mainRole()->name === 'student') {
                     return  redirect()->route('student.dashboard');
                 }  else if (Auth::user()->mainRole()->name === 'operator') {
                     return  redirect()->route('operator.dashboard');

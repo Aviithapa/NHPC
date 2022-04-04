@@ -33,7 +33,7 @@
                     </li>
                     <li class="{{ (request()->is('officer/dashboard/officer/applicant-profile-list/rejected/officer')) ? 'active':''  }}">
                         <a href="{{route("officer.applicant.profile.list", ['status'=> 'rejected','current_state' => 'officer'])}}">
-                            <i class="icon-ban"></i> <span>Rejected by Officer <span class="badge badge-pill badge-danger">{{getApplicantCount('Rejected','student')}}</span></span>
+                            <i class="icon-ban"></i> <span>Rejected by Officer <span class="badge badge-pill badge-danger">{{getApplicantProcessingCount('rejected','officer')}}</span></span>
                         </a>
                     </li>
 

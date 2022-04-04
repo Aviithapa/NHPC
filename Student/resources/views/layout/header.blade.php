@@ -30,8 +30,35 @@
             </div>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <!-- Messages -->
+                    <!-- Link Certificate -->
                     <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-link"></i>
+                            <div class="notify">
+                                <span class="heartbit"></span> <span class="point"></span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">Link your licence Certificate here</li>
+                            <li>
+                                <ul class="menu">
+                                    <li>
+                                        <a href="{{route('certificate.index')}}">
+                                            <h4>Link Certificate</h4>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <h4>Need help ?</h4>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                     <!-- Messages -->
+                     <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
                             <div class="notify">
