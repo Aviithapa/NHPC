@@ -102,7 +102,7 @@ class CouncilController extends BaseController
     }
     public function dartaBookIndex(){
         if (Auth::user()->mainRole()->name === 'council') {
-            $programs = $this->programRepository->getWithPagination();
+            $programs = $this->programRepository->getAll();
             return \view('council::pages.darta-book', compact('programs'));
         }else{
             return redirect()->route('login');
@@ -110,7 +110,6 @@ class CouncilController extends BaseController
     }
     public function applicantdartaBookIndex($id){
         if (Auth::user()->mainRole()->name === 'council') {
-
             $certificate = $this->certificateRepository->getAll()->where('program_id', '=', $id);
             return \view('council::pages.darta-book-details', compact('certificate'));
         }else{
