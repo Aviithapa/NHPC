@@ -21,9 +21,9 @@ class RedirectIfAuthenticated
     {
         if (Auth::guard($guards)->check()) {
             if(Auth::user()->mainRole()->name ==='council') {
-                dd("Admin");
+                return  redirect()->route('council.dashboard');
             }
-            elseif(Auth::user()->mainRole()->name ==='Student'){
+            elseif(Auth::user()->mainRole()->name ==='student'){
                 return  redirect()->route('student.dashboard');
             }elseif (Auth::user()->mainRole()->name ==='operator'){
                 return  redirect()->route('operator.dashboard');

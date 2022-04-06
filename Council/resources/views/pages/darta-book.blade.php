@@ -24,6 +24,26 @@
                             <div class="pull-right">
                             </div>
                         </div>
+
+                        <div class="box-header with-border p-t-1">
+                            <form method="POST" action="{{url('student/dashboard/student/collage/data')}}">
+                                @csrf
+
+
+                                <div class="row">
+                                    <input type="hidden" name="level" class="form-control" value="3"/>
+                                    <div class="col-lg-4">
+                                        <fieldset class="form-group">
+                                            <label>Collage Type</label>
+                                            <select class="form-control" name="decision_date" id="decision_date" required>
+                                                <option value="nepal">Nepal</option>
+                                                <option value="international">International</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
@@ -45,7 +65,7 @@
                                             <td>{{$program->code_}}</td>
                                             <td>{{getProgramLicenceCount($program->id)}}</td>
                                             <td>@foreach(getDartaNumber($program->id) as $darta)
-                                                             {{$darta->srn}} ,
+                                                             {{$darta}} ,
                                                     @endforeach
                                               </td>
                                             <td> <a href="{{route("applicant.darta.details",['id' =>$program->id])}}"><span class="label label-success">View</span></a></td>

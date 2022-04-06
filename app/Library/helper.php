@@ -82,7 +82,7 @@ if (! function_exists('getDartaNumber')) {
      */
     function getDartaNumber($id)
     {
-        $exam = \App\Models\Certificate\Certificate::all()->where("program_id",'=' ,$id);
+        $exam = \App\Models\Certificate\Certificate::all()->where("program_id",'=' ,$id)->where('decision_date','=', \date("2022-03-14"));
         return $exam;
     }
 }

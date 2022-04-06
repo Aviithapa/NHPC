@@ -20,6 +20,7 @@ use App\Modules\Backend\Result\Repositories\ExamResultRepository;
 use Carbon\Carbon;
 use ExamCommittee\Http\Controller\BaseController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Maatwebsite\Excel\Facades\Excel;
 use Operator\Modules\Framework\Request;
 use Student\Modules\Profile\Repositories\ProfileRepository;
@@ -101,7 +102,6 @@ class CouncilController extends BaseController
     }
     public function dartaBookIndex(){
         if (Auth::user()->mainRole()->name === 'council') {
-
             $programs = $this->programRepository->getAll();
             return \view('council::pages.darta-book', compact('programs'));
         }else{
