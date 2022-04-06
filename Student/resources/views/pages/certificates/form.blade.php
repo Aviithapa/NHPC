@@ -20,7 +20,7 @@
                     <div class="card-body">
 
 
-                        <h4 class="text-black">Additional Education Information</h4>
+                        <h4 class="text-black">Information Related to  Licence Certificate </h4>
 
 
                             <div class="content">

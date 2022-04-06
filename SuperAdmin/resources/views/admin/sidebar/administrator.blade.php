@@ -31,10 +31,18 @@
             <li class="">
                 <a href="{{route('council.darta.book')}}">
                     <i class="icon-book-open"></i> <span>Darta Book</span>
-
                 </a>
             </li>
-
+            <li class="">
+                <a href="{{route('council.darta.book')}}">
+                    <i class="icon-book-open"></i> <span>Applicant List</span>
+                </a>
+            </li>
+            <li class="">
+                <a href="{{route('council.darta.book')}}">
+                    <i class="icon-book-open"></i> <span>Link Certificate to Applicant List</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- /.sidebar -->

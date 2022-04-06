@@ -25,25 +25,25 @@
                             </div>
                         </div>
 
-                        <div class="box-header with-border p-t-1">
-                            <form method="POST" action="{{url('student/dashboard/student/collage/data')}}">
-                                @csrf
+{{--                        <div class="box-header with-border p-t-1">--}}
+{{--                            <form method="POST" action="{{url('student/dashboard/student/collage/data')}}">--}}
+{{--                                @csrf--}}
 
 
-                                <div class="row">
-                                    <input type="hidden" name="level" class="form-control" value="3"/>
-                                    <div class="col-lg-4">
-                                        <fieldset class="form-group">
-                                            <label>Collage Type</label>
-                                            <select class="form-control" name="decision_date" id="decision_date" required>
-                                                <option value="nepal">Nepal</option>
-                                                <option value="international">International</option>
-                                            </select>
-                                        </fieldset>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+{{--                                <div class="row">--}}
+{{--                                    <input type="hidden" name="level" class="form-control" value="3"/>--}}
+{{--                                    <div class="col-lg-4">--}}
+{{--                                        <fieldset class="form-group">--}}
+{{--                                            <label>Collage Type</label>--}}
+{{--                                            <select class="form-control" name="decision_date" id="decision_date" required>--}}
+{{--                                                <option value="nepal">Nepal</option>--}}
+{{--                                                <option value="international">International</option>--}}
+{{--                                            </select>--}}
+{{--                                        </fieldset>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </form>--}}
+{{--                        </div>--}}
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">

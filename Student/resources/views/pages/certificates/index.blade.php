@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-lg-12 m-b-3">
                         <a href="{{route("certificate.edit")}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
-                            New Certificate</a>
+                            My Certificate</a>
                     </div>
                 </div>
                 <div class="row">
@@ -43,7 +43,7 @@
                                             <th>Level</th>
                                             <th>Board </th>
                                             <th>Program Name</th>
-                                            <th>Registration Number</th> n
+                                            <th>Registration Number</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>

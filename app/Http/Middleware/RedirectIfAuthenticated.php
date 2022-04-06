@@ -37,6 +37,8 @@ class RedirectIfAuthenticated
                 return  redirect()->route('examCommittee.dashboard');
             } else if (Auth::user()->mainRole()->name === 'council') {
                 return  redirect()->route('council.dashboard');
+            } else if (Auth::user()->mainRole()->name === 'superadmin'){
+                return  redirect()->route('superAdmin.dashboard.index');
             }
         }
 

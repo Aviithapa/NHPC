@@ -275,5 +275,6 @@ Route::group(['namespace' => 'WebSite'], function () {
             'destroy' => 'dashboard.coupons.destroy',
         ]
     ]);
+    Route::get('/applicantList', 'ApplicantController@index')->name('admin.applicant.list');
     Route::match(['put', 'patch'], 'product/approve/{event}', 'ProductController@approve')->name('dashboard.product.approve');
 });

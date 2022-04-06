@@ -19,8 +19,8 @@ class EloquentProgramRepository  implements ProgramRepository
 
     public function perPage()
     {
-        $page = 10;
-        return $page?$page:10;
+        $page = 50;
+        return $page?$page:50;
     }
 
     public function getModel()
@@ -84,6 +84,11 @@ class EloquentProgramRepository  implements ProgramRepository
     public function findBy($key, $value, $operator = '=',$paginate = true,$limit = null)
     {
         return $this->getModel()->where($key, $operator, $value)->paginate($this->perPage());
+    }
+
+    public function paginates()
+    {
+        return $this->getAll()->paginate($this->perPage());
     }
 
     public function create(array $data)

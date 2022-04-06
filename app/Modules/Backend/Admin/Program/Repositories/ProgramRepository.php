@@ -13,4 +13,6 @@ interface ProgramRepository  extends  Repository
      */
     public function getAllRecruitersForDataTable();
 
+    public function paginates();
+
 }
