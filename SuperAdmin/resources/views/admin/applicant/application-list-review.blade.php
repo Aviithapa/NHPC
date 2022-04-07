@@ -1,4 +1,4 @@
-@extends('operator::layout.app')
+@extends('superAdmin::admin.layout.app')
 
 @section('content')
     <!-- Content Wrapper. Contains page content -->
@@ -28,7 +28,7 @@
                         <div class="verified-section">
                             <span>Verified by</span><br>
                             <ul class="nav nav-tabs profile-tab" role="tablist">
-                                @include('superAdmin::layout.verified-level-icon')
+{{--                                @include('superAdmin::layout.verified-level-icon')--}}
                             </ul>
                         </div>
                         <div class="box-profile text-white">
@@ -347,14 +347,29 @@
                             <div class="tab-content">
                                 <div class="tab-pane active" id="settings" role="tabpanel">
                                     <div class="card-body">
-                                        <form class="form-horizontal form-material" action="{{route("operator.applicant.profile.list.status")}}" method="POST">
+                                        <form class="form-horizontal form-material" action="{{route("superAdmin.applicant.profile.list.status")}}" method="POST">
                                             @csrf
 
                                             <input type="hidden" name="profile_id" value="{{$data->id}}">
+{{--                                            <div class="form-group">--}}
+{{--                                                <label class="col-md-12">Remarks</label>--}}
+{{--                                                <div class="col-md-12">--}}
+{{--                                                    <textarea rows="5" name="remarks" class="form-control form-control-line"></textarea>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
                                             <div class="form-group">
-                                                <label class="col-md-12">Remarks</label>
-                                                <div class="col-md-12">
-                                                    <textarea rows="5" name="remarks" class="form-control form-control-line"></textarea>
+                                                <label class="col-sm-12">Select State</label>
+                                                <div class="col-sm-12">
+                                                    <select class="form-control form-control-line" name="profile_state" required>
+                                                        <option >{{$data->profile_state}}</option>
+                                                        <option value="computer_operator">Computer Operator</option>
+                                                        <option value="registrar">Registrar</option>
+                                                        <option value="subject_committee">Subject Committee</option>
+                                                        <option value="exam_committee">Exam Committee</option>
+                                                        <option value="officer">Officer</option>
+                                                        <option value="onhold">Onhold</option>
+                                                        <option value="council">Council</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">

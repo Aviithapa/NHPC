@@ -276,5 +276,9 @@ Route::group(['namespace' => 'WebSite'], function () {
         ]
     ]);
     Route::get('/applicantList', 'ApplicantController@index')->name('admin.applicant.list');
+//    Route::get('/');
+    Route::get('/search', 'ApplicantController@search')->middleware(['auth'])->name('search');
+    Route::get('/applicant-list-view/{id}','ApplicantController@edit')->middleware(['auth'])->name('superAdmin.applicant.list.review');
+    Route::post('/applicant-profile-list','ApplicantController@status')->middleware(['auth'])->name('superAdmin.applicant.profile.list.status');
     Route::match(['put', 'patch'], 'product/approve/{event}', 'ProductController@approve')->name('dashboard.product.approve');
 });

@@ -8,7 +8,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header sty-one">
-            <h1>Operator Dashboard</h1>
+            <h1>Super Admin Dashboard</h1>
             <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
                 <li><i class="fa fa-angle-right"></i> Applicant Profile Details</li>
@@ -76,7 +76,7 @@
             $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
             $.ajax({
                 type : 'Get',
-                url : '{{URL::to('operator/dashboard/search')}}',
+                url : '{{URL::to('superAdmin/dashboard/search')}}',
                 data:{'search':value},
                 success:function(data){
                     console.log(" The data is" + data);
