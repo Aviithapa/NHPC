@@ -35,7 +35,7 @@
                     <a href="#"><img src="https://nhpc.gov.np/beta//assets/img/nhpc_logo.jpg" width="100" alt="" ></a>
                 </div>
                 <div class="col-sm-10 text-center">
-                    <h4 class="mb-0">Nepal Health Professional Council <br> नेपाल स्वास्थ्य व्यवसायी परिषद् </h4>
+                    <h4 class="mb-0">Nepal Health Professional Council <br> नेपाल स्वास्थ्य व्यवसायी परिषद </h4>
                     <h5 class="mb-0"><h6 class="mb-0"></h6></h5>
                 </div>
                 <div class="col-sm-1">

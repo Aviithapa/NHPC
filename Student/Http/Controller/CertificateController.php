@@ -47,7 +47,7 @@ class CertificateController extends BaseController{
             return redirect()->back();
         }
         $user_id = $certificates['registration_id'];
-        session()->flash('success', 'Your request has been submitted to the council you will notify when it linked to your account or will b');
+        session()->flash('success', 'Your request has been submitted to the council you will notify when the certificate is  linked to your account till that wait');
         return redirect()->back();
     }
 }

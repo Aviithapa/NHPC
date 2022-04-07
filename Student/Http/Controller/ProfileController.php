@@ -183,7 +183,8 @@ class ProfileController extends BaseController
                         return view('student::pages.update-apply-exam', compact(  'specific_program'));
                     }else {
                         $level_related_program = $this->programRepository->getAll()->where('level_id', '=', $specific_program['level_id']);
-                        return view('student::pages.apply-exam', compact('level_related_program', 'specific_program'));
+                        $all_program = $this->programRepository->getAll()->where('user_id', '=', Auth::user()->id);
+                        return view('student::pages.apply-exam', compact('level_related_program', 'specific_program', 'all_program'));
                     }
                 }
                 else{
@@ -215,7 +216,6 @@ class ProfileController extends BaseController
             $exam = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id','=',$id)->where('status','=','rejected')->first();
             return $exam;
         }
-        return false;
     }
 
 
