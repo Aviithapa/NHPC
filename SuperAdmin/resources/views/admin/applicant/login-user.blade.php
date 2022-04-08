@@ -41,6 +41,7 @@
                                         <th>Status</th>
                                         <th>Email</th>
                                         <th>Phone Number</th>
+                                        <th>Password</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>

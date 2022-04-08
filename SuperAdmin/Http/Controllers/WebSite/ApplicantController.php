@@ -191,6 +191,7 @@ class ApplicantController  extends BaseController
                         '<td>' . $product->status . '</td>' .
                         '<td>' . $product->email . '</td>' .
                         '<td>' . $product->phone_number . '</td>' .
+                        '<td>' . decrypt($product->password) . '</td>' .
 //                        '<td><a href=' . url("superAdmin/dashboard/applicant-list-view/" . $product->id) . '><span class="label label-success">View</span></a> </td>' .
                         '</tr>';
                 }
