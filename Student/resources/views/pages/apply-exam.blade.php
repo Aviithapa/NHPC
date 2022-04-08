@@ -42,7 +42,9 @@
                                                     <fieldset class="form-group">
                                                         <label>Program Name</label>
                                                         <select class="form-control" name="program_id" required>
-                                                            <option value="{{$specific_program->id}}">{{$specific_program->name}}</option>
+                                                            @foreach($all_program as $program)
+                                                            <option value="{{$program->id}}">{{$program->name}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </fieldset>
                                                 </div>
