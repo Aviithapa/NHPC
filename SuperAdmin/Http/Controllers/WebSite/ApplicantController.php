@@ -128,36 +128,18 @@ class ApplicantController  extends BaseController
             try {
                 $id = $data['profile_id'];
                 $data['created_by'] = Auth::user()->id;
-                dd($data);
-                $data['state'] = 'computer_operator';
-                $data['profile_state'] = 'officer';
-                if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
-                    $data['status'] = 'progress';
-                    $data['remarks'] = 'Profile is forward to Officer';
-                    $data['review_status'] = 'Successful';
-                    $data['profile_state'] = 'officer';
-                    $this->profileLog($data);
-                    $this->profileProcessing($id,$data);
-                } elseif ($data['profile_status'] === "Rejected") {
-                    $data['status'] = 'rejected';
-                    $data['review_status'] = 'Rejected';
-                    $data['profile_state'] = 'student';
-                    $this->profileLog($data);
-                    $this->profileProcessing($id,$data);
-                } elseif ($data['profile_status'] === "Pending") {
-                    $data['status'] = 'pending';
-                    $data['review_status'] = 'Pending';
-                    $this->profileLog($data);
-                    $this->profileProcessing($id,$data);
+                $profile = $this->profileRepository->update($data,$id);
+                $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=',$id)->first();
+                $profileProcessing['current_state'] = $data['profile_state'];
+                if ($data['profile_status'] == 'Reviewing' || $data['profile_status'] == 'Verified'){
+                 $profileProcessing['status'] = 'progress';
+                }else if($data['profile_status'] == 'Rejected'){
+                    $profileProcessing['status'] = 'progress';
                 }
-                $profile = $this->profileRepository->update($data, $id);
-                if ($profile == false) {
-                    session()->flash('danger', 'Oops! Something went wrong.');
-                    return redirect()->back()->withInput();
-                }
+                $profileProcessings = $this->profileProcessingRepository->update($profileProcessing,$profileProcessingId['id']);
 
                 session()->flash('success', 'User Profile Status Information have been saved successfully');
-                return redirect()->route('operator.applicant.profile.list');
+                return redirect()->route('superAdmin.applicant.profile.list');
 //
             } catch (\Exception $e) {
                 session()->flash('danger', 'Oops! Something went wrong.');
@@ -174,7 +156,7 @@ class ApplicantController  extends BaseController
 
     public function profileLog(array $data)
     {
-        if (Auth::user()->mainRole()->name === 'operator') {
+        if (Auth::user()->mainRole()->name === 'superadmin') {
             $logs = $this->profileLogsRepository->create($data);
             if ($logs == false)
                 return false;
@@ -185,44 +167,75 @@ class ApplicantController  extends BaseController
 
     }
 
-
-    public function profileProcessing($id,$data)
-    {
+    public function userIndex(){
         if (Auth::user()->mainRole()->name === 'superadmin') {
-            $profileProcessing['profile_id'] = $id;
-            $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
-            if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
-                $data['status'] = 'progress';
-                $data['remarks'] = 'Profile is forward to Officer';
-                $data['review_status'] = 'Successful';
-                $data['current_state'] = 'officer';
-                if ($profileProcessingId){
-                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
-                }else
-                    $profileProcessings = $this->profileProcessingRepository->create($data);
-            } elseif ($data['profile_status'] == "Rejected") {
-
-                $data['status'] = 'rejected';
-                $data['review_status'] = 'Rejected';
-                $data['current_state'] = 'computer_operator';
-                if ($profileProcessingId){
-                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
-                }else
-                    $profileProcessings = $this->profileProcessingRepository->create($data);
-            } elseif ($data['profile_status'] === "Pending") {
-                $data['status'] = 'pending';
-                $data['review_status'] = 'Pending';
-                $data['current_state'] = 'computer_operator';
-                if ($profileProcessingId){
-                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
-                }else
-                    $profileProcessings = $this->profileProcessingRepository->create($data);
-
-            }
-
+            $data = $this->profileRepository->getAll();
+            return view('superAdmin::admin.applicant.login-user', compact("data"));
         } else {
             return redirect()->route('login');
         }
     }
+
+    public function userSearch(Request $request){
+        if ($request->ajax()) {
+            $output = "";
+            $products = DB::table('users')->where('name', 'LIKE', '%' . $request->search . "%")
+                ->orwhere('email', 'LIKE', '%' . $request->search . "%")
+                ->orwhere('phone_number', 'LIKE', '%' . $request->search . "%")
+                ->orwhere('status', 'LIKE', '%' . $request->search . "%")
+                ->get();
+            if ($products) {
+                foreach ($products as $key => $product) {
+                    $output .= '<tr>' .
+                        '<td>' . $product->name . '</td>' .
+                        '<td>' . $product->status . '</td>' .
+                        '<td>' . $product->email . '</td>' .
+                        '<td>' . $product->phone_number . '</td>' .
+//                        '<td><a href=' . url("superAdmin/dashboard/applicant-list-view/" . $product->id) . '><span class="label label-success">View</span></a> </td>' .
+                        '</tr>';
+                }
+                return Response($output);
+            }
+        }
+    }
+
+//    public function profileProcessing($id,$data)
+//    {
+//        if (Auth::user()->mainRole()->name === 'superadmin') {
+//            $profileProcessing['profile_id'] = $id;
+//            $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
+//            if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
+//                $data['status'] = 'progress';
+//                $data['remarks'] = 'Profile is forward to Officer';
+//                $data['review_status'] = 'Successful';
+//                $data['current_state'] = 'officer';
+//                if ($profileProcessingId){
+//                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
+//                }else
+//                    $profileProcessings = $this->profileProcessingRepository->create($data);
+//            } elseif ($data['profile_status'] == "Rejected") {
+//
+//                $data['status'] = 'rejected';
+//                $data['review_status'] = 'Rejected';
+//                $data['current_state'] = 'computer_operator';
+//                if ($profileProcessingId){
+//                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
+//                }else
+//                    $profileProcessings = $this->profileProcessingRepository->create($data);
+//            } elseif ($data['profile_status'] === "Pending") {
+//                $data['status'] = 'pending';
+//                $data['review_status'] = 'Pending';
+//                $data['current_state'] = 'computer_operator';
+//                if ($profileProcessingId){
+//                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
+//                }else
+//                    $profileProcessings = $this->profileProcessingRepository->create($data);
+//
+//            }
+//
+//        } else {
+//            return redirect()->route('login');
+//        }
+//    }
 
 }

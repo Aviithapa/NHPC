@@ -378,7 +378,7 @@
                                                     <select class="form-control form-control-line" name="profile_status" required>
                                                         <option >{{$data->profile_status}}</option>
                                                         <option value="Reviewing">Reviewing</option>
-                                                        <option value="Reviewing">Verified</option>
+                                                        <option value="Verified">Verified</option>
                                                         <option value="Rejected">Rejected</option>
                                                     </select>
                                                 </div>

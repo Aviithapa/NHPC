@@ -18,27 +18,27 @@
         <!-- sidebar menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">PERSONAL</li>
-            <li class="active">
+            <li class="{{ (request()->is('superAdmin/dashboard')) ? 'active':''  }}">
                 <a href="{{route('superAdmin.dashboard.index')}}">
                     <i class="icon-home"></i> <span>Dashboard</span>
                 </a>
             </li>
-            <li class="">
-                <a href="{{route("dashboard.site-settings.index")}}">
-                    <i class="icon-graduation"></i> <span>Site Setting</span>
-                </a>
-            </li>
-{{--            <li class="">--}}
-{{--                <a href="{{route('council.darta.book')}}">--}}
-{{--                    <i class="icon-book-open"></i> <span>Darta Book</span>--}}
+{{--            <li class="{{ (request()->is('superAdmin/dashboard/site-settings')) ? 'active':''  }}">--}}
+{{--                <a href="{{route("dashboard.site-settings.index")}}">--}}
+{{--                    <i class="icon-graduation"></i> <span>Site Setting</span>--}}
 {{--                </a>--}}
 {{--            </li>--}}
-            <li class="">
-                <a href="{{route('admin.applicant.list')}}">
-                    <i class="icon-book-open"></i> <span>Applicant List</span>
+            <li class="{{ (request()->is('superAdmin/dashboard/user/list')) ? 'active':''  }}">
+                <a href="{{route("admin.user.list")}}">
+                    <i class="icon-people"></i> <span>User Login List</span>
                 </a>
             </li>
-            <li class="">
+            <li class="{{ (request()->is('superAdmin/dashboard/applicantList')) ? 'active':''  }}">
+                <a href="{{route('admin.applicant.list')}}">
+                    <i class="icon-people"></i> <span>Applicant List</span>
+                </a>
+            </li>
+            <li class="{{ (request()->is('superAdmin/dashboard/certificateLink')) ? 'active':''  }}">
                 <a href="{{route('council.darta.book')}}">
                     <i class="icon-book-open"></i> <span>Link Certificate to Applicant List</span>
                 </a>
