@@ -101,7 +101,8 @@ class RegisteredUserController extends Controller
     }
 
     public function checkCode(Request $request){
-        $verification_code = \Illuminate\Support\Facades\Request::get('code');
+        $data = $request->all();
+        $verification_code =$data['verification_code'];
         $user = User::where(['verification_code' => $verification_code])->first();
         if($user != null){
             $user->status = 'active';
@@ -109,7 +110,7 @@ class RegisteredUserController extends Controller
             return redirect()->route('login')->with(session()->flash('alert-success', 'Your account is verified. Please login!'));
         }
 
-        return redirect()->route('login')->with(session()->flash('alert-danger', 'Invalid verification code!'));
+        return redirect()->back()->with(session()->flash('alert-danger', 'Invalid verification code!'));
     }
 
     public function success()

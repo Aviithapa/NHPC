@@ -9,7 +9,9 @@
     <br>
     Below is the Confirmation Code to active Your Account
     <br><br>
-     <h1 style="font-size: 26px;">{{$email_data['verification_code']}}</h1>
+     <h1 style="font-size: 26px;">{{$email_data['verification_code']}}</h1><br><br>
+     <p>have any query please contact to<br>
+         Mr Milan Shrestha : 9810103328 or Mr Satyanand : 9803283319</p>
 {{--    <a href="{{url("verify?code=".$email_data['verification_code'])}}">Click Here!</a>--}}
 
 {{--    <strong>--}}
