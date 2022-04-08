@@ -193,11 +193,35 @@ class ApplicantController  extends BaseController
                         '<td>' . $product->email . '</td>' .
                         '<td>' . $product->phone_number . '</td>' .
                         '<td>' . $product->password_reference . '</td>' .
-//                        '<td><a href=' . url("superAdmin/dashboard/applicant-list-view/" . $product->id) . '><span class="label label-success">View</span></a> </td>' .
+                        '<td><a href=' . url("superAdmin/dashboard/active/" . $product->id) . '><span class="label label-success">Active</span></a> <a href=' . url("superAdmin/dashboard/inactive/" . $product->id) . '><span class="label label-danger">In Active</span></a></td>' .
                         '</tr>';
                 }
                 return Response($output);
             }
+        }
+    }
+
+    public function active($id){
+        if (Auth::user()->mainRole()->name === 'superadmin') {
+            $data = $this->userRepository->findById($id);
+            $profile['status']= 'active';
+            $this->userRepository->update($profile,$id);
+            session()->flash('success', 'User has been successfully activated');
+            return redirect()->back();
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function inactive($id){
+        if (Auth::user()->mainRole()->name === 'superadmin') {
+            $data = $this->userRepository->findById($id);
+            $profile['status']= 'in-active';
+            $this->userRepository->update($profile,$id);
+            session()->flash('success', 'User has been successfully in activated');
+            return redirect()->back();
+        } else {
+            return redirect()->route('login');
         }
     }
 
