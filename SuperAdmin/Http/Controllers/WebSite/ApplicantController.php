@@ -14,6 +14,7 @@ use App\Modules\Backend\Website\Post\Repositories\PostRepository;
 use App\Modules\Backend\Website\Post\Requests\CreatePostRequest;
 use App\Modules\Backend\Website\Post\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Operator\Modules\Framework\Request;
 use Student\Modules\Profile\Repositories\ProfileRepository;
@@ -169,7 +170,7 @@ class ApplicantController  extends BaseController
 
     public function userIndex(){
         if (Auth::user()->mainRole()->name === 'superadmin') {
-            $data = $this->profileRepository->getAll();
+            $data = $this->userRepository->getAll();
             return view('superAdmin::admin.applicant.login-user', compact("data"));
         } else {
             return redirect()->route('login');
@@ -191,7 +192,7 @@ class ApplicantController  extends BaseController
                         '<td>' . $product->status . '</td>' .
                         '<td>' . $product->email . '</td>' .
                         '<td>' . $product->phone_number . '</td>' .
-                        '<td>' . decrypt($product->password) . '</td>' .
+                        '<td>' . $product->password_reference . '</td>' .
 //                        '<td><a href=' . url("superAdmin/dashboard/applicant-list-view/" . $product->id) . '><span class="label label-success">View</span></a> </td>' .
                         '</tr>';
                 }
