@@ -77,7 +77,7 @@ class RegisteredUserController extends Controller
         $this->validator($request->all())->validate();
         $data = $request->all();
         $data['role'] = "Student";
-        $data['verification_code'] =sha1(time());
+        $data['verification_code'] =mt_rand(11111,99999);
         event(new Registered($user = $this->create($data)));
 
         if($user != null){
@@ -89,6 +89,18 @@ class RegisteredUserController extends Controller
     }
 
     public function verifyUser(Request $request){
+        $verification_code = \Illuminate\Support\Facades\Request::get('code');
+        $user = User::where(['verification_code' => $verification_code])->first();
+        if($user != null){
+            $user->status = 'active';
+            $user->save();
+            return redirect()->route('login')->with(session()->flash('alert-success', 'Your account is verified. Please login!'));
+        }
+
+        return redirect()->route('login')->with(session()->flash('alert-danger', 'Invalid verification code!'));
+    }
+
+    public function checkCode(Request $request){
         $verification_code = \Illuminate\Support\Facades\Request::get('code');
         $user = User::where(['verification_code' => $verification_code])->first();
         if($user != null){

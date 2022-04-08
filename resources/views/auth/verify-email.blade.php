@@ -14,6 +14,21 @@
             {{ __("साइन अप गर्नुभएकोमा धन्यवाद! सुरु गर्नु अघि। कृपया, हामीले भर्खरै तपाईलाई इमेल गरेको लिङ्कमा क्लिक गरेर तपाईले आफ्नो इमेल ठेगाना प्रमाणित गर्न सक्नुहुन्छ? यदि तपाईले इमेल प्राप्त गर्नुभएन भने हामी खुशीसाथ तपाईलाई अर्को पठाउनेछौं।") }}
         </div>
 
+        <form method="POST" action="{{ route('verify.user.code') }}">
+        @csrf
+
+        <!-- Email Address -->
+            <div>
+                <x-label for="Verification Code" :value="__('Verification Code')" />
+
+                <x-input id="verification_code" class="block mt-1 w-full" type="text" name="verification_code" :value="old('verification_code')" required autofocus />
+            </div>
+
+
+            <x-button class="ml-3">
+                {{ __('Verify') }}
+            </x-button>
+        </form>
         @if (session('status') == 'verification-link-sent')
             <div class="mb-4 font-medium text-sm text-green-600">
                 {{ __('A new verification link has been sent to the email address you provided during registration.') }}

@@ -7,9 +7,10 @@
     <br><br>
 
     <br>
-    Please click the below link to verify your email and activate your account!
+    Below is the Confirmation Code to active Your Account
     <br><br>
-    <a href="{{url("verify?code=".$email_data['verification_code'])}}">Click Here!</a>
+     <h1 style="font-size: 26px;">{{$email_data['verification_code']}}</h1>
+{{--    <a href="{{url("verify?code=".$email_data['verification_code'])}}">Click Here!</a>--}}
 
 {{--    <strong>--}}
 {{--    <br><br>--}}

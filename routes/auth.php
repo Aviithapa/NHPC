@@ -21,6 +21,10 @@ Route::get('/verify', [RegisteredUserController::class, 'verifyUser'])
     ->middleware('guest')
     ->name('verify.user');
 
+Route::post('/verify-user', [RegisteredUserController::class, 'checkCode'])
+    ->middleware('guest')
+    ->name('verify.user.code');
+
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
                 ->name('login');
