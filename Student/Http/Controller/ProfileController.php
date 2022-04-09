@@ -174,7 +174,7 @@ class ProfileController extends BaseController
         $profile = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
         if ($profile){
             if ($profile['level'] === 0 || $profile['level'] === null || $profile['level'] === 1){
-                session()->flash('success', 'Please fill your qualification details');
+                session()->flash('error', 'Please fill your qualification details');
                 return redirect()->to('student/dashboard/student/specific');
             }else{
                 $exam = $this->examProcessingRepository->getAll()->where('profile_id','=',$profile['id'])->where('state','!=','council');
@@ -197,26 +197,6 @@ class ProfileController extends BaseController
                     }
                 }
 
-
-//                $specific_program=$this->getAllLicencePassedRecord($profile['id']);
-//                if($specific_program) {
-//                    if ($specific_program['status'] == 'rejected') {
-//                        return view('student::pages.update-apply-exam', compact(  'specific_program'));
-//                    }else {
-//                        $level_related_program = $this->programRepository->getAll()->where('level_id', '=', $specific_program['level_id']);
-//                        $qualification = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id);
-//                        $all_program = [];
-//                        if ($qualification != null){
-//                            foreach ($qualification as $quali)
-//                                 $all_program = $this->programRepository->findById($quali['program_id']);
-//                        }
-//                        return view('student::pages.apply-exam', compact('level_related_program', 'specific_program', 'all_program'));
-//                    }
-//                }
-//                else{
-//                    session()->flash('success', 'You have already enrolled in licence Exam ');
-//                    return redirect()->back();
-//                }
             }
         }else{
             session()->flash('success', 'Please setup your profile details');

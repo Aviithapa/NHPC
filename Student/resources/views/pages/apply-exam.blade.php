@@ -51,10 +51,9 @@
                                             </div>
                                         <div class="row">
 
-
                                             <div class="col-lg-4">
                                                 <div class="col-md-12 col-lg-12">
-                                                    <label>Voucher Image</label><br>
+                                                    <h1 style="color: red; font-size: 26px; font-family: bold;">Voucher Image</h1><br>
                                                     @if(isset($data))
                                                         <img src="{{url(isset($data)?$data->getVoucherImage():imageNotFound())}}" height="250" width="200"
                                                              id="voucher_img">
