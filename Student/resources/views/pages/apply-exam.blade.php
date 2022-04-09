@@ -29,7 +29,19 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="card">
-
+'
+                                <div class="box-body" style="margin-left: 20px">
+                                    बैंक विवरण<br><br>
+                                    (क) राष्ट्रिय बाणिज्य बैंक ११५०००२१३३०१ <br>
+                                    (ख) नेपाल एस वि आई बैंक २०४३५२४०१००००८ <br>
+                                    (ग) हिमालयन बैंक ००२००५७४६६००१६ <br> <br>
+                                     दस्तुर <br>
+                                      <br>
+                                    (क) विशिष्ठ तहको लागि     रु. 3000।– <br>
+                                    (ख) प्रथम तहको लागि     रु. 3000।– <br>
+                                    (ग) द्वितीय तहको लागि     रु. 3000।– <br>
+                                    (घ) तृतीय तहको लागि    रु. 3000।– <br>
+                                </div>
                                 <div class="card-body">
                                     <form method="POST" action="{{url('student/dashboard/apply/exam')}}">
                                         @csrf
