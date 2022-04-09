@@ -227,6 +227,10 @@ class ProfileController extends BaseController
 
     public function applyExam(Request $request){
         $data= $request->all();
+        if ($data['voucher'] == null){
+            session()->flash('error', 'Please upload the voucher image');
+            return redirect()->back();
+        }
         $profile_id = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
         $data["profile_id"] = $profile_id['id'];
         $data["state"] = 'computer_operator';
