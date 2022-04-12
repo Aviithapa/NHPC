@@ -12,6 +12,8 @@ class Municipality extends Model
 
     public $incrementing = false;
     public $keyType = 'string';
+    protected $table='municipalities';
+    protected $fillable=['district_name','name'];
 
     // Municipality Belongs To District Relation
 

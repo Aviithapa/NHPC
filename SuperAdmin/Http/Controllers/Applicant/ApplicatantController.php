@@ -8,6 +8,7 @@ use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepositor
 use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDetailsRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
+use Database\Seeders\District;
 use Faker\Provider\Base;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -99,5 +100,12 @@ class ApplicatantController extends BaseController
         }
     }
 
+
+    public function edit(){
+        dd("You are here");
+        $district = District::all();
+        return $this->view('admin.applicant.municipality', $district);
+
+    }
 
 }

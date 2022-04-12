@@ -280,6 +280,8 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::get('/search', 'ApplicantController@search')->middleware(['auth'])->name('search');
     Route::get('/user/list', 'ApplicantController@userIndex')->name('admin.user.list');
     Route::get('/loginSearch', 'ApplicantController@userSearch')->middleware(['auth'])->name('userSearch');
+    Route::get('/add/municipality', 'ApplicantController@municipality')->middleware(['auth'])->name('super.Admin.municipality');
+    Route::post('/add/municipality/data', 'ApplicantController@municipalitySave')->middleware(['auth'])->name('super.Admin.municipality.save');
 
     Route::get('/applicant-list-view/{id}','ApplicantController@edit')->middleware(['auth'])->name('superAdmin.applicant.list.review');
     Route::get('/active/{id}','ApplicantController@active')->middleware(['auth'])->name('superAdmin.active');

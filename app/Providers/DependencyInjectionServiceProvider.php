@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Modules\Backend\Address\Repositories\EloquentMunicipalityRepository;
+use App\Modules\Backend\Address\Repositories\MunicipalityRepository;
 use App\Modules\Backend\Admin\Category\Repositories\CategoryRepository;
 use App\Modules\Backend\Admin\Category\Repositories\EloquentCategoryRepository;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
@@ -131,6 +133,11 @@ class DependencyInjectionServiceProvider extends ServiceProvider
         $this->app->bind(
             CollegeRepository::class,
             EloquentCollageRepository::class
+        );
+
+        $this->app->bind(
+            MunicipalityRepository::class,
+            EloquentMunicipalityRepository::class
         );
     }
 }

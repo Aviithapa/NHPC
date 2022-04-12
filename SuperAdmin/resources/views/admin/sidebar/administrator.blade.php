@@ -43,6 +43,11 @@
                     <i class="icon-book-open"></i> <span>Link Certificate to Applicant List</span>
                 </a>
             </li>
+            <li class="{{ (request()->is('superAdmin/dashboard/add/municipality')) ? 'active':''  }}">
+                <a href="{{route('super.Admin.municipality')}}">
+                    <i class="icon-book-open"></i> <span>Add Municipality</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- /.sidebar -->
