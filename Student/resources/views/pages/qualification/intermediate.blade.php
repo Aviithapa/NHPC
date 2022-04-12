@@ -14,7 +14,6 @@
                     <fieldset class="form-group">
                         <label>Level</label>
                         <select class="form-control" name="level" id="level_type" onchange="levelIntermediate()" required>
-                            <option value="">--Select--</option>
                             <option value="pcllevel">PCL</option>
                             <option value="neblevel">HSEB/NEB</option>
                         </select>
@@ -52,7 +51,7 @@
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Program Name</label>
-                        <select class="form-control" name="program_id">
+                        <select class="form-control" name="program_id" id="nebProgramId">
                             <option value=""></option>
                             @foreach($plus_2_program as $program)
                                 <option value="{{$program->id}}">{{$program->name}}</option>
@@ -69,7 +68,7 @@
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Passed Year </label>
-                        <input name="passed_year" class="form-control" id="basicInput" type="number" min="2050" max="2078" step="1" placeholder="2075"/>
+                        <input name="passed_year" class="form-control" id="pclPassedYear" type="number" min="2050" max="2078" step="1" placeholder="2075"/>
                     </fieldset>
                 </div>
                 <div class="col-lg-4">
@@ -237,13 +236,13 @@
                     <div class="col-lg-4">
                         <fieldset class="form-group">
                             <label>Collage Name</label>
-                            <input name="collage_name" class="form-control" id="internationalValue" type="text">
+                            <input name="collage_name" class="form-control" id="nebcollagename" type="text">
                         </fieldset>
                     </div>
                     <div class="col-lg-4">
                         <fieldset class="form-group">
                             <label>Program Name</label>
-                            <select class="form-control" name="program_id">
+                            <select class="form-control" name="program_id" id="nebprogramid">
                                 <option value="115">Science</option>
                                 <option value="116">Management</option>
                             </select>
@@ -252,7 +251,7 @@
                     <div class="col-lg-4">
                         <fieldset class="form-group">
                             <label>Passed Year </label>
-                            <input name="passed_year" class="form-control" id="basicInput" type="number" min="2050" max="2078" step="1" placeholder="2075" />
+                            <input name="passed_year" class="form-control" id="nebpassedYear" type="number" min="2050" max="2078" step="1" placeholder="2075" />
                         </fieldset>
                     </div>
                     <div class="col-lg-4">
@@ -388,8 +387,14 @@
                 case 'pcllevel' :
                     $("#pclcnationalboard").attr('name', 'board_university');
                     $('#nepalValue').attr('name', 'collage_name');
+                    $('#pclPassedYear').attr('name', 'passed_year');
+                    $('#pclProgramId').attr('name', 'program_id');
+
+
                     $("#nebnationalboard").attr('name', 'nothing');
-                    $("#pclcnationalboard").attr('name', 'board_university');
+                    $("#nebprogramid").attr('name', 'nothing');
+                    $("#nebpassedYear").attr('name', 'nothing');
+                    $("#nebcollagename").attr('name', 'nothing');
 
                     $("#pcllevel").show();
                     $("#neb").hide();
@@ -397,6 +402,16 @@
 
                 case  'neblevel':
                     $("#nebnationalboard").attr('name', 'board_university');
+                    $("#nebprogramid").attr('name', 'program_id');
+                    $("#nebpassedYear").attr('name', 'passed_year');
+                    $("#nebcollagename").attr('name', 'collage_name');
+
+
+                    $("#pclcnationalboard").attr('name', 'nothing');
+                    $('#nepalValue').attr('name', 'nothing');
+                    $('#pclPassedYear').attr('name', 'nothing');
+                    $('#pclProgramId').attr('name', 'nothing');
+
                     $("#pcllevel").hide();
                     $("#neb").show();
                     break;

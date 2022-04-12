@@ -121,6 +121,12 @@ class QualificationController extends BaseController
                 }
                 session()->flash('success', 'Qualification updated successfully');
 
+                $qualifications = Qualification::get()->where('user_id','=',Auth::user()->id);
+                foreach($qualifications as $qualification){
+                    if ($qualification['level'] != 2){
+                        $data['level'] = 2;
+                    }
+                }
                 return redirect()->route('qualification.update.index', ['id' => ++$data['level']]);
 
             } catch (\Exception $e) {
@@ -152,6 +158,10 @@ class QualificationController extends BaseController
     public function store(Request $request)
     {
         $data = $request->all();
+        $qualifications = Qualification::get()->where('user_id','=',Auth::user()->id);
+        $profile=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+
+
         $data['name'] = $data['level'];
         $data['user_id'] = Auth::user()->id;
         switch ($data['level']){

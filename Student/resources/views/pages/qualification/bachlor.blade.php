@@ -31,7 +31,7 @@
                     <fieldset class="form-group">
                         <label>Collage Name</label>
 
-                        <select class="form-control" name="collage_name"  id="bachornepalValue" required>
+                        <select class="form-control" name="collage_name"  id="bachornepalValue" >
                             <option value=""></option>
                             @foreach($collage as $program)
                                 <option value="{{$program->name}}">{{$program->name}}</option>
@@ -49,7 +49,7 @@
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Program Name</label>
-                        <select class="form-control" name="program_id" required>
+                        <select class="form-control" name="program_id" >
                             <option value=""></option>
                             @foreach($bachelor_program as $program)
                                 <option value="{{$program->id}}">{{$program->name}}</option>
