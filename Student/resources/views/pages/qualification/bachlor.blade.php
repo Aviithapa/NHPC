@@ -101,7 +101,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>First Year MarkSheet Image *</label><br>
+                                <label>First Year / Semester MarkSheet Image *</label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscript1Image():imageNotFound())}}" height="250" width="200"
                                          id="transcript_bac_1_img">
@@ -132,7 +132,7 @@
 
                         <div class="col-lg-4">
                         <div class="col-md-12 col-lg-12">
-                            <label>Second Year MarkSheet Image *</label><br>
+                            <label>Second Year / Semester MarkSheet Image *</label><br>
                             @if(isset($data))
                                 <img src="{{url(isset($data)?$data->getTranscript1Image():imageNotFound())}}" height="250" width="200"
                                      id="transcript_bac_2_img">
@@ -163,7 +163,7 @@
                         <div class="col-lg-4">
 
                         <div class="col-md-12 col-lg-12">
-                        <label>Thrid Year MarkSheet Image *</label><br>
+                        <label>Third Year / Semester MarkSheet Image *</label><br>
                         @if(isset($data))
                             <img src="{{url(isset($data)?$data->getTranscript1Image():imageNotFound())}}" height="250" width="200"
                                  id="transcript_bac_3_img">
@@ -195,7 +195,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Fourth YearMarkSheet Image *</label><br>
+                                <label>Fourth Year / Semester MarkSheet Image *</label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
                                          id="transcript_bac_img">
@@ -223,6 +223,128 @@
                                 {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                             </div>
                         </div>
+
+                        <div class="col-lg-4">
+                            <div class="col-md-12 col-lg-12">
+                                <label>Fifth Semester MarkSheet Image </label><br>
+                                @if(isset($data))
+                                    <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
+                                         id="transcript_bac_5_img">
+
+                                @else
+                                    <img src="{{isset($data)?$data->getTranscriptImage():imageNotFound('user')}}" height="250" width="200"
+                                         id="transcript_bac_5_img">
+                                @endif
+                            </div>
+
+                            <div class="form-group col-md-12 col-lg-12">
+                                <small>Below 1 mb</small><br>
+                                <small id="transcript_bac_5_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="transcript_bac_5_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
+                                <input type="file" id="transcript_bac_5_image" name="transcript_bac_5_image"
+                                       onclick="anyFileUploader('transcript_bac_5')">
+                                <input type="hidden" id="transcript_bac_5_path" name="transcript_bac_5" class="form-control"
+                                       value="{{isset($data)?$data->transcript_bac_5_image:''}}"/>
+                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="col-md-12 col-lg-12">
+                                <label>Sixth Semester MarkSheet Image </label><br>
+                                @if(isset($data))
+                                    <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
+                                         id="transcript_bac_6_img">
+
+                                @else
+                                    <img src="{{isset($data)?$data->getTranscriptImage():imageNotFound('user')}}" height="250" width="200"
+                                         id="transcript_bac_6_img">
+                                @endif
+                            </div>
+
+                            <div class="form-group col-md-12 col-lg-12">
+                                <small>Below 1 mb</small><br>
+                                <small id="transcript_bac_6_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="transcript_bac_6_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
+                                <input type="file" id="transcript_bac_6_image" name="transcript_bac_6_image"
+                                       onclick="anyFileUploader('transcript_bac_6')">
+                                <input type="hidden" id="transcript_bac_6_path" name="transcript_bac_6" class="form-control"
+                                       value="{{isset($data)?$data->transcript_bac_6_image:''}}"/>
+                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="col-md-12 col-lg-12">
+                                <label>Seventh Semester MarkSheet Image </label><br>
+                                @if(isset($data))
+                                    <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
+                                         id="transcript_bac_7_img">
+
+                                @else
+                                    <img src="{{isset($data)?$data->getTranscriptImage():imageNotFound('user')}}" height="250" width="200"
+                                         id="transcript_bac_7_img">
+                                @endif
+                            </div>
+
+                            <div class="form-group col-md-12 col-lg-12">
+                                <small>Below 1 mb</small><br>
+                                <small id="transcript_bac_7_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="transcript_bac_7_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
+                                <input type="file" id="transcript_bac_7_image" name="transcript_bac_7_image"
+                                       onclick="anyFileUploader('transcript_bac_7')">
+                                <input type="hidden" id="transcript_bac_7_path" name="transcript_bac_7" class="form-control"
+                                       value="{{isset($data)?$data->transcript_bac_7:''}}"/>
+                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="col-md-12 col-lg-12">
+                                <label>Eight Semester MarkSheet Image </label><br>
+                                @if(isset($data))
+                                    <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
+                                         id="transcript_bac_8_img">
+
+                                @else
+                                    <img src="{{isset($data)?$data->getTranscriptImage():imageNotFound('user')}}" height="250" width="200"
+                                         id="transcript_bac_8_img">
+                                @endif
+                            </div>
+
+                            <div class="form-group col-md-12 col-lg-12">
+                                <small>Below 1 mb</small><br>
+                                <small id="transcript_bac_8_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="transcript_bac_8_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
+                                <input type="file" id="transcript_bac_8_image" name="transcript_bac_8_image"
+                                       onclick="anyFileUploader('transcript_bac_8')">
+                                <input type="hidden" id="transcript_bac_8_path" name="transcript_bac_8" class="form-control"
+                                       value="{{isset($data)?$data->transcript_bac_8:''}}"/>
+                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                            </div>
+                        </div>
+
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
                                 <label>Provisional Image *</label><br>
