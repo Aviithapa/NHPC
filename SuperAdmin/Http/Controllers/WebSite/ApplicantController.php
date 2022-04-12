@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseController;
 use App\Models\Address\Municipality;
 use App\Models\Website\Post;
 use App\Modules\Backend\Address\Repositories\MunicipalityRepository;
+use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
@@ -30,7 +31,7 @@ class ApplicantController  extends BaseController
     private $log, $profileProcessing, $profileRepository,
         $userRepository, $qualificationRepository,
         $user_data, $profileLogsRepository, $profileProcessingRepository,
-        $municipalityRepository,
+        $municipalityRepository, $collageRepository,
         $examRepository, $examProcessingRepository, $examProcessingDetailsRepository;
 
     private $commonView = 'operator::pages.';
@@ -53,7 +54,7 @@ class ApplicantController  extends BaseController
 
     public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
                                 ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
-                                ExamRepository $examRepository, MunicipalityRepository $municipalityRepository,
+                                ExamRepository $examRepository, MunicipalityRepository $municipalityRepository, CollegeRepository $collageRepository,
                                 ExamProcessingRepository $examProcessingRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository)
     {
         $this->viewData['commonRoute'] = $this->commonRoute;
@@ -68,6 +69,7 @@ class ApplicantController  extends BaseController
         $this->examRepository = $examRepository;
         $this->examProcessingRepository = $examProcessingRepository;
         $this->municipalityRepository = $municipalityRepository;
+        $this->collageRepository = $collageRepository;
         $this->examProcessingDetailsRepository = $examProcessingDetailsRepository;
         parent::__construct();
     }
@@ -287,6 +289,24 @@ class ApplicantController  extends BaseController
         }
 
         session()->flash('success', 'New Municipality has been added');
+        return redirect()->back();
+
+    }
+
+    public function collage(){
+        $data = \App\Models\Address\District::all();
+        return view('superAdmin::admin.applicant.collage', compact("data"));
+
+    }
+    public function collageSave(Request $request){
+        $data= $request->all();
+        $mun = $this->collageRepository->create($data);
+        if ($mun == false) {
+            session()->flash('error', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+
+        session()->flash('success', 'New Collage has been added');
         return redirect()->back();
 
     }

@@ -48,6 +48,11 @@
                     <i class="icon-book-open"></i> <span>Add Municipality</span>
                 </a>
             </li>
+            <li class="{{ (request()->is('superAdmin/dashboard/add/collage')) ? 'active':''  }}">
+                <a href="{{route('super.Admin.collage')}}">
+                    <i class="icon-book-open"></i> <span>Add Collage</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- /.sidebar -->

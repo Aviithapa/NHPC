@@ -283,6 +283,10 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::get('/add/municipality', 'ApplicantController@municipality')->middleware(['auth'])->name('super.Admin.municipality');
     Route::post('/add/municipality/data', 'ApplicantController@municipalitySave')->middleware(['auth'])->name('super.Admin.municipality.save');
 
+    Route::get('/add/collage', 'ApplicantController@collage')->middleware(['auth'])->name('super.Admin.collage');
+    Route::post('/add/collage/data', 'ApplicantController@collageSave')->middleware(['auth'])->name('super.Admin.collage.save');
+
+
     Route::get('/applicant-list-view/{id}','ApplicantController@edit')->middleware(['auth'])->name('superAdmin.applicant.list.review');
     Route::get('/active/{id}','ApplicantController@active')->middleware(['auth'])->name('superAdmin.active');
     Route::get('/inactive/{id}','ApplicantController@inactive')->middleware(['auth'])->name('superAdmin.active');

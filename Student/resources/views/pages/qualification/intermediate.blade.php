@@ -243,8 +243,8 @@
                         <fieldset class="form-group">
                             <label>Program Name</label>
                             <select class="form-control" name="program_id" id="nebprogramid">
-                                <option value="115">Science</option>
-                                <option value="116">Management</option>
+                                <option value="116">Science</option>
+                                <option value="117">Management</option>
                             </select>
                         </fieldset>
                     </div>
