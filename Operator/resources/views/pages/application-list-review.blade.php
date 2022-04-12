@@ -213,7 +213,7 @@
                                                                 <td>{{$qualifications->getLevelName()}}</td>
                                                                 <td>{{$qualifications->board_university}}</td>
                                                                 <td>{{$qualifications->getProgramName()}}</td>
-                                                                <td>{{$qualifications->collage_id}}</td>
+                                                                <td>{{$qualifications->collage_name}}</td>
                                                             </tr>
                                                         @endforeach
                                                         </tbody>
@@ -362,10 +362,9 @@
                                                 <label class="col-sm-12">Select Status</label>
                                                 <div class="col-sm-12">
                                                     <select class="form-control form-control-line" name="profile_status" required>
-                                                        <option >{{$data->profile_status}}</option>
-                                                        <option value="Reviewing">Reviewing</option>
-                                                        <option value="Reviewing">Verified</option>
                                                         <option value="Rejected">Rejected</option>
+                                                        <option value="Reviewing">Verified</option>
+                                                        <option value="Reviewing">Reviewing</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -507,8 +506,14 @@
         </div>
         <!-- /.content -->
         <!-- /.content -->
+        <style>
+            .modal-body {
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+        </style>
         <div class="modal" id="modal01">
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" onclick="$('#modal01').css('display','none')" class="close"  aria-label="Close">
