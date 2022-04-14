@@ -262,7 +262,13 @@
                                                             <td><img src="{{$qualifications->getCharacterImage()}}" onclick="onClick(this)"  alt="Character Image" width="200" height="200"></td>
                                                             <td><img src="{{$qualifications->getProvisionalImage()}}" onclick="onClick(this)"  alt="Provisional Image" width="200" height="200"></td>
                                                         </tr>
-                                                        @if($qualifications['level'] == 3)
+                                                        @if($qualifications['level'] == 2)
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><img src="{{$qualifications->getOJTImage()}}" onclick="onClick(this)"  alt="Ojt tslc image" width="200" height="200"></td>
+                                                             </tr>
+                                                        @endif
+                                                            @if($qualifications['level'] == 3)
                                                             <tr>
                                                                 <td></td>
                                                                 <td><img src="{{$qualifications->getOjtImage()}}" onclick="onClick(this)"  alt="Transcript 1 Image" width="200" height="200"></td>
@@ -522,6 +528,7 @@
             .modal-body {
                 max-height: 80vh;
                 overflow-y: auto;
+                max-width: 100vh;
             }
         </style>
         <div class="modal" id="modal01">
