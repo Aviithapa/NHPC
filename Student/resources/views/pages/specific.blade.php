@@ -42,7 +42,7 @@
 
             <div class="content">
                         @include('student::pages.qualification.slc')
-                    <div id="tslc" >
+                    <div id="tslc" style="margin-top: 30px;">
                         @include('student::pages.qualification.tslc')
                     </div>
                     <div id="pcl" >

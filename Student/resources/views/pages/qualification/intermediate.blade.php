@@ -20,6 +20,7 @@
                         <input type="hidden" name="level" class="form-control" value="3"/>
                     </fieldset>
                 </div>
+            </div>
                 <div id="pcllevel">
                 <div class="row">
                 <div class="col-lg-4">
@@ -100,6 +101,44 @@
                         </select>
                     </fieldset>
                 </div>
+                </div>
+                </div>
+                <div id="neb">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label>Collage Name</label>
+                                <input name="collage_name" class="form-control" id="nebcollagename" type="text">
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label>Program Name</label>
+                                <select class="form-control" name="program_id" id="nebprogramid">
+                                    <option value="116">Science</option>
+                                    <option value="117">Management</option>
+                                </select>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label>Passed Year </label>
+                                <input name="passed_year" class="form-control" id="nebpassedYear" type="number" min="2050" max="2078" step="1" placeholder="2075" />
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label>Board </label>
+                                <select class="form-control" name="board_university" id="nebnationalboard" >
+                                    <option value=""></option>
+                                    <option value="HSEB">HSEB</option>
+                                    <option value="NEB">NEB</option>
+                                </select>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="grid-body ">
                     <div class="row">
                         <div class="col-lg-4">
@@ -227,144 +266,39 @@
                             </div>
                         </div>
 
-                    </div>
-                </div>
-                </div>
-            </div>
-                <div id="neb">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <fieldset class="form-group">
-                            <label>Collage Name</label>
-                            <input name="collage_name" class="form-control" id="nebcollagename" type="text">
-                        </fieldset>
-                    </div>
-                    <div class="col-lg-4">
-                        <fieldset class="form-group">
-                            <label>Program Name</label>
-                            <select class="form-control" name="program_id" id="nebprogramid">
-                                <option value="116">Science</option>
-                                <option value="117">Management</option>
-                            </select>
-                        </fieldset>
-                    </div>
-                    <div class="col-lg-4">
-                        <fieldset class="form-group">
-                            <label>Passed Year </label>
-                            <input name="passed_year" class="form-control" id="nebpassedYear" type="number" min="2050" max="2078" step="1" placeholder="2075" />
-                        </fieldset>
-                    </div>
-                    <div class="col-lg-4">
-                        <fieldset class="form-group">
-                            <label>Board </label>
-                            <select class="form-control" name="board_university" id="nebnationalboard" >
-                                <option value=""></option>
-                                <option value="HSEB">HSEB</option>
-                                <option value="NEB">NEB</option>
-                            </select>
-                        </fieldset>
-                    </div>
+                        <div class="col-lg-4">
+                            <label>Clinical / Community Work Image *</label>
+                            <div class="col-md-12 col-lg-12">
+                                @if(isset($data))
+                                    <img src="{{url(isset($data)?$data->getOjt2Image():imageNotFound())}}" height="250" width="200"
+                                         id="ojt_pcl_community_2_img">
 
-
-                    <div class="grid-body ">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="col-md-12 col-lg-12">
-                                    <label>Marksheet Image *</label>
-                                    @if(isset($data))
-                                        <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
-                                             id="transcript_neb_img">
-
-                                    @else
-                                        <img src="{{isset($data)?$data->getTranscriptImage():imageNotFound('user')}}" height="250" width="200"
-                                             id="transcript_neb_img">
-                                    @endif
-                                </div>
-
-                                <div class="form-group col-md-12 col-lg-12">
-                                    <small>Below 1 mb</small><br>
-                                    <small id="transcript_neb_help_text" class="help-block"></small>
-                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
-                                         aria-valuemax="100"
-                                         aria-valuenow="0">
-                                        <div id="transcript_neb_progress" class="progress-bar progress-bar-success"
-                                             style="width: 0%">
-                                        </div>
-                                    </div><br>
-                                    <input type="file" id="transcript_neb_image" name="transcript_neb_image"
-                                           onclick="anyFileUploader('transcript_neb')">
-                                    <input type="hidden" id="transcript_neb_path" name="transcript_pcl" class="form-control"
-                                           value="{{isset($data)?$data->transcript_image:''}}"/>
-                                    {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
-                                </div>
+                                @else
+                                    <img src="{{isset($data)?$data->getOjt2Image():imageNotFound('user')}}" height="250" width="200"
+                                         id="ojt_pcl_community_2_img">
+                                @endif
                             </div>
-                            <div class="col-lg-4">
-                                <div class="col-md-12 col-lg-12">
-                                    <label>Provisional Image *</label><br>
-                                    @if(isset($data))
-                                        <img src="{{url(isset($data)?$data->getProvisionalImage():imageNotFound())}}" height="250" width="200"
-                                             id="provisional_neb_img">
 
-                                    @else
-                                        <img src="{{isset($data)?$data->getProvisionalImage():imageNotFound('user')}}" height="250" width="200"
-                                             id="provisional_neb_img">
-                                    @endif
-                                </div>
-
-                                <div class="form-group col-md-12 col-lg-12">
-                                    <small>Below 1 mb</small><br>
-                                    <small id="provisional_neb_help_text" class="help-block"></small>
-                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
-                                         aria-valuemax="100"
-                                         aria-valuenow="0">
-                                        <div id="provisional_neb_progress" class="progress-bar progress-bar-success"
-                                             style="width: 0%">
-                                        </div>
-                                    </div><br>
-                                    <input type="file" id="provisional_neb_image" name="provisional_neb_image"
-                                           onclick="anyFileUploader('provisional_neb')">
-                                    <input type="hidden" id="provisional_neb_path" name="provisional_pcl" class="form-control"
-                                           value="{{isset($data)?$data->provisional_image:''}}"/>
-                                    {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="col-md-12 col-lg-12">
-                                    <label>Character Image *</label><br>
-                                    @if(isset($data))
-                                        <img src="{{url(isset($data)?$data->getCharacterImage():imageNotFound())}}" height="250" width="200"
-                                             id="character_neb_img">
-
-                                    @else
-                                        <img src="{{isset($data)?$data->getCharacterImage():imageNotFound('user')}}" height="250" width="200"
-                                             id="character_neb_img">
-                                    @endif
-                                </div>
-
-                                <div class="form-group col-md-12 col-lg-12">
-                                    <small>Below 1 mb</small><br>
-                                    <small id="character_neb_help_text" class="help-block"></small>
-                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
-                                         aria-valuemax="100"
-                                         aria-valuenow="0">
-                                        <div id="character_neb_progress" class="progress-bar progress-bar-success"
-                                             style="width: 0%">
-                                        </div>
-                                    </div><br>
-                                    <input type="file" id="character_neb_image" name="character_neb_image"
-                                           onclick="anyFileUploader('character_neb')">
-                                    <input type="hidden" id="character_neb_path" name="character_pcl" class="form-control"
-                                           value="{{isset($data)?$data->character_image:''}}"/>
-                                    {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
-                                </div>
+                            <div class="form-group col-md-12 col-lg-12">
+                                <small>Below 1 mb</small><br>
+                                <small id="ojt_pcl_community_2_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="ojt_pcl_community_2_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
+                                <input type="file" id="ojt_pcl_community_2_image" name="ojt_pcl_community_2_image"
+                                       onclick="anyFileUploader('ojt_pcl_community_2')">
+                                <input type="hidden" id="ojt_pcl_community_2_path" name="ojt_pcl_community_2_image" class="form-control"
+                                       value="{{isset($data)?$data->ojt_community_2_image:''}}"/>
+                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                             </div>
                         </div>
 
                     </div>
-
                 </div>
-                </div>
-            </div>
 
             <button type="submit" class="btn btn-primary float-right mt-2"><i class="fa fa-check"></i>
                 Save</button>

@@ -160,8 +160,6 @@ class QualificationController extends BaseController
         $data = $request->all();
         $qualifications = Qualification::get()->where('user_id','=',Auth::user()->id);
         $profile=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
-
-
         $data['name'] = $data['level'];
         $data['user_id'] = Auth::user()->id;
         switch ($data['level']){
