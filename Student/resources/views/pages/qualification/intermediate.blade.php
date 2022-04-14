@@ -81,7 +81,7 @@
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Registration Number</label>
-                        <input name="registration_number" class="form-control" id="basicInput" type="number">
+                        <input name="registration_number" class="form-control" id="basicInput" type="text">
                     </fieldset>
                 </div>
                 <div class="col-lg-4">

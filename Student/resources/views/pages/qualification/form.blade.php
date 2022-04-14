@@ -231,7 +231,7 @@
                                                  <div class="col-lg-4">
                                                      <fieldset class="form-group">
                                                          <label>Registration Number</label>
-                                                         <input name="registration_number" class="form-control" id="basicInput" type="number" required>
+                                                         <input name="registration_number" class="form-control" id="basicInput" type="text" required>
                                                      </fieldset>
                                                  </div>
                                                  <div class="col-lg-4">
@@ -388,219 +388,363 @@
                                         <form method="POST" action="{{url('student/dashboard/student/collage/data')}}">
                                             @csrf
 
-
                                             <div class="row">
-                                                <input type="hidden" name="level" class="form-control" value="3"/>
                                                 <div class="col-lg-4">
                                                     <fieldset class="form-group">
-                                                        <label>Collage Type</label>
-                                                        <select class="form-control" name="collage_type" id="collageType" onchange="chnagePclType()" required>
-                                                            <option value="nepal">Nepal</option>
-                                                            <option value="international">International</option>
+                                                        <label>Level</label>
+                                                        <select class="form-control" name="level" id="level_type" onchange="levelIntermediate()" required>
+                                                            <option value="pcllevel">PCL</option>
+                                                            <option value="neblevel">HSEB/NEB</option>
                                                         </select>
+                                                        <input type="hidden" name="level" class="form-control" value="3"/>
                                                     </fieldset>
                                                 </div>
-                                                <div class="col-lg-4" id="nepal">
-                                                    <fieldset class="form-group">
-                                                        <label>Collage Name</label>
-
-                                                        <select class="form-control" name="collage_name"  id="nepalValue" required>
-                                                            <option value=""></option>
-                                                            @foreach($collage as $program)
-                                                                <option value="{{$program->name}}">{{$program->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </fieldset>
-                                                </div>
-                                                <div class="col-lg-4" id="international">
-                                                    <fieldset class="form-group">
-                                                        <label>Collage Name</label>
-                                                        <input name="collage_name" class="form-control" id="internationalValue" type="text">
-                                                    </fieldset>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <fieldset class="form-group">
-                                                        <label>Program Name</label>
-                                                        <select class="form-control" name="program_id" required>
-                                                            <option value=""></option>
-                                                            @foreach($plus_2_program as $program)
-                                                                <option value="{{$program->id}}">{{$program->name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </fieldset>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <fieldset class="form-group">
-                                                        <label>Admission Year </label>
-                                                        <input name="admission_year" class="form-control" id="basicInput" type="number" min="2050" max="2078" step="1" placeholder="2075" required/>
-                                                    </fieldset>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <fieldset class="form-group">
-                                                        <label>Passed Year </label>
-                                                        <input name="passed_year" class="form-control" id="basicInput" type="number" min="2050" max="2078" step="1" placeholder="2075" required/>
-                                                    </fieldset>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <fieldset class="form-group">
-                                                        <label>Board</label>
-                                                        <input name="board_university" class="form-control" id="pclnationalboard" type="text" value="CTEVT, Nepal" readonly>
-                                                        <input name="board_university" class="form-control" id="pclinternationalboard" type="text" >
-                                                    </fieldset>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <fieldset class="form-group">
-                                                        <label>Registration Number</label>
-                                                        <input name="registration_number" class="form-control" id="basicInput" type="number" required>
-                                                    </fieldset>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <fieldset class="form-group">
-                                                        <label>Hospital Name</label>
-                                                        <input name="hospital_name" class="form-control" id="basicInput" type="text">
-                                                    </fieldset>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <fieldset class="form-group">
-                                                        <label>Is Registrated</label>
-                                                        <select class="form-control" name="is_registrated">
-                                                            <option value=""></option>
-                                                            <option value="yes">Yes</option>
-                                                            <option value="no">No</option>
-                                                        </select>
-                                                    </fieldset>
-                                                </div>
-                                                <div class="grid-body ">
+                                                <div id="pcllevel">
                                                     <div class="row">
                                                         <div class="col-lg-4">
-                                                            <div class="col-md-12 col-lg-12">
-                                                                <label>Marksheet Image *</label>
-                                                                @if(isset($data))
-                                                                    <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
-                                                                         id="transcript_pcl_img">
-
-                                                                @else
-                                                                    <img src="{{isset($data)?$data->getTranscriptImage():imageNotFound('user')}}" height="250" width="200"
-                                                                         id="transcript_pcl_img">
-                                                                @endif
-                                                            </div>
-
-                                                            <div class="form-group col-md-12 col-lg-12">
-                                                                <small>Below 1 mb</small><br>
-                                                                <small id="transcript_pcl_help_text" class="help-block"></small>
-                                                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
-                                                                     aria-valuemax="100"
-                                                                     aria-valuenow="0">
-                                                                    <div id="transcript_pcl_progress" class="progress-bar progress-bar-success"
-                                                                         style="width: 0%">
-                                                                    </div>
-                                                                </div><br>
-                                                                <input type="file" id="transcript_pcl_image" name="transcript_pcl_image"
-                                                                       onclick="anyFileUploader('transcript_pcl')">
-                                                                <input type="hidden" id="transcript_pcl_path" name="transcript_pcl" class="form-control"
-                                                                       value="{{isset($data)?$data->transcript_image:''}}"/>
-                                                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
-                                                            </div>
+                                                            <fieldset class="form-group">
+                                                                <label>Collage Type</label>
+                                                                <select class="form-control" name="collage_type" id="collageType" onchange="chnagePclType()">
+                                                                    <option value="nepal">Nepal</option>
+                                                                    <option value="international">International</option>
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-lg-4" id="nepal">
+                                                            <fieldset class="form-group">
+                                                                <label>Collage Name</label>
+                                                                <select class="form-control" name="collage_name"  id="nepalValue">
+                                                                    <option value=""></option>
+                                                                    @foreach($collage as $program)
+                                                                        <option value="{{$program->name}}">{{$program->name}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-lg-4" id="international">
+                                                            <fieldset class="form-group">
+                                                                <label>Collage Name</label>
+                                                                <input name="collage_name" class="form-control" id="internationalValue" type="text">
+                                                            </fieldset>
                                                         </div>
                                                         <div class="col-lg-4">
-                                                            <div class="col-md-12 col-lg-12">
-                                                                <label>Provisional Image *</label><br>
-                                                                @if(isset($data))
-                                                                    <img src="{{url(isset($data)?$data->getProvisionalImage():imageNotFound())}}" height="250" width="200"
-                                                                         id="provisional_pcl_img">
-
-                                                                @else
-                                                                    <img src="{{isset($data)?$data->getProvisionalImage():imageNotFound('user')}}" height="250" width="200"
-                                                                         id="provisional_pcl_img">
-                                                                @endif
-                                                            </div>
-
-                                                            <div class="form-group col-md-12 col-lg-12">
-                                                                <small>Below 1 mb</small><br>
-                                                                <small id="provisional_pcl_help_text" class="help-block"></small>
-                                                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
-                                                                     aria-valuemax="100"
-                                                                     aria-valuenow="0">
-                                                                    <div id="provisional_pcl_progress" class="progress-bar progress-bar-success"
-                                                                         style="width: 0%">
-                                                                    </div>
-                                                                </div><br>
-                                                                <input type="file" id="provisional_pcl_image" name="provisional_pcl_image"
-                                                                       onclick="anyFileUploader('provisional_pcl')">
-                                                                <input type="hidden" id="provisional_pcl_path" name="provisional_pcl" class="form-control"
-                                                                       value="{{isset($data)?$data->provisional_image:''}}"/>
-                                                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
-                                                            </div>
+                                                            <fieldset class="form-group">
+                                                                <label>Program Name</label>
+                                                                <select class="form-control" name="program_id" id="nebProgramId">
+                                                                    <option value=""></option>
+                                                                    @foreach($plus_2_program as $program)
+                                                                        <option value="{{$program->id}}">{{$program->name}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </fieldset>
                                                         </div>
                                                         <div class="col-lg-4">
-                                                            <div class="col-md-12 col-lg-12">
-                                                                <label>Character Image *</label><br>
-                                                                @if(isset($data))
-                                                                    <img src="{{url(isset($data)?$data->getCharacterImage():imageNotFound())}}" height="250" width="200"
-                                                                         id="character_pcl_img">
+                                                            <fieldset class="form-group">
+                                                                <label>Admission Year </label>
+                                                                <input name="admission_year" class="form-control" id="basicInput" type="number" min="2050" max="2078" step="1" placeholder="2075"/>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <fieldset class="form-group">
+                                                                <label>Passed Year </label>
+                                                                <input name="passed_year" class="form-control" id="pclPassedYear" type="number" min="2050" max="2078" step="1" placeholder="2075"/>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <fieldset class="form-group">
+                                                                <label>Board</label>
+                                                                <input name="board_university" class="form-control" id="pclnationalboard" type="text" value="CTEVT, Nepal" readonly>
+                                                                <input name="board_university" class="form-control" id="pclinternationalboard" type="text" >
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <fieldset class="form-group">
+                                                                <label>Registration Number</label>
+                                                                <input name="registration_number" class="form-control" id="basicInput" type="text">
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <fieldset class="form-group">
+                                                                <label>Hospital Name</label>
+                                                                <input name="hospital_name" class="form-control" id="basicInput" type="text">
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <fieldset class="form-group">
+                                                                <label>Is Registrated</label>
+                                                                <select class="form-control" name="is_registrated">
+                                                                    <option value=""></option>
+                                                                    <option value="yes">Yes</option>
+                                                                    <option value="no">No</option>
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="grid-body ">
+                                                            <div class="row">
+                                                                <div class="col-lg-4">
+                                                                    <div class="col-md-12 col-lg-12">
+                                                                        <label>Marksheet Image *</label>
+                                                                        @if(isset($data))
+                                                                            <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
+                                                                                 id="transcript_pcl_img">
 
-                                                                @else
-                                                                    <img src="{{isset($data)?$data->getCharacterImage():imageNotFound('user')}}" height="250" width="200"
-                                                                         id="character_pcl_img">
-                                                                @endif
+                                                                        @else
+                                                                            <img src="{{isset($data)?$data->getTranscriptImage():imageNotFound('user')}}" height="250" width="200"
+                                                                                 id="transcript_pcl_img">
+                                                                        @endif
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-12 col-lg-12">
+                                                                        <small>Below 1 mb</small><br>
+                                                                        <small id="transcript_pcl_help_text" class="help-block"></small>
+                                                                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                                                             aria-valuemax="100"
+                                                                             aria-valuenow="0">
+                                                                            <div id="transcript_pcl_progress" class="progress-bar progress-bar-success"
+                                                                                 style="width: 0%">
+                                                                            </div>
+                                                                        </div><br>
+                                                                        <input type="file" id="transcript_pcl_image" name="transcript_pcl_image"
+                                                                               onclick="anyFileUploader('transcript_pcl')">
+                                                                        <input type="hidden" id="transcript_pcl_path" name="transcript_pcl" class="form-control"
+                                                                               value="{{isset($data)?$data->transcript_image:''}}"/>
+                                                                        {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="col-md-12 col-lg-12">
+                                                                        <label>Provisional Image *</label><br>
+                                                                        @if(isset($data))
+                                                                            <img src="{{url(isset($data)?$data->getProvisionalImage():imageNotFound())}}" height="250" width="200"
+                                                                                 id="provisional_pcl_img">
+
+                                                                        @else
+                                                                            <img src="{{isset($data)?$data->getProvisionalImage():imageNotFound('user')}}" height="250" width="200"
+                                                                                 id="provisional_pcl_img">
+                                                                        @endif
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-12 col-lg-12">
+                                                                        <small>Below 1 mb</small><br>
+                                                                        <small id="provisional_pcl_help_text" class="help-block"></small>
+                                                                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                                                             aria-valuemax="100"
+                                                                             aria-valuenow="0">
+                                                                            <div id="provisional_pcl_progress" class="progress-bar progress-bar-success"
+                                                                                 style="width: 0%">
+                                                                            </div>
+                                                                        </div><br>
+                                                                        <input type="file" id="provisional_pcl_image" name="provisional_pcl_image"
+                                                                               onclick="anyFileUploader('provisional_pcl')">
+                                                                        <input type="hidden" id="provisional_pcl_path" name="provisional_pcl" class="form-control"
+                                                                               value="{{isset($data)?$data->provisional_image:''}}"/>
+                                                                        {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="col-md-12 col-lg-12">
+                                                                        <label>Character Image *</label><br>
+                                                                        @if(isset($data))
+                                                                            <img src="{{url(isset($data)?$data->getCharacterImage():imageNotFound())}}" height="250" width="200"
+                                                                                 id="character_pcl_img">
+
+                                                                        @else
+                                                                            <img src="{{isset($data)?$data->getCharacterImage():imageNotFound('user')}}" height="250" width="200"
+                                                                                 id="character_pcl_img">
+                                                                        @endif
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-12 col-lg-12">
+                                                                        <small>Below 1 mb</small><br>
+                                                                        <small id="character_pcl_help_text" class="help-block"></small>
+                                                                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                                                             aria-valuemax="100"
+                                                                             aria-valuenow="0">
+                                                                            <div id="character_pcl_progress" class="progress-bar progress-bar-success"
+                                                                                 style="width: 0%">
+                                                                            </div>
+                                                                        </div><br>
+                                                                        <input type="file" id="character_pcl_image" name="character_pcl_image"
+                                                                               onclick="anyFileUploader('character_pcl')">
+                                                                        <input type="hidden" id="character_pcl_path" name="character_pcl" class="form-control"
+                                                                               value="{{isset($data)?$data->character_image:''}}"/>
+                                                                        {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                                                    </div>
+                                                                </div>
                                                             </div>
 
-                                                            <div class="form-group col-md-12 col-lg-12">
-                                                                <small>Below 1 mb</small><br>
-                                                                <small id="character_pcl_help_text" class="help-block"></small>
-                                                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
-                                                                     aria-valuemax="100"
-                                                                     aria-valuenow="0">
-                                                                    <div id="character_pcl_progress" class="progress-bar progress-bar-success"
-                                                                         style="width: 0%">
+
+                                                            <div class="row">
+                                                                <div class="col-lg-4">
+                                                                    <label>Clinical / Community Work Image *</label>
+                                                                    <div class="col-md-12 col-lg-12">
+                                                                        @if(isset($data))
+                                                                            <img src="{{url(isset($data)?$data->getOJTImage():imageNotFound())}}" height="250" width="200"
+                                                                                 id="ojt_pcl_img">
+
+                                                                        @else
+                                                                            <img src="{{isset($data)?$data->getOJTImage():imageNotFound('user')}}" height="250" width="200"
+                                                                                 id="ojt_pcl_img">
+                                                                        @endif
                                                                     </div>
-                                                                </div><br>
-                                                                <input type="file" id="character_pcl_image" name="character_pcl_image"
-                                                                       onclick="anyFileUploader('character_pcl')">
-                                                                <input type="hidden" id="character_pcl_path" name="character_pcl" class="form-control"
-                                                                       value="{{isset($data)?$data->character_image:''}}"/>
-                                                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+
+                                                                    <div class="form-group col-md-12 col-lg-12">
+                                                                        <small>Below 1 mb</small><br>
+                                                                        <small id="ojt_pcl_help_text" class="help-block"></small>
+                                                                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                                                             aria-valuemax="100"
+                                                                             aria-valuenow="0">
+                                                                            <div id="ojt_pcl_progress" class="progress-bar progress-bar-success"
+                                                                                 style="width: 0%">
+                                                                            </div>
+                                                                        </div><br>
+                                                                        <input type="file" id="ojt_pcl_image" name="ojt_pcl_image"
+                                                                               onclick="anyFileUploader('ojt_pcl')">
+                                                                        <input type="hidden" id="ojt_pcl_path" name="ojt_pcl_image" class="form-control"
+                                                                               value="{{isset($data)?$data->ojt_image:''}}"/>
+                                                                        {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
-
-
+                                                </div>
+                                                <div id="neb">
                                                     <div class="row">
                                                         <div class="col-lg-4">
-                                                            <label>Clinical / Community Work Image *</label>
-                                                            <div class="col-md-12 col-lg-12">
-                                                                @if(isset($data))
-                                                                    <img src="{{url(isset($data)?$data->getOJTImage():imageNotFound())}}" height="250" width="200"
-                                                                         id="ojt_pcl_img">
+                                                            <fieldset class="form-group">
+                                                                <label>Collage Name</label>
+                                                                <input name="collage_name" class="form-control" id="nebcollagename" type="text">
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <fieldset class="form-group">
+                                                                <label>Program Name</label>
+                                                                <select class="form-control" name="program_id" id="nebprogramid">
+                                                                    <option value="116">Science</option>
+                                                                    <option value="117">Management</option>
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <fieldset class="form-group">
+                                                                <label>Passed Year </label>
+                                                                <input name="passed_year" class="form-control" id="nebpassedYear" type="number" min="2050" max="2078" step="1" placeholder="2075" />
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <fieldset class="form-group">
+                                                                <label>Board </label>
+                                                                <select class="form-control" name="board_university" id="nebnationalboard" >
+                                                                    <option value=""></option>
+                                                                    <option value="HSEB">HSEB</option>
+                                                                    <option value="NEB">NEB</option>
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
 
-                                                                @else
-                                                                    <img src="{{isset($data)?$data->getOJTImage():imageNotFound('user')}}" height="250" width="200"
-                                                                         id="ojt_pcl_img">
-                                                                @endif
-                                                            </div>
 
-                                                            <div class="form-group col-md-12 col-lg-12">
-                                                                <small>Below 1 mb</small><br>
-                                                                <small id="ojt_pcl_help_text" class="help-block"></small>
-                                                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
-                                                                     aria-valuemax="100"
-                                                                     aria-valuenow="0">
-                                                                    <div id="ojt_pcl_progress" class="progress-bar progress-bar-success"
-                                                                         style="width: 0%">
+                                                        <div class="grid-body ">
+                                                            <div class="row">
+                                                                <div class="col-lg-4">
+                                                                    <div class="col-md-12 col-lg-12">
+                                                                        <label>Marksheet Image *</label>
+                                                                        @if(isset($data))
+                                                                            <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
+                                                                                 id="transcript_neb_img">
+
+                                                                        @else
+                                                                            <img src="{{isset($data)?$data->getTranscriptImage():imageNotFound('user')}}" height="250" width="200"
+                                                                                 id="transcript_neb_img">
+                                                                        @endif
                                                                     </div>
-                                                                </div><br>
-                                                                <input type="file" id="ojt_pcl_image" name="ojt_pcl_image"
-                                                                       onclick="anyFileUploader('ojt_pcl')">
-                                                                <input type="hidden" id="ojt_pcl_path" name="ojt_pcl_image" class="form-control"
-                                                                       value="{{isset($data)?$data->ojt_image:''}}"/>
-                                                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+
+                                                                    <div class="form-group col-md-12 col-lg-12">
+                                                                        <small>Below 1 mb</small><br>
+                                                                        <small id="transcript_neb_help_text" class="help-block"></small>
+                                                                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                                                             aria-valuemax="100"
+                                                                             aria-valuenow="0">
+                                                                            <div id="transcript_neb_progress" class="progress-bar progress-bar-success"
+                                                                                 style="width: 0%">
+                                                                            </div>
+                                                                        </div><br>
+                                                                        <input type="file" id="transcript_neb_image" name="transcript_neb_image"
+                                                                               onclick="anyFileUploader('transcript_neb')">
+                                                                        <input type="hidden" id="transcript_neb_path" name="transcript_pcl" class="form-control"
+                                                                               value="{{isset($data)?$data->transcript_image:''}}"/>
+                                                                        {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="col-md-12 col-lg-12">
+                                                                        <label>Provisional Image *</label><br>
+                                                                        @if(isset($data))
+                                                                            <img src="{{url(isset($data)?$data->getProvisionalImage():imageNotFound())}}" height="250" width="200"
+                                                                                 id="provisional_neb_img">
+
+                                                                        @else
+                                                                            <img src="{{isset($data)?$data->getProvisionalImage():imageNotFound('user')}}" height="250" width="200"
+                                                                                 id="provisional_neb_img">
+                                                                        @endif
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-12 col-lg-12">
+                                                                        <small>Below 1 mb</small><br>
+                                                                        <small id="provisional_neb_help_text" class="help-block"></small>
+                                                                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                                                             aria-valuemax="100"
+                                                                             aria-valuenow="0">
+                                                                            <div id="provisional_neb_progress" class="progress-bar progress-bar-success"
+                                                                                 style="width: 0%">
+                                                                            </div>
+                                                                        </div><br>
+                                                                        <input type="file" id="provisional_neb_image" name="provisional_neb_image"
+                                                                               onclick="anyFileUploader('provisional_neb')">
+                                                                        <input type="hidden" id="provisional_neb_path" name="provisional_pcl" class="form-control"
+                                                                               value="{{isset($data)?$data->provisional_image:''}}"/>
+                                                                        {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="col-md-12 col-lg-12">
+                                                                        <label>Character Image *</label><br>
+                                                                        @if(isset($data))
+                                                                            <img src="{{url(isset($data)?$data->getCharacterImage():imageNotFound())}}" height="250" width="200"
+                                                                                 id="character_neb_img">
+
+                                                                        @else
+                                                                            <img src="{{isset($data)?$data->getCharacterImage():imageNotFound('user')}}" height="250" width="200"
+                                                                                 id="character_neb_img">
+                                                                        @endif
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-12 col-lg-12">
+                                                                        <small>Below 1 mb</small><br>
+                                                                        <small id="character_neb_help_text" class="help-block"></small>
+                                                                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                                                             aria-valuemax="100"
+                                                                             aria-valuenow="0">
+                                                                            <div id="character_neb_progress" class="progress-bar progress-bar-success"
+                                                                                 style="width: 0%">
+                                                                            </div>
+                                                                        </div><br>
+                                                                        <input type="file" id="character_neb_image" name="character_neb_image"
+                                                                               onclick="anyFileUploader('character_neb')">
+                                                                        <input type="hidden" id="character_neb_path" name="character_pcl" class="form-control"
+                                                                               value="{{isset($data)?$data->character_image:''}}"/>
+                                                                        {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                                                    </div>
+                                                                </div>
                                                             </div>
+
                                                         </div>
 
                                                     </div>
                                                 </div>
-
                                             </div>
+
 
                                             <button type="submit" class="btn btn-primary float-right mt-2"><i class="fa fa-check"></i>
                                                 Save</button>
@@ -615,7 +759,6 @@
 
                                             <div class="row">
                                                 <input type="hidden" name="level" class="form-control" value="4"/>
-
                                                 <div class="col-lg-4">
                                                     <fieldset class="form-group">
                                                         <label>Collage Type</label>
@@ -629,7 +772,7 @@
                                                     <fieldset class="form-group">
                                                         <label>Collage Name</label>
 
-                                                        <select class="form-control" name="collage_name"  id="bachornepalValue" required>
+                                                        <select class="form-control" name="collage_name"  id="bachornepalValue" >
                                                             <option value=""></option>
                                                             @foreach($collage as $program)
                                                                 <option value="{{$program->name}}">{{$program->name}}</option>
@@ -647,7 +790,7 @@
                                                 <div class="col-lg-4">
                                                     <fieldset class="form-group">
                                                         <label>Program Name</label>
-                                                        <select class="form-control" name="program_id" required>
+                                                        <select class="form-control" name="program_id" >
                                                             <option value=""></option>
                                                             @foreach($bachelor_program as $program)
                                                                 <option value="{{$program->id}}">{{$program->name}}</option>
@@ -676,7 +819,7 @@
                                                 <div class="col-lg-4">
                                                     <fieldset class="form-group">
                                                         <label>Registration Number</label>
-                                                        <input name="registration_number" class="form-control" id="basicInput" type="number" required>
+                                                        <input name="registration_number" class="form-control" id="basicInput" type="text" required>
                                                     </fieldset>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -699,7 +842,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-4">
                                                             <div class="col-md-12 col-lg-12">
-                                                                <label>First Year MarkSheet Image *</label><br>
+                                                                <label>First Year / Semester MarkSheet Image *</label><br>
                                                                 @if(isset($data))
                                                                     <img src="{{url(isset($data)?$data->getTranscript1Image():imageNotFound())}}" height="250" width="200"
                                                                          id="transcript_bac_1_img">
@@ -730,7 +873,7 @@
 
                                                         <div class="col-lg-4">
                                                             <div class="col-md-12 col-lg-12">
-                                                                <label>Second Year MarkSheet Image *</label><br>
+                                                                <label>Second Year / Semester MarkSheet Image *</label><br>
                                                                 @if(isset($data))
                                                                     <img src="{{url(isset($data)?$data->getTranscript1Image():imageNotFound())}}" height="250" width="200"
                                                                          id="transcript_bac_2_img">
@@ -761,7 +904,7 @@
                                                         <div class="col-lg-4">
 
                                                             <div class="col-md-12 col-lg-12">
-                                                                <label>Thrid Year MarkSheet Image *</label><br>
+                                                                <label>Third Year / Semester MarkSheet Image *</label><br>
                                                                 @if(isset($data))
                                                                     <img src="{{url(isset($data)?$data->getTranscript1Image():imageNotFound())}}" height="250" width="200"
                                                                          id="transcript_bac_3_img">
@@ -793,7 +936,7 @@
                                                     <div class="row">
                                                         <div class="col-lg-4">
                                                             <div class="col-md-12 col-lg-12">
-                                                                <label>Fourth YearMarkSheet Image *</label><br>
+                                                                <label>Fourth Year / Semester MarkSheet Image *</label><br>
                                                                 @if(isset($data))
                                                                     <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
                                                                          id="transcript_bac_img">
@@ -821,6 +964,128 @@
                                                                 {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                                                             </div>
                                                         </div>
+
+                                                        <div class="col-lg-4">
+                                                            <div class="col-md-12 col-lg-12">
+                                                                <label>Fifth Semester MarkSheet Image </label><br>
+                                                                @if(isset($data))
+                                                                    <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
+                                                                         id="transcript_bac_5_img">
+
+                                                                @else
+                                                                    <img src="{{isset($data)?$data->getTranscriptImage():imageNotFound('user')}}" height="250" width="200"
+                                                                         id="transcript_bac_5_img">
+                                                                @endif
+                                                            </div>
+
+                                                            <div class="form-group col-md-12 col-lg-12">
+                                                                <small>Below 1 mb</small><br>
+                                                                <small id="transcript_bac_5_help_text" class="help-block"></small>
+                                                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                                                     aria-valuemax="100"
+                                                                     aria-valuenow="0">
+                                                                    <div id="transcript_bac_5_progress" class="progress-bar progress-bar-success"
+                                                                         style="width: 0%">
+                                                                    </div>
+                                                                </div><br>
+                                                                <input type="file" id="transcript_bac_5_image" name="transcript_bac_5_image"
+                                                                       onclick="anyFileUploader('transcript_bac_5')">
+                                                                <input type="hidden" id="transcript_bac_5_path" name="transcript_bac_5" class="form-control"
+                                                                       value="{{isset($data)?$data->transcript_bac_5_image:''}}"/>
+                                                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="col-md-12 col-lg-12">
+                                                                <label>Sixth Semester MarkSheet Image </label><br>
+                                                                @if(isset($data))
+                                                                    <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
+                                                                         id="transcript_bac_6_img">
+
+                                                                @else
+                                                                    <img src="{{isset($data)?$data->getTranscriptImage():imageNotFound('user')}}" height="250" width="200"
+                                                                         id="transcript_bac_6_img">
+                                                                @endif
+                                                            </div>
+
+                                                            <div class="form-group col-md-12 col-lg-12">
+                                                                <small>Below 1 mb</small><br>
+                                                                <small id="transcript_bac_6_help_text" class="help-block"></small>
+                                                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                                                     aria-valuemax="100"
+                                                                     aria-valuenow="0">
+                                                                    <div id="transcript_bac_6_progress" class="progress-bar progress-bar-success"
+                                                                         style="width: 0%">
+                                                                    </div>
+                                                                </div><br>
+                                                                <input type="file" id="transcript_bac_6_image" name="transcript_bac_6_image"
+                                                                       onclick="anyFileUploader('transcript_bac_6')">
+                                                                <input type="hidden" id="transcript_bac_6_path" name="transcript_bac_6" class="form-control"
+                                                                       value="{{isset($data)?$data->transcript_bac_6_image:''}}"/>
+                                                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="col-md-12 col-lg-12">
+                                                                <label>Seventh Semester MarkSheet Image </label><br>
+                                                                @if(isset($data))
+                                                                    <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
+                                                                         id="transcript_bac_7_img">
+
+                                                                @else
+                                                                    <img src="{{isset($data)?$data->getTranscriptImage():imageNotFound('user')}}" height="250" width="200"
+                                                                         id="transcript_bac_7_img">
+                                                                @endif
+                                                            </div>
+
+                                                            <div class="form-group col-md-12 col-lg-12">
+                                                                <small>Below 1 mb</small><br>
+                                                                <small id="transcript_bac_7_help_text" class="help-block"></small>
+                                                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                                                     aria-valuemax="100"
+                                                                     aria-valuenow="0">
+                                                                    <div id="transcript_bac_7_progress" class="progress-bar progress-bar-success"
+                                                                         style="width: 0%">
+                                                                    </div>
+                                                                </div><br>
+                                                                <input type="file" id="transcript_bac_7_image" name="transcript_bac_7_image"
+                                                                       onclick="anyFileUploader('transcript_bac_7')">
+                                                                <input type="hidden" id="transcript_bac_7_path" name="transcript_bac_7" class="form-control"
+                                                                       value="{{isset($data)?$data->transcript_bac_7:''}}"/>
+                                                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <div class="col-md-12 col-lg-12">
+                                                                <label>Eight Semester MarkSheet Image </label><br>
+                                                                @if(isset($data))
+                                                                    <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
+                                                                         id="transcript_bac_8_img">
+
+                                                                @else
+                                                                    <img src="{{isset($data)?$data->getTranscriptImage():imageNotFound('user')}}" height="250" width="200"
+                                                                         id="transcript_bac_8_img">
+                                                                @endif
+                                                            </div>
+
+                                                            <div class="form-group col-md-12 col-lg-12">
+                                                                <small>Below 1 mb</small><br>
+                                                                <small id="transcript_bac_8_help_text" class="help-block"></small>
+                                                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                                                     aria-valuemax="100"
+                                                                     aria-valuenow="0">
+                                                                    <div id="transcript_bac_8_progress" class="progress-bar progress-bar-success"
+                                                                         style="width: 0%">
+                                                                    </div>
+                                                                </div><br>
+                                                                <input type="file" id="transcript_bac_8_image" name="transcript_bac_8_image"
+                                                                       onclick="anyFileUploader('transcript_bac_8')">
+                                                                <input type="hidden" id="transcript_bac_8_path" name="transcript_bac_8" class="form-control"
+                                                                       value="{{isset($data)?$data->transcript_bac_8:''}}"/>
+                                                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                                            </div>
+                                                        </div>
+
                                                         <div class="col-lg-4">
                                                             <div class="col-md-12 col-lg-12">
                                                                 <label>Provisional Image *</label><br>
@@ -1012,6 +1277,8 @@
 
                                             </div>
 
+
+
                                             <button type="submit" class="btn btn-primary float-right mt-2"><i class="fa fa-check"></i>
                                                 Save</button>
 
@@ -1086,7 +1353,7 @@
                                                 <div class="col-lg-4">
                                                     <fieldset class="form-group">
                                                         <label>Registration Number</label>
-                                                        <input name="registration_number" class="form-control" id="basicInput" type="number" required>
+                                                        <input name="registration_number" class="form-control" id="basicInput" type="text" required>
                                                     </fieldset>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -1402,7 +1669,43 @@
 
 @push('scripts')
     <script>
-        $('.dropify').dropify();
+        function levelIntermediate(){
+            const sb = document.querySelector('#level_type');
+            switch (sb.value) {
+                case 'pcllevel' :
+                    $("#pclcnationalboard").attr('name', 'board_university');
+                    $('#nepalValue').attr('name', 'collage_name');
+                    $('#pclPassedYear').attr('name', 'passed_year');
+                    $('#pclProgramId').attr('name', 'program_id');
+
+
+                    $("#nebnationalboard").attr('name', 'nothing');
+                    $("#nebprogramid").attr('name', 'nothing');
+                    $("#nebpassedYear").attr('name', 'nothing');
+                    $("#nebcollagename").attr('name', 'nothing');
+
+                    $("#pcllevel").show();
+                    $("#neb").hide();
+                    break;
+
+                case  'neblevel':
+                    $("#nebnationalboard").attr('name', 'board_university');
+                    $("#nebprogramid").attr('name', 'program_id');
+                    $("#nebpassedYear").attr('name', 'passed_year');
+                    $("#nebcollagename").attr('name', 'collage_name');
+
+
+                    $("#pclcnationalboard").attr('name', 'nothing');
+                    $('#nepalValue').attr('name', 'nothing');
+                    $('#pclPassedYear').attr('name', 'nothing');
+                    $('#pclProgramId').attr('name', 'nothing');
+
+                    $("#pcllevel").hide();
+                    $("#neb").show();
+                    break;
+            }
+
+        }
     </script>
     @include('student::parties.common.file-upload')
 
@@ -1433,6 +1736,20 @@
                            $("#tslc").hide();
                            $("#pcl").show();
                            $("#slc").hide();
+
+                           $("#pclcnationalboard").attr('name', 'board_university');
+                           $('#nepalValue').attr('name', 'collage_name');
+                           $('#pclPassedYear').attr('name', 'passed_year');
+                           $('#pclProgramId').attr('name', 'program_id');
+
+
+                           $("#nebnationalboard").attr('name', 'nothing');
+                           $("#nebprogramid").attr('name', 'nothing');
+                           $("#nebpassedYear").attr('name', 'nothing');
+                           $("#nebcollagename").attr('name', 'nothing');
+
+                           $("#pcllevel").show();
+                           $("#neb").hide();
                            break;
                            case "4":
 

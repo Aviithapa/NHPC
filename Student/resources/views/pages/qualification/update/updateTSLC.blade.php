@@ -68,7 +68,7 @@
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Registration Number</label>
-                        <input name="registration_number" class="form-control" id="basicInput" value="{{$data->registration_number}}" type="number" required>
+                        <input name="registration_number" class="form-control" id="basicInput" value="{{$data->registration_number}}" type="text" required>
                     </fieldset>
                 </div>
                 <div class="col-lg-4">

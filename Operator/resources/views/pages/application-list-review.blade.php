@@ -283,6 +283,18 @@
                                                                 <td><img src="{{$qualifications->getTranscript2Image()}}" onclick="onClick(this)"  alt="Transcript 2 Image" width="200" height="200"></td>
                                                                 <td><img src="{{$qualifications->getTranscript3Image()}}" onclick="onClick(this)"  alt="Transcript 3 Image" width="200" height="200"></td>
                                                             </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><img src="{{$qualifications->getTranscript5Image()}}" onclick="onClick(this)"  alt="Transcript 1 Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getTranscript6Image()}}" onclick="onClick(this)"  alt="Transcript 2 Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getTranscript7Image()}}" onclick="onClick(this)"  alt="Transcript 3 Image" width="200" height="200"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><img src="{{$qualifications->getTranscript8Image()}}" onclick="onClick(this)"  alt="Transcript 1 Image" width="200" height="200"></td>
+{{--                                                                <td><img src="{{$qualifications->getTranscript6Image()}}" onclick="onClick(this)"  alt="Transcript 2 Image" width="200" height="200"></td>--}}
+{{--                                                                <td><img src="{{$qualifications->getTranscript7Image()}}" onclick="onClick(this)"  alt="Transcript 3 Image" width="200" height="200"></td>--}}
+                                                            </tr>
                                                             @endif
                                                             <tr>
                                                                 <td></td>
