@@ -285,6 +285,10 @@ Route::group(['namespace' => 'WebSite'], function () {
 
     Route::get('/add/collage', 'ApplicantController@collage')->middleware(['auth'])->name('super.Admin.collage');
     Route::post('/add/collage/data', 'ApplicantController@collageSave')->middleware(['auth'])->name('super.Admin.collage.save');
+    Route::get('/edit/applicant/{id}', 'EditApplicantController@profileEdit')->middleware(['auth'])->name('super.Admin.edit.applicant.profile');
+    Route::post('/store/applicant/{id}', 'EditApplicantController@profileStore')->middleware(['auth'])->name('super.Admin.edit.applicant.profile.store');
+    Route::get('/edit/qualification/{id}', 'EditApplicantController@qualificationEdit')->middleware(['auth'])->name('super.Admin.edit.applicant.qualification');
+    Route::post('/store/qualification/{id}', 'EditApplicantController@qualificationStore')->middleware(['auth'])->name('super.Admin.edit.applicant.qualification.store');
 
 
     Route::get('/applicant-list-view/{id}','ApplicantController@edit')->middleware(['auth'])->name('superAdmin.applicant.list.review');

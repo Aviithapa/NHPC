@@ -58,7 +58,7 @@
                             <ul class="nav nav-tabs profile-tab table-responsive" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-expanded="true">Details Information</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#review" role="tab">Review Details</a> </li>
-
+                                <li class="nav-item"> <a class="nav-link"  href="{{url('superAdmin/dashboard/edit/applicant/'.$data->id)}}" role="tab">Edit Profile Details</a> </li>
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content">
@@ -189,6 +189,7 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs profile-tab" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
+                                <li class="nav-item"> <a class="nav-link"  href="{{url('superAdmin/dashboard/edit/qualification/'.$data->id)}}" role="tab">Edit Qualification Details</a> </li>
 
                             </ul>
                             <div class="tab-content">

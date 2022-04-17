@@ -404,7 +404,7 @@
              mainInput.nepaliDatePicker({
                  ndpYear: true,
                  ndpMonth: true,
-                 disableAfter: "2061-01-25",
+                 disableAfter: "2070-01-git 25",
 
                  onChange: function() {
                      var mainInput = document.getElementById("nepali_dob").value;
