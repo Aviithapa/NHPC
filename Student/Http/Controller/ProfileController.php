@@ -155,7 +155,7 @@ class ProfileController extends BaseController
                 return redirect()->back()->withInput();
             }
             if ($data['father_name']){
-                session()->flash('success','Guardian Information have been saved successfully');
+                session()->flash('already','Guardian Information have been saved successfully');
                 return redirect()->to('student/dashboard/student/specific');
             }else{
                 session()->flash('success','All Information have been saved successfully');
@@ -183,7 +183,8 @@ class ProfileController extends BaseController
                                                                             ->where('level','!=' , 1);
                     if ($qualification != null){
                         foreach ($qualification as $quali)
-                             $all_program[] = $this->programRepository->findById($quali['program_id']);
+                            if (is_numeric($quali['program_id']) )
+                                  $all_program[] = $this->programRepository->findById($quali['program_id']);
                     }
                     return view('student::pages.apply-exam', compact( 'all_program'));
                 }else {

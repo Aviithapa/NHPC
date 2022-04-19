@@ -18,6 +18,28 @@
                         <input type="hidden" name="level" class="form-control" value="4"/>
                     </fieldset>
                 </div>
+
+                <div class="col-lg-4">
+                    <fieldset class="form-group">
+                        <label>Program Name</label>
+                        <select class="form-control" name="program_id" id="program_id" onchange="programSelect()">
+                            <option value=""></option>
+                            @foreach($bachelor_program as $program)
+                                <option value="{{$program->id}}">{{$program->name}}</option>
+                            @endforeach
+                            <option value="other">Other</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="col-lg-4" id="other_program">
+                    <fieldset class="form-group">
+                        <label>Program Name</label>
+                        <input class="form-control" name="nothing" id="otherprogram" type="text"/>
+                    </fieldset>
+                </div>
+
+
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Collage Type</label>
@@ -46,17 +68,6 @@
                     </fieldset>
                 </div>
 
-                <div class="col-lg-4">
-                    <fieldset class="form-group">
-                        <label>Program Name</label>
-                        <select class="form-control" name="program_id" >
-                            <option value=""></option>
-                            @foreach($bachelor_program as $program)
-                                <option value="{{$program->id}}">{{$program->name}}</option>
-                            @endforeach
-                        </select>
-                    </fieldset>
-                </div>
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Admission Year </label>
@@ -573,6 +584,24 @@
 
         }
 
+    </script>
+
+    <script>
+        function programSelect(){
+            const sb = document.querySelector('#program_id');
+
+
+            if (sb.value === "other"){
+                $("#other_program").show();
+                $("#otherprogram").attr('name', 'program_id');
+                $('#program_id').attr('name', 'nothing');
+            }else {
+
+                $("#other_program").hide();
+                $("#otherprogram").attr('name', 'nothing');
+                $('#program_id').attr('name', 'program_id');
+            }
+        }
     </script>
 @endpush
 

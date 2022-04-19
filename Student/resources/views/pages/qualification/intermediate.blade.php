@@ -15,7 +15,7 @@
                         <label>Level</label>
                         <select class="form-control" name="level" id="level_type" onchange="levelIntermediate()" required>
                             <option value="pcllevel">PCL</option>
-                            <option value="neblevel">HSEB/NEB</option>
+                            <option value="neblevel">HSEB/NEB/ANY</option>
                         </select>
                         <input type="hidden" name="level" class="form-control" value="3"/>
                     </fieldset>
@@ -129,11 +129,7 @@
                         <div class="col-lg-4">
                             <fieldset class="form-group">
                                 <label>Board </label>
-                                <select class="form-control" name="board_university" id="nebnationalboard" >
-                                    <option value=""></option>
-                                    <option value="HSEB">HSEB</option>
-                                    <option value="NEB">NEB</option>
-                                </select>
+                                <input class="form-control" name="board_university" id="nebnationalboard" type="text" />
                             </fieldset>
                         </div>
                     </div>

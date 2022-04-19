@@ -74,13 +74,13 @@
                     <div class="col-lg-4">
                         <fieldset class="form-group">
                             <label>University</label>
-                            <input name="board_university" class="form-control" id="basicInput" type="text" required>
+                            <input name="board_university" class="form-control" id="basicInput" type="text">
                         </fieldset>
                     </div>
                     <div class="col-lg-4">
                         <fieldset class="form-group">
                             <label>Registration Number</label>
-                            <input name="registration_number" class="form-control" id="basicInput" type="text" required>
+                            <input name="registration_number" class="form-control" id="basicInput" type="text">
                         </fieldset>
                     </div>
                     <div class="col-lg-4">
