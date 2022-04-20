@@ -18,6 +18,25 @@
                 </div>
                 <div class="col-lg-4">
                     <fieldset class="form-group">
+                        <label>Program Name</label>
+                        <select class="form-control" name="program_id" id="program_id" onchange="programSelect()">
+                            <option value="{{$data->program_id}}">{{$data->getProgramName()}}</option>
+                            @foreach($bachelor_program as $program)
+                                <option value="{{$program->id}}">{{$program->name}}</option>
+                            @endforeach
+                            <option value="other">Other</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="col-lg-4" id="other_program">
+                    <fieldset class="form-group">
+                        <label>Program Name</label>
+                        <input class="form-control" name="nothing" id="otherprogram" type="text" value="{{$data->program_id}}"/>
+                    </fieldset>
+                </div>
+                <div class="col-lg-4">
+                    <fieldset class="form-group">
                         <label>Collage Type</label>
                         <select class="form-control" value="{{$data->collage_type}}" name="collage_type" id="bachorcollageType" onchange="chnageBachorType()" required>
                             <option value="nepal">Nepal</option>
@@ -28,9 +47,8 @@
                 <div class="col-lg-4" id="bachornepal">
                     <fieldset class="form-group">
                         <label>Collage Name</label>
-
                         <select class="form-control" name="collage_name"  id="bachornepalValue" required>
-                            <option value="">{{$data->collage_name}}</option>
+                            <option value="{{$data->collage_name}}">{{$data->collage_name}}</option>
                             @foreach($collage as $program)
                                 <option value="{{$program->name}}">{{$program->name}}</option>
                             @endforeach
@@ -44,17 +62,17 @@
                     </fieldset>
                 </div>
 
-                <div class="col-lg-4">
-                    <fieldset class="form-group">
-                        <label>Program Name</label>
-                        <select class="form-control" name="program_id" required>
-                            <option value="{{$data->program_id}}">{{$data->getProgramName()}}</option>
-                            @foreach($bachelor_program as $program)
-                                <option value="{{$program->id}}">{{$program->name}}</option>
-                            @endforeach
-                        </select>
-                    </fieldset>
-                </div>
+                {{--                <div class="col-lg-4">--}}
+                {{--                    <fieldset class="form-group">--}}
+                {{--                        <label>Program Name</label>--}}
+                {{--                        <select class="form-control" name="program_id" required>--}}
+                {{--                            <option value="{{$data->program_id}}">{{$data->getProgramName()}}</option>--}}
+                {{--                            @foreach($bachelor_program as $program)--}}
+                {{--                                <option value="{{$program->id}}">{{$program->name}}</option>--}}
+                {{--                            @endforeach--}}
+                {{--                        </select>--}}
+                {{--                    </fieldset>--}}
+                {{--                </div>--}}
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Admission Year </label>
@@ -194,7 +212,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Transcript Image *</label><br>
+                                <label>Fourth Year / Semester MarkSheet Image *</label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
                                          id="transcript_bac_img">
@@ -342,6 +360,38 @@
                                 {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                             </div>
                         </div>
+
+                        <div class="col-lg-4">
+                            <div class="col-md-12 col-lg-12">
+                                <label>Equivalence Certificate</label><br>
+                                @if(isset($data))
+                                    <img src="{{url(isset($data)?$data->getEquivalenceImage():imageNotFound())}}" height="250" width="200"
+                                         id="equivalence_certificate_img">
+
+                                @else
+                                    <img src="{{isset($data)?$data->getEquivalenceImage():imageNotFound('user')}}" height="250" width="200"
+                                         id="equivalence_certificate_img">
+                                @endif
+                            </div>
+
+                            <div class="form-group col-md-12 col-lg-12">
+                                <small>Below 1 mb</small><br>
+                                <small id="equivalence_certificate_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="equivalence_certificate_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
+                                <input type="file" id="equivalence_certificate_image" name="equivalence_certificate_image"
+                                       onclick="anyFileUploader('equivalence_certificate')">
+                                <input type="hidden" id="equivalence_certificate_path" name="equivalence_certificate" class="form-control"
+                                       value="{{isset($data)?$data->equivalence_certificate:''}}"/>
+                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                            </div>
+                        </div>
+
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
                                 <label>Provisional Image *</label><br>
@@ -570,5 +620,23 @@
 
         }
 
+    </script>
+
+    <script>
+        function programSelect(){
+            const sb = document.querySelector('#program_id');
+
+
+            if (sb.value === "other"){
+                $("#other_program").show();
+                $("#otherprogram").attr('name', 'program_id');
+                $('#program_id').attr('name', 'nothing');
+            }else {
+
+                $("#other_program").hide();
+                $("#otherprogram").attr('name', 'nothing');
+                $('#program_id').attr('name', 'program_id');
+            }
+        }
     </script>
 @endpush

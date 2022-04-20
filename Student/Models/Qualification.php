@@ -18,7 +18,7 @@ class Qualification extends Model
         'name', 'board_university', 'passed_year','admission_year','program_id','collage_name','user_id','level','registration_number',
         'transcript_image','provisional_image','character_image','ojt_image','intership_image','visa_image','noc_image','passport_image',
         'licence','ojt_pcl_community_1_image','ojt_pcl_community_2_image','transcript_mas_marksheet','transcript_bac_3','transcript_bac_2'
-        ,'transcript_bac_1','transcript_bac_5','transcript_bac_6','transcript_bac_7','transcript_bac_8'
+        ,'transcript_bac_1','transcript_bac_5','transcript_bac_6','transcript_bac_7','transcript_bac_8','equivalence_certificate'
     ];
 
     public function user()
@@ -179,6 +179,15 @@ class Qualification extends Model
     {
         if(isset($this->transcript_bac_8)) {
             return Storage::url('documents/' .$this->transcript_bac_8);
+        }
+        else {
+            return imageNotFound();
+        }
+    }
+    public function getEquivalenceImage()
+    {
+        if(isset($this->equivalence_certificate)) {
+            return Storage::url('documents/' .$this->equivalence_certificate);
         }
         else {
             return imageNotFound();

@@ -298,8 +298,7 @@
                                                             <tr>
                                                                 <td></td>
                                                                 <td><img src="{{$qualifications->getTranscript8Image()}}" onclick="onClick(this)"  alt="Transcript 8 Image" width="200" height="200"></td>
-{{--                                                                <td><img src="{{$qualifications->getTranscript6Image()}}" onclick="onClick(this)"  alt="Transcript 2 Image" width="200" height="200"></td>--}}
-{{--                                                                <td><img src="{{$qualifications->getTranscript7Image()}}" onclick="onClick(this)"  alt="Transcript 3 Image" width="200" height="200"></td>--}}
+                                                                <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Equivalence Image" width="200" height="200"></td>
                                                             </tr>
                                                             @endif
                                                             <tr>

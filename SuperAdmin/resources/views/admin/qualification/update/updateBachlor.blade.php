@@ -360,6 +360,39 @@
                                 {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                             </div>
                         </div>
+
+                        <div class="col-lg-4">
+                            <div class="col-md-12 col-lg-12">
+                                <label>Equivalence Certificate</label><br>
+                                @if(isset($data))
+                                    <img src="{{url(isset($data)?$data->getEquivalenceImage():imageNotFound())}}" height="250" width="200"
+                                         id="equivalence_certificate_img">
+
+                                @else
+                                    <img src="{{isset($data)?$data->getEquivalenceImage():imageNotFound('user')}}" height="250" width="200"
+                                         id="equivalence_certificate_img">
+                                @endif
+                            </div>
+
+                            <div class="form-group col-md-12 col-lg-12">
+                                <small>Below 1 mb</small><br>
+                                <small id="equivalence_certificate_help_text" class="help-block"></small>
+                                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                     aria-valuemax="100"
+                                     aria-valuenow="0">
+                                    <div id="equivalence_certificate_progress" class="progress-bar progress-bar-success"
+                                         style="width: 0%">
+                                    </div>
+                                </div><br>
+                                <input type="file" id="equivalence_certificate_image" name="equivalence_certificate_image"
+                                       onclick="anyFileUploader('equivalence_certificate')">
+                                <input type="hidden" id="equivalence_certificate_path" name="equivalence_certificate" class="form-control"
+                                       value="{{isset($data)?$data->equivalence_certificate:''}}"/>
+                                {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                            </div>
+                        </div>
+
+
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
                                 <label>Provisional Image *</label><br>

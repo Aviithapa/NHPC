@@ -61,18 +61,7 @@ class QualificationController extends BaseController
     public function updateRejectedQualification(Request $request, $id){
         $data = $request->all();
         $qualification = Qualification::get()->where('user_id','=',Auth::user()->id)->last();
-        if ($data['level'] == $qualification->level){
-            $id=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
-            $profile_pro['status'] = 'progress';
-            $profile_processing_id = ProfileProcessing::get()->where('profile_id','=',$id['id'])->last();
-            $profiles_processing = $this->profileProcessingRepository->update($profile_pro,$profile_processing_id['id']);
-            $profiles['profile_status'] = "Reviewing";
-            $profiles['profile_state'] = $profiles_processing['current_state'];
-            $profile = $this->profileRepository->update($profiles,$id['id']);
-            session()->flash('success', 'Profile is send for Re Revewing');
-            return redirect()->route("student.dashboard");
 
-        }else{
             try {
                 switch ($data['level']){
                     case 1 :
@@ -118,6 +107,17 @@ class QualificationController extends BaseController
                     session()->flash('danger', 'Oops! Something went wrong.');
                     return redirect()->back()->withInput();
                 }
+                if ($data['level'] == $qualification->level){
+                    $id=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+                    $profile_pro['status'] = 'progress';
+                    $profile_processing_id = ProfileProcessing::get()->where('profile_id','=',$id['id'])->last();
+                    $profiles_processing = $this->profileProcessingRepository->update($profile_pro,$profile_processing_id['id']);
+                    $profiles['profile_status'] = "Reviewing";
+                    $profiles['profile_state'] = $profiles_processing['current_state'];
+                    $profile = $this->profileRepository->update($profiles,$id['id']);
+                    session()->flash('success', 'Profile is send for Re Revewing');
+                    return redirect()->route("student.dashboard");
+                }
                 session()->flash('success', 'Qualification updated successfully');
 
                 $qualifications = Qualification::get()->where('user_id','=',Auth::user()->id);
@@ -132,8 +132,6 @@ class QualificationController extends BaseController
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
-        }
-
 
     }
 
