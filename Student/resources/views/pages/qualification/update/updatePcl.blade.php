@@ -11,82 +11,188 @@
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Level</label>
-                        <input name="level_name" class="form-control" id="basicInput" type="text" value="PCL/+2" readonly>
+                        <select class="form-control" name="level" id="level_type" onchange="levelIntermediate()" required>
+                            <option value="pcllevel">PCL</option>
+                            <option value="neblevel">HSEB/NEB/ANY/Other</option>
+                        </select>
                         <input type="hidden" name="level" class="form-control" value="3"/>
                     </fieldset>
                 </div>
-                <div class="col-lg-4">
-                    <fieldset class="form-group">
-                        <label>Collage Type</label>
-                        <select class="form-control" name="collage_type" id="collageType" onchange="chnagePclType()" required>
-                            <option value="nepal">Nepal</option>
-                            <option value="international">International</option>
-                        </select>
-                    </fieldset>
+            </div>
+            <div id="pcllevel">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <fieldset class="form-group">
+                            <label>Collage Type</label>
+                            <select class="form-control" name="collage_type" id="collageType" onchange="chnagePclType()">
+                                <option value="nepal">Nepal</option>
+                                <option value="international">International</option>
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4" id="nepal">
+                        <fieldset class="form-group">
+                            <label>Collage Name</label>
+                            <select class="form-control" name="collage_name"  id="nepalValue">
+                                <option value="{{$data->collage_name}}">{{$data->collage_name}}</option>
+                                @foreach($collage as $program)
+                                    <option value="{{$program->name}}">{{$program->name}}</option>
+                                @endforeach
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4" id="international">
+                        <fieldset class="form-group">
+                            <label>Collage Name</label>
+                            <input name="collage_name" class="form-control" id="internationalValue" value="{{$data->collage_name}}" type="text">
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4">
+                        <fieldset class="form-group">
+                            <label>Program Name</label>
+                            <select class="form-control" name="program_id" id="nebProgramId">
+                                <option value="{{$data->program_id}}">{{$data->getProgramName()}}</option>
+                                @foreach($plus_2_program as $program)
+                                    <option value="{{$program->id}}">{{$program->name}}</option>
+                                @endforeach
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4">
+                        <fieldset class="form-group">
+                            <label>Admission Year </label>
+                            <input name="admission_year" class="form-control" id="basicInput" type="number" min="2050" value="{{$data->admission_year}}" max="2078" step="1" placeholder="2075"/>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4">
+                        <fieldset class="form-group">
+                            <label>Passed Year </label>
+                            <input name="passed_year" class="form-control" id="pclPassedYear" type="number" min="2050" max="2078" value="{{$data->passed_year}}" step="1" placeholder="2075"/>
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4">
+                        <fieldset class="form-group">
+                            <label>Board</label>
+                            <input name="board_university" class="form-control" id="pclnationalboard" type="text" value="CTEVT, Nepal" readonly>
+                            <input name="board_university" class="form-control" id="pclinternationalboard" type="text" value="{{$data->board_university}}">
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4">
+                        <fieldset class="form-group">
+                            <label>Registration Number</label>
+                            <input name="registration_number" class="form-control" id="basicInput" type="text" value="{{$data->registration_number}}">
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4">
+                        <fieldset class="form-group">
+                            <label>Hospital Name</label>
+                            <input name="hospital_name" class="form-control" id="basicInput" type="text">
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4">
+                        <fieldset class="form-group">
+                            <label>Is Registrated</label>
+                            <select class="form-control" name="is_registrated">
+                                <option value=""></option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </fieldset>
+                    </div>
                 </div>
-                <div class="col-lg-4" id="nepal">
-                    <fieldset class="form-group">
-                        <label>Collage Name</label>
+            </div>
+            <div id="neb">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <fieldset class="form-group">
+                            <label>Collage Name</label>
+                            <input name="collage_name" class="form-control" id="nebcollagename" type="text" value="{{$data->collage_name}}">
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4">
+                        <fieldset class="form-group">
+                            <label>Program Name</label>
+                            <input name="program_id" class="form-control" id="nebprogramid" type="text" value="{{$data->program_id}}">
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4">
+                        <fieldset class="form-group">
+                            <label>Passed Year </label>
+                            <input name="passed_year" class="form-control" id="nebpassedYear" type="number" min="2050" value="{{$data->passed_year}}" max="2078" step="1" placeholder="2075" />
+                        </fieldset>
+                    </div>
+                    <div class="col-lg-4">
+                        <fieldset class="form-group">
+                            <label>Board </label>
+                            <input class="form-control" name="board_university" id="nebnationalboard" value="{{$data->board_university}}" type="text" />
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
 
-                        <select class="form-control" name="collage_name"  id="nepalValue" required>
-                            <option value="">{{$data->collage_name}}</option>
-                            @foreach($collage as $program)
-                                <option value="{{$program->name}}">{{$program->name}}</option>
-                            @endforeach
-                        </select>
-                    </fieldset>
-                </div>
-                <div class="col-lg-4" id="international">
-                    <fieldset class="form-group">
-                        <label>Collage Name</label>
-                        <input name="collage_name" class="form-control" value="{{$data->collage_name}}" id="internationalValue" type="text">
-                    </fieldset>
-                </div>
-                <div class="col-lg-4">
-                    <fieldset class="form-group">
-                        <label>Program Name</label>
-                        <select class="form-control" name="program_id" required>
-                            <option value="">{{$data->getProgramName()}}</option>
-                            @foreach($plus_2_program as $program)
-                                <option value="{{$program->id}}">{{$program->name}}</option>
-                            @endforeach
-                        </select>
-                    </fieldset>
-                </div>
-                <div class="col-lg-4">
-                    <fieldset class="form-group">
-                        <label>Passed Year </label>
-                        <input name="passed_year" class="form-control" value="{{$data->passed_year}}" id="basicInput" type="number" min="2050" max="2078" step="1" placeholder="2075" required/>
-                    </fieldset>
-                </div>
-                <div class="col-lg-4">
-                    <fieldset class="form-group">
-                        <label>Board</label>
-                        <input name="board_university" value="{{$data->board_university}}" class="form-control" id="basicInput" type="text" required>
-                    </fieldset>
-                </div>
-                <div class="col-lg-4">
-                    <fieldset class="form-group">
-                        <label>Registration Number</label>
-                        <input name="registration_number" value="{{$data->registration_number}}" class="form-control" id="basicInput" type="text" required>
-                    </fieldset>
-                </div>
-                <div class="col-lg-4">
-                    <fieldset class="form-group">
-                        <label>Hospital Name</label>
-                        <input name="hospital_name" value="{{$data->hospital_name}}" class="form-control" id="basicInput" type="text">
-                    </fieldset>
-                </div>
-                <div class="col-lg-4">
-                    <fieldset class="form-group">
-                        <label>Is Registrated</label>
-                        <select class="form-control" name="is_registrated">
-                            <option value="">{{$data->is_registrated}}</option>
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select>
-                    </fieldset>
-                </div>
+{{--                <div class="col-lg-4" id="nepal">--}}
+{{--                    <fieldset class="form-group">--}}
+{{--                        <label>Collage Name</label>--}}
+
+{{--                        <select class="form-control" name="collage_name"  id="nepalValue" required>--}}
+{{--                            <option value="">{{$data->collage_name}}</option>--}}
+{{--                            @foreach($collage as $program)--}}
+{{--                                <option value="{{$program->name}}">{{$program->name}}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                    </fieldset>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4" id="international">--}}
+{{--                    <fieldset class="form-group">--}}
+{{--                        <label>Collage Name</label>--}}
+{{--                        <input name="collage_name" class="form-control" value="{{$data->collage_name}}" id="internationalValue" type="text">--}}
+{{--                    </fieldset>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4">--}}
+{{--                    <fieldset class="form-group">--}}
+{{--                        <label>Program Name</label>--}}
+{{--                        <select class="form-control" name="program_id" required>--}}
+{{--                            <option value="">{{$data->getProgramName()}}</option>--}}
+{{--                            @foreach($plus_2_program as $program)--}}
+{{--                                <option value="{{$program->id}}">{{$program->name}}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                    </fieldset>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4">--}}
+{{--                    <fieldset class="form-group">--}}
+{{--                        <label>Passed Year </label>--}}
+{{--                        <input name="passed_year" class="form-control" value="{{$data->passed_year}}" id="basicInput" type="number" min="2050" max="2078" step="1" placeholder="2075" required/>--}}
+{{--                    </fieldset>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4">--}}
+{{--                    <fieldset class="form-group">--}}
+{{--                        <label>Board</label>--}}
+{{--                        <input name="board_university" value="{{$data->board_university}}" class="form-control" id="basicInput" type="text" required>--}}
+{{--                    </fieldset>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4">--}}
+{{--                    <fieldset class="form-group">--}}
+{{--                        <label>Registration Number</label>--}}
+{{--                        <input name="registration_number" value="{{$data->registration_number}}" class="form-control" id="basicInput" type="text" required>--}}
+{{--                    </fieldset>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4">--}}
+{{--                    <fieldset class="form-group">--}}
+{{--                        <label>Hospital Name</label>--}}
+{{--                        <input name="hospital_name" value="{{$data->hospital_name}}" class="form-control" id="basicInput" type="text">--}}
+{{--                    </fieldset>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-4">--}}
+{{--                    <fieldset class="form-group">--}}
+{{--                        <label>Is Registrated</label>--}}
+{{--                        <select class="form-control" name="is_registrated">--}}
+{{--                            <option value="">{{$data->is_registrated}}</option>--}}
+{{--                            <option value="yes">Yes</option>--}}
+{{--                            <option value="no">No</option>--}}
+{{--                        </select>--}}
+{{--                    </fieldset>--}}
+{{--                </div>--}}
                 <div class="grid-body ">
                     <div class="row">
                         <div class="col-lg-4">
@@ -319,5 +425,44 @@
 
         }
 
+    </script>
+    <script>
+        function levelIntermediate(){
+            const sb = document.querySelector('#level_type');
+            switch (sb.value) {
+                case 'pcllevel' :
+                    $("#pclcnationalboard").attr('name', 'board_university');
+                    $('#nepalValue').attr('name', 'collage_name');
+                    $('#pclPassedYear').attr('name', 'passed_year');
+                    $('#pclProgramId').attr('name', 'program_id');
+
+
+                    $("#nebnationalboard").attr('name', 'nothing');
+                    $("#nebprogramid").attr('name', 'nothing');
+                    $("#nebpassedYear").attr('name', 'nothing');
+                    $("#nebcollagename").attr('name', 'nothing');
+
+                    $("#pcllevel").show();
+                    $("#neb").hide();
+                    break;
+
+                case  'neblevel':
+                    $("#nebnationalboard").attr('name', 'board_university');
+                    $("#nebprogramid").attr('name', 'program_id');
+                    $("#nebpassedYear").attr('name', 'passed_year');
+                    $("#nebcollagename").attr('name', 'collage_name');
+
+
+                    $("#pclcnationalboard").attr('name', 'nothing');
+                    $('#nepalValue').attr('name', 'nothing');
+                    $('#pclPassedYear').attr('name', 'nothing');
+                    $('#pclProgramId').attr('name', 'nothing');
+
+                    $("#pcllevel").hide();
+                    $("#neb").show();
+                    break;
+            }
+
+        }
     </script>
 @endpush

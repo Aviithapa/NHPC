@@ -15,7 +15,7 @@
                         <label>Level</label>
                         <select class="form-control" name="level" id="level_type" onchange="levelIntermediate()" required>
                             <option value="pcllevel">PCL</option>
-                            <option value="neblevel">HSEB/NEB/ANY</option>
+                            <option value="neblevel">HSEB/NEB/ANY/Other</option>
                         </select>
                         <input type="hidden" name="level" class="form-control" value="3"/>
                     </fieldset>
@@ -114,10 +114,7 @@
                         <div class="col-lg-4">
                             <fieldset class="form-group">
                                 <label>Program Name</label>
-                                <select class="form-control" name="program_id" id="nebprogramid">
-                                    <option value="116">Science</option>
-                                    <option value="117">Management</option>
-                                </select>
+                                <input name="program_id" class="form-control" id="nebprogramid" type="text">
                             </fieldset>
                         </div>
                         <div class="col-lg-4">
