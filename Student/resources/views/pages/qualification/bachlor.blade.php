@@ -627,11 +627,18 @@
                 $("#other_program").show();
                 $("#otherprogram").attr('name', 'program_id');
                 $('#program_id').attr('name', 'nothing');
+                $("#bachornepal").hide();
+                $("#bachorinternational").show();
+                $('#bachornepalValue').attr('name', 'nothing');
+                $("#bachorinternationalValue").attr('name', 'collage_name');
             }else {
-
                 $("#other_program").hide();
                 $("#otherprogram").attr('name', 'nothing');
                 $('#program_id').attr('name', 'program_id');
+                $("#bachornepal").show();
+                $("#bachorinternational").hide();
+                $("#bachorinternationalValue").attr('name', 'nothing');
+                $('#bachornepalValue').attr('name', 'collage_name');
             }
         }
     </script>
