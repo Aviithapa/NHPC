@@ -205,6 +205,7 @@
                                                         <td>Board University</td>
                                                         <td>Program Name</td>
                                                         <td>Collage Name</td>
+                                                        <td>Action</td>
                                                         </thead>
                                                         <tbody>
                                                         {{$key = 1 }}
@@ -213,8 +214,12 @@
                                                                 <td>{{$key ++}}</td>
                                                                 <td>{{$qualifications->getLevelName()}}</td>
                                                                 <td>{{$qualifications->board_university}}</td>
-                                                                <td>{{$qualifications->getProgramName()}}</td>
+                                                                <td>{{$qualifications->getProgramName()}} || {{$qualifications->program_id}}</td>
                                                                 <td>{{$qualifications->collage_id}}</td>
+                                                                <td>
+                                                                    <a href="{{url('superAdmin/dashboard/edit/qualification/'. $qualifications->id)}}"><span class="label label-success">Edit</span> </a> ||
+                                                                    <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $qualifications->id }}"><span class="label label-danger">Delete</span> </a>
+                                                                </td>
                                                             </tr>
                                                         @endforeach
                                                         </tbody>
@@ -473,6 +478,32 @@
         <!-- /.content -->
         <!-- /.content -->
 
+        <div class="modal fade" id="practice_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Are you sure want to delete the  Qualification  ? </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal form-material" action="{{route("super.admin.delete.qualification")}}" method="POST">
+                            @csrf
+                            <input type="hidden" class="form-control" name="id" id="idkl" value="">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-success">Yes</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
@@ -480,7 +511,8 @@
 
 
 
-@endsection
+
+        @endsection
 @push('scripts')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

@@ -4,7 +4,7 @@
     <div class="card-body">
 
         <h4 class="text-black">Bachelor Information</h4>
-        <form method="POST" action="{{url('student/dashboard/student/qualification/data/'.$data->id)}}">
+        <form method="POST" action="{{url('superAdmin/dashboard/store/qualification/'.$data->id)}}">
             @csrf
 
 
@@ -14,6 +14,25 @@
                         <label>Level</label>
                         <input name="level_name" class="form-control" id="basicInput" type="text" value="Bachelor" readonly>
                         <input type="hidden" name="level" class="form-control" value="4"/>
+                    </fieldset>
+                </div>
+                <div class="col-lg-4">
+                    <fieldset class="form-group">
+                        <label>Program Name</label>
+                        <select class="form-control" name="program_id" id="program_id" onchange="programSelect()">
+                            <option value="{{$data->program_id}}">{{$data->getProgramName()}}</option>
+                            @foreach($bachelor_program as $program)
+                                <option value="{{$program->id}}">{{$program->name}}</option>
+                            @endforeach
+                            <option value="other">Other</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <div class="col-lg-4" id="other_program">
+                    <fieldset class="form-group">
+                        <label>Program Name</label>
+                        <input class="form-control" name="nothing" id="otherprogram" type="text" value="{{$data->program_id}}"/>
                     </fieldset>
                 </div>
                 <div class="col-lg-4">
@@ -28,9 +47,8 @@
                 <div class="col-lg-4" id="bachornepal">
                     <fieldset class="form-group">
                         <label>Collage Name</label>
-
                         <select class="form-control" name="collage_name"  id="bachornepalValue" required>
-                            <option value="">{{$data->collage_name}}</option>
+                            <option value="{{$data->collage_name}}">{{$data->collage_name}}</option>
                             @foreach($collage as $program)
                                 <option value="{{$program->name}}">{{$program->name}}</option>
                             @endforeach
@@ -44,17 +62,17 @@
                     </fieldset>
                 </div>
 
-                <div class="col-lg-4">
-                    <fieldset class="form-group">
-                        <label>Program Name</label>
-                        <select class="form-control" name="program_id" required>
-                            <option value="{{$data->program_id}}">{{$data->getProgramName()}}</option>
-                            @foreach($bachelor_program as $program)
-                                <option value="{{$program->id}}">{{$program->name}}</option>
-                            @endforeach
-                        </select>
-                    </fieldset>
-                </div>
+{{--                <div class="col-lg-4">--}}
+{{--                    <fieldset class="form-group">--}}
+{{--                        <label>Program Name</label>--}}
+{{--                        <select class="form-control" name="program_id" required>--}}
+{{--                            <option value="{{$data->program_id}}">{{$data->getProgramName()}}</option>--}}
+{{--                            @foreach($bachelor_program as $program)--}}
+{{--                                <option value="{{$program->id}}">{{$program->name}}</option>--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                    </fieldset>--}}
+{{--                </div>--}}
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Admission Year </label>
@@ -194,7 +212,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Transcript Image *</label><br>
+                                <label>Fourth Year / Semester MarkSheet Image *</label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
                                          id="transcript_bac_img">
@@ -570,5 +588,23 @@
 
         }
 
+    </script>
+
+    <script>
+        function programSelect(){
+            const sb = document.querySelector('#program_id');
+
+
+            if (sb.value === "other"){
+                $("#other_program").show();
+                $("#otherprogram").attr('name', 'program_id');
+                $('#program_id').attr('name', 'nothing');
+            }else {
+
+                $("#other_program").hide();
+                $("#otherprogram").attr('name', 'nothing');
+                $('#program_id').attr('name', 'program_id');
+            }
+        }
     </script>
 @endpush

@@ -60,7 +60,6 @@ class QualificationController extends BaseController
 
     public function updateRejectedQualification(Request $request, $id){
         $data = $request->all();
-
         $qualification = Qualification::get()->where('user_id','=',Auth::user()->id)->last();
         if ($data['level'] == $qualification->level){
             $id=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');

@@ -163,19 +163,7 @@
                             @endif
                         @endforeach
                         <div class="row">
-                            <div class="col-lg-4">
-                                <fieldset class="form-group">
-                                    <label>Level</label>
-                                    <select class="form-control" name="level" id="level" onchange="level()" required>
-                                        @foreach(getHighteshQualification($qualifications) as $key => $qualification)
-                                            <option value="{{$key}}">{{$qualification}}</option>
-                                        @endforeach
-                                    </select>
-                                </fieldset>
-                            </div>
-
-
-                            <div class="content">
+                             <div class="content">
                                 <div id="slc">
                                     <form method="POST" action="{{url('student/dashboard/student/collage/data')}}">
                                         @csrf

@@ -289,6 +289,7 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::post('/store/applicant/{id}', 'EditApplicantController@profileStore')->middleware(['auth'])->name('super.Admin.edit.applicant.profile.store');
     Route::get('/edit/qualification/{id}', 'EditApplicantController@qualificationEdit')->middleware(['auth'])->name('super.Admin.edit.applicant.qualification');
     Route::post('/store/qualification/{id}', 'EditApplicantController@qualificationStore')->middleware(['auth'])->name('super.Admin.edit.applicant.qualification.store');
+    Route::post('/qualification/delete/', 'EditApplicantController@qualificationDelete')->middleware(['auth'])->name('super.admin.delete.qualification');
 
 
     Route::get('/applicant-list-view/{id}','ApplicantController@edit')->middleware(['auth'])->name('superAdmin.applicant.list.review');

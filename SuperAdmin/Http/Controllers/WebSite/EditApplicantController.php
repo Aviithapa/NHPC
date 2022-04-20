@@ -6,8 +6,10 @@ use App\Http\Controllers\Admin\BaseController;
 use App\Models\Address\District;
 use App\Models\Address\Municipality;
 use App\Models\Address\Provinces;
+use App\Models\Profile\ProfileProcessing;
 use App\Modules\Backend\Address\Repositories\MunicipalityRepository;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
+use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
@@ -15,6 +17,8 @@ use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDe
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use App\Modules\Framework\Request;
+use Illuminate\Support\Facades\Auth;
+use Student\Models\Qualification;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
 
@@ -24,7 +28,7 @@ class EditApplicantController  extends BaseController
     private $log, $profileProcessing, $profileRepository,
         $userRepository, $qualificationRepository,
         $user_data, $profileLogsRepository, $profileProcessingRepository,
-        $municipalityRepository, $collageRepository,
+        $municipalityRepository, $collageRepository, $programRepository,
         $examRepository, $examProcessingRepository, $examProcessingDetailsRepository;
 
     private $commonView = 'operator::pages.';
@@ -48,7 +52,8 @@ class EditApplicantController  extends BaseController
     public function __construct(ProfileRepository        $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
                                 ProfileLogsRepository    $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
                                 ExamRepository           $examRepository, MunicipalityRepository $municipalityRepository, CollegeRepository $collageRepository,
-                                ExamProcessingRepository $examProcessingRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository)
+                                ExamProcessingRepository $examProcessingRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository,
+    ProgramRepository $programRepository)
     {
         $this->viewData['commonRoute'] = $this->commonRoute;
         $this->viewData['commonView'] = 'superAdmin::' . $this->commonView;
@@ -63,6 +68,7 @@ class EditApplicantController  extends BaseController
         $this->examProcessingRepository = $examProcessingRepository;
         $this->municipalityRepository = $municipalityRepository;
         $this->collageRepository = $collageRepository;
+        $this->programRepository = $programRepository;
         $this->examProcessingDetailsRepository = $examProcessingDetailsRepository;
         parent::__construct();
     }
@@ -91,26 +97,85 @@ class EditApplicantController  extends BaseController
         }
        }
        public function qualificationEdit($id){
-
         $data = $this->profileRepository->findById($id);
         $user_id = $data['user_id'];
-        $qualifications = $this->qualificationRepository->getAll()->where('user_id', '=',$user_id);
-        return view('superAdmin::admin.applicant.edit-qualification', compact("qualifications"));
+
+        $data = $this->qualificationRepository->findById($id);
+           $collage = $this->collageRepository->getAll();
+           $slc_program = $this->programRepository->getAll()->where('level_id','=',4);
+           $plus_2_program = $this->programRepository->getAll()->where('level_id','=',3);
+           $bachelor_program = $this->programRepository->getAll()->where('level_id','=',2);
+           $master_program = $this->programRepository->getAll()->where('level_id','=',1);
+           return view('superAdmin::admin.qualification.update.form', compact("data","collage",'slc_program','plus_2_program','bachelor_program','master_program'));
     }
 
-    public function qualificationStore(Request  $request, $id){
-        $data = $request->all();
+
+    public function qualificationDelete(Request $request){
+        $data= $request->all();
         try {
-            $profile = $this->profileRepository->update($data,$id);
-            if ($profile == false) {
-                session()->flash('error', 'Oops! Something went wrong.');
+            $this->qualificationRepository->hardDelete($data['id']);
+            session()->flash('success', 'Qualification deleted successfully');
+            return redirect()->back();
+        }
+        catch (\Exception $e) {
+            $this->log->error('Qualification delete : '.$e->getMessage());
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back();
+        }
+    }
+
+
+    public function qualificationStore(Request $request, $id){
+        $data = $request->all();
+            try {
+                switch ($data['level']){
+                    case 1 :
+                        $data['transcript_image'] = $data['transcript_slc'];
+                        $data['provisional_image'] = $data['provisional_slc'];
+                        $data['character_image'] = $data['character_slc'];
+                        break;
+                    case 2 :
+                        $data['transcript_image'] = $data['transcript_tslc'];
+                        $data['provisional_image'] = $data['provisional_tslc'];
+                        $data['character_image'] = $data['character_tslc'];
+                        $data['ojt_image'] = $data['ojt_tslc'];
+                        break;
+                    case 3 :
+                        $data['transcript_image'] = $data['transcript_pcl'];
+                        $data['provisional_image'] = $data['provisional_pcl'];
+                        $data['character_image'] = $data['character_pcl'];
+                        $data['ojt_image'] = $data['ojt_pcl_image'];
+                        break;
+                    case 4 :
+                        $data['transcript_image'] = $data['transcript_bac'];
+                        $data['provisional_image'] = $data['provisional_bac'];
+                        $data['character_image'] = $data['character_bac'];
+                        $data['intership_image'] = $data['intership_bac'];
+                        $data['noc_image'] = $data['noc_bac'];
+                        $data['visa_image'] = $data['visa_bac'];
+                        $data['passport_image'] = $data['passport_bac'];
+                        break;
+                    case 5:
+                        $data['transcript_image'] = $data['transcript_mas'];
+                        $data['provisional_image'] = $data['provisional_mas'];
+                        $data['character_image'] = $data['character_mas'];
+                        $data['intership_image'] = $data['intership_mas'];
+                        $data['noc_image'] = $data['noc_mas'];
+                        $data['visa_image'] = $data['visa_mas'];
+                        $data['passport_image'] = $data['passport_mas'];
+                        break;
+                }
+                $post = $this->qualificationRepository->update($data, $id);
+                if($post == false) {
+                    session()->flash('danger', 'Oops! Something went wrong.');
+                    return redirect()->back()->withInput();
+                }
+                session()->flash('success', 'Qualification updated successfully');
+                return redirect()->back();
+            } catch (\Exception $e) {
+                session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
-            session()->flash('success','Profile has been successfully updated');
-            return redirect()->to('superAdmin/dashboard');
-        } catch (\Exception $e) {
-            session()->flash('error', 'Oops! Something went wrong.');
-            return redirect()->back()->withInput();
-        }
-       }
+    }
+
 }
