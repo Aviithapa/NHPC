@@ -138,9 +138,9 @@ class OperatorController extends BaseController
                     return redirect()->back()->withInput();
                 }
 
-                session()->flash('success', 'User Profile Status Information have been saved successfully');
-                return redirect()->route('operator.applicant.profile.list');
-//
+                $users = $this->profileRepository->getAll()->where('profile_status', '=', 'Reviewing')
+                    ->where('profile_state','=', 'computer_operator');
+                return $this->view('pages.applicant-profile-list', $users);
             } catch (\Exception $e) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
