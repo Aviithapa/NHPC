@@ -37,93 +37,93 @@
     </section>
 
 
-    <section class="banner-sec">
-        <div class="container-fluid p-3">
-                <h3 class="text-center">News and Notice</h3>
-            <div class="row p-3">
-                <div class="col-md-3">
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/politics.jpg" alt="">
-                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">News</span> </div>
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">Syria war: Why the battle for Aleppo matters</a></h2>
-                            </div>
-                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
-                        </div>
-                    </div>
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/travel.jpg" alt="">
-                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">Politics</span> </div>
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">Key Republicans sign letter warning against</a></h2>
-                            </div>
-                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/business1.jpg" alt="">
-                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">Travel</span> </div>
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">Obamacare Appears to Be Making People Healthier</a></h2>
-                            </div>
-                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
-                        </div>
-                    </div>
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/food.jpg" alt="">
-                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">News</span> </div>
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">‘S.N.L.’ to Lose Two Longtime Cast Members</a></h2>
-                            </div>
-                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/business1.jpg" alt="">
-                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">Travel</span> </div>
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">Obamacare Appears to Be Making People Healthier</a></h2>
-                            </div>
-                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
-                        </div>
-                    </div>
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/food.jpg" alt="">
-                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">News</span> </div>
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">‘S.N.L.’ to Lose Two Longtime Cast Members</a></h2>
-                            </div>
-                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/business1.jpg" alt="">
-                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">Travel</span> </div>
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">Obamacare Appears to Be Making People Healthier</a></h2>
-                            </div>
-                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
-                        </div>
-                    </div>
-                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/food.jpg" alt="">
-                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">News</span> </div>
-                        <div class="card-body">
-                            <div class="news-title">
-                                <h2 class=" title-small"><a href="#">‘S.N.L.’ to Lose Two Longtime Cast Members</a></h2>
-                            </div>
-                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+{{--    <section class="banner-sec">--}}
+{{--        <div class="container-fluid p-3">--}}
+{{--                <h3 class="text-center">News and Notice</h3>--}}
+{{--            <div class="row p-3">--}}
+{{--                <div class="col-md-3">--}}
+{{--                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/politics.jpg" alt="">--}}
+{{--                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">News</span> </div>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <div class="news-title">--}}
+{{--                                <h2 class=" title-small"><a href="#">Syria war: Why the battle for Aleppo matters</a></h2>--}}
+{{--                            </div>--}}
+{{--                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/travel.jpg" alt="">--}}
+{{--                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">Politics</span> </div>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <div class="news-title">--}}
+{{--                                <h2 class=" title-small"><a href="#">Key Republicans sign letter warning against</a></h2>--}}
+{{--                            </div>--}}
+{{--                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-md-3">--}}
+{{--                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/business1.jpg" alt="">--}}
+{{--                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">Travel</span> </div>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <div class="news-title">--}}
+{{--                                <h2 class=" title-small"><a href="#">Obamacare Appears to Be Making People Healthier</a></h2>--}}
+{{--                            </div>--}}
+{{--                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/food.jpg" alt="">--}}
+{{--                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">News</span> </div>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <div class="news-title">--}}
+{{--                                <h2 class=" title-small"><a href="#">‘S.N.L.’ to Lose Two Longtime Cast Members</a></h2>--}}
+{{--                            </div>--}}
+{{--                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-md-3">--}}
+{{--                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/business1.jpg" alt="">--}}
+{{--                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">Travel</span> </div>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <div class="news-title">--}}
+{{--                                <h2 class=" title-small"><a href="#">Obamacare Appears to Be Making People Healthier</a></h2>--}}
+{{--                            </div>--}}
+{{--                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/food.jpg" alt="">--}}
+{{--                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">News</span> </div>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <div class="news-title">--}}
+{{--                                <h2 class=" title-small"><a href="#">‘S.N.L.’ to Lose Two Longtime Cast Members</a></h2>--}}
+{{--                            </div>--}}
+{{--                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col-md-3">--}}
+{{--                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/business1.jpg" alt="">--}}
+{{--                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">Travel</span> </div>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <div class="news-title">--}}
+{{--                                <h2 class=" title-small"><a href="#">Obamacare Appears to Be Making People Healthier</a></h2>--}}
+{{--                            </div>--}}
+{{--                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="card"> <img class="img-fluid" src="http://grafreez.com/wp-content/temp_demos/river/img/food.jpg" alt="">--}}
+{{--                        <div class="card-img-overlay"> <span class="badge badge-pill badge-danger">News</span> </div>--}}
+{{--                        <div class="card-body">--}}
+{{--                            <div class="news-title">--}}
+{{--                                <h2 class=" title-small"><a href="#">‘S.N.L.’ to Lose Two Longtime Cast Members</a></h2>--}}
+{{--                            </div>--}}
+{{--                            <p class="card-text"><small class="text-time"><em>3 mins ago</em></small></p>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
 
     <section class="pt-5 pb-5 mt-5">
         <div class="container-fluid" style="height: 650px; margin-top: 10px">

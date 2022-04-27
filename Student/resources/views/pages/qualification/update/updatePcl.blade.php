@@ -32,6 +32,7 @@
                     </div>
                     <div class="col-lg-4" id="nepal">
                         <fieldset class="form-group">
+
                             <label>Collage Name</label>
                             <select class="form-control" name="collage_name"  id="nepalValue">
                                 <option value="{{$data->collage_name}}">{{$data->collage_name}}</option>

@@ -117,7 +117,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>First Year MarkSheet Image *</label><br>
+                                <label> MarkSheet / Transcript  Image *</label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscript1Image():imageNotFound())}}" height="250" width="200"
                                          id="transcript_bac_1_img">
@@ -148,7 +148,7 @@
 
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Second Year MarkSheet Image *</label><br>
+                                <label> MarkSheet / Transcript  Image *</label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscript2Image():imageNotFound())}}" height="250" width="200"
                                          id="transcript_bac_2_img">
@@ -179,7 +179,7 @@
                         <div class="col-lg-4">
 
                             <div class="col-md-12 col-lg-12">
-                                <label>Thrid Year MarkSheet Image *</label><br>
+                                <label> MarkSheet / Transcript  Image *</label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscript3Image():imageNotFound())}}" height="250" width="200"
                                          id="transcript_bac_3_img">
@@ -212,7 +212,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Fourth Year / Semester MarkSheet Image *</label><br>
+                                <label> MarkSheet / Transcript  Image *</label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscriptImage():imageNotFound())}}" height="250" width="200"
                                          id="transcript_bac_img">
@@ -242,7 +242,7 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Fifth Semester MarkSheet Image </label><br>
+                                <label> MarkSheet / Transcript  Image </label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscript5Image():imageNotFound())}}" height="250" width="200"
                                          id="transcript_bac_5_img">
@@ -272,7 +272,7 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Sixth Semester MarkSheet Image </label><br>
+                                <label> MarkSheet / Transcript  Image </label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscript6Image():imageNotFound())}}" height="250" width="200"
                                          id="transcript_bac_6_img">
@@ -302,7 +302,7 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Seventh Semester MarkSheet Image </label><br>
+                                <label>  MarkSheet / Transcript  Image </label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscript7Image():imageNotFound())}}" height="250" width="200"
                                          id="transcript_bac_7_img">
@@ -332,7 +332,7 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>Eight Semester MarkSheet Image </label><br>
+                                <label> MarkSheet/ Transcript  Image </label><br>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getTranscript8Image():imageNotFound())}}" height="250" width="200"
                                          id="transcript_bac_8_img">

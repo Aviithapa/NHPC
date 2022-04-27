@@ -52,14 +52,23 @@
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Program Name</label>
-                        <select class="form-control" name="program_id" id="nebProgramId">
+                        <select class="form-control" name="program_id" id="nebProgramId" onchange="programSelect()">
                             <option value=""></option>
+                            <option value="other">Other</option>
                             @foreach($plus_2_program as $program)
                                 <option value="{{$program->id}}">{{$program->name}}</option>
                             @endforeach
                         </select>
                     </fieldset>
                 </div>
+
+                    <div class="col-lg-4" id="other_program">
+                        <fieldset class="form-group">
+                            <label>Program Name</label>
+                            <input class="form-control" name="nothing" id="otherprogram" type="text"/>
+                        </fieldset>
+                    </div>
+
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Admission Year </label>
