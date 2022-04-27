@@ -5,11 +5,11 @@
             <div class="row">
                 <div class="col-sm-12 col-lg-5">
                     <div class="top-info__list d-flex align-self-center pt-2">
-{{--                        <ul class="list-unstyled d-flex top-nav__language float-right">--}}
-{{--                            <li class=""><a href="#" >दमकल</a></li>--}}
-{{--                            <li class=""><a href="#">सडक यातायातको वर्तमान अवस्था</a></li>--}}
-{{--                            <li class=""><a href="#"> बिपद् बारे जानकारी गराउनुहोस </a></li>--}}
-{{--                        </ul>--}}
+                        <ul class="list-unstyled d-flex top-nav__language float-right">
+                            <li class=""><a href="#">Need Technical Help : 9803283319</a></li>
+                            <li class=""><a href="#">Email : support@trimax.com.np</a></li>
+
+                        </ul>
                     </div>
                 </div>
 
@@ -18,7 +18,7 @@
                         <div class="ml-2 mr-3" >
                             <ul class="list-unstyled d-flex top-nav__language float-right">
                                 <li class=""><a href="{{ route('login') }}" >Login</a></li>
-                                <li class=""><a href="{{ route('register') }}">New Registration</a></li>
+                                <li class=""><a href="{{ route('register') }}">New Registrations</a></li>
 {{--                                <li class=""><a href="#">Admit Card</a></li>--}}
                             </ul>
                         </div>
@@ -134,7 +134,7 @@
                     <h6>Notice :</h6>
                 </div>
                 <div class="col-md-11"><marquee onmouseover="this.stop();" onmouseout="this.start();">
-                        <a href="#" target="_blank"> <p>Re-exam result publish</p></a>
+                        <a href="#" target="_blank"> <p></p></a>
                     </marquee>
                 </div>
             </div>

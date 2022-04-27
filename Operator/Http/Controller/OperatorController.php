@@ -115,7 +115,7 @@ class OperatorController extends BaseController
                 $data['profile_state'] = 'officer';
                 if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
                     $data['status'] = 'progress';
-                    $data['remarks'] = 'Profile is forward to Officer';
+                    $data['remarks'] = 'Profile Verified and  is Forwarded to Officer';
                     $data['review_status'] = 'Successful';
                     $data['profile_state'] = 'officer';
                     $this->profileLog($data);
