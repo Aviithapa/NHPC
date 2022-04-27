@@ -7,7 +7,7 @@
                     <div class="top-info__list d-flex align-self-center pt-2">
                         <ul class="list-unstyled d-flex top-nav__language float-right">
                             <li class=""><a href="#">Need Technical Help : 9803283319</a></li>
-                            <li class=""><a href="#">Email : support@trimax.com.np</a></li>
+                            <li class=""><a href="#">Support Email : support@trimax.com.np</a></li>
 
                         </ul>
                     </div>

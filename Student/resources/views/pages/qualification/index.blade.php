@@ -54,7 +54,7 @@
                                             <td><a href="#">{{++$key}}</a></td>
                                                     <td>{{$qualification->getLevelName()}}</td>
                                                     <td>{{$qualification->board_university}}</td>
-                                            <td>{{$qualification->getProgramName()}}</td>
+                                            <td>{{$qualification->getProgramName()}} || {{$qualification->program_id}}</td>
                                             <td>{{$qualification->registration_number}}</td>
                                                     @if($profile->profile_status === "Rejected")
                                                         <td><a href="{{route('qualification.update.index',["id" => $qualification->level])}}"><span class="label label-success">Edit</span></a></td>
