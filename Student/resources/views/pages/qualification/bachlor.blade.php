@@ -481,7 +481,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <label>NOC Image *</label><br>
+                            <label>NHPC Study Permission Letter Image </label><br>
                             <div class="col-md-12 col-lg-12">
 
                                 @if(isset($data))

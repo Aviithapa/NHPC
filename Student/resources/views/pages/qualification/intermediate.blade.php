@@ -52,7 +52,7 @@
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Program Name</label>
-                        <select class="form-control" name="program_id" id="nebProgramId" onchange="programSelect()">
+                        <select class="form-control" name="program_id" id="nebProgramId" onchange="selectNebProgram()">
                             <option value=""></option>
                             <option value="other">Other</option>
                             @foreach($plus_2_program as $program)
@@ -349,6 +349,33 @@
 
 @push('scripts')
     <script>
+        function selectNebProgram(){
+            console.log("You are here")
+            const sb = document.querySelector('#nebProgramId');
+            console.log(sb.value);
+
+
+            if (sb.value === "other"){
+                $("#other_program").show();
+                $("#otherprogram").attr('name', 'program_id');
+                $('#nebProgramId').attr('name', 'nothing');
+                $("#bachornepal").hide();
+                $("#bachorinternational").show();
+                $('#bachornepalValue').attr('name', 'nothing');
+                $("#bachorinternationalValue").attr('name', 'collage_name');
+            }else {
+                $("#other_program").hide();
+                $("#otherprogram").attr('name', 'nothing');
+                $('#nebProgramId').attr('name', 'program_id');
+                $("#bachornepal").show();
+                $("#bachorinternational").hide();
+                $("#bachorinternationalValue").attr('name', 'nothing');
+                $('#bachornepalValue').attr('name', 'collage_name');
+            }
+        }
+    </script>
+
+    <script>
         function levelIntermediate(){
             const sb = document.querySelector('#level_type');
             switch (sb.value) {
@@ -425,4 +452,5 @@
         }
 
     </script>
+
     @endpush

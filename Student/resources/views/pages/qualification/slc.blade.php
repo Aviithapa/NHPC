@@ -30,7 +30,7 @@
                          <div class="col-lg-4">
                              <fieldset class="form-group">
                                  <label>Board</label>
-                                 <input name="board_university" class="form-control" id="basicInput" type="text" required>
+                                 <input name="board_university" class="form-control" id="basicInput" type="text" value="SEE / SLC " required>
                              </fieldset>
                          </div>
                          <div class="grid-body ">
