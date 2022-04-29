@@ -278,29 +278,41 @@
                                                         @endif
                                                         @if($qualifications['level'] == 4 || $qualifications['level'] == 5)
                                                             @if($qualifications['level'] == 5)
-                                                            <tr>
-                                                                <td></td>
-                                                                <td><img src="{{$qualifications->getMasMarksheetImage()}}" onclick="onClick(this)"  alt="Transcript Image" width="200" height="200"></td>
-                                                               </tr>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td><img src="{{$qualifications->getMasMarksheetImage()}}" onclick="onClick(this)"  alt="Transcript Image" width="200" height="200"></td>
+                                                                </tr>
                                                             @elseif($qualifications['level'] == 4)
-                                                            <tr>
-                                                                <td></td>
-                                                                <td><img src="{{$qualifications->getTranscript1Image()}}" onclick="onClick(this)"  alt="Transcript 1 Image" width="200" height="200"></td>
-                                                                <td><img src="{{$qualifications->getTranscript2Image()}}" onclick="onClick(this)"  alt="Transcript 2 Image" width="200" height="200"></td>
-                                                                <td><img src="{{$qualifications->getTranscript3Image()}}" onclick="onClick(this)"  alt="Transcript 3 Image" width="200" height="200"></td>
-                                                            </tr>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td><img src="{{$qualifications->getTranscript1Image()}}" onclick="onClick(this)"  alt="Transcript 1 Image" width="200" height="200"></td>
+                                                                    <td><img src="{{$qualifications->getTranscript2Image()}}" onclick="onClick(this)"  alt="Transcript 2 Image" width="200" height="200"></td>
+                                                                    <td><img src="{{$qualifications->getTranscript3Image()}}" onclick="onClick(this)"  alt="Transcript 3 Image" width="200" height="200"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td><img src="{{$qualifications->getTranscript5Image()}}" onclick="onClick(this)"  alt="Transcript 5 Image" width="200" height="200"></td>
+                                                                    <td><img src="{{$qualifications->getTranscript6Image()}}" onclick="onClick(this)"  alt="Transcript 6 Image" width="200" height="200"></td>
+                                                                    <td><img src="{{$qualifications->getTranscript7Image()}}" onclick="onClick(this)"  alt="Transcript 7 Image" width="200" height="200"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td></td>
+                                                                    <td><img src="{{$qualifications->getTranscript8Image()}}" onclick="onClick(this)"  alt="Transcript 8 Image" width="200" height="200"></td>
+                                                                    <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Equivalence Image" width="200" height="200"></td>
+                                                                </tr>
                                                             @endif
                                                             <tr>
                                                                 <td></td>
-                                                                <td><img src="{{$qualifications->getIntershipImage()}}" onclick="onClick(this)"  alt="Transcript Image" width="200" height="200"></td>
-                                                                <td><img src="{{$qualifications->getNocImage()}}" onclick="onClick(this)"  alt="Character Image" width="200" height="200"></td>
-                                                                <td><img src="{{$qualifications->getVisaImage()}}" onclick="onClick(this)"  alt="Provisional Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getIntershipImage()}}" onclick="onClick(this)"  alt="Intership Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getNocImage()}}" onclick="onClick(this)"  alt="Noc Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getVisaImage()}}" onclick="onClick(this)"  alt="Visa Image" width="200" height="200"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td></td>
-                                                                <td><img src="{{$qualifications->getPassportImage()}}" onclick="onClick(this)"  alt="Transcript Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getPassportImage()}}" onclick="onClick(this)"  alt="Passport Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Equivalance Image" width="200" height="200"></td>
                                                             </tr>
-                                                            @endif
+                                                        @endif
                                                     @endforeach
                                                     <tr>
                                                     </tbody>

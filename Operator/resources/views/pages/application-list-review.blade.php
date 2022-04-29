@@ -310,6 +310,7 @@
                                                             <tr>
                                                                 <td></td>
                                                                 <td><img src="{{$qualifications->getPassportImage()}}" onclick="onClick(this)"  alt="Passport Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Equivalance Image" width="200" height="200"></td>
                                                             </tr>
                                                             @endif
                                                     @endforeach
