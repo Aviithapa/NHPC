@@ -78,8 +78,8 @@
                             <h1>Warning! Warning! Warning!<br>
                                 Profile has been rejected please review it</h1>
                             <p></p>
-                            <button onclick="$('.modal').css('display','none')" class="btn btn-primary  mt-2"><i class="fa fa-check"></i>
-                                Ok</button>
+{{--                            <button onclick="$('.modal').css('display','none')" class="btn btn-primary  mt-2"><i class="fa fa-check"></i>--}}
+{{--                                Ok</button>--}}
                             <a href="{{url("student/dashboard/student/status/index/profile")}}"><button class="btn btn-primary  mt-2"><i class="fa fa-check"></i>
                                     Check Profile logs</button></a>
 
