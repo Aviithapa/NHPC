@@ -189,10 +189,10 @@
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-lg-6 m-b-12">
-                                    <div id="piechart" style="width: 600px; height: 500px"></div>
+                                    <div id="piechart" style="width: 600px; height: 400px"></div>
                                 </div>
                                 <div class="col-lg-6 m-b-12">
-                                    <div id="pieChart" style="width: 600px; height: 500px"></div>
+                                    <div id="pieChart" style="width: 600px; height:400px"></div>
                                 </div>
                             </div>
 
@@ -206,28 +206,70 @@
 
 {{--        Bar Graph --}}
 
-        <div class="content">
 
-            <div class="row">
-                <div class="col-lg-10 m-b-3">
-                    <div class="box box-info">
-                        <div class="box-header with-border p-t-1">
-                            <h3 class="box-title text-black">Exam Applied Program Wise Application</h3>
-                            <div class="pull-right">
-                            </div>
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="row">
-                                <div class="col-lg-12 m-b-12">
-                                    <div id="piechartProgram" style="width: 100%; height: 500px"></div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="content">
+
+                    <div class="row">
+                        <div class="col-lg-12 m-b-3">
+                            <div class="box box-info">
+                                <div class="box-header with-border p-t-1">
+                                    <h3 class="box-title text-black">Exam Applied Program Wise Application</h3>
+                                    <div class="pull-right">
+                                    </div>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 m-b-12">
+                                            <div id="piechartProgram" style="width: 100%; height: 500px"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
+            <div class="col-lg-4">
+                <div class="content">
+
+                    <div class="row">
+                        <div class="col-lg-12 m-b-3">
+                            <div class="box box-info">
+                                <div class="box-header with-border p-t-1">
+                                    <h3 class="box-title text-black">Exam Applied Count</h3>
+                                    <div class="pull-right">
+                                    </div>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                        <div class="table-responsive">
+                                            <table id="data-table" class="table no-margin">
+                                                <thead>
+                                                <td>Program Name</td>
+                                                <td>Count</td>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($exam as $exams)
+                                                <tr>
+                                                    <td>{{$exams->getProgramName()}}</td>
+                                                    <td>{{$exams->count}}</td>
+                                                </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
         <!-- /.content -->
