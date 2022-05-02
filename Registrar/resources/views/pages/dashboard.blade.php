@@ -261,9 +261,10 @@
                                                 @endforeach
 
                                                 </tbody>
-{{--                                                {{ $exam->links() }}--}}
 
                                             </table>
+                                            {{ $exam->links() }}
+
                                         </div>
 
                                 </div>
