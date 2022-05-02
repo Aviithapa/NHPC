@@ -263,7 +263,9 @@
                                                 </tbody>
 
                                             </table>
-                                            {{ $exam->links() }}
+                                           <div class="pagination">
+                                               {{ $exam->links() }}
+                                           </div>
 
                                         </div>
 
