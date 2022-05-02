@@ -302,7 +302,7 @@
                                                             <tr>
                                                                 <td></td>
                                                                 <td><img src="{{$qualifications->getTranscript8Image()}}" onclick="onClick(this)"  alt="Transcript 8 Image" width="200" height="200"></td>
-                                                                <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Equivalence Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Bachelor Equivalence Image" width="200" height="200"></td>
                                                             </tr>
                                                             @endif
                                                             <tr>
@@ -314,7 +314,7 @@
                                                             <tr>
                                                                 <td></td>
                                                                 <td><img src="{{$qualifications->getPassportImage()}}" onclick="onClick(this)"  alt="Passport Image" width="200" height="200"></td>
-                                                                <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Equivalance Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Master Equivalance Image" width="200" height="200"></td>
                                                             </tr>
                                                             @endif
                                                     @endforeach
