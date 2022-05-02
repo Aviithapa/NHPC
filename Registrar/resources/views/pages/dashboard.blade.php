@@ -233,7 +233,7 @@
                 </div>
 
             </div>
-            <div class="col-lg-5">
+            <div class="col-lg-4">
                 <div class="content">
 
                     <div class="row">
@@ -374,7 +374,7 @@
 
                 @php
 
-                    foreach($exam as $d) {
+                    foreach($examPieChart as $d) {
                         echo "['".$d->getProgramName()."', ".$d->count."],";
                     }
                 @endphp
