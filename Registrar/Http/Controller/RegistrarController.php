@@ -12,6 +12,7 @@ use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Illuminate\Support\Facades\Auth;
 use Operator\Modules\Framework\Request;
+use Student\Models\Profile;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
 
@@ -49,6 +50,29 @@ class RegistrarController  extends BaseController
         $this->examProcessingRepository=$examProcessingRepository;
         $this->examProcessingDetailsRepository=$examProcessingDetailsRepository;
         parent::__construct();
+    }
+
+    public function dashboard()
+    {
+        if (Auth::user()->mainRole()->name === 'registrar') {
+            $data= Profile::select(\DB::raw("COUNT(*) as count"), \DB::raw("profile_status as profile_status"))
+                ->groupBy('profile_status')
+                ->orderBy('count')
+                ->get();
+            $profile= Profile::select(\DB::raw("COUNT(*) as count"), \DB::raw("profile_state as profile_state"))
+                ->groupBy('profile_state')
+                ->orderBy('count')
+                ->get();
+
+            $verified= Profile::where('profile_status','Verified')->get();
+            $reviewing= Profile::where('profile_status','Reviewing')->get();
+            $rejected= Profile::where('profile_status','Rejected')->get();
+
+
+            return view('registrar::pages.dashboard',compact('data','profile','verified','reviewing','rejected'));
+        }else{
+            return redirect()->route('login');
+        }
     }
 
     public function profile($status, $current_state)

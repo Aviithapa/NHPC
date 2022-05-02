@@ -631,6 +631,36 @@ if (!function_exists('getApplliedStudent')) {
     }
 }
 
+if (!function_exists('getTotalApplication')) {
+    function getTotalApplication()
+    {
+        $count =0;
+        $student = \Student\Models\Profile::all();
+        foreach ($student as $student_count)
+            $count++;
+        return $count;
+    }
+}
+if (!function_exists('getVerifiedStudent')) {
+    function getVerifiedStudent($state,$status)
+    {
+        $count =0;
+        $student = \Student\Models\Profile::all()->where('profile_state','=',$state)->where('profile_status','=',$status);
+        foreach ($student as $student_count)
+            $count++;
+        return $count;
+    }
+}
+if (!function_exists('getprofileVerifiedStudent')) {
+    function getprofileVerifiedStudent($state,$status)
+    {
+        $count =0;
+        $student = \App\Models\Profile\ProfileProcessing::all()->where('current_state','=',$state)->where('status','=',$status);
+        foreach ($student as $student_count)
+            $count++;
+        return $count;
+    }
+}
 
 if (!function_exists('getHighteshQualification')) {
     function getHighteshQualification($qualification)
