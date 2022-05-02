@@ -259,9 +259,10 @@
                                                     <td>{{$exams->count}}</td>
                                                 </tr>
                                                 @endforeach
-                                                {{ $exam->links() }}
 
                                                 </tbody>
+                                                {{ $exam->links() }}
+
                                             </table>
                                         </div>
 
