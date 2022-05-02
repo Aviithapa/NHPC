@@ -131,7 +131,7 @@
 
                         <div class="col-lg-4">
                             <div class="col-md-12 col-lg-12">
-                                <label>MarkSheet Image *</label>
+                                <label>MarkSheet / Transcript Image *</label>
                                 @if(isset($data))
                                     <img src="{{url(isset($data)?$data->getMasMarksheetImage():imageNotFound())}}" height="250" width="200"
                                          id="transcript_mas_marksheet_img">
