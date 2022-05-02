@@ -259,6 +259,8 @@
                                                     <td>{{$exams->count}}</td>
                                                 </tr>
                                                 @endforeach
+                                                {{ $exam->links() }}
+
                                                 </tbody>
                                             </table>
                                         </div>

@@ -69,7 +69,7 @@ class RegistrarController  extends BaseController
             $exam = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
                 ->groupBy('program_id')
                 ->orderBy('count')
-                ->get();
+                ->paginate(10);
             $verified= Profile::where('profile_status','Verified')->get();
             $reviewing= Profile::where('profile_status','Reviewing')->get();
             $rejected= Profile::where('profile_status','Rejected')->get();
