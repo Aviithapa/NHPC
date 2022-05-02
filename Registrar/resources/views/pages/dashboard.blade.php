@@ -233,7 +233,7 @@
                 </div>
 
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-12">
                 <div class="content">
 
                     <div class="row">
@@ -261,7 +261,7 @@
                                                 @endforeach
 
                                                 </tbody>
-                                                {{ $exam->links() }}
+{{--                                                {{ $exam->links() }}--}}
 
                                             </table>
                                         </div>
