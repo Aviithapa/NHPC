@@ -255,8 +255,8 @@
                                                 <tbody>
                                                 @foreach($exams as $exam)
                                                 <tr>
-                                                    <td>{{$exam->getProgramName()}}</td>
-                                                    <td>{{$exam->count}}</td>
+                                                    <td class="font-size-program">{{$exam->getProgramName()}}</td>
+                                                    <td class="font-size-program">{{$exam->count}}</td>
                                                 </tr>
                                                 @endforeach
 
@@ -277,6 +277,9 @@
         height: 5px;
         width: 5px;
         /*margin: 5px;*/
+    }
+    .font-size-program{
+        font-size: 10px;
     }
 </style>
                                         </div>
