@@ -66,16 +66,21 @@ class RegistrarController  extends BaseController
                 ->orderBy('count')
                 ->get();
 
+            $exams = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
+                ->groupBy('program_id')
+                ->orderBy('count')
+                ->paginate(15);
+
             $exam = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
                 ->groupBy('program_id')
                 ->orderBy('count')
-                ->paginate(1);
+                ->get();
             $verified= Profile::where('profile_status','Verified')->get();
             $reviewing= Profile::where('profile_status','Reviewing')->get();
             $rejected= Profile::where('profile_status','Rejected')->get();
 
 
-            return view('registrar::pages.dashboard',compact('data','profile','verified','reviewing','rejected','exam'));
+            return view('registrar::pages.dashboard',compact('data','profile','verified','reviewing','rejected','exam','exams'));
         }else{
             return redirect()->route('login');
         }

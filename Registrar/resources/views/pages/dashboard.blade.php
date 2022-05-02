@@ -233,7 +233,7 @@
                 </div>
 
             </div>
-            <div class="col-lg-12">
+            <div class="col-lg-5">
                 <div class="content">
 
                     <div class="row">
@@ -253,10 +253,10 @@
                                                 <td>Count</td>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($exam as $exams)
+                                                @foreach($exams as $exam)
                                                 <tr>
-                                                    <td>{{$exams->getProgramName()}}</td>
-                                                    <td>{{$exams->count}}</td>
+                                                    <td>{{$exam->getProgramName()}}</td>
+                                                    <td>{{$exam->count}}</td>
                                                 </tr>
                                                 @endforeach
 
@@ -264,7 +264,7 @@
 
                                             </table>
                                            <div class="pagination">
-                                               {{ $exam->links() }}
+                                               {{ $exams->links() }}
                                            </div>
 <style>
     .w-5{
