@@ -5,6 +5,7 @@ namespace Registrar\Http\Controller;
 
 
 use App\Http\Controllers\MailController;
+use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
@@ -65,12 +66,16 @@ class RegistrarController  extends BaseController
                 ->orderBy('count')
                 ->get();
 
+            $exam = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
+                ->groupBy('program_id')
+                ->orderBy('count')
+                ->get();
             $verified= Profile::where('profile_status','Verified')->get();
             $reviewing= Profile::where('profile_status','Reviewing')->get();
             $rejected= Profile::where('profile_status','Rejected')->get();
 
 
-            return view('registrar::pages.dashboard',compact('data','profile','verified','reviewing','rejected'));
+            return view('registrar::pages.dashboard',compact('data','profile','verified','reviewing','rejected','exam'));
         }else{
             return redirect()->route('login');
         }

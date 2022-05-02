@@ -194,38 +194,41 @@
                                 <div class="col-lg-6 m-b-12">
                                     <div id="pieChart" style="width: 600px; height: 500px"></div>
                                 </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-    </div>
 
 
 {{--        Bar Graph --}}
 
-{{--        <div class="content">--}}
+        <div class="content">
 
-{{--            <div class="row">--}}
-{{--                <div class="col-lg-12 m-b-3">--}}
-{{--                    <div class="box box-info">--}}
-{{--                        <div class="box-header with-border p-t-1">--}}
-{{--                            <h3 class="box-title text-black">Bar Graph</h3>--}}
-{{--                            <div class="pull-right">--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <!-- /.box-header -->--}}
-{{--                        <div class="box-body">--}}
-{{--                            <div class="row">--}}
-{{--                                <div  id="bars"></div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+            <div class="row">
+                <div class="col-lg-7 m-b-3">
+                    <div class="box box-info">
+                        <div class="box-header with-border p-t-1">
+                            <h3 class="box-title text-black">Exam Applied Program Wise Application</h3>
+                            <div class="pull-right">
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-lg-12 m-b-12">
+                                    <div id="piechartProgram" style="width: 100%; height: 500px"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-{{--        </div>--}}
+        </div>
 
         <!-- /.content -->
 </div>
@@ -290,6 +293,39 @@
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+
+
+
+
+    </script>
+
+    <script type="text/javascript">
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Reviewing', 'Rejected'],
+
+                @php
+
+                    foreach($exam as $d) {
+                        echo "['".$d->getProgramName()."', ".$d->count."],";
+                    }
+                @endphp
+            ]);
+
+            var options = {
+                title: 'Exam Apply Program Wise',
+                is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechartProgram'));
 
             chart.draw(data, options);
         }
