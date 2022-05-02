@@ -266,7 +266,19 @@
                                            <div class="pagination">
                                                {{ $exam->links() }}
                                            </div>
-
+<style>
+    .w-5{
+        height: 10px;
+    }
+    .flex-1{
+        display: none;
+    }
+    .cursor-default{
+        height: 5px;
+        width: 5px;
+        /*margin: 5px;*/
+    }
+</style>
                                         </div>
 
                                 </div>
