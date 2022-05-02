@@ -4,6 +4,7 @@
 namespace Registrar\Http\Controller;
 
 
+use App\Http\Controllers\MailController;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
@@ -128,12 +129,15 @@ class RegistrarController  extends BaseController
                 $id = $data['profile_id'];
                 $data['created_by'] = Auth::user()->id;
                 $data['state'] = 'registrar';
+                $profileEmail = $this->profileRepository->findById($id);
+                $email = $this->userRepository->findBy('id','=',$profileEmail['user_id'])->first();
 
                 if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
                     $data['status'] = 'progress';
-                    $data['remarks'] = 'Profile is forward to Subject Committee';
+                    $data['remarks'] = 'Document Verified and forwarded to Subject Committee';
                     $data['review_status'] = 'Successful';
                     $data['profile_state'] = 'subject_committee';
+                    MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
                     $this->profileLog($data);
                     $this->profileProcessing($id, $data);
                 } elseif ($data['profile_status'] === "Rejected") {
@@ -142,6 +146,7 @@ class RegistrarController  extends BaseController
                     $data['profile_state'] = 'student';
                     $this->profileLog($data);
                     $this->profileProcessing($id, $data);
+                    MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
 
                 }
                 $profile = $this->profileRepository->update($data, $id);
@@ -172,24 +177,32 @@ class RegistrarController  extends BaseController
 
     public function profileProcessing( $id , $data){
         $profileProcessing['profile_id'] = $id;
+        $profileEmail = $this->profileRepository->findById($id);
+        $email = $this->userRepository->findBy('id','=',$profileEmail['user_id'])->first();
         $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
         if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
 
             $data['status'] = 'progress';
-            $data['remarks'] = 'Profile is forward to Subject Committee';
+            $data['remarks'] = 'Document Verified and forwarded to Subject Committee';
             $data['review_status'] = 'Successful';
             $data['current_state'] = 'subject_committee';
+            MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+
             $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
         } elseif ($data['profile_status'] == "Rejected") {
 
             $data['status'] = 'rejected';
             $data['review_status'] = 'Rejected';
             $data['current_state'] = 'registrar';
+            MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+
             $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
         } elseif ($data['profile_status'] === "Pending") {
             $data['status'] = 'pending';
             $data['review_status'] = 'Pending';
             $data['current_state'] = 'registrar';
+            MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+
             $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
 
         }

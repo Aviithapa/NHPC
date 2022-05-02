@@ -4,6 +4,7 @@
 namespace Operator\Http\Controller;
 
 
+use App\Http\Controllers\MailController;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
@@ -168,22 +169,26 @@ class OperatorController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'operator') {
             $profileProcessing['profile_id'] = $id;
-           $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
+            $profileEmail = $this->profileRepository->findById($id);
+            $email = $this->userRepository->findBy('id','=',$profileEmail['user_id'])->first();
+            $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
             if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
-
                 $data['status'] = 'progress';
                 $data['remarks'] = 'Document Verified and is Forwarded to Officer';
                 $data['review_status'] = 'Successful';
                 $data['current_state'] = 'officer';
+                $profileEmail = $this->profileRepository->findById($id);
+                $email = $this->userRepository->findBy('id','=',$profileEmail['user_id'])->first();
+                MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
                 if ($profileProcessingId){
                     $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
                 }else
                   $profileProcessings = $this->profileProcessingRepository->create($data);
             } elseif ($data['profile_status'] == "Rejected") {
-
                 $data['status'] = 'rejected';
                 $data['review_status'] = 'Rejected';
                 $data['current_state'] = 'computer_operator';
+                MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
                 if ($profileProcessingId){
                     $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
                 }else
@@ -192,6 +197,7 @@ class OperatorController extends BaseController
                 $data['status'] = 'pending';
                 $data['review_status'] = 'Pending';
                 $data['current_state'] = 'computer_operator';
+                MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
                 if ($profileProcessingId){
                     $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
                 }else
