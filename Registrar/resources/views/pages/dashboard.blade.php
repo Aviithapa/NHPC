@@ -209,7 +209,7 @@
         <div class="content">
 
             <div class="row">
-                <div class="col-lg-7 m-b-3">
+                <div class="col-lg-10 m-b-3">
                     <div class="box box-info">
                         <div class="box-header with-border p-t-1">
                             <h3 class="box-title text-black">Exam Applied Program Wise Application</h3>
