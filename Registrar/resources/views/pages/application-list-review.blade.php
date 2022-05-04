@@ -473,6 +473,13 @@
         </div>
         <!-- /.content -->
         <!-- /.content -->
+        <style>
+            .modal-body {
+                max-height: 80vh;
+                overflow-y: auto;
+                max-width: 100vh;
+            }
+        </style>
         <div class="modal" id="modal01">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
