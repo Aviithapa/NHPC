@@ -53,6 +53,8 @@
 
                                     </tbody>
                                 </table>
+                                {{ $data->links() }}
+
                             </div>
                             <!-- /.table-responsive -->
                         </div>
