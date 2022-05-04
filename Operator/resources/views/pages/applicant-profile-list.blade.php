@@ -51,9 +51,9 @@
                                             </tr>
                                         @endforeach
 
+
                                     </tbody>
                                 </table>
-                                {{ $data->links() }}
 
                             </div>
                             <!-- /.table-responsive -->
