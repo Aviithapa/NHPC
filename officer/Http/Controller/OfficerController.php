@@ -6,6 +6,7 @@ namespace officer\Http\Controller;
 
 use App\Http\Controllers\MailController;
 use App\Models\Exam\ExamProcessing;
+use App\Models\Profile\ProfileProcessing;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
@@ -57,8 +58,14 @@ class OfficerController  extends BaseController
     public function profile($status, $current_state)
     {
         if (Auth::user()->mainRole()->name === 'officer') {
-            $users = $this->profileProcessingRepository->getAll()->where('current_state', '=', $current_state)
-                ->where('status', '=', $status);
+//            $users = $this->profileProcessingRepository->getAll()->where('current_state', '=', $current_state)
+//                ->where('status', '=', $status);
+            $users = ProfileProcessing::where('current_state', '=', $current_state)
+                ->where('status', '=', $status)
+                ->orderBy('id','DESC')
+                ->skip(0)
+                ->take(20)
+                ->get();
             if ($users->isEmpty())
                 $profile = null;
             else {
