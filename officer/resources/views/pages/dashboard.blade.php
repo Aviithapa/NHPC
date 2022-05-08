@@ -19,7 +19,7 @@
         <div class="content">
             <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Reviewing', 'current_state' => 'officer'])}}">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'progress', 'current_state' => 'officer'])}}">
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>
                                 <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Reviewing', 'officer')}}</span>
