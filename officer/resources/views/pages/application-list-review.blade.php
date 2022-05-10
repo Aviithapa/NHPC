@@ -259,6 +259,7 @@
                                                                 <td><img src="{{$qualifications->getOjt1Image()}}" onclick="onClick(this)"  alt="OJT  2 Image" width="200" height="200"></td>
                                                                 <td><img src="{{$qualifications->getOjt2Image()}}" onclick="onClick(this)"  alt="OJT  3 Image" width="200" height="200"></td>
                                                             </tr>
+
                                                         @endif
                                                         @if($qualifications['level'] == 3)
                                                             <tr>
@@ -266,6 +267,10 @@
                                                                 <td><img src="{{$qualifications->getOjtImage()}}" onclick="onClick(this)"  alt="OJT Image" width="200" height="200"></td>
                                                                 <td><img src="{{$qualifications->getOjt1Image()}}" onclick="onClick(this)"  alt="OJT  2 Image" width="200" height="200"></td>
                                                                 <td><img src="{{$qualifications->getOjt2Image()}}" onclick="onClick(this)"  alt="OJT  3 Image" width="200" height="200"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="+2 Equivalence Image" width="200" height="200"></td>
                                                             </tr>
                                                         @endif
                                                         @if($qualifications['level'] == 4 || $qualifications['level'] == 5)
