@@ -43,11 +43,25 @@
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
                                 <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Rejected','student')}}</span>
-                                    <span class="info-box-text">Rejected Application List </span></div>
+                                    <span class="info-box-text">All Rejected Application List </span></div>
                             </div>
                         </div>
                     </a>
                 </div>
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Rejected','current_state' => 'student'])}}">
+                        <div class="card">
+                            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
+                                <div class="info-box-content"> <span class="info-box-number"> {{getApplicantProcessingCount('rejected','officer')}}</span>
+                                    <span class="info-box-text">Officer Rejected List </span></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-yellow"><i class="icon-book-open"></i></span>
@@ -56,9 +70,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
