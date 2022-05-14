@@ -667,9 +667,7 @@ if (!function_exists('getProgramNameForProfile')) {
     {
 
         $program_id = \App\Models\Exam\ExamProcessing::all()->where('profile_id','=',$id)->first();
-        dd($program_id);
             $program= \App\Models\Admin\Program::all()->where('id','=',$program_id['program_id'])->first();
-            dd($program);
 
         return $program['name'];
     }
