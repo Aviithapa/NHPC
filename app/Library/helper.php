@@ -662,8 +662,8 @@ if (!function_exists('getprofileVerifiedStudent')) {
     }
 }
 
-if (!function_exists('getProgramName')) {
-    function getProgramName($id)
+if (!function_exists('getProgramNameForProfile')) {
+    function getProgramNameForProfile($id)
     {
 
         $program_id = \App\Models\Exam\ExamProcessing::all()->where('profile_id','=',$id)->first();

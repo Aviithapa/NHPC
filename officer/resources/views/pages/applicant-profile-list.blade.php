@@ -52,7 +52,7 @@
                                             <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
                                             <td>{{$data->citizenship_number}}</td>
                                             <td>{{$data->created_at->toDateString()}}</td>
-                                            <td> {{getProgramName($data->id)}}</td>
+                                            <td> {{getProgramNameForProfile($data->id)}}</td>
                                             <td> <a href="{{url("officer/dashboard/officer/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
                                         </tr>
                                             @endforeach
