@@ -62,7 +62,7 @@ class OfficerController  extends BaseController
 //                ->where('status', '=', $status);
             $users = ProfileProcessing::where('current_state', '=', $current_state)
                 ->where('status', '=', $status)
-                ->orderBy('id','DESC')
+                ->orderBy('created_at','DESC')
                 ->skip(0)
                 ->take(20)
                 ->get();

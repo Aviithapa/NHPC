@@ -662,6 +662,16 @@ if (!function_exists('getprofileVerifiedStudent')) {
     }
 }
 
+if (!function_exists('getProgramName')) {
+    function getProgramName($id)
+    {
+
+        $program_id = \App\Models\Exam\ExamProcessing::all()->where('profile_id','=',$id)->first();
+            $program= \App\Models\Admin\Program::all()->where('id','=',$program_id)->first();
+        return $program['name'];
+    }
+}
+
 if (!function_exists('getHighteshQualification')) {
     function getHighteshQualification($qualification)
     {

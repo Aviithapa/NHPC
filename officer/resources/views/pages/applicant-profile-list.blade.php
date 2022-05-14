@@ -30,10 +30,11 @@
                                 <table id="data-table" class="table no-margin">
                                     <thead>
                                     <tr>
+                                        <th>Registration Number</th>
                                         <th>Name</th>
                                         <th>Citizenship</th>
-                                        <th>Date of birth</th>
-                                        <th>Profile Status</th>
+                                        <th>Registration Date</th>
+                                        <th>Program Name</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -47,10 +48,11 @@
                                         @foreach($data as $datas)
                                              @foreach($datas as $data)
                                         <tr>
-                                            <td>{{$data->first_name}}</td>
+                                            <td>{{$data->id}}</td>
+                                            <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
                                             <td>{{$data->citizenship_number}}</td>
-                                            <td>{{$data->dob_nep}}</td>
-                                            <td> <a href="#"><span class="label label-danger">{{$data->profile_status}}</span></a></td>
+                                            <td>{{$data->created_at->toDateString()}}</td>
+                                            <td> {{getProgramName($data->id)}}</td>
                                             <td> <a href="{{url("officer/dashboard/officer/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
                                         </tr>
                                             @endforeach
