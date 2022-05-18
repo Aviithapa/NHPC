@@ -48,7 +48,6 @@
 
                                     @else
                                         @foreach($data as $datas)
-                                            @foreach($datas as $data)
                                                 <tr>
                                                     <td>{{$data->id}}</td>
                                                     <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
@@ -57,7 +56,6 @@
                                                     <td> {{getProgramNameForProfile($data->id)}}</td>
                                                     <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
                                                 </tr>
-                                            @endforeach
                                         @endforeach
                                     @endif
 

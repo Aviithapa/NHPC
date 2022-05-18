@@ -77,19 +77,21 @@ class OperatorController extends BaseController
     public function profile($status, $state)
     {
         if (Auth::user()->mainRole()->name === 'operator') {
-            $users = ProfileProcessing::where('current_state', '=', $state)
-                ->where('status', '=', $status)
-                ->orderBy('created_at','ASC')
-                ->skip(0)
-                ->take(20)
-                ->get();
-            if ($users->isEmpty())
-                $profile = null;
-            else {
-                foreach ($users as $user) {
-                    $profile[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id']);
-                }
-            }
+            $profile = $this->profileRepository->getAll()->where('profile_state','=',$state)
+                                                       ->where('profile_status','=',$status);
+//            $users = ProfileProcessing::where('current_state', '=', $state)
+//                ->where('status', '=', $status)
+//                ->orderBy('created_at','ASC')
+//                ->skip(0)
+//                ->take(20)
+//                ->get();
+//            if ($users->isEmpty())
+//                $profile = null;
+//            else {
+//                foreach ($users as $user) {
+//                    $profile[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id']);
+//                }
+//            }
             return $this->view('pages.applicant-profile-list', $profile);
         } else {
             return redirect()->route('login');
