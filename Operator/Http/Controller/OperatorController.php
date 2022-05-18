@@ -79,6 +79,7 @@ class OperatorController extends BaseController
         if (Auth::user()->mainRole()->name === 'operator') {
             $profile = $this->profileRepository->getAll()->where('profile_state','=',$state)
                                                        ->where('profile_status','=',$status);
+
 //            $users = ProfileProcessing::where('current_state', '=', $state)
 //                ->where('status', '=', $status)
 //                ->orderBy('created_at','ASC')
