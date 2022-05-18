@@ -10,67 +10,67 @@
             {{ __(" Sorry for the inconvenience registration for new application has been closed  ") }}
 
         </div>
-{{--        <form method="POST" action="{{ route('register') }}">--}}
-{{--            @csrf--}}
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
 
-{{--            <!-- Name -->--}}
-{{--            <div>--}}
-{{--                <x-label for="name" :value="__('Name*')" />--}}
+            <!-- Name -->
+            <div>
+                <x-label for="name" :value="__('Name*')" />
 
-{{--                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />--}}
-{{--            </div>--}}
+                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+            </div>
 
-{{--            <!-- Email Address -->--}}
-{{--            <div class="mt-4">--}}
-{{--                <x-label for="email" :value="__('Email*')" />--}}
+            <!-- Email Address -->
+            <div class="mt-4">
+                <x-label for="email" :value="__('Email*')" />
 
-{{--                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />--}}
-{{--            </div>--}}
+                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+            </div>
 
-{{--                <!-- Phone Number -->--}}
-{{--                <div class="mt-4">--}}
-{{--                    <x-label for="phone_number" :value="__('Phone Number*')" />--}}
+                <!-- Phone Number -->
+                <div class="mt-4">
+                    <x-label for="phone_number" :value="__('Phone Number*')" />
 
-{{--                    <x-input id="phone_number" class="block mt-1 w-full" type="number" name="phone_number" placeholder="98XXXXXXXX" maxlength="10" pattern="\d{10}" :value="old('phone_number')" required />--}}
-{{--                </div>--}}
+                    <x-input id="phone_number" class="block mt-1 w-full" type="number" name="phone_number" placeholder="98XXXXXXXX" maxlength="10" pattern="\d{10}" :value="old('phone_number')" required />
+                </div>
 
-{{--            <!-- Password -->--}}
-{{--            <div class="mt-4">--}}
-{{--                <x-label for="password" :value="__('Password*')" />--}}
+            <!-- Password -->
+            <div class="mt-4">
+                <x-label for="password" :value="__('Password*')" />
 
-{{--                <x-input id="password" class="block mt-1 w-full"--}}
-{{--                                type="password"--}}
-{{--                                name="password"--}}
-{{--                                required autocomplete="new-password" />--}}
-{{--            </div>--}}
+                <x-input id="password" class="block mt-1 w-full"
+                                type="password"
+                                name="password"
+                                required autocomplete="new-password" />
+            </div>
 
-{{--            <!-- Confirm Password -->--}}
-{{--            <div class="mt-4">--}}
-{{--                <x-label for="password_confirmation" :value="__('Confirm Password*')" />--}}
+            <!-- Confirm Password -->
+            <div class="mt-4">
+                <x-label for="password_confirmation" :value="__('Confirm Password*')" />
 
-{{--                <x-input id="password_confirmation" class="block mt-1 w-full"--}}
-{{--                                type="password"--}}
-{{--                                name="password_confirmation" required />--}}
-{{--            </div>--}}
-{{--                <div class="form-group mt-4 mb-4">--}}
-{{--                    <div class="captcha">--}}
-{{--                        <span>{!! captcha_img('flat');!!}</span>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="form-group mb-4">--}}
-{{--                    <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha" required>--}}
-{{--                </div>--}}
+                <x-input id="password_confirmation" class="block mt-1 w-full"
+                                type="password"
+                                name="password_confirmation" required />
+            </div>
+                <div class="form-group mt-4 mb-4">
+                    <div class="captcha">
+                        <span>{!! captcha_img('flat');!!}</span>
+                    </div>
+                </div>
+                <div class="form-group mb-4">
+                    <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha" required>
+                </div>
 
-{{--            <div class="flex items-center justify-end mt-4">--}}
-{{--                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">--}}
-{{--                    {{ __('Already registered?') }}--}}
-{{--                </a>--}}
+            <div class="flex items-center justify-end mt-4">
+                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                    {{ __('Already registered?') }}
+                </a>
 
-{{--                <x-button class="ml-4">--}}
-{{--                    {{ __('Register') }}--}}
-{{--                </x-button>--}}
-{{--            </div>--}}
-{{--        </form>--}}
+                <x-button class="ml-4">
+                    {{ __('Register') }}
+                </x-button>
+            </div>
+        </form>
     </x-auth-card>
 </x-guest-layout>
 

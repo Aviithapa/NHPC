@@ -5,6 +5,7 @@ namespace Operator\Http\Controller;
 
 
 use App\Http\Controllers\MailController;
+use App\Models\Profile\ProfileProcessing;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
@@ -76,9 +77,20 @@ class OperatorController extends BaseController
     public function profile($status, $state)
     {
         if (Auth::user()->mainRole()->name === 'operator') {
-            $users = $this->profileRepository->getAll()->where('profile_status', '=', $status)
-                                                       ->where('profile_state','=', $state);
-            return $this->view('pages.applicant-profile-list', $users);
+            $users = ProfileProcessing::where('current_state', '=', $state)
+                ->where('status', '=', $status)
+                ->orderBy('created_at','ASC')
+                ->skip(0)
+                ->take(20)
+                ->get();
+            if ($users->isEmpty())
+                $profile = null;
+            else {
+                foreach ($users as $user) {
+                    $profile[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id']);
+                }
+            }
+            return $this->view('pages.applicant-profile-list', $profile);
         } else {
             return redirect()->route('login');
         }
