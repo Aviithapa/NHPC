@@ -78,15 +78,15 @@ class OperatorController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'operator') {
             if ($exam === "true") {
-                $profile = $this->profileRepository->getAll()->where('profile_state', '=', $state)
+                $data = $this->profileRepository->getAll()->where('profile_state', '=', $state)
                     ->where('profile_status', '=', $status)
                     ->where('level', '>=', 3);
             }else{
-                $profile = $this->profileRepository->getAll()->where('profile_state', '=', $state)
+                $data = $this->profileRepository->getAll()->where('profile_state', '=', $state)
                     ->where('profile_status', '=', $status)
                     ->where('level', '<', 3);
             }
-            return $this->view('pages.applicant-profile-list', $profile);
+            return view('operator::pages.applicant-profile-list', compact('data','state','status'));
         } else {
             return redirect()->route('login');
         }

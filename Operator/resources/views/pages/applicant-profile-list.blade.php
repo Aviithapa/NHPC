@@ -19,13 +19,13 @@
         <div class="content">
             <div class="row">
                 <div class="col-lg-3 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing','state' => 'computer_operator','exam'=>"true"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/Reviewing/computer_operator/true')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
+                    <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'exam'=>"true"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/true')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
                         Exam To be Taken</a>
                 </div>
                 <div class="col-lg-3 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing','state' => 'computer_operator','exam'=>"false"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/Reviewing/computer_operator/false')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing','state' => 'computer_operator','exam'=>"false"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/false')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
                         Exam Not to be taken</a>
-                </div>F
+                </div>
             </div>
 
             <div class="row">
