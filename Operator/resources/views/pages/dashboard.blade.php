@@ -19,7 +19,7 @@
         <div class="content">
             <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator'])}}">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator','exam'=>"true"])}}">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Reviewing', 'computer_operator')}}</span>
@@ -29,7 +29,7 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Pending', 'state' => 'computer_operator'])}}">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Pending', 'state' => 'computer_operator' ,'exam'=>"true"])}}">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Pending','computer_operator')}}</span>
@@ -39,7 +39,7 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Rejected','state' => 'student'])}}">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Rejected','state' => 'student' ,'exam'=>"true"])}}">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Rejected','student')}}</span>
