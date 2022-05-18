@@ -15,6 +15,16 @@
 
         <!-- Main content -->
         <div class="content">
+            <div class="row">
+                <div class="col-lg-3 m-b-3">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'exam'=>"true"])}}" class="btn {{ (request()->is('officer/dashboard/officer/applicant-profile-list/'.$status.'/'.$current_state.'/true')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
+                        Exam To be Taken</a>
+                </div>
+                <div class="col-lg-3 m-b-3">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> $status,'current_state' => $current_state,'exam'=>"false"])}}" class="btn {{ (request()->is('officer/dashboard/officer/applicant-profile-list/'.$status.'/'.$current_state.'/false')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
+                        Exam Not to be taken</a>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-lg-12 m-b-3">

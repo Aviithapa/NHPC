@@ -55,7 +55,7 @@ class OfficerController  extends BaseController
         parent::__construct();
     }
 
-    public function profile($status, $current_state)
+    public function profile($status, $current_state, $exam)
     {
         if (Auth::user()->mainRole()->name === 'officer') {
 //            $users = $this->profileProcessingRepository->getAll()->where('current_state', '=', $current_state)
@@ -67,13 +67,21 @@ class OfficerController  extends BaseController
                 ->take(20)
                 ->get();
             if ($users->isEmpty())
-                $profile = null;
+                $data = null;
             else {
-                foreach ($users as $user) {
-                    $profile[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id']);
+                if ($exam === "true") {
+                    foreach ($users as $user) {
+                        $data[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id'])
+                            ->where('level', '>=', 3);
+                    }
+                }else{
+                    foreach ($users as $user) {
+                        $data[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id'])
+                            ->where('level', '<', 3);
+                    }
                 }
             }
-            return $this->view('pages.applicant-profile-list', $profile);
+            return view('officer::pages.applicant-profile-list', compact('data','current_state','status'));
         }else {
                 return redirect()->route('login');
             }

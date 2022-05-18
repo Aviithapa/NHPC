@@ -19,7 +19,7 @@
         <div class="content">
             <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'progress', 'current_state' => 'officer'])}}">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'progress', 'current_state' => 'officer', 'exam'=>'true'])}}">
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>
                                 <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Reviewing', 'officer')}}</span>
@@ -29,7 +29,7 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Pending', 'current_state' => 'officer'])}}">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Pending', 'current_state' => 'officer' , 'exam'=>'true'])}}">
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
                                 <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Pending','officer')}}</span>
@@ -39,7 +39,7 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Rejected','current_state' => 'student'])}}">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Rejected','current_state' => 'student' , 'exam'=>'true'])}}">
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
                                 <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Rejected','student')}}</span>
@@ -49,7 +49,7 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Rejected','current_state' => 'student'])}}">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Rejected','current_state' => 'student', 'exam'=>'true'])}}">
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
                                 <div class="info-box-content"> <span class="info-box-number"> {{getApplicantProcessingCount('rejected','officer')}}</span>
