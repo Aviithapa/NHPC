@@ -6,10 +6,10 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __(" Sorry for the inconvenience registration for new application has been closed  ") }}
+{{--        <div class="mb-4 text-sm text-gray-600">--}}
+{{--            {{ __(" Sorry for the inconvenience registration for new application has been closed  ") }}--}}
 
-        </div>
+{{--        </div>--}}
         <form method="POST" action="{{ route('register') }}">
             @csrf
 
