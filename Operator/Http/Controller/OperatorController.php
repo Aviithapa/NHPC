@@ -74,7 +74,7 @@ class OperatorController extends BaseController
         }
     }
 
-    public function profile($status, $state, $exam)
+    public function profile($status, $state, $exam=true)
     {
         if (Auth::user()->mainRole()->name === 'operator') {
             if ($exam === "true") {
@@ -161,9 +161,33 @@ class OperatorController extends BaseController
                     return redirect()->back()->withInput();
                 }
 
-                $users = $this->profileRepository->getAll()->where('profile_status', '=', 'Reviewing')
-                    ->where('profile_state','=', 'computer_operator');
-                return $this->view('pages.applicant-profile-list', $users);
+                $state = "computer_operator";
+                $status = "Reviewing";
+                $exam = true;
+                if ($exam === "true") {
+                    $data = Profile::where('profile_state', '=', $state)
+                        ->where('profile_status', '=', $status)
+                        ->where('level', '>=', 3)
+                        ->orderBy('created_at','ASC')
+                        ->skip(0)
+                        ->take(20)
+                        ->get();
+//                $this->profileRepository->getAll()->where('profile_state', '=', $state)
+//                    ->where('profile_status', '=', $status)
+//                    ->where('level', '>=', 3);
+                }else{
+                    $data = Profile::where('profile_state', '=', $state)
+                        ->where('profile_status', '=', $status)
+                        ->where('level', '<', 3)
+                        ->orderBy('created_at','ASC')
+                        ->skip(0)
+                        ->take(20)
+                        ->get();
+//                $data = $this->profileRepository->getAll()->where('profile_state', '=', $state)
+//                    ->where('profile_status', '=', $status)
+//                    ->where('level', '<', 3);
+                }
+                return view('operator::pages.applicant-profile-list', compact('data','state','status'));
             } catch (\Exception $e) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
