@@ -263,9 +263,7 @@
                                                 </tbody>
 
                                             </table>
-                                           <div class="pagination">
-                                               {{ $exams->links() }}
-                                           </div>
+
 <style>
     .w-5{
         height: 10px;
@@ -278,9 +276,7 @@
         width: 5px;
         /*margin: 5px;*/
     }
-    .font-size-program{
-        font-size: 10px;
-    }
+
 </style>
                                         </div>
 
