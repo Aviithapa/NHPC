@@ -231,6 +231,45 @@
                         </div>
                     </div>
                 </div>
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table id="data-table" class="table no-margin">
+                            <thead>
+                            <td>Program Name</td>
+                            <td>Count</td>
+                            </thead>
+                            <tbody>
+                            @foreach($tslc as $exam)
+                                <tr>
+                                    <td class="font-size-program">{{$exam->getProgramName()}}</td>
+                                    <td class="font-size-program">{{$exam->count}}</td>
+                                </tr>
+                            @endforeach
+
+                            </tbody>
+
+                        </table>
+
+
+
+                        <style>
+                            .w-5{
+                                height: 10px;
+                            }
+                            .flex-1{
+                                display: none;
+                            }
+                            .cursor-default{
+                                height: 5px;
+                                width: 5px;
+                                /*margin: 5px;*/
+                            }
+
+                        </style>
+                    </div>
+
+                </div>
+
 
             </div>
             <div class="col-lg-4">
@@ -264,6 +303,8 @@
 
                                             </table>
 
+
+
 <style>
     .w-5{
         height: 10px;
@@ -287,6 +328,7 @@
                 </div>
 
             </div>
+
         </div>
 
         <!-- /.content -->

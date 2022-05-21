@@ -70,6 +70,13 @@ class RegistrarController  extends BaseController
                 ->groupBy('program_id')
                 ->orderBy('count')
                 ->get();
+            $tslc = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
+                ->groupBy('program_id')
+                ->orderBy('count')
+                ->where('level_id', '<', 3)
+                ->get();
+
+
 
             $examPieChart = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
                 ->groupBy('program_id')
@@ -80,8 +87,7 @@ class RegistrarController  extends BaseController
             $rejected= Profile::where('profile_status','Rejected')->get();
 
 
-
-            return view('registrar::pages.dashboard',compact('data','profile','verified','reviewing','rejected','examPieChart','exams'));
+            return view('registrar::pages.dashboard',compact('data','profile','verified','reviewing','rejected','examPieChart','exams','tslc'));
         }else{
             return redirect()->route('login');
         }

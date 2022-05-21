@@ -104,6 +104,22 @@ if (! function_exists('getExamApplicantList')) {
         return $count;
     }
 }
+if (! function_exists('getLevelWiseStudentCount')) {
+    /**
+     * Generates an asset path for the uploads.
+     * @param $status
+     * @param null $state
+     * @return string
+     */
+    function getLevelWiseStudentCount($level)
+    {
+        $count =0;
+        $profiles = \Student\Models\Profile::all()->where("level",'=' ,$level);
+        foreach ($profiles as $profile)
+            $count++;
+        return $count;
+    }
+}
 
 
 
