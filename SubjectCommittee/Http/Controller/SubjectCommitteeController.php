@@ -51,16 +51,18 @@ class SubjectCommitteeController extends BaseController
         parent::__construct();
     }
 
-    public function profile($status, $current_state)
+    public function profile($status, $current_state, $level)
     {
         if (Auth::user()->mainRole()->name === 'subject_committee') {
+            $level = $level ? $level : 1;
             $users = $this->profileProcessingRepository->getAll()->where('current_state', '=', $current_state)
                 ->where('status', '=', $status);
             if ($users->isEmpty())
                 $profile = null;
             else {
                 foreach ($users as $user) {
-                    $profile[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id']);
+                    $profile[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id'])
+                    ->where('level','=', $level);
                 }
             }
             return $this->view('pages.applicant-profile-list', $profile);

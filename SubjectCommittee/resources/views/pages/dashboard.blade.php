@@ -51,36 +51,47 @@
 
             <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'progress','current_state' => 'subject_committee', 'level' => '5'])}}">
+
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('5',"subject_committee","Reviewing")}}</span>
                                 <span class="info-box-text">Specialization </span> </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'progress','current_state' => 'subject_committee', 'level' => '4'])}}">
+
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('4',"subject_committee","Reviewing")}}</span>
                                 <span class="info-box-text">Bachelor </span> </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'progress','current_state' => 'subject_committee', 'level' => '3'])}}">
+
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('3',"subject_committee","Reviewing")}}</span>
                                 <span class="info-box-text">PCL </span> </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'progress','current_state' => 'subject_committee', 'level' => '2'])}}">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('2',"subject_committee","Reviewing")}}</span>
                                 <span class="info-box-text">TSLC</span> </div>
                         </div>
                     </div>
+                    </a>
                 </div>
             </div>
         </div>
