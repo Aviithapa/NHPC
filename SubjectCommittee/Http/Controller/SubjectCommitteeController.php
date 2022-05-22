@@ -58,7 +58,7 @@ class SubjectCommitteeController extends BaseController
             $users = $this->profileProcessingRepository->getAll()->where('current_state', '=', $current_state)
                 ->where('status', '=', $status);
             if ($users->isEmpty())
-                $profile = null;
+                $data = null;
             else {
                 foreach ($users as $user) {
                     $data[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id'])

@@ -17,18 +17,18 @@
         <div class="content">
             <div class="row">
                 <div class="col-lg-3 m-b-3">
-                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>"5"])}}" class="btn {{ (request()->is('/subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/'.$status.'/ '.$current__state.'/5')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
+                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>"5"])}}" class="btn {{ (request()->is('/subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/'.$status.'/ '.$current_state.'/5')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
                         Specialization</a>
                 </div>
                 <div class="col-lg-3 m-b-3">
-                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>"4"])}}" class="btn {{ (request()->is('/subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/'.$status.'/'.$current__state.'/5')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
+                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>"4"])}}" class="btn {{ (request()->is('/subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/'.$status.'/'.$current_state.'/5')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
                         Bachelor</a>
                 </div>
                 <div class="col-lg-3 m-b-3">
-                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>"3"])}}" class="btn {{ (request()->is('/subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/'.$status.'/'.$current__state.'/3')) ? 'btn-primary':''  }}  mt-2">PCL</a>
+                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>"3"])}}" class="btn {{ (request()->is('/subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/'.$status.'/'.$current_state.'/3')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>PCL</a>
                 </div>
                 <div class="col-lg-3 m-b-3">
-                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>"2"])}}" class="btn {{ (request()->is('/subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/'.$status.'/'.$current__state.'/2')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
+                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>"2"])}}" class="btn {{ (request()->is('/subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/progress/subject_committee/2')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
                         TSLC</a>
                 </div>
             </div>
