@@ -376,7 +376,6 @@
                                                         <label class="col-sm-12">Select Status</label>
                                                         <div class="col-sm-12">
                                                             <select class="form-control form-control-line" name="profile_status" required>
-                                                                <option >{{$data->profile_status}}</option>
                                                                 <option value="Reviewing">Reviewing</option>
                                                                 <option value="Reviewing">Verified</option>
                                                                 <option value="Rejected">Rejected</option>
