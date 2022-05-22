@@ -61,11 +61,11 @@ class SubjectCommitteeController extends BaseController
                 $profile = null;
             else {
                 foreach ($users as $user) {
-                    $profile[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id'])
+                    $data[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id'])
                     ->where('level','=', $level);
                 }
             }
-            return $this->view('pages.applicant-profile-list', $profile);
+            return view('subjectCommittee::pages.applicant-profile-list', compact('data','status','current_state'));
         }else{
             return redirect()->route('login');
         }
