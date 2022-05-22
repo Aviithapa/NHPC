@@ -30,10 +30,11 @@
                                 <table id="data-table" class="table no-margin">
                                     <thead>
                                     <tr>
+                                        <th>Registration Number</th>
                                         <th>Name</th>
                                         <th>Citizenship</th>
-                                        <th>Date of birth</th>
-                                        <th>Profile Status</th>
+                                        <th>Registration Date</th>
+                                        <th>Program Name</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -47,10 +48,11 @@
                                         @foreach($data as $datas)
                                              @foreach($datas as $data)
                                         <tr>
-                                            <td>{{$data->first_name}}</td>
-                                            <td>{{$data->citizenship_number}}</td>
-                                            <td>{{$data->dob_nep}}</td>
-                                            <td> <a href="#"><span class="label label-danger">{{$data->profile_status}}</span></a></td>
+                                            <td>{{$datas->id}}</td>
+                                            <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
+                                            <td>{{$datas->citizenship_number}}</td>
+                                            <td>{{$datas->created_at->toDateString()}}</td>
+                                            <td> {{getProgramNameForProfile($datas->id)}}</td>
                                             <td> <a href="{{url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
                                         </tr>
                                             @endforeach
