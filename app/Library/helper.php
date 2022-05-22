@@ -111,10 +111,9 @@ if (! function_exists('getLevelWiseStudentCount')) {
      * @param null $state
      * @return string
      */
-    function getLevelWiseStudentCount($level)
+    function getLevelWiseStudentCount($level, $state, $status)
     {
-        $state = "computer_operator";
-        $status = "Reviewing";
+
         $count =0;
         $profiles = \Student\Models\Profile::all()->where("level",'=' ,$level)
             ->where('profile_state', '=', $state)

@@ -54,7 +54,7 @@
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('5')}}</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('5',"computer_operator","Reviewing")}}</span>
                                 <span class="info-box-text">Specialization </span> </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('4')}}</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('4',"computer_operator","Reviewing")}}</span>
                                 <span class="info-box-text">Bachelor </span> </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('3')}}</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('3',"computer_operator","Reviewing")}}</span>
                                 <span class="info-box-text">PCL </span> </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('2')}}</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('2',"computer_operator","Reviewing")}}</span>
                                 <span class="info-box-text">TSLC</span> </div>
                         </div>
                     </div>
