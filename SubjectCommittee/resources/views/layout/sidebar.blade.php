@@ -69,7 +69,74 @@
                     <i class="icon-search"></i> <span>Search applicant</span>
                 </a>
             </li>
+            <li class="">
+                <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="1">
+                    <i class="icon-basic-signs"></i> <span>Signature Upload</span>
+                </a>
+            </li>
         </ul>
     </div>
-    <!-- /.sidebar -->
+        <!-- /.sidebar -->
 </aside>
+
+<div class="modal fade" id="practice_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Upload Your Signature </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-material" action="" method="POST">
+                    @csrf
+                    <input type="hidden" class="form-control" name="id" id="idkl" value="{{\Illuminate\Support\Facades\Auth::user()->id}}">
+                    <div class="form-group">
+                        <label class="col-md-12">Signature Image</label>
+                        <div class="col-md-12">
+                                <div class="col-md-8 col-lg-8">
+                                    @if(isset($data))
+                                        <img src="{{url(isset($data)?$data->getSignatureImage():imageNotFound())}}" height="250" width="300"
+                                             id="signature_img">
+
+                                    @else
+                                        <img src="{{isset($data)?$data->getSignatureImage():imageNotFound('user')}}" height="250" width="300"
+                                             id="signature_img">
+                                    @endif
+                                </div>
+
+                                <div class="form-group col-md-12 col-lg-12">
+                                    <small>Below 1 mb</small><br>
+                                    <small id="signature_help_text" class="help-block"></small>
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
+                                         aria-valuemax="100"
+                                         aria-valuenow="0">
+                                        <div id="signature_progress" class="progress-bar progress-bar-success"
+                                             style="width: 0%">
+                                        </div>
+                                    </div><br>
+                                    <input type="file" id="signature_image" name="signature_image"
+                                           onclick="anyFileUploader('signature')">
+                                    <input type="hidden" id="signature_path" name="signature_image" class="form-control"
+                                           value="{{isset($data)?$data->signature_image:''}}"/>
+                                    {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
+                                </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+    @include('student::parties.common.file-upload')
+@endpush
