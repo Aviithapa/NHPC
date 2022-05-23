@@ -61,7 +61,6 @@
 
                                     </tbody>
                                 </table>
-                                <div class="pagination">{{$data->links}}}</div>
                             </div>
                             <!-- /.table-responsive -->
                         </div>

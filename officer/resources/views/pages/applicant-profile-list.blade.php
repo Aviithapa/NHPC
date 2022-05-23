@@ -71,7 +71,6 @@
 
                                     </tbody>
                                 </table>
-                                <div class="pagination">{{$users->links()}}}</div>
                             </div>
                             <!-- /.table-responsive -->
                         </div>
