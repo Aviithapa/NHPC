@@ -81,7 +81,7 @@ class OfficerController  extends BaseController
                     }
                 }
             }
-            return view('officer::pages.applicant-profile-list', compact('data','current_state','status'));
+            return view('officer::pages.applicant-profile-list', compact('users','data','current_state','status'));
         }else {
                 return redirect()->route('login');
             }
