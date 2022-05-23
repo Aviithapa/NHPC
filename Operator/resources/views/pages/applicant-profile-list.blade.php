@@ -19,12 +19,19 @@
         <div class="content">
             <div class="row">
                 <div class="col-lg-3 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'exam'=>"true"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/true')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        Exam To be Taken</a>
+                    <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"5"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/5')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
+                        Specialization</a>
                 </div>
                 <div class="col-lg-3 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing','state' => 'computer_operator','exam'=>"false"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/false')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        Exam Not to be taken</a>
+                    <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"4"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/4')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
+                        Bachelor</a>
+                </div>
+                <div class="col-lg-3 m-b-3">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"3"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/3')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>PCL</a>
+            </div>
+                <div class="col-lg-3 m-b-3">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"2"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/2')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
+                        TSLC</a>
                 </div>
             </div>
 

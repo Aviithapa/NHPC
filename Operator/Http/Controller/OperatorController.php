@@ -74,32 +74,16 @@ class OperatorController extends BaseController
         }
     }
 
-    public function profile($status, $state, $exam=true)
+    public function profile($status, $state, $level=5)
     {
         if (Auth::user()->mainRole()->name === 'operator') {
-            if ($exam === "true") {
-                $data = Profile::where('profile_state', '=', $state)
-                    ->where('profile_status', '=', $status)
-                    ->where('level', '>=', 3)
-                    ->orderBy('created_at','ASC')
-                    ->skip(0)
-                    ->take(20)
-                    ->get();
-//                $this->profileRepository->getAll()->where('profile_state', '=', $state)
-//                    ->where('profile_status', '=', $status)
-//                    ->where('level', '>=', 3);
-            }else{
-                $data = Profile::where('profile_state', '=', $state)
-                    ->where('profile_status', '=', $status)
-                    ->where('level', '<', 3)
-                    ->orderBy('created_at','ASC')
-                    ->skip(0)
-                    ->take(20)
-                    ->get();
-//                $data = $this->profileRepository->getAll()->where('profile_state', '=', $state)
-//                    ->where('profile_status', '=', $status)
-//                    ->where('level', '<', 3);
-            }
+            $data = Profile::where('profile_state', '=', $state)
+                ->where('profile_status', '=', $status)
+                ->where('level', '=', $level)
+                ->orderBy('created_at','ASC')
+                ->skip(0)
+                ->take(20)
+                ->get();
             return view('operator::pages.applicant-profile-list', compact('data','state','status'));
         } else {
             return redirect()->route('login');
@@ -163,30 +147,16 @@ class OperatorController extends BaseController
 
                 $state = "computer_operator";
                 $status = "Reviewing";
-                $exam = true;
-                if ($exam === "true") {
+                $level = $profile['level'];
+
                     $data = Profile::where('profile_state', '=', $state)
                         ->where('profile_status', '=', $status)
-                        ->where('level', '>=', 3)
+                        ->where('level', '=', $level)
                         ->orderBy('created_at','ASC')
                         ->skip(0)
                         ->take(20)
                         ->get();
-//                $this->profileRepository->getAll()->where('profile_state', '=', $state)
-//                    ->where('profile_status', '=', $status)
-//                    ->where('level', '>=', 3);
-                }else{
-                    $data = Profile::where('profile_state', '=', $state)
-                        ->where('profile_status', '=', $status)
-                        ->where('level', '<', 3)
-                        ->orderBy('created_at','ASC')
-                        ->skip(0)
-                        ->take(20)
-                        ->get();
-//                $data = $this->profileRepository->getAll()->where('profile_state', '=', $state)
-//                    ->where('profile_status', '=', $status)
-//                    ->where('level', '<', 3);
-                }
+
                 return view('operator::pages.applicant-profile-list', compact('data','state','status'));
             } catch (\Exception $e) {
                 session()->flash('danger', 'Oops! Something went wrong.');
@@ -230,6 +200,7 @@ class OperatorController extends BaseController
                     $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
                 }else
                   $profileProcessings = $this->profileProcessingRepository->create($data);
+
             } elseif ($data['profile_status'] == "Rejected") {
                 $data['status'] = 'rejected';
                 $data['review_status'] = 'Rejected';
@@ -248,7 +219,6 @@ class OperatorController extends BaseController
                     $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
                 }else
                     $profileProcessings = $this->profileProcessingRepository->create($data);
-
             }
 
         } else {
