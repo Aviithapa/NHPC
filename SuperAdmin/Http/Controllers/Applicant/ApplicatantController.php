@@ -102,7 +102,6 @@ class ApplicatantController extends BaseController
 
 
     public function edit(){
-        dd("You are here");
         $district = District::all();
         return $this->view('admin.applicant.municipality', $district);
 

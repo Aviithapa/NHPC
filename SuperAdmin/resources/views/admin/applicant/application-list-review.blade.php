@@ -189,7 +189,6 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs profile-tab" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
-                                <li class="nav-item"> <a class="nav-link"  href="{{url('superAdmin/dashboard/edit/qualification/'.$data->id)}}" role="tab">Edit Qualification Details</a> </li>
 
                             </ul>
                             <div class="tab-content">
@@ -205,7 +204,6 @@
                                                         <td>Board University</td>
                                                         <td>Program Name</td>
                                                         <td>Collage Name</td>
-                                                        <td>Action</td>
                                                         </thead>
                                                         <tbody>
                                                         {{$key = 1 }}
@@ -214,12 +212,8 @@
                                                                 <td>{{$key ++}}</td>
                                                                 <td>{{$qualifications->getLevelName()}}</td>
                                                                 <td>{{$qualifications->board_university}}</td>
-                                                                <td>{{$qualifications->getProgramName()}} || {{$qualifications->program_id}}</td>
-                                                                <td>{{$qualifications->collage_id}}</td>
-                                                                <td>
-                                                                    <a href="{{url('superAdmin/dashboard/edit/qualification/'. $qualifications->id)}}"><span class="label label-success">Edit</span> </a> ||
-                                                                    <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $qualifications->id }}"><span class="label label-danger">Delete</span> </a>
-                                                                </td>
+                                                                <td>{{$qualifications->getProgramName()}}</td>
+                                                                <td>{{$qualifications->collage_name}}</td>
                                                             </tr>
                                                         @endforeach
                                                         </tbody>
@@ -268,12 +262,22 @@
                                                             <td><img src="{{$qualifications->getCharacterImage()}}" onclick="onClick(this)"  alt="Character Image" width="200" height="200"></td>
                                                             <td><img src="{{$qualifications->getProvisionalImage()}}" onclick="onClick(this)"  alt="Provisional Image" width="200" height="200"></td>
                                                         </tr>
+                                                        @if($qualifications['level'] == 2)
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><img src="{{$qualifications->getOJTImage()}}" onclick="onClick(this)"  alt="Ojt tslc image" width="200" height="200"></td>
+                                                            </tr>
+                                                        @endif
                                                         @if($qualifications['level'] == 3)
                                                             <tr>
                                                                 <td></td>
-                                                                <td><img src="{{$qualifications->getOjtImage()}}" onclick="onClick(this)"  alt="Transcript 1 Image" width="200" height="200"></td>
-                                                                <td><img src="{{$qualifications->getOjt1Image()}}" onclick="onClick(this)"  alt="Transcript 2 Image" width="200" height="200"></td>
-                                                                <td><img src="{{$qualifications->getOjt2Image()}}" onclick="onClick(this)"  alt="Transcript 3 Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getOjtImage()}}" onclick="onClick(this)"  alt="OJT Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getOjt1Image()}}" onclick="onClick(this)"  alt="OJT  2 Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getOjt2Image()}}" onclick="onClick(this)"  alt="OJT  3 Image" width="200" height="200"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="+2 Equivalence Image" width="200" height="200"></td>
                                                             </tr>
                                                         @endif
                                                         @if($qualifications['level'] == 4 || $qualifications['level'] == 5)
@@ -298,7 +302,7 @@
                                                                 <tr>
                                                                     <td></td>
                                                                     <td><img src="{{$qualifications->getTranscript8Image()}}" onclick="onClick(this)"  alt="Transcript 8 Image" width="200" height="200"></td>
-                                                                    <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Equivalence Image" width="200" height="200"></td>
+                                                                    <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Bachelor Equivalence Image" width="200" height="200"></td>
                                                                 </tr>
                                                             @endif
                                                             <tr>
@@ -310,7 +314,7 @@
                                                             <tr>
                                                                 <td></td>
                                                                 <td><img src="{{$qualifications->getPassportImage()}}" onclick="onClick(this)"  alt="Passport Image" width="200" height="200"></td>
-                                                                <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Equivalance Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Master Equivalance Image" width="200" height="200"></td>
                                                             </tr>
                                                         @endif
                                                     @endforeach
@@ -327,15 +331,15 @@
                                                     <tr>
                                                         <th scope="row">1</th>
                                                         <td>Citizenship</td>
-                                                        <td>  <img src="{{$data->getCitizenshipFrontImage()}}" onclick="onClick(this)"  width="200" height="200">
+                                                        <td>  <img src="{{$data->getCitizenshipFrontImage()}}" onclick="onClick(this)" alt="citizenship front image" width="200" height="200">
                                                         </td>
-                                                        <td>  <img src="{{$data->getCitizenshipBackImage()}}" onclick="onClick(this)" width="200" height="200">
+                                                        <td>  <img src="{{$data->getCitizenshipBackImage()}}" onclick="onClick(this)" alt="citizenship back image" width="200" height="200">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">2</th>
                                                         <td>Signature</td>
-                                                        <td>  <img src="{{$data->getSignatureImage()}}" onclick="onClick(this)"  width="200" height="200">
+                                                        <td>  <img src="{{$data->getSignatureImage()}}" onclick="onClick(this)" alt="signature image"  width="200" height="200">
                                                         </td>
                                                     </tr>
                                                     </tbody>

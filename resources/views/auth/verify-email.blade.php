@@ -8,7 +8,7 @@
 
         <div class="mb-4 text-sm text-gray-600">
             {{ __(" Thanks for signing up! Before getting started. Please, could you verify your email address by entering the code send to your email address, we just emailed to you? We will gladly send you another if you didn't receive the email or have any query please contact to
-           Mr Milan Shrestha : 9810103328 or Mr Satyanand : 9803283319.") }}
+            Mr Satyanand : 9803283319.") }}
 
         </div>
         <div class="mb-4 text-sm text-gray-600">

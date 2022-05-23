@@ -182,8 +182,10 @@
                 <div class="col-lg-12">
                     <div class="info-box">
                         <div class="card tab-style1">
-                            <ul class="nav nav-tabs profile-tab table-responsive" role="tablist">
-                                <li class="nav-item active"> <a class="nav-link" data-toggle="tab" href="#education" role="tab" aria-expanded="true">Qualification</a> </li>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
+
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="education" role="tabpanel" aria-expanded="true">
@@ -206,8 +208,8 @@
                                                                 <td>{{$key ++}}</td>
                                                                 <td>{{$qualifications->getLevelName()}}</td>
                                                                 <td>{{$qualifications->board_university}}</td>
-                                                                <td>{{$qualifications->getProgramName() || $qualifications->program_id}}</td>
-                                                                <td>{{$qualifications->collage_id}}</td>
+                                                                <td>{{$qualifications->getProgramName()}}</td>
+                                                                <td>{{$qualifications->collage_name}}</td>
                                                             </tr>
                                                         @endforeach
                                                         </tbody>
@@ -217,18 +219,21 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="info-box">
                         <div class="card tab-style1">
-                            <ul class="nav nav-tabs profile-tab table-responsive" role="tablist">
-                                <li class="nav-item active"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-expanded="true">Documents</a> </li>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile" role="tab" aria-expanded="false">Documents</a> </li>
 
                             </ul>
                             <div class="tab-content">
@@ -257,8 +262,6 @@
                                                             <tr>
                                                                 <td></td>
                                                                 <td><img src="{{$qualifications->getOJTImage()}}" onclick="onClick(this)"  alt="Ojt tslc image" width="200" height="200"></td>
-                                                                <td><img src="{{$qualifications->getOjt1Image()}}" onclick="onClick(this)"  alt="OJT  2 Image" width="200" height="200"></td>
-                                                                <td><img src="{{$qualifications->getOjt2Image()}}" onclick="onClick(this)"  alt="OJT  3 Image" width="200" height="200"></td>
                                                             </tr>
                                                         @endif
                                                         @if($qualifications['level'] == 3)
@@ -267,6 +270,10 @@
                                                                 <td><img src="{{$qualifications->getOjtImage()}}" onclick="onClick(this)"  alt="OJT Image" width="200" height="200"></td>
                                                                 <td><img src="{{$qualifications->getOjt1Image()}}" onclick="onClick(this)"  alt="OJT  2 Image" width="200" height="200"></td>
                                                                 <td><img src="{{$qualifications->getOjt2Image()}}" onclick="onClick(this)"  alt="OJT  3 Image" width="200" height="200"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="+2 Equivalence Image" width="200" height="200"></td>
                                                             </tr>
                                                         @endif
                                                         @if($qualifications['level'] == 4 || $qualifications['level'] == 5)
@@ -291,7 +298,7 @@
                                                                 <tr>
                                                                     <td></td>
                                                                     <td><img src="{{$qualifications->getTranscript8Image()}}" onclick="onClick(this)"  alt="Transcript 8 Image" width="200" height="200"></td>
-                                                                    <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Equivalence Image" width="200" height="200"></td>
+                                                                    <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Bachelor Equivalence Image" width="200" height="200"></td>
                                                                 </tr>
                                                             @endif
                                                             <tr>
@@ -303,7 +310,7 @@
                                                             <tr>
                                                                 <td></td>
                                                                 <td><img src="{{$qualifications->getPassportImage()}}" onclick="onClick(this)"  alt="Passport Image" width="200" height="200"></td>
-                                                                <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Equivalance Image" width="200" height="200"></td>
+                                                                <td><img src="{{$qualifications->getEquivalenceImage()}}" onclick="onClick(this)"  alt="Master Equivalance Image" width="200" height="200"></td>
                                                             </tr>
                                                         @endif
                                                     @endforeach
@@ -315,35 +322,21 @@
                                                 <header>Supportive Documents</header>
                                                 <table class="table table-bordered">
                                                     <thead>
-                                                    {{--                                                    <tr>--}}
-                                                    {{--                                                        <th scope="col">#</th>--}}
-                                                    {{--                                                        <th scope="col">level</th>--}}
-                                                    {{--                                                        <th scope="col">Certificate</th>--}}
-                                                    {{--                                                        <th scope="col">Transcript</th>--}}
-                                                    {{--                                                        <th scope="col">Provisional</th>--}}
-                                                    {{--                                                    </tr>--}}
                                                     </thead>
                                                     <tbody>
                                                     <tr>
                                                         <th scope="row">1</th>
                                                         <td>Citizenship</td>
-                                                        <td>  <img src="{{$data->getCitizenshipFrontImage()}}" onclick="onClick(this)"  width="200" height="200">
+                                                        <td>  <img src="{{$data->getCitizenshipFrontImage()}}" onclick="onClick(this)" alt="citizenship front image" width="200" height="200">
                                                         </td>
-                                                        <td>  <img src="{{$data->getCitizenshipBackImage()}}"  onclick="onClick(this)"  width="200" height="200">
+                                                        <td>  <img src="{{$data->getCitizenshipBackImage()}}" onclick="onClick(this)" alt="citizenship back image" width="200" height="200">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">2</th>
                                                         <td>Signature</td>
-                                                        <td>  <img src="{{$data->getSignatureImage()}}" onclick="onClick(this)"  width="200" height="200">
+                                                        <td>  <img src="{{$data->getSignatureImage()}}" onclick="onClick(this)" alt="signature image"  width="200" height="200">
                                                         </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>OJT</td>
-                                                        <td>  <img src="{{$data->getSignatureImage()}}" onclick="onClick(this)"  width="200" height="200">
-                                                        </td>
-
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -358,7 +351,8 @@
                 </div>
             </div>
 
-            @if(isset($profile_processing)?$profile_processing->current_state === "registrar":'')
+
+        @if(isset($profile_processing)?$profile_processing->current_state === "registrar":'')
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="info-box">
@@ -407,69 +401,69 @@
             @endif
 
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="info-box">
-                        <div class="card tab-style1">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs profile-tab" role="tablist">
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#abc" role="tab" aria-expanded="true">Licence Exam Applied</a> </li>
+{{--            <div class="row">--}}
+{{--                <div class="col-lg-12">--}}
+{{--                    <div class="info-box">--}}
+{{--                        <div class="card tab-style1">--}}
+{{--                            <!-- Nav tabs -->--}}
+{{--                            <ul class="nav nav-tabs profile-tab" role="tablist">--}}
+{{--                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#abc" role="tab" aria-expanded="true">Licence Exam Applied</a> </li>--}}
 
-                            </ul>
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                                <!--second tab-->
-                                <div class="tab-pane active" id="abc" role="tabpanel" aria-expanded="true">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                        <td>S.N.</td>
-                                                        <td>Exam Name</td>
-                                                        <td>Voucher Image</td>
-                                                        <td>Applied Date</td>
-                                                        <td>State</td>
-                                                        <td>Status</td>
-                                                        <td>Action</td>
-                                                        </thead>
-                                                        <tbody>
-                                                        @if($exams === null)
-                                                            <tr>
-                                                                <td> No Applicant List found at officer</td>
-                                                            </tr>
+{{--                            </ul>--}}
+{{--                            <!-- Tab panes -->--}}
+{{--                            <div class="tab-content">--}}
+{{--                                <!--second tab-->--}}
+{{--                                <div class="tab-pane active" id="abc" role="tabpanel" aria-expanded="true">--}}
+{{--                                    <div class="card-body">--}}
+{{--                                        <div class="row">--}}
+{{--                                            <div class="col-lg-12">--}}
+{{--                                                <div class="table-responsive">--}}
+{{--                                                    <table class="table table-bordered">--}}
+{{--                                                        <thead>--}}
+{{--                                                        <td>S.N.</td>--}}
+{{--                                                        <td>Exam Name</td>--}}
+{{--                                                        <td>Voucher Image</td>--}}
+{{--                                                        <td>Applied Date</td>--}}
+{{--                                                        <td>State</td>--}}
+{{--                                                        <td>Status</td>--}}
+{{--                                                        <td>Action</td>--}}
+{{--                                                        </thead>--}}
+{{--                                                        <tbody>--}}
+{{--                                                        @if($exams === null)--}}
+{{--                                                            <tr>--}}
+{{--                                                                <td> No Applicant List found at officer</td>--}}
+{{--                                                            </tr>--}}
 
-                                                        @else
-                                                            @foreach($exams as $exam)
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td>{{$exam->getExamName()}}</td>
-                                                                    <td><img src="{{$exam->getVoucherImage()}}" onclick="onClick(this)"  alt="voucher image" height="150" width="150"/></td>
-                                                                    <td>{{$exam->created_at}}</td>
-                                                                    <td>{{$exam->state}}</td>
-                                                                    <td>{{$exam->status}}</td>
-                                                                    <td>
-                                                                        @if($exam->state === "registrar")
-                                                                            <a href="{{url('registrar/dashboard/registrar/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
-                                                                            <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>
-                                                                        @endif
-                                                                    </td>
-                                                                </tr>
-                                                            @endforeach
-                                                        @endif
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+{{--                                                        @else--}}
+{{--                                                            @foreach($exams as $exam)--}}
+{{--                                                                <tr>--}}
+{{--                                                                    <td>1</td>--}}
+{{--                                                                    <td>{{$exam->getExamName()}}</td>--}}
+{{--                                                                    <td><img src="{{$exam->getVoucherImage()}}" onclick="onClick(this)"  alt="voucher image" height="150" width="150"/></td>--}}
+{{--                                                                    <td>{{$exam->created_at}}</td>--}}
+{{--                                                                    <td>{{$exam->state}}</td>--}}
+{{--                                                                    <td>{{$exam->status}}</td>--}}
+{{--                                                                    <td>--}}
+{{--                                                                        @if($exam->state === "registrar")--}}
+{{--                                                                            <a href="{{url('registrar/dashboard/registrar/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>--}}
+{{--                                                                            <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>--}}
+{{--                                                                        @endif--}}
+{{--                                                                    </td>--}}
+{{--                                                                </tr>--}}
+{{--                                                            @endforeach--}}
+{{--                                                        @endif--}}
+{{--                                                        </tbody>--}}
+{{--                                                    </table>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
         <!-- /.content -->
         <!-- /.content -->
