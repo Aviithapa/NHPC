@@ -189,6 +189,7 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs profile-tab" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
+                                <li class="nav-item"> <a class="nav-link"  href="{{url('superAdmin/dashboard/edit/qualification/'.$data->id)}}" role="tab">Edit Qualification Details</a> </li>
 
                             </ul>
                             <div class="tab-content">
@@ -204,6 +205,7 @@
                                                         <td>Board University</td>
                                                         <td>Program Name</td>
                                                         <td>Collage Name</td>
+                                                        <td>Action</td>
                                                         </thead>
                                                         <tbody>
                                                         {{$key = 1 }}
@@ -212,8 +214,12 @@
                                                                 <td>{{$key ++}}</td>
                                                                 <td>{{$qualifications->getLevelName()}}</td>
                                                                 <td>{{$qualifications->board_university}}</td>
-                                                                <td>{{$qualifications->getProgramName()}}</td>
-                                                                <td>{{$qualifications->collage_name}}</td>
+                                                                <td>{{$qualifications->getProgramName()}} || {{$qualifications->program_id}}</td>
+                                                                <td>{{$qualifications->collage_id}}</td>
+                                                                <td>
+                                                                    <a href="{{url('superAdmin/dashboard/edit/qualification/'. $qualifications->id)}}"><span class="label label-success">Edit</span> </a> ||
+                                                                    <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $qualifications->id }}"><span class="label label-danger">Delete</span> </a>
+                                                                </td>
                                                             </tr>
                                                         @endforeach
                                                         </tbody>
