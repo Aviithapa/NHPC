@@ -82,9 +82,9 @@ class OperatorController extends BaseController
                 ->where('level', '=', $level)
                 ->orderBy('created_at','ASC')
                 ->skip(0)
-                ->take(20)
+                ->take(100)
                 ->get();
-            return view('operator::pages.applicant-profile-list', compact('data','state','status'));
+            return view('operator::pages.applicant  -profile-list', compact('data','state','status'));
         } else {
             return redirect()->route('login');
         }

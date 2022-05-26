@@ -64,7 +64,7 @@ class OfficerController  extends BaseController
                 ->where('status', '=', $status)
                 ->orderBy('created_at','ASC')
                 ->skip(0)
-                ->take(20)
+                ->take(100)
                 ->get();
             if ($users->isEmpty())
                 $data = null;

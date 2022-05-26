@@ -480,6 +480,8 @@
                                                                              <a href="{{url('operator/dashboard/operator/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
                                                                             <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>
                                                                         @endif
+                                                                            <a href="{{url('superAdmin/dashboard/apply/exam',$data->id)}}" ><span class="label label-danger">Edit</span> </a>
+
                                                                     </td>
                                                                 </tr>
                                                              @endforeach

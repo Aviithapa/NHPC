@@ -201,6 +201,7 @@ if(!function_exists('getProgramName')) {
     {
         $data = \App\Models\Admin\Program::query()->where('id','=',$id)->first();
         return $data['name'];
+
     }
 }
 if(!function_exists('admitCard')) {

@@ -297,4 +297,8 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::get('/inactive/{id}','ApplicantController@inactive')->middleware(['auth'])->name('superAdmin.active');
     Route::post('/applicant-profile-list','ApplicantController@status')->middleware(['auth'])->name('superAdmin.applicant.profile.list.status');
     Route::match(['put', 'patch'], 'product/approve/{event}', 'ProductController@approve')->name('dashboard.product.approve');
+
+    Route::post('/update/apply/exam','ApplicantController@applyExam')->middleware(['auth'])->name('update.apply.exam');
+    Route::get('/apply/exam/{id}', 'ApplicantController@editExamApply')->middleware(['auth'])->name('apply.exam');
+
 });

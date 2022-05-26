@@ -4,9 +4,11 @@ namespace SuperAdmin\Http\Controllers\WebSite;
 
 use App\Http\Controllers\Admin\BaseController;
 use App\Models\Address\Municipality;
+use App\Models\Exam\ExamProcessing;
 use App\Models\Website\Post;
 use App\Modules\Backend\Address\Repositories\MunicipalityRepository;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
+use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
@@ -32,7 +34,7 @@ class ApplicantController  extends BaseController
         $userRepository, $qualificationRepository,
         $user_data, $profileLogsRepository, $profileProcessingRepository,
         $municipalityRepository, $collageRepository,
-        $examRepository, $examProcessingRepository, $examProcessingDetailsRepository;
+        $examRepository, $examProcessingRepository, $examProcessingDetailsRepository, $programRepository;
 
     private $commonView = 'operator::pages.';
     private $commonMessage = 'Profile ';
@@ -48,14 +50,17 @@ class ApplicantController  extends BaseController
      * @param ProfileLogsRepository $profileLogsRepository
      * @param ProfileProcessingRepository $profileProcessingRepository
      * @param ExamRepository $examRepository
+     * @param MunicipalityRepository $municipalityRepository
+     * @param CollegeRepository $collageRepository
      * @param ExamProcessingRepository $examProcessingRepository
+     * @param ProgramRepository $programRepository
      * @param ExamProcessingDetailsRepository $examProcessingDetailsRepository
      */
 
     public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
                                 ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
                                 ExamRepository $examRepository, MunicipalityRepository $municipalityRepository, CollegeRepository $collageRepository,
-                                ExamProcessingRepository $examProcessingRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository)
+                                ExamProcessingRepository $examProcessingRepository,ProgramRepository $programRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository)
     {
         $this->viewData['commonRoute'] = $this->commonRoute;
         $this->viewData['commonView'] = 'superAdmin::' . $this->commonView;
@@ -71,6 +76,7 @@ class ApplicantController  extends BaseController
         $this->municipalityRepository = $municipalityRepository;
         $this->collageRepository = $collageRepository;
         $this->examProcessingDetailsRepository = $examProcessingDetailsRepository;
+        $this->programRepository = $programRepository;
         parent::__construct();
     }
     /**
@@ -233,6 +239,43 @@ class ApplicantController  extends BaseController
             return redirect()->route('login');
         }
     }
+
+    public function editExamApply($id){
+        $profile = $this->profileRepository->findById($id);
+        if ($profile){
+
+                    $qualification = $this->qualificationRepository->getAll()->where('user_id','=',$profile->user_id)
+                        ->where('level','!=' , 1);
+                    $exam = $this->examProcessingRepository->getAll()->where('profile_id','=',$id)->first();
+                    if ($qualification != null){
+                        foreach ($qualification as $quali)
+                            if (is_numeric($quali['program_id']) )
+                                $all_program[] = $this->programRepository->findById($quali['program_id']);
+                    }
+                    return view('superAdmin::admin.applicant.edit-program-name', compact( 'all_program', "profile",'exam'));
+
+        }
+
+    }
+
+    public function applyExam(Request $request){
+        $data= $request->all();
+        $data["status"] = 'progress';
+        $data['voucher_image'] = $data['voucher'];
+        try {
+            $exam = $this->examProcessingRepository->update($data,$data['exam_processing_id']);
+            if ($exam == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success','Program has been changed successfully');
+            return redirect()->route('superAdmin.applicant.list.review',['id'=> $data['profile_id']]);
+        } catch (\Exception $e) {
+            session()->flash('success','Program has been changed successfully.');
+            return redirect()->back()->withInput();
+        }
+    }
+
 
 //    public function profileProcessing($id,$data)
 //    {
