@@ -6,6 +6,7 @@ namespace Operator\Http\Controller;
 
 use App\Http\Controllers\MailController;
 use App\Models\Profile\ProfileProcessing;
+use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
@@ -24,7 +25,7 @@ class OperatorController extends BaseController
 {
     private $log, $profileProcessing, $profileRepository,
         $userRepository, $qualificationRepository,
-        $user_data, $profileLogsRepository, $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository;
+        $user_data, $profileLogsRepository,$programRepository, $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository;
 
     private $commonView = 'operator::pages.';
     private $commonMessage = 'Profile ';
@@ -46,7 +47,7 @@ class OperatorController extends BaseController
 
     public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
                                 ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
-                                ExamRepository $examRepository, ExamProcessingRepository $examProcessingRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository)
+                                ExamRepository $examRepository, ExamProcessingRepository $examProcessingRepository, ProgramRepository $programRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository)
     {
         $this->viewData['commonRoute'] = $this->commonRoute;
         $this->viewData['commonView'] = 'operator::' . $this->commonView;
@@ -60,6 +61,7 @@ class OperatorController extends BaseController
         $this->examRepository = $examRepository;
         $this->examProcessingRepository = $examProcessingRepository;
         $this->examProcessingDetailsRepository = $examProcessingDetailsRepository;
+        $this->programRepository = $programRepository;
         parent::__construct();
     }
 
@@ -84,7 +86,7 @@ class OperatorController extends BaseController
                 ->skip(0)
                 ->take(100)
                 ->get();
-            return view('operator::pages.applicant  -profile-list', compact('data','state','status'));
+            return view('operator::pages.applicant-profile-list', compact('data','state','status'));
         } else {
             return redirect()->route('login');
         }
@@ -300,6 +302,42 @@ class OperatorController extends BaseController
             return true;
         } else {
             return redirect()->route('login');
+        }
+    }
+
+    public function editExamApply($id){
+        $profile = $this->profileRepository->findById($id);
+        if ($profile){
+
+            $qualification = $this->qualificationRepository->getAll()->where('user_id','=',$profile->user_id)
+                ->where('level','!=' , 1);
+            $exam = $this->examProcessingRepository->getAll()->where('profile_id','=',$id)->first();
+            if ($qualification != null){
+                foreach ($qualification as $quali)
+                    if (is_numeric($quali['program_id']) )
+                        $all_program[] = $this->programRepository->findById($quali['program_id']);
+            }
+            return view('superAdmin::admin.applicant.edit-program-name', compact( 'all_program', "profile",'exam'));
+
+        }
+
+    }
+
+    public function applyExam(Request $request){
+        $data= $request->all();
+        $data["status"] = 'progress';
+        $data['voucher_image'] = $data['voucher'];
+        try {
+            $exam = $this->examProcessingRepository->update($data,$data['exam_processing_id']);
+            if ($exam == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success','Program has been changed successfully');
+            return redirect()->back()->refresh()->withInput();
+        } catch (\Exception $e) {
+            session()->flash('success','Program has been changed successfully.');
+            return redirect()->back()->withInput();
         }
     }
 }

@@ -485,8 +485,7 @@
                                                         <td>Exam Name</td>
                                                         <td>Voucher Image</td>
                                                         <td>Applied Date</td>
-                                                        <td>State</td>
-                                                        <td>Status</td>
+                                                        <td>Program Name</td>
                                                         <td>Action</td>
                                                         </thead>
                                                         <tbody>
@@ -502,12 +501,13 @@
                                                                     <td>{{$exam->getExamName()}}</td>
                                                                     <td><img src="{{$exam->getVoucherImage()}}" onclick="onClick(this)"  alt="voucher image" height="150" width="150"/></td>
                                                                     <td>{{$exam->created_at}}</td>
-                                                                    <td>{{$exam->state}}</td>
-                                                                    <td>{{$exam->status}}</td>
+                                                                    <td>{{$exam->getProgramName()}}</td>
                                                                     <td>
                                                                         @if($exam->state === "computer_operator")
                                                                              <a href="{{url('operator/dashboard/operator/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
                                                                             <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>
+                                                                            <a href="{{url('operator/dashboard/apply/exam',$data->id)}}" ><span class="label label-success">Edit</span> </a>
+
                                                                         @endif
                                                                     </td>
                                                                 </tr>

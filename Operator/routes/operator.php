@@ -18,3 +18,5 @@ Route::post('/operator/rejected-exam-applied',[\Operator\Http\Controller\Operato
 Route::get('/search/student',[\Operator\Http\Controller\SearchController::class,"index"])->middleware(['auth'])->name('search.student');
 Route::get('/search',[\Operator\Http\Controller\SearchController::class,"search"])->middleware(['auth'])->name('search');
 
+Route::post('/update/apply/exam',[\Operator\Http\Controller\OperatorController::class,'applyExam'])->middleware(['auth'])->name('update.apply.exam');
+Route::get('/apply/exam/{id}',[\Operator\Http\Controller\OperatorController::class,'editExamApply'])->middleware(['auth'])->name('apply.exam');
