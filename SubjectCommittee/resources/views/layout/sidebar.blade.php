@@ -89,7 +89,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form class="form-horizontal form-material" action="" method="POST">
+                <form class="form-horizontal form-material" action="{{route('subjectCommittee.signatureImage')}}" method="POST">
                     @csrf
                     <input type="hidden" class="form-control" name="id" id="idkl" value="{{\Illuminate\Support\Facades\Auth::user()->id}}">
                     <div class="form-group">

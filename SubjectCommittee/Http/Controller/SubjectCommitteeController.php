@@ -350,5 +350,25 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             return redirect()->route('login');
         }
     }
+
+    public function signatureImage(Request $request){
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+
+       $subject_committee = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        try {
+            $profile = $this->subjectCommitteeUserRepository->update($data,$subject_committee['id']);
+            if ($profile == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success','Your signature has been uploaded Successfully. ');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+
+    }
 }
 
