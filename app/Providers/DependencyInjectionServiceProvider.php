@@ -28,6 +28,10 @@ use App\Modules\Backend\Profile\ProfileProcessing\Repositories\EloquentProfilePr
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use App\Modules\Backend\Result\Repositories\EloquentExamResultRepository;
 use App\Modules\Backend\Result\Repositories\ExamResultRepository;
+use App\Modules\Backend\SubjectCommittee\SubjectCommittee\EloquentSubjectCommitteeRepository;
+use App\Modules\Backend\SubjectCommittee\SubjectCommittee\SubjectCommitteeRepository;
+use App\Modules\Backend\SubjectCommittee\SubjectCommitteRole\EloquentSubjectCommitteeUserRepository;
+use App\Modules\Backend\SubjectCommittee\SubjectCommitteRole\SubjectCommitteeUserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class DependencyInjectionServiceProvider extends ServiceProvider
@@ -138,6 +142,16 @@ class DependencyInjectionServiceProvider extends ServiceProvider
         $this->app->bind(
             MunicipalityRepository::class,
             EloquentMunicipalityRepository::class
+        );
+
+        $this->app->bind(
+            SubjectCommitteeUserRepository::class,
+            EloquentSubjectCommitteeUserRepository::class,
+        );
+
+        $this->app->bind(
+            SubjectCommitteeRepository::class,
+            EloquentSubjectCommitteeRepository::class
         );
     }
 }

@@ -4,14 +4,19 @@
 namespace SubjectCommittee\Http\Controller;
 
 
+use App\Models\Profile\ProfileProcessing;
+use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDetailsRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
+use App\Modules\Backend\SubjectCommittee\SubjectCommittee\SubjectCommitteeRepository;
+use App\Modules\Backend\SubjectCommittee\SubjectCommitteRole\SubjectCommitteeUserRepository;
 use Illuminate\Support\Facades\Auth;
 use Operator\Modules\Framework\Request;
+use Student\Models\Profile;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
 
@@ -21,7 +26,7 @@ class SubjectCommitteeController extends BaseController
         $profileRepository, $userRepository,
         $qualificationRepository,$user_data,
         $profileLogsRepository,$profileProcessingRepository,
-        $examRepository,$examProcessingRepository;
+        $examRepository,$examProcessingRepository,$subjectCommitteeUserRepository , $subjectCommitteeRepository, $programRepository;
     private $viewData, $exam_processing, $current_user = false;
 
     /**
@@ -34,11 +39,15 @@ class SubjectCommitteeController extends BaseController
      * @param ExamRepository $examRepository
      * @param ExamProcessingRepository $examProcessingRepository
      * @param ExamProcessingDetailsRepository $examProcessingDetailsRepository
+     * @param SubjectCommitteeRepository $subjectCommitteeRepository
+     * @param SubjectCommitteeUserRepository $subjectCommitteeUserRepository
+     * @param ProgramRepository $programRepository
      */
 
     public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
                                 ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
-                                ExamRepository $examRepository,ExamProcessingRepository $examProcessingRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository)
+                                ExamRepository $examRepository,ExamProcessingRepository $examProcessingRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository,
+SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepository $subjectCommitteeUserRepository, ProgramRepository $programRepository)
     {
         $this->profileRepository=$profileRepository;
         $this->userRepository=$userRepository;
@@ -48,23 +57,93 @@ class SubjectCommitteeController extends BaseController
         $this->examRepository=$examRepository;
         $this->examProcessingRepository=$examProcessingRepository;
         $this->examProcessingDetailsRepository=$examProcessingDetailsRepository;
+        $this->subjectCommitteeRepository = $subjectCommitteeRepository;
+        $this->subjectCommitteeUserRepository= $subjectCommitteeUserRepository;
+        $this->programRepository = $programRepository;
         parent::__construct();
     }
 
     public function profile($status, $current_state, $level)
     {
         if (Auth::user()->mainRole()->name === 'subject_committee') {
-            $level = $level ? $level : 1;
-            $users = $this->profileProcessingRepository->getAll()->where('current_state', '=', $current_state)
-                ->where('status', '=', $status);
-            if ($users->isEmpty())
-                $data = null;
-            else {
-                foreach ($users as $user) {
-                    $data[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id'])
-                    ->where('level','=', $level);
+
+            $subject_Committee_id = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+            $subject_committee = $this->subjectCommitteeRepository->getAll()->where('id','=',$subject_Committee_id['subjecr_committee_id'])->first();
+            $public_health = ['MPH','BPH','MPHN','DHE'];
+            $general_medicine = ['GM','CMA'];
+            $laboratory = ['M.Sc Medical/Clinical Microbilogy','M.Sc Medical/Clinical Biochemistry','M.Sc MLT Microbiology','M.Sc Biochemistry','M.Sc Hematology'];
+            $radiology = ['M.Sc. MIT','B.Sc. MIT','PCL Radiogrephy'];
+            $optometry = ['M. Optometry','B. Optometry','PCL Optometry'];
+            $dental = ['Dental Hygine','Dental Hygienist'];
+            $physiotherapy = ['MPT','BPT','CPT'];
+            $all = ['MPH','BPH','MPHN','DHE','GM','CMA','M.Sc Medical/Clinical Microbilogy','M.Sc Medical/Clinical Biochemistry','M.Sc MLT Microbiology','M.Sc Biochemistry','M.Sc Hematology',
+                'M.Sc. MIT','B.Sc. MIT','PCL Radiogrephy','M. Optometry','B. Optometry','PCL Optometry','Dental Hygine','Dental Hygienist',
+                'MPT','BPT','CPT'
+                ];
+            if ($subject_committee['name'] === "PUBLICHEALTH"){
+                foreach ($public_health as $ph){
+                    $program[] = $this->programRepository->getAll()->where('code_','=', $ph);
+                }
+            }  elseif ($subject_committee['name'] === "GENERALMEDICINE"){
+                foreach ($general_medicine as $gm){
+                    $program[] = $this->programRepository->getAll()->where('code_','=', $gm);
+                }
+            } elseif ($subject_committee['name'] === "LABORATORYMEDICINE") {
+                foreach ($laboratory as $gm) {
+                    $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
+                }
+            }elseif ($subject_committee['name'] === "OPTOMETRY") {
+                foreach ($radiology as $gm) {
+                    $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
+                }
+            }elseif ($subject_committee['name'] === "RADIOLOGY") {
+                foreach ($optometry as $gm) {
+                    $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
                 }
             }
+            elseif ($subject_committee['name'] === "DENTAL") {
+                foreach ($dental as $gm) {
+                    $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
+                }
+            }elseif ($subject_committee['name'] === "PHYSIOTHERAPY") {
+                foreach ($physiotherapy as $gm) {
+                    $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
+                }
+            }else{
+                foreach ($all as $gm) {
+                    $program[] = $this->programRepository->getAll()->where('code_', '!=', $gm);
+                }
+            }
+            foreach ($program as $pro)
+                foreach ($pro as $p)
+                    $exam[] = $this->examProcessingRepository->getAll()->where('program_id', '=', $p['id']);
+
+            foreach ($exam as $ex)
+                foreach ($ex as $e)
+                    $users[] =  ProfileProcessing::where('current_state', '=', $current_state)
+                        ->where('status', '=', $status)
+                        ->where('profile_id','=', $e['profile_id'])
+                        ->orderBy('created_at','ASC')
+                        ->skip(0)
+                        ->take(100)
+                        ->get();
+//            $this->profileProcessingRepository->getAll()->where('current_state', '=', $current_state)
+//                        ->where('status', '=', $status)
+//                        ->where('profile_id','=', $e['profile_id']);
+            $level = $level ? $level : 1;
+
+
+
+                foreach ($users as $user) {
+                    foreach($user as $us) {
+//                        if ($us->isEmpty())
+//                            $data = null;
+//                        else {
+                            $data[] = $this->profileRepository->getAll()->where('id', '=', $us['profile_id'])
+                                ->where('level', '=', $level);
+//                        }
+                    }
+                }
             return view('subjectCommittee::pages.applicant-profile-list', compact('data','status','current_state'));
         }else{
             return redirect()->route('login');
