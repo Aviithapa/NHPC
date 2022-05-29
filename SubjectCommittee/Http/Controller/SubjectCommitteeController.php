@@ -69,6 +69,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
 
             $subject_Committee_id = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
             $subject_committee = $this->subjectCommitteeRepository->getAll()->where('id','=',$subject_Committee_id['subjecr_committee_id'])->first();
+            $level = $level ? $level : 1;
             $public_health = ['MPH','BPH','MPHN','DHE'];
             $general_medicine = ['GM','CMA'];
             $laboratory = ['M.Sc Medical/Clinical Microbilogy','M.Sc Medical/Clinical Biochemistry','M.Sc MLT Microbiology','M.Sc Biochemistry','M.Sc Hematology'];
@@ -80,68 +81,72 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 'M.Sc. MIT','B.Sc. MIT','PCL Radiogrephy','M. Optometry','B. Optometry','PCL Optometry','Dental Hygine','Dental Hygienist',
                 'MPT','BPT','CPT'
                 ];
-            if ($subject_committee['name'] === "PUBLICHEALTH"){
-                foreach ($public_health as $ph){
-                    $program[] = $this->programRepository->getAll()->where('code_','=', $ph);
-                }
-            }  elseif ($subject_committee['name'] === "GENERALMEDICINE"){
-                foreach ($general_medicine as $gm){
-                    $program[] = $this->programRepository->getAll()->where('code_','=', $gm);
-                }
-            } elseif ($subject_committee['name'] === "LABORATORYMEDICINE") {
-                foreach ($laboratory as $gm) {
-                    $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
-                }
-            }elseif ($subject_committee['name'] === "OPTOMETRY") {
-                foreach ($radiology as $gm) {
-                    $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
-                }
-            }elseif ($subject_committee['name'] === "RADIOLOGY") {
-                foreach ($optometry as $gm) {
-                    $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
-                }
-            }
-            elseif ($subject_committee['name'] === "DENTAL") {
-                foreach ($dental as $gm) {
-                    $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
-                }
-            }elseif ($subject_committee['name'] === "PHYSIOTHERAPY") {
-                foreach ($physiotherapy as $gm) {
-                    $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
-                }
-            }else{
-                foreach ($all as $gm) {
-                    $program[] = $this->programRepository->getAll()->where('code_', '!=', $gm);
-                }
-            }
-            foreach ($program as $pro)
-                foreach ($pro as $p)
-                    $exam[] = $this->examProcessingRepository->getAll()->where('program_id', '=', $p['id']);
 
-            foreach ($exam as $ex)
-                foreach ($ex as $e)
-                    $users[] =  ProfileProcessing::where('current_state', '=', $current_state)
+            switch ($subject_committee['name']) {
+                case "PUBLICHEALTH":
+                    foreach ($public_health as $ph) {
+                        $program[] = $this->programRepository->getAll()->where('code_', '=', $ph);
+                    }
+                    break;
+                case "GENERALMEDICINE":
+                    foreach ($general_medicine as $gm) {
+                        $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
+                    }
+                    break;
+                case "LABORATORYMEDICINE":
+                    foreach ($laboratory as $gm) {
+                        $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
+                    }
+                    break;
+                case "OPTOMETRY":
+                    foreach ($radiology as $gm) {
+                        $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
+                    }
+                    break;
+                case "RADIOLOGY":
+                    foreach ($optometry as $gm) {
+                        $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
+                    }
+                    break;
+                case "DENTAL":
+                    foreach ($dental as $gm) {
+                        $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
+                    }
+                    break;
+                case "PHYSIOTHERAPY":
+                    foreach ($physiotherapy as $gm) {
+                        $program[] = $this->programRepository->getAll()->where('code_', '=', $gm);
+                    }
+                    break;
+                default:
+                    foreach ($all as $gm) {
+                        $program[] = $this->programRepository->getAll()->where('code_', '!=', $gm);
+                    }
+                    break;
+            }
+
+            foreach ($program as $pro) {
+                foreach ($pro as $p) {
+                    $exam[] = $this->examProcessingRepository->getAll()->where('program_id', '=', $p['id']);
+                }
+            }
+
+            foreach ($exam as $ex) {
+                foreach ($ex as $e) {
+                    $users[] = ProfileProcessing::where('current_state', '=', $current_state)
                         ->where('status', '=', $status)
-                        ->where('profile_id','=', $e['profile_id'])
-                        ->orderBy('created_at','ASC')
+                        ->where('profile_id', '=', $e['profile_id'])
+                        ->orderBy('created_at', 'ASC')
                         ->skip(0)
                         ->take(100)
                         ->get();
-//            $this->profileProcessingRepository->getAll()->where('current_state', '=', $current_state)
-//                        ->where('status', '=', $status)
-//                        ->where('profile_id','=', $e['profile_id']);
-            $level = $level ? $level : 1;
-
-
+                }
+            }
 
                 foreach ($users as $user) {
                     foreach($user as $us) {
-//                        if ($us->isEmpty())
-//                            $data = null;
-//                        else {
                             $data[] = $this->profileRepository->getAll()->where('id', '=', $us['profile_id'])
                                 ->where('level', '=', $level);
-//                        }
                     }
                 }
             return view('subjectCommittee::pages.applicant-profile-list', compact('data','status','current_state'));
