@@ -229,6 +229,27 @@ class OperatorController extends BaseController
     }
 
 
+    public function level(Request $request)
+    {
+        if (Auth::user()->mainRole()->name === 'operator') {
+            $data = $request->all();
+            try {
+                $id = $data['profile_id'];
+                $profile = $this->profileRepository->update($data,$id);
+                session()->flash('success', 'User Profile Level has been changed successfully');
+                return redirect()->back();
+//
+            } catch (\Exception $e) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+        } else {
+            return redirect()->route('login');
+        }
+
+    }
+
+
     public function RejectExamProcessing(Request $request)
     {
         if (Auth::user()->mainRole()->name === 'operator') {

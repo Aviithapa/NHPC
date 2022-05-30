@@ -20,3 +20,6 @@ Route::get('/search',[\Operator\Http\Controller\SearchController::class,"search"
 
 Route::post('/update/apply/exam',[\Operator\Http\Controller\OperatorController::class,'applyExam'])->middleware(['auth'])->name('update.apply.exam');
 Route::get('/apply/exam/{id}',[\Operator\Http\Controller\OperatorController::class,'editExamApply'])->middleware(['auth'])->name('apply.exam');
+
+Route::post('/applicant-profile-list/level',[\Operator\Http\Controller\OperatorController::class,'level'])->middleware(['auth'])->name('operator.applicant.profile.list.level');
+
