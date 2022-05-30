@@ -190,6 +190,7 @@
                             <ul class="nav nav-tabs profile-tab" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
                                 <li class="nav-item"> <a class="nav-link"  href="{{url('superAdmin/dashboard/edit/qualification/'.$data->id)}}" role="tab">Edit Qualification Details</a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#level" role="tab">Change Level</a> </li>
 
                             </ul>
                             <div class="tab-content">
@@ -224,6 +225,37 @@
                                                         @endforeach
                                                         </tbody>
                                                     </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="level" role="tabpanel" aria-expanded="true">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="card-body">
+                                                    <form class="form-horizontal form-material" action="{{url("superAdmin/dashboard/applicant-profile-list/level")}}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="profile_id" value="{{$data->id}}">
+                                                      <div class="form-group">
+                                                            <label class="col-sm-12">Select Level</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control form-control-line" name="level" required>
+                                                                    <option >{{$data->level}}</option>
+                                                                    <option value="5">Specification</option>
+                                                                    <option value="4">Bachelor</option>
+                                                                    <option value="3">PCL</option>
+                                                                    <option value="2">TSLC</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-sm-12">
+                                                                <button class="btn btn-success">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

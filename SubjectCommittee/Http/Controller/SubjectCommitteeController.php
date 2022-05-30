@@ -4,6 +4,7 @@
 namespace SubjectCommittee\Http\Controller;
 
 
+use App\Models\Exam\ExamProcessing;
 use App\Models\Profile\ProfileProcessing;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
@@ -125,9 +126,15 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                     break;
             }
 
+//            $d = Profile::ta();
+
             foreach ($program as $pro) {
                 foreach ($pro as $p) {
-                    $exam[] = $this->examProcessingRepository->getAll()->where('program_id', '=', $p['id']);
+                    $exam[] = ExamProcessing::where('program_id', '=', $p['id'])
+                      ->skip(0)
+                        ->take(100)
+                        ->get();
+//                    $this->examProcessingRepository->getAll()->where('program_id', '=', $p['id']);
                 }
             }
 
