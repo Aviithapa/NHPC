@@ -124,59 +124,109 @@ class EditApplicantController  extends BaseController
             return redirect()->back();
         }
     }
+    public function qualificationAdd(Request $request, $id){
+        $profile = $this->profileRepository->findById($id);
+        $qualifications = $this->qualificationRepository->getAll()->where('user_id','=',$profile['user_id']);
+        $slc_data = $this->qualificationRepository->slcData($id);
+        $tslc_data = $this->qualificationRepository->tslcData($id);
+        $plus_2 = $this->qualificationRepository->pclData($id);
+        $bachelor = $this->qualificationRepository->bachelorData($id);
+        $master = $this->qualificationRepository->masterData($id);
+        $slc_program = $this->programRepository->getAll()->where('level_id','=',4);
+        $plus_2_program = $this->programRepository->getAll()->where('level_id','=',3);
+        $bachelor_program = $this->programRepository->getAll()->where('level_id','=',2);
+        $master_program = $this->programRepository->getAll()->where('level_id','=',1);
+        $collage = $this->collageRepository->getAll();
+        return view('superAdmin::admin.applicant.specific',compact('qualifications','profile','master_program','collage','qualifications','slc_data','plus_2','bachelor','master','slc_program',
+            'plus_2_program','bachelor_program','master_program','tslc_data','collage'));
+    }
+//    public function qualificationForm(Request $request, $id){
+//        $qualifications = $this->qualificationRepository->getAll()->where('user_id','=',$id);
+//        $profile = $this->profileRepository->getAll()->where('user_id','=',$id)->first();
+//        return view('superAdmin::admin.applicant.qualification.form',compact('qualifications','profile'));
+//    }
 
 
-    public function qualificationStore(Request $request, $id){
+    public function qualificationStore(Request $request){
         $data = $request->all();
-            try {
-                switch ($data['level']){
-                    case 1 :
-                        $data['transcript_image'] = $data['transcript_slc'];
-                        $data['provisional_image'] = $data['provisional_slc'];
-                        $data['character_image'] = $data['character_slc'];
-                        break;
-                    case 2 :
-                        $data['transcript_image'] = $data['transcript_tslc'];
-                        $data['provisional_image'] = $data['provisional_tslc'];
-                        $data['character_image'] = $data['character_tslc'];
-                        $data['ojt_image'] = $data['ojt_tslc'];
-                        break;
-                    case 3 :
-                        $data['transcript_image'] = $data['transcript_pcl'];
-                        $data['provisional_image'] = $data['provisional_pcl'];
-                        $data['character_image'] = $data['character_pcl'];
-                        $data['ojt_image'] = $data['ojt_pcl_image'];
-                        break;
-                    case 4 :
-                        $data['transcript_image'] = $data['transcript_bac'];
-                        $data['provisional_image'] = $data['provisional_bac'];
-                        $data['character_image'] = $data['character_bac'];
-                        $data['intership_image'] = $data['intership_bac'];
-                        $data['noc_image'] = $data['noc_bac'];
-                        $data['visa_image'] = $data['visa_bac'];
-                        $data['passport_image'] = $data['passport_bac'];
-                        break;
-                    case 5:
-                        $data['transcript_image'] = $data['transcript_mas'];
-                        $data['provisional_image'] = $data['provisional_mas'];
-                        $data['character_image'] = $data['character_mas'];
-                        $data['intership_image'] = $data['intership_mas'];
-                        $data['noc_image'] = $data['noc_mas'];
-                        $data['visa_image'] = $data['visa_mas'];
-                        $data['passport_image'] = $data['passport_mas'];
-                        break;
-                }
-                $post = $this->qualificationRepository->update($data, $id);
-                if($post == false) {
-                    session()->flash('danger', 'Oops! Something went wrong.');
-                    return redirect()->back()->withInput();
-                }
-                session()->flash('success', 'Qualification updated successfully');
-                return redirect()->back();
-            } catch (\Exception $e) {
+        $qualifications = Qualification::get()->where('user_id','=',$data['user_id']);
+        $profile=$this->profileRepository->findByFirst('user_id',$data['user_id'],'=');
+        $data['name'] = $data['level'];
+        switch ($data['level']){
+            case 1 :
+                $data['transcript_image'] = $data['transcript_slc'];
+                $data['provisional_image'] = $data['provisional_slc'];
+                $data['character_image'] = $data['character_slc'];
+                break;
+            case 2 :
+                $data['transcript_image'] = $data['transcript_tslc'];
+                $data['provisional_image'] = $data['provisional_tslc'];
+                $data['character_image'] = $data['character_tslc'];
+                $data['ojt_image'] = $data['ojt_tslc'];
+                break;
+            case 3 :
+                $data['transcript_image'] = $data['transcript_pcl'];
+                $data['provisional_image'] = $data['provisional_pcl'];
+                $data['character_image'] = $data['character_pcl'];
+                $data['ojt_image'] = $data['ojt_pcl_image'];
+                break;
+            case 4 :
+                $data['transcript_image'] = $data['transcript_bac'];
+                $data['provisional_image'] = $data['provisional_bac'];
+                $data['character_image'] = $data['character_bac'];
+                $data['intership_image'] = $data['intership_bac'];
+                $data['noc_image'] = $data['noc_bac'];
+                $data['visa_image'] = $data['visa_bac'];
+                $data['passport_image'] = $data['passport_bac'];
+                break;
+            case 5:
+                $data['transcript_image'] = $data['transcript_mas'];
+                $data['provisional_image'] = $data['provisional_mas'];
+                $data['character_image'] = $data['character_mas'];
+                $data['intership_image'] = $data['intership_mas'];
+                $data['noc_image'] = $data['noc_mas'];
+                $data['visa_image'] = $data['visa_mas'];
+                $data['passport_image'] = $data['passport_mas'];
+                break;
+
+
+        }
+        try {
+            $qualification = $this->qualificationRepository->create($data);
+            if ($qualification == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
+            session()->flash('success', $data["level_name"].' Qualification have been Saved Successfully');
+            $slc_data = $this->qualificationRepository->slcData(Auth::user()->id);
+            $tslc_data = $this->qualificationRepository->tslcData(Auth::user()->id);
+            $plus_2 = $this->qualificationRepository->pclData(Auth::user()->id);
+            $bachelor = $this->qualificationRepository->bachelorData(Auth::user()->id);
+            $master = $this->qualificationRepository->masterData(Auth::user()->id);
+            $collage = $this->collageRepository->getAll();
+            return view('superAdmin::admin.applicant.specific',compact('qualifications','profile','master_program','collage','qualifications','slc_data','plus_2','bachelor','master','slc_program',
+                'plus_2_program','bachelor_program','master_program','tslc_data','collage'));
+        } catch (\Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function create(Request $request, $id){
+        $data = $this->profileRepository->getAll()->where('user_id','=',$id)->first;
+        $qualifications = $this->qualificationRepository->getAll()->where('user_id','=',$id);
+        $slc_data = $this->qualificationRepository->slcData($id);
+        $tslc_data = $this->qualificationRepository->tslcData($id);
+        $plus_2 = $this->qualificationRepository->pclData($id);
+        $bachelor = $this->qualificationRepository->bachelorData($id);
+        $master = $this->qualificationRepository->masterData($id);
+        $slc_program = $this->programRepository->getAll()->where('level_id','=',4);
+        $plus_2_program = $this->programRepository->getAll()->where('level_id','=',3);
+        $bachelor_program = $this->programRepository->getAll()->where('level_id','=',2);
+        $master_program = $this->programRepository->getAll()->where('level_id','=',1);
+        $collage = $this->collageRepository->getAll();
+        return view('superAdmin::admin.applicant.qualification.form',compact('data','master_program','collage','qualifications','slc_data','plus_2','bachelor','master','slc_program',
+            'plus_2_program','bachelor_program','master_program','tslc_data','collage'));
     }
 
 }

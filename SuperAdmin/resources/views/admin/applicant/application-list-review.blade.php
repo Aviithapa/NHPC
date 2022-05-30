@@ -191,7 +191,7 @@
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#education" role="tab">Qualification</a> </li>
                                 <li class="nav-item"> <a class="nav-link"  href="{{url('superAdmin/dashboard/edit/qualification/'.$data->id)}}" role="tab">Edit Qualification Details</a> </li>
                                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#level" role="tab">Change Level</a> </li>
-
+                                <li class="nav-item"> <a class="nav-link"  href="{{url('superAdmin/dashboard/add/qualification/'.$data->id)}}" role="tab">Add Qualification Details</a> </li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="education" role="tabpanel" aria-expanded="true">

@@ -288,8 +288,10 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::get('/edit/applicant/{id}', 'EditApplicantController@profileEdit')->middleware(['auth'])->name('super.Admin.edit.applicant.profile');
     Route::post('/store/applicant/{id}', 'EditApplicantController@profileStore')->middleware(['auth'])->name('super.Admin.edit.applicant.profile.store');
     Route::get('/edit/qualification/{id}', 'EditApplicantController@qualificationEdit')->middleware(['auth'])->name('super.Admin.edit.applicant.qualification');
+    Route::get('/add/qualification/{id}', 'EditApplicantController@qualificationAdd')->middleware(['auth'])->name('super.Admin.edit.applicant.qualification.add');
     Route::post('/store/qualification/{id}', 'EditApplicantController@qualificationStore')->middleware(['auth'])->name('super.Admin.edit.applicant.qualification.store');
     Route::post('/qualification/delete/', 'EditApplicantController@qualificationDelete')->middleware(['auth'])->name('super.admin.delete.qualification');
+    Route::post('/superAdmin/collage/data', 'EditApplicantController@qualificationStore')->middleware(['auth'])->name('superAdmin.store');
 
 
     Route::get('/applicant-list-view/{id}','ApplicantController@edit')->middleware(['auth'])->name('superAdmin.applicant.list.review');
@@ -301,5 +303,8 @@ Route::group(['namespace' => 'WebSite'], function () {
 
     Route::post('/update/apply/exam','ApplicantController@applyExam')->middleware(['auth'])->name('update.apply.exam');
     Route::get('/apply/exam/{id}', 'ApplicantController@editExamApply')->middleware(['auth'])->name('apply.exam');
+    Route::get('/superAdmin/qualification/from/{id}', 'EditApplicantController@create')->middleware(['auth'])->name('superAdmin.qualificationForm');
+
+
 
 });
