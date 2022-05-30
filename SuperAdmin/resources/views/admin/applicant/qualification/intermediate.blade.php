@@ -1,5 +1,4 @@
 
-@if($plus_2)
 <div class="card mt-5">
 
     <div class="card-body">

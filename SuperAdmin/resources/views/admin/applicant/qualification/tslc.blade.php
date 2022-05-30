@@ -1,5 +1,5 @@
 
-@if($tslc_data)
+
     <div class="card">
 
         <div class="card-body">
@@ -272,5 +272,3 @@
 
 
 
-
-@endif

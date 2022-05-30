@@ -1,5 +1,4 @@
 
-     @if($slc_data)
          <div class="card">
 
              <div class="card-body">
@@ -149,5 +148,3 @@
 
 
 
-
-     @endif

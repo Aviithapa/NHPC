@@ -294,6 +294,7 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::post('/superAdmin/collage/data', 'EditApplicantController@qualificationStore')->middleware(['auth'])->name('superAdmin.store');
 
 
+
     Route::get('/applicant-list-view/{id}','ApplicantController@edit')->middleware(['auth'])->name('superAdmin.applicant.list.review');
     Route::get('/active/{id}','ApplicantController@active')->middleware(['auth'])->name('superAdmin.active');
     Route::get('/inactive/{id}','ApplicantController@inactive')->middleware(['auth'])->name('superAdmin.active');
@@ -305,6 +306,7 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::get('/apply/exam/{id}', 'ApplicantController@editExamApply')->middleware(['auth'])->name('apply.exam');
     Route::get('/superAdmin/qualification/from/{id}', 'EditApplicantController@create')->middleware(['auth'])->name('superAdmin.qualificationForm');
 
+    Route::post('/delete/{id}','ApplicantController@delete')->middleware(['auth'])->name('superAdmin.delete');
 
 
 });

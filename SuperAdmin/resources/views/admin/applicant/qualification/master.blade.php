@@ -1,6 +1,5 @@
 
 
-@if($master)
 
 
     <div class="card mt-5">
@@ -437,4 +436,3 @@
         </script>
     @endpush
 
-@endif

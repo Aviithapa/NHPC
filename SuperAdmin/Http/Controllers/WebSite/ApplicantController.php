@@ -112,7 +112,7 @@ class ApplicantController  extends BaseController
                         '<td>' . $product->citizenship_number . '</td>' .
                         '<td>' . $product->dob_nep . '</td>' .
                         '<td>' . $product->profile_status . '</td>' .
-                        '<td><a href=' . url("superAdmin/dashboard/applicant-list-view/" . $product->id) . '><span class="label label-success">View</span></a> </td>' .
+                        '<td><a href=' . url("superAdmin/dashboard/applicant-list-view/" . $product->id) . '><span class="label label-success">View</span></a> <a href=' . url("superAdmin/dashboard/delete/" . $product->id) . '><span class="label label-danger">Delete</span></a></td>' .
                         '</tr>';
                 }
                 return Response($output);
@@ -259,6 +259,15 @@ class ApplicantController  extends BaseController
         }
     }
 
+    public function delete($id){
+        if (Auth::user()->mainRole()->name === 'superadmin') {
+           $this->profileRepository->hardDelete($id);
+            session()->flash('success', 'User has been deleted successfully');
+            return redirect()->back();
+        } else {
+            return redirect()->route('login');
+        }
+    }
     public function editExamApply($id){
         $profile = $this->profileRepository->findById($id);
         if ($profile){
