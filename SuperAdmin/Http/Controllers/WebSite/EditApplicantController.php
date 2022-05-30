@@ -198,12 +198,14 @@ class EditApplicantController  extends BaseController
                 return redirect()->back()->withInput();
             }
             session()->flash('success', $data["level_name"].' Qualification have been Saved Successfully');
-            $slc_data = $this->qualificationRepository->slcData(Auth::user()->id);
-            $tslc_data = $this->qualificationRepository->tslcData(Auth::user()->id);
-            $plus_2 = $this->qualificationRepository->pclData(Auth::user()->id);
-            $bachelor = $this->qualificationRepository->bachelorData(Auth::user()->id);
-            $master = $this->qualificationRepository->masterData(Auth::user()->id);
+            $slc_data = $this->qualificationRepository->slcData($data['user_id']);
+            $tslc_data = $this->qualificationRepository->tslcData($data['user_id']);
+            $plus_2 = $this->qualificationRepository->pclData($data['user_id']);
+            $bachelor = $this->qualificationRepository->bachelorData($data['user_id']);
+            $master = $this->qualificationRepository->masterData($data['user_id']);
             $collage = $this->collageRepository->getAll();
+            session()->flash('success', ' Qualification have been Saved Successfully');
+
             return view('superAdmin::admin.applicant.specific',compact('qualifications','profile','master_program','collage','qualifications','slc_data','plus_2','bachelor','master','slc_program',
                 'plus_2_program','bachelor_program','master_program','tslc_data','collage'));
         } catch (\Exception $e) {
