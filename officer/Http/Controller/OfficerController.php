@@ -130,13 +130,13 @@ class OfficerController  extends BaseController
                 $data['remarks'] =  'Profile Verified and forwarded to Registrar';
                 $data['review_status'] =  'Successful';
                 $data['profile_state'] = 'registrar';
-                MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+//                MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
                 $this->profileLog($data);
                 $this->profileProcessing($id,$data);
             }elseif($data['profile_status']=== "Rejected"){
                 $data['status'] =  'rejected';
                 $data['review_status'] =  'Rejected';
-                MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+//                MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
 //                $data['profile_state'] = 'student';
                 $this->profileLog($data);
                 $this->profileProcessing($id, $data);
@@ -180,20 +180,20 @@ class OfficerController  extends BaseController
             $data['remarks'] = 'Verified and Document is forward to Registrar';
             $data['review_status'] = 'Successful';
             $data['current_state'] = 'registrar';
-            MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+//            MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
             $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
         } elseif ($data['profile_status'] == "Rejected") {
 
             $data['status'] = 'rejected';
             $data['review_status'] = 'Rejected';
             $data['current_state'] = 'officer';
-            MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+//            MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
             $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
         } elseif ($data['profile_status'] === "Pending") {
             $data['status'] = 'pending';
             $data['review_status'] = 'Pending';
             $data['current_state'] = 'officer';
-            MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+//            MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
             $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
 
         }

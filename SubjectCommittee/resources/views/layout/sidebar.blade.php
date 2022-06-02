@@ -30,17 +30,17 @@
                             <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantProcessingCount('progress','subject_committee')}}</span></span>
                         </a>
                     </li>
-                    <li class="{{ (request()->is('subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/rejected/subject_committee/5')) ? 'active':''  }}">
-                        <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'rejected','current_state' => 'subject_committee', 'level' => '5'])}}">
-                            <i class="icon-ban"></i> <span>Reject Profile List <span class="badge badge-pill badge-danger">{{getApplicantProcessingCount('rejected','subject_committee')}}</span></span>
-                        </a>
-                    </li>
+{{--                    <li class="{{ (request()->is('subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/rejected/subject_committee/5')) ? 'active':''  }}">--}}
+{{--                        <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'rejected','current_state' => 'subject_committee', 'level' => '5'])}}">--}}
+{{--                            <i class="icon-ban"></i> <span>Reject Profile List <span class="badge badge-pill badge-danger">{{getApplicantProcessingCount('rejected','subject_committee')}}</span></span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 
-                    <li class="{{ (request()->is('subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/progress/council/5')) ? 'active':''  }}">
-                        <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'progress','current_state' => 'council', 'level' => '5'])}}">
-                            <i class="icon-badge"></i> <span>Verified Profile List <span class="badge badge-pill badge-danger">{{getApplicantProcessingCount('progress','council')}}</span></span>
-                        </a>
-                    </li>
+{{--                    <li class="{{ (request()->is('subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/progress/council/5')) ? 'active':''  }}">--}}
+{{--                        <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'progress','current_state' => 'council', 'level' => '5'])}}">--}}
+{{--                            <i class="icon-badge"></i> <span>Verified Profile List <span class="badge badge-pill badge-danger">{{getApplicantProcessingCount('progress','council')}}</span></span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                 </ul>
             </li>
             <li class="treeview {{ (request()->is('subjectCommittee/dashboard/subjectCommittee/applicant-list/*/*')) ? 'active':''  }}"> <a href="#"> <i class="icon-grid"></i> <span>Exam Applied</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
