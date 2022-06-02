@@ -4,6 +4,7 @@
 namespace Operator\Http\Controller;
 
 
+use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
@@ -22,7 +23,7 @@ class SearchController extends BaseController
 {
     private $log, $profileProcessing, $profileRepository,
         $userRepository, $qualificationRepository,
-        $user_data, $profileLogsRepository, $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository;
+        $user_data, $profileLogsRepository,$collageRepository, $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository;
 
     private $commonView = 'operator::pages.';
     private $commonMessage = 'Profile ';
@@ -40,11 +41,12 @@ class SearchController extends BaseController
      * @param ExamRepository $examRepository
      * @param ExamProcessingRepository $examProcessingRepository
      * @param ExamProcessingDetailsRepository $examProcessingDetailsRepository
+     * @param CollegeRepository $collageRepository
      */
 
     public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
                                 ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
-                                ExamRepository $examRepository, ExamProcessingRepository $examProcessingRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository)
+                                ExamRepository $examRepository, ExamProcessingRepository $examProcessingRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository, CollegeRepository $collageRepository)
     {
         $this->viewData['commonRoute'] = $this->commonRoute;
         $this->viewData['commonView'] = 'operator::' . $this->commonView;
@@ -58,6 +60,7 @@ class SearchController extends BaseController
         $this->examRepository = $examRepository;
         $this->examProcessingRepository = $examProcessingRepository;
         $this->examProcessingDetailsRepository = $examProcessingDetailsRepository;
+        $this->collageRepository = $collageRepository;
         parent::__construct();
     }
 
@@ -98,6 +101,39 @@ class SearchController extends BaseController
                 return Response($output);
             }
         }
+    }
+
+    public function collageIndex()
+    {
+        if (Auth::user()->mainRole()->name === 'operator') {
+            $data = null;
+            $collage = $this->collageRepository->getAll();
+            return view('operator::pages.search-collage', compact( 'data', "collage"));
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+
+
+
+    public function collageSearch(Request $request)
+    {
+        $qualifications = DB::table('registrant_qualification')->where('collage_name','LIKE', '%' . $request->search . "%")->get();
+
+        if ($qualifications->isEmpty()){
+            $data = null;
+        }else {
+            foreach ($qualifications as $qualification) {
+                  $data[] = $this->profileRepository->getAll()->where('user_id', '=', $qualification->user_id);
+            }
+        }
+//        foreach ($data as $datas)
+//            foreach ($datas as $profile)
+//                dd($profile->id);
+
+                $collage = $this->collageRepository->getAll();
+        return view('operator::pages.search-collage', compact( 'data', "collage"));
     }
 
 

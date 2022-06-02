@@ -69,7 +69,11 @@
                     <i class="icon-book-open"></i> <span>Search applicant</span>
                 </a>
             </li>
-
+            <li class="{{ (request()->is('operator/dashboard/search/collage')) ? 'active':''  }}">
+                <a href="{{route("search.collage.index")}}">
+                    <i class="icon-book-open"></i> <span>Search Collage Wise Student</span>
+                </a>
+            </li>
 
 
         </ul>

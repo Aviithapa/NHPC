@@ -65,7 +65,6 @@
 
                                     @else
                                         @foreach($data as $datas)
-
                                                 <tr>
                                                     <td>{{$datas->id}}</td>
                                                     <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
