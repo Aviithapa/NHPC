@@ -811,6 +811,18 @@ if (!function_exists('getProgramNameForProfile')) {
     }
 }
 
+if (!function_exists('getProgramNameForProfileLevel')) {
+    function getProgramNameForProfileLevel($id)
+    {
+
+        $program_id = \App\Models\Exam\ExamProcessing::all()->where('profile_id','=',$id)->first();
+        if ($program_id == null)
+            return '';
+        $program= \App\Models\Admin\Program::all()->where('id','=',$program_id['program_id'])->first();
+        return $program['level_id'];
+    }
+}
+
 if (!function_exists('getHighteshQualification')) {
     function getHighteshQualification($qualification)
     {

@@ -125,7 +125,8 @@ class SearchController extends BaseController
             $data = null;
         }else {
             foreach ($qualifications as $qualification) {
-                  $data[] = $this->profileRepository->getAll()->where('user_id', '=', $qualification->user_id);
+                  $data[] = $this->profileRepository->getAll()->where('user_id', '=', $qualification->user_id)
+                  ->where('profile_status','=','Reviewing');
             }
         }
 //        foreach ($data as $datas)

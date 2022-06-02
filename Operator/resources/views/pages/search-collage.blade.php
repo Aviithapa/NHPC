@@ -74,7 +74,7 @@
                                     @else
                                         @foreach($data as $profile)
                                             @foreach($profile as $datas)
-
+                                                @if(getProgramNameForProfileLevel($datas->id) == 4)
                                             <tr>
                                                 <td>{{$datas->id}}</td>
                                                 <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
@@ -83,6 +83,7 @@
                                                 <td> {{getProgramNameForProfile($datas->id)}}</td>
                                                 <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>
+                                            @endif
                                                 @endforeach
                                         @endforeach
                                     @endif
