@@ -345,7 +345,6 @@
 </div>
 
 
-@endif
 
 
 @push('scripts')
