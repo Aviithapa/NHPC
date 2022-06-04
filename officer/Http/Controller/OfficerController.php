@@ -15,6 +15,7 @@ use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Illuminate\Support\Facades\Auth;
 use Operator\Modules\Framework\Request;
+use Student\Models\Profile;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
 
@@ -55,33 +56,36 @@ class OfficerController  extends BaseController
         parent::__construct();
     }
 
-    public function profile($status, $current_state, $exam)
+    public function profile($status, $current_state, $level)
     {
         if (Auth::user()->mainRole()->name === 'officer') {
 //            $users = $this->profileProcessingRepository->getAll()->where('current_state', '=', $current_state)
 //                ->where('status', '=', $status);
-            $users = ProfileProcessing::where('current_state', '=', $current_state)
-                ->where('status', '=', $status)
+            $datas = Profile::where('profile_state', '=', $current_state)
+                ->where('profile_status', '=', $status)
+                ->where('level', '=', $level)
                 ->orderBy('created_at','ASC')
                 ->skip(0)
                 ->take(100)
                 ->get();
-            if ($users->isEmpty())
-                $data = null;
-            else {
-                if ($exam === "true") {
-                    foreach ($users as $user) {
-                        $data[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id'])
-                            ->where('level', '>=', 3);
-                    }
-                }else{
-                    foreach ($users as $user) {
-                        $data[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id'])
-                            ->where('level', '<', 3);
-                    }
-                }
-            }
-            return view('officer::pages.applicant-profile-list', compact('users','data','current_state','status'));
+//            $users = ProfileProcessing::where('current_state', '=', $current_state)
+//                ->where('status', '=', $status)
+//                ->orderBy('created_at','ASC')
+//                ->skip(0)
+//                ->take(100)
+//                ->get();
+//            if ($users->isEmpty())
+//                $data = null;
+//            else {
+//
+//                    foreach ($users as $user) {
+//                        $data[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id'])
+//                            ->where('level', '=', $level);
+//                    }
+//
+//            }
+            $state = $current_state;
+            return view('officer::pages.applicant-profile-list', compact('datas','state','status'));
         }else {
                 return redirect()->route('login');
             }
