@@ -59,8 +59,6 @@ class OfficerController  extends BaseController
     public function profile($status, $current_state, $level)
     {
         if (Auth::user()->mainRole()->name === 'officer') {
-//            $users = $this->profileProcessingRepository->getAll()->where('current_state', '=', $current_state)
-//                ->where('status', '=', $status);
             $datas = Profile::where('profile_state', '=', $current_state)
                 ->where('profile_status', '=', $status)
                 ->where('level', '=', $level)
@@ -68,22 +66,6 @@ class OfficerController  extends BaseController
                 ->skip(0)
                 ->take(100)
                 ->get();
-//            $users = ProfileProcessing::where('current_state', '=', $current_state)
-//                ->where('status', '=', $status)
-//                ->orderBy('created_at','ASC')
-//                ->skip(0)
-//                ->take(100)
-//                ->get();
-//            if ($users->isEmpty())
-//                $data = null;
-//            else {
-//
-//                    foreach ($users as $user) {
-//                        $data[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id'])
-//                            ->where('level', '=', $level);
-//                    }
-//
-//            }
             $state = $current_state;
             return view('officer::pages.applicant-profile-list', compact('datas','state','status'));
         }else {
