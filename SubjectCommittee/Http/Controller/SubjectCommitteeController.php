@@ -147,6 +147,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                             ->skip(0)
                             ->take(100)
                             ->get();
+                        dd($users);
                     }
                 }
                 if (count($users) > 0) {
