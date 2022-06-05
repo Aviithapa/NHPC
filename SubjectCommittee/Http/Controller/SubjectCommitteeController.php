@@ -149,6 +149,8 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                         ->get();
                 }
             }
+
+            dd($users);
             if ($users != null) {
                 foreach ($users as $user) {
                     foreach ($user as $us) {
