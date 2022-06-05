@@ -67,6 +67,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
     public function profile($status, $current_state, $level)
     {
         if (Auth::user()->mainRole()->name === 'subject_committee') {
+            $users[] = 0;
             $subject_Committee_id = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
             $subject_committee = $this->subjectCommitteeRepository->getAll()->where('id','=',$subject_Committee_id['subjecr_committee_id'])->first();
             $level = $level ? $level : 1;
@@ -139,7 +140,6 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             $logs = $this->profileLogsRepository->getAll()->where('created_by','=',Auth::user()->id);
             if (count($exam) > 0) {
                 foreach ($exam as $ex) {
-                    dd(count($ex));
                     if (count($ex) > 0) {
                         foreach ($ex as $e) {
                             $users[] = ProfileProcessing::where('current_state', '=', $current_state)
