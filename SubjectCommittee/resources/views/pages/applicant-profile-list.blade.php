@@ -55,14 +55,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if($data === null)
+                                    @if(count($datas) < 1)
                                         <tr>
                                             <td> No Applicant List found at Subject Committee</td>
                                         </tr>
 
                                     @else
-                                        @foreach($data as $datas)
-                                             @foreach($datas as $data)
+                                        @foreach($datas as $dataes)
+                                             @foreach($dataes as $data)
                                         <tr>
                                             <td>{{$data->id}}</td>
                                             <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
