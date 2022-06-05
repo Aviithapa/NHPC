@@ -137,7 +137,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 }
             }
             $logs = $this->profileLogsRepository->getAll()->where('created_by','=',Auth::user()->id);
-            dd($exam);
+            dd($exam->isEmpty());
             foreach ($exam as $ex) {
                 foreach ($ex as $e) {
                     $users[] = ProfileProcessing::where('current_state', '=', $current_state)
