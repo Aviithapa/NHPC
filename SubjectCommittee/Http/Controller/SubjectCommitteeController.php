@@ -78,6 +78,8 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 ->where('profile_processing.status',$status)
                 ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
                 ->orderBy('profiles.created_at','ASC')
+                ->skip(0)
+                ->take(10)
                 ->get(['profiles.*']);
 
 
