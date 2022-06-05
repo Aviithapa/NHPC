@@ -139,16 +139,18 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             $logs = $this->profileLogsRepository->getAll()->where('created_by','=',Auth::user()->id);
             if (count($exam) > 0) {
                 foreach ($exam as $ex) {
-                    dd($ex);
-                    foreach ($ex as $e) {
-                        $users[] = ProfileProcessing::where('current_state', '=', $current_state)
-                            ->where('status', '=', $status)
-                            ->where('profile_id', '=', $e['profile_id'])
-                            ->orderBy('created_at', 'ASC')
-                            ->skip(0)
-                            ->take(100)
-                            ->get();
-                        dd($users);
+                    if (count($exam) > 0) {
+                        foreach ($ex as $e) {
+                            $users[] = ProfileProcessing::where('current_state', '=', $current_state)
+                                ->where('status', '=', $status)
+                                ->where('profile_id', '=', $e['profile_id'])
+                                ->orderBy('created_at', 'ASC')
+                                ->skip(0)
+                                ->take(100)
+                                ->get();
+                        }
+                    }else{
+                        $users[] = 0;
                     }
                 }
                 if (count($users) > 0) {
