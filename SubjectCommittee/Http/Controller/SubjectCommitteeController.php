@@ -149,7 +149,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                             ->get();
                     }
                 }
-                if (count($exam) > 0) {
+                if (count($users) > 0) {
                     foreach ($users as $user) {
                         foreach ($user as $us) {
                             $log = $this->profileLogsRepository->getAll()->where('profile_id', '=', $us['profile_id'])
