@@ -157,10 +157,11 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                         if (!$log) {
                             $data[] = $this->profileRepository->getAll()->where('id', '=', $us['profile_id'])
                                 ->where('level', '=', $level);
+                        }else{
+                            $data = null;
                         }
                     }
                 }
-                dd($data);
             return view('subjectCommittee::pages.applicant-profile-list', compact('data','status','current_state'));
         }else{
             return redirect()->route('login');
