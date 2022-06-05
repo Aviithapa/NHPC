@@ -64,11 +64,13 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         parent::__construct();
     }
 
-    public function profile($status, $current_state, $level)
+    public function profile($status, $current_state, $level, $page = 0)
     {
         if (Auth::user()->mainRole()->name === 'subject_committee') {
             $subject_Committee_id = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
             $level = $level ? $level : 1;
+            $page = $page ? $page : 0;
+            $take = 20;
             $datas = [];
             $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
                 ->join('program','program.id','=','exam_registration.program_id')
@@ -78,8 +80,8 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 ->where('profile_processing.status',$status)
                 ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
                 ->orderBy('profiles.created_at','ASC')
-                ->skip(0)
-                ->take(10)
+                ->skip($page * $take)
+                ->take($take)
                 ->get(['profiles.*']);
 
 
@@ -93,7 +95,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                     $datas[] = $this->profileRepository->getAll()->where('id', '=', $data['id']);
                 }
             }
-            return view('subjectCommittee::pages.applicant-profile-list', compact('datas','status','current_state'));
+            return view('subjectCommittee::pages.applicant-profile-list', compact('datas','status','current_state','page'));
         }else{
             return redirect()->route('login');
         }

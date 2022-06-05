@@ -75,8 +75,48 @@
                                          @endforeach
                                     @endif
 
+
                                     </tbody>
+
                                 </table>
+                                <style>
+                                    .pagination a {
+                                        margin-top: 20px;
+                                        margin-right: 20px;
+                                        margin-bottom: 10px;
+                                        text-decoration: none;
+                                        display: inline-block;
+                                        padding: 8px 16px;
+                                    }
+
+                                    .pagination a:hover {
+                                        background-color: #ddd;
+                                        color: black;
+                                    }
+
+                                    .previous {
+                                        background-color: #f1f1f1;
+                                        color: black;
+                                    }
+
+                                    .next {
+                                        background-color: #04AA6D;
+                                        color: white;
+                                    }
+
+                                    .round {
+                                        border-radius: 50%;
+                                    }
+                                </style>
+                                <div class="pagination">
+                                  @if($page == 0)
+                                        <a href="" onclick="alert('No more paginated data')" class="previous">&laquo; Previous</a>
+
+                                    @else
+                                <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>"2", 'page'=> --$page])}} " class="previous">&laquo; Previous</a>
+                                    @endif
+                                <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>"2", 'page'=> ++$page])}}" class="next">Next &raquo;</a>
+                                </div>
                             </div>
                             <!-- /.table-responsive -->
                         </div>

@@ -6,7 +6,7 @@ Route::get('/',  function () {
 
 
 Route::get('/subjectCommittee/applicant-list/{status}/{current_state}', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, 'exam'])->middleware(['auth'])->name('subjectCommittee.applicant.list');
-Route::get('/subjectCommittee/applicant-profile-list/{status}/{current_state}/{level}', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, 'profile'])->middleware(['auth'])->name('subjectCommittee.applicant.profile.list');
+Route::get('/subjectCommittee/applicant-profile-list/{status}/{current_state}/{level}/{page?}', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, 'profile'])->middleware(['auth'])->name('subjectCommittee.applicant.profile.list');
 Route::get('/subjectCommittee/applicant-list-view/{id}', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, 'edit'])->middleware(['auth'])->name('subjectCommittee.applicant.list.review');
 Route::post('/subjectCommittee/applicant-profile-list', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, 'status'])->middleware(['auth'])->name('subjectCommittee.applicant.profile.list.status');
 Route::get('/subjectCommittee/verified-applicant-profile-list', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, 'verified'])->middleware(['auth'])->name('subjectCommittee.verified.applicant.profile.list');
