@@ -160,6 +160,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                         }
                     }
                 }
+                dd($data);
             return view('subjectCommittee::pages.applicant-profile-list', compact('data','status','current_state'));
         }else{
             return redirect()->route('login');
