@@ -140,22 +140,21 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             $logs = $this->profileLogsRepository->getAll()->where('created_by','=',Auth::user()->id);
             foreach ($exam as $ex) {
                 foreach ($ex as $e) {
-                      $users[] = ProfileProcessing::where('current_state', '=', $current_state)
-                          ->where('status', '=', $status)
-                          ->where('profile_id', '=', $e['profile_id'])
-                          ->orderBy('created_at', 'ASC')
-                          ->skip(0)
-                          ->take(100)
-                          ->get();
+                    $users[] = ProfileProcessing::where('current_state', '=', $current_state)
+                        ->where('status', '=', $status)
+                        ->where('profile_id', '=', $e['profile_id'])
+                        ->orderBy('created_at', 'ASC')
+                        ->skip(0)
+                        ->take(100)
+                        ->get();
                 }
             }
-
-
+            if ($users) {
                 foreach ($users as $user) {
-                    foreach($user as $us) {
+                    foreach ($user as $us) {
                         $log = $this->profileLogsRepository->getAll()->where('profile_id', '=', $us['profile_id'])
-                            ->where('state','=',$current_state)
-                            ->where('status','=',$status)
+                            ->where('state', '=', $current_state)
+                            ->where('status', '=', $status)
                             ->first();
                         if (!$log) {
                             $data[] = $this->profileRepository->getAll()->where('id', '=', $us['profile_id'])
@@ -163,6 +162,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                         }
                     }
                 }
+            }
             return view('subjectCommittee::pages.applicant-profile-list', compact('data','status','current_state'));
         }else{
             return redirect()->route('login');
