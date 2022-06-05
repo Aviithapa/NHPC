@@ -148,6 +148,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                         ->get();
                 }
             }
+            dd($users);
                 foreach ($users as $user) {
                     foreach ($user as $us) {
                         $log = $this->profileLogsRepository->getAll()->where('profile_id', '=', $us['profile_id'])
