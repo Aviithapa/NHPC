@@ -149,17 +149,19 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                             ->get();
                     }
                 }
-                foreach ($users as $user) {
-                    foreach ($user as $us) {
-                        $log = $this->profileLogsRepository->getAll()->where('profile_id', '=', $us['profile_id'])
-                            ->where('state', '=', $current_state)
-                            ->where('status', '=', $status)
-                            ->first();
-                        if (!$log) {
-                            $data[] = $this->profileRepository->getAll()->where('id', '=', $us['profile_id'])
-                                ->where('level', '=', $level);
-                        } else {
-                            $data = null;
+                if (count($exam) > 0) {
+                    foreach ($users as $user) {
+                        foreach ($user as $us) {
+                            $log = $this->profileLogsRepository->getAll()->where('profile_id', '=', $us['profile_id'])
+                                ->where('state', '=', $current_state)
+                                ->where('status', '=', $status)
+                                ->first();
+                            if (!$log) {
+                                $data[] = $this->profileRepository->getAll()->where('id', '=', $us['profile_id'])
+                                    ->where('level', '=', $level);
+                            } else {
+                                $data = null;
+                            }
                         }
                     }
                 }
