@@ -16,40 +16,41 @@
         </div>
 
         <div class="content">
-{{--            <div class="row">--}}
-{{--                <div class="col-lg-3 col-xs-6 m-b-3">--}}
-{{--                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'progress', 'current_state' => 'subject_committee', 'level'=>'5'])}}">--}}
-{{--                        <div class="card">--}}
-{{--                            <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>--}}
-{{--                                <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCountSubject('0',"subject_committee","progress")}}</span>--}}
-{{--                                    <span class="info-box-text">New Applicant Profile List</span> </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--                <div class="col-lg-3 col-xs-6 m-b-3">--}}
-{{--                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'Pending', 'current_state' => 'subject_committee', 'level'=>'5'])}}">--}}
-{{--                        <div class="card">--}}
-{{--                            <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>--}}
-{{--                                <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCountSubject('0',"subject_committee","progress")}}</span>--}}
-{{--                                    <span class="info-box-text">Applicant Pending Profile</span></div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--                <div class="col-lg-3 col-xs-6 m-b-3">--}}
-{{--                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'Rejected','current_state' => 'student', 'level'=>'5'])}}">--}}
-{{--                        <div class="card">--}}
-{{--                            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>--}}
-{{--                                <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCountSubject('0',"subject_committee","progress")}}</span>--}}
-{{--                                    <span class="info-box-text">Rejected Application List </span></div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-
+@if($data->coordinator)
+            <div class="row">
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'progress', 'current_state' => 'subject_committee', 'level'=>'5'])}}">
+                        <div class="card">
+                            <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>
+                                <div class="info-box-content"> <span class="info-box-number">{{getCommitteeWiseStudentCount("subject_committee","Reviewing")}}</span>
+                                    <span class="info-box-text">New Applicant Profile List</span> </div>
+                            </div>
+                        </div>
+                    </a>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'Pending', 'current_state' => 'subject_committee', 'level'=>'5'])}}">
+                        <div class="card">
+                            <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
+                                <div class="info-box-content"> <span class="info-box-number">{{getCommitteeWiseStudentCount("subject_committee","Pending")}}</span>
+                                    <span class="info-box-text">Applicant Pending Profile</span></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'Rejected','current_state' => 'student', 'level'=>'5'])}}">
+                        <div class="card">
+                            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
+                                <div class="info-box-content"> <span class="info-box-number">{{getCommitteeWiseStudentCount("subject_committee","Rejected")}}</span>
+                                    <span class="info-box-text">Rejected Application List </span></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+@endif
             <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'progress','current_state' => 'subject_committee', 'level' => '5'])}}">

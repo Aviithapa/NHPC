@@ -46,6 +46,16 @@
                                         </select>
                                     </fieldset>
                                 </div>
+                                <div class="col-lg-4">
+                                    <fieldset class="form-group">
+                                        <label>Is Coordinator </label>
+                                        <select class="form-control" name="coordinator" required>
+                                            <option value=""></option>
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </fieldset>
+                                </div>
                             </div>
 
                             <button type="submit" class="btn btn-primary float-right mt-2"><i class="fa fa-check"></i>

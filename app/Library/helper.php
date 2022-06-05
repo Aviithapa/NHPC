@@ -126,6 +126,29 @@ if (! function_exists('getLevelWiseStudentCount')) {
         return $count;
     }
 }
+
+if (! function_exists('getCommitteeWiseStudentCount')) {
+    /**
+     * Generates an asset path for the uploads.
+     * @param $status
+     * @param null $state
+     * @return string
+     */
+    function getCommitteeWiseStudentCount( $state, $status)
+    {
+        $subject_Committee_id = \App\Models\SubjectCommittee\SubjectCommitteeUser::all()->where('user_id','=',Auth::user()->id)->first();
+
+        $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->where('profiles.profile_state',$state)
+            ->where('profiles.profile_status',$status)
+            ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
+            ->count();
+
+
+        return  $profiles;
+    }
+}
 if (! function_exists('getLevelWiseStudentCountSubject')) {
     /**
      * Generates an asset path for the uploads.

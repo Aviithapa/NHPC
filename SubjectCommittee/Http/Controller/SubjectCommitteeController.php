@@ -64,6 +64,11 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         parent::__construct();
     }
 
+    public function index(){
+        $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+
+        return view('subjectCommittee::pages.dashboard',compact('data'));
+    }
     public function profile($status, $current_state, $level, $page = 0)
     {
         if (Auth::user()->mainRole()->name === 'subject_committee') {

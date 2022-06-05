@@ -1,9 +1,6 @@
 <?php
 
-Route::get('/',  function () {
-    return view('subjectCommittee::pages.dashboard');
-})->middleware(['auth'])->name('subjectCommittee.dashboard');
-
+Route::get('/', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, 'index'])->middleware(['auth'])->name('subjectCommittee.dashboard');
 
 Route::get('/subjectCommittee/applicant-list/{status}/{current_state}', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, 'exam'])->middleware(['auth'])->name('subjectCommittee.applicant.list');
 Route::get('/subjectCommittee/applicant-profile-list/{status}/{current_state}/{level}/{page?}', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, 'profile'])->middleware(['auth'])->name('subjectCommittee.applicant.profile.list');
