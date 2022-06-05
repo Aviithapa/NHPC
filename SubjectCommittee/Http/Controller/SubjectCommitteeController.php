@@ -152,6 +152,8 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                     }else{
                         $users[] = 0;
                     }
+                }else{
+                    $users[] = 0;
                 }
                 if (count($users) > 0) {
                     foreach ($users as $user) {
