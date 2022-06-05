@@ -27,42 +27,42 @@
                 <ul class="treeview-menu">
                     <li class="{{ (request()->is('subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/progress/subject_committee/5')) ? 'active':''  }}">
                         <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'progress','current_state' => 'subject_committee', 'level' => '5'])}}">
-                            <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantProcessingCount('progress','subject_committee')}}</span></span>
+                            <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success"></span></span>
                         </a>
                     </li>
-{{--                    <li class="{{ (request()->is('subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/rejected/subject_committee/5')) ? 'active':''  }}">--}}
-{{--                        <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'rejected','current_state' => 'subject_committee', 'level' => '5'])}}">--}}
-{{--                            <i class="icon-ban"></i> <span>Reject Profile List <span class="badge badge-pill badge-danger">{{getApplicantProcessingCount('rejected','subject_committee')}}</span></span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    <li class="{{ (request()->is('subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/rejected/subject_committee/5')) ? 'active':''  }}">
+                        <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'rejected','current_state' => 'subject_committee', 'level' => '5'])}}">
+                            <i class="icon-ban"></i> <span>Reject Profile List <span class="badge badge-pill badge-danger"></span></span>
+                        </a>
+                    </li>
 
 {{--                    <li class="{{ (request()->is('subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/progress/council/5')) ? 'active':''  }}">--}}
-{{--                        <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'progress','current_state' => 'council', 'level' => '5'])}}">--}}
-{{--                            <i class="icon-badge"></i> <span>Verified Profile List <span class="badge badge-pill badge-danger">{{getApplicantProcessingCount('progress','council')}}</span></span>--}}
+{{--                        <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'progress','current_state' => 'subject_committee', 'level' => '5'])}}">--}}
+{{--                            <i class="icon-badge"></i> <span>Verified Profile List <span class="badge badge-pill badge-danger"></span></span>--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
                 </ul>
             </li>
-            <li class="treeview {{ (request()->is('subjectCommittee/dashboard/subjectCommittee/applicant-list/*/*')) ? 'active':''  }}"> <a href="#"> <i class="icon-grid"></i> <span>Exam Applied</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
-                <ul class="treeview-menu">
-                    <li class="">
-                        <a href="{{route("subjectCommittee.applicant.list", ['status'=> 'progress','current_state' => 'subject_committee'])}}">
-                            <i class="icon-book-open"></i> <span>Exam Applied List <span class="badge badge-pill badge-success">{{getExamApplicantList('progress','subject_committee')}}</span></span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a href="{{route("subjectCommittee.applicant.list",['status'=> 'progress','current_state' => 'exam_committee'])}}">
-                            <i class="icon-book-open"></i> <span>Exam Applied Verified List <span class="badge badge-pill badge-success">{{getExamApplicantList('progress','exam_committee')}}</span></span>
-                        </a>
-                    </li>
+{{--            <li class="treeview {{ (request()->is('subjectCommittee/dashboard/subjectCommittee/applicant-list/*/*')) ? 'active':''  }}"> <a href="#"> <i class="icon-grid"></i> <span>Exam Applied</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--}}
+{{--                <ul class="treeview-menu">--}}
+{{--                    <li class="">--}}
+{{--                        <a href="{{route("subjectCommittee.applicant.list", ['status'=> 'progress','current_state' => 'subject_committee'])}}">--}}
+{{--                            <i class="icon-book-open"></i> <span>Exam Applied List <span class="badge badge-pill badge-success">{{getExamApplicantList('progress','subject_committee')}}</span></span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                    <li class="">--}}
+{{--                        <a href="{{route("subjectCommittee.applicant.list",['status'=> 'progress','current_state' => 'exam_committee'])}}">--}}
+{{--                            <i class="icon-book-open"></i> <span>Exam Applied Verified List <span class="badge badge-pill badge-success">{{getExamApplicantList('progress','exam_committee')}}</span></span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
 
-                    <li class="">
-                        <a href="{{route("subjectCommittee.applicant.list",['status'=> 'rejected','current_state' => 'subject_committee'])}}">
-                            <i class="icon-book-open"></i> <span>Exam Applied Rejected List <span class="badge badge-pill badge-danger">{{getExamApplicantList('rejected','subject_committee')}}</span></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+{{--                    <li class="">--}}
+{{--                        <a href="{{route("subjectCommittee.applicant.list",['status'=> 'rejected','current_state' => 'subject_committee'])}}">--}}
+{{--                            <i class="icon-book-open"></i> <span>Exam Applied Rejected List <span class="badge badge-pill badge-danger">{{getExamApplicantList('rejected','subject_committee')}}</span></span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                </ul>--}}
+{{--            </li>--}}
 
             <li class="{{ (request()->is('subjectCommittee/dashboard/search/student')) ? 'active':''  }}">
                 <a href="{{route("subjectCommittee.search.student")}}">

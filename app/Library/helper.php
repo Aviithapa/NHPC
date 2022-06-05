@@ -5,6 +5,7 @@ use App\Models\Profile\ProfileProcessing;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Student\Models\Profile;
 
 
 if (! function_exists('uploadedAsset')) {
@@ -137,109 +138,33 @@ if (! function_exists('getLevelWiseStudentCountSubject')) {
         $subject_Committee_id = \App\Models\SubjectCommittee\SubjectCommitteeUser::all()->where('user_id','=',Auth::user()->id)->first();
         $subject_committee = \App\Models\SubjectCommittee\SubjectCommittee::all()->where('id','=',$subject_Committee_id['subjecr_committee_id'])->first();
         $count =0;
-        $public_health = ['MPH','BPH','MPHN','DHE'];
-        $general_medicine = ['GM','CMA'];
-        $laboratory = ['M.Sc Medical/Clinical Microbilogy','M.Sc Medical/Clinical Biochemistry','M.Sc MLT Microbiology','M.Sc Biochemistry','M.Sc Hematology'];
-        $radiology = ['M.Sc. MIT','B.Sc. MIT','PCL Radiogrephy'];
-        $optometry = ['M. Optometry','B. Optometry','PCL Optometry'];
-        $dental = ['Dental Hygine','Dental Hygienist'];
-        $physiotherapy = ['MPT','BPT','CPT'];
-        $all = ['MPH','BPH','MPHN','DHE','GM','CMA','M.Sc Medical/Clinical Microbilogy','M.Sc Medical/Clinical Biochemistry','M.Sc MLT Microbiology','M.Sc Biochemistry','M.Sc Hematology',
-            'M.Sc. MIT','B.Sc. MIT','PCL Radiogrephy','M. Optometry','B. Optometry','PCL Optometry','Dental Hygine','Dental Hygienist',
-            'MPT','BPT','CPT'
-        ];
 
-        switch ($subject_committee['name']) {
-            case "PUBLICHEALTH":
-                foreach ($public_health as $ph) {
-                    $program[] = \App\Models\Admin\Program::all()->where('code_', '=', $ph);
-                }
-                break;
-            case "GENERALMEDICINE":
-                foreach ($general_medicine as $gm) {
-                    $program[] = \App\Models\Admin\Program::all()->where('code_', '=', $gm);
-                }
-                break;
-            case "LABORATORYMEDICINE":
-                foreach ($laboratory as $gm) {
-                    $program[] = \App\Models\Admin\Program::all()->where('code_', '=', $gm);
-                }
-                break;
-            case "OPTOMETRY":
-                foreach ($radiology as $gm) {
-                    $program[] = \App\Models\Admin\Program::all()->where('code_', '=', $gm);
-                }
-                break;
-            case "RADIOLOGY":
-                foreach ($optometry as $gm) {
-                    $program[] = \App\Models\Admin\Program::all()->where('code_', '=', $gm);
-                }
-                break;
-            case "DENTAL":
-                foreach ($dental as $gm) {
-                    $program[] = \App\Models\Admin\Program::all()->where('code_', '=', $gm);
-                }
-                break;
-            case "PHYSIOTHERAPY":
-                foreach ($physiotherapy as $gm) {
-                    $program[] = \App\Models\Admin\Program::all()->where('code_', '=', $gm);
-                }
-                break;
-            default:
-                foreach ($all as $gm) {
-                    $program[] =\App\Models\Admin\Program::all()->where('code_', '!=', $gm);
-                }
-                break;
-        }
-        foreach ($program as $pro) {
-            foreach ($pro as $p) {
-                $exam[] = ExamProcessing::where('program_id', '=', $p['id'])
-                    ->get();
-//                    $this->examProcessingRepository->getAll()->where('program_id', '=', $p['id']);
-            }
-        }
-        $logs = \App\Models\Profile\Profilelogs::all()->where('created_by','=',Auth::user()->id);
-//        foreach ($exam as $ex) {
-//            foreach ($ex as $e) {
-//                $users[] = ProfileProcessing::where('current_state', '=', $state)
-//                    ->where('status', '=', $status)
-//                    ->where('profile_id', '=', $e['profile_id'])
-//                    ->orderBy('created_at', 'ASC')
-//                    ->get();
-//            }
-//        }
-//
-//        foreach ($users as $user) {
-//            foreach($user as $us) {
-//             dd($us);
-//            }
-//            }
+        $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state',$state)
+            ->where('profiles.level',$level)
+            ->where('profile_processing.status',$status)
+            ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
+            ->orderBy('profiles.created_at','ASC')
+            ->get(['profiles.*']);
 
 
-        foreach ($exam as $user) {
-            foreach($user as $us) {
-                $log = \App\Models\Profile\Profilelogs::all()->where('profile_id', '=', $us['profile_id'])
-                    ->where('state','=',$state)
-                    ->where('status','=',$status)
-                    ->first();
-                if (!$log) {
-                    $profiles[] = \Student\Models\Profile::all()->where("level",'=' ,$level)
-                        ->where('profile_state', '=', $state)
-                        ->where('profile_status', '=', $status)
-                        ->where('id', '=', $us['profile_id'])
-                        ->count();
-
-
-                }
+        foreach ($profiles as $data){
+            $log = \App\Models\Profile\Profilelogs::all()->where('profile_id', '=', $data['id'])
+                ->where('state', '=', $state)
+                ->where('status', '=', $status)
+                ->where('created_by','=',Auth::user()->id)
+                ->first();
+            if (!$log) {
+                $count++;
             }
         }
 
-
-        dd($profiles);
-
-        return $profiles;
+        return  $count;
     }
 }
+
 
 
 
