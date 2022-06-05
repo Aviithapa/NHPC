@@ -40,7 +40,7 @@
                                         <th>Name</th>
                                         <th>Citizenship</th>
                                         <th>Date of birth</th>
-                                        <th>Profile Status</th>
+                                        <th>Profile State</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>

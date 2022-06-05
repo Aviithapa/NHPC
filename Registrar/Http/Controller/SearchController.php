@@ -83,7 +83,7 @@ class SearchController extends BaseController
                         '<td>' . $product->first_name . '</td>' .
                         '<td>' . $product->citizenship_number . '</td>' .
                         '<td>' . $product->dob_nep . '</td>' .
-                        '<td>' . $product->profile_status . '</td>' .
+                        '<td>' . $product->profile_state . '</td>' .
                         '<td><a href='.url("registrar/dashboard/registrar/applicant-list-view/".$product->id).'><span class="label label-success">View</span></a> </td>' .
                         '</tr>';
                 }

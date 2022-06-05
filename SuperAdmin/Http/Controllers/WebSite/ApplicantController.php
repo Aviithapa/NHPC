@@ -15,6 +15,7 @@ use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepositor
 use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDetailsRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
+use App\Modules\Backend\SubjectCommittee\SubjectCommitteRole\SubjectCommitteeUserRepository;
 use App\Modules\Backend\Website\Post\Repositories\PostRepository;
 use App\Modules\Backend\Website\Post\Requests\CreatePostRequest;
 use App\Modules\Backend\Website\Post\Requests\UpdatePostRequest;
@@ -26,6 +27,7 @@ use Operator\Modules\Framework\Request;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
 use Yajra\DataTables\Facades\DataTables;
+use function GuzzleHttp\Promise\all;
 
 class ApplicantController  extends BaseController
 {
@@ -34,7 +36,7 @@ class ApplicantController  extends BaseController
         $userRepository, $qualificationRepository,
         $user_data, $profileLogsRepository, $profileProcessingRepository,
         $municipalityRepository, $collageRepository,
-        $examRepository, $examProcessingRepository, $examProcessingDetailsRepository, $programRepository;
+        $examRepository, $examProcessingRepository, $examProcessingDetailsRepository, $programRepository, $subjectCommitteeUserRepository;
 
     private $commonView = 'operator::pages.';
     private $commonMessage = 'Profile ';
@@ -54,13 +56,14 @@ class ApplicantController  extends BaseController
      * @param CollegeRepository $collageRepository
      * @param ExamProcessingRepository $examProcessingRepository
      * @param ProgramRepository $programRepository
+     * @param SubjectCommitteeUserRepository $subjectCommitteeUserRepository
      * @param ExamProcessingDetailsRepository $examProcessingDetailsRepository
      */
 
     public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
                                 ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
                                 ExamRepository $examRepository, MunicipalityRepository $municipalityRepository, CollegeRepository $collageRepository,
-                                ExamProcessingRepository $examProcessingRepository,ProgramRepository $programRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository)
+                                ExamProcessingRepository $examProcessingRepository,ProgramRepository $programRepository, SubjectCommitteeUserRepository $subjectCommitteeUserRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository)
     {
         $this->viewData['commonRoute'] = $this->commonRoute;
         $this->viewData['commonView'] = 'superAdmin::' . $this->commonView;
@@ -77,6 +80,7 @@ class ApplicantController  extends BaseController
         $this->collageRepository = $collageRepository;
         $this->examProcessingDetailsRepository = $examProcessingDetailsRepository;
         $this->programRepository = $programRepository;
+        $this->subjectCommitteeUserRepository = $subjectCommitteeUserRepository;
         parent::__construct();
     }
     /**
@@ -228,6 +232,7 @@ class ApplicantController  extends BaseController
                         '<td>' . $product->phone_number . '</td>' .
                         '<td>' . $product->password_reference . '</td>' .
                         '<td><a href=' . url("superAdmin/dashboard/active/" . $product->id) . '><span class="label label-success">Active</span></a> <a href=' . url("superAdmin/dashboard/inactive/" . $product->id) . '><span class="label label-danger">In Active</span></a></td>' .
+                        '<td><a href=' . url("superAdmin/dashboard/mapUser/index/" . $product->id) . '><span class="label label-danger">Assign</span></a></td>'.
                         '</tr>';
                 }
                 return Response($output);
@@ -303,6 +308,33 @@ class ApplicantController  extends BaseController
             return redirect()->back()->withInput();
         }
     }
+
+
+
+
+    public function mapUser(Request $request){
+        $data = $request->all();
+        try {
+            $isAlreadyAssigned  =  $this->subjectCommitteeUserRepository->findBy('user_id',$data['user_id'],'=')->first();
+            if ($isAlreadyAssigned)
+                $subject_committee = $this->subjectCommitteeUserRepository->update($data,$isAlreadyAssigned['id']);
+            else
+            $subject_committee = $this->subjectCommitteeUserRepository->create($data);
+            if ($subject_committee == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success','User has been assigned role successfully.');
+            return redirect()->back();
+        }catch (\Exception $e) {
+            session()->flash('success','Program has been changed successfully.');
+            return redirect()->back()->withInput();
+        }
+    }
+    public function mapUserIndex($id){
+        return view('superAdmin::admin.applicant.role-assign', compact( 'id'));
+    }
+
 
 
 //    public function profileProcessing($id,$data)
