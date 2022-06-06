@@ -175,10 +175,13 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 $profile = $this->profileRepository->update($data, $id);
                 if ($profile == false) {
                     session()->flash('danger', 'Oops! Something went wrong.');
-                    return redirect()->back()->withInput();
                 }
-                session()->flash('success', 'User Profile Status Information have been saved successfully');
-                return redirect()->route('subjectCommittee.dashboard');
+                $current_state = "subject_committee";
+                $status = $data['status'];
+                session()->flash('success','User Profile Status Information have been saved successfully');
+                return redirect()->route("subjectCommittee.applicant.profile.list", ['status'=> $status,'current_state' => $current_state, 'level'=>$profile['level']]);
+
+//                return redirect()->route('subjectCommittee.dashboard');
 //
             } catch (\Exception $e) {
                 session()->flash('danger', 'Oops! Something went wrong.');
