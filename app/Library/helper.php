@@ -39,6 +39,23 @@ if (! function_exists('getApplicantCount')) {
         return $count;
     }
 }
+if (! function_exists('getDoubleDusturCountList')) {
+    /**
+     * Generates an asset path for the uploads.
+     * @param null $path
+     * @param null $file_name
+     * @return string
+     */
+    function getDoubleDusturCountList()
+    {
+         $count =0;
+        $date = "2022-05-05 00:00:00";
+         $exams =  ExamProcessing::all()->where('created_at','>', $date);
+         foreach ($exams as $exam)
+             $count++;
+        return $count;
+    }
+}
 
 
 if (! function_exists('getApplicantProcessingCount')) {

@@ -6,6 +6,7 @@ namespace SubjectCommittee\Http\Controller;
 
 use App\Models\Exam\ExamProcessing;
 use App\Models\Profile\ProfileProcessing;
+use App\Models\SubjectCommittee\SubjectCommitteeUser;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
@@ -177,7 +178,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                     return redirect()->back()->withInput();
                 }
                 session()->flash('success', 'User Profile Status Information have been saved successfully');
-                return redirect()->route('subjectCommittee.applicant.profile.list');
+                return redirect()->route('subjectCommittee.dashboard');
 //
             } catch (\Exception $e) {
                 session()->flash('danger', 'Oops! Something went wrong.');
@@ -217,16 +218,21 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         $profileProcessing['profile_id'] = $id;
         $profileProcessing['current_state'] = "subject_committee";
         $profileProcessing['status'] = "progress";
+        $subject_Committee = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+//        $subject_Committee_number = SubjectCommitteeUser::where('subjecr_committee_id', '=', $subject_Committee['subjecr_committee_id'])->get();
+//        $wordCount = $subject_Committee_number->count();
+//        dd($wordCount);
         $id= $this->profileProcessingRepository->getAll()->where('profile_id' ,'=',$id)->first();
         $profile_processing = $id;
         if ($profile_processing['current_state'] === 'subject_committee'){
-            if($profile_processing->subject_committee_accepted_num < 3)
-                $profileProcessing['subject_committee_accepted_num'] = $profile_processing->subject_committee_accepted_num + 1;
-            else {
-                $profileProcessing['remarks'] = 'Profile is forward to Exam Committee';
-                $profileProcessing['review_status'] = 'Successful';
-                $profileProcessing['current_state'] = 'exam_committee';
-            }
+            $profile_processing->subject_committee_accepted_num ++;
+//            if($profile_processing->subject_committee_accepted_num < 3)
+//                $profileProcessing['subject_committee_accepted_num'] = $profile_processing->subject_committee_accepted_num + 1;
+//            else {
+//                $profileProcessing['remarks'] = 'Profile is forward to Exam Committee';
+//                $profileProcessing['review_status'] = 'Successful';
+//                $profileProcessing['current_state'] = 'exam_committee';
+//            }
         }
         $profileProcessings = $this->profileProcessingRepository->update($profileProcessing,$id['id']);
         if($profileProcessings == false)
