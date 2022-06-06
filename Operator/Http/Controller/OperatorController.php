@@ -361,5 +361,17 @@ class OperatorController extends BaseController
             return redirect()->back()->withInput();
         }
     }
+
+    public function doubleDustur(){
+        $date = "2022-05-05 00:00:00";
+
+        $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+            ->where('exam_registration.created_at','>', $date)
+            ->orderBy('profiles.created_at','ASC')
+            ->get(['profiles.*','exam_registration.*']);
+
+        return $this->view('pages.application-list-double', $profiles);
+
+    }
 }
 

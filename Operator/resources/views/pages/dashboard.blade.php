@@ -39,7 +39,7 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="#">
+                    <a href="{{route("operator.applicant.profile.list.doubleDustur")}}">
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
                                 <div class="info-box-content"> <span class="info-box-number">{{getDoubleDusturCountList()}}</span>

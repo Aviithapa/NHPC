@@ -22,6 +22,7 @@ Route::post('/update/apply/exam',[\Operator\Http\Controller\OperatorController::
 Route::get('/apply/exam/{id}',[\Operator\Http\Controller\OperatorController::class,'editExamApply'])->middleware(['auth'])->name('apply.exam');
 
 Route::post('/applicant-profile-list/level',[\Operator\Http\Controller\OperatorController::class,'level'])->middleware(['auth'])->name('operator.applicant.profile.list.level');
+Route::get('/applicant-profile-list/doubleDustur',[\Operator\Http\Controller\OperatorController::class,'doubleDustur'])->middleware(['auth'])->name('operator.applicant.profile.list.doubleDustur');
 
 Route::get('/search/collage',[\Operator\Http\Controller\SearchController::class,"collageIndex"])->middleware(['auth'])->name('search.collage.index');
 Route::post('/collage/search',[\Operator\Http\Controller\SearchController::class,"collageSearch"])->middleware(['auth'])->name('collage.search');
