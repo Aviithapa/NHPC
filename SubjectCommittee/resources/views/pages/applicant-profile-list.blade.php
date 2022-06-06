@@ -113,9 +113,9 @@
                                         <a href="" onclick="alert('No more paginated data')" class="previous">&laquo; Previous</a>
 
                                     @else
-                                <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>"2", 'page'=> --$page])}} " class="previous">&laquo; Previous</a>
+                                <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>$level, 'page'=> --$page])}} " class="previous">&laquo; Previous</a>
                                     @endif
-                                <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>"2", 'page'=> ++$page])}}" class="next">Next &raquo;</a>
+                                <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>$level, 'page'=> ++$page])}}" class="next">Next &raquo;</a>
                                 </div>
                             </div>
                             <!-- /.table-responsive -->
