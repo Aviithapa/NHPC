@@ -102,10 +102,24 @@ class CouncilController extends BaseController
     }
     public function dartaBookIndex(){
         if (Auth::user()->mainRole()->name === 'council') {
-            $programs = $this->programRepository->getAll();
-            foreach ($programs as $program){
-
+            $date = "2016-11-20";
+            if($date){
+                $program_certificates_code = Certificate::all()
+                    ->where('decision_date','=', $date)
+                    ->distinct('program_certificate_code');
+                foreach ($program_certificates_code as $code){
+                    $dataCount[] = Certificate::all()
+                        ->where('decision_date','=', $date)
+                        ->where('program_certificate_code','=',$code['program_certificate_code']);
+                }
+                dd($dataCount[]);
             }
+
+            else
+                $program_certificates_code = Certificate::select('program_certificate_code')->distinct()->get();
+
+
+            dd($dataCount);
             return \view('council::pages.darta-book', compact('programs'));
         }else{
             return redirect()->route('login');

@@ -102,7 +102,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                     $datas[] = $this->profileRepository->getAll()->where('id', '=', $data['id']);
                 }
             }
-            return view('subjectCommittee::pages.applicant-profile-list', compact('datas','status','current_state','page'));
+            return view('subjectCommittee::pages.applicant-profile-list', compact('datas','status','current_state','page','level'));
         }else{
             return redirect()->route('login');
         }
