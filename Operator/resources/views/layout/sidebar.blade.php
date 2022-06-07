@@ -23,6 +23,14 @@
 
                 </a>
             </li>
+
+            @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com')
+                <li class="{{ (request()->is('operator/dashboard/search/student')) ? 'active':''  }}">
+                    <a href="{{route("search.student")}}">
+                        <i class="icon-book-open"></i> <span>Search applicant</span>
+                    </a>
+                </li>
+            @else
             <li class="treeview {{ (request()->is('operator/dashboard/operator/applicant-profile-list/*/*')) ? 'active':''  }}"> <a href="#"> <i class="icon-grid"></i> <span>Applicant Profile</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
                 <ul class="treeview-menu">
                     <li class="{{ (request()->is('operator/dashboard/operator/applicant-profile-list/Reviewing/computer_operator/*')) ? 'active':''  }}">
@@ -74,6 +82,8 @@
                     <i class="icon-book-open"></i> <span>Search Collage Wise Student</span>
                 </a>
             </li>
+
+                @endif
 
 
         </ul>

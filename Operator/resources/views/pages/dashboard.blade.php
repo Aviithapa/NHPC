@@ -16,6 +16,8 @@
         </div>
 
 {{--        <!-- Main content -->--}}
+        @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com')
+        @else
         <div class="content">
             <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
@@ -107,7 +109,7 @@
                 </div>
             </div>
         </div>
-
+@endif
 
     </div>
     <!-- /.content -->
