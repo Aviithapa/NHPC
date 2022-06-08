@@ -99,7 +99,10 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                     ->where('created_by','=',Auth::user()->id)
                     ->first();
                 if (!$log) {
-                    $datas[] = $this->profileRepository->getAll()->where('id', '=', $data['id']);
+                    $datas[] = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+                        ->join('program','program.id','=','exam_registration.program_id')
+                        ->where('profiles.id', '=', $data['id'])
+                        ->get(['profiles.*','program.name as program_name']);
                 }
             }
             return view('subjectCommittee::pages.applicant-profile-list', compact('datas','status','current_state','page','level'));

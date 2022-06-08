@@ -451,7 +451,7 @@ class ApplicantController  extends BaseController
             ->where('profile_processing.status',"!=",'accepted')
             ->where('exam_registration.level_id',"=",'4')
             ->orderBy('profiles.created_at','ASC')
-            ->limit(10)
+            ->limit(50)
             ->get(['profiles.*','profiles.id as profile_id','profiles.created_at as profile_created_at','program.name as program_name','program.*',
                 'program.id as program_id','level.*','provinces.province_name','exam_registration.id as exam_registration_id']);
         foreach ($students as $student){
@@ -465,6 +465,7 @@ class ApplicantController  extends BaseController
                 $registration_id = $registration_number['registration_id'];
             $data['registration_id'] = ++ $registration_id ;
                 $data['category_id'] = $student[''];
+                $data['profile_id'] = $student['profile_id'];
                 $data['program_id'] = $student['program_id'];
                 $data['srn'] = ++ $srn;
                 $data['program_certificate_code'] = $student['certificate_name'];

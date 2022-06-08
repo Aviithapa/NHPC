@@ -15,6 +15,7 @@ class Certificate extends Model
        'registrar','decision_date','name',
        'date_of_birth','address','program_name','level_name',
        'qualification','issued_year','issued_date',
+       'profile_id',
        'valid_till','certificate','type',
        'remarks','is_printed','printed_date',
        'printed_by','is_edited','issued_by','certificate_status'];
