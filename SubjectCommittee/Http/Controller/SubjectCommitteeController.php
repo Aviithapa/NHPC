@@ -71,7 +71,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
 
         return view('subjectCommittee::pages.dashboard',compact('data'));
     }
-    public function profile($status, $current_state, $level, $page)
+    public function profile($status, $current_state, $level, $page = 0)
     {
         if (Auth::user()->mainRole()->name === 'subject_committee') {
             $subject_Committee_id = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
