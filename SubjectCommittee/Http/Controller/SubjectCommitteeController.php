@@ -89,7 +89,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 ->orderBy('profiles.created_at','ASC')
                 ->skip($page * $take)
                 ->take($take)
-                ->get(['profiles.*']);
+                ->get(['profiles.*','program.name as program_name']);
 
 
             foreach ($profiles as $data){
