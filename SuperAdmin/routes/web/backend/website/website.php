@@ -309,6 +309,8 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::post('/delete/{id}','ApplicantController@delete')->middleware(['auth'])->name('superAdmin.delete');
     Route::post('/mapUser','ApplicantController@mapUser')->middleware(['auth'])->name('superAdmin.mapUser');
     Route::get('/mapUser/index/{id}','ApplicantController@mapUserIndex')->middleware(['auth'])->name('superAdmin.mapUser.index');
+    Route::get('/certificate/index','ApplicantController@generateCertificateIndex')->middleware(['auth'])->name('superAdmin.generateCertificate.index');
+    Route::get('/certificate/generateCertificate','ApplicantController@generateCertificate')->middleware(['auth'])->name('superAdmin.generateCertificate.generateCertificate');
 
 
 });

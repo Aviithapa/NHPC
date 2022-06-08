@@ -53,6 +53,11 @@
                     <i class="icon-book-open"></i> <span>Add Collage</span>
                 </a>
             </li>
+            <li class="{{ (request()->is('superAdmin/dashboard/certificate/index')) ? 'active':''  }}">
+                <a href="{{route('superAdmin.generateCertificate.index')}}">
+                    <i class="icon-book-open"></i> <span>Ready to Generate Certificate</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- /.sidebar -->

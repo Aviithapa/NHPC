@@ -4,12 +4,14 @@ namespace SuperAdmin\Http\Controllers\WebSite;
 
 use App\Http\Controllers\Admin\BaseController;
 use App\Models\Address\Municipality;
+use App\Models\Certificate\Certificate;
 use App\Models\Exam\ExamProcessing;
 use App\Models\Website\Post;
 use App\Modules\Backend\Address\Repositories\MunicipalityRepository;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
+use App\Modules\Backend\Certificate\Repositories\CertificateRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDetailsRepository;
@@ -19,11 +21,13 @@ use App\Modules\Backend\SubjectCommittee\SubjectCommitteRole\SubjectCommitteeUse
 use App\Modules\Backend\Website\Post\Repositories\PostRepository;
 use App\Modules\Backend\Website\Post\Requests\CreatePostRequest;
 use App\Modules\Backend\Website\Post\Requests\UpdatePostRequest;
+use Carbon\Carbon;
 use Database\Seeders\District;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Operator\Modules\Framework\Request;
+use Student\Models\Profile;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
 use Yajra\DataTables\Facades\DataTables;
@@ -36,7 +40,7 @@ class ApplicantController  extends BaseController
         $userRepository, $qualificationRepository,
         $user_data, $profileLogsRepository, $profileProcessingRepository,
         $municipalityRepository, $collageRepository,
-        $examRepository, $examProcessingRepository, $examProcessingDetailsRepository, $programRepository, $subjectCommitteeUserRepository;
+        $examRepository, $examProcessingRepository, $certificateRepository, $examProcessingDetailsRepository, $programRepository, $subjectCommitteeUserRepository;
 
     private $commonView = 'operator::pages.';
     private $commonMessage = 'Profile ';
@@ -63,7 +67,8 @@ class ApplicantController  extends BaseController
     public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
                                 ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
                                 ExamRepository $examRepository, MunicipalityRepository $municipalityRepository, CollegeRepository $collageRepository,
-                                ExamProcessingRepository $examProcessingRepository,ProgramRepository $programRepository, SubjectCommitteeUserRepository $subjectCommitteeUserRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository)
+                                ExamProcessingRepository $examProcessingRepository,ProgramRepository $programRepository, SubjectCommitteeUserRepository $subjectCommitteeUserRepository,
+                                ExamProcessingDetailsRepository $examProcessingDetailsRepository, CertificateRepository $certificateRepository)
     {
         $this->viewData['commonRoute'] = $this->commonRoute;
         $this->viewData['commonView'] = 'superAdmin::' . $this->commonView;
@@ -81,6 +86,7 @@ class ApplicantController  extends BaseController
         $this->examProcessingDetailsRepository = $examProcessingDetailsRepository;
         $this->programRepository = $programRepository;
         $this->subjectCommitteeUserRepository = $subjectCommitteeUserRepository;
+        $this->certificateRepository = $certificateRepository;
         parent::__construct();
     }
     /**
@@ -412,5 +418,94 @@ class ApplicantController  extends BaseController
         session()->flash('success', 'New Collage has been added');
         return redirect()->back();
 
+    }
+
+
+    public function generateCertificateIndex(){
+        $student = $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('level','level.id','=','program.level_id')
+            ->join('provinces','provinces.id','=','profiles.development_region')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state',"!=",'student')
+            ->where('profile_processing.current_state',"!=",'officer')
+            ->where('profile_processing.current_state',"!=",'computer_operator')
+            ->where('profile_processing.status',"!=",'accepted')
+            ->where('exam_registration.level_id',"=",'4')
+            ->orderBy('profiles.created_at','ASC')
+            ->get(['profiles.*','profiles.id as profile_id','profiles.created_at as profile_created_at','program.name as program_name','program.*',
+                'program.id as program_id','level.*','provinces.province_name','exam_registration.id as exam_registration_id']);
+
+        return view('superAdmin::admin.applicant.certificate-index',compact('student'));
+    }
+
+    public function generateCertificate(){
+        $students = $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('level','level.id','=','program.level_id')
+            ->join('provinces','provinces.id','=','profiles.development_region')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state',"!=",'student')
+            ->where('profile_processing.current_state',"!=",'officer')
+            ->where('profile_processing.current_state',"!=",'computer_operator')
+            ->where('profile_processing.status',"!=",'accepted')
+            ->where('exam_registration.level_id',"=",'4')
+            ->orderBy('profiles.created_at','ASC')
+            ->limit(10)
+            ->get(['profiles.*','profiles.id as profile_id','profiles.created_at as profile_created_at','program.name as program_name','program.*',
+                'program.id as program_id','level.*','provinces.province_name','exam_registration.id as exam_registration_id']);
+        foreach ($students as $student){
+            $srn_number = 0;
+            $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
+            $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
+            $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
+                ->where('program_id','=', $student['program_id'])->first();
+            if ($srn_number)
+                $srn = $srn_number['srn'];
+                $registration_id = $registration_number['registration_id'];
+            $data['registration_id'] = ++ $registration_id ;
+                $data['category_id'] = $student[''];
+                $data['program_id'] = $student['program_id'];
+                $data['srn'] = ++ $srn;
+                $data['program_certificate_code'] = $student['certificate_name'];
+                $data['cert_registration_number'] = $this->certRegistrationNumber($student['level_code'], $data['srn'], $student['certificate_name']);
+                $data['registrar'] = 'kashi nath rimal';
+                $data['decision_date'] = Carbon::today()->toDateString();
+                $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
+                $data['date_of_birth'] = $student['dob_nep'];
+                $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
+                $data['program_name'] = $student['program_name'];
+                $data['level_name'] = $student['level_'];
+                $data['qualification'] = $student['program_name'] . ':' . $student['board_university'] . ':'  . $student['passed_year'] ;
+                $data['issued_year'] = Carbon::today()->year;
+                $data['issued_date'] = Carbon::today()->toDateString();
+                $data['valid_till'] = Carbon::now()->addYears(5);
+                $data['certificate'] = 'new';
+                $data['issued_by'] = Auth::user()->id;
+                $data['certificate_status'] = 1;
+                $certificate = $this->certificateRepository->create($data);
+                $examupdate['status'] = "accepted";
+                $examupdate['state'] = "council";
+                $this->examProcessingRepository->update($examupdate, $student['exam_registration_id']);
+//                $this->updateQualificationHistory($qualification);
+                $profilesProcessing = $this->profileProcessingRepository->getAll()->where('profile_id','=',$student['profile_id'])->first();
+                $data['current_state'] = 'council';
+                $data['status'] = 'accepted';
+                $this->profileProcessingRepository->update($data,$profilesProcessing['id']);
+        }
+
+            return redirect()->back();
+    }
+
+    private function certRegistrationNumber($level_code , $srn, $program_code){
+        return $level_code.'- '.$srn.' '.$program_code;
+    }
+
+    public function updateQualificationHistory($qualification){
+        $data['licence'] ='yes';
+        $update= $this->qualificationRepository->update($data,$qualification['id']);
+        if ($update == false)
+            return false;
+        return true;
     }
 }

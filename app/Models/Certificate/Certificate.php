@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Certificate extends Model
 {
    protected $table = 'certificate_history';
-   protected $fillable=['exam_processing_id','program_id',
+   protected $fillable=['registration_id','category_id','program_id',
        'program_certificate_code',
        'srn','cert_registration_number',
        'registrar','decision_date','name',
