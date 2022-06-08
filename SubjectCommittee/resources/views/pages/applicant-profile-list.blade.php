@@ -68,7 +68,7 @@
                                             <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
                                             <td>{{$data->citizenship_number}}</td>
                                             <td>{{$data->created_at->toDateString()}}</td>
-                                            <td> {{$data->program_name}}</td>
+                                            <td> {{getProgramNameForProfile($data->id)}}</td>
                                             <td> <a href="{{url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
                                         </tr>
                                             @endforeach
@@ -115,8 +115,7 @@
                                     @else
                                 <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>$level, 'page'=> --$page])}} " class="previous">&laquo; Previous</a>
                                     @endif
-                                    {{$page = $page + 1}}
-                                <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>$level, 'page'=> $page])}}" class="next">Next &raquo;</a>
+                                <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'level'=>$level, 'page'=> ++$page])}}" class="next">Next &raquo;</a>
                                 </div>
                             </div>
                             <!-- /.table-responsive -->
