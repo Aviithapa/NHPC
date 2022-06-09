@@ -1,7 +1,6 @@
 @extends('operator::layout.app')
 
 @section('content')
-    @push('style')
 <style>
     page {
         background: white;
@@ -128,50 +127,25 @@
         border: 1px solid black;
     }
 </style>
-@endpush
-<div class="button  mt-5" style="margin-left: 300px;">
+
+<div class="button ml-5 mt-2">
     <button onclick="printDiv()" class="btn btn-primary">Print Certificate</button>
 </div>
 
-<page size="A4" id="printContent" style="background: white;
-        display: block;
-        margin: 15px auto;
-        margin-bottom: 0.5cm;
-        box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-        color: black !important;
-  width: 21cm;
-        height: 29.7cm;
-        padding: 5rem 3.5rem;">
-   <div class="header" style=" text-align: center;
-        font-weight: 800;">
-       <span class="p" style="font-size: 14px">Schedule -3 <br>
+<page size="A4" id="printContent">
+   <div class="header">
+       <span class="p">Schedule -3 <br>
            (Relating to sub rule (1) of Rule 10)
        </span>
-       <h3 style="  font-size: 28px;
-        font-weight: 800;">Nepal Health Professional Council</h3>
-       <span style=" font-size: 18px !important;">Bansbari, Kathmandu, Nepal</span>
+       <h3>Nepal Health Professional Council</h3>
+       <span>Bansbari, Kathmandu, Nepal</span>
    </div>
-    <div id="container" style="  margin-top: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;">
-        <div class="col-side" id="col1" style="    flex: 0 0 120px; width: 20px !important;
-        height: 120px;
-        border: 1px solid black;
-        margin-right: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;">
-            <img src="{{$profile->getProfileImage()}}">
+    <div id="container">
+        <div class="col-side" id="col1">
+            <img src="{{$profile->getProfileImage()}}" height="120">
         </div>
-        <div class="col" id="col2" style="flex: 2; background-color: red; justify-content: center; padding: 0.4rem; font-size: 24px; font-weight: bold; border: 2px solid black;"> Registration Certificate </div>
-        <div class="col-side" id="col3" style="    width: 20px !important;
-        height: 120px;
-        border: 1px solid black;
-        margin-left: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center; flex: 0 0 120px;">Photo</div>
+        <div class="col" id="col2"> Registration Certificate </div>
+        <div class="col-side" id="col3">Photo</div>
     </div>
 
     <p class="body">
@@ -241,20 +215,12 @@
 @push('scripts')
     <script>
         function printDiv() {
-            var divContents = document.getElementById("printContent").innerHTML;
-            var originalContents = document.body.innerHTML;
+            var divContents = document.getElementById("printContent");
+            var a = window.open('', 'PRINT Certificated', );
 
-            document.body.innerHTML = divContents;
+            a.document.write(divContents.outerHTML);
 
-            window.print();
 
-            document.body.innerHTML = originalContents;
-            //
-            // var a = window.open('', 'PRINT Certificated', );
-            //
-            // a.document.write(divContents.innerHTML);
-            //
-            // window.print();
 
         }
     </script>
