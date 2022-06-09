@@ -1,40 +1,44 @@
-@extends('operator::layout.app')
 
-@section('content')
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title></title>
+        </head>
+        <body>
 <style>
-    /*page {*/
-    /*    background: white;*/
-    /*    display: block;*/
-    /*    margin: 15px auto;*/
-    /*    margin-bottom: 0.5cm;*/
-    /*    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);*/
-    /*    color: black !important;*/
-    /*}*/
-    /*page[size="A4"] {*/
-    /*    width: 21cm;*/
-    /*    height: 29.7cm;*/
-    /*    padding: 5rem 3.5rem;*/
-    /*}*/
-    /*.header{*/
-    /*    text-align: center;*/
-    /*    font-weight: 800;*/
-    /*}*/
-    /*.header .p {*/
-    /*    font-size: 14px;*/
-    /*}*/
-    /*.header h3 {*/
-    /*    font-size: 28px;*/
-    /*    font-weight: 800;*/
-    /*}*/
-    /*.header span {*/
-    /*    font-size: 18px !important;*/
-    /*}*/
-    /*#container {*/
-    /*    margin-top: 20px;*/
-    /*    display: flex;*/
-    /*    justify-content: space-between;*/
-    /*    align-items: center;*/
-    /*}*/
+    page {
+        background: white;
+        display: block;
+        margin: 15px auto;
+        margin-bottom: 0.5cm;
+        box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+        color: black !important;
+    }
+    page[size="A4"] {
+        width: 21cm;
+        height: 29.7cm;
+        padding: 5rem 3.5rem;
+    }
+    .header{
+        text-align: center;
+        font-weight: 800;
+    }
+    .header .p {
+        font-size: 14px;
+    }
+    .header h3 {
+        font-size: 28px;
+        font-weight: 800;
+    }
+    .header span {
+        font-size: 18px !important;
+    }
+    #container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
     .col-side {
         flex: 0 0 120px;
@@ -127,10 +131,10 @@
         border: 1px solid black;
     }
 </style>
-
-{{--<div class="button  mt-5" style="margin-left: 300px;">--}}
-{{--    <button onclick="printDiv()" class="btn btn-primary">Print Certificate</button>--}}
-{{--</div>--}}
+@endpush
+<div class="button  mt-5" style="margin-left: 300px;">
+    <button onclick="printDiv()" class="btn btn-primary">Print Certificate</button>
+</div>
 
 <page size="A4" id="printContent" style="background: white;
         display: block;
@@ -235,18 +239,19 @@
     <span style="text-align: center; font-weight: bold; font-size: 14px;">Note: - This certificate should be updated in every five years, from the date of issue.</span>
 </page>
 
-    @endsection
-
-@push('scripts')
-    <script>
-        function printDiv() {
-            var divContents = document.getElementById("printContent");
-            var a = window.open('', 'PRINT Certificated', );
-
-            a.document.write(divContents.outerHTML);
 
 
 
-        }
-    </script>
-@endpush
+        </body>
+        <script>
+            function printDiv() {
+                var divContents = document.getElementById("printContent");
+                var a = window.open('', 'PRINT ADMIT CARD', 'height=800, width=800');
+
+                a.document.write(divContents.outerHTML);
+
+
+
+            }
+        </script>
+        </html>
