@@ -5,9 +5,11 @@ namespace Operator\Http\Controller;
 
 
 use App\Http\Controllers\MailController;
+use App\Models\Certificate\Certificate;
 use App\Models\Profile\ProfileProcessing;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
+use App\Modules\Backend\Certificate\Repositories\CertificateRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDetailsRepository;
@@ -25,7 +27,8 @@ class OperatorController extends BaseController
 {
     private $log, $profileProcessing, $profileRepository,
         $userRepository, $qualificationRepository,
-        $user_data, $profileLogsRepository,$programRepository, $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository;
+        $user_data, $profileLogsRepository,$programRepository,
+        $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository,$certificateRepository;
 
     private $commonView = 'operator::pages.';
     private $commonMessage = 'Profile ';
@@ -42,12 +45,18 @@ class OperatorController extends BaseController
      * @param ProfileProcessingRepository $profileProcessingRepository
      * @param ExamRepository $examRepository
      * @param ExamProcessingRepository $examProcessingRepository
+     * @param ProgramRepository $programRepository
      * @param ExamProcessingDetailsRepository $examProcessingDetailsRepository
+     * @param CertificateRepository $certificateRepository
      */
 
-    public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
-                                ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
-                                ExamRepository $examRepository, ExamProcessingRepository $examProcessingRepository, ProgramRepository $programRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository)
+    public function __construct(ProfileRepository $profileRepository,
+                                UserRepository $userRepository, QualificationRepository $qualificationRepository,
+                                ProfileLogsRepository $profileLogsRepository,
+                                ProfileProcessingRepository $profileProcessingRepository,
+                                ExamRepository $examRepository, ExamProcessingRepository $examProcessingRepository,
+                                ProgramRepository $programRepository,
+                                ExamProcessingDetailsRepository $examProcessingDetailsRepository, CertificateRepository $certificateRepository)
     {
         $this->viewData['commonRoute'] = $this->commonRoute;
         $this->viewData['commonView'] = 'operator::' . $this->commonView;
@@ -62,6 +71,7 @@ class OperatorController extends BaseController
         $this->examProcessingRepository = $examProcessingRepository;
         $this->examProcessingDetailsRepository = $examProcessingDetailsRepository;
         $this->programRepository = $programRepository;
+        $this->certificateRepository =$certificateRepository;
         parent::__construct();
     }
 
@@ -372,6 +382,12 @@ class OperatorController extends BaseController
 
         return $this->view('pages.application-list-double', $profiles);
 
+    }
+
+    public function printCertificate(){
+        $certificate = $this->certificateRepository->findById('65923');
+        $profile = $this->profileRepository->findById($certificate['profile_id']);
+        return view('operator::pages.certificate', compact('certificate','profile'));
     }
 }
 

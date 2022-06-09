@@ -56,18 +56,23 @@ class OfficerController  extends BaseController
         parent::__construct();
     }
 
-    public function profile($status, $current_state, $level)
+    public function profile($status, $current_state, $level,$page = 0)
     {
         if (Auth::user()->mainRole()->name === 'officer') {
-            $datas = Profile::where('profile_state', '=', $current_state)
-                ->where('profile_status', '=', $status)
-                ->where('level', '=', $level)
-                ->orderBy('created_at','ASC')
-                ->skip(0)
-                ->take(100)
-                ->get();
+            $page = $page ? $page : 0;
+            $take = 20;
+            $datas = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+                ->join('program','program.id','=','exam_registration.program_id')
+                ->where('profiles.profile_state', '=', $current_state)
+                ->where('profiles.profile_status', '=', $status)
+                ->where('profiles.level', '=', $level)
+                ->orderBy('profiles.created_at','ASC')
+                ->skip($page * $take)
+                ->take($take)
+                ->get(['profiles.*','program.name as program_name']);
             $state = $current_state;
-            return view('officer::pages.applicant-profile-list', compact('datas','state','status'));
+            $page = (int)$page;
+            return view('officer::pages.applicant-profile-list', compact('datas','state','status','page','level'));
         }else {
                 return redirect()->route('login');
             }
