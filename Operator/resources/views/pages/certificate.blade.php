@@ -1,10 +1,7 @@
+@extends('operator::layout.app')
 
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <title></title>
-        </head>
-        <body>
+@section('content')
+    @push('style')
 <style>
     page {
         background: white;
@@ -239,19 +236,26 @@
     <span style="text-align: center; font-weight: bold; font-size: 14px;">Note: - This certificate should be updated in every five years, from the date of issue.</span>
 </page>
 
+    @endsection
 
+@push('scripts')
+    <script>
+        function printDiv() {
+            var divContents = document.getElementById("printContent").innerHTML;
+            var originalContents = document.body.innerHTML;
 
+            document.body.innerHTML = divContents;
 
-        </body>
-        <script>
-            function printDiv() {
-                var divContents = document.getElementById("printContent");
-                var a = window.open('', 'PRINT ADMIT CARD', 'height=800, width=800');
+            window.print();
 
-                a.document.write(divContents.outerHTML);
+            document.body.innerHTML = originalContents;
+            //
+            // var a = window.open('', 'PRINT Certificated', );
+            //
+            // a.document.write(divContents.innerHTML);
+            //
+            // window.print();
 
-
-
-            }
-        </script>
-        </html>
+        }
+    </script>
+@endpush

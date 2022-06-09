@@ -385,7 +385,7 @@ class OperatorController extends BaseController
     }
 
     public function printCertificate(){
-        $certificate = $this->certificateRepository->findById('4241');
+        $certificate = $this->certificateRepository->findById('65597');
         $profile = $this->profileRepository->findById($certificate['profile_id']);
         return view('operator::pages.certificate', compact('certificate','profile'));
     }
