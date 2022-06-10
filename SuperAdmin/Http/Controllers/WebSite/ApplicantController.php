@@ -456,6 +456,7 @@ class ApplicantController  extends BaseController
                 'program.id as program_id','level.*','provinces.province_name','exam_registration.id as exam_registration_id']);
         foreach ($students as $student){
             $srn_number = 0;
+            $date= '2022/06/05';
             $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
             $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
             $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
@@ -471,7 +472,7 @@ class ApplicantController  extends BaseController
                 $data['program_certificate_code'] = $student['certificate_name'];
                 $data['cert_registration_number'] = $this->certRegistrationNumber($student['level_code'], $data['srn'], $student['certificate_name']);
                 $data['registrar'] = 'puspa raj khanal';
-                $data['decision_date'] = Carbon::today()->toDateString();
+                $data['decision_date'] = $date;
                 $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
                 $data['date_of_birth'] = $student['dob_nep'];
                 $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
@@ -479,7 +480,7 @@ class ApplicantController  extends BaseController
                 $data['level_name'] = $student['level_'];
                 $data['qualification'] = $student['program_name'] . ':' . $student['board_university'] . ':'  . $student['passed_year'] ;
                 $data['issued_year'] = Carbon::today()->year;
-                $data['issued_date'] = Carbon::today()->toDateString();
+                $data['issued_date'] = $date;
                 $data['valid_till'] = Carbon::now()->addYears(5);
                 $data['certificate'] = 'new';
                 $data['issued_by'] = Auth::user()->id;
@@ -514,7 +515,7 @@ class ApplicantController  extends BaseController
 
 
         foreach ($students as $student){
-            $date= '05/06/2022';
+            $date= '2022/06/05';
             $srn_number = 0;
             $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
             $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
