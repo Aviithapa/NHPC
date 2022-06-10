@@ -391,7 +391,7 @@ class OperatorController extends BaseController
             ->join('provinces','provinces.id','=','profiles.development_region')
             ->join('registrant_qualification','registrant_qualification.id','=','profiles.user_id')
             ->where('certificate_history.id','=',$id)
-            ->get(['certificate_history.*','certificate_history.name as certificate_name','profiles.*','program.name as Name_program','registrant_qualification.*','provinces.province_name','certificate_history.id as certificate_history_id'])->first();
+            ->get(['certificate_history.*','certificate_history.name as certificate_name','certificate_history.program_name as certificate_program_name','profiles.*','program.name as Name_program','registrant_qualification.*','provinces.province_name','certificate_history.id as certificate_history_id'])->first();
 
 //        $this->certificateRepository->findById($id);
         $profile = $this->profileRepository->findById($certificate['profile_id']);

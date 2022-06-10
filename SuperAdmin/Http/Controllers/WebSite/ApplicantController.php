@@ -562,7 +562,7 @@ class ApplicantController  extends BaseController
     }
 
     private function certRegistrationNumber($level_code , $srn, $program_code){
-        return $level_code.'- '.$srn.' '.$program_code;
+        return $level_code.'-'.$srn.' '.$program_code;
     }
 
     public function updateQualificationHistory($qualification){

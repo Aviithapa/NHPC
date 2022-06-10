@@ -199,8 +199,11 @@
         Metropolitan City / Sub- Metropolitan City/Municipality/Rural Municipality
         <span style="font-size: 18px;
         font-weight: 800;">{{$certificate->district}}</span> District <span style="font-size: 18px;
-        font-weight: 800;">{{$certificate->province_name}}</span> Province is registered as <span style="font-size: 18px;
-        font-weight: 800;">{{$certificate->program_certificate_code}}</span> of <span style="font-size: 18px;
+        font-weight: 800;">{{$certificate->province_name}}</span>
+
+        Province is registered as <span style="font-size: 18px;
+        font-weight: 800;">{{$certificate->certificate_program_name}}</span>
+        of <span style="font-size: 18px;
         font-weight: 800;">{{$certificate->level_name}}</span> Level
         in the registration book and this Registration Certificate is hereby
         issued in accordance with subsection (4) of section 17 of the Nepal
@@ -275,7 +278,7 @@
         font-weight: bold;
                 padding: 5px;
 
-">{{$certificate->program_certificate_code}}</td>
+">{{$certificate->certificate_program_name}}</td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 18px;
         font-weight: bold;
