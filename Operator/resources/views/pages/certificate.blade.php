@@ -27,7 +27,7 @@
     /*    line-height: 0.6;*/
     /*}*/
     /*.header span {*/
-    /*    font-size: 18px !important;*/
+    /*    font-size: 20px !important;*/
     /*}*/
     /*#container {*/
     /*    margin-top: 20px;*/
@@ -70,12 +70,12 @@
     /*.body{*/
     /*    text-align: justify;*/
     /*    font-weight: 500;*/
-    /*    font-size: 16px;*/
+    /*    font-size: 18px;*/
     /*    margin-top: 30px;*/
     /*    word-spacing: 1.8px;*/
     /*}*/
     /*.body span{*/
-    /*    font-size: 18px;*/
+    /*    font-size: 20px;*/
     /*    font-weight: 800;*/
     /*}*/
 
@@ -90,7 +90,7 @@
     /*}*/
 
     /*td{*/
-    /*    font-size: 18px;*/
+    /*    font-size: 20px;*/
     /*    font-weight: bold;*/
 
     /*}*/
@@ -120,11 +120,11 @@
     /*    float: right;*/
     /*}*/
     /*.left span{*/
-    /*    font-size: 18px;*/
+    /*    font-size: 20px;*/
     /*}*/
 
     /*.right span{*/
-    /*    font-size: 18px;*/
+    /*    font-size: 20px;*/
     /*}*/
     /*hr{*/
     /*    margin-top: 20px;*/
@@ -142,7 +142,7 @@
         ">
     <div class="printLayout" style="padding: 3rem 2rem;">
    <div class="header" style="text-align: center; font-weight: 500;">
-       <span class="p" style="font-size: 18px   ;      font-weight: 800;
+       <span class="p" style="font-size: 20px   ;      font-weight: 800;
 ">Schedule -3 <br>
            (Relating to sub rule (1) of Rule 10)
        </span>
@@ -150,7 +150,7 @@
         font-size: 40px;
         font-weight: 800;
         line-height: 0.9;">Nepal Health Professional Council <br>
-           <span style="font-weight: 800;         font-size: 18px !important;
+           <span style="font-weight: 800;         font-size: 20px !important;
 ">Bansbari, Kathmandu, Nepal</span>
        </h3>
    </div>
@@ -188,23 +188,23 @@
 
     <p class="body" style=" text-align: justify;
         font-weight: 600;
-        font-size: 16px;
+        font-size: 20px;
         margin-top: 30px;
-        word-spacing: 1.8px;">
+        word-spacing: 1.6px;">
         Pursuant to the decision dated {{date('d-m-Y',strtotime($certificate->decision_date))}} of the Council, the name of
-        <span style="font-size: 18px;
-        font-weight: 800;"> {{ucwords(strtolower($certificate->certificate_name))}}</span> date of birth <span style="font-size: 18px;
-        font-weight: 800;">{{$certificate->date_of_birth}}</span> a resident ward No. <span style="font-size: 18px;
-        font-weight: 800;">{{$certificate->ward_no}}</span> of <span style="font-size: 18px;
+        <span style="font-size: 20px;
+        font-weight: 800;"> {{ucwords(strtolower($certificate->certificate_name))}}</span> date of birth <span style="font-size: 20px;
+        font-weight: 800;">{{$certificate->date_of_birth}}</span> a resident ward No. <span style="font-size: 20px;
+        font-weight: 800;">{{$certificate->ward_no}}</span> of <span style="font-size: 20px;
         font-weight: 800;">{{$certificate->vdc_municiplality}}</span>
         Metropolitan City / Sub- Metropolitan City/Municipality/Rural Municipality
-        <span style="font-size: 18px;
-        font-weight: 800;">{{$certificate->district}}</span> District <span style="font-size: 18px;
+        <span style="font-size: 20px;
+        font-weight: 800;">{{$certificate->district}}</span> District <span style="font-size: 20px;
         font-weight: 800;">{{$certificate->province_name}}</span>
 
-        Province is registered as <span style="font-size: 18px;
+        Province is registered as <span style="font-size: 20px;
         font-weight: 800;">{{$certificate->certificate_program_name}}</span>
-        of <span style="font-size: 18px;
+        of <span style="font-size: 20px;
         font-weight: 800;">{{$certificate->level_name}}</span> Level
         in the registration book and this Registration Certificate is hereby
         issued in accordance with subsection (4) of section 17 of the Nepal
@@ -217,9 +217,9 @@
         <div class="left" style="font-weight: 590; line-height: 1.7;   text-align: left;
         font-size:14px ;
         float: left;">
-            Registration No: <span style="        font-size: 18px;
+            Registration No: <span style="        font-size: 20px;
 "> {{$certificate->cert_registration_number}}</span><br>
-            Date of issue: <span style="        font-size: 18px;
+            Date of issue: <span style="        font-size: 20px;
 ">{{date('d-m-Y',strtotime($certificate->decision_date))}}</span><br>
             Seal of the Council:
         </div>
@@ -227,10 +227,10 @@
         text-align: center;
         font-size:14px ;
         float: right;">
-            <span style="font-size:16px; margin-right: 200px;">Signature:</span>  <br>
-             Name: <span style="font-weight: 700; font-size: 18px;
+            <span style="font-size:18px; margin-right: 200px;">Signature:</span>  <br>
+             Name: <span style="font-weight: 700; font-size: 20px;
             ">Puspa Raj Khanal</span> <br>
-            <span style="font-weight: 700; font-size: 18px;">Registrar</span>
+            <span style="font-weight: 700; font-size: 20px;">Registrar</span>
 
         </div>
     </div>
@@ -270,24 +270,24 @@
         text-align: center;         padding: 10px;
 ">
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 18px;
+        text-align: center;  font-size: 20px;
         font-weight: bold;         padding: 5px;
 
 ">1</td>
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 18px;
+        text-align: center;  font-size: 20px;
         font-weight: bold;
                 padding: 5px;
 
 ">{{$certificate->certificate_program_name}}</td>
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 18px;
+        text-align: center;  font-size: 20px;
         font-weight: bold;
                 padding: 5px;
 
 " >CTEVT, Nepal</td>
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 18px;
+        text-align: center;  font-size: 20px;
         font-weight: bold;
                 padding: 5px;
 
@@ -346,7 +346,7 @@
     <hr style=" margin-top: 20px;
         border: 1px solid black;">
     <div class="footer" style="text-align: center;">
-        <span style="text-align: center; font-weight: 600; font-size: 16px; word-spacing: 1.6;">Note: - This certificate should be updated in every five years, from the date of issue.</span>
+        <span style="text-align: center; font-weight: 600; font-size: 18px; word-spacing: 1.6;">Note: - This certificate should be updated in every five years, from the date of issue.</span>
     </div>
     </div>
 </page>
