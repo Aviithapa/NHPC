@@ -27,7 +27,7 @@
                         <div class="box-body">
                             <div class="col-lg-3 m-b-3">
                                 <a href="{{route("superAdmin.generateCertificate.generateCertificate")}}" class="btn btn-primary">
-                                    Generate Certificate</a>
+                                    Generate All Certificate</a>
                             </div>
                             <div class="table-responsive">
                                 <table id="data-table" class="table no-margin">
@@ -40,6 +40,7 @@
                                         <th>Profile State</th>
                                         <th>Profile Status</th>
                                         <th>Program Name</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -58,6 +59,7 @@
                                                     <td>{{$data->profile_status}}</td>
                                                     <td>{{$data->profile_state}}</td>
                                                     <td> {{$data->program_name}}</td>
+                                                    <td> <a href="{{ url("superAdmin/dashboard/generate/single/certificate/" . $data->profile_id) }}"><span class="label label-success">Certificate</span></a> </td>
                                                 </tr>
                                             @endforeach
                                     @endif

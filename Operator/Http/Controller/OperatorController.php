@@ -384,10 +384,27 @@ class OperatorController extends BaseController
 
     }
 
-    public function printCertificate(){
-        $certificate = $this->certificateRepository->findById('65597');
+    public function printCertificate($id){
+        $certificate = Certificate::join('profiles','profiles.id','=','certificate_history.profile_id')
+            ->join('program','program.id','=','certificate_history.program_id')
+            ->join('provinces','provinces.id','=','profiles.development_region')
+            ->join('registrant_qualification','registrant_qualification.id','=','profiles.user_id')
+            ->where('certificate_history.id','=',$id)
+            ->get(['certificate_history.*','certificate_history.name as certificate_name','profiles.*','program.name as Name_program','registrant_qualification.*','provinces.province_name','certificate_history.id as certificate_history_id'])->first();
+
+//        $this->certificateRepository->findById($id);
         $profile = $this->profileRepository->findById($certificate['profile_id']);
+//        dd($certificate);
         return view('operator::pages.certificate', compact('certificate','profile'));
+    }
+
+    public function printCertificateIndex(){
+        $certificates =  Certificate::join('profiles','profiles.id','=','certificate_history.profile_id')
+                                      ->join('program','program.id','=','certificate_history.program_id')
+                                      ->join('provinces','provinces.id','=','profiles.development_region')
+                                        ->get(['certificate_history.*','profiles.*','program.name as Name_program','provinces.province_name','certificate_history.id as certificate_history_id']);
+
+        return view('operator::pages.certificate-list', compact('certificates'));
     }
 }
 

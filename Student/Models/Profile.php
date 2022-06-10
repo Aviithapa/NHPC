@@ -2,6 +2,7 @@
 
 namespace Student\Models;
 
+use App\Models\Address\Provinces;
 use App\Models\Admin\Level;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -106,6 +107,19 @@ class Profile extends  Model
 
     public function getLevel(){
         return $this->hasOne(Level::class,'id','registration_level');
+    }
+
+    public function getProvince(){
+        return $this->hasOne(Provinces::class,'id','development_region');
+    }
+
+    public function getProvinceName(){
+        if(isset($this->getProvince->name)) {
+            return $this->getProvince->name;
+        }
+        else {
+            return '';
+        }
     }
 
     public function getLevelName(){

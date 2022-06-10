@@ -82,7 +82,11 @@
                     <i class="icon-book-open"></i> <span>Search Collage Wise Student</span>
                 </a>
             </li>
-
+                <li class="{{ (request()->is('operator/dashboard/search/collage')) ? 'active':''  }}">
+                    <a href="{{route("operator.dashboard.printCertificateIndex")}}">
+                        <i class="icon-book-open"></i> <span>Print Certificate</span>
+                    </a>
+                </li>
                 @endif
 
 
