@@ -16,6 +16,7 @@ use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDe
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Illuminate\Support\Facades\Auth;
+use Krishnahimself\DateConverter\DateConverter;
 use Operator\Modules\Framework\Request;
 use Student\Http\Controller\ProfileController;
 use Student\Models\Profile;
@@ -394,6 +395,10 @@ class OperatorController extends BaseController
 
 //        $this->certificateRepository->findById($id);
         $profile = $this->profileRepository->findById($certificate['profile_id']);
+//        $year= auth()->user()->created_at->format('Y');
+//        $month= auth()->user()->created_at->format('m');
+//        $day= auth()->user()->created_at->format('d');
+//        $date=($year,$month,$day);
 //        dd($certificate);
         return view('operator::pages.certificate', compact('certificate','profile'));
     }

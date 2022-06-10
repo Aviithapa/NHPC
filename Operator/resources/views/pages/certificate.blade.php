@@ -190,7 +190,7 @@
         font-size: 16px;
         margin-top: 30px;
         word-spacing: 1.8px;">
-        Pursuant to the decision dated {{$certificate->decision_date}} of the Council, the name of
+        Pursuant to the decision dated {{date('d-m-Y',strtotime($certificate->decision_date))}} of the Council, the name of
         <span style="font-size: 18px;
         font-weight: 800;"> {{ucwords(strtolower($certificate->certificate_name))}}</span> date of birth <span style="font-size: 18px;
         font-weight: 800;">{{$certificate->date_of_birth}}</span> a resident ward No. <span style="font-size: 18px;
@@ -200,8 +200,8 @@
         <span style="font-size: 18px;
         font-weight: 800;">{{$certificate->district}}</span> District <span style="font-size: 18px;
         font-weight: 800;">{{$certificate->province_name}}</span> Province is registered as <span style="font-size: 18px;
-        font-weight: 800;">TSLC in MLT</span> of <span style="font-size: 18px;
-        font-weight: 800;">Third</span> Level
+        font-weight: 800;">{{$certificate->program_certificate_code}}</span> of <span style="font-size: 18px;
+        font-weight: 800;">{{$certificate->level_name}}</span> Level
         in the registration book and this Registration Certificate is hereby
         issued in accordance with subsection (4) of section 17 of the Nepal
         Health Professional Council Act, 2053 B.S. (1997 A.D.) and Rule 10 of the Nepal Health Professional
@@ -216,7 +216,7 @@
             Registration No: <span style="        font-size: 18px;
 "> {{$certificate->cert_registration_number}}</span><br>
             Date of issue: <span style="        font-size: 18px;
-">{{$certificate->decision_date}}</span><br>
+">{{date('d-m-Y',strtotime($certificate->decision_date))}}</span><br>
             Seal of the Council:
         </div>
         <div class="right" style="font-weight: 590;   margin-top: 100px;
@@ -231,7 +231,7 @@
         </div>
     </div>
 
-    <div class="footer" style="text-align: center;">
+    <div class="footer" style="text-align: center; margin-top: 20px;">
         <span style="text-align: center; font-weight: bold; font-size: 14px;">Descriptions of Qualifications / Degree</span>
     </div>
     <table style=" border: 1px solid black;
@@ -247,18 +247,18 @@
 ">S.N</th>
             <th style=" border: 1px solid black;
         text-align: center; font-size:14px ;
-        font-weight: bold;         padding: 10px;
+        font-weight: bold;         padding: 5px;
 
 ">Qualification</th>
             <th style=" border: 1px solid black;
         text-align: center;font-size:14px ;
         font-weight: bold;
-         padding: 10px;
+         padding: 5px;
 ">Institution / University / Board</th>
             <th style=" border: 1px solid black;
         text-align: center; font-size:14px ;
         font-weight: bold;
-                padding: 10px;
+                padding: 5px;
 
 ">Passed Year</th>
         </tr>
@@ -267,25 +267,25 @@
 ">
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 18px;
-        font-weight: bold;         padding: 10px;
+        font-weight: bold;         padding: 5px;
 
 ">1</td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 18px;
         font-weight: bold;
-                padding: 10px;
+                padding: 5px;
 
-">{{$certificate['Name_program']}} </td>
+">{{$certificate->program_certificate_code}}</td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 18px;
         font-weight: bold;
-                padding: 10px;
+                padding: 5px;
 
 " >CTEVT, Nepal</td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 18px;
         font-weight: bold;
-                padding: 10px;
+                padding: 5px;
 
 ">{{$certificate->passed_year}}</td>
         </tr>
@@ -342,7 +342,7 @@
     <hr style=" margin-top: 20px;
         border: 1px solid black;">
     <div class="footer" style="text-align: center;">
-        <span style="text-align: center; font-weight: bold; font-size: 14px;">Note: - This certificate should be updated in every five years, from the date of issue.</span>
+        <span style="text-align: center; font-weight: 600; font-size: 16px; word-spacing: 1.6;">Note: - This certificate should be updated in every five years, from the date of issue.</span>
     </div>
     </div>
 </page>
