@@ -138,7 +138,7 @@
 
 <page size="A4" id="printContent" style="width: 21cm;
         height: 29.7cm;
-        font-family: Arial;
+        font-family: Arial,serif;
         ">
     <div class="printLayout" style="padding: 3.5rem 2rem;">
    <div class="header" style="text-align: center; font-weight: 500;">
@@ -192,7 +192,7 @@
         word-spacing: 1.8px;">
         Pursuant to the decision dated {{$certificate->decision_date}} of the Council, the name of
         <span style="font-size: 18px;
-        font-weight: 800;"> {{\Illuminate\Support\Str::ucfirst($certificate->certificate_name)}}</span> date of birth <span style="font-size: 18px;
+        font-weight: 800;"> {{ucwords(strtolower($certificate->certificate_name))}}</span> date of birth <span style="font-size: 18px;
         font-weight: 800;">{{$certificate->date_of_birth}}</span> a resident ward No. <span style="font-size: 18px;
         font-weight: 800;">{{$certificate->ward_no}}</span> of <span style="font-size: 18px;
         font-weight: 800;">{{$certificate->vdc_municiplality}}</span>
