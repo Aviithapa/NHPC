@@ -142,7 +142,7 @@
         ">
     <div class="printLayout" style="padding: 3rem 2rem;">
    <div class="header" style="text-align: center; font-weight: 500;">
-       <span class="p" style="font-size: 18px         font-weight: 600;
+       <span class="p" style="font-size: 18px   ;      font-weight: 800;
 ">Schedule -3 <br>
            (Relating to sub rule (1) of Rule 10)
        </span>
@@ -150,7 +150,7 @@
         font-size: 40px;
         font-weight: 800;
         line-height: 0.9;">Nepal Health Professional Council <br>
-           <span style="font-weight: 600;         font-size: 18px !important;
+           <span style="font-weight: 800;         font-size: 18px !important;
 ">Bansbari, Kathmandu, Nepal</span>
        </h3>
    </div>
