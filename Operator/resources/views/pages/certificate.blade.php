@@ -361,8 +361,8 @@
             printWindow.document.write('</head><body >');
             printWindow.document.write(divContents);
             printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
+            // printWindow.document.close();
+            // printWindow.print();
             a.document.write(divContents.outerHTML);
 
 
