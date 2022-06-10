@@ -76,7 +76,7 @@
     /*}*/
     /*.body span{*/
     /*    font-size: 22px;*/
-    /*    font-weight: 800;*/
+    /*    font-weight: 700;*/
     /*}*/
 
     /*table, td, th {*/
@@ -140,17 +140,17 @@
         height: 29.7cm;
         font-family: Arial,serif;
         ">
-    <div class="printLayout" style="padding: 3rem 2rem;">
+    <div class="printLayout" style="padding: 2.5rem 2rem;">
    <div class="header" style="text-align: center; font-weight: 500;">
-       <span class="p" style="font-size: 22px   ;      font-weight: 800;
+       <span class="p" style="font-size: 22px   ;      font-weight: 700;
 ">Schedule -3 <br>
            (Relating to sub rule (1) of Rule 10)
        </span>
        <h3 style="margin-top: 5px;
         font-size: 40px;
-        font-weight: 800;
+        font-weight: 700;
         line-height: 0.9;">Nepal Health Professional Council <br>
-           <span style="font-weight: 800;         font-size: 22px !important;
+           <span style="font-weight: 700;         font-size: 22px !important;
 ">Bansbari, Kathmandu, Nepal</span>
        </h3>
    </div>
@@ -188,34 +188,34 @@
 
     <p class="body" style=" text-align: justify;
         font-weight: 600;
-        font-size: 22px;
-        margin-top: 30px;
+        font-size: 20px;
+        margin-top: 10px;
         line-height: 1.6;
-        word-spacing: 1.6px;">
+        ">
         Pursuant to the decision dated {{date('d-m-Y',strtotime($certificate->decision_date))}} of the Council, the name of
         <span style="font-size: 22px;
-        font-weight: 800;"> {{ucwords(strtolower($certificate->certificate_name))}}</span> date of birth <span style="font-size: 22px;
-        font-weight: 800;">{{$certificate->date_of_birth}}</span> a resident ward No. <span style="font-size: 22px;
-        font-weight: 800;">{{$certificate->ward_no}}</span> of <span style="font-size: 22px;
-        font-weight: 800;">{{$certificate->vdc_municiplality}}</span>
+        font-weight: 700;"> {{ucwords(strtolower($certificate->certificate_name))}}</span> date of birth <span style="font-size: 22px;
+        font-weight: 700;">{{$certificate->date_of_birth}}</span> a resident ward No. <span style="font-size: 22px;
+        font-weight: 700;">{{$certificate->ward_no}}</span> of <span style="font-size: 22px;
+        font-weight: 700;">{{$certificate->vdc_municiplality}}</span>
         Metropolitan City / Sub- Metropolitan City/Municipality/Rural Municipality
         <span style="font-size: 22px;
-        font-weight: 800;">{{$certificate->district}}</span> District <span style="font-size: 22px;
-        font-weight: 800;">{{$certificate->province_name}}</span>
+        font-weight: 700;">{{$certificate->district}}</span> District <span style="font-size: 22px;
+        font-weight: 700;">{{$certificate->province_name}}</span>
 
         Province is registered as <span style="font-size: 22px;
-        font-weight: 800;">{{$certificate->certificate_program_name}}</span>
+        font-weight: 700;">{{$certificate->certificate_program_name}}</span>
         of <span style="font-size: 22px;
-        font-weight: 800;">{{$certificate->level_name}}</span> Level
+        font-weight: 700;">{{$certificate->level_name}}</span> Level
         in the registration book and this Registration Certificate is hereby
         issued in accordance with subsection (4) of section 17 of the Nepal
         Health Professional Council Act, 2053 B.S. (1997 A.D.) and Rule 10 of the Nepal Health Professional
         Council Rules 2056 B.S. (1999 A.D.)
     </p>
 
-    <div class="footer" style="height: 170px; display: block;
-        margin-top: 22px;">
-        <div class="left" style="font-weight: 800; line-height: 1.7;   text-align: left;
+    <div class="footer" style="height: 130px; display: block;
+       ">
+        <div class="left" style="font-weight: 700; line-height: 1.7;   text-align: left;
         font-size:18px ;
         float: left;">
             Registration No: <span style="        font-size: 22px;
@@ -224,7 +224,7 @@
 ">{{date('d-m-Y',strtotime($certificate->decision_date))}}</span><br>
             Seal of the Council:
         </div>
-        <div class="right" style="font-weight: 600;   margin-top: 100px;
+        <div class="right" style="font-weight: 600;
         text-align: center;
         font-size:14px ;
         float: right;">
@@ -236,7 +236,7 @@
         </div>
     </div>
 
-    <div class="footer" style="text-align: center; margin-top: 22px;">
+    <div class="footer" style="text-align: center;">
         <span style="text-align: center; font-weight: bold; font-size: 14px;">Descriptions of Qualifications / Degree</span>
     </div>
     <table style=" border: 1px solid black;
@@ -326,28 +326,28 @@
         text-align: center;        padding: 10px;
 "></td>
         </tr>
-        <tr style=" border: 1px solid black;
-        text-align: center;         padding: 10px;
-">
-            <td style=" border: 1px solid black;
-        text-align: center;         padding: 10px;
-"></td>
-            <td style=" border: 1px solid black;
-        text-align: center;         padding: 10px;
-"></td>
-            <td style=" border: 1px solid black;
-        text-align: center;         padding: 10px;
-"></td>
-            <td style=" border: 1px solid black;
-        text-align: center;        padding: 10px;
-"></td>
-        </tr>
+{{--        <tr style=" border: 1px solid black;--}}
+{{--        text-align: center;         padding: 10px;--}}
+{{--">--}}
+{{--            <td style=" border: 1px solid black;--}}
+{{--        text-align: center;         padding: 10px;--}}
+{{--"></td>--}}
+{{--            <td style=" border: 1px solid black;--}}
+{{--        text-align: center;         padding: 10px;--}}
+{{--"></td>--}}
+{{--            <td style=" border: 1px solid black;--}}
+{{--        text-align: center;         padding: 10px;--}}
+{{--"></td>--}}
+{{--            <td style=" border: 1px solid black;--}}
+{{--        text-align: center;        padding: 10px;--}}
+{{--"></td>--}}
+{{--        </tr>--}}
     </table>
 
     <hr style=" margin-top: 22px;
         border: 1px solid black;">
     <div class="footer" style="text-align: center;">
-        <span style="text-align: center; font-weight: 600; font-size: 18px; word-spacing: 1.6;">Note: - This certificate should be updated in every five years, from the date of issue.</span>
+        <span style="text-align: center; font-weight: 600; font-size: 16px; word-spacing: 1.6;">Note: - This certificate should be updated in every five years, from the date of issue.</span>
     </div>
     </div>
 </page>
@@ -359,9 +359,9 @@
         function printDiv() {
             var divContents = document.getElementById("printContent").innerHTML;
             // var a = window.print()
-            // // window.open('', 'PRINT ADMIT CARD', 'height=800, width=800');
+            // // window.open('', 'PRINT ADMIT CARD', 'height=700, width=700');
             // var divContents = document.getElementById("printdivcontent").innerHTML;
-            var printWindow = window.open('', '', 'height=1000,width=800');
+            var printWindow = window.open('', '', 'height=1000,width=700');
             // printWindow.document.write('<html><head><title>Print DIV Content</title>');
             printWindow.document.write('</head><body >');
             printWindow.document.write(divContents);
