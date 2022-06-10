@@ -476,7 +476,7 @@ class ApplicantController  extends BaseController
                 $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
                 $data['date_of_birth'] = $student['dob_nep'];
                 $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
-                $data['program_name'] = $student['program_name'];
+                $data['program_name'] = $student['qualification'];
                 $data['level_name'] = $student['level_'];
                 $data['qualification'] = $student['program_name'] . ':' . $student['board_university'] . ':'  . $student['passed_year'] ;
                 $data['issued_year'] = Carbon::today()->year;
@@ -537,7 +537,7 @@ class ApplicantController  extends BaseController
                 $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
                 $data['date_of_birth'] = $student['dob_nep'];
                 $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
-                $data['program_name'] = $student['program_name'];
+                $data['program_name'] = $student['qualification'];
                 $data['level_name'] = $student['level_'];
                 $data['qualification'] = $student['program_name'] . ':' . $student['board_university'] . ':'  . $student['passed_year'] ;
                 $data['issued_year'] = Carbon::today()->year;
