@@ -187,7 +187,7 @@
     </div>
 
     <p class="body" style=" text-align: justify;
-        font-weight: 500;
+        font-weight: 600;
         font-size: 16px;
         margin-top: 30px;
         word-spacing: 1.8px;">
