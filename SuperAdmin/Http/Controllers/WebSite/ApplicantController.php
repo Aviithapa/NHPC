@@ -572,4 +572,10 @@ class ApplicantController  extends BaseController
             return false;
         return true;
     }
+
+    public function minuteData(){
+        $certificates = Certificate::all()->where('decision_date','=','2022-06-05')->groupBy('program_id');
+        return view('superAdmin::admin.applicant.minuteData',compact('certificates'));
+
+    }
 }

@@ -312,6 +312,7 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::get('/certificate/index','ApplicantController@generateCertificateIndex')->middleware(['auth'])->name('superAdmin.generateCertificate.index');
     Route::get('/certificate/generateCertificate','ApplicantController@generateCertificate')->middleware(['auth'])->name('superAdmin.generateCertificate.generateCertificate');
     Route::get('/generate/single/certificate/{id}','ApplicantController@generateSingleCertificate')->middleware(['auth'])->name('superAdmin.generateCertificate.generateSingleCertificate');
+    Route::get('/minute/data','ApplicantController@minuteData')->middleware(['auth'])->name('superAdmin.minuteData');
 
 
 });
