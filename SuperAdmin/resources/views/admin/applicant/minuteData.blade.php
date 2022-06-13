@@ -28,10 +28,13 @@
 
                             <div class="table-responsive">
                                 <table id="data-table" class="table no-margin">
+
                                     <thead>
                                     <tr>
                                         <th>Program Name</th>
+                                        <th>Count</th>
                                         <th>Srn Number</th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -41,10 +44,14 @@
                                                 <td>TSLC in Medicine(CMA)</td>
                                                 <td>
                                                     @foreach($certificates[41] as $certificate)
-
-
+                                                        {{$count = $count+1}}
+                                                    @endforeach</td>
+                                                <td>
+                                                    @foreach($certificates[41] as $certificate)
                                                     {{$certificate->srn}}
                                                 @endforeach</td>
+
+
                                             </tr>
                                             <tr>
 
@@ -52,20 +59,19 @@
                                                 <td>
                                                     @foreach($certificates[42] as $certificate)
 
-
                                                         {{$certificate->srn}}
                                                     @endforeach</td>
                                             </tr>
-                                            <tr>
+{{--                                            <tr>--}}
 
-                                                <td>PCL in Dental Hygiene (DH)</td>
-                                                <td>
-                                                    @foreach($certificates[38] as $certificate)
+{{--                                                <td>PCL in Dental Hygiene (DH)</td>--}}
+{{--                                                <td>--}}
+{{--                                                    @foreach($certificates[38] as $certificate)--}}
 
 
-                                                        {{$certificate->srn}}
-                                                    @endforeach</td>
-                                            </tr>
+{{--                                                        {{$certificate->srn}}--}}
+{{--                                                    @endforeach</td>--}}
+{{--                                            </tr>--}}
 
 
                                     </tbody>
