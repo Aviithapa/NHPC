@@ -173,7 +173,7 @@
         <div class="col" id="col2" style="flex: 2; background-color: red;
         justify-content: center;
         padding-left: 0.3rem;
-        font-size: 32px;
+        font-size: 30px;
         font-weight: 600;
         border: 2px solid black;"> Registration Certificate </div>
         <div class="col-side" id="col3" style="        flex: 0 0 122px;width: 22px !important;
