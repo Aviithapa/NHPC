@@ -32,7 +32,6 @@
                                     <thead>
                                     <tr>
                                         <th>Program Name</th>
-                                        <th>Count</th>
                                         <th>Srn Number</th>
 
                                     </tr>
@@ -42,10 +41,7 @@
                                             <tr>
 
                                                 <td>TSLC in Medicine(CMA)</td>
-                                                <td>
-                                                    @foreach($certificates[41] as $certificate)
-                                                        {{$count = $count+1}}
-                                                    @endforeach</td>
+
                                                 <td>
                                                     @foreach($certificates[41] as $certificate)
                                                     {{$certificate->srn}}
