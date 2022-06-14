@@ -34,9 +34,9 @@
                                     <tr>
                                         <th>Registration Number</th>
                                         <th>Name</th>
-                                        <th>Citizenship</th>
                                         <th>State</th>
                                         <th>Status</th>
+                                        <th>Program Name</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
