@@ -6,6 +6,7 @@ namespace Operator\Http\Controller;
 
 use App\Http\Controllers\MailController;
 use App\Models\Certificate\Certificate;
+use App\Models\Exam\ExamProcessing;
 use App\Models\Profile\ProfileProcessing;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
@@ -76,6 +77,32 @@ class OperatorController extends BaseController
         parent::__construct();
     }
 
+    public function dashboard(){
+            if (Auth::user()->mainRole()->name === 'operator') {
+                $tslc = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
+                    ->groupBy('program_id')
+                    ->orderBy('count')
+                    ->where('level_id', '<', 3)
+                    ->get();
+
+                return view('operator::pages.dashboard',compact('tslc'));
+            }else {
+                return redirect()->route('login');
+            }
+    }
+
+    public function getProgramWiseStudent($id){
+        $students = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+                            ->where('exam_registration.program_id','=',$id)
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->get(['profiles.*','program.name as program_name','profile_processing.*']);
+
+
+        return view('operator::pages.program-student',compact('students'));
+
+
+    }
     public function exam($status, $state)
     {
         if (Auth::user()->mainRole()->name === 'operator') {

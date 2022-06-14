@@ -107,6 +107,19 @@
                     </div>
                     </a>
                 </div>
+                @foreach($tslc as $exam)
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{url("operator/dashboard/student/program/".$exam->program_id)}}">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="info-box-content"> <span class="info-box-number">{{$exam->count}}</span>
+                                <span class="info-box-text">{{$exam->getProgramName()}}</span> </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                    @endforeach
             </div>
         </div>
 @endif

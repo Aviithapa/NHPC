@@ -2,13 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/',  function() {
-        if (Auth::user()->mainRole()->name === 'operator') {
-            return view('operator::pages.dashboard');
-         }else{
-        return redirect()->route('login');
-         }
-})->middleware(['auth'])->name('operator.dashboard');
+Route::get('/',  [\Operator\Http\Controller\OperatorController::class,'dashboard'])->middleware(['auth'])->name('operator.dashboard');
 Route::get('/operator/applicant-list/{status}/{state}',[\Operator\Http\Controller\OperatorController::class,'exam'])->middleware(['auth'])->name('operator.applicant.list');
 Route::get('/operator/applicant-profile-list/{status}/{state}/{level}',[\Operator\Http\Controller\OperatorController::class,'profile'])->middleware(['auth'])->name('operator.applicant.profile.list');
 Route::post('/operator/applicant-profile-list',[\Operator\Http\Controller\OperatorController::class,'status'])->middleware(['auth'])->name('operator.applicant.profile.list.status');
@@ -28,3 +22,6 @@ Route::get('/search/collage',[\Operator\Http\Controller\SearchController::class,
 Route::post('/collage/search',[\Operator\Http\Controller\SearchController::class,"collageSearch"])->middleware(['auth'])->name('collage.search');
 Route::get('/view/certificate/{id}',  [\Operator\Http\Controller\OperatorController::class,'printCertificate'])->middleware(['auth'])->name('operator.dashboard.view');
 Route::get('/certificate/index',  [\Operator\Http\Controller\OperatorController::class,'printCertificateIndex'])->middleware(['auth'])->name('operator.dashboard.printCertificateIndex');
+
+
+Route::get('/student/program/{id}',  [\Operator\Http\Controller\OperatorController::class,'getProgramWiseStudent'])->middleware(['auth'])->name('operator.dashboard.getProgramWiseStudent');
