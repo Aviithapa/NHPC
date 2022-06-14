@@ -472,7 +472,9 @@ class ApplicantController  extends BaseController
                 $data['program_certificate_code'] = $student['certificate_name'];
                 $data['cert_registration_number'] = $this->certRegistrationNumber($student['level_code'], $data['srn'], $student['certificate_name']);
                 $data['registrar'] = 'puspa raj khanal';
-                $data['decision_date'] = $date;
+                $data['decision_date'] =                    Carbon::today()->toDateString();
+
+//            $date;
                 $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
                 $data['date_of_birth'] = $student['dob_nep'];
                 $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
@@ -532,8 +534,9 @@ class ApplicantController  extends BaseController
                 $data['program_certificate_code'] = $student['certificate_name'];
                 $data['cert_registration_number'] = $this->certRegistrationNumber($student['level_code'], $data['srn'], $student['certificate_name']);
                 $data['registrar'] = 'puspa raj khanal';
-                $data['decision_date'] = $date;
-//                    Carbon::today()->toDateString();
+                $data['decision_date'] =
+//                    $date;
+                    Carbon::today()->toDateString();
                 $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
                 $data['date_of_birth'] = $student['dob_nep'];
                 $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
@@ -541,8 +544,9 @@ class ApplicantController  extends BaseController
                 $data['level_name'] = $student['level_'];
                 $data['qualification'] = $student['program_name'] . ':' . $student['board_university'] . ':'  . $student['passed_year'] ;
                 $data['issued_year'] = Carbon::today()->year;
-                $data['issued_date'] = $date;
-//                    Carbon::today()->toDateString();
+                $data['issued_date'] =
+//                    $date;
+                    Carbon::today()->toDateString();
                 $data['valid_till'] = Carbon::now()->addYears(5);
                 $data['certificate'] = 'new';
                 $data['issued_by'] = Auth::user()->id;
@@ -576,7 +580,14 @@ class ApplicantController  extends BaseController
     public function minuteData(){
         $certificates = Certificate::all()->where('decision_date','=','2022-06-05')->groupBy('program_id');
         $count = 0;
-        return view('superAdmin::admin.applicant.minuteData',compact('certificates','count'));
+        $count42 = 0;
+
+        foreach($certificates[41] as $certificate)
+         $count = $count + 1;
+
+        foreach($certificates[42] as $certificate)
+            $count42 = $count42 + 1;
+        return view('superAdmin::admin.applicant.minuteData',compact('certificates','count','count42'));
 
     }
 }

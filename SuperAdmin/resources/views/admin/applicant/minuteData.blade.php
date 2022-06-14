@@ -32,7 +32,9 @@
                                     <thead>
                                     <tr>
                                         <th>Program Name</th>
-                                        <th>Srn Number</th>
+                                        <th>Count</th>
+                                        <th>Srn Number Purano Application</th>
+                                        <th>Srn Number New  Application</th>
 
                                     </tr>
                                     </thead>
@@ -42,20 +44,38 @@
 
                                                 <td>TSLC in Medicine(CMA)</td>
 
+                                                <td>{{$count}}</td>
                                                 <td>
                                                     @foreach($certificates[41] as $certificate)
-                                                    {{$certificate->srn}}
-                                                @endforeach</td>
+                                                        @if($certificate->profile_id != 0)
+                                                            {{$certificate->srn}}
+                                                        @endif                                                @endforeach</td>
+
+                                                <td>
+                                                    @foreach($certificates[41] as $certificate)
+                                                        @if($certificate->profile_id == 0)
+                                                        {{$certificate->srn}}
+                                                        @endif
+                                                    @endforeach</td>
 
 
                                             </tr>
                                             <tr>
 
                                                 <td>TSLC in MLT (Lab Asst.)</td>
+                                                <td>{{$count42}}</td>
                                                 <td>
                                                     @foreach($certificates[42] as $certificate)
+                                                        @if($certificate->profile_id == 0)
+                                                            {{$certificate->srn}}
+                                                        @endif
+                                                    @endforeach</td>
 
-                                                        {{$certificate->srn}}
+                                                <td>
+                                                    @foreach($certificates[42] as $certificate)
+                                                        @if($certificate->profile_id != 0)
+                                                            {{$certificate->srn}}
+                                                        @endif
                                                     @endforeach</td>
                                             </tr>
 {{--                                            <tr>--}}
