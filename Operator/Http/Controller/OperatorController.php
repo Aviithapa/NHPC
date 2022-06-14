@@ -389,7 +389,7 @@ class OperatorController extends BaseController
         $certificate = Certificate::join('profiles','profiles.id','=','certificate_history.profile_id')
             ->join('program','program.id','=','certificate_history.program_id')
             ->join('provinces','provinces.id','=','profiles.development_region')
-            ->join('registrant_qualification','registrant_qualification.id','=','profiles.user_id')
+            ->join('registrant_qualification','registrant_qualification.user_id','=','profiles.user_id')
             ->where('certificate_history.id','=',$id)
             ->orderBy('certificate_history.id','ASC')
             ->get(['certificate_history.*','certificate_history.name as certificate_name','certificate_history.program_name as certificate_program_name','profiles.*','program.name as Name_program','registrant_qualification.*','provinces.province_name','certificate_history.id as certificate_history_id'])->first();
