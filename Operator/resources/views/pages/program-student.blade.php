@@ -49,12 +49,12 @@
                                     @else
                                         @foreach($students as $datas)
                                             <tr>
-                                                <td>{{$datas->id}}</td>
+                                                <td>{{$datas->profile_id}}</td>
                                                 <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
                                                 <td>{{$datas->current_state}}</td>
                                                 <td>{{$datas->status}}</td>
                                                 <td> {{$datas->program_name}}</td>
-                                                <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->id)}}"><span class="label label-success">View</span></a></td>
+                                                <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->profile_id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>
                                         @endforeach
                                     @endif
