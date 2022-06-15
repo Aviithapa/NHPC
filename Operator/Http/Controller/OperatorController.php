@@ -96,7 +96,7 @@ class OperatorController extends BaseController
                             ->where('exam_registration.program_id','=',$id)
             ->join('program','program.id','=','exam_registration.program_id')
             ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-            ->where('profile_processing','profile_processing.status','!=','rejected')
+            ->where('profile_processing.status','!=','rejected')
             ->get(['profiles.*','program.name as program_name','profile_processing.*','profiles.id as profile_id']);
 
 
