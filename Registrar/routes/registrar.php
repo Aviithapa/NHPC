@@ -12,3 +12,6 @@ Route::get('/registrar/accept-exam-applied/{id}',[\Registrar\Http\Controller\Reg
 Route::post('/registrar/rejected-exam-applied',[\Registrar\Http\Controller\RegistrarController::class,"RejectExamProcessing"])->middleware(['auth'])->name('registrar.reject.exam.apply');
 Route::get('/search/student',[\Registrar\Http\Controller\SearchController::class,"index"])->middleware(['auth'])->name('registrar.search.student');
 Route::get('/search',[\Registrar\Http\Controller\SearchController::class,"search"])->middleware(['auth'])->name('search');
+Route::get('/subjectCommittee/dashboard',[\Registrar\Http\Controller\RegistrarController::class,'subjectCommitteeDashboard'])->middleware(['auth'])->name('subjectCommittee.dashboard.registrar');
+Route::get('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}',[\Registrar\Http\Controller\RegistrarController::class,'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.registrar.list');
+Route::post('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}',[\Registrar\Http\Controller\RegistrarController::class,'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.registrar.list');

@@ -47,38 +47,39 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-xs-6 m-b-3">
-                    <div class="card">
-                        <div class="card-body"><span class="info-box-icon bg-yellow"><i class="icon-book-open"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getExamApplicantList('pending')}}</span>
-                                <span class="info-box-text">Exam Applied Application List</span></div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
             <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
-                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getExamApplicantList('accepted')}}</span>
-                                <span class="info-box-text">Exam Applicant Accepted List</span> </div>
+                        <div class="card-body"><span class="info-box-icon bg-yellow"><i class="icon-book-open"></i></span>
+                            <div class="info-box-content"> <span class="info-box-number"> {{$examApplied}}</span>
+                                <span class="info-box-text">Exam Applied List</span></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getExamApplicantList('rejected')}}</span>
-                                <span class="info-box-text">Exam Applicant Rejected List</span> </div>
+                            <div class="info-box-content"> <span class="info-box-number">{{$subjectCommiteeExamApplied}}</span>
+                                <span class="info-box-text">Qualified for Exam List</span> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="info-box-content"> <span class="info-box-number">{{$examNotTaken}}</span>
+                                <span class="info-box-text">Exam Not Taken List TSLC </span> </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getExamApplicantList('processing')}}</span>
-                                <span class="info-box-text">Exam Applicant Processing List</span> </div>
+                            <div class="info-box-content"> <span class="info-box-number">{{$subjectCommiteeRejectList}}</span>
+                                <span class="info-box-text">Subject Committee Reject List</span> </div>
                         </div>
                     </div>
                 </div>

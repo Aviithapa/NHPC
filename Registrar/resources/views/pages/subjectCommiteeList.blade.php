@@ -16,25 +16,6 @@
 
         <!-- Main content -->
         <div class="content">
-
-            <div class="row">
-                <div class="col-lg-3 m-b-3">
-                    <a href="{{route("registrar.applicant.profile.list", ['status'=>  $status,'current_state' => $state,'level'=>"5"])}}" class="btn {{ (request()->is('registrar/dashboard/registrar/applicant-profile-list/'.$status.'/'.$state.'/5/*')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        Specialization</a>
-                </div>
-                <div class="col-lg-3 m-b-3">
-                    <a href="{{route("registrar.applicant.profile.list", ['status'=>  $status,'current_state' => $state,'level'=>"4"])}}" class="btn {{ (request()->is('registrar/dashboard/registrar/applicant-profile-list/'.$status.'/'.$state.'/4/*')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        Bachelor</a>
-                </div>
-                <div class="col-lg-3 m-b-3">
-                    <a href="{{route("registrar.applicant.profile.list", ['status'=>  $status,'current_state' => $state,'level'=>"3"])}}" class="btn {{ (request()->is('registrar/dashboard/registrar/applicant-profile-list/'.$status.'/'.$state.'/3/*')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>PCL</a>
-                </div>
-                <div class="col-lg-3 m-b-3">
-                    <a href="{{route("registrar.applicant.profile.list", ['status'=>  $status,'current_state' => $state,'level'=>"2"])}}" class="btn {{ (request()->is('registrar/dashboard/registrar/applicant-profile-list/'.$status.'/'.$state.'/2/*')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        TSLC</a>
-                </div>
-            </div>
-
             <div class="row">
                 <div class="col-lg-12 m-b-3">
                     <div class="box box-info">
@@ -42,6 +23,49 @@
                             <h3 class="box-title text-black">Applicant Profile Details</h3>
                             <div class="pull-right">
                             </div>
+
+                            <form method="POST" action="{{route("subjectCommittee.dashboard.registrar.list", ['level'=>$level,'status'=>  $status,'subject_committee_id' => $subject_commitee_id, 'page'=> $page])}}">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <fieldset class="form-group">
+                                            <label>Level  </label>
+                                            <select class="form-control" name="level_id">
+                                                <option value="">Select</option>
+                                                <option value="1">SPECILIZATION</option>
+                                                <option value="2">BACHELOR</option>
+                                                <option value="3">PCL</option>
+                                                <option value="4">TSLC</option>
+{{--                                                <option value="1">PUBLICHEALTH</option>--}}
+{{--                                                <option value="2">GENERAL MEDICINE</option>--}}
+{{--                                                <option value="3">LABORATORYMEDICINE</option>--}}
+{{--                                                <option value="4">RADIOLOGY</option>--}}
+{{--                                                <option value="5">OPTOMETRY</option>--}}
+{{--                                                <option value="6">DENTAL</option>--}}
+{{--                                                <option value="7">PHYSIOTHERAPY</option>--}}
+{{--                                                <option value="8">MISCELLANEOUS</option>--}}
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <fieldset class="form-group">
+                                            <label>Status </label>
+                                            <select class="form-control" name="status">
+                                                <option value="">{{$status}}</option>
+                                                <option value="progress">Progress</option>
+                                                <option value="rejected">Rejected</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-4">
+                                    <button type="submit" class="btn btn-primary  mt-4"><i class="fa fa-check"></i>
+                                        Filter</button>
+                                    </div>
+
+                                </div>
+
+
+                            </form>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -73,8 +97,8 @@
                                                 <td>{{$data->citizenship_number}}</td>
                                                 <td>{{$data->created_at->toDateString()}}</td>
                                                 <td> {{$data->program_name}}</td>
-                                                <td> {{$data->state}}</td>
-                                                <td> {{$data->current_status}}</td>
+                                                <td> {{$data->status}}</td>
+                                                <td> {{$data->current_state}}</td>
                                                 <td> <a href="{{url("registrar/dashboard/registrar/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>
                                         @endforeach
@@ -118,9 +142,9 @@
 
                                     @else
                                         {{++$page}}
-                                        <a href="{{route("registrar.applicant.profile.list", ['status'=>  $status,'current_state' => $state,'level'=>$level, 'page'=> --$page])}}"  class="previous">&laquo; Previous</a>
+                                        <a href="{{route("subjectCommittee.dashboard.registrar.list", ['level'=>$level,'status'=>  $status,'subject_committee_id' => $subject_commitee_id, 'page'=> --$page])}}"  class="previous">&laquo; Previous</a>
                                     @endif
-                                    <a href="{{route("registrar.applicant.profile.list", ['status'=>  $status,'current_state' => $state,'level'=>$level, 'page'=> ++$page ])}}"  class="next"> Next &raquo;</a>
+                                    <a href="{{route("subjectCommittee.dashboard.registrar.list", ['level'=>$level,'status'=>  $status,'subject_committee_id' => $subject_commitee_id, 'page'=> ++$page ])}}"  class="next"> Next &raquo;</a>
                                 </div>
                             </div>
                             <!-- /.table-responsive -->
