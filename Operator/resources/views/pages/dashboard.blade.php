@@ -109,7 +109,7 @@
                 </div>
                 @foreach($tslc as $exam)
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{url("operator/dashboard/student/program/".$exam->program_id)}}">
+                    <a href="{{url("operator/dashboard/student/program/".$exam->program_id."/progress")}}">
 
                     <div class="card">
                         <div class="card-body">

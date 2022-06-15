@@ -24,4 +24,4 @@ Route::get('/view/certificate/{id}',  [\Operator\Http\Controller\OperatorControl
 Route::get('/certificate/index',  [\Operator\Http\Controller\OperatorController::class,'printCertificateIndex'])->middleware(['auth'])->name('operator.dashboard.printCertificateIndex');
 
 
-Route::get('/student/program/{id}',  [\Operator\Http\Controller\OperatorController::class,'getProgramWiseStudent'])->middleware(['auth'])->name('operator.dashboard.getProgramWiseStudent');
+Route::get('/student/program/{id}/{status}',  [\Operator\Http\Controller\OperatorController::class,'getProgramWiseStudent'])->middleware(['auth'])->name('operator.dashboard.getProgramWiseStudent');
