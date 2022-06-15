@@ -93,19 +93,25 @@ class RegistrarController  extends BaseController
         }
     }
 
-    public function profile($status, $current_state)
+    public function profile($status, $current_state, $level, $page = 0)
     {
         if (Auth::user()->mainRole()->name === 'registrar') {
-            $users = $this->profileProcessingRepository->getAll()->where('current_state', '=', $current_state)
-                ->where('status', '=', $status);
-            if ($users->isEmpty())
-                $profile = null;
-            else {
-                foreach ($users as $user) {
-                    $profile[] = $this->profileRepository->getAll()->where('id', '=', $user['profile_id']);
-                }
-            }
-            return $this->view('pages.applicant-profile-list', $profile);
+            $page = $page ? $page : 0;
+            $take = 20;
+            $datas = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+                ->join('program','program.id','=','exam_registration.program_id')
+                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+                ->where('profile_processing.current_state', '=', $current_state)
+                ->where('profile_processing.status', '=', $status)
+                ->where('profiles.level', '=', $level)
+                ->orderBy('profiles.created_at','ASC')
+                ->skip($page * $take)
+                ->take($take)
+                ->get(['profiles.*','program.name as program_name']);
+            $state = $current_state;
+            $page = (int)$page;
+
+            return view('registrar::pages.applicant-profile-list', compact('datas','state','status','page','level'));
         }else{
             return redirect()->route('login');
         }
