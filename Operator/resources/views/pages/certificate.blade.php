@@ -195,13 +195,13 @@
         Pursuant to the decision dated {{date('d-m-Y',strtotime($certificate->decision_date))}} of the Council, the name of
         <span style="font-size: 22px;
         font-weight: 700;"> {{ucwords(strtolower($certificate->certificate_name))}}</span> date of birth <span style="font-size: 22px;
-        font-weight: 700;">{{$certificate->date_of_birth}}</span> a resident ward No. <span style="font-size: 22px;
-        font-weight: 700;">{{$certificate->ward_no}}</span> of <span style="font-size: 22px;
-        font-weight: 700;">{{$certificate->vdc_municiplality}}</span>
+        font-weight: 700;">{{date('d-m-Y',strtotime($profile->date_of_birth)}}</span> a resident ward No. <span style="font-size: 22px;
+        font-weight: 700;">{{$profile->ward_no}}</span> of <span style="font-size: 22px;
+        font-weight: 700;">{{$profile->vdc_municiplality}}</span>
         Metropolitan City / Sub- Metropolitan City/Municipality/Rural Municipality
         <span style="font-size: 22px;
         font-weight: 700;">{{$certificate->district}}</span> District <span style="font-size: 22px;
-        font-weight: 700;">{{$certificate->province_name}}</span>
+        font-weight: 700;">{{$profile->getProvinceName()}}</span>
 
         Province is registered as <span style="font-size: 22px;
         font-weight: 700;">{{$certificate->certificate_program_name}}</span>
