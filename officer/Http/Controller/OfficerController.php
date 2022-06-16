@@ -278,7 +278,7 @@ class OfficerController  extends BaseController
             ->where('program.subject-committee_id','=',$subject_commitee_id)
             ->skip($page * $take)
             ->take($take)
-            ->get(['profiles.*','program.name as program_name','profile_processing.*']);
+            ->get(['profiles.*','program.name as program_name','profile_processing.*', 'profiles.id as profile_id']);
         $page = (int)$page;
 
 
