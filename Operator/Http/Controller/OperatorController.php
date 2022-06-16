@@ -420,6 +420,7 @@ class OperatorController extends BaseController
             ->join('provinces','provinces.id','=','profiles.development_region')
             ->join('registrant_qualification','registrant_qualification.user_id','=','profiles.user_id')
             ->where('certificate_history.id','=',$id)
+
             ->where('registrant_qualification.level','=','2')
             ->orderBy('certificate_history.id','ASC')
             ->get(['certificate_history.*','certificate_history.name as certificate_name','certificate_history.program_name as certificate_program_name','profiles.*','program.name as Name_program','registrant_qualification.*','provinces.province_name','certificate_history.id as certificate_history_id'])->first();
@@ -434,13 +435,120 @@ class OperatorController extends BaseController
         return view('operator::pages.certificate', compact('certificate','profile'));
     }
 
-    public function printCertificateIndex(){
+    public function printCertificateIndex($status){
         $certificates =  Certificate::join('profiles','profiles.id','=','certificate_history.profile_id')
                                       ->join('program','program.id','=','certificate_history.program_id')
                                       ->join('provinces','provinces.id','=','profiles.development_region')
+                                      ->where('certificate_history.is_printed','=',$status)
                                         ->get(['certificate_history.*','profiles.*','program.name as Name_program','provinces.province_name','certificate_history.id as certificate_history_id']);
 
         return view('operator::pages.certificate-list', compact('certificates'));
+    }
+ public function printedCertificate($id){
+        $data[] = $this->certificateRepository->findById($id);
+        $data['is_printed'] = 1 ;
+     try {
+         $exam = $this->certificateRepository->update($data,$id);;
+         if ($exam == false) {
+             session()->flash('danger', 'Oops! Something went wrong.');
+             return redirect()->back()->withInput();
+         }
+         session()->flash('success','Moved to printed list');
+         return redirect()->back()->refresh()->withInput();
+     } catch (\Exception $e) {
+         session()->flash('success','Program has been changed successfully.');
+         return redirect()->back()->withInput();
+     }
+
+        return redirect()->back();
+    }
+
+
+
+    public function subjectCommitteeDashboardList( Request $request,$level= 1,$status = "progress",$subject_commitee_id = 1,$page = 0){
+        $take = 20;
+        $data = $request->all();
+        if ($data != null){
+            if ($data['level_id'] !=null )
+                $level = $data['level_id'];
+            if ($data['status'] != null)
+                $status = $data['status'];
+        }
+        $datas = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.level_id','=',$level)
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','=','subject_committee')
+            ->where('profile_processing.status','=',$status)
+            ->where('program.subject-committee_id','=',$subject_commitee_id)
+            ->skip($page * $take)
+            ->take($take)
+            ->get(['profiles.*','program.name as program_name','profile_processing.*']);
+        $page = (int)$page;
+
+
+        return view('operator::pages.subjectCommiteeList',compact('datas','level','status','subject_commitee_id','page'));
+    }
+
+    public function subjectCommitteeDashboard(){
+        $examApplied = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.level_id','<','4')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','=','subject_committee')
+            ->where('program.subject-committee_id','=','1')
+            ->count(['profiles.id']);
+
+        $GM = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.level_id','<','4')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','=','subject_committee')
+            ->where('program.subject-committee_id','=','2')
+            ->count(['profiles.id']);
+
+        $lM = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.level_id','<','4')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','=','subject_committee')
+            ->where('program.subject-committee_id','=','3')
+            ->count(['profiles.id']);
+
+        $radio = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.level_id','<','4')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','=','subject_committee')
+            ->where('program.subject-committee_id','=','4')
+            ->count(['profiles.id']);
+
+        $opt = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.level_id','<','4')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','=','subject_committee')
+            ->where('program.subject-committee_id','=','5')
+            ->count(['profiles.id']);
+
+        $den = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.level_id','<','4')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','=','subject_committee')
+            ->where('program.subject-committee_id','=','6')
+            ->count(['profiles.id']);
+
+        $phy = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.level_id','<','4')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','=','subject_committee')
+            ->where('program.subject-committee_id','=','6')
+            ->count(['profiles.id']);
+
+
+        return view('operator::pages.subjectCommittee',compact('examApplied','GM','lM','radio','opt','den','phy'));
     }
 }
 

@@ -34,6 +34,7 @@
                                                 <label>Level</label>
                                                 <input name="level_name" class="form-control" id="basicInput" type="text" value="SLC" readonly>
                                                 <input type="hidden" name="level" class="form-control" value="1 "/>
+                                                <input type="text" name="user_id" id="basicInput" class="form-control" value="{{$profile->user_id}}"/>
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-4">
@@ -299,6 +300,7 @@
 
                                         <div class="row">
                                             <input type="hidden" name="level" class="form-control" value="2"/>
+                                            <input type="text" name="user_id" id="basicInput" class="form-control" value="{{$profile->user_id}}"/>
 
                                             <div class="col-lg-4">
                                                 <fieldset class="form-group">
@@ -520,6 +522,8 @@
                                                         <option value="neblevel">HSEB/NEB</option>
                                                     </select>
                                                     <input type="hidden" name="level" class="form-control" value="3"/>
+                                                    <input type="text" name="user_id" id="basicInput" class="form-control" value="{{$profile->user_id}}"/>
+
                                                 </fieldset>
                                             </div>
                                             <div id="pcllevel">

@@ -18,22 +18,22 @@
                 @if($data)
     @switch($data['level'])
       @case(1):
-        @include('student::pages.qualification.update.updateSlc')
+        @include('superAdmin::pages.qualification.update.updateSlc')
         @break
         @case(2):
-      @include('student::pages.qualification.update.updateTSLC')
+      @include('superAdmin::pages.qualification.update.updateTSLC')
         @break
         @case(3):
-                   @include('student::pages.qualification.update.updatePcl')
+                   @include('superAdmin::pages.qualification.update.updatePcl')
 
         @break
         @case(4):
-                        @include('student::pages.qualification.update.updateBachlor')
+                        @include('superAdmin::pages.qualification.update.updateBachlor')
 
                         @break
         @case(5):
 
-                        @include('student::pages.qualification.update.updateMaster')
+                        @include('superAdmin::pages.qualification.update.updateMaster')
 
                     @endswitch
                     @endif

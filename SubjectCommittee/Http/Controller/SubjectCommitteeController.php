@@ -139,6 +139,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             $exam = $this->examProcessingRepository->getAll()->where('profile_id','=',$id)->first();
             if ($profile_processing['subject_committee_accepted_num'] != 0) {
                 $current_user = $this->profileLogsRepository->getAll()->where('created_by', '=', Auth::user()->id)
+                    ->where('status','!=','rejected')
                                                                         ->where('profile_id','=',$id);
             }else {
                 $current_user = null;

@@ -13,6 +13,7 @@
                         <label>Level</label>
                         <input name="level_name" class="form-control" id="basicInput" type="text" value="TSLC" readonly>
                         <input type="hidden" name="level" class="form-control" value="2"/>
+                        <input type="text" name="user_id" id="basicInput" class="form-control" value="{{$data->id}}"/>
                     </fieldset>
                 </div>
                 <div class="col-lg-4">

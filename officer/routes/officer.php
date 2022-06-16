@@ -15,3 +15,8 @@ Route::post('/officer/rejected-exam-applied',[\officer\Http\Controller\OfficerCo
 
 Route::get('/search/student',[\officer\Http\Controller\SearchController::class,"index"])->middleware(['auth'])->name('officer.search.student');
 Route::get('/search',[\officer\Http\Controller\SearchController::class,"search"])->middleware(['auth'])->name('search');
+
+
+Route::get('/subjectCommittee/dashboard',[\officer\Http\Controller\OfficerController::class,'subjectCommitteeDashboard'])->middleware(['auth'])->name('subjectCommittee.dashboard.officer');
+Route::get('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}',[\officer\Http\Controller\OfficerController::class,'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.officer.list');
+Route::post('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}',[\officer\Http\Controller\OfficerController::class,'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.officer.list');

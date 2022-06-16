@@ -72,6 +72,12 @@
                     <i class="icon-book-open"></i> <span>Search applicant</span>
                 </a>
             </li>
+
+            <li class="{{ (request()->is('officer/dashboard/subjectCommittee/dashboard')) ? 'active':''  }}">
+                <a href="{{route("subjectCommittee.dashboard.officer")}}">
+                    <i class="icon-book-open"></i> <span>Subject Committee</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- /.sidebar -->

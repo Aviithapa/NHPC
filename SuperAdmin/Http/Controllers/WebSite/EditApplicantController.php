@@ -97,9 +97,6 @@ class EditApplicantController  extends BaseController
         }
        }
        public function qualificationEdit($id){
-//        dd($id);
-//        $data = $this->profileRepository->findById($id);
-//        $user_id = $data['user_id'];
 
         $data = $this->qualificationRepository->findById($id);
            $collage = $this->collageRepository->getAll();
