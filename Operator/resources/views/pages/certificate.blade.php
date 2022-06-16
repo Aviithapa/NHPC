@@ -202,7 +202,7 @@
         Metropolitan City / Sub- Metropolitan City/Municipality/Rural Municipality
         <span style="font-size: 22px;
         font-weight: 700;">{{$certificate->district}}</span> District <span style="font-size: 22px;
-        font-weight: 700;">{{$profile->getProvinceName()}}</span>
+        font-weight: 700;">{{$certificate->province_name}}</span>
 
         Province is registered as <span style="font-size: 22px;
         font-weight: 700;">{{$certificate->certificate_program_name}}</span>
