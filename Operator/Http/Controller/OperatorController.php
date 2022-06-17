@@ -544,7 +544,7 @@ class OperatorController extends BaseController
             ->join('program','program.id','=','exam_registration.program_id')
             ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
             ->where('profile_processing.current_state','=','subject_committee')
-            ->where('program.subject-committee_id','=','6')
+            ->where('program.subject-committee_id','=','7')
             ->count(['profiles.id']);
 
         $mis = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
@@ -552,7 +552,7 @@ class OperatorController extends BaseController
             ->join('program','program.id','=','exam_registration.program_id')
             ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
             ->where('profile_processing.current_state','=','subject_committee')
-            ->where('program.subject-committee_id','=','6')
+            ->where('program.subject-committee_id','=','8')
             ->count(['profiles.id']);
 
         return view('operator::pages.subjectCommittee',compact('examApplied','GM','lM','radio','opt','den','phy','mis'));

@@ -108,28 +108,36 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route('examStudentCount.dashboard.operator',['level_id' => '1'])}}">
+
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{examStudentCount('1')}}</span>
                                 <span class="info-box-text">Specilazition</span> </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route('examStudentCount.dashboard.operator',['level_id' => '2'])}}">
+
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{examStudentCount('2')}}</span>
                                 <span class="info-box-text">First Level Bachelor</span> </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route('examStudentCount.dashboard.operator',['level_id' => '3'])}}">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{examStudentCount('3')}}</span>
                                 <span class="info-box-text">Second Level PCL</span> </div>
                         </div>
                     </div>
+                    </a>
                 </div>
                 @foreach($tslc as $exam)
                 <div class="col-lg-3 col-xs-6 m-b-3">
