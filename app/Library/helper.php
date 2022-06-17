@@ -21,7 +21,26 @@ if (! function_exists('uploadedAsset')) {
         return $path;
     }
 }
+if (! function_exists('examStudentCount')) {
+    /**
+     * Generates an asset path for the uploads.
+     * @param null $path
+     * @param null $file_name
+     * @return string
+     */
+    function examStudentCount($level_id)
+    {
+        $datas = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.level_id','=',$level_id)
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','!=','operator')
+            ->where('profile_processing.current_state','!=','officer')
+            ->count(['exam_registration.profile_id']);
 
+        return $datas;
+    }
+}
 if (! function_exists('getApplicantCount')) {
     /**
      * Generates an asset path for the uploads.
