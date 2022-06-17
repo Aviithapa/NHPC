@@ -36,7 +36,7 @@ if (! function_exists('examStudentCount')) {
             ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
             ->where('profile_processing.current_state','!=','operator')
             ->where('profile_processing.current_state','!=','officer')
-            ->count(['exam_registration.profile_id']);
+            ->count(['profile_processing.profile_id']);
 
         return $datas;
     }
