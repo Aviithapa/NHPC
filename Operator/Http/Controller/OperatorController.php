@@ -547,8 +547,28 @@ class OperatorController extends BaseController
             ->where('program.subject-committee_id','=','6')
             ->count(['profiles.id']);
 
+        $mis = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.level_id','<','4')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','=','subject_committee')
+            ->where('program.subject-committee_id','=','6')
+            ->count(['profiles.id']);
 
-        return view('operator::pages.subjectCommittee',compact('examApplied','GM','lM','radio','opt','den','phy'));
+        return view('operator::pages.subjectCommittee',compact('examApplied','GM','lM','radio','opt','den','phy','mis'));
+    }
+
+    public function examStudentCount($level_id){
+        $datas = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.level_id','=',$level_id)
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','!=','operator')
+            ->where('profile_processing.current_state','!=','officer')
+            ->get(['profiles.*','program.name as program_name','profile_processing.*','profiles.id as profile_id']);
+
+
+        return view('operator::pages.examStudentList',compact('datas'));
     }
 }
 

@@ -91,6 +91,18 @@
                         </div>
                     </a>
                 </div>
+
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a href="{{route("subjectCommittee.dashboard.operator.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '8'])}}">
+                        <div class="card">
+                            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
+                                <div class="info-box-content"> <span class="info-box-number">{{$mis}}</span>
+                                    <span class="info-box-text">MISCELLANEOUS</span></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
             </div>
 
 

@@ -30,3 +30,4 @@ Route::get('/student/program/{id}/{status}',  [\Operator\Http\Controller\Operato
 Route::get('/subjectCommittee/dashboard',[\Operator\Http\Controller\OperatorController::class,'subjectCommitteeDashboard'])->middleware(['auth'])->name('subjectCommittee.dashboard.operator');
 Route::get('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}',[\Operator\Http\Controller\OperatorController::class,'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.operator.list');
 Route::post('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}',[\Operator\Http\Controller\OperatorController::class,'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.operator.list');
+Route::get('/exam/dashboard/{level_id}',[\Operator\Http\Controller\OperatorController::class,'examStudentCount'])->middleware(['auth'])->name('examStudentCount.dashboard.operator');
