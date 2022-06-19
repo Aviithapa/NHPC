@@ -68,8 +68,88 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
 
     public function index(){
         $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
+        $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ;
+        $progress = $profiles->where('profiles.profile_state','subject_committee')
+            ->where('profiles.profile_status','Reviewing')
+            ->where('program.subject-committee_id',$data['subjecr_committee_id'])
+            ->count();
+        $rejected = $profiles->where('profiles.profile_state','subject_committee')
+            ->where('profiles.profile_status','Rejected')
+            ->where('program.subject-committee_id',$data['subjecr_committee_id'])
+            ->count();
+        $pending = $profiles->where('profiles.profile_state','subject_committee')
+            ->where('profiles.profile_status','Pending')
+            ->where('program.subject-committee_id',$data['subjecr_committee_id'])
+            ->count();
 
-        return view('subjectCommittee::pages.dashboard',compact('data'));
+
+        $tslc_count =0;
+        $pcl_count =0;
+        $bachelor_count =0;
+        $master_count =0;
+        $common =Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','subject_committee')
+            ->where('profile_processing.status','progress')
+            ->where('program.subject-committee_id',$data['subjecr_committee_id'])
+            ->orderBy('profiles.created_at','ASC');
+        $tslc = $common->where('profiles.level','3')
+            ->get(['profiles.*']);
+
+//        $pcl =  $common->where('profiles.level','3')
+//            ->get(['profiles.*']);
+//
+//        $bachelor =  $common->where('profiles.level','4')
+//            ->get(['profiles.*']);
+//
+//        $master =  $common->where('profiles.level','5')
+//            ->get(['profiles.*']);
+
+        foreach ($tslc as $data){
+            $log = \App\Models\Profile\Profilelogs::all()->where('profile_id', '=', $data['id'])
+                ->where('state', '=', 'subject_committee')
+                ->where('status', '=', 'progress')
+                ->where('created_by','=',Auth::user()->id)
+                ->first();;
+            if (!$log) {
+                $tslc_count++;
+            }
+        }
+//        foreach ($pcl as $data){
+//            $log = \App\Models\Profile\Profilelogs::all()->where('profile_id', '=', $data['id'])
+//                ->where('state', '=', 'subject_committee')
+//                ->where('status', '=', 'progress')
+//                ->where('created_by','=',Auth::user()->id)
+//                ->first();;
+//            if (!$log) {
+//                $pcl_count++;
+//            }
+//        }foreach ($bachelor as $data){
+//            $log = \App\Models\Profile\Profilelogs::all()->where('profile_id', '=', $data['id'])
+//                ->where('state', '=', 'subject_committee')
+//                ->where('status', '=', 'progress')
+//                ->where('created_by','=',Auth::user()->id)
+//                ->first();;
+//            if (!$log) {
+//                $bachelor_count++;
+//            }
+//        }foreach ($master as $data){
+//            $log = \App\Models\Profile\Profilelogs::all()->where('profile_id', '=', $data['id'])
+//                ->where('state', '=', 'subject_committee')
+//                ->where('status', '=', 'progress')
+//                ->where('created_by','=',Auth::user()->id)
+//                ->first();;
+//            if (!$log) {
+//                $master_count++;
+//            }
+//        }
+
+        return view('subjectCommittee::pages.dashboard',compact('data','subject_committee','progress','rejected','pending','tslc_count','pcl_count'
+        ,'bachelor_count','master_count'));
     }
     public function profile($status, $current_state, $level, $page = 0)
     {
@@ -105,7 +185,9 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                         ->get(['profiles.*','program.name as program_name']);
                 }
             }
-            return view('subjectCommittee::pages.applicant-profile-list', compact('datas','status','current_state','page','level'));
+            $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+            $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
+            return view('subjectCommittee::pages.applicant-profile-list', compact('datas','status','current_state','page','level','subject_committee'));
         }else{
             return redirect()->route('login');
         }
@@ -116,6 +198,8 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         if (Auth::user()->mainRole()->name === 'subject_committee') {
             $users = $this->examProcessingRepository->getAll()->where('status', '=', $status)
                 ->where('state', '=', $current_state);
+            $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+            $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
             return $this->view('pages.application-list', $users);
         }else{
             return redirect()->route('login');
@@ -154,7 +238,9 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             }else{
                 $current_exam_user = null;
             }
-            return view('subjectCommittee::pages.application-list-review',compact('data','user_data','qualification','profile_logs','profile_processing','exams','current_user','current_exam_user','subject_committee_logs'));
+            $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+            $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
+            return view('subjectCommittee::pages.application-list-review',compact('data','user_data','qualification','profile_logs','profile_processing','exams','current_user','current_exam_user','subject_committee_logs','subject_committee'));
         }else{
             return redirect()->route('login');
         }
@@ -359,8 +445,9 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             ->where('profile_processing.subject_committee_accepted_num','>=',$average)
             ->orderBy('profiles.created_at','ASC')
             ->get(['profiles.*']);
-
-        return view('subjectCommittee::pages.exam', compact('datas'));
+        $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
+        return view('subjectCommittee::pages.exam', compact('datas','subject_committee'));
     }
     public function moveCouncil(){
         $subject_Committee = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
@@ -376,8 +463,9 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             ->where('profile_processing.subject_committee_accepted_num','>=',$average)
             ->orderBy('profiles.created_at','ASC')
             ->get(['profiles.*']);
-
-        return view('subjectCommittee::pages.council', compact('datas'));
+        $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
+        return view('subjectCommittee::pages.council', compact('datas','subject_committee'));
     }
 }
 
