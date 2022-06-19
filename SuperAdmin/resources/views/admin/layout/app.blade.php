@@ -17,6 +17,8 @@
 <!-- BEGIN BODY -->
 <body class="skin-blue sidebar-mini">
 @include('council::layout.header')
+@include('superAdmin::admin.applicant.flash-message')
+
 <!-- BEGIN CONTAINER -->
 @include('superAdmin::admin.sidebar.administrator')
  @yield('content')

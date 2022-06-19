@@ -23,12 +23,19 @@
                 <div class="col-lg-12 m-b-3">
                     <div class="box box-info">
                         <div class="row">
-                            <div class="col-lg-12 m-b-3 ml-4">
+                            <div class="col-lg-3 m-b-3 ml-4">
 {{--                                <a href="{{route("examCommittee.export")}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>--}}
 {{--                                    Export to Csv</a>--}}
 
                                 <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal'><span class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
                                     Uploads Results</span> </a>
+                            </div>
+                            <div class="col-lg-3 m-b-3 ml-4">
+{{--                                <a href="{{route("examCommittee.export")}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>--}}
+{{--                                    Export to Csv</a>--}}
+
+                                <a href="{{route('examCommittee.export')}}" ><span class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
+                                    Export to csv File</span> </a>
                             </div>
                         </div>
                         <!-- /.box-header -->

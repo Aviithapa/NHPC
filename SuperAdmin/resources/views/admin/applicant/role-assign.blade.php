@@ -13,11 +13,53 @@
             </ol>
         </div>
 
+
+        <div class="content">
+            <div class="card mt-5">
+                <h1>Assign Role</h1>
+                <div class="card-body">
+
+
+
+
+
+                    <form method="POST" action="{{url('superAdmin/dashboard/assignRole')}}">
+                        @csrf
+                        <div class="row">
+                            <fieldset class="form-group">
+                                <input type="hidden" name="user_id" value="{{$id}}">
+                            </fieldset>
+                            <div class="col-lg-4">
+                                <fieldset class="form-group">
+                                    <label>Subject Committee </label>
+                                    <select class="form-control" name="role" required>
+                                        <option value="2">Computer Operator</option>
+                                        <option value="3">Officer</option>
+                                        <option value="4">Registrar</option>
+                                        <option value="5">Subject Committee</option>
+                                        <option value="6">Exam Committee</option>
+                                        <option value="7">Council</option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary float-right mt-2"><i class="fa fa-check"></i>
+                            Assign</button>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
         <!-- Main content -->
+
         <div class="content">
 
             <div class="content">
                 <div class="card mt-5">
+                    <h1>Assign Subject Committee</h1>
 
                     <div class="card-body">
 

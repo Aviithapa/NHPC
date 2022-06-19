@@ -10,6 +10,7 @@ use App\Models\Website\Post;
 use App\Modules\Backend\Address\Repositories\MunicipalityRepository;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
+use App\Modules\Backend\Authentication\Role\Repositories\RoleRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Certificate\Repositories\CertificateRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
@@ -40,7 +41,7 @@ class ApplicantController  extends BaseController
         $userRepository, $qualificationRepository,
         $user_data, $profileLogsRepository, $profileProcessingRepository,
         $municipalityRepository, $collageRepository,
-        $examRepository, $examProcessingRepository, $certificateRepository, $examProcessingDetailsRepository, $programRepository, $subjectCommitteeUserRepository;
+        $examRepository, $examProcessingRepository, $roleRepository, $certificateRepository, $examProcessingDetailsRepository, $programRepository, $subjectCommitteeUserRepository;
 
     private $commonView = 'operator::pages.';
     private $commonMessage = 'Profile ';
@@ -62,13 +63,15 @@ class ApplicantController  extends BaseController
      * @param ProgramRepository $programRepository
      * @param SubjectCommitteeUserRepository $subjectCommitteeUserRepository
      * @param ExamProcessingDetailsRepository $examProcessingDetailsRepository
+     * @param RoleRepository $roleRepository
+     * @param CertificateRepository $certificateRepository
      */
 
     public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
                                 ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
                                 ExamRepository $examRepository, MunicipalityRepository $municipalityRepository, CollegeRepository $collageRepository,
                                 ExamProcessingRepository $examProcessingRepository,ProgramRepository $programRepository, SubjectCommitteeUserRepository $subjectCommitteeUserRepository,
-                                ExamProcessingDetailsRepository $examProcessingDetailsRepository, CertificateRepository $certificateRepository)
+                                ExamProcessingDetailsRepository $examProcessingDetailsRepository, RoleRepository $roleRepository,CertificateRepository $certificateRepository)
     {
         $this->viewData['commonRoute'] = $this->commonRoute;
         $this->viewData['commonView'] = 'superAdmin::' . $this->commonView;
@@ -87,6 +90,7 @@ class ApplicantController  extends BaseController
         $this->programRepository = $programRepository;
         $this->subjectCommitteeUserRepository = $subjectCommitteeUserRepository;
         $this->certificateRepository = $certificateRepository;
+        $this->roleRepository = $roleRepository;
         parent::__construct();
     }
     /**
@@ -589,5 +593,17 @@ class ApplicantController  extends BaseController
             $count42 = $count42 + 1;
         return view('superAdmin::admin.applicant.minuteData',compact('certificates','count','count42'));
 
+    }
+
+
+    public function attachRole(Request $request){
+        $data = $request->all();
+        $user = $this->userRepository->findById($data['user_id']);
+//        $role = $this->roleRepository->getAll()->where('user_id','=',$data['user_id']);
+        $assignRole =  $user->roles()->sync([$data['role']]);
+//        $user->attachRole($data['role']);
+//        dd($user);
+        session()->flash('success','Role has been Assigned');
+        return redirect()->back();
     }
 }

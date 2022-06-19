@@ -70,12 +70,24 @@ class ExamCommitteeController extends BaseController
 
     public function index() {
         $programs = $this->programRepository->getAll()->where('level','!=','4');
-        return view('examCommittee::pages.dashboard',compact('programs'));
+        $tslc = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"), \DB::raw("status as status"), \DB::raw("state as state"))
+            ->where('status','=','progress')
+            ->where('state','=','exam_committee')
+            ->groupBy('program_id','status','state')
+            ->orderBy('count')
+//            ->where('exam_registration.status','=','progress')
+//            ->where('exam_registration.state','=','exam_committee')
+            ->where('level_id', '<', 4)
+            ->get();
+
+//        dd($tslc);
+        return view('examCommittee::pages.dashboard',compact('programs','tslc'));
     }
 
     public function generateAdmitCard($status,$current_state){
         $users = $this->examProcessingRepository->getAll()->where('status' ,'=',$status)
             ->where('state','=',$current_state)
+            ->where('level_id', '<', 4)
             ->where('is_admit_card_generate', '!=' ,'yes');
         if ($users->isEmpty()){
             session()->flash('success','Admit Card Already Been Generated');
@@ -117,6 +129,7 @@ class ExamCommitteeController extends BaseController
         if (Auth::user()->mainRole()->name === 'exam_committee') {
             $users = $this->examProcessingRepository->getAll()->where('status', '=', $status)
                 ->where('state', '=', $current_state)
+                ->where('level_id', '<', 4)
                 ->where('is_admit_card_generate', '!=' ,'yes');
             return $this->view('pages.application-list', $users);
         }else{
@@ -158,11 +171,42 @@ class ExamCommitteeController extends BaseController
     }
 
     /**
-     * @return \Illuminate\Support\Collection
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function fileExport()
     {
-        return Excel::download(new ResultExport(), 'users-collection.xlsx');
+        $fileName = 'tasks.csv';
+        $tasks = AdmitCard::all();
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('Title', 'Assign', 'Description', 'Start Date', 'Due Date');
+
+        $callback = function() use($tasks, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($tasks as $task) {
+                $row['Title']  = $task->title;
+                $row['Assign']    = $task->assign->name;
+                $row['Description']    = $task->description;
+                $row['Start Date']  = $task->start_at;
+                $row['Due Date']  = $task->end_at;
+
+                fputcsv($file, array($row['Title'], $row['Assign'], $row['Description'], $row['Start Date'], $row['Due Date']));
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+//        return Excel::download(new ResultExport(), 'users-collection.xlsx');
     }
 
     public function programWiseStudent($id){
@@ -189,11 +233,47 @@ class ExamCommitteeController extends BaseController
 
     public function exportCsv(Request $request)
     {
+        $fileName = 'tasks.csv';
+        $tasks = AdmitCard::all();
 
-        $tasks = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
-            ->where('state', '=', 'exam_committee')
-            ->where('is_admit_card_generate', '=' ,'yes');
-        return Excel::download(new UsersExport($tasks), 'student-collection.xlsx');
+        $tasks = AdmitCard::join('profiles','profiles.id','=','admit_card.profile_id')
+            ->join('exam_registration','exam_registration.id','=','admit_card.exam_processing_id')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->get();
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('Full Name', 'Data of birth', 'Symbol Number', 'Father Name', 'Citizenship Number','Program Name');
+
+        $callback = function() use($tasks, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($tasks as $task) {
+                $row['Name']  = $task->first_name . $task->middle_name . $task->last_name;
+                $row['dob']    = $task->dob_nep;
+                $row['symbol']    = $task->symbol_number;
+                $row['father']  = $task->father_name;
+                $row['citizen']  = $task->citizenship_number;
+                $row['program']  = $task->name;
+
+                fputcsv($file, array($row['Name'], $row['dob'], $row['symbol'], $row['father'], $row['citizen'], $row['program']));
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+//        $tasks = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
+//            ->where('state', '=', 'exam_committee')
+//            ->where('is_admit_card_generate', '=' ,'yes');
+//        return Excel::download(new UsersExport($tasks), 'student-collection.xlsx');
 
 //        $fileName = 'admit_card_generated_list.csv';
 //        $tasks = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
