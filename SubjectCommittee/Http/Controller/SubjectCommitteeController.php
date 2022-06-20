@@ -238,8 +238,8 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             }else{
                 $current_exam_user = null;
             }
-            $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
-            $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
+            $subjects = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+            $subject_committee = $this->subjectCommitteeRepository->findById($subjects['subjecr_committee_id']);
             return view('subjectCommittee::pages.application-list-review',compact('data','user_data','qualification','profile_logs','profile_processing','exams','current_user','current_exam_user','subject_committee_logs','subject_committee'));
         }else{
             return redirect()->route('login');
