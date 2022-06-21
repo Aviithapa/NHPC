@@ -260,6 +260,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 ->join('users','users.id','=','profile_logs.created_by')
                 ->where('profile_logs.state','subject_committee')
                 ->where('profile_logs.status','progress')
+                ->where('profile_logs.profile_id',$id)
                 ->get(['profile_logs.*','users.name as user_name']);
             $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id','=',$id)->first();
             $exams = $this->examProcessingRepository->getAll()->where('profile_id','=',$id);
