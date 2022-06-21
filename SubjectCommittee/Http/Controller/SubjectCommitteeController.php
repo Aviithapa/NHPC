@@ -229,7 +229,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             }
             $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
             $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
-            return view('subjectCommittee::pages.applicant-profile-list', compact('datas','status','current_state','page','level','subject_committee'));
+            return view('subjectCommittee::pages.accepted-by-me', compact('datas','status','current_state','page','level','subject_committee'));
         }else{
             return redirect()->route('login');
         }
