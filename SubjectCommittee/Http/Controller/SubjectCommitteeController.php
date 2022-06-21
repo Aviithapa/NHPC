@@ -193,6 +193,48 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         }
     }
 
+    public function acceptedByMe($status, $current_state, $level, $page = 0)
+    {
+        if (Auth::user()->mainRole()->name === 'subject_committee') {
+            $subject_Committee_id = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+            $level = $level ? $level : 1;
+            $page = $page ? $page : 0;
+            $take = 1000;
+            $datas = [];
+            $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+                ->join('program','program.id','=','exam_registration.program_id')
+                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+                ->where('profile_processing.current_state',$current_state)
+                ->where('profiles.level',$level)
+                ->where('profile_processing.status',$status)
+                ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
+                ->orderBy('profiles.created_at','ASC')
+                ->skip($page * $take)
+                ->take($take)
+                ->get(['profiles.*','program.name as program_name']);
+
+
+            foreach ($profiles as $data){
+                $log = $this->profileLogsRepository->getAll()->where('profile_id', '=', $data['id'])
+                    ->where('state', '=', $current_state)
+                    ->where('status', '=', $status)
+                    ->where('created_by','=',Auth::user()->id)
+                    ->first();
+                if ($log) {
+                    $datas[] = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+                        ->join('program','program.id','=','exam_registration.program_id')
+                        ->where('profiles.id', '=', $data['id'])
+                        ->get(['profiles.*','program.name as program_name']);
+                }
+            }
+            $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+            $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
+            return view('subjectCommittee::pages.applicant-profile-list', compact('datas','status','current_state','page','level','subject_committee'));
+        }else{
+            return redirect()->route('login');
+        }
+    }
+
     public function exam($status, $current_state)
     {
         if (Auth::user()->mainRole()->name === 'subject_committee') {
@@ -215,9 +257,10 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             $qualification = $this->qualificationRepository->getAll()->where('user_id','=',$data['user_id']);
             $profile_logs = $this->profileLogsRepository->getAll()->where('profile_id','=',$id);
             $subject_committee_logs = Profilelogs::join('subject_committee_user','subject_committee_user.user_id','=','profile_logs.created_by')
+                ->join('users','users.id','=','profile_logs.created_by')
                 ->where('profile_logs.state','subject_committee')
                 ->where('profile_logs.status','progress')
-                ->get(['profile_logs.*']);
+                ->get(['profile_logs.*','users.name as user_name']);
             $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id','=',$id)->first();
             $exams = $this->examProcessingRepository->getAll()->where('profile_id','=',$id);
             $exam = $this->examProcessingRepository->getAll()->where('profile_id','=',$id)->first();

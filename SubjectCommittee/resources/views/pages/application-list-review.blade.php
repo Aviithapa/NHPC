@@ -348,6 +348,44 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="info-box">
+                                    <div class="card tab-style1">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <td>State</td>
+                                        <td>Status</td>
+                                        <td>Remarks</td>
+                                        <td>Accepted By</td>
+                                        <td>Date</td>
+                                        <td>Time</td>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($subject_committee_logs as $profile_log)
+                                            <tr>
+                                                <td>{{$profile_log->state}}</td>
+                                                <td>{{$profile_log->status}}</td>
+                                                <td>{{$profile_log->remarks}}</td>
+                                                <td>{{$profile_log->user_name}}</td>
+                                                <td>{{$profile_log->created_at->toDateString()}}</td>
+                                                <td>{{$profile_log->created_at->toTimeString()}}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
                 @if($profile_processing->current_state === "subject_committee")
                     @if($current_user === null || $current_user->isEmpty())
                     <div class="row">

@@ -36,11 +36,11 @@
                         </a>
                     </li>
 
-{{--                    <li class="{{ (request()->is('subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/progress/council/5')) ? 'active':''  }}">--}}
-{{--                        <a href="{{route("subjectCommittee.applicant.profile.list", ['status'=> 'progress','current_state' => 'subject_committee', 'level' => '5'])}}">--}}
-{{--                            <i class="icon-badge"></i> <span>Verified Profile List <span class="badge badge-pill badge-danger"></span></span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
+                    <li class="{{ (request()->is('subjectCommittee/dashboard/subjectCommittee/applicant-profile-list/acceptedByMe/progress/subject_committee/*')) ? 'active':''  }}">
+                        <a href="{{route("subjectCommittee.applicant.profile.list.acceptedByMe", ['status'=> 'progress','current_state' => 'subject_committee', 'level' => '5'])}}">
+                            <i class="icon-badge"></i> <span>Accepted By Me <span class="badge badge-pill badge-danger"></span></span>
+                        </a>
+                    </li>
                 </ul>
             </li>
 
