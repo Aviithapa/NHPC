@@ -115,7 +115,7 @@
                                     @else
                                         {{++$page}}
 
-                                        <a href="{{route("subjectCommittee.applicant.acceptedByMe", ['status'=>  $status,'current_state' => $current_state,'level'=>$level, 'page'=> --$page])}} " class="previous">&laquo; Previous</a>
+                                        <a href="{{route("subjectCommittee.acceptedByMe", ['status'=>  $status,'current_state' => $current_state,'level'=>$level, 'page'=> --$page])}} " class="previous">&laquo; Previous</a>
                                     @endif
                                     <a href="{{route("subjectCommittee.acceptedByMe", ['status'=>  $status,'current_state' => $current_state,'level'=>$level, 'page'=> ++$page])}}" class="next">Next &raquo;</a>
                                 </div>
