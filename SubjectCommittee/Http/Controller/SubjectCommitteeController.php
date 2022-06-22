@@ -186,7 +186,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                         ->where('profile_logs.state', '!=', 'computer_operator')
                         ->where('profile_logs.state', '!=', 'officer')
                         ->where('profile_logs.state','=','subject_committee')
-                        ->where('profile_logs.created_by', '!=', Auth::user()->id)
+//                        ->where('profile_logs.created_by', '!=', Auth::user()->id)
                       ;
                 })
                 ->where('profile_processing.current_state',$current_state)
