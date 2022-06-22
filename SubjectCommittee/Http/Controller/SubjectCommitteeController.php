@@ -157,6 +157,10 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             $subject_Committee_id = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
             $level = $level ? $level : 1;
             $page = $page ? $page : 0;
+            $master_count = 0;
+            $bachelor_count = 0;
+            $pcl_count = 0;
+            $tslc_count = 0;
             $take = 100;
 //            $datas = [];
 //
@@ -197,6 +201,49 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 ->get(['profiles.*','program.name as program_name','profile_logs.created_by']);
 
 
+            $CountDatas= Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+                ->join('program','program.id','=','exam_registration.program_id')
+                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+                ->leftJoin('profile_logs', function ($join) {
+                    $join->on('profiles.id', '=', 'profile_logs.profile_id')
+//                ->where('profile_logs.created_by', '!=', Auth::user()->id)
+
+//                        ->where('profile_logs.status', '=', 'progress')
+                        ->where('profile_logs.state', '!=', 'computer_operator')
+                        ->where('profile_logs.state', '!=', 'officer')
+                        ->where('profile_logs.state','=','subject_committee')
+                        ->where('profile_logs.created_by', '!=', Auth::user()->id)
+                    ;
+                })
+                ->where('profile_processing.current_state',$current_state)
+//                ->where('profile_logs.created_by', '!=', Auth::user()->id)
+                ->where('profile_processing.status',$status)
+                ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
+                ->orderBy('profiles.created_at','ASC')
+//                ->skip($page * $take)
+//                ->take($take)
+//                ->count();
+                ->get(['profiles.*','program.name as program_name','profile_logs.created_by']);
+            foreach ($CountDatas as $data){
+                if($data->created_by != \Illuminate\Support\Facades\Auth::user()->id && $data->level == 5)
+                    $master_count = $master_count +1;
+            }
+            foreach ($CountDatas as $data){
+                if($data->created_by != \Illuminate\Support\Facades\Auth::user()->id)
+                    if( $data->level === 4)
+                    $bachelor_count = $bachelor_count +1;
+            }
+            foreach ($CountDatas as $data){
+                if($data->created_by != \Illuminate\Support\Facades\Auth::user()->id && $data->level == 3)
+                    $pcl_count = $pcl_count +1;
+            }
+            foreach ($CountDatas as $data){
+                if($data->created_by != \Illuminate\Support\Facades\Auth::user()->id && $data->level === 2)
+                    $tslc_count = $tslc_count +1;
+
+            }
+
+//            dd($master_count, $bachelor_count, $pcl_count, $tslc_count);
 //            foreach ($profiles as $data){
 //                $log = $this->profileLogsRepository->getAll()->where('profile_id', '=', $data['id'])
 //                    ->where('state', '=', $current_state)
@@ -215,7 +262,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
 //            dd($datas);
             $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
             $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
-            return view('subjectCommittee::pages.applicant-profile-list', compact('datas','status','current_state','page','level','subject_committee'));
+            return view('subjectCommittee::pages.applicant-profile-list', compact('datas','status','current_state','page','level','subject_committee',"master_count", "bachelor_count", "pcl_count", "tslc_count"));
         }else{
             return redirect()->route('login');
         }
