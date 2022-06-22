@@ -214,6 +214,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 ->get(['profiles.*','program.name as program_name']);
 
 
+
             foreach ($profiles as $data){
                 $log = $this->profileLogsRepository->getAll()->where('profile_id', '=', $data['id'])
                     ->where('state', '=', $current_state)
