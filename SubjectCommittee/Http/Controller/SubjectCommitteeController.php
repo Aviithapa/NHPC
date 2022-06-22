@@ -157,7 +157,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             $subject_Committee_id = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
             $level = $level ? $level : 1;
             $page = $page ? $page : 0;
-            $take = 1000;
+            $take = 200;
             $datas = [];
             $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
                 ->join('program','program.id','=','exam_registration.program_id')
