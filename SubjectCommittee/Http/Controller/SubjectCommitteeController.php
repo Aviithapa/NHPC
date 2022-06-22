@@ -211,7 +211,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
 //                        ->where('profile_logs.status', '=', 'progress')
                         ->where('profile_logs.state', '!=', 'computer_operator')
                         ->where('profile_logs.state', '!=', 'officer')
-                        ->where('profile_logs.state','=','subject_committee')
+//                        ->where('profile_logs.state','=','subject_committee')
                         ->where('profile_logs.created_by', '!=', Auth::user()->id)
                     ;
                 })
@@ -242,6 +242,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                     $tslc_count = $tslc_count +1;
 
             }
+//
 
 //            dd($master_count, $bachelor_count, $pcl_count, $tslc_count);
 //            foreach ($profiles as $data){

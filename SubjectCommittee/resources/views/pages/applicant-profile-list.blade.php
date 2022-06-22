@@ -64,7 +64,7 @@
                                         @foreach($datas as $data)
                                                 <tr>
                                                     @if($data->created_by != \Illuminate\Support\Facades\Auth::user()->id)
-                                                        @if( $data->created_by != 5394)
+
                                                     <td>{{$data->id}}</td>
                                                     <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
                                                     <td>{{$data->citizenship_number}}</td>
@@ -72,7 +72,6 @@
 
                                                     <td> {{$data->program_name}}</td>
                                                     <td> <a href="{{url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
-                                                       @endif
                                                         @endif
                                                 </tr>
                                         @endforeach
