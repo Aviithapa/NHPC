@@ -157,9 +157,9 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             $subject_Committee_id = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
             $level = $level ? $level : 1;
             $page = $page ? $page : 0;
-            $take = 200;
+            $take = 50;
             $datas = [];
-
+//
 //            $datas = Profilelogs::join('profiles','profiles.id','=','profile_logs.profile_id')
 //                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
 //                     ->where('profile_logs.state', '!=', $current_state)
@@ -174,7 +174,6 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
                 ->join('program','program.id','=','exam_registration.program_id')
                 ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-                ->join('profile_logs','profile_logs.profile_id','=','profiles.id')
                 ->where('profile_processing.current_state',$current_state)
                 ->where('profiles.level',$level)
                 ->where('profile_processing.status',$status)
@@ -192,9 +191,11 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                     ->where('created_by','=',Auth::user()->id)
                     ->first();
                 if (!$log) {
-                    $datas[] = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+                    $datas[]= Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
                         ->join('program','program.id','=','exam_registration.program_id')
                         ->where('profiles.id', '=', $data['id'])
+                        ->skip($page * $take)
+                        ->take($take)
                         ->get(['profiles.*','program.name as program_name']);
                 }
             }
