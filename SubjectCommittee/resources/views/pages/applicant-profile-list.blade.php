@@ -63,8 +63,12 @@
                                     @else
                                         @foreach($datas as $data)
                                                 <tr>
-                                                    @if($data->created_by != \Illuminate\Support\Facades\Auth::user()->id)
 
+
+                                                    @if($data->created_by != \Illuminate\Support\Facades\Auth::user()->id)
+{{--                                                    @if(!getAccepted($data->id))--}}
+
+{{--                                                        {{$data->created_by }}--}}
                                                     <td>{{$data->id}}</td>
                                                     <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
                                                     <td>{{$data->citizenship_number}}</td>

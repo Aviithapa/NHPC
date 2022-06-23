@@ -182,13 +182,21 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                     $join->on('profiles.id', '=', 'profile_logs.profile_id')
 //                ->where('profile_logs.created_by', '!=', Auth::user()->id)
 
-                        ->where('profile_logs.status', '!=', 'progress')
+//                        ->where('profile_logs.status', '=', 'progress')
+//                        ->where('profile_logs.state', '!=', 'computer_operator')
+//                        ->where('profile_logs.state', '!=', 'officer')
+//                        ->where('profile_logs.state','=','subject_committee')
+//                        ->where('profile_logs.review_status','!=','Successful')
+//                        ->where('profile_logs.created_by', '!=', Auth::user()->id)
+//                        ->orderBy('profile_logs_created_by')
+//                        ->first()
+
                         ->where('profile_logs.state', '!=', 'computer_operator')
                         ->where('profile_logs.state', '!=', 'officer')
+                        ->where('profile_logs.state', '!=', 'registrar')
                         ->where('profile_logs.state','=','subject_committee')
-                        ->where('profile_logs.review_status','!=','Successful')
-                        ->where('profile_logs.created_by', '!=', Auth::user()->id)
-//                        ->first()
+                        ->where('profile_logs.review_status','=','Successful')
+                        ->where('profile_logs.created_by', '=', Auth::user()->id)
                       ;
                 })
                 ->where('profile_processing.current_state',$current_state)
@@ -200,7 +208,16 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
 //                ->skip($page * $take)
 //                ->take($take)
 //                ->count();
-                ->get(['profiles.*','program.name as program_name','profile_logs.created_by']);
+                ->get(['profiles.*','program.name as program_name','profile_logs.created_by','profile_logs.state']);
+
+//dd($datas);
+//            foreach ($datas as $data){
+//                $log = $this->profileLogsRepository->getAll()->where('profile_id', '=', $data['id'])
+//                    ->where('state', '=', $current_state)
+//                    ->where('status', '=', $status)
+//                    ->where('created_by','=',Auth::user()->id)
+//                    ->first();
+//            }
 
 
             $CountDatas= Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
@@ -208,9 +225,14 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
                 ->leftJoin('profile_logs', function ($join) {
                     $join->on('profiles.id', '=', 'profile_logs.profile_id')
+//                    ->join('subject_committee_user','subject_committee_user.user_id','=','profile_logs.created_by')
+//                ->join('users','users.id','=','profile_logs.created_by')
+//                        ->where('profile_logs.state','subject_committee')
+//                        ->where('profile_logs.status','progress')
+//                        ->where('profile_logs.profile_id',$id)
 //                ->where('profile_logs.created_by', '!=', Auth::user()->id)
 
-//                        ->where('profile_logs.status', '=', 'progress')
+                        ->where('profile_logs.status', '=', 'progress')
                         ->where('profile_logs.state', '!=', 'computer_operator')
                         ->where('profile_logs.state', '!=', 'officer')
                         ->where('profile_logs.state','=','subject_committee')
@@ -286,12 +308,15 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 ->leftJoin('profile_logs', function ($join) {
                     $join->on('profiles.id', '=', 'profile_logs.profile_id')
 //                ->where('profile_logs.created_by', '!=', Auth::user()->id)
+//                        ->orOn("profile_logs.created_by",'users.phone');
 
 //                        ->where('profile_logs.status', '=', 'progress')
                         ->where('profile_logs.state', '!=', 'computer_operator')
                         ->where('profile_logs.state', '!=', 'officer')
+                        ->where('profile_logs.state', '!=', 'registrar')
                         ->where('profile_logs.state','=','subject_committee')
-//                        ->where('profile_logs.created_by', '!=', Auth::user()->id)
+                        ->where('profile_logs.created_by', '!=', Auth::user()->id)
+                        ->limit(1)
                     ;
                 })
                 ->where('profile_processing.current_state',$current_state)
@@ -302,7 +327,14 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 ->orderBy('profiles.created_at','ASC')
 //                ->skip($page * $take)
 //                ->take($take)
-                ->get(['profiles.*','program.name as program_name','profile_logs.created_by']);
+                ->get(['profiles.*','program.name as program_name','profile_processing.subject_committee_accepted_num as subject_committee_accepted_num']);
+
+//            if ($datas['subject_committee_accepted_num'] != 0) {
+//                $current_user = $this->profileLogsRepository->getAll()->where('created_by', '=', Auth::user()->id)
+//                    ->where('profile_id', '=', $id);;
+//            } else {
+//                $current_exam_user = null;
+//            }
 //            $datas = [];
 //            $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
 //                ->join('program','program.id','=','exam_registration.program_id')

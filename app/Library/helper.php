@@ -185,6 +185,16 @@ if (! function_exists('getCommitteeWiseStudentCount')) {
         return  $profiles;
     }
 }
+
+if(! function_exists('getAccepted')){
+    function getAccepted($id){
+        $current_user = $this->profileLogsRepository->getAll()->where('created_by', '=', Auth::user()->id)
+            ->where('status','progress')
+            ->where('profile_id', '=', $id);
+
+        return $current_user;
+    }
+}
 if (! function_exists('getLevelWiseStudentCountSubject')) {
     /**
      * Generates an asset path for the uploads.
