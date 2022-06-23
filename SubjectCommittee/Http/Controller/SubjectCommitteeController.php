@@ -182,11 +182,13 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                     $join->on('profiles.id', '=', 'profile_logs.profile_id')
 //                ->where('profile_logs.created_by', '!=', Auth::user()->id)
 
-//                        ->where('profile_logs.status', '=', 'progress')
+                        ->where('profile_logs.status', '!=', 'progress')
                         ->where('profile_logs.state', '!=', 'computer_operator')
                         ->where('profile_logs.state', '!=', 'officer')
                         ->where('profile_logs.state','=','subject_committee')
-//                        ->where('profile_logs.created_by', '!=', Auth::user()->id)
+                        ->where('profile_logs.review_status','!=','Successful')
+                        ->where('profile_logs.created_by', '!=', Auth::user()->id)
+//                        ->first()
                       ;
                 })
                 ->where('profile_processing.current_state',$current_state)
