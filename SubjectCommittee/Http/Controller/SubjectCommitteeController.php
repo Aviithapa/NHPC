@@ -307,95 +307,19 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
                 ->leftJoin('profile_logs', function ($join) {
                     $join->on('profiles.id', '=', 'profile_logs.profile_id')
-//                ->where('profile_logs.created_by', '!=', Auth::user()->id)
-
-//                        ->where('profile_logs.status', '=', 'progress')
-//                        ->where('profile_logs.state', '!=', 'computer_operator')
-//                        ->where('profile_logs.state', '!=', 'officer')
-//                        ->where('profile_logs.state','=','subject_committee')
-//                        ->where('profile_logs.review_status','!=','Successful')
-//                        ->where('profile_logs.created_by', '!=', Auth::user()->id)
-//                        ->orderBy('profile_logs_created_by')
-//                        ->first()
                         ->where('profile_logs.state','=','subject_committee')
                         ->where('profile_logs.review_status','=','Successful')
                         ->where('profile_logs.created_by', '=', Auth::user()->id)
                     ;
                 })
                 ->where('profile_processing.current_state',$current_state)
-//                ->where('profile_logs.created_by', '!=', Auth::user()->id)
                 ->where('profiles.level',$level)
                 ->where('profile_processing.status',$status)
                 ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
                 ->orderBy('profiles.created_at','ASC')
-//                ->skip($page * $take)
-//                ->take($take)
-//                ->count();
                 ->get(['profiles.*','program.name as program_name','profile_logs.created_by','profile_logs.state']);
 
 
-
-//            $datas= Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
-//                ->join('program','program.id','=','exam_registration.program_id')
-//                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-//                ->leftJoin('profile_logs', function ($join) {
-//                    $join->on('profiles.id', '=', 'profile_logs.profile_id')
-////                ->where('profile_logs.created_by', '!=', Auth::user()->id)
-////                        ->orOn("profile_logs.created_by",'users.phone');
-//
-////                        ->where('profile_logs.status', '=', 'progress')
-//                        ->where('profile_logs.state', '!=', 'computer_operator')
-//                        ->where('profile_logs.state', '!=', 'officer')
-//                        ->where('profile_logs.state', '!=', 'registrar')
-//                        ->where('profile_logs.state','=','subject_committee')
-//                        ->where('profile_logs.created_by', '!=', Auth::user()->id)
-//                        ->limit(1)
-//                    ;
-//                })
-//                ->where('profile_processing.current_state',$current_state)
-////                ->where('profile_logs.created_by', '=', Auth::user()->id)
-//                ->where('profiles.level',$level)
-//                ->where('profile_processing.status',$status)
-//                ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
-//                ->orderBy('profiles.created_at','ASC')
-////                ->skip($page * $take)
-////                ->take($take)
-//                ->get(['profiles.*','program.name as program_name','profile_processing.subject_committee_accepted_num as subject_committee_accepted_num']);
-
-//            if ($datas['subject_committee_accepted_num'] != 0) {
-//                $current_user = $this->profileLogsRepository->getAll()->where('created_by', '=', Auth::user()->id)
-//                    ->where('profile_id', '=', $id);;
-//            } else {
-//                $current_exam_user = null;
-//            }
-//            $datas = [];
-//            $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
-//                ->join('program','program.id','=','exam_registration.program_id')
-//                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-//                ->where('profile_processing.current_state',$current_state)
-//                ->where('profiles.level',$level)
-//                ->where('profile_processing.status',$status)
-//                ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
-//                ->orderBy('profiles.created_at','ASC')
-//                ->skip($page * $take)
-//                ->take($take)
-//                ->get(['profiles.*','program.name as program_name']);
-//
-//
-//
-//            foreach ($profiles as $data){
-//                $log = $this->profileLogsRepository->getAll()->where('profile_id', '=', $data['id'])
-//                    ->where('state', '=', $current_state)
-//                    ->where('status', '=', $status)
-//                    ->where('created_by','=',Auth::user()->id)
-//                    ->first();
-//                if ($log) {
-//                    $datas[] = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
-//                        ->join('program','program.id','=','exam_registration.program_id')
-//                        ->where('profiles.id', '=', $data['id'])
-//                        ->get(['profiles.*','program.name as program_name']);
-//                }
-//            }
             $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
             $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
             return view('subjectCommittee::pages.accepted-by-me', compact('datas','status','current_state','page','level','subject_committee'));
@@ -528,20 +452,10 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         $profileProcessing['current_state'] = "subject_committee";
         $profileProcessing['status'] = "progress";
         $subject_Committee = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
-//        $subject_Committee_number = SubjectCommitteeUser::where('subjecr_committee_id', '=', $subject_Committee['subjecr_committee_id'])->get();
-//        $wordCount = $subject_Committee_number->count();
-//        dd($wordCount);
         $id= $this->profileProcessingRepository->getAll()->where('profile_id' ,'=',$id)->first();
         $profile_processing = $id;
         if ($profile_processing['current_state'] === 'subject_committee'){
             $profile_processing->subject_committee_accepted_num ++;
-//            if($profile_processing->subject_committee_accepted_num < 3)
-//                $profileProcessing['subject_committee_accepted_num'] = $profile_processing->subject_committee_accepted_num + 1;
-//            else {
-//                $profileProcessing['remarks'] = 'Profile is forward to Exam Committee';
-//                $profileProcessing['review_status'] = 'Successful';
-//                $profileProcessing['current_state'] = 'exam_committee';
-//            }
         }
         $profileProcessings = $this->profileProcessingRepository->update($profileProcessing,$id['id']);
         if($profileProcessings == false)
@@ -664,6 +578,42 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         return view('subjectCommittee::pages.exam', compact('datas','subject_committee'));
     }
     public function moveCouncil(){
+        $subject_Committee = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        $subject_Committee_number = SubjectCommitteeUser::where('subjecr_committee_id', '=', $subject_Committee['subjecr_committee_id'])->get();
+        $subjectCommitteeCount = $subject_Committee_number->count();
+        $average = $subjectCommitteeCount / 2;
+        $datas = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','subject_committee')
+            ->where('profile_processing.status','progress')
+            ->where('profile_processing.subject_committee_accepted_num','>=',$average)
+            ->orderBy('profiles.created_at','ASC')
+            ->get(['profiles.*']);
+        $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
+        return view('subjectCommittee::pages.council', compact('datas','subject_committee'));
+    }
+
+
+    public function countSubjectCom(){
+
+        $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','subject_committee')
+            ->where('profile_processing.status','progress')
+            ->orderBy('profiles.created_at','ASC')
+            ->get(['profiles.*','profiles.id as profile_id']);
+
+        foreach ($profiles as $profile){
+            $logs = Profilelogs::all()->where('profile_id','=',$profile->profile_id)
+                ->where('state','=','subject_committee')
+                ->where('status','=','progress')
+                ->count();
+            dd($logs);
+        }
+
         $subject_Committee = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
         $subject_Committee_number = SubjectCommitteeUser::where('subjecr_committee_id', '=', $subject_Committee['subjecr_committee_id'])->get();
         $subjectCommitteeCount = $subject_Committee_number->count();
