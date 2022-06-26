@@ -595,6 +595,41 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         return view('subjectCommittee::pages.council', compact('datas','subject_committee'));
     }
 
+    public function moveCouncilPost(){
+        $subject_Committee = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        $subject_Committee_number = SubjectCommitteeUser::where('subjecr_committee_id', '=', $subject_Committee['subjecr_committee_id'])->get();
+        $subjectCommitteeCount = $subject_Committee_number->count();
+        $average = $subjectCommitteeCount / 2;
+        $datas = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('profile_processing.current_state','subject_committee')
+            ->where('profile_processing.status','progress')
+            ->where('profile_processing.subject_committee_accepted_num','>=',$average)
+            ->orderBy('profiles.created_at','ASC')
+            ->get(['profiles.*','profiles.id as profile_id']);
+
+        $exam['state'] = 'exam_committee';
+        $exam['status'] = 'progress';
+
+        $profile_processing['current_state'] = 'exam_committee';
+        $profile_processing['status'] = 'progress';
+
+        $profile['profile_state'] = 'exam_committee';
+        $profile['profile_status'] = 'Reviewing';
+        foreach ($datas as $data){
+            $exam_id = $this->examProcessingRepository->getAll()->where('profile_id','=',$data->profile_id)->first();
+            $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id','=',$data->profile_id)->first();
+            $this->profileRepository->update($profile,$data->profile_id);
+            $this->profileProcessingRepository->update($profile_processing,$profile_processing_id->id);
+            $this->examProcessingRepository->update($exam,$exam_id->id);
+            $this->ExamProcessingLog($exam, Auth::user()->id, $data->profile_id);
+            $this->profileLog($profile_processing);
+        }
+        $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
+        return view('subjectCommittee::pages.council', compact('datas','subject_committee'));
+    }
 
     public function countSubjectCom(){
 

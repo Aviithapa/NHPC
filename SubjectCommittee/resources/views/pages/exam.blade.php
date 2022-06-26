@@ -23,6 +23,12 @@
                             <div class="pull-right">
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-3 m-b-3">
+                                <a href="{{route("subjectCommittee.application.list.moveCouncilPost")}} mt-2"><i class="fa fa-book"></i>
+                                    Move to Exam </a>
+                            </div>
+                        </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
