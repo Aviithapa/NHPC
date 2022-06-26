@@ -121,17 +121,17 @@
                                         border-radius: 50%;
                                     }
                                 </style>
-                                <div class="pagination">
-                                    @if($page == 0)
-                                        <a href="" onclick="alert('No more paginated data')" class="previous">&laquo; Previous</a>
+{{--                                <div class="pagination">--}}
+{{--                                    @if($page == 0)--}}
+{{--                                        <a href="" onclick="alert('No more paginated data')" class="previous">&laquo; Previous</a>--}}
 
-                                    @else
-                                        {{++$page}}
+{{--                                    @else--}}
+{{--                                        {{++$page}}--}}
 
-                                        <a href="{{route("subjectCommittee.acceptedByMe", ['status'=>  $status,'current_state' => $current_state,'level'=>$level, 'page'=> --$page])}} " class="previous">&laquo; Previous</a>
-                                    @endif
-                                    <a href="{{route("subjectCommittee.acceptedByMe", ['status'=>  $status,'current_state' => $current_state,'level'=>$level, 'page'=> ++$page])}}" class="next">Next &raquo;</a>
-                                </div>
+{{--                                        <a href="{{route("subjectCommittee.acceptedByMe", ['status'=>  $status,'current_state' => $current_state,'level'=>$level, 'page'=> --$page])}} " class="previous">&laquo; Previous</a>--}}
+{{--                                    @endif--}}
+{{--                                    <a href="{{route("subjectCommittee.acceptedByMe", ['status'=>  $status,'current_state' => $current_state,'level'=>$level, 'page'=> ++$page])}}" class="next">Next &raquo;</a>--}}
+{{--                                </div>--}}
                             </div>
                             <!-- /.table-responsive -->
                         </div>

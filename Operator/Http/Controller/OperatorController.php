@@ -5,6 +5,7 @@ namespace Operator\Http\Controller;
 
 
 use App\Http\Controllers\MailController;
+use App\Models\Address\Provinces;
 use App\Models\Certificate\Certificate;
 use App\Models\Exam\ExamProcessing;
 use App\Models\Profile\ProfileProcessing;
@@ -16,6 +17,7 @@ use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepositor
 use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDetailsRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
+use Database\Seeders\District;
 use Illuminate\Support\Facades\Auth;
 use Krishnahimself\DateConverter\DateConverter;
 use Operator\Modules\Framework\Request;
@@ -569,6 +571,37 @@ class OperatorController extends BaseController
 
 
         return view('operator::pages.examStudentList',compact('datas'));
+    }
+
+    public  function updateCertificateIndex($certificate_id){
+        $certificate = Certificate::join('profiles','profiles.id','=','certificate_history.profile_id')
+            ->join('program','program.id','=','certificate_history.program_id')
+            ->join('provinces','provinces.id','=','profiles.development_region')
+            ->join('registrant_qualification','registrant_qualification.user_id','=','profiles.user_id')
+            ->where('certificate_history.id','=',$certificate_id)
+
+            ->where('registrant_qualification.level','=','2')
+            ->orderBy('certificate_history.id','ASC')
+            ->get(['certificate_history.*','certificate_history.name as certificate_name','certificate_history.program_name as certificate_program_name','profiles.*','program.name as Name_program','registrant_qualification.*','provinces.province_name','certificate_history.id as certificate_history_id'])->first();
+
+        $profile = $this->profileRepository->findById($certificate['profile_id']);
+        $province = Provinces::all();
+        return view('operator::pages.update-certificate', compact('certificate','profile','province'));
+    }
+    public  function updateCertificate(Request $request){
+        $data = $request->all();
+        try {
+            $id = $data['certificate_history_id'];
+            $profile= $this->certificateRepository->findById($id);
+            $certificate = $this->certificateRepository->update($data,$id);
+            $profileUpdate = $this->profileRepository->update($data,$profile['profile_id']);
+            session()->flash('success', 'Certificate data has been changed successfully');
+            return redirect()->back();
+//
+        } catch (\Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
     }
 }
 
