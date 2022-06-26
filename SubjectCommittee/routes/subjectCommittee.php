@@ -16,7 +16,7 @@ Route::post('/subjectCommittee/signatureImage', [\SubjectCommittee\Http\Controll
 
 Route::get('/subjectCommittee/exam', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "moveExam"])->middleware(['auth'])->name('subjectCommittee.application.list.exam');
 Route::get('/subjectCommittee/council', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "moveCouncil"])->middleware(['auth'])->name('subjectCommittee.application.list.council');
-Route::post('/subjectCommittee/moveCouncilPost', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "moveCouncilPost"])->middleware(['auth'])->name('subjectCommittee.application.list.moveCouncilPost');
+Route::get('/subjectCommittee/moveCouncilPost', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "moveCouncilPost"])->middleware(['auth'])->name('subjectCommittee.application.list.moveCouncilPost');
 
 Route::get('/search/student', [\SubjectCommittee\Http\Controller\SearchController::class, "index"])->middleware(['auth'])->name('subjectCommittee.search.student');
 Route::get('/search', [\SubjectCommittee\Http\Controller\SearchController::class, "search"])->middleware(['auth'])->name('search');

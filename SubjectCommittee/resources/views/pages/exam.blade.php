@@ -25,7 +25,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-3 m-b-3">
-                                <a href="{{route("subjectCommittee.application.list.moveCouncilPost")}} mt-2"><i class="fa fa-book"></i>
+                                <a href="{{route("subjectCommittee.application.list.moveCouncilPost")}}" class="btn btn-primary ml-3 mt-3"><i class="fa fa-book"></i>
                                     Move to Exam </a>
                             </div>
                         </div>
