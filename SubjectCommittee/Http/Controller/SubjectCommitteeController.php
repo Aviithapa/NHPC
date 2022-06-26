@@ -606,8 +606,8 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             ->orderBy('profiles.created_at','ASC')
             ->get(['profiles.*','profiles.id as profile_id']);
 
-        dd($profiles);
         foreach ($profiles as $profile){
+            dd($profile->profile_id);
             $logs = Profilelogs::all()->where('profile_id','=',$profile->profile_id)
                 ->where('state','=','subject_committee')
                 ->where('status','=','progress')
