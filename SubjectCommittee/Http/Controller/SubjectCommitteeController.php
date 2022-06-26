@@ -607,12 +607,15 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             ->get(['profiles.*','profiles.id as profile_id']);
 
         foreach ($profiles as $profile){
-            dd($profile->profile_id);
             $logs = Profilelogs::all()->where('profile_id','=',$profile->profile_id)
                 ->where('state','=','subject_committee')
                 ->where('status','=','progress')
                 ->count();
-            dd($logs);
+            $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id','=',$profile->profile_id)->first();
+            $data['subject_committee_accepted_num'] = $logs;
+            $he = $this->profileProcessingRepository->update($data, $profile_processing_id->id);
+            dd($he);
+
         }
 
         $subject_Committee = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
