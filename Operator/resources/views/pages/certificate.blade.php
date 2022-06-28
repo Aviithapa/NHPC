@@ -138,7 +138,7 @@
 
 <page size="A4" id="printContent" style="width: 21cm;
         height: 29.7cm;
-        font-family: Arial,serif;
+        font-family: 'Arial Black';
         ">
     <div class="printLayout" style="padding: 2.5rem 2rem;">
    <div class="header" style="text-align: center; font-weight: 500;">
@@ -189,24 +189,25 @@
     <p class="body" style=" text-align: justify;
         font-weight: 600;
         font-size: 20px;
-        margin-top: 10px;
-        line-height: 1.6;
+        margin-top: 50px;
+        line-height: 1.3;
         ">
-        Pursuant to the decision dated {{date('d-m-Y',strtotime($certificate->decision_date))}} of the Council, the name of
-        <span style="font-size: 22px;
-        font-weight: 700;"> {{ucwords(strtolower($certificate->certificate_name))}}</span> date of birth
-        <span style="font-size: 22px;
-        font-weight: 700;">{{date('Y-m-d',strtotime($profile->dob_nep))}}</span> a resident ward No. <span style="font-size: 22px;
-        font-weight: 700;">{{$profile->ward_no}}</span> of <span style="font-size: 22px;
+        Pursuant to the decision dated <span style="font-size: 26px;
+        font-weight: 600;">{{date('d-m-Y',strtotime($certificate->decision_date))}} </span>of the Council, the name of
+        <span style="font-size: 26px;
+        font-weight: 600;"> {{ucwords(strtolower($certificate->certificate_name))}}</span> date of birth
+        <span style="font-size: 26px;
+        font-weight: 700;">{{date('Y-m-d',strtotime($profile->dob_nep))}}</span> a resident ward No. <span style="font-size: 26px;
+        font-weight: 700;">{{$profile->ward_no}}</span> of <span style="font-size: 26px;
         font-weight: 700;">{{$profile->vdc_municiplality}}</span>
         Metropolitan City / Sub- Metropolitan City/Municipality/Rural Municipality
-        <span style="font-size: 22px;
-        font-weight: 700;">{{$certificate->district}}</span> District <span style="font-size: 22px;
+        <span style="font-size: 26px;
+        font-weight: 700;">{{$certificate->district}}</span> District <span style="font-size: 26px;
         font-weight: 700;">{{$certificate->province_name}}</span>
 
-        Province is registered as <span style="font-size: 22px;
+        Province is registered as <span style="font-size: 26px;
         font-weight: 700;">{{$certificate->certificate_program_name}}</span>
-        of <span style="font-size: 22px;
+        of <span style="font-size: 26px;
         font-weight: 700;">{{$certificate->level_name}}</span> Level
         in the registration book and this Registration Certificate is hereby
         issued in accordance with subsection (4) of section 17 of the Nepal
@@ -216,90 +217,95 @@
 
     <div class="footer" style="height: 130px; display: block;
        ">
-        <div class="left" style="font-weight: 700; line-height: 1.7;   text-align: left;
+        <div class="left" style="font-weight: 700; line-height: 1.2;   text-align: left;
         font-size:18px ;
         float: left;">
-            Registration No: <span style="        font-size: 22px;
+            Registration No: <span style="        font-size: 26px;
 "> {{$certificate->cert_registration_number}}</span><br>
-            Date of issue: <span style="        font-size: 22px;
+            Date of issue: <span style="        font-size: 26px;
 ">{{date('d-m-Y',strtotime($certificate->decision_date))}}</span><br>
             Seal of the Council:
         </div>
         <div class="right" style="font-weight: 600;
         text-align: center;
         font-size:22px ;
+        line-height: 1.2;
         float: right;">
-            <span style="font-size:22px; margin-right: 190px;">Signature:</span>  <br>
-             Name: <span style="font-weight: 700; font-size: 22px;
+            <span style="font-size:20px; margin-right: 190px;">Signature:</span>  <br>
+             Name: <span style="font-weight: 700; font-size: 26px;
             ">Puspa Raj Khanal</span> <br>
-            <span style="font-weight: 700; font-size: 22px;">Registrar</span>
+            <span style="font-weight: 700; font-size: 26px;">Registrar</span>
 
         </div>
     </div>
 
-    <div class="footer" style="text-align: center;">
+    <div class="footer" style="text-align: center; margin-top: 60px;">
         <span style="text-align: center; font-weight: bold; font-size: 14px;">Descriptions of Qualifications / Degree</span>
     </div>
-    <table style=" border: 1px solid black;
+        <style>
+            table, th, td {
+                border: 1px solid black;
+            }
+        </style>
+    <table style="
         text-align: center; border-collapse: collapse;
         width: 100%;">
-        <tr style=" border: 1px solid black;
-        text-align: center;         padding: 10px;
+        <tr style="
+        text-align: center;
 ">
-            <th style=" border: 1px solid black;
+            <th style="
         text-align: center; font-size:14px ;
-        font-weight: bold;  padding: 10px;
+        font-weight: bold;
 
 ">S.N</th>
-            <th style=" border: 1px solid black;
+            <th style="
         text-align: center; font-size:14px ;
-        font-weight: bold;         padding: 5px;
+        font-weight: bold;
 
 ">Qualification</th>
-            <th style=" border: 1px solid black;
+            <th style="
         text-align: center;font-size:14px ;
         font-weight: bold;
-         padding: 5px;
+
 ">Institution / University / Board</th>
-            <th style=" border: 1px solid black;
+            <th style="
         text-align: center; font-size:14px ;
         font-weight: bold;
-                padding: 5px;
+
 
 ">Passed Year</th>
         </tr>
-        <tr style=" border: 1px solid black;
-        text-align: center;         padding: 10px;
+        <tr style="
+        text-align: center;
+
 ">
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 22px;
-        font-weight: bold;         padding: 5px;
+        text-align: center;  font-size: 16px;
+        font-weight: bold;
 
 ">1</td>
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 22px;
+        text-align: center;  font-size: 16px;
         font-weight: bold;
-                padding: 5px;
 
 ">{{$certificate->certificate_program_name}}</td>
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 22px;
+        text-align: center;  font-size: 16px;
         font-weight: bold;
-                padding: 5px;
 
 " >CTEVT, Nepal</td>
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 22px;
+        text-align: center;  font-size: 16px;
         font-weight: bold;
-                padding: 5px;
 
 ">{{$certificate->passed_year}}</td>
         </tr>
         <tr style=" border: 1px solid black;
-        text-align: center;         padding: 10px;
+        text-align: center;         height: 15px;
 ">
             <td style=" border: 1px solid black;
         text-align: center;         padding: 10px;
+        height: 15px;
 "></td>
             <td style=" border: 1px solid black;
         text-align: center;         padding: 10px;
