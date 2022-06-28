@@ -564,8 +564,6 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             ->where('profile_processing.status','progress')
             ->where('profile_processing.subject_committee_accepted_num','=',2)
             ->orderBy('profiles.created_at','ASC')
-            ->skip(0)
-            ->take(20)
             ->get(['profiles.*','profiles.id as profile_id']);
 
         $exam['state'] = 'subject_committee';
