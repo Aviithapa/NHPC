@@ -22,3 +22,4 @@ Route::get('/search/student', [\SubjectCommittee\Http\Controller\SearchControlle
 Route::get('/search', [\SubjectCommittee\Http\Controller\SearchController::class, "search"])->middleware(['auth'])->name('search');
 Route::get('/countSubjectCom', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "countSubjectCom"])->middleware(['auth'])->name('countSubjectCom');
 Route::get('/backSubjectCommittee', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "backSubjectCommittee"])->middleware(['auth'])->name('backSubjectCommittee');
+Route::get('/rejectProfileName', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "rejectProfileName"])->middleware(['auth'])->name('rejectProfileName');

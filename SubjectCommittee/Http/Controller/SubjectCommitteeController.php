@@ -588,6 +588,19 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         return redirect()->back();
     }
 
+    public function rejectProfileName(){
+        $profile_logs = $this->profileLogsRepository->getAll()
+            ->where('status','=','rejected');
+
+        foreach ($profile_logs as $profile_log){
+            $user = $this->userRepository->findById($profile_log->created_by);
+            $data['remarks'] ="Profile rejected by ". $user->name ;
+            $this->profileLogsRepository->update($data, $profile_log->id);
+        }
+
+        return redirect()->back();
+    }
+
     public function countSubjectCom(){
 
         $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
