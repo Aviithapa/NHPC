@@ -220,7 +220,8 @@
         float: left;">
             Registration No: <span style="        font-size: 26px;
 "> {{$certificate->cert_registration_number}}</span><br>
-            Date of issue: {{date('d-m-Y',strtotime($certificate->decision_date))}}<br>
+            Date of issue: <span style="        font-size: 22px;
+            "> {{date('d-m-Y',strtotime($certificate->decision_date))}}</span><br>
             Seal of the Council:
         </div>
         <div class="right" style="font-weight: 600;
