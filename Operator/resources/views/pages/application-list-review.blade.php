@@ -157,6 +157,7 @@
                                                         <td>Remarks</td>
                                                         <td>Date</td>
                                                         <td>Time</td>
+                                                        <td>Created By</td>
                                                         </thead>
                                                         <tbody>
                                                         @foreach($profile_logs as $profile_log)
@@ -166,6 +167,7 @@
                                                                 <td>{{$profile_log->remarks}}</td>
                                                                 <td>{{$profile_log->created_at->toDateString()}}</td>
                                                                 <td>{{$profile_log->created_at->toTimeString()}}</td>
+                                                                <td>{{$profile_log->getUserName()}}</td>
                                                             </tr>
                                                         @endforeach
                                                         </tbody>
