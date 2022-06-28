@@ -198,7 +198,7 @@
         {{date('Y-m-d',strtotime($profile->dob_nep))}} a resident ward No. <span style="font-size: 26px;
         font-weight: 700;">{{$profile->ward_no}}</span> of <span style="font-size: 26px;
         font-weight: 700;">{{$profile->vdc_municiplality}}</span>
-        Metropolitan City / Sub- Metropolitan City/Municipality/Rural Municipality
+        Metropolitan City /Sub-Metropolitan City /Municipality /Rural Municipality
         <span style="font-size: 26px;
         font-weight: 700;">{{$certificate->district}}</span> District <span style="font-size: 26px;
         font-weight: 700;">{{$certificate->province_name}}</span>
@@ -230,9 +230,9 @@
         line-height: 1;
         float: right;">
             <span style="font-size:20px; margin-right: 190px;">Signature:</span>  <br>
-             Name: <span style="font-weight: 700; font-size: 26px;
+             Name: <span style="font-weight: 700; font-size: 20px;
             ">Puspa Raj Khanal</span> <br>
-            <span style="font-weight: 700; font-size: 26px;">Registrar</span>
+            <span style="font-weight: 700; font-size: 20px;">Registrar</span>
 
         </div>
     </div>
@@ -278,22 +278,22 @@
 
 ">
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 16px;
+        text-align: center;  font-size: 20px;
         font-weight: bold;
 
 ">1</td>
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 16px;
+        text-align: center;  font-size: 20px;
         font-weight: bold;
 
 ">{{$certificate->certificate_program_name}}</td>
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 16px;
+        text-align: center;  font-size: 20px;
         font-weight: bold;
 
 " >CTEVT, Nepal</td>
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 16px;
+        text-align: center;  font-size: 20px;
         font-weight: bold;
 
 ">{{$certificate->passed_year}}</td>
@@ -349,7 +349,7 @@
 {{--        </tr>--}}
     </table>
 
-    <hr style=" margin-top: 22px;
+    <hr style=" margin-top: 45px;
         border: 1px solid black;">
     <div class="footer" style="text-align: center;">
         <span style="text-align: center; font-weight: 600; font-size: 16px; word-spacing: 1.6;">Note: - This certificate should be updated in every five years, from the date of issue.</span>
