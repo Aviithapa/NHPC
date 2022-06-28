@@ -556,17 +556,13 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         return redirect()->back();
     }
 
-    public function backSubjectCommittee(Request $request){
-        $subject_Committee = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
-        $subject_Committee_number = SubjectCommitteeUser::where('subjecr_committee_id', '=', $subject_Committee['subjecr_committee_id'])->get();
-        $subjectCommitteeCount = $subject_Committee_number->count();
-        $average = $subjectCommitteeCount / 2;
+    public function backSubjectCommittee(){
         $datas = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
             ->join('program','program.id','=','exam_registration.program_id')
             ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-            ->where('profile_processing.current_state','subject_committee')
+            ->where('profile_processing.current_state','exam_committee')
             ->where('profile_processing.status','progress')
-            ->where('profile_processing.subject_committee_accepted_num','=',$average)
+            ->where('profile_processing.subject_committee_accepted_num','=',2)
             ->orderBy('profiles.created_at','ASC')
             ->skip(0)
             ->take(20)
