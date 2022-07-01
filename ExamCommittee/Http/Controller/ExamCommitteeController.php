@@ -27,7 +27,7 @@ use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
 use function Livewire\str;
 
-class ExamCommitteeController extends BaseController
+class  ExamCommitteeController extends BaseController
 {
     private  $log,$profileProcessing,
         $profileRepository, $userRepository,
@@ -75,19 +75,16 @@ class ExamCommitteeController extends BaseController
             ->where('state','=','exam_committee')
             ->groupBy('program_id','status','state')
             ->orderBy('count')
-//            ->where('exam_registration.status','=','progress')
-//            ->where('exam_registration.state','=','exam_committee')
             ->where('level_id', '<', 4)
             ->get();
-
-//        dd($tslc);
         return view('examCommittee::pages.dashboard',compact('programs','tslc'));
     }
 
-    public function generateAdmitCard($status,$current_state){
+    public function generateAdmitCard($status,$current_state, $program_id){
         $users = $this->examProcessingRepository->getAll()->where('status' ,'=',$status)
             ->where('state','=',$current_state)
             ->where('level_id', '<', 4)
+            ->where('program_id','=',$program_id)
             ->where('is_admit_card_generate', '!=' ,'yes');
         if ($users->isEmpty()){
             session()->flash('success','Admit Card Already Been Generated');
@@ -211,10 +208,10 @@ class ExamCommitteeController extends BaseController
 
     public function programWiseStudent($id){
         if (Auth::user()->mainRole()->name === 'exam_committee') {
-            $users = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
+            $data = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
                 ->where('state', '=', 'exam_committee')
                 ->where('program_id', '=' ,$id);
-            return $this->view('pages.program-wise-application-list', $users);
+            return view('examCommittee::pages.program-wise-application-list', compact('data','id'));
         }else{
             return redirect()->route('login');
         }

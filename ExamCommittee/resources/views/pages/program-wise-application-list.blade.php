@@ -24,7 +24,8 @@
                     <div class="box box-info">
                         <div class="row">
                             <div class="col-lg-12 m-b-3 ml-4">
-
+                                <a href="{{route("examCommittee.admit.card.generate", ['status'=> 'progress','current_state' => 'exam_committee', 'program_id' => $id])}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
+                                    Generate Admit Cards</a>
                             </div>
                         </div>
                         <!-- /.box-header -->
