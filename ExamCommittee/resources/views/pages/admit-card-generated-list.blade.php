@@ -51,7 +51,7 @@
                                     <td>Gender</td>
                                     <td>Program Name</td>
                                     <td>Level</td>
-                                    <td>Photo</td>
+{{--                                    <td>Photo</td>--}}
                                     <td>Action</td>
                                     </thead>
                                     <tbody>
@@ -71,7 +71,7 @@
                                                 <td>{{$exam->getGender()}}</td>
                                                 <td>{{$exam->getProgramName()}}</td>
                                                 <td>{{$exam->getLevelName()}}</td>
-                                                <td><img src="{{$exam->getProfileImage()}}" alt="Student Profile image" height="100" width="100"/></td>
+{{--                                                <td><img src="{{$exam->getProfileImage()}}" alt="Student Profile image" height="100" width="100"/></td>--}}
                                                 @if($exam['is_admit_card_generate'] === 'yes')
                                                     <td> <a href="{{route("examCommittee.view.admit.card",['id' =>$exam->id])}}"><span class="label label-success">View</span></a></td>
                                                 @endif
