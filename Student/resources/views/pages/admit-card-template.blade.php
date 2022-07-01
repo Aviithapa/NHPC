@@ -29,7 +29,7 @@
                                 <div class="col-lg-8 text-center align-content-center" style=" text-align: center; margin: auto;width: 60%; line-height: 0.4;">
                                 <h1 class="box-title text-black">नेपाल स्वास्थ्य व्यवसायी परिषद</h1><br>
                                 <h3 class="box-title text-black">स्वास्थ्य व्यवसायी नाम दर्ता प्रमाण–पत्र परीक्षा</h3><br>
-                                <h4 class="box-title text-black">२०७८</h4>
+                                <h4 class="box-title text-black">२०७९ </h4>
                                     <h4 class="box-title text-black">प्रवेश पत्र</h4>
                                 </div>
                         </div>
@@ -138,7 +138,7 @@
                                 <img class="img-responsive" width="100" height="100" style="left: 0%; position: absolute; padding-left: 3%; padding-top:-10px" src="https://nhpc.gov.np/beta//assets/img/nhpc_logo.jpg">
                                 <h2>नेपाल स्वास्थ्य व्यवसायी परिषद</h2>
                                 <h5>स्वास्थ्य व्यवसायी नाम दर्ता प्रमाण–पत्र परीक्षा</h5>
-                                <h5>२०७८</h5>
+                                <h5>२०७९ </h5>
                             </center>
                             <div style="display: flex; font-size: 16px; width:1050px">
                                 <p style="padding-left:30px;">कार्यालय प्रयोजनको लागि</p>
