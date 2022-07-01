@@ -83,7 +83,7 @@ class  ExamCommitteeController extends BaseController
     public function generateAdmitCard($status,$current_state, $program_id){
         $users = $this->examProcessingRepository->getAll()->where('status' ,'=',$status)
             ->where('state','=',$current_state)
-            ->where('level_id', '<', 4)
+//            ->where('level_id', '<', 4)
             ->where('program_id','=',$program_id)
             ->where('is_admit_card_generate', '!=' ,'yes');
         if ($users->isEmpty()){

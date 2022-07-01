@@ -40,7 +40,8 @@
                                    <div class="row">
                                        <div class="col-lg-8">
                                            <div style="width:60%; float: left;">
-                                                   <img src="https://nhpc.gov.np/beta/uploads/qrcode/Name:Amit T-Qrcode55.png">
+                                               {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(100)->generate($profile->getFullName() , $admit_card->symbol_number, $profile->dob_nep) !!}
+{{--                                                   <img src="https://nhpc.gov.np/beta/uploads/qrcode/Name:Amit T-Qrcode55.png">--}}
                                                    <p>रोल नम्बर<span style="padding-left:1em;">:
                                                            @if($admit_card)
                                                            {{$admit_card->symbol_number}}

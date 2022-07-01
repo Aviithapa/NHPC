@@ -250,6 +250,8 @@ return [
         \SuperAdmin\Providers\SuperAdminDependencyInjectionServiceProvider::class,
         \SuperAdmin\Providers\SuperAdminRouteServiceProvider::class,
         \SuperAdmin\Providers\SuperAdminServiceProvider::class,
+
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
     ],
 
     /*
@@ -307,7 +309,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
-
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ],
 
 ];
