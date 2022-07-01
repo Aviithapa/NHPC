@@ -45,6 +45,11 @@
                 </a>
             </li>
 
+            <li class="{{ (request()->is('examCommittee/dashboard/examCommittee/search/student')) ? 'active':''  }}">
+                <a href="{{route('examCommittee.export')}}" ><span class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
+                                    Export to csv File</span> </a>
+            </li>
+
 {{--            <li class="treeview"> <a href="#"> <i class="icon-grid"></i> <span>Applicant Profile</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--}}
 {{--                <ul class="treeview-menu">--}}
 {{--                    <li class="">--}}
