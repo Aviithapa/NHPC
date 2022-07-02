@@ -33,8 +33,14 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <fieldset class="form-group">
+                                        <label>Last Name</label>
+                                        <input name="last_name" class="form-control" id="basicInput" type="text" required>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-8">
+                                    <fieldset class="form-group">
                                         <label>
-                                            Date of Birth</label>
+                                            Date of Birth (YYYY-MM-DD) (Example:2045-12-12)<span style="color: red;">Please enter nepali date of birth</span></label>
                                         <input name="dob" class="form-control" id="basicInput"
                                                type="text">
                                     </fieldset>
