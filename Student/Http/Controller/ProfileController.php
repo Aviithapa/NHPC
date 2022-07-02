@@ -274,7 +274,7 @@ class ProfileController extends BaseController
 
     public function admitCardTemplate()
     {
-        $profile = $this->profileRepository->getAll()->where('user_id','=',25)->first();
+        $profile = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
         $admit_card = $this->admitCardRepository->getAll()->where('profile_id','=',$profile['id'])->first();
          if ($admit_card != null) {
             $exam_applied = $this->examProcessingRepository->getAll()->where('id', '=', $admit_card['exam_processing_id'])
