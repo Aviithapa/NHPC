@@ -99,7 +99,7 @@ class  ExamCommitteeController extends BaseController
             $darta_number = $index['darta_number'];
             foreach ($users as $user) {
                 $index = $i++;
-                $symbol_number = 22070334581 + $index;
+                $symbol_number = 22070219012 + $index;
                 $darta = ++$darta_number;
                 $data['profile_id'] = $user['profile_id'];
                 $data['exam_processing_id'] = $user['id'];
