@@ -292,6 +292,11 @@ class ProfileController extends BaseController
         $profile = $this->profileRepository->getAll()->where('dob_nep','=', $data['dob'])
             ->where('citizenship_number','=',$data['citizenship_number'])
             ->where('first_name','=',$data['first_name'])->first();
+
+        if($profile === null){
+            $data = "Error";
+            return view('student::pages.admit-download', compact('data'));
+         }
         $admit_card = $this->admitCardRepository->getAll()->where('profile_id','=',$profile['id'])->first();
         if ($admit_card != null) {
             $exam_applied = $this->examProcessingRepository->getAll()->where('id', '=', $admit_card['exam_processing_id'])
@@ -299,9 +304,14 @@ class ProfileController extends BaseController
         }else {
             $exam_applied = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->first();
         }
+
         return view('student::pages.admit-card-template',compact('profile','admit_card','exam_applied'));
     }
 
+    public function  admitCardPrintSection(){
+        return view('student::pages.admit-download');
+
+    }
 
 
     public function updateInformation(Request $request, $id){

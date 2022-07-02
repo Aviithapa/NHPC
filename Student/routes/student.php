@@ -32,3 +32,6 @@ Route::get('/address/municipality', [\Student\Http\Controller\ProfileController:
 Route::get('/link/certificate', [\Student\Http\Controller\CertificateController::class, 'index'])->middleware(['auth'])->name('certificate.index');
 Route::get('/link/certificate/form', [\Student\Http\Controller\CertificateController::class, 'edit'])->middleware(['auth'])->name('certificate.edit');
 Route::post('/link/certificate/validateCertificate', [\Student\Http\Controller\CertificateController::class, 'validateCertificate'])->middleware(['auth'])->name('certificate.validateCertificate');
+
+Route::get('/admit/card/print/index', [\Student\Http\Controller\ProfileController::class, 'admitCardPrintSection'])->middleware(['auth'])->name('admit.card.admitCardPrintSection');
+Route::post('/admit/card/print', [\Student\Http\Controller\ProfileController::class, 'admitCardRequestTemplate'])->middleware(['auth'])->name('admit.card.admitCardRequestTemplate');

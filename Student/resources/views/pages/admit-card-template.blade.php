@@ -170,7 +170,6 @@
                                     </p>
                                     <p>जन्ममिती<span style="padding-left:1em;"> :  {{$profile->dob_nep}}&nbsp; &nbsp; &nbsp;( AD : {{$profile->dob_eng}} ) </span></p>
                                     <p>ठेगाना, फोन नं.<span style="padding-left:1em;">: ,   </span></p>
-                                    <p>शिक्षण संस्थाको नाम<span style="padding-left:1em;">: INTERNATIONAL COLLEGE  </span></p>
                                     <p>विषयको नाम <span style="padding-left:1em;">:  {{$exam_applied->getProgramName()}} || तह :
                                                         {{$exam_applied->getLevelName()}} </span>
                                     </p>
