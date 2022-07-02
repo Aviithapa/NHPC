@@ -34,7 +34,7 @@
                                 </div>
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body container mt-3">
+                        <div class="box-body container mt-5">
                             <span>परीक्षार्थीको लागि</span>
                             <div class="student-admit-card-body mt-3" style="border: 1px solid #000; padding: 20px;height: 500px;">
                                    <div class="row">
@@ -137,7 +137,9 @@
 
                         </div>
 
-                        <div class="box-body container" style="margin-top: 30rem">
+                        <div style="height: 100px">
+                        </div>
+                        <div class="box-body container" >
                             <center style="line-height: .5;  font-size:16px">
                                 <img class="img-responsive" width="100" height="100" style="left: 0%; position: absolute; padding-left: 3%; padding-top:-10px" src="https://nhpc.gov.np/beta//assets/img/nhpc_logo.jpg">
                                 <h2>नेपाल स्वास्थ्य व्यवसायी परिषद</h2>
