@@ -231,7 +231,7 @@ class  ExamCommitteeController extends BaseController
     public function exportCsv(Request $request)
     {
         $fileName = 'tasks.csv';
-        $tasks = AdmitCard::all();
+//        $tasks = AdmitCard::all();
 
         $tasks = AdmitCard::join('profiles','profiles.id','=','admit_card.profile_id')
             ->join('exam_registration','exam_registration.id','=','admit_card.exam_processing_id')
@@ -246,7 +246,7 @@ class  ExamCommitteeController extends BaseController
             "Expires"             => "0"
         );
 
-        $columns = array('Full Name', 'Data of birth', 'Symbol Number', 'Father Name', 'Citizenship Number','Program Name');
+        $columns = array('Full Name', 'Data of birth', 'Symbol Number', 'Father Name', 'Citizenship Number','Program Name','Profile Id');
 
         $callback = function() use($tasks, $columns) {
             $file = fopen('php://output', 'w');
@@ -259,8 +259,9 @@ class  ExamCommitteeController extends BaseController
                 $row['father']  = $task->father_name;
                 $row['citizen']  = $task->citizenship_number;
                 $row['program']  = $task->name;
+                $row['profile_id'] = $task->profile_id;
 
-                fputcsv($file, array($row['Name'], $row['dob'], $row['symbol'], $row['father'], $row['citizen'], $row['program']));
+                fputcsv($file, array($row['Name'], $row['dob'], $row['symbol'], $row['father'], $row['citizen'], $row['program'], $row['profile_id']));
             }
 
             fclose($file);
