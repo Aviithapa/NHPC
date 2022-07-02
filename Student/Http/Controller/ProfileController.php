@@ -286,6 +286,24 @@ class ProfileController extends BaseController
     }
 
 
+    public function admitCardRequestTemplate(Request $request)
+    {
+        $data= $request->all();
+        $profile = $this->profileRepository->getAll()->where('dob_nep','=', $data['dob'])
+            ->where('citizenship_number','=',$data['citizenship_number'])
+            ->where('first_name','=',$data['first_name'])->first();
+        $admit_card = $this->admitCardRepository->getAll()->where('profile_id','=',$profile['id'])->first();
+        if ($admit_card != null) {
+            $exam_applied = $this->examProcessingRepository->getAll()->where('id', '=', $admit_card['exam_processing_id'])
+                ->where('profile_id', '=', $profile['id'])->first();
+        }else {
+            $exam_applied = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->first();
+        }
+        return view('student::pages.admit-card-template',compact('profile','admit_card','exam_applied'));
+    }
+
+
+
     public function updateInformation(Request $request, $id){
         $data = $request->all();
 //        $profileCheck = $this->profileRepository->findById($id);
