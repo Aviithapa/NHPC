@@ -42,11 +42,11 @@
                 <a href="{{route('admit.card.template')}}">
                     <i class="icon-book-open"></i> <span>Admit Card</span>
                 </a>
-            </li>       <li class="{{ (request()->is('student/dashboard/admit/card/template')) ? 'active' : '' }}">
-                <a href="{{route('admit.card.admitCardPrintSection')}}">
-                    <i class="icon-book-open"></i> <span>Admit Card</span>
-                </a>
-            </li>
+{{--            </li>       <li class="{{ (request()->is('student/dashboard/admit/card/template')) ? 'active' : '' }}">--}}
+{{--                <a href="{{route('admit.card.admitCardPrintSection')}}">--}}
+{{--                    <i class="icon-book-open"></i> <span>Admit Card</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
             @endif
             <li class="{{ (request()->is('student/dashboard/student/status/index/profile')) ? 'active' : '' }}">
                 <a href="{{route('status.index', ['status'=> 'profile'])}}">
