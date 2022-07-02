@@ -305,7 +305,7 @@ class ProfileController extends BaseController
             $exam_applied = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->first();
         }
 
-        return view('student::pages.admit-card-template',compact('profile','admit_card','exam_applied'));
+        return view('student::pages.admit-card-template-index',compact('profile','admit_card','exam_applied'));
     }
 
     public function  admitCardPrintSection(){
