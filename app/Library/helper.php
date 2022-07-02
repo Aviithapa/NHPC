@@ -41,6 +41,28 @@ if (! function_exists('examStudentCount')) {
         return $datas;
     }
 }
+
+if (! function_exists('checkStatus')) {
+    /**
+     * Generates an asset path for the uploads.
+     * @param null $path
+     * @param null $file_name
+     * @return string
+     */
+    function checkStatus($program_id)
+    {
+        $datas = ExamProcessing::all()->where('status','=','progress')
+            ->where('state','=','exam_committee')
+            ->where('state','=','exam_committee')
+            ->where('is_admit_card_generate', '=' ,'yes')
+        ->where('program_id','=',$program_id)
+            ->count();
+
+        return $datas;
+    }
+}
+
+
 if (! function_exists('getApplicantCount')) {
     /**
      * Generates an asset path for the uploads.

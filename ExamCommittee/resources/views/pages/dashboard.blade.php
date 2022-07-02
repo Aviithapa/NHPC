@@ -18,6 +18,8 @@
         <!-- Main content -->
         <div class="content">
 
+             <h4>Total Student Count for exam:            <b> {{$count}}</b>
+             </h4>
             <div class="row">
 {{--                @foreach($programs as $program)--}}
 {{--                <div class="col-lg-3 col-xs-6 m-b-3">--}}
@@ -37,8 +39,11 @@
 
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="info-box-content"> <span class="info-box-number">{{$exam->count}}</span>
-                                            <span class="info-box-text">{{$exam->getProgramName()}}</span> </div>
+                                        <div class="info-box-content"> <span class="info-box-number">Total Student: {{$exam->count}}</span>
+                                            Admit Card Generated: {{checkStatus($exam->program_id)}}
+                                            <a href="{{route("examCommittee.admit.card.generate", ['status'=> 'progress','current_state' => 'exam_committee', 'program_id' => $exam->program_id])}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
+                                                Generate Admit Cards</a>
+                                            <span class="info-box-text mt-3">{{$exam->getProgramName()}}</span> </div>
                                     </div>
                                 </div>
                             </a>

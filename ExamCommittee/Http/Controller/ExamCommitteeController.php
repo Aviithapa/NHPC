@@ -77,7 +77,11 @@ class  ExamCommitteeController extends BaseController
             ->orderBy('count')
             ->where('level_id', '<', 4)
             ->get();
-        return view('examCommittee::pages.dashboard',compact('programs','tslc'));
+        $count = ExamProcessing::all()->where('status','=','progress')
+            ->where('state','=','exam_committee')
+            ->count();
+
+        return view('examCommittee::pages.dashboard',compact('programs','tslc','count'));
     }
 
     public function generateAdmitCard($status,$current_state, $program_id){
@@ -223,6 +227,24 @@ class  ExamCommitteeController extends BaseController
                 ->where('state', '=', 'exam_committee')
                 ->where('is_admit_card_generate', '=' ,'yes');
             return $this->view('pages.admit-card-generated-list', $users);
+        }else{
+            return redirect()->route('login');
+        }
+    }
+
+
+    public function removeFlagGeneratedYes(){
+        if (Auth::user()->mainRole()->name === 'exam_committee') {
+            $users = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
+                ->where('state', '=', 'exam_committee')
+                ->where('is_admit_card_generate', '=' ,'yes');
+
+            foreach ($users as $user){
+                $data['is_admit_card_generate'] = 'no';
+                $this->examProcessingRepository->update($data,$user->id);
+            }
+            return $this->view('pages.admit-card-generated-list', $users);
+
         }else{
             return redirect()->route('login');
         }
