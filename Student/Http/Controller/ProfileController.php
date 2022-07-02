@@ -290,7 +290,6 @@ class ProfileController extends BaseController
     {
         $data= $request->all();
         $profile = $this->profileRepository->getAll()->where('dob_nep','=', $data['dob'])
-            ->where('citizenship_number','=',$data['citizenship_number'])
             ->where('first_name','=',$data['first_name'])->first();
 
         if($profile === null){

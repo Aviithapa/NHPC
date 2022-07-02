@@ -41,15 +41,6 @@
                                 </div>
 
                             </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <fieldset class="form-group">
-                                        <label>Citizenship Number *</label>
-                                        <input name="citizenship_number" class="form-control" id="basicInput" type="text" required>
-                                    </fieldset>
-                                </div>
-
-                            </div>
                             <button type="submit" class="btn btn-primary float-right"><i class="fa fa-check"></i> Download</button>
                         </form>
 
