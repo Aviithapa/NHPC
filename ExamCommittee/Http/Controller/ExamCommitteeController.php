@@ -269,7 +269,7 @@ class  ExamCommitteeController extends BaseController
             "Expires"             => "0"
         );
 
-        $columns = array('Full Name', 'Data of birth', 'Symbol Number', 'Father Name', 'Citizenship Number','Program Name','Profile Id', 'exam_processing_id');
+        $columns = array('Full Name', 'Data of birth', 'Symbol Number', 'Father Name', 'Citizenship Number','Program Name','Profile Id', 'exam_processing_id', 'photo_link');
 
         $callback = function() use($tasks, $columns) {
             $file = fopen('php://output', 'w');
@@ -284,8 +284,9 @@ class  ExamCommitteeController extends BaseController
                 $row['program']  = $task->name;
                 $row['profile_id'] = $task->profile_id;
                 $row['exam_processing_id'] = $task->exam_processing_id;
+                $row['photo_link'] = $task->profile_picture;
 
-                fputcsv($file, array($row['Name'], $row['dob'], $row['symbol'], $row['father'], $row['citizen'], $row['program'], $row['profile_id'],$row['exam_processing_id'] ));
+                fputcsv($file, array($row['Name'], $row['dob'], $row['symbol'], $row['father'], $row['citizen'], $row['program'], $row['profile_id'],$row['exam_processing_id'],$row['photo_link'] ));
             }
 
             fclose($file);
