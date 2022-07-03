@@ -284,7 +284,7 @@ class  ExamCommitteeController extends BaseController
                 $row['program']  = $task->name;
                 $row['profile_id'] = $task->profile_id;
                 $row['exam_processing_id'] = $task->exam_processing_id;
-                $row['photo_link'] = $task->profile_picture;
+                $row['photo_link'] = 'http://103.175.192.52/storage/documents/'.$task->profile_picture;
 
                 fputcsv($file, array($row['Name'], $row['dob'], $row['symbol'], $row['father'], $row['citizen'], $row['program'], $row['profile_id'],$row['exam_processing_id'],$row['photo_link'] ));
             }
