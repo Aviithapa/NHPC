@@ -286,11 +286,9 @@ class ProfileController extends BaseController
     }
 
 
-    public function admitCardRequestTemplate(Request $request)
+    public function admitCardProfileId($id)
     {
-        $data= $request->all();
-        $profile = $this->profileRepository->getAll()->where('dob_nep','=', $data['dob'])
-            ->where('first_name','=',$data['first_name'])->first();
+         $profile = $this->profileRepository->findById($id);
 
         if($profile === null){
             $data = "Error";
@@ -310,6 +308,33 @@ class ProfileController extends BaseController
 
         return view('student::pages.admit-card-template-index',compact('profile','admit_card','exam_applied'));
     }
+
+
+    public function admitCardRequestTemplate(Request $request)
+    {
+        $data= $request->all();
+        $profile = $this->profileRepository->getAll()->where('dob_nep','=', $data['dob'])
+            ->where('first_name','=',$data['first_name'])->first();
+
+        if($profile === null){
+            $data = "Error";
+            return view('student::pages.admit-download', compact('data'));
+        }
+        $admit_card = $this->admitCardRepository->getAll()->where('profile_id','=',$profile['id'])->first();
+        if ($admit_card === null){
+            $data = "Error";
+            return view('student::pages.admit-download', compact('data'));
+        }
+        if ($admit_card != null) {
+            $exam_applied = $this->examProcessingRepository->getAll()->where('id', '=', $admit_card['exam_processing_id'])
+                ->where('profile_id', '=', $profile['id'])->first();
+        }else {
+            $exam_applied = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->first();
+        }
+
+        return view('student::pages.admit-card-template-index',compact('profile','admit_card','exam_applied'));
+    }
+
 
     public function  admitCardPrintSection(){
         return view('student::pages.admit-download');
