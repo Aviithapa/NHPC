@@ -276,7 +276,7 @@ class  ExamCommitteeController extends BaseController
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
             foreach ($tasks as $task) {
-                $row['first_name']  = $task->first_name  . $task->last_name;
+                $row['first_name']  = $task->first_name ;
                 $row['middle_name']  =  $task->middle_name;
                 $row['last_name']  = $task->last_name;
                 $row['dob']    = $task->dob_nep;
