@@ -269,14 +269,16 @@ class  ExamCommitteeController extends BaseController
             "Expires"             => "0"
         );
 
-        $columns = array('Full Name', 'Data of birth', 'Symbol Number', 'Father Name', 'Citizenship Number','Program Name','Profile Id', 'exam_processing_id', 'photo_link');
+        $columns = array('First Name','Middle Name','Last Name', 'Data of birth', 'Symbol Number', 'Father Name', 'Citizenship Number','Program Name','Profile Id', 'exam_processing_id', 'photo_link');
 
         $callback = function() use($tasks, $columns) {
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
 
             foreach ($tasks as $task) {
-                $row['Name']  = $task->first_name . $task->middle_name . $task->last_name;
+                $row['first_name']  = $task->first_name  . $task->last_name;
+                $row['middle_name']  =  $task->middle_name;
+                $row['last_name']  = $task->last_name;
                 $row['dob']    = $task->dob_nep;
                 $row['symbol']    = $task->symbol_number;
                 $row['father']  = $task->father_name;
@@ -286,7 +288,7 @@ class  ExamCommitteeController extends BaseController
                 $row['exam_processing_id'] = $task->exam_processing_id;
                 $row['photo_link'] = 'http://103.175.192.52/storage/documents/'.$task->profile_picture;
 
-                fputcsv($file, array($row['Name'], $row['dob'], $row['symbol'], $row['father'], $row['citizen'], $row['program'], $row['profile_id'],$row['exam_processing_id'],$row['photo_link'] ));
+                fputcsv($file, array($row['first_name'],      $row['middle_name'],$row['last_name'], $row['dob'], $row['symbol'], $row['father'], $row['citizen'], $row['program'], $row['profile_id'],$row['exam_processing_id'],$row['photo_link'] ));
             }
 
             fclose($file);
