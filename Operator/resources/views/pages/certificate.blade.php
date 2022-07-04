@@ -195,7 +195,7 @@
         Pursuant to the decision dated {{date('d-m-Y',strtotime($certificate->decision_date))}} of the Council, the name of
         <span style="font-size: 26px;
         font-weight: 600;"> {{ucwords(strtolower($certificate->certificate_name))}}</span> date of birth 2058-02-29
-{{--        {{date('Y-m-d',strtotime($profile->dob_nep))}}--}}
+        {{date('Y-m-d',strtotime($profile->dob_nep))}}
         a resident ward No. <span style="font-size: 26px;
         font-weight: 700;">{{$profile->ward_no}}</span> of <span style="font-size: 26px;
         font-weight: 700;">{{$profile->vdc_municiplality}}</span>
