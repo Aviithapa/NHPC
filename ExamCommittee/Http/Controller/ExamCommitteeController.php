@@ -272,8 +272,8 @@ class  ExamCommitteeController extends BaseController
         $columns = array('First Name','Middle Name','Last Name', 'Data of birth', 'Symbol Number', 'Father Name', 'Citizenship Number','Program Name','Profile Id', 'exam_processing_id', 'photo_link');
 
         $callback = function() use($tasks, $columns) {
-            $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
+            $file = fopen('php://output', 'w');
 
             foreach ($tasks as $task) {
                 $row['first_name']  = $task->first_name  . $task->last_name;
