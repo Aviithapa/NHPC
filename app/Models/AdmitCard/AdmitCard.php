@@ -23,6 +23,16 @@ class AdmitCard extends Model
             return '';
         }
     }
+
+    public function getImage(){
+        if(isset($this->getProfile->profile_picture)) {
+            return Storage::url('documents/' .$this->getProfile->profile_picture);
+        }
+        else {
+            return imageNotFound();
+        }
+    }
+
     public function getCitizenshipNumber(){
         if(isset($this->getProfile->first_name)) {
             return $this->getProfile->first_name;

@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-lg-4">
                             <fieldset class="form-group">
-                                <input class="form-control" id="search" name="search"  type="text" placeholder="Type Here" required>
+                                <input class="form-control" id="search" name="search"  type="text" placeholder="Symbol Number" required>
                             </fieldset>
                         </div>
                         <!-- /.box-header -->
@@ -79,7 +79,6 @@
                 url : '{{URL::to('examCommittee/dashboard/examCommittee/search')}}',
                 data:{'search':value},
                 success:function(data){
-                    console.log(" The data is" + data);
                     $('#tbody').html(data);
                 }
             });

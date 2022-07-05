@@ -71,8 +71,6 @@ class SearchController extends BaseController
             $profile = "";
             $products = AdmitCard::all()->where('symbol_number', 'LIKE', '%' . $request->search . "%")->get();
 
-
-            dd($products);
             foreach ($products as $pro){
                 $profile = $this->profileRepository->getAll()->where('id','=', $pro['profile_id']);
             }
@@ -87,10 +85,10 @@ class SearchController extends BaseController
                 foreach ($profile as $key => $admit_card) {
                     $output .= '<tr>' .
                         '<td>' . $admit_card->first_name . '</td>' .
-//                        '<td>' . $admit_card->getProfile->citizenship_number . '</td>' .
-//                        '<td>' . $admit_card->getProfile()->dob_nep . '</td>' .
-//                        '<td>' . $admit_card->symbol_number . '</td>' .
-//                        '<td><a href='.url("officer/dashboard/officer/applicant-list-view/".$product->id).'><span class="label label-success">View</span></a> </td>' .
+                        '<td>' . $admit_card->getProfile->citizenship_number . '</td>' .
+                        '<td>' . $admit_card->getProfile()->dob_nep . '</td>' .
+                        '<td>' . $admit_card->symbol_number . '</td>' .
+                        '<td><a href='.url("officer/dashboard/officer/applicant-list-view/".$admit_card->id).'><span class="label label-success">View</span></a> </td>' .
                         '</tr>';
                 }
                 return Response($output);
