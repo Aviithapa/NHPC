@@ -84,8 +84,8 @@ class SearchController extends BaseController
             if ($profile) {
                 foreach ($profile as $key => $admit_card) {
                     $output .= '<tr>' .
-                        '<td>' . $admit_card->first_name . '</td>' .
-                        '<td>' . $admit_card->getProfile->citizenship_number . '</td>' .
+                        '<td>' . $admit_card->getFirstName() . '</td>' .
+                        '<td>' . $admit_card->getCitizenshipNumber() . '</td>' .
                         '<td>' . $admit_card->getProfile()->dob_nep . '</td>' .
                         '<td>' . $admit_card->symbol_number . '</td>' .
                         '<td><a href='.url("officer/dashboard/officer/applicant-list-view/".$admit_card->id).'><span class="label label-success">View</span></a> </td>' .
