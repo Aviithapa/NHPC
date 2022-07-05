@@ -59,13 +59,30 @@
                                  <div class="col-lg-12">
                                      <form method="POST">
                                          <div class="row">
-                                             <div class="col-md-6">
-                                                 <div class="col-md-12">
+                                                 <div class="col-md-4">
                                                      <div id="results">Your captured image will appear here...</div>
+                                                     <div id="my_camera"></div>
+                                                     <input type=button value="Start Camera" onClick="startCamera()">
                                                  </div>
-                                                 <input type=button value="Start Camera" onClick="startCamera()">
-
-                                                 <div id="my_camera"></div>
+                                                 <div class="col-md-4">
+                                                     Left Thumb:<br />
+                                                     <div style="border:dotted 1px; padding:2px; margin:5px; height: 15rem">
+                                                         <img id="imgFinger" width="145px" height="188px" alt="Finger Image" />
+                                                         <input type="hidden" name="thumb" id="thumb_left">
+                                                         <!-- <input type="button" id="start-camera" value="Start Camera" class="btn btn-primary">
+                                                         <video id="video" width="320" height="240" autoplay></video> -->
+                                                     </div>
+                                                 </div>
+                                                 <div class="col-md-4">
+                                                     Right Thumb:<br />
+                                                     <div style="border:dotted 1px; padding:2px; margin:5px; height: 15rem">
+                                                         <img id="imgFingerright" width="145px" height="188px" alt="Finger Image" />
+                                                         <input type="hidden" name="thumb2" id="thumb_right">
+                                                         <!-- <input type="button" id="click-photo" value="Click Photo" class="btn btn-primary">
+                                                         <canvas id="canvas" width="320" height="240"></canvas>
+                                                         <input type="hidden" id='webcam' type="text" class='form-control' name='webcam'> -->
+                                                     </div>
+                                                 </div>
                                                  <br/>
 
 
@@ -201,7 +218,7 @@
         }
     </script>
 
-    <script language="javascript" type="text/javascript">
+    <script type="text/javascript">
 
 
         var quality = 60; //(1 to 100) (recommanded minimum 55)
@@ -224,27 +241,35 @@
 
             var res;
             if (key.length == 0) {
-                res = GetMFS100Info();
+                $.ajax({
+                    url:"https://localhost:8003/mfs100/info",
+                    type: "GET",
+                    async: false,
+                    success: function (data) {
+                        res = data;
+                        console.log(res);
+                    }
+                })
             }
             else {
                 res = GetMFS100KeyInfo(key);
             }
 
-            if (res.httpStaus) {
+            if (res) {
 
-                document.getElementById('txtStatus').value = "ErrorCode: " + res.data.ErrorCode + " ErrorDescription: " + res.data.ErrorDescription;
+                document.getElementById('txtStatus').value = "ErrorCode: " + res.ErrorCode + " ErrorDescription: " + res.ErrorDescription;
 
-                if (res.data.ErrorCode == "0") {
-                    document.getElementById('tdSerial').innerHTML = res.data.DeviceInfo.SerialNo;
-                    document.getElementById('tdCertification').innerHTML = res.data.DeviceInfo.Certificate;
-                    document.getElementById('tdMake').innerHTML = res.data.DeviceInfo.Make;
-                    document.getElementById('tdModel').innerHTML = res.data.DeviceInfo.Model;
-                    document.getElementById('tdWidth').innerHTML = res.data.DeviceInfo.Width;
-                    document.getElementById('tdHeight').innerHTML = res.data.DeviceInfo.Height;
-                    document.getElementById('tdLocalMac').innerHTML = res.data.DeviceInfo.LocalMac;
-                    document.getElementById('tdLocalIP').innerHTML = res.data.DeviceInfo.LocalIP;
-                    document.getElementById('tdSystemID').innerHTML = res.data.DeviceInfo.SystemID;
-                    document.getElementById('tdPublicIP').innerHTML = res.data.DeviceInfo.PublicIP;
+                if (res.ErrorCode == "0") {
+                    document.getElementById('tdSerial').innerHTML = res.DeviceInfo.SerialNo;
+                    document.getElementById('tdCertification').innerHTML = res.DeviceInfo.Certificate;
+                    document.getElementById('tdMake').innerHTML = res.DeviceInfo.Make;
+                    document.getElementById('tdModel').innerHTML = res.DeviceInfo.Model;
+                    document.getElementById('tdWidth').innerHTML = res.DeviceInfo.Width;
+                    document.getElementById('tdHeight').innerHTML = res.DeviceInfo.Height;
+                    document.getElementById('tdLocalMac').innerHTML = res.DeviceInfo.LocalMac;
+                    document.getElementById('tdLocalIP').innerHTML = res.DeviceInfo.LocalIP;
+                    document.getElementById('tdSystemID').innerHTML = res.DeviceInfo.SystemID;
+                    document.getElementById('tdPublicIP').innerHTML = res.DeviceInfo.PublicIP;
                 }
             }
             else {
@@ -258,21 +283,25 @@
                 document.getElementById('txtStatus').value = "";
                 document.getElementById('imgFinger').src = "data:image/bmp;base64,";
                 document.getElementById('txtImageInfo').value = "";
-                // document.getElementById('txtIsoTemplate').value = "";
-                // document.getElementById('txtAnsiTemplate').value = "";
-                // document.getElementById('txtIsoImage').value = "";
-                // document.getElementById('txtRawData').value = "";
-                // document.getElementById('txtWsqData').value = "";
 
-                var res = CaptureFinger(quality, timeout);
-                if (res.httpStaus) {
+                res = null;
+                $.ajax({
+                    url:"https://localhost:8003/mfs100/info",
+                    type: "GET",
+                    async: false,
+                    success: function (data) {
+                        res = data;
+                    }
+                });
+                console.log("This is ", res);
+                if (res) {
 
-                    document.getElementById('txtStatus').value = "ErrorCode: " + res.data.ErrorCode + " ErrorDescription: " + res.data.ErrorDescription;
+                    document.getElementById('txtStatus').value = "ErrorCode: " + res.ErrorCode + " ErrorDescription: " + res.ErrorDescription;
 
-                    if (res.data.ErrorCode == "0") {
-                        document.getElementById('imgFinger').src = "data:image/bmp;base64," + res.data.BitmapData;
-                        document.getElementById('thumb_left').value = "data:image/bmp;base64," + res.data.BitmapData;
-                        var imageinfo = "Quality: " + res.data.Quality + " Nfiq: " + res.data.Nfiq + " W(in): " + res.data.InWidth + " H(in): " + res.data.InHeight + " area(in): " + res.data.InArea + " Resolution: " + res.data.Resolution + " GrayScale: " + res.data.GrayScale + " Bpp: " + res.data.Bpp + " WSQCompressRatio: " + res.data.WSQCompressRatio + " WSQInfo: " + res.data.WSQInfo;
+                    if (res.ErrorCode == "0") {
+                        // document.getElementById('imgFinger').src = "data:image/bmp;base64," + res.BitmapData;
+                        document.getElementById('thumb_left').value = "data:image/bmp;base64," + res.BitmapData;
+                        var imageinfo = "Quality: " + res.Quality + " Nfiq: " + res.Nfiq + " W(in): " + res.InWidth + " H(in): " + res.InHeight + " area(in): " + res.InArea + " Resolution: " + res.Resolution + " GrayScale: " + res.GrayScale + " Bpp: " + res.Bpp + " WSQCompressRatio: " + res.WSQCompressRatio + " WSQInfo: " + res.WSQInfo;
                         document.getElementById('txtImageInfo').value = imageinfo;
                         // document.getElementById('txtIsoTemplate').value = res.data.IsoTemplate;
                         // document.getElementById('txtAnsiTemplate').value = res.data.AnsiTemplate;
@@ -282,7 +311,7 @@
                     }
                 }
                 else {
-                    alert(res.err);
+                    alert("Error");
                 }
             }
             catch (e) {
