@@ -46,22 +46,46 @@
                                          </div>
                                      </div>
                                  </div>
-                                 <div class="col-lg-7">
+                                 </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="info-box">
+                        <div class="card tab-style1">
+                            <div class="row">
+                                 <div class="col-lg-12">
                                      <form method="POST">
                                          <div class="row">
                                              <div class="col-md-6">
+                                                 <div class="col-md-12">
+                                                     <div id="results">Your captured image will appear here...</div>
+                                                 </div>
                                                  <input type=button value="Start Camera" onClick="startCamera()">
 
                                                  <div id="my_camera"></div>
                                                  <br/>
-                                                 <input type=button value="Take Snapshot" onClick="take_snapshot()">
-                                                 <input type="hidden" name="image" class="image-tag">
-                                                 <input type="submit" id="btnCapture" value="Capture Left" class="btn btn-primary btn-100" onclick="return Capture()" />
-                                                 <input type="submit" id="btnCapture" value="Capture Right" class="btn btn-primary btn-100" onclick="return Capture_right()" />
+
 
                                              </div>
-                                             <div class="col-md-6">
-                                                 <div id="results">Your captured image will appear here...</div>
+                                             <div class="row">
+                                                 <div class="col-md-4">
+                                                     <input type=button value="Take Snapshot" onClick="take_snapshot()">
+
+                                                     <input type="hidden" name="image" class="image-tag">
+
+                                                 </div>
+                                                 <div class="col-md-4">
+                                                     <input type="submit" id="btnCapture" value="Capture Left" class="btn btn-primary btn-100" onclick="return Capture()" />
+
+                                                 </div>
+                                                 <div class="col-md-4">
+                                                     <input type="submit" id="btnCapture" value="Capture Right" class="btn btn-primary btn-100" onclick="return Capture_right()" />
+
+                                                 </div>
+
                                              </div>
                                              <div class="col-md-12 text-center">
                                                  <br/>

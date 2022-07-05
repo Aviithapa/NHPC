@@ -69,26 +69,19 @@ class SearchController extends BaseController
         if($request->ajax()) {
             $output = "";
             $profile = "";
-            $products = AdmitCard::all()->where('symbol_number', 'LIKE', '%' . $request->search . "%")->get();
 
-            foreach ($products as $pro){
-                $profile = $this->profileRepository->getAll()->where('id','=', $pro['profile_id']);
-            }
-//            $products = DB::table('profiles')->where('first_name', 'LIKE', '%' . $request->search . "%")
-//                ->orwhere('last_name', 'LIKE', '%' . $request->search . "%")
-//                ->orwhere('middle_name', 'LIKE', '%' . $request->search . "%")
-//                ->orwhere('dob_nep', 'LIKE', '%' . $request->search . "%")
-//                ->orwhere('profile_status', 'LIKE', '%' . $request->search . "%")
-//                ->orwhere('citizenship_number', 'LIKE', '%' . $request->search . "%")
-//                ->get();
+
+            $products = DB::table('admit_card')
+                ->where('symbol_number', 'LIKE', '%' . $request->search . "%")
+                ->get();
             if ($products) {
                 foreach ($products as $key => $admit_card) {
                     $output .= '<tr>' .
-                        '<td>' . $admit_card->getFirstName() . '</td>' .
-                        '<td>' . $admit_card->getCitizenshipNumber() . '</td>' .
-//                        '<td>' . $admit_card->getProfile()->dob_nep . '</td>' .
+//                        '<td>' . $admit_card->getFirstName() . '</td>' .
+//                        '<td>' . $admit_card->getCitizenshipNumber() . '</td>' .
+//                        '<td>' . $admit_card->getProfile() . '</td>' .
                         '<td>' . $admit_card->symbol_number . '</td>' .
-                        '<td><a href='.url("officer/dashboard/officer/applicant-list-view/".$admit_card->id).'><span class="label label-success">View</span></a> </td>' .
+                        '<td><a href='.route("examCommittee.view.admit.card",['id' =>$admit_card->id]).'><span class="label label-success">View</span></a> </td>' .
                         '</tr>';
                 }
                 return Response($output);
