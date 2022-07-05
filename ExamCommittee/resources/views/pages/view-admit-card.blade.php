@@ -115,79 +115,78 @@
                         </div>
                     </div>
                 </div>
+                <!-- Default box -->
+                <div class="card card-solid">
+                    <div class="card-body pb-0">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>Check Thumd Device</h4>
+                                <input type="submit" id="btnInfo" value="Get Info" class="btn btn-primary btn-100" onclick="return GetInfo()" />
+                                <table align="left" border="0" style="width:100%; padding-right:20px;">
+                                    <tr>
+                                        <td style="width: 100px;">Key:</td>
+                                        <td colspan="3">
+                                            <input type="text" value="" id="txtKey" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" style="width: 100px;">Serial No:</td>
+                                        <td align="left" style="width: 150px;" id="tdSerial"></td>
+                                        <td align="left" style="width: 100px;">Certification:</td>
+                                        <td align="left" id="tdCertification"></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">Make:</td>
+                                        <td align="left" id="tdMake"></td>
+                                        <td align="left">Model:</td>
+                                        <td align="left" id="tdModel"></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">Width:</td>
+                                        <td align="left" id="tdWidth"></td>
+                                        <td align="left">Height:</td>
+                                        <td align="left" id="tdHeight"></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">Local IP</td>
+                                        <td align="left" id="tdLocalIP"></td>
+                                        <td align="left">Local MAC:</td>
+                                        <td align="left" id="tdLocalMac"></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left">Public IP</td>
+                                        <td align="left" id="tdPublicIP"></td>
+                                        <td align="left">System ID</td>
+                                        <td align="left" id="tdSystemID"></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="220px">
+                                            Status:
+                                        </td>
+                                        <td>
+                                            <input type="text" value="" id="txtStatus" class="form-control" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Quality:
+                                        </td>
+                                        <td>
+                                            <input type="text" value="" id="txtImageInfo" class="form-control" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- /.content -->
         <!-- /.content -->
 
         <!-- Modal -->
-        <section class="content">
-            <!-- Default box -->
-            <div class="card card-solid">
-                <div class="card-body pb-0">
-                    <div class="row">
-                        <div class="col-12">
-                            <h4>Check Thumd Device</h4>
-                            <input type="submit" id="btnInfo" value="Get Info" class="btn btn-primary btn-100" onclick="return GetInfo()" />
-                            <table align="left" border="0" style="width:100%; padding-right:20px;">
-                                <tr>
-                                    <td style="width: 100px;">Key:</td>
-                                    <td colspan="3">
-                                        <input type="text" value="" id="txtKey" class="form-control" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="width: 100px;">Serial No:</td>
-                                    <td align="left" style="width: 150px;" id="tdSerial"></td>
-                                    <td align="left" style="width: 100px;">Certification:</td>
-                                    <td align="left" id="tdCertification"></td>
-                                </tr>
-                                <tr>
-                                    <td align="left">Make:</td>
-                                    <td align="left" id="tdMake"></td>
-                                    <td align="left">Model:</td>
-                                    <td align="left" id="tdModel"></td>
-                                </tr>
-                                <tr>
-                                    <td align="left">Width:</td>
-                                    <td align="left" id="tdWidth"></td>
-                                    <td align="left">Height:</td>
-                                    <td align="left" id="tdHeight"></td>
-                                </tr>
-                                <tr>
-                                    <td align="left">Local IP</td>
-                                    <td align="left" id="tdLocalIP"></td>
-                                    <td align="left">Local MAC:</td>
-                                    <td align="left" id="tdLocalMac"></td>
-                                </tr>
-                                <tr>
-                                    <td align="left">Public IP</td>
-                                    <td align="left" id="tdPublicIP"></td>
-                                    <td align="left">System ID</td>
-                                    <td align="left" id="tdSystemID"></td>
-                                </tr>
-                                <tr>
-                                    <td width="220px">
-                                        Status:
-                                    </td>
-                                    <td>
-                                        <input type="text" value="" id="txtStatus" class="form-control" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Quality:
-                                    </td>
-                                    <td>
-                                        <input type="text" value="" id="txtImageInfo" class="form-control" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
 
     </div>
 
@@ -286,9 +285,10 @@
 
                 res = null;
                 $.ajax({
-                    url:"https://localhost:8003/mfs100/info",
-                    type: "GET",
+                    url:"https://localhost:8003/mfs100/capture",
+                    type: "POST",
                     async: false,
+                    data: {quality, timeout},
                     success: function (data) {
                         res = data;
                     }

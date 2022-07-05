@@ -270,26 +270,94 @@ class  ExamCommitteeController extends BaseController
             "Expires"             => "0"
         );
 
-        $columns = array('First Name','Middle Name','Last Name', 'Data of birth', 'Symbol Number', 'Father Name', 'Citizenship Number','Program Name','Profile Id', 'exam_processing_id', 'photo_link');
+        $columns = array('registration_id','created_at','updated_at','deleted_at','created_by','update_by','deleted_by',
+
+
+
+            'First Name','Middle Name','Last Name',  'Symbol Number', 'gender','Program_Name', 'level','photo_link',
+
+
+
+            'bar_code','exam_center','vdc','phone_id','DOB','year_dob_nepali_data','month_dob_nepali_data',
+            'day_dob_nepali_data','student_signature', 'collage','webcam', 'thumb', 'thumb2','email',
+            'phone_no','result','percentage','year','month');
 
         $callback = function() use($tasks, $columns) {
 
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
             foreach ($tasks as $task) {
+                $row['registration_id'] = $task->profile_id;
+                $row['created_at'] = $task->created_at;
+                $row['updated_at'] = $task->updated_at;
+                $row['deleted_at'] = null;
+                $row['created_by'] = 2;
+                $row['updated_by'] = 2;
+                $row['deleted_by'] = 0;
                 $row['first_name']  = $task->first_name ;
                 $row['middle_name']  =  $task->middle_name;
                 $row['last_name']  = $task->last_name;
-                $row['dob']    = $task->dob_nep;
                 $row['symbol']    = $task->symbol_number;
-                $row['father']  = $task->father_name;
-                $row['citizen']  = $task->citizenship_number;
+                $row['gender']    = $task->gender;
                 $row['program']  = $task->name;
-                $row['profile_id'] = $task->profile_id;
-                $row['exam_processing_id'] = $task->exam_processing_id;
+                $row['level'] = null;
                 $row['photo_link'] = 'http://103.175.192.52/storage/documents/'.$task->profile_picture;
+                $row['bar_code'] = null;
+                $row['exam_center'] = null;
+                $row['vdc'] = $task->vdc_municiplality;
+                $row['phone_id'] = null;
+                $row['dob']    = $task->dob_nep;
+                $row['year_dob_nepali_data'] = null;
+                $row['month_dob_nepali_data'] = null;
+                $row['day_dob_nepali_data'] = null;
+                $row['student_signature'] = null;
+                $row['collage'] = null;
+                $row['webcam'] = null;
+                $row['thumb'] = null;
+                $row['thumb2'] = null;
+                $row['email'] = $task->email;
+                $row['phone_no'] = $task->phone_number;
+                $row['result'] = null;
+                $row['percentage'] = null;
+                $row['year'] = null;
+                $row['month'] = null;
 
-                fputcsv($file, array($row['first_name'],      $row['middle_name'],$row['last_name'], $row['dob'], $row['symbol'], $row['father'], $row['citizen'], $row['program'], $row['profile_id'],$row['exam_processing_id'],$row['photo_link'] ));
+
+                fputcsv($file, array(
+                    $row['registration_id'] ,
+                    $row['created_at'] ,
+                    $row['updated_at'],
+                    $row['deleted_at'] ,
+                    $row['created_by'] ,
+                    $row['updated_by'] ,
+                    $row['deleted_by'],
+                    $row['first_name'],
+                    $row['middle_name'],
+                    $row['last_name'],
+                    $row['symbol']   ,
+                    $row['gender']   ,
+                    $row['program'] ,
+                    $row['level'] ,
+                    $row['photo_link'] ,
+                    $row['bar_code'] ,
+                    $row['exam_center'] ,
+                    $row['vdc'] ,
+                    $row['phone_id'] ,
+                    $row['dob']    ,
+                    $row['year_dob_nepali_data'] ,
+                    $row['month_dob_nepali_data'] ,
+                    $row['day_dob_nepali_data'],
+                    $row['student_signature'],
+                    $row['collage'] ,
+                    $row['webcam'] ,
+                    $row['thumb'],
+                    $row['thumb2'] ,
+                    $row['email'] ,
+                    $row['phone_no'] ,
+                    $row['result'] ,
+                    $row['percentage'] ,
+                    $row['year'] ,
+                    $row['month']  ));
             }
 
             fclose($file);
