@@ -70,10 +70,8 @@ class SearchController extends BaseController
             $output = "";
             $profile = "";
             $products= AdmitCard::join('profiles','profiles.id','=','admit_card.profile_id')
-                ->join('exam_registration','exam_registration.id','=','admit_card.exam_processing_id')
-                ->join('program','program.id','=','exam_registration.program_id')
                 ->where('admit_card.symbol_number', 'LIKE', '%' . $request->search . "%")
-                ->get(['admit_card.id as admit_id']);
+                ->get(['admit_card.*','admit_card.id as admit_id','profiles.*']);
 
             if ($products) {
                 foreach ($products as   $admit_card) {
@@ -83,7 +81,7 @@ class SearchController extends BaseController
                         '<td>' . $admit_card->citizenship_number . '</td>' .
                         '<td>' . $admit_card->dob_nep . '</td>' .
                         '<td>' . $admit_card->symbol_number . '</td>' .
-                        '<td><a href='.route("examCommittee.view.admit.card",['id' =>$admit_card->admit_id]).'><span class="label label-success">View</span></a> </td>' .
+                        '<td><a href='.route("examCommittee.view.admit.card",['id' =>$admit_card->exam_processing_id]).'><span class="label label-success">View</span></a> </td>' .
                         '</tr>';
                 }
                 return Response($output);

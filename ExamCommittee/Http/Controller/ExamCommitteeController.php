@@ -143,6 +143,7 @@ class  ExamCommitteeController extends BaseController
         if (Auth::user()->mainRole()->name === 'exam_committee') {
 
             $admitcard = $this->admitCardRepository->getAll()->where('exam_processing_id', '=', $id)->first();
+
             $profileDetails = $this->profileRepository->findById($admitcard['profile_id']);
             $exam = $this->examProcessingRepository->findById($admitcard['exam_processing_id']);
 
