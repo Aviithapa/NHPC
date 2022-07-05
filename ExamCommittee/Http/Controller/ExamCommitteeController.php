@@ -260,7 +260,10 @@ class  ExamCommitteeController extends BaseController
         $tasks = AdmitCard::join('profiles','profiles.id','=','admit_card.profile_id')
             ->join('exam_registration','exam_registration.id','=','admit_card.exam_processing_id')
             ->join('program','program.id','=','exam_registration.program_id')
-            ->get();
+            ->join('level','level.id','=','program.level_id')
+            ->join('users','users.id','=','profiles.user_id')
+            ->get(['level.name as level_name','admit_card.*','profiles.*','program.*','users.email as email','users.phone_number as phone_number']);
+
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -271,14 +274,8 @@ class  ExamCommitteeController extends BaseController
         );
 
         $columns = array('registration_id','created_at','updated_at','deleted_at','created_by','update_by','deleted_by',
-
-
-
-            'First Name','Middle Name','Last Name',  'Symbol Number', 'gender','Program_Name', 'level','photo_link',
-
-
-
-            'bar_code','exam_center','vdc','phone_id','DOB','year_dob_nepali_data','month_dob_nepali_data',
+            'first_name','middle_name','last_name',  'symbol_number', 'gender','program', 'level','photo_link',
+            'barcode','exam_center','vdc_municipality_english','phone_id','DOB','year_dob_nepali_data','month_dob_nepali_data',
             'day_dob_nepali_data','student_signature', 'collage','webcam', 'thumb', 'thumb2','email',
             'phone_no','result','percentage','year','month');
 
@@ -288,19 +285,19 @@ class  ExamCommitteeController extends BaseController
             fputcsv($file, $columns);
             foreach ($tasks as $task) {
                 $row['registration_id'] = $task->profile_id;
-                $row['created_at'] = $task->created_at;
-                $row['updated_at'] = $task->updated_at;
+                $row['created_at'] = "2021-12-21 09:51:53";
+                $row['updated_at'] = "2021-12-21 09:51:53";
                 $row['deleted_at'] = null;
-                $row['created_by'] = 2;
-                $row['updated_by'] = 2;
+                $row['created_by'] = 1;
+                $row['updated_by'] = 1;
                 $row['deleted_by'] = 0;
                 $row['first_name']  = $task->first_name ;
                 $row['middle_name']  =  $task->middle_name;
                 $row['last_name']  = $task->last_name;
                 $row['symbol']    = $task->symbol_number;
-                $row['gender']    = $task->gender;
+                $row['gender']    = $task->sex;
                 $row['program']  = $task->name;
-                $row['level'] = null;
+                $row['level'] = $task->level_name;
                 $row['photo_link'] = 'http://103.175.192.52/storage/documents/'.$task->profile_picture;
                 $row['bar_code'] = null;
                 $row['exam_center'] = null;
@@ -344,7 +341,7 @@ class  ExamCommitteeController extends BaseController
                     $row['vdc'] ,
                     $row['phone_id'] ,
                     $row['dob']    ,
-                    $row['year_dob_nepali_data'] ,
+                    $row['year_dob_nepali_data'],
                     $row['month_dob_nepali_data'] ,
                     $row['day_dob_nepali_data'],
                     $row['student_signature'],
