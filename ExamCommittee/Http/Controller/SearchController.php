@@ -69,17 +69,19 @@ class SearchController extends BaseController
         if($request->ajax()) {
             $output = "";
             $profile = "";
-
-
-            $products = DB::table('admit_card')
-                ->where('symbol_number', 'LIKE', '%' . $request->search . "%")
+            $products= AdmitCard::join('profiles','profiles.id','=','admit_card.profile_id')
+                ->join('exam_registration','exam_registration.id','=','admit_card.exam_processing_id')
+                ->join('program','program.id','=','exam_registration.program_id')
+                ->where('admit_card.symbol_number', 'LIKE', '%' . $request->search . "%")
                 ->get();
+
             if ($products) {
-                foreach ($products as $key => $admit_card) {
+                foreach ($products as   $admit_card) {
+
                     $output .= '<tr>' .
-//                        '<td>' . $admit_card->getFirstName() . '</td>' .
-//                        '<td>' . $admit_card->getCitizenshipNumber() . '</td>' .
-//                        '<td>' . $admit_card->getProfile() . '</td>' .
+                        '<td>' . $admit_card->first_name . ' '. $admit_card->middle_name . ' '.$admit_card->last_name. '</td>' .
+                        '<td>' . $admit_card->citizenship_number . '</td>' .
+                        '<td>' . $admit_card->dob_nep . '</td>' .
                         '<td>' . $admit_card->symbol_number . '</td>' .
                         '<td><a href='.route("examCommittee.view.admit.card",['id' =>$admit_card->id]).'><span class="label label-success">View</span></a> </td>' .
                         '</tr>';

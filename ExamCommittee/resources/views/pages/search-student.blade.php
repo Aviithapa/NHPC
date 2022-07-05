@@ -40,7 +40,7 @@
                                         <th>Name</th>
                                         <th>Citizenship</th>
                                         <th>Date of birth</th>
-                                        <th>Profile Status</th>
+                                        <th>Symbol Number</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -72,7 +72,6 @@
     <script type="text/javascript">
         $('#search').on('keyup',function(){
             var value=$(this).val();
-            console.log(value);
             $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
             $.ajax({
                 type : 'Get',
