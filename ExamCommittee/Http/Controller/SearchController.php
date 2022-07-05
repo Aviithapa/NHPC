@@ -81,12 +81,12 @@ class SearchController extends BaseController
 //                ->orwhere('profile_status', 'LIKE', '%' . $request->search . "%")
 //                ->orwhere('citizenship_number', 'LIKE', '%' . $request->search . "%")
 //                ->get();
-            if ($profile) {
-                foreach ($profile as $key => $admit_card) {
+            if ($products) {
+                foreach ($products as $key => $admit_card) {
                     $output .= '<tr>' .
                         '<td>' . $admit_card->getFirstName() . '</td>' .
                         '<td>' . $admit_card->getCitizenshipNumber() . '</td>' .
-                        '<td>' . $admit_card->getProfile()->dob_nep . '</td>' .
+//                        '<td>' . $admit_card->getProfile()->dob_nep . '</td>' .
                         '<td>' . $admit_card->symbol_number . '</td>' .
                         '<td><a href='.url("officer/dashboard/officer/applicant-list-view/".$admit_card->id).'><span class="label label-success">View</span></a> </td>' .
                         '</tr>';
