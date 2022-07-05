@@ -56,6 +56,9 @@
                                                  <br/>
                                                  <input type=button value="Take Snapshot" onClick="take_snapshot()">
                                                  <input type="hidden" name="image" class="image-tag">
+                                                 <input type="submit" id="btnCapture" value="Capture Left" class="btn btn-primary btn-100" onclick="return Capture()" />
+                                                 <input type="submit" id="btnCapture" value="Capture Right" class="btn btn-primary btn-100" onclick="return Capture_right()" />
+
                                              </div>
                                              <div class="col-md-6">
                                                  <div id="results">Your captured image will appear here...</div>
@@ -77,7 +80,75 @@
         <!-- /.content -->
 
         <!-- Modal -->
-     </div>
+        <section class="content">
+            <!-- Default box -->
+            <div class="card card-solid">
+                <div class="card-body pb-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>Check Thumd Device</h4>
+                            <input type="submit" id="btnInfo" value="Get Info" class="btn btn-primary btn-100" onclick="return GetInfo()" />
+                            <table align="left" border="0" style="width:100%; padding-right:20px;">
+                                <tr>
+                                    <td style="width: 100px;">Key:</td>
+                                    <td colspan="3">
+                                        <input type="text" value="" id="txtKey" class="form-control" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" style="width: 100px;">Serial No:</td>
+                                    <td align="left" style="width: 150px;" id="tdSerial"></td>
+                                    <td align="left" style="width: 100px;">Certification:</td>
+                                    <td align="left" id="tdCertification"></td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Make:</td>
+                                    <td align="left" id="tdMake"></td>
+                                    <td align="left">Model:</td>
+                                    <td align="left" id="tdModel"></td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Width:</td>
+                                    <td align="left" id="tdWidth"></td>
+                                    <td align="left">Height:</td>
+                                    <td align="left" id="tdHeight"></td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Local IP</td>
+                                    <td align="left" id="tdLocalIP"></td>
+                                    <td align="left">Local MAC:</td>
+                                    <td align="left" id="tdLocalMac"></td>
+                                </tr>
+                                <tr>
+                                    <td align="left">Public IP</td>
+                                    <td align="left" id="tdPublicIP"></td>
+                                    <td align="left">System ID</td>
+                                    <td align="left" id="tdSystemID"></td>
+                                </tr>
+                                <tr>
+                                    <td width="220px">
+                                        Status:
+                                    </td>
+                                    <td>
+                                        <input type="text" value="" id="txtStatus" class="form-control" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Quality:
+                                    </td>
+                                    <td>
+                                        <input type="text" value="" id="txtImageInfo" class="form-control" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
 
 
     @endsection
@@ -103,6 +174,123 @@
                 document.getElementById('results').innerHTML = '<img src="'+data_uri+'"/>';
             } );
             Webcam.stop();
+        }
+    </script>
+
+    <script language="javascript" type="text/javascript">
+
+
+        var quality = 60; //(1 to 100) (recommanded minimum 55)
+        var timeout = 10; // seconds (minimum=10(recommanded), maximum=60, unlimited=0 )
+
+        function GetInfo() {
+            document.getElementById('tdSerial').innerHTML = "";
+            document.getElementById('tdCertification').innerHTML = "";
+            document.getElementById('tdMake').innerHTML = "";
+            document.getElementById('tdModel').innerHTML = "";
+            document.getElementById('tdWidth').innerHTML = "";
+            document.getElementById('tdHeight').innerHTML = "";
+            document.getElementById('tdLocalMac').innerHTML = "";
+            document.getElementById('tdLocalIP').innerHTML = "";
+            document.getElementById('tdSystemID').innerHTML = "";
+            document.getElementById('tdPublicIP').innerHTML = "";
+
+
+            var key = document.getElementById('txtKey').value;
+
+            var res;
+            if (key.length == 0) {
+                res = GetMFS100Info();
+            }
+            else {
+                res = GetMFS100KeyInfo(key);
+            }
+
+            if (res.httpStaus) {
+
+                document.getElementById('txtStatus').value = "ErrorCode: " + res.data.ErrorCode + " ErrorDescription: " + res.data.ErrorDescription;
+
+                if (res.data.ErrorCode == "0") {
+                    document.getElementById('tdSerial').innerHTML = res.data.DeviceInfo.SerialNo;
+                    document.getElementById('tdCertification').innerHTML = res.data.DeviceInfo.Certificate;
+                    document.getElementById('tdMake').innerHTML = res.data.DeviceInfo.Make;
+                    document.getElementById('tdModel').innerHTML = res.data.DeviceInfo.Model;
+                    document.getElementById('tdWidth').innerHTML = res.data.DeviceInfo.Width;
+                    document.getElementById('tdHeight').innerHTML = res.data.DeviceInfo.Height;
+                    document.getElementById('tdLocalMac').innerHTML = res.data.DeviceInfo.LocalMac;
+                    document.getElementById('tdLocalIP').innerHTML = res.data.DeviceInfo.LocalIP;
+                    document.getElementById('tdSystemID').innerHTML = res.data.DeviceInfo.SystemID;
+                    document.getElementById('tdPublicIP').innerHTML = res.data.DeviceInfo.PublicIP;
+                }
+            }
+            else {
+                alert(res.err);
+            }
+            return false;
+        }
+
+        function Capture() {
+            try {
+                document.getElementById('txtStatus').value = "";
+                document.getElementById('imgFinger').src = "data:image/bmp;base64,";
+                document.getElementById('txtImageInfo').value = "";
+                // document.getElementById('txtIsoTemplate').value = "";
+                // document.getElementById('txtAnsiTemplate').value = "";
+                // document.getElementById('txtIsoImage').value = "";
+                // document.getElementById('txtRawData').value = "";
+                // document.getElementById('txtWsqData').value = "";
+
+                var res = CaptureFinger(quality, timeout);
+                if (res.httpStaus) {
+
+                    document.getElementById('txtStatus').value = "ErrorCode: " + res.data.ErrorCode + " ErrorDescription: " + res.data.ErrorDescription;
+
+                    if (res.data.ErrorCode == "0") {
+                        document.getElementById('imgFinger').src = "data:image/bmp;base64," + res.data.BitmapData;
+                        document.getElementById('thumb_left').value = "data:image/bmp;base64," + res.data.BitmapData;
+                        var imageinfo = "Quality: " + res.data.Quality + " Nfiq: " + res.data.Nfiq + " W(in): " + res.data.InWidth + " H(in): " + res.data.InHeight + " area(in): " + res.data.InArea + " Resolution: " + res.data.Resolution + " GrayScale: " + res.data.GrayScale + " Bpp: " + res.data.Bpp + " WSQCompressRatio: " + res.data.WSQCompressRatio + " WSQInfo: " + res.data.WSQInfo;
+                        document.getElementById('txtImageInfo').value = imageinfo;
+                        // document.getElementById('txtIsoTemplate').value = res.data.IsoTemplate;
+                        // document.getElementById('txtAnsiTemplate').value = res.data.AnsiTemplate;
+                        // document.getElementById('txtIsoImage').value = res.data.IsoImage;
+                        // document.getElementById('txtRawData').value = res.data.RawData;
+                        // document.getElementById('txtWsqData').value = res.data.WsqImage;
+                    }
+                }
+                else {
+                    alert(res.err);
+                }
+            }
+            catch (e) {
+                alert(e);
+            }
+            return false;
+        }
+
+        function Capture_right() {
+            try {
+                document.getElementById('txtStatus').value = "";
+                document.getElementById('imgFingerright').src = "data:image/bmp;base64,";
+                document.getElementById('txtImageInfo').value = "";
+
+                var res = CaptureFinger(quality, timeout);
+                if (res.httpStaus) {
+
+                    document.getElementById('txtStatus').value = "ErrorCode: " + res.data.ErrorCode + " ErrorDescription: " + res.data.ErrorDescription;
+
+                    if (res.data.ErrorCode == "0") {
+                        document.getElementById('imgFingerright').src = "data:image/bmp;base64," + res.data.BitmapData;
+                        document.getElementById('thumb_right').value = "data:image/bmp;base64," + res.data.BitmapData;
+                        var imageinfo = "Quality: " + res.data.Quality + " Nfiq: " + res.data.Nfiq + " W(in): " + res.data.InWidth + " H(in): " + res.data.InHeight + " area(in): " + res.data.InArea + " Resolution: " + res.data.Resolution + " GrayScale: " + res.data.GrayScale + " Bpp: " + res.data.Bpp + " WSQCompressRatio: " + res.data.WSQCompressRatio + " WSQInfo: " + res.data.WSQInfo;
+                        document.getElementById('txtImageInfo').value = imageinfo;
+                    }
+                } else {
+                    alert(res.err);
+                }
+            } catch (e) {
+                alert(e);
+            }
+            return false;
         }
     </script>
     @endpush
