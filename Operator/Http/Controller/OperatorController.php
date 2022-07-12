@@ -427,6 +427,7 @@ class OperatorController extends BaseController
             ->orderBy('certificate_history.id','ASC')
             ->get(['certificate_history.*','certificate_history.name as certificate_name','certificate_history.program_name as certificate_program_name','profiles.*','program.name as Name_program','registrant_qualification.*','provinces.province_name','certificate_history.id as certificate_history_id'])->first();
 
+        dd($certificate);
 //        $this->certificateRepository->findById($id);
         $profile = $this->profileRepository->findById($certificate['profile_id']);
 //        $year= auth()->user()->created_at->format('Y');
