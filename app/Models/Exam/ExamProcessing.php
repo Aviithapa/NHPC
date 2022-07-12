@@ -16,7 +16,7 @@ class ExamProcessing extends Model
 
      protected $table='exam_registration';
      protected $fillable=['exam_id','profile_id','voucher_image','program_id','level_id','state',
-         'status','remarks','subject_committee_count','is_admit_card_generate','darta_number'];
+         'status','remarks','subject_committee_count','is_admit_card_generate','darta_number','isFailed','attempt'];
 
 
     public function getExam(){

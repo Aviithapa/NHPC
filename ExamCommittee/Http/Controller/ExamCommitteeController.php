@@ -99,10 +99,10 @@ class  ExamCommitteeController extends BaseController
             $darta_number = $index['darta_number'];
             foreach ($users as $user) {
                 $index = $i++;
-                $symbol_number = 22070214002 + $index;
                 $darta = ++$darta_number;
                 $data['profile_id'] = $user['profile_id'];
                 $data['exam_processing_id'] = $user['id'];
+                $symbol_number =  $this->generateSymbolNumber($index, $data['level_id'], $program_id);
                 $data['symbol_number'] = $symbol_number;
                 $data['created_by'] = Auth::user()->id;
                 $this->admitCardRepository->create($data);
@@ -157,19 +157,38 @@ class  ExamCommitteeController extends BaseController
     {
         Excel::import(new ResultImport(), $request->file('file')->store('temp'));
         $this->FileForwardCouncil();
+
         return back();
     }
 
     public function FileForwardCouncil(){
-        $passed_list = $this->examResultRepository->getAll()->where('status','=','pass');
+        $passed_list = $this->examResultRepository->getAll()->where('status','=','PASSED');
         foreach ($passed_list as $pass){
             $admit_card = AdmitCard::all()->where('symbol_number','=', $pass['symbol_number']);
             foreach ($admit_card as $admit){
                    $data['state'] = 'council';
+                $data['current_state'] = 'council';
                    $examProcesing = $this->examProcessingRepository->update($data,$admit['exam_processing_id']);
+                   $profileProcessing = $this->profileRepository->update($data,$admit['profile_id']);
             }
         }
-        session()->flash('success', 'Passed Student has been forwarded to council');
+        $this->failedStudentList();
+
+    }
+
+    public function failedStudentList(){
+        $failed_list = $this->examResultRepository->getAll()->where('status','!=','PASSED');
+        foreach ($failed_list as $pass){
+            $admit_card = AdmitCard::all()->where('symbol_number','=', $pass['symbol_number']);
+            foreach ($admit_card as $admit){
+                $exam = $this->examProcessingRepository->findById($admit['exam_processing_id']);
+                $data['isFailed'] = true;
+                $data['status'] = 'rejected';
+                $data['attempt'] = ++$exam['attempt'];
+                $examProcesing = $this->examProcessingRepository->update($data,$admit['exam_processing_id']);
+            }
+        }
+        session()->flash('success', 'Passed Student has been forwarded to council and failed student to operator');
         return redirect()->back()->withInput();
     }
 
@@ -255,7 +274,6 @@ class  ExamCommitteeController extends BaseController
     public function exportCsv(Request $request)
     {
         $fileName = 'tasks.csv';
-//        $tasks = AdmitCard::all();
 
         $tasks = AdmitCard::join('profiles','profiles.id','=','admit_card.profile_id')
             ->join('exam_registration','exam_registration.id','=','admit_card.exam_processing_id')
@@ -361,46 +379,6 @@ class  ExamCommitteeController extends BaseController
         };
 
         return response()->stream($callback, 200, $headers);
-//        $tasks = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
-//            ->where('state', '=', 'exam_committee')
-//            ->where('is_admit_card_generate', '=' ,'yes');
-//        return Excel::download(new UsersExport($tasks), 'student-collection.xlsx');
-
-//        $fileName = 'admit_card_generated_list.csv';
-//        $tasks = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
-//            ->where('state', '=', 'exam_committee')
-//            ->where('is_admit_card_generate', '=' ,'yes');
-//
-//        $headers = array(
-//            "Content-type"        => "text/csv",
-//            "Content-Disposition" => "attachment; filename=$fileName",
-//            "Pragma"              => "no-cache",
-//            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
-//            "Expires"             => "0"
-//        );
-//
-//        $columns = array('Title', 'Assign', 'Description', 'Start Date', 'Due Date');
-//
-//        $callback = function() use($tasks, $columns) {
-//            $file = fopen('php://output', 'w');
-//            fputcsv($file, $columns);
-//
-//            foreach ($tasks as $task) {
-//                $row['First Name']  = $task->getFirstName();
-//                $row['Middle Name']    = $task->getMiddleName();
-//                $row['Last Name']    = $task->getLastName();
-//                $row['Symbol Number']  = $task->symbolNumber($task->id);
-//                $row['Gender']  = $task->getGender();
-//                $row['Program']  = $task->getProgramName();
-//                $row['Level']  = $task->getLevelName;
-//
-//                fputcsv($file, array($row['First Name'], $row['Middle Name'], $row['Last Name'], $row['Symbol Number'], $row['Gender'], $row['Program'], $row['Level']));
-//            }
-//
-//            fclose($file);
-//        };
-//
-//        return  redirect()->back();
     }
 
 

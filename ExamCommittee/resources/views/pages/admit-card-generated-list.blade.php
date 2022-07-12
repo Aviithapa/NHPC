@@ -55,29 +55,29 @@
                                     <td>Action</td>
                                     </thead>
                                     <tbody>
-                                    @if($data === null || $data->isEmpty())
-                                        <tr>
-                                            <td> No Student find to take exam </td>
-                                        </tr>
+{{--                                    @if($data === null || $data->isEmpty())--}}
+{{--                                        <tr>--}}
+{{--                                            <td> No Student find to take exam </td>--}}
+{{--                                        </tr>--}}
 
-                                    @else
-                                        @foreach($data as $key => $exam)
-                                            <tr>
-                                                <td>{{$key++}}</td>
-                                                <td>{{$exam->getFirstName()}}</td>
-                                                <td>{{$exam->getMiddleName()}}</td>
-                                                <td>{{$exam->getLastName()}}</td>
-                                                <td>{{symbolNumber($exam->id)}}</td>
-                                                <td>{{$exam->getGender()}}</td>
-                                                <td>{{$exam->getProgramName()}}</td>
-                                                <td>{{$exam->getLevelName()}}</td>
+{{--                                    @else--}}
+{{--                                        @foreach($data as $key => $exam)--}}
+{{--                                            <tr>--}}
+{{--                                                <td>{{$key++}}</td>--}}
+{{--                                                <td>{{$exam->getFirstName()}}</td>--}}
+{{--                                                <td>{{$exam->getMiddleName()}}</td>--}}
+{{--                                                <td>{{$exam->getLastName()}}</td>--}}
+{{--                                                <td>{{symbolNumber($exam->id)}}</td>--}}
+{{--                                                <td>{{$exam->getGender()}}</td>--}}
+{{--                                                <td>{{$exam->getProgramName()}}</td>--}}
+{{--                                                <td>{{$exam->getLevelName()}}</td>--}}
 {{--                                                <td><img src="{{$exam->getProfileImage()}}" alt="Student Profile image" height="100" width="100"/></td>--}}
-                                                @if($exam['is_admit_card_generate'] === 'yes')
-                                                    <td> <a href="{{route("examCommittee.view.admit.card",['id' =>$exam->id])}}"><span class="label label-success">View</span></a></td>
-                                                @endif
-                                            </tr>
-                                        @endforeach
-                                    @endif
+{{--                                                @if($exam['is_admit_card_generate'] === 'yes')--}}
+{{--                                                    <td> <a href="{{route("examCommittee.view.admit.card",['id' =>$exam->id])}}"><span class="label label-success">View</span></a></td>--}}
+{{--                                                @endif--}}
+{{--                                            </tr>--}}
+{{--                                        @endforeach--}}
+{{--                                    @endif--}}
                                     </tbody>
                                 </table>
                             </div>
