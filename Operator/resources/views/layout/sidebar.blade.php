@@ -86,15 +86,18 @@
                 <li class="treeview {{ (request()->is('operator/dashboard/operator/applicant-list/*/*')) ? 'active':''  }}"> <a href="#"> <i class="icon-grid"></i> <span>Certificate</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
                     <ul class="treeview-menu">
                         <li class="{{ (request()->is('operator/dashboard/search/collage')) ? 'active':''  }}">
-                            <a href="{{route("operator.dashboard.printCertificateIndex",['status'=>'0'])}}">
+{{--                            <a href="{{route("operator.dashboard.printCertificateIndex",['status'=>'0'])}}">--}}
+{{--                                <i class="icon-book-open"></i> <span>Print Certificate</span>--}}
+{{--                            </a>--}}
+                            <a href="{{route("operator.dashboard.printCertificateDashboard",['status'=>'0'])}}">
                                 <i class="icon-book-open"></i> <span>Print Certificate</span>
                             </a>
                         </li>
-                        <li class="{{ (request()->is('operator/dashboard/search/collage')) ? 'active':''  }}">
-                            <a href="{{route("operator.dashboard.printCertificateIndex",['status'=>'1'])}}">
-                                <i class="icon-book-open"></i> <span>Printed Certificate</span>
-                            </a>
-                        </li>
+{{--                        <li class="{{ (request()->is('operator/dashboard/search/collage')) ? 'active':''  }}">--}}
+{{--                            <a href="{{route("operator.dashboard.printCertificateIndex",['status'=>'1'])}}">--}}
+{{--                                <i class="icon-book-open"></i> <span>Printed Certificate</span>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
                     </ul>
                 </li>
 

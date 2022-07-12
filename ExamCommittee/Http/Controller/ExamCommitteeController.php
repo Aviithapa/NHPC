@@ -77,6 +77,7 @@ class  ExamCommitteeController extends BaseController
             ->orderBy('count')
             ->where('level_id', '<', 4)
             ->get();
+
         $count = ExamProcessing::all()->where('status','=','progress')
             ->where('state','=','exam_committee')
             ->count();

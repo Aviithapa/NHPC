@@ -437,15 +437,28 @@ class OperatorController extends BaseController
         return view('operator::pages.certificate', compact('certificate','profile'));
     }
 
-    public function printCertificateIndex($status){
+    public function printCertificateIndex($status, $program_id){
         $certificates =  Certificate::join('profiles','profiles.id','=','certificate_history.profile_id')
                                       ->join('program','program.id','=','certificate_history.program_id')
                                       ->join('provinces','provinces.id','=','profiles.development_region')
                                       ->where('certificate_history.is_printed','=',$status)
+                                       ->where('certificate_history.program_id','=',$program_id)
                                         ->get(['certificate_history.*','profiles.*','program.name as Name_program','provinces.province_name','certificate_history.id as certificate_history_id']);
 
         return view('operator::pages.certificate-list', compact('certificates'));
     }
+
+
+    public function printCertificateDashboard(){
+        $certificates = Certificate::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
+            ->groupBy('program_id' )
+            ->orderBy('count')
+            ->where('profile_id','!=','')
+            ->get();
+
+        return view('operator::pages.certificate-card', compact('certificates'));
+    }
+
  public function printedCertificate($id){
         $data[] = $this->certificateRepository->findById($id);
         $data['is_printed'] = 1 ;

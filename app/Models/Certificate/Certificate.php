@@ -4,6 +4,7 @@
 namespace App\Models\Certificate;
 
 
+use App\Models\Admin\Program;
 use Illuminate\Database\Eloquent\Model;
 
 class Certificate extends Model
@@ -19,4 +20,18 @@ class Certificate extends Model
        'valid_till','certificate','type',
        'remarks','is_printed','printed_date',
        'printed_by','is_edited','issued_by','certificate_status'];
+
+    public function getProgram(){
+        return $this->hasOne(Program::class,'id','program_id');
+
+    }
+
+    public  function  getProgramName(){
+        if(isset($this->getprogram->name)) {
+            return $this->getprogram->name;
+        }
+        else {
+            return '';
+        }
+    }
 }
