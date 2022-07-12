@@ -435,7 +435,8 @@ class ApplicantController  extends BaseController
             ->where('exam_registration.state',"=",'council')
             ->where('exam_registration.level_id',"=",'1')
             ->where('exam_registration.attempt',"!=",'2')
-            ->where('exam_registration.isFailed',"=",false)
+            ->where('exam_registration.isPassed',"=",true)
+            ->where('exam_registration.certificate_generate','=','No')
             ->orderBy('profiles.created_at','ASC')
             ->get(['profiles.*','profiles.id as profile_id','profiles.created_at as profile_created_at','program.name as program_name','program.*',
                 'program.id as program_id','level.*','provinces.province_name','exam_registration.id as exam_registration_id','exam_registration.*']);
@@ -453,7 +454,8 @@ class ApplicantController  extends BaseController
             ->where('exam_registration.state',"=",'council')
             ->where('exam_registration.level_id',"=",'1')
             ->where('exam_registration.attempt',"!=",'2')
-            ->where('exam_registration.isFailed',"=",false)
+            ->where('exam_registration.isPassed',"=",true)
+            ->where('exam_registration.certificate_generate','=','No')
             ->orderBy('profiles.created_at','ASC')
             ->limit(500)
             ->get(['profiles.*','profiles.id as profile_id','profiles.created_at as profile_created_at','program.name as program_name','program.*',
