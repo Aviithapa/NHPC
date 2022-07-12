@@ -293,7 +293,7 @@
         text-align: center;  font-size: 20px;
         font-weight: bold;
 
-" >CTEVT, Nepal</td>
+" >{{$certificate->board_university}}</td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 20px;
         font-weight: bold;
