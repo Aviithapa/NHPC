@@ -438,7 +438,7 @@ class ApplicantController  extends BaseController
             ->where('exam_registration.isFailed',"=",false)
             ->orderBy('profiles.created_at','ASC')
             ->get(['profiles.*','profiles.id as profile_id','profiles.created_at as profile_created_at','program.name as program_name','program.*',
-                'program.id as program_id','level.*','provinces.province_name','exam_registration.id as exam_registration_id']);
+                'program.id as program_id','level.*','provinces.province_name','exam_registration.id as exam_registration_id','exam_registration.*']);
 
         return view('superAdmin::admin.applicant.certificate-index',compact('student'));
     }

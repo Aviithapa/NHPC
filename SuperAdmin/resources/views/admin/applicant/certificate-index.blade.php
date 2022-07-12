@@ -37,8 +37,8 @@
                                         <th>Name</th>
                                         <th>Citizenship</th>
                                         <th>Registration Date</th>
-                                        <th>Profile State</th>
-                                        <th>Profile Status</th>
+                                        <th>isFailed</th>
+                                        <th>Attempt</th>
                                         <th>Program Name</th>
                                         <th>Action</th>
                                     </tr>
@@ -56,8 +56,8 @@
                                                     <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
                                                     <td>{{$data->citizenship_number}}</td>
                                                     <td>{{$data->profile_created_at}}</td>
-                                                    <td>{{$data->profile_status}}</td>
-                                                    <td>{{$data->profile_state}}</td>
+                                                    <td>{{$data->isFailed}}</td>
+                                                    <td>{{$data->attempt}}</td>
                                                     <td> {{$data->program_name}}</td>
                                                     <td> <a href="{{ url("superAdmin/dashboard/generate/single/certificate/" . $data->profile_id) }}"><span class="label label-success">Certificate</span></a> </td>
                                                 </tr>
