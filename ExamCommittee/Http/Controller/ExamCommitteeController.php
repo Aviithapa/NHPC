@@ -185,7 +185,7 @@ class  ExamCommitteeController extends BaseController
                 $exam = $this->examProcessingRepository->findById($admit['exam_processing_id']);
                 $data['isFailed'] = true;
                 $data['status'] = 'rejected';
-                $data['attempt'] = ++$exam['attempt'];
+                $data['attempt'] = 2;
                 $examProcesing = $this->examProcessingRepository->update($data,$admit['exam_processing_id']);
             }
         }
