@@ -23,6 +23,7 @@ use Krishnahimself\DateConverter\DateConverter;
 use Operator\Modules\Framework\Request;
 use Student\Http\Controller\ProfileController;
 use Student\Models\Profile;
+use Student\Models\Qualification;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
 use Yajra\DataTables\Facades\DataTables;
@@ -607,6 +608,9 @@ class OperatorController extends BaseController
             $profile= $this->certificateRepository->findById($id);
             $certificate = $this->certificateRepository->update($data,$id);
             $profileUpdate = $this->profileRepository->update($data,$profile['profile_id']);
+            $documents = $this->qualificationRepository->getAll()->where('user_id','=',$profileUpdate['user_id'])
+            ->where('level','=','5')->first();
+            $updateDocuments =  $this->qualificationRepository->update($data,$documents['id']);
             session()->flash('success', 'Certificate data has been changed successfully');
             return redirect()->back();
 //

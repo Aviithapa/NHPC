@@ -57,6 +57,13 @@
                                                     <input type="text" name="passed_year" value="{{$certificate->passed_year}}"/>
                                                 </fieldset>
                                             </div>
+
+                                            <div class="col-lg-4">
+                                                <fieldset class="form-group">
+                                                    <label>Board / University</label>
+                                                    <input type="text" name="board_university" value="{{$certificate->board_university}}"/>
+                                                </fieldset>
+                                            </div>
                                             <div class="col-lg-4">
                                                 <fieldset class="form-group">
                                                     <label>Decision Date</label>
