@@ -169,6 +169,7 @@ class  ExamCommitteeController extends BaseController
             foreach ($admit_card as $admit){
                    $data['state'] = 'council';
                 $data['current_state'] = 'council';
+                $data['isPassed'] = true;
                    $examProcesing = $this->examProcessingRepository->update($data,$admit['exam_processing_id']);
                    $profileProcessing = $this->profileRepository->update($data,$admit['profile_id']);
             }
@@ -183,7 +184,7 @@ class  ExamCommitteeController extends BaseController
             $admit_card = AdmitCard::all()->where('symbol_number','=', $pass['symbol_number']);
             foreach ($admit_card as $admit){
                 $exam = $this->examProcessingRepository->findById($admit['exam_processing_id']);
-                $data['isFailed'] = true;
+                $data['isPassed'] = false;
                 $data['status'] = 'rejected';
                 $data['attempt'] = 2;
                 $examProcesing = $this->examProcessingRepository->update($data,$admit['exam_processing_id']);
