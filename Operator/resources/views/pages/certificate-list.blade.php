@@ -75,7 +75,7 @@
                                                 <td> {{$certificate->level_name}}</td>
                                                 <td> {{$certificate->Name_program}}</td>
                                                 <td> {{$certificate->province_name}}</td>
-                                                <td> <a href="{{url('operator/dashboard/view/certificate/'. $certificate->certificate_history_id)}}"><span class="label label-success">View</span></a>
+                                                <td> <a href="{{url('operator/dashboard/view/certificate/'. $certificate->certificate_history_id .'/'.$certificate->level)}}"><span class="label label-success">View</span></a>
                                                  <a href="{{url('operator/dashboard/certificate/isPrinted/'. $certificate->certificate_history_id)}}"><span class="label label-danger">Printed</span></a>
                                                     <a href="{{url('operator/dashboard/update/certificate/'. $certificate->certificate_history_id )}}"><span class="label label-success">Edit</span></a>
 {{--                                                    <a href=""><span class="label label-success">Edit</span></a>--}}
