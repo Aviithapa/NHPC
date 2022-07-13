@@ -446,18 +446,19 @@ class OperatorController extends BaseController
                                        ->where('certificate_history.program_id','=',$program_id)
                                         ->get(['certificate_history.*','profiles.*','program.name as Name_program','provinces.province_name','certificate_history.id as certificate_history_id']);
 
-        return view('operator::pages.certificate-list', compact('certificates'));
+        return view('operator::pages.certificate-list', compact('certificates','status'));
     }
 
 
-    public function printCertificateDashboard(){
+    public function printCertificateDashboard($status){
         $certificates = Certificate::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
             ->groupBy('program_id' )
             ->orderBy('count')
+            ->where('is_printed','=',$status)
             ->where('profile_id','!=','')
             ->get();
 
-        return view('operator::pages.certificate-card', compact('certificates'));
+        return view('operator::pages.certificate-card', compact('certificates','status'));
     }
 
  public function printedCertificate($id){

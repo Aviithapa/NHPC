@@ -23,7 +23,7 @@ Route::post('/collage/search',[\Operator\Http\Controller\SearchController::class
 Route::get('/view/certificate/{id}',  [\Operator\Http\Controller\OperatorController::class,'printCertificate'])->middleware(['auth'])->name('operator.dashboard.view');
 Route::get('/certificate/index/{status}/{program_id}',  [\Operator\Http\Controller\OperatorController::class,'printCertificateIndex'])->middleware(['auth'])->name('operator.dashboard.printCertificateIndex');
 Route::get('/certificate/isPrinted/{id}',  [\Operator\Http\Controller\OperatorController::class,'printedCertificate'])->middleware(['auth'])->name('operator.dashboard.printedCertificate');
-Route::get('/certificate/card',  [\Operator\Http\Controller\OperatorController::class,'printCertificateDashboard'])->middleware(['auth'])->name('operator.dashboard.printCertificateDashboard');
+Route::get('/certificate/card/{status}',  [\Operator\Http\Controller\OperatorController::class,'printCertificateDashboard'])->middleware(['auth'])->name('operator.dashboard.printCertificateDashboard');
 
 
 Route::get('/student/program/{id}/{status}',  [\Operator\Http\Controller\OperatorController::class,'getProgramWiseStudent'])->middleware(['auth'])->name('operator.dashboard.getProgramWiseStudent');

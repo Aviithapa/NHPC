@@ -21,7 +21,7 @@
 
                 @foreach($certificates as $exam)
                     <div class="col-lg-3 col-xs-6 m-b-3">
-                        <a href="{{route("operator.dashboard.printCertificateIndex",['status'=>'0','program_id'=> $exam->program_id])}}">
+                        <a href="{{route("operator.dashboard.printCertificateIndex",['status'=>$status,'program_id'=> $exam->program_id])}}">
 
                             <div class="card">
                                 <div class="card-body">

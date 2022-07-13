@@ -93,11 +93,11 @@
                                 <i class="icon-book-open"></i> <span>Print Certificate</span>
                             </a>
                         </li>
-{{--                        <li class="{{ (request()->is('operator/dashboard/search/collage')) ? 'active':''  }}">--}}
-{{--                            <a href="{{route("operator.dashboard.printCertificateIndex",['status'=>'1'])}}">--}}
-{{--                                <i class="icon-book-open"></i> <span>Printed Certificate</span>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
+                        <li class="{{ (request()->is('operator/dashboard/search/collage')) ? 'active':''  }}">
+                            <a href="{{route("operator.dashboard.printCertificateDashboard",['status'=>'1'])}}">
+                                <i class="icon-book-open"></i> <span>Printed Certificate</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
