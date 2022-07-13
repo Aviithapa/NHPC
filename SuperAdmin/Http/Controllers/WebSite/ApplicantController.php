@@ -505,19 +505,18 @@ class ApplicantController  extends BaseController
             return redirect()->back();
     }
     public function generateSingleCertificate($id){
-        $students = $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+        $students  = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
             ->join('program','program.id','=','exam_registration.program_id')
             ->join('level','level.id','=','program.level_id')
             ->join('provinces','provinces.id','=','profiles.development_region')
             ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
             ->where('profiles.id','=',$id)
-            ->where('profile_processing.current_state',"!=",'student')
-            ->where('profile_processing.current_state',"!=",'officer')
-            ->where('profile_processing.current_state',"!=",'computer_operator')
-            ->where('profile_processing.status',"!=",'accepted')
-            ->where('exam_registration.level_id',"=",'2')
-            ->where('exam_registration.attempt',"!=",'2')
-            ->where('exam_registration.isFailed',"=",false)
+            ->where('exam_registration.status',"=",'progress')
+            ->where('exam_registration.state',"=",'council')
+            ->where('exam_registration.level_id',"=",'1')
+            ->where('exam_registration.attempt',"=",'1')
+            ->where('exam_registration.isPassed',"=",true)
+            ->where('exam_registration.certificate_generate','=','No')
             ->get(['profiles.*','profiles.id as profile_id','profiles.created_at as profile_created_at','program.name as program_name','program.*',
                 'program.id as program_id','level.*','provinces.province_name','exam_registration.id as exam_registration_id']);
 
