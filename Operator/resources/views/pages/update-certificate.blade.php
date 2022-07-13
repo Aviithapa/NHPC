@@ -99,6 +99,12 @@
                                                     <input type="text" name="vdc_municiplality" value="{{$profile->vdc_municiplality}}"/>
                                                 </fieldset>
                                             </div>
+                                            <div class="col-lg-4">
+                                                <fieldset class="form-group">
+                                                    <label>Certificate Program Name</label>
+                                                    <input type="text" name="program_name" value="{{$certificate->certificate_program_name}}"/>
+                                                </fieldset>
+                                            </div>
                                         </div>
 
 
