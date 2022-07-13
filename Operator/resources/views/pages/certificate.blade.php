@@ -280,25 +280,25 @@
 
 ">
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 18px;
+        text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 30px;
 
 ">1</td>
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 18px;
+        text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 100px;
 
 ">{{$certificate->certificate_program_name}}</td>
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 18px;
+        text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 220px;
 
 " >{{$certificate->board_university}}</td>
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 18px;
+        text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 100px;
 
