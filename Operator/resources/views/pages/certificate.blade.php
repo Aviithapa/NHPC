@@ -288,19 +288,19 @@
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
-        width: 200px;
+        width: 180px;
 
 ">{{$certificate->certificate_program_name}}</td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
-        width: 150px;
+        width: 200px;
 
 " >{{$certificate->board_university}}</td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
-        width: 100px;
+        width: 80px;
 
 ">{{$certificate->passed_year}}</td>
         </tr>
