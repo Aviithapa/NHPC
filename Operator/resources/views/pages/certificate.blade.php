@@ -288,13 +288,13 @@
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
-        width: 100px;
+        width: 200px;
 
 ">{{$certificate->certificate_program_name}}</td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
-        width: 220px;
+        width: 150px;
 
 " >{{$certificate->board_university}}</td>
             <td style=" border: 1px solid black;
