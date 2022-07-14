@@ -33,5 +33,5 @@ Route::get('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committ
 Route::post('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}',[\Operator\Http\Controller\OperatorController::class,'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.operator.list');
 Route::get('/exam/dashboard/{level_id}',[\Operator\Http\Controller\OperatorController::class,'examStudentCount'])->middleware(['auth'])->name('examStudentCount.dashboard.operator');
 
-Route::get('/update/certificate/{certificate_id}',[\Operator\Http\Controller\OperatorController::class,'updateCertificateIndex'])->middleware(['auth'])->name('examStudentCount.dashboard.updateCertificateIndex');
+Route::get('/update/certificate/{certificate_id}/{level}',[\Operator\Http\Controller\OperatorController::class,'updateCertificateIndex'])->middleware(['auth'])->name('examStudentCount.dashboard.updateCertificateIndex');
 Route::post('/update/certificates',[\Operator\Http\Controller\OperatorController::class,'updateCertificate'])->middleware(['auth'])->name('examStudentCount.dashboard.updateCertificate');
