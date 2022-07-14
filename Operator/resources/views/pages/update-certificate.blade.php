@@ -124,7 +124,7 @@
         font-size:18px ;
         float: left;">
                                                 Registration No: <span style="        font-size: 26px;
-"> {{$certificate->cert_registration_number}}</span><br>
+"> <input type="text" name="cert_registration_number" value="{{$certificate->cert_registration_number}}"/> </span><br>
                                                 Date of issue: <span style="        font-size: 22px;
             "> {{date('d-m-Y',strtotime($certificate->decision_date))}}</span><br>
                                                 Seal of the Council:
