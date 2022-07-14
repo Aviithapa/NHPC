@@ -288,7 +288,7 @@
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
-        width: 180px;
+        width: 160px;
 
 ">{{$certificate->certificate_program_name}}</td>
             <td style=" border: 1px solid black;
