@@ -85,6 +85,7 @@
                                 <fieldset class="form-group">
                                     <label>First Name *</label>
                                     <input name="first_name" class="form-control" id="basicInput" type="text" required>
+                                    <input name="profile_id" class="form-control" id="basicInput" type="hidden" value="{{$profile->id}}">
                                 </fieldset>
                             </div>
                             <div class="col-lg-4">

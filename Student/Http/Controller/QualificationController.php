@@ -6,6 +6,7 @@ namespace Student\Http\Controller;
 
 use App\Models\Profile\ProfileProcessing;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
+use App\Modules\Backend\Admin\Level\Repositories\LevelRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
@@ -19,10 +20,12 @@ use Student\Modules\Qualification\Repositories\QualificationRepository;
 
 class QualificationController extends BaseController
 {
-    private $qualificationRepository,$log, $profileRepository,$profileProcessingRepository,$profileLogsRepository, $programRepository,$collegeRepository;
+    private $qualificationRepository,$log, $levelRepository, $profileRepository,$profileProcessingRepository,$profileLogsRepository, $programRepository,$collegeRepository;
     public function __construct(Log $log, QualificationRepository $qualificationRepository, ProfileRepository $profileRepository,
                                                                         ProfileProcessingRepository $profileProcessingRepository,
-                                                            ProfileLogsRepository $profileLogsRepository, ProgramRepository $programRepository, CollegeRepository $collegeRepository)
+                                                            ProfileLogsRepository $profileLogsRepository, ProgramRepository $programRepository,
+                                CollegeRepository $collegeRepository,
+                                LevelRepository $levelRepository)
     {
         $this->qualificationRepository=$qualificationRepository;
         $this->profileRepository=$profileRepository;
@@ -30,6 +33,7 @@ class QualificationController extends BaseController
         $this->profileLogsRepository=$profileLogsRepository;
         $this->programRepository=$programRepository;
         $this->collegeRepository=$collegeRepository;
+        $this->levelRepository = $levelRepository;
         $this->log=$log;
         parent::__construct();
     }
@@ -155,10 +159,24 @@ class QualificationController extends BaseController
     public function store(Request $request)
     {
         $data = $request->all();
-        $qualifications = Qualification::get()->where('user_id','=',Auth::user()->id);
+        $qualification = Qualification::get()->where('user_id','=',Auth::user()->id)->last();
         $profile=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
         $data['name'] = $data['level'];
         $data['user_id'] = Auth::user()->id;
+        $level_number = $this->levelRepository->findById($profile['level']);
+
+        if($qualification){
+            $level = $qualification['level'] + 1;
+            if( $level != $data['level'] && $data['level'] != 1){
+                session()->flash('error',  ' Please fill been Saved Successfully');
+                return redirect()->back();
+            }
+        }else{
+            if($data['level'] != 1 && $data['level'] !=2){
+                session()->flash('error', 'Please fill SLC or TSLC details First');
+                return redirect()->back();
+            }
+        }
         switch ($data['level']){
                 case 1 :
                     $data['transcript_image'] = $data['transcript_slc'];
@@ -198,22 +216,33 @@ class QualificationController extends BaseController
 
 
             }
-        $profiles['level'] =$data['level'];
-        $profiles['profile_state'] = 'computer_operator';
+
         try {
             $qualification = $this->qualificationRepository->create($data);
             if ($qualification == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
-            $this->checkLevel($profiles);
-            session()->flash('success', $data["level_name"].' Qualification have been Saved Successfully');
             $slc_data = $this->qualificationRepository->slcData(Auth::user()->id);
             $tslc_data = $this->qualificationRepository->tslcData(Auth::user()->id);
             $plus_2 = $this->qualificationRepository->pclData(Auth::user()->id);
             $bachelor = $this->qualificationRepository->bachelorData(Auth::user()->id);
             $master = $this->qualificationRepository->masterData(Auth::user()->id);
             $collage = $this->collegeRepository->getAll();
+
+
+            if($level_number['level_number'] == $level){
+                $qualification = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id)
+                    ->where('level','!=' , 1);
+                if ($qualification != null){
+                    foreach ($qualification as $quali)
+                        if (is_numeric($quali['program_id']) )
+                            $all_program[] = $this->programRepository->findById($quali['program_id']);
+                }
+                return view('student::pages.apply-exam', compact( 'all_program'));
+            }
+
+            session()->flash('success', $data["level_name"].' Qualification have been Saved Successfully');
             return redirect()->route('student.specific',compact('slc_data','plus_2','bachelor','master','tslc_data'));
         } catch (\Exception $e) {
             session()->flash('danger', 'Oops! Something went wrong.');

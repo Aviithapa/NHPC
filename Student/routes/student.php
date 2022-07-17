@@ -36,3 +36,7 @@ Route::post('/link/certificate/validateCertificate', [\Student\Http\Controller\C
 //Route::get('/admit/card/print/index', [\Student\Http\Controller\ProfileController::class, 'admitCardPrintSection'])->middleware(['auth'])->name('admit.card.admitCardPrintSection');
 //Route::post('/admit/card/print', [\Student\Http\Controller\ProfileController::class, 'admitCardRequestTemplate'])->middleware(['auth'])->name('admit.card.admitCardRequestTemplate');
 Route::get('/admit/admitCardProfileId/{id}', [\Student\Http\Controller\ProfileController::class, 'admitCardProfileId'])->middleware(['auth'])->name('admit.card.admitCardProfileId');
+
+
+Route::get('/level/program', [\Student\Http\Controller\ProfileController::class, 'getProgram'])->middleware(['auth'])->name('level.program');
+Route::post('/level/program', [\Student\Http\Controller\ProfileController::class, 'saveLevelProgramSave'])->middleware(['auth'])->name('level.program.save');

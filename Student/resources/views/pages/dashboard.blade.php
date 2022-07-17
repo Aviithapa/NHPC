@@ -63,6 +63,49 @@
     <!-- /.content -->
 </div>
 
+    @if(!$data)
+        <div class="modal show"  role="dialog" style="display: block"  >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 style="font-weight: bold; color: red; font-size: 16px; line-height: 20px; text-align: center;">कृपया आवेदन स्तर र कार्यक्रम नाम चयन गर्नुहोस्।  Please select the application level and program name.</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <form method="POST" action="{{ url('student/dashboard/level/program') }}">
+                            @csrf
+                            <div class="col-lg-12">
+                                <fieldset class="form-group">
+                                    <label>स्तर / Level  *</label>
+                                    <select class="form-control" name="level" id="level" onchange="getPracticular()" required>
+                                        <option value="">Select Your Level </option>
+                                        @foreach($level as $key => $value)
+                                             @if($value->id === 5)
+
+                                                 @else
+                                            <option value="{{$value->id}}">{{$value->name}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <div class="col-lg-12">
+                                <fieldset class="form-group">
+                                    <label>कार्यक्रम नाम / Program Name</label>
+                                    <select class="form-control" name="program_name" id="program"   required>
+                                        <option value="">Select Program</option>
+                                    </select>
+                                </fieldset>
+                            </div>
+                            <button type="submit" class="btn btn-primary float-right"><i class="fa fa-check"></i> Save </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @endif
+
     @if($rejected != null)
         <div class="modal"  role="dialog" id="popup" style="display: block;">
             <div class="modal-dialog">
@@ -139,4 +182,26 @@
     window.onload(function() {
 
     });
+
+
+
 </script>
+
+@push('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        function getPracticular(){
+            var level_id = document.getElementById("level").value;
+            $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+            $.ajax({
+                type : 'Get',
+                url : '{{URL::to('student/dashboard/level/program')}}',
+                data:{'level_id':level_id},
+                success:function(data){
+                    console.log(" The data is" + data);
+                    $('#program').html(data);
+                }
+            });
+        }
+    </script>
+@endpush

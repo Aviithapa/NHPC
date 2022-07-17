@@ -6,8 +6,10 @@ namespace Student\Http\Controller;
 use App\Models\Address\District;
 use App\Models\Address\Municipality;
 use App\Models\Address\Provinces;
+use App\Models\Admin\Program;
 use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
+use App\Modules\Backend\Admin\Level\Repositories\LevelRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
@@ -16,19 +18,21 @@ use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessing
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Mockery\CountValidator\Exception;
 use Student\Modules\Framework\Request;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
 
 class ProfileController extends BaseController
 {
-   private $profileRepository,$log, $collegeRepository, $qualificationRepository,$profileLogsRepository, $programRepository,$examProcessingRepository,$admitCardRepository,$profileProcessingRepository;
+   private $profileRepository,$log, $collegeRepository,$levelRepository, $qualificationRepository,$profileLogsRepository, $programRepository,$examProcessingRepository,$admitCardRepository,$profileProcessingRepository;
     public function __construct(Log $log, ProfileRepository $profileRepository,
                                 QualificationRepository $qualificationRepository,
                                 ProgramRepository $programRepository,
                                 ExamProcessingRepository $examProcessingRepository,
                                 AdmitCardRepository $admitCardRepository, ProfileProcessingRepository $profileProcessingRepository,
-                                ProfileLogsRepository $profileLogsRepository,CollegeRepository $collegeRepository)
+                                ProfileLogsRepository $profileLogsRepository,CollegeRepository $collegeRepository,
+                                LevelRepository $levelRepository)
     {
         $this->profileRepository=$profileRepository;
         $this->qualificationRepository=$qualificationRepository;
@@ -38,6 +42,7 @@ class ProfileController extends BaseController
         $this->profileProcessingRepository=$profileProcessingRepository;
         $this->profileLogsRepository=$profileLogsRepository;
         $this->collegeRepository=$collegeRepository;
+        $this->levelRepository = $levelRepository;
         $this->log=$log;
         parent::__construct();
     }
@@ -52,12 +57,54 @@ class ProfileController extends BaseController
             }
         }
         $exam=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
-        return view('student::pages.dashboard',compact('rejected','exam'));
+        $level = $this->levelRepository->getAll();
+        return view('student::pages.dashboard',compact('rejected','exam', 'data','level'));
     }
+
+    public function saveLevelProgramSave(Request $request){
+        $data = $request->all();
+        $data['user_id'] = Auth::user()->id;
+        try {
+            $profile = $this->profileRepository->create($data);
+            if ($profile == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            $authUser = $this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+            $province = Provinces::all();
+            $district = District::all();
+            session()->flash('success','Let\'s get started on the application.');
+            return redirect()->to('student/dashboard/student/personal');
+        } catch (\Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        try {
+            $profile = $this->profileRepository->update($data, $data['profile_id']);
+            if ($profile == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success','Personal Information have been Saved Successfully');
+            return redirect()->to('student/dashboard/student/guardian');
+        } catch (\Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
+
+
 
     public function index($slug = null){
         $slug = $slug ? $slug : 'personal';
         $data=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+        $profile=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+
         $authUser = $this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
         $province = Provinces::all();
         $district = District::all();
@@ -66,14 +113,14 @@ class ProfileController extends BaseController
             switch ($slug) {
                 case 'personal':
                              if (!$data) {
-                                 return view('student::pages.personal', compact('authUser','province','district'));
+                                 return view('student::pages.personal', compact('authUser','province','district','profile'));
                              } else {
                                  if ($data['profile_status'] === "Rejected"){
-                                     return view('student::pages.update-personal', compact('authUser', 'data','province','district'));
+                                     return view('student::pages.update-personal', compact('authUser', 'data','province','district','profile'));
                                  }else if (!$data["citizenship_number"] && !$data["first_name"]) {
-                                     return view('student::pages.personal', compact('province','district'));
+                                     return view('student::pages.personal', compact('province','district','profile'));
                                 }else if (!$data["citizenship_number"] || !$data["first_name"]) {
-                                    return view('student::pages.update-personal', compact('authUser', 'data','province','district'));
+                                    return view('student::pages.update-personal', compact('authUser', 'data','province','district','profile'));
                                 } else {
                                      session()->flash('already', 'Personal Information has already Setup');
                                      return redirect()->to('student/dashboard/student/guardian');
@@ -105,7 +152,7 @@ class ProfileController extends BaseController
                     $master_program = $this->programRepository->getAll()->where('level_id','=',1);
                     $collage = $this->collegeRepository->getAll();
                     return view('student::pages.specific',compact('slc_data','plus_2','bachelor','master','slc_program',
-                                                                            'plus_2_program','bachelor_program','master_program','tslc_data','collage','province'));
+                                                                            'plus_2_program','bachelor_program','master_program','tslc_data','collage','province','profile'));
                     break;
                 default :
                     return view('student::pages.404');
@@ -123,24 +170,7 @@ class ProfileController extends BaseController
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
-    {
 
-            $data = $request->all();
-            $data['user_id'] = Auth::user()->id;
-            try {
-                $profile = $this->profileRepository->create($data);
-                if ($profile == false) {
-                    session()->flash('danger', 'Oops! Something went wrong.');
-                    return redirect()->back()->withInput();
-                }
-                session()->flash('success','Personal Information have been Saved Successfully');
-                return redirect()->to('student/dashboard/student/guardian');
-            } catch (\Exception $e) {
-                session()->flash('danger', 'Oops! Something went wrong.');
-                return redirect()->back()->withInput();
-            }
-        }
 
 
 
@@ -194,7 +224,6 @@ class ProfileController extends BaseController
                     return redirect()->back();
                     }else{
                         return view('student::pages.update-apply-exam', compact(  'specific_program'));
-
                     }
                 }
 
@@ -245,8 +274,17 @@ class ProfileController extends BaseController
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
-            session()->flash('success','Exam Processing has been started');
-            return redirect()->to('student/dashboard');
+            $data = $this->profileRepository->findById($profile_id['id']);
+            $user_id = $data['user_id'];
+            $user_data = $this->userRepository->findById($user_id);
+            $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $data['user_id']);
+            $profile_logs = $this->profileLogsRepository->getAll()->where('profile_id', '=', $profile_id['id']);
+            $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile_id['id'])->first();
+            $exams = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile_id['id']);
+            return view('operator::pages.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams'));
+
+//            session()->flash('success','Exam Processing has been started');
+//            return redirect()->to('student/dashboard');
         } catch (\Exception $e) {
             session()->flash('danger', 'Oops! Something went wrong.');
             return redirect()->back()->withInput();
@@ -397,6 +435,21 @@ class ProfileController extends BaseController
             }
         }
     }
+    public function getProgram(Request $request){
+
+        if($request->ajax()) {
+//            $output = "";
+            $programs = Program::all()->where('level_id', '=',  $request->level_id);
+            $output = '<option value= >Select Program</option>';
+
+            if ($programs) {
+                foreach ($programs as $program) {
+                    $output .= '<option value='.$program->id.' >' .$program->name.'</option>';
+                }
+                return Response($output);
+            }
+        }
+    }
     public function getMunicipality(Request $request){
         if($request->ajax()) {
             $output = "";
@@ -409,6 +462,9 @@ class ProfileController extends BaseController
             }
         }
     }
+
+
+
 }
 
 

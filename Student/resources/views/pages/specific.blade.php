@@ -41,7 +41,10 @@
 
 
             <div class="content">
-                        @include('student::pages.qualification.slc')
+
+                @switch($profile['level'])
+                        @case(1):
+                    @include('student::pages.qualification.slc')
                     <div id="tslc" style="margin-top: 30px;">
                         @include('student::pages.qualification.tslc')
                     </div>
@@ -54,6 +57,39 @@
                     <div id="master" >
                         @include('student::pages.qualification.master')
                     </div>
+                    @break
+                    @case(2):
+                    @include('student::pages.qualification.slc')
+                    <div id="tslc" style="margin-top: 30px;">
+                        @include('student::pages.qualification.tslc')
+                    </div>
+                    <div id="pcl" >
+                        @include('student::pages.qualification.intermediate')
+                    </div>
+                    <div id="bachelor" >
+                        @include('student::pages.qualification.bachlor')
+                    </div>
+
+                    @break
+                    @case(3):
+                    @include('student::pages.qualification.slc')
+                    <div id="tslc" style="margin-top: 30px;">
+                        @include('student::pages.qualification.tslc')
+                    </div>
+                    <div id="pcl" >
+                        @include('student::pages.qualification.intermediate')
+                    </div>
+
+                    @break
+                    @case(4):
+                    @include('student::pages.qualification.slc')
+                    <div id="tslc" style="margin-top: 30px;">
+                        @include('student::pages.qualification.tslc')
+                    </div>
+
+                    @break
+                    @endswitch
+
 
             </div>
         </div>

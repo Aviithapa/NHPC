@@ -36,7 +36,7 @@
 {{--                                        <input type="hidden" name="exam_id" value="1"/>--}}
                                         <input type="hidden" name="id" value="{{$profile->id}}">
                                         <input type="hidden" name="certificate_history_id" value="{{$certificate->certificate_history_id}}">
-
+                                        <input type="hidden" name="level" value="{{$level}}">
 {{--                                        <input type="hidden" name="exam_processing_id" value="{{$exam->id}}">--}}
 
 

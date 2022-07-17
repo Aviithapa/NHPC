@@ -600,7 +600,7 @@ class OperatorController extends BaseController
 
         $profile = $this->profileRepository->findById($certificate['profile_id']);
         $province = Provinces::all();
-        return view('operator::pages.update-certificate', compact('certificate','profile','province'));
+        return view('operator::pages.update-certificate', compact('certificate','profile','province','level'));
     }
     public  function updateCertificate(Request $request){
         $data = $request->all();
@@ -610,7 +610,7 @@ class OperatorController extends BaseController
             $certificate = $this->certificateRepository->update($data,$id);
             $profileUpdate = $this->profileRepository->update($data,$profile['profile_id']);
             $documents = $this->qualificationRepository->getAll()->where('user_id','=',$profileUpdate['user_id'])
-            ->where('level','=','5')->first();
+            ->where('level','=',$data['level'])->first();
             $updateDocuments =  $this->qualificationRepository->update($data,$documents['id']);
             session()->flash('success', 'Certificate data has been changed successfully');
             return redirect()->back();
