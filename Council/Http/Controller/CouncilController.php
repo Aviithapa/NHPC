@@ -109,7 +109,9 @@ class CouncilController extends BaseController
 
                     ->select('program_id','level_name','program_name',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns') )
                     ->groupBy('program_id','level_name','program_name')
-                    ->where('decision_date','=', $date)
+                    ->orWhere('decision_date','=', $date)
+                    ->orWhere('decision_date','=','2022-07-14')
+                    ->orWhere('decision_date','=','2022-07-18')
                     ->get(array('srn'))
                    ->unique('program_id');
 
