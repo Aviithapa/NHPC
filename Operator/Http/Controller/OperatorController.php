@@ -126,6 +126,7 @@ class OperatorController extends BaseController
 ->where('exam_registration.state', '=', $state)
                 ->where('exam_registration.status', '=', $status)
                 ->where('level', '=', $level)
+                ->where('exam_registration.created_at', '<=', '2022-07-17')
                 ->orderBy('profiles.created_at','ASC')
                 ->skip(0)
                 ->take(100)
