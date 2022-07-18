@@ -129,7 +129,7 @@ class OperatorController extends BaseController
                 ->orderBy('profiles.created_at','ASC')
                 ->skip(0)
                 ->take(100)
-                    ->get(['profiles.*','exam_registration.*']);
+                ->get(['profiles.*','exam_registration.*']);
             return view('operator::pages.applicant-profile-list', compact('data','state','status'));
         } else {
             return redirect()->route('login');

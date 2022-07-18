@@ -34,18 +34,18 @@
             <li class="treeview {{ (request()->is('operator/dashboard/operator/applicant-profile-list/*/*')) ? 'active':''  }}"> <a href="#"> <i class="icon-grid"></i> <span>Applicant Profile</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
                 <ul class="treeview-menu">
                     <li class="{{ (request()->is('operator/dashboard/operator/applicant-profile-list/Reviewing/computer_operator/*')) ? 'active':''  }}">
-                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing','state' => 'computer_operator','level'=>"5"])}}">
+                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'progress','state' => 'computer_operator','level'=>"5"])}}">
                             <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantCount('Reviewing','computer_operator')}}</span></span>
                         </a>
                     </li>
                     <li class="{{ (request()->is('operator/dashboard/operator/applicant-profile-list/Rejected/computer_operator/*')) ? 'active':''  }}">
-                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'Rejected', 'state' => 'student','level'=>"5"])}}">
+                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'rejected', 'state' => 'student','level'=>"5"])}}">
                             <i class="icon-ban"></i> <span>Reject Profile List <span class="badge badge-pill badge-danger">{{getApplicantCount('Rejected','student')}}</span></span>
                         </a>
                     </li>
 
                     <li class="{{ (request()->is('operator/dashboard/operator/applicant-profile-list/Reviewing/officer/*')) ? 'active':''  }}">
-                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'officer' ,'level'=>"5"])}}">
+                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'progress', 'state' => 'officer' ,'level'=>"5"])}}">
                             <i class="icon-badge"></i> <span>Operator Verified Profile List <span class="badge badge-pill badge-danger">{{getApplicantCount('Reviewing','officer')}}</span></span>
                         </a>
                     </li>
