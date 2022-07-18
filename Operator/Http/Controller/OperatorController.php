@@ -125,7 +125,7 @@ class OperatorController extends BaseController
             $data = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
 ->where('exam_registration.state', '=', $state)
                 ->where('exam_registration.status', '=', $status)
-                ->where('level', '=', $level)
+                ->where('exam_registration.level', '=', $level)
                 ->where('exam_registration.created_at', '>=', '2022-07-17')
                 ->orderBy('profiles.created_at','ASC')
                 ->skip(0)
