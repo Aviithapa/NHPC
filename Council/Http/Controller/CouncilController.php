@@ -21,6 +21,7 @@ use Carbon\Carbon;
 use ExamCommittee\Http\Controller\BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Operator\Modules\Framework\Request;
 use Student\Modules\Profile\Repositories\ProfileRepository;
@@ -102,25 +103,32 @@ class CouncilController extends BaseController
     }
     public function dartaBookIndex(){
         if (Auth::user()->mainRole()->name === 'council') {
-            $date = "2016-11-20";
+            $date = "2022-07-12";
             if($date){
-                $program_certificates_code = Certificate::all()
+                $certificate = DB::table('certificate_history')
+
+                    ->select('program_id','level_name','program_name',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns') )
+                    ->groupBy('program_id','level_name','program_name')
                     ->where('decision_date','=', $date)
-                    ->distinct('program_certificate_code');
-                foreach ($program_certificates_code as $code){
-                    $dataCount[] = Certificate::all()
-                        ->where('decision_date','=', $date)
-                        ->where('program_certificate_code','=',$code['program_certificate_code']);
-                }
-                dd($dataCount[]);
+                    ->get(array('srn'))
+                   ->unique('program_id');
+
+
+//                $program_certificates_code = Certificate::all()
+//                    ->where('decision_date','=', $date)
+//                    ->groupBy('program_id','srn')
+//
+//                                  ;
+//                $attributes = array_keys($program_certificates_code->toArray());
+//                dd($attributes , $program_certificates_code);
+////                foreach ($program_certificates_code as $program){
+////                    if()
+////                }
             }
 
-            else
-                $program_certificates_code = Certificate::select('program_certificate_code')->distinct()->get();
-
-
-            dd($dataCount);
-            return \view('council::pages.darta-book', compact('programs'));
+//            else
+//                $program_certificates_code = Certificate::select('program_certificate_code')->distinct()->get();
+            return \view('council::pages.darta-book', compact(  'certificate'));
         }else{
             return redirect()->route('login');
         }

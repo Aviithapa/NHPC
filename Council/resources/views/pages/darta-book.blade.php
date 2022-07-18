@@ -49,7 +49,6 @@
                             <div class="table-responsive">
                                 <table id="data-table" class="table no-margin" style=" font-size: 14px ;">
                                     <thead style=" font-size: 14px ; font-weight: bold;">
-                                    <td>S.N.</td>
                                     <td>Level</td>
                                     <td>Program</td>
                                     <td>Total</td>
@@ -58,17 +57,15 @@
                                     </thead>
                                     <tbody>
 
-                                    @foreach($programs as $key => $program)
+                                    @foreach($certificate as $key => $program)
                                         <tr>
-                                            <td>{{$key +1}}</td>
-                                            <td>{{$program->getLevelName()}}</td>
-                                            <td>{{$program->code_}}</td>
-                                            <td>{{getProgramLicenceCount($program->id)}}</td>
-                                            <td>@foreach(getDartaNumber($program->id) as $darta)
-                                                             {{$darta}} ,
-                                                    @endforeach
-                                              </td>
-                                            <td> <a href="{{route("applicant.darta.details",['id' =>$program->id])}}"><span class="label label-success">View</span></a></td>
+                                            <td>{{$program->level_name}}</td>
+                                            <td>{{$program->program_name}}</td>
+                                            <td>{{$program->total}}</td>
+                                            <td style="width:50px !important;">{{$program->srns}}</td>
+                                            <td></td>
+
+                                            <td> <a href="{{route("applicant.darta.details",['id' =>$program->program_id])}}"><span class="label label-success">View</span></a></td>
 
                                         </tr>
                                         @endforeach
