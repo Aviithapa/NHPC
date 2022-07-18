@@ -112,6 +112,7 @@ class CouncilController extends BaseController
                     ->orWhere('decision_date','=', $date)
                     ->orWhere('decision_date','=','2022-07-14')
                     ->orWhere('decision_date','=','2022-07-18')
+                    ->orderBy('level_name')
                     ->get(array('srn'))
                    ->unique('program_id');
 
