@@ -167,7 +167,7 @@ class QualificationController extends BaseController
 
         if($qualification){
             $level = $qualification['level'] + 1;
-            if( $level != $data['level'] && $data['level'] != 1){
+            if( $level != $data['level']){
                 session()->flash('error',  ' Please fill been Saved Successfully');
                 return redirect()->back();
             }

@@ -122,13 +122,14 @@ class OperatorController extends BaseController
     public function profile($status, $state, $level=5)
     {
         if (Auth::user()->mainRole()->name === 'operator') {
-            $data = Profile::where('profile_state', '=', $state)
-                ->where('profile_status', '=', $status)
+            $data = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+->where('exam_registration.state', '=', $state)
+                ->where('exam_registration.status', '=', $status)
                 ->where('level', '=', $level)
-                ->orderBy('created_at','ASC')
+                ->orderBy('profiles.created_at','ASC')
                 ->skip(0)
                 ->take(100)
-                ->get();
+                    ->get(['profiles.*','exam_registration.*']);
             return view('operator::pages.applicant-profile-list', compact('data','state','status'));
         } else {
             return redirect()->route('login');
