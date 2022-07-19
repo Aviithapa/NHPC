@@ -165,18 +165,18 @@ class QualificationController extends BaseController
         $data['user_id'] = Auth::user()->id;
         $level_number = $this->levelRepository->findById($profile['level']);
 
-        if($qualification){
-            $level = $qualification['level'] + 1;
-            if( $level != $data['level']){
-                session()->flash('error',  ' Please fill been Saved Successfully');
-                return redirect()->back();
-            }
-        }else{
-            if($data['level'] != 1 && $data['level'] !=2){
-                session()->flash('error', 'Please fill SLC or TSLC details First');
-                return redirect()->back();
-            }
-        }
+//        if($qualification){
+//            $level = $qualification['level'] + 1;
+//            if( $level != $data['level']){
+//                session()->flash('error',  ' Please fill been Saved Successfully');
+//                return redirect()->back();
+//            }
+//        }else{
+//            if($data['level'] != 1 && $data['level'] !=2){
+//                session()->flash('error', 'Please fill SLC or TSLC details First');
+//                return redirect()->back();
+//            }
+//        }
         switch ($data['level']){
                 case 1 :
                     $data['transcript_image'] = $data['transcript_slc'];
