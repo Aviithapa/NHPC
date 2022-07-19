@@ -105,6 +105,7 @@ class OperatorController extends BaseController
             ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
             ->where('profile_processing.status','=',$status)
             ->where('profile_processing.current_state','!=','computer_operator')
+            ->where('exam_registration.created_at','>','2022-07-16')
             ->get(['profiles.*','program.name as program_name','profile_processing.*','profiles.id as profile_id']);
 
 
