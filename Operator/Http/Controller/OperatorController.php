@@ -91,7 +91,6 @@ class OperatorController extends BaseController
                     ->where('created_at','>','2022-07-16')
                     ->get();
 
-                dd($tslc);
 
                 return view('operator::pages.dashboard',compact('tslc'));
             }else {
