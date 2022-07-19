@@ -19,19 +19,21 @@
         <div class="content">
             <div class="row">
                 <div class="col-lg-3 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"5"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/5')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        Specialization</a>
+                    <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"1"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/1')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
+                        Specialization @if(count($countmaster) === 1){{$countmaster}}
+                                      @endif</a>
                 </div>
-                <div class="col-lg-3 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"4"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/4')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        Bachelor</a>
-                </div>
-                <div class="col-lg-3 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"3"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/3')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>PCL</a>
-            </div>
                 <div class="col-lg-3 m-b-3">
                     <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"2"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/2')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        TSLC</a>
+                        Bachelor @if(count($countbachelor) === 1){{$countbachelor[0]->count}}@endif</a>
+                </div>
+                <div class="col-lg-3 m-b-3">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"3"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/3')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
+                        PCL @if(count($countPCL) === 1){{$countPCL[0]->count}}@endif</a>
+            </div>
+                <div class="col-lg-3 m-b-3">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"4"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/4')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
+                        TSLC @if(count($countTSLC) === 1){{$countTSLC[0]->count}}@endif</a>
                 </div>
             </div>
 
@@ -49,6 +51,7 @@
                                 <table id="data-table" class="table no-margin">
                                     <thead>
                                     <tr>
+                                        <th>S.N.</th>
                                         <th>Registration Number</th>
                                         <th>Name</th>
                                         <th>Citizenship</th>
@@ -64,13 +67,14 @@
                                         </tr>
 
                                     @else
-                                        @foreach($data as $datas)
+                                        @foreach($data  as $key => $datas)
                                                 <tr>
+                                                    <td>{{++$key}}</td>
                                                     <td>{{$datas->id}}</td>
                                                     <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
                                                     <td>{{$datas->citizenship_number}}</td>
                                                     <td>{{$datas->created_at->toDateString()}}</td>
-                                                    <td> {{getProgramNameForProfile($datas->id)}}</td>
+                                                    <td> {{$datas->program_name}}</td>
                                                     <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->id)}}"><span class="label label-success">View</span></a></td>
                                                 </tr>
                                         @endforeach

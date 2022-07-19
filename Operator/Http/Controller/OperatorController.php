@@ -85,14 +85,24 @@ class OperatorController extends BaseController
             if (Auth::user()->mainRole()->name === 'operator') {
 
 
-                $tslc = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
-                    ->groupBy('program_id','created_at')
+                $tslc = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"), \DB::raw("program_id as program_id"))
+                    ->groupBy('program_id')
                     ->orderBy('count')
+                    ->where('level_id','<=',3)
                     ->where('created_at','>','2022-07-16')
                     ->get();
 
+                $failed_student = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"), \DB::raw("program_id as program_id"))
+                    ->groupBy('program_id')
+                    ->orderBy('count')
+                    ->where('level_id','<=',3)
+//                    ->where('created_at','>','2022-07-16')
+                    ->where('isPassed','=',0)
+                    ->where('state','=','exam_committee')
+                    ->get();
 
-                return view('operator::pages.dashboard',compact('tslc'));
+//                dd($failed_student);
+                return view('operator::pages.dashboard',compact('tslc', 'failed_student'));
             }else {
                 return redirect()->route('login');
             }
@@ -102,11 +112,11 @@ class OperatorController extends BaseController
         $students = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
                             ->where('exam_registration.program_id','=',$id)
             ->join('program','program.id','=','exam_registration.program_id')
-            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+//            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
             ->where('exam_registration.status','=',$status)
             ->where('exam_registration.state','=','computer_operator')
             ->where('exam_registration.created_at','>','2022-07-16')
-            ->get(['profiles.*','program.name as program_name','profile_processing.*','profiles.id as profile_id']);
+            ->get(['profiles.*','program.name as program_name','profiles.id as profile_id']);
 
 
         return view('operator::pages.program-student',compact('students'));
@@ -128,15 +138,61 @@ class OperatorController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'operator') {
             $data = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-->where('exam_registration.state', '=', $state)
+                ->where('exam_registration.state', '=', $state)
                 ->where('exam_registration.status', '=', $status)
+                ->join('program','program.id','=','exam_registration.program_id')
                 ->where('exam_registration.level_id', '=', $level)
-                ->where('exam_registration.created_at', '>=', '2022-07-17')
+                ->where('exam_registration.created_at', '>', '2022-07-16')
                 ->orderBy('profiles.created_at','ASC')
                 ->skip(0)
                 ->take(100)
-                ->get(['profiles.*','exam_registration.*']);
-            return view('operator::pages.applicant-profile-list', compact('data','state','status'));
+                ->get(['profiles.*','exam_registration.*','program.name as program_name']);
+
+            $countmaster = ExamProcessing::select(\DB::raw("COUNT(level_id) as count"))
+                ->groupBy('level_id')
+                ->orderBy('count')
+//                    ->where('created_at','>','2022-07-16')
+                ->where('level_id', '=', 1)
+                ->where('state','=',$state)
+                ->where('status','=',$status)
+                ->where('created_at','>','2022-07-16')
+                ->get();
+
+            $countbachelor = ExamProcessing::select(\DB::raw("COUNT(level_id) as count"))
+                ->groupBy('level_id')
+                ->orderBy('count')
+//                    ->where('created_at','>','2022-07-16')
+                ->where('level_id', '=', 2)
+                ->where('state','=',$state)
+                ->where('status','=',$status)
+                ->where('created_at','>','2022-07-16')
+                ->get();
+
+            $countPCL = ExamProcessing::select(\DB::raw("COUNT(level_id) as count"))
+                ->groupBy('level_id')
+                ->orderBy('count')
+//                    ->where('created_at','>','2022-07-16')
+                ->where('level_id', '=', 3)
+                ->where('state','=',$state)
+                ->where('status','=',$status)
+                ->where('created_at','>','2022-07-16')
+                ->get();
+
+            $countTSLC =   ExamProcessing::select(\DB::raw("COUNT(level_id) as count"))
+                ->groupBy('level_id')
+                ->orderBy('count')
+//                    ->where('created_at','>','2022-07-16')
+                ->where('level_id', '=', 4)
+                ->where('state','=',$state)
+                ->where('status','=',$status)
+                ->where('created_at','>','2022-07-16')
+                ->get('count');
+
+
+
+
+            return view('operator::pages.applicant-profile-list', compact('data','state','status','countTSLC','countPCL',
+            'countmaster','countbachelor'));
         } else {
             return redirect()->route('login');
         }

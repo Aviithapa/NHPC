@@ -21,20 +21,20 @@
         <div class="content">
             <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator','level'=>'5'])}}">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'progress', 'state' => 'computer_operator','level'=>'1'])}}">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Reviewing', 'computer_operator')}}</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('progress', 'computer_operator')}}</span>
                                 <span class="info-box-text">New Applicant Profile List</span> </div>
                         </div>
                     </div>
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Pending', 'state' => 'computer_operator' ,'level'=>"5"])}}">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'pending', 'state' => 'computer_operator' ,'level'=>"1"])}}">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Pending','computer_operator')}}</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('pending','computer_operator')}}</span>
                                 <span class="info-box-text">Applicant Pending Profile</span></div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Rejected','state' => 'student' ,'level'=>"5"])}}">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'rejected','state' => 'student' ,'level'=>"1"])}}">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Rejected','student')}}</span>
@@ -64,7 +64,7 @@
 
             <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator','level'=>"5"])}}">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator','level'=>"1"])}}">
 
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
@@ -75,7 +75,7 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator','level'=>"4"])}}">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator','level'=>"2"])}}">
 
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
@@ -97,7 +97,7 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator','level'=>"2"])}}">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator','level'=>"4"])}}">
 
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
@@ -154,6 +154,28 @@
                     @endforeach
             </div>
         </div>
+
+            <div class="content">
+                <div class="content-header sty-one mb-3">
+                    <h1>Failed Student Subject Wise List</h1>
+                </div>
+                <div class="row">
+                @foreach($failed_student as $exam)
+                    <div class="col-lg-3 col-xs-6 m-b-3">
+                        <a href="#">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="info-box-content"> <span class="info-box-number">{{$exam->count}}</span>
+                                        <span class="info-box-text">{{$exam->getProgramName()}}</span> </div>
+                                    <button class="btn btn-primary">Failed  Count</button>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+                </div>
+            </div>
 @endif
 
     </div>

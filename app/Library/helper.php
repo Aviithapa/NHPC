@@ -73,8 +73,9 @@ if (! function_exists('getApplicantCount')) {
     function getApplicantCount($status, $state)
     {
          $count =0;
-         $profiles = \Student\Models\Profile::all()->where("profile_status",'=' ,$status)
-                                                    ->where("profile_state",'=',$state);
+         $profiles = ExamProcessing::all()->where("status",'=' ,$status)
+                                                    ->where("state",'=',$state)
+                   ->where('created_at','>','2022-07-16');
          foreach ($profiles as $profile)
              $count++;
         return $count;
