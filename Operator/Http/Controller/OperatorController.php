@@ -86,10 +86,9 @@ class OperatorController extends BaseController
 
 
                 $tslc = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
-                    ->groupBy('program_id')
+                    ->groupBy('program_id','created_at')
                     ->orderBy('count')
-                    ->where('level_id', '<=', 3)
-                    ->where('created_at','<','2022-07-17')
+                    ->where('created_at','>','2022-07-16')
                     ->get();
 
                 dd($tslc);
