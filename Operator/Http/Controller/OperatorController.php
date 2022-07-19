@@ -86,7 +86,9 @@ class OperatorController extends BaseController
                     ->groupBy('program_id')
                     ->orderBy('count')
                     ->where('level_id', '<', 3)
+                    ->where('created_at','>','2022-07-17')
                     ->get();
+
 
                 return view('operator::pages.dashboard',compact('tslc'));
             }else {
