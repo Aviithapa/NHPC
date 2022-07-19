@@ -18,6 +18,7 @@ use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDe
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Database\Seeders\District;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Krishnahimself\DateConverter\DateConverter;
 use Operator\Modules\Framework\Request;
@@ -82,13 +83,16 @@ class OperatorController extends BaseController
 
     public function dashboard(){
             if (Auth::user()->mainRole()->name === 'operator') {
+
+
                 $tslc = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
                     ->groupBy('program_id')
                     ->orderBy('count')
-                    ->where('level_id', '<', 3)
-                    ->where('created_at','>','2022-07-17')
+                    ->where('level_id', '<=', 3)
+                    ->where('created_at','<','2022-07-17')
                     ->get();
 
+                dd($tslc);
 
                 return view('operator::pages.dashboard',compact('tslc'));
             }else {
