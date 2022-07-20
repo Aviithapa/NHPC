@@ -203,14 +203,14 @@ class ProfileController extends BaseController
     public function applyforExam(){
         $profile = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
         if ($profile){
-            if ($profile['level'] === 0 || $profile['level'] === null || $profile['level'] === 1){
+            if ($profile['level'] === 0 || $profile['level'] === null){
                 session()->flash('error', 'Please fill your qualification details');
                 return redirect()->to('student/dashboard/student/specific');
             }else{
                 $exam = $this->examProcessingRepository->getAll()->where('profile_id','=',$profile['id'])->where('state','!=','council');
                 if ($exam->isEmpty()){
                     $qualification = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id)
-                                                                            ->where('level','!=' , 1);
+                                                                            ->where('level','!=' , 5);
                     if ($qualification != null){
                         foreach ($qualification as $quali)
                             if (is_numeric($quali['program_id']) )
