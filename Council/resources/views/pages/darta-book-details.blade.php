@@ -29,12 +29,12 @@
                                 <table id="data-table" class="table no-margin" style=" font-size: 14px ;">
                                     <thead style=" font-size: 14px ; font-weight: bold;">
                                     <td>S.N.</td>
-                                    <td>Registration Number</td>
+                                    <td>Darta Number</td>
                                     <td>Name</td>
                                     <td>Address</td>
                                     <td>Qualification</td>
                                     <td>Date of Birth</td>
-                                    <td>Print_Date</td>
+                                    <td>Cert Registration Number</td>
                                     </thead>
                                     <tbody>
                                     @if($certificate->isEmpty())
@@ -46,13 +46,13 @@
                                     @else
                                     @foreach($certificate as $key => $certificates)
                                         <tr>
-                                            <td>{{$key +1}}</td>
+                                            <td>{{++$key}}</td>
                                             <td>{{$certificates->srn}}</td>
                                             <td>{{$certificates->name}}</td>
                                             <td>{{$certificates->address}}</td>
                                             <td>{{$certificates->qualification}}</td>
                                             <td>{{$certificates->date_of_birth}}</td>
-                                            <td>{{$certificates->print_date}}</td>
+                                            <td>{{$certificates->cert_registration_number}}</td>
                                         </tr>
                                     @endforeach
                                                 @endif
