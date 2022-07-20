@@ -141,9 +141,7 @@ class CouncilController extends BaseController
     public function applicantdartaBookIndex($id){
         if (Auth::user()->mainRole()->name === 'council') {
             $date = "2022-07-12";
-            $certificate = $this->certificateRepository->getAll()->where('program_id', '=', $id) ->orWhere('decision_date','=', $date)
-                ->orWhere('decision_date','=','2022-07-14')
-                ->orWhere('decision_date','=','2022-07-18');
+            $certificate = $this->certificateRepository->getAll()->where('program_id', '=', $id) ->where('decision_date','>=', $date);
             return \view('council::pages.darta-book-details', compact('certificate'));
         }else{
             return redirect()->route('login');
