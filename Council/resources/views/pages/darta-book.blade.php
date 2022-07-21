@@ -60,7 +60,7 @@
                                     @foreach($certificate as $key => $program)
                                         <tr>
                                             <td>{{$program->level_name}}</td>
-                                            <td>{{$program->program_name}}</td>
+                                            <td>{{$program->getProgramName()}}</td>
                                             <td>{{$program->total}}</td>
                                             <td style="width:50px !important;">{{$program->srns}}</td>
                                             <td></td>

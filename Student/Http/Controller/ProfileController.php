@@ -50,15 +50,29 @@ class ProfileController extends BaseController
 
     public function dashboard(){
         $data=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
+        $re_exam  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id','=',$data['id'])->where('is_admit_card_generate','=','yes')
+            ->where('attempt','=','2')->where('isPassed','=','0')->first();
         $rejected = null;
+        $exam_re = null;
         if ($data) {
             if ($data['profile_status'] === "Rejected") {
                 $rejected = "Your application has been rejected";
             }
+
+        }
+        if($re_exam){
+            $re_exam_applied  = ExamProcessing::orderBy('created_at', 'desc')->where('status','=','re-exam')->first();
+            if($re_exam_applied){
+                $exam_re = null;
+
+            }else{
+                $exam_re = "Please upload your voucher to reapply for the exam";
+            }
+
         }
         $exam=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
         $level = $this->levelRepository->getAll();
-        return view('student::pages.dashboard',compact('rejected','exam', 'data','level'));
+        return view('student::pages.dashboard',compact('rejected','exam', 'data','level','exam_re'));
     }
 
     public function saveLevelProgramSave(Request $request){
@@ -218,12 +232,27 @@ class ProfileController extends BaseController
                     }
                     return view('student::pages.apply-exam', compact( 'all_program'));
                 }else {
+                    $re_exam  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id','=',$profile['id'])->where('is_admit_card_generate','=','yes')
+                        ->where('attempt','=','2')->where('isPassed','=','0')->first();
+                    if ($re_exam){
+                        $re_exam_applied  = ExamProcessing::orderBy('created_at', 'desc')->where('status','=','re-exam')->first();
+                        if($re_exam_applied){
+                            session()->flash('success', 'You have already enrolled in licence Exam ');
+                            return redirect()->back();
+
+                        }else{
+                            $all_program[] = $this->programRepository->findById($re_exam['program_id']);
+                            return view('student::pages.apply-exam', compact( 'all_program'));
+                        }
+
+                    }else{
                     $specific_program = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id','=',$profile['id'])->where('status','=','rejected')->first();
                     if ($specific_program == null){
                         session()->flash('success', 'You have already enrolled in licence Exam ');
                     return redirect()->back();
                     }else{
                         return view('student::pages.update-apply-exam', compact(  'specific_program'));
+                    }
                     }
                 }
 
@@ -262,9 +291,19 @@ class ProfileController extends BaseController
             return redirect()->back();
         }
         $profile_id = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        $re_exam  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id','=',$profile_id['id'])->where('is_admit_card_generate','=','yes')
+            ->where('attempt','=','2')->where('isPassed','=','0')->first();
+
+        if($re_exam){
+            $data["status"] = 're-exam';
+            $data["state"] = 'exam_committee';
+        }else{
+            $data["status"] = 'progress';
+            $data["state"] = 'computer_operator';
+        }
+
         $data["profile_id"] = $profile_id['id'];
-        $data["state"] = 'computer_operator';
-        $data["status"] = 'progress';
+
          $level = $this->programRepository->findById($data['program_id']);
         $data['level_id'] = $level['level_id'];
         $data['voucher_image'] = $data['voucher'];
@@ -274,17 +313,17 @@ class ProfileController extends BaseController
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
-            $data = $this->profileRepository->findById($profile_id['id']);
-            $user_id = $data['user_id'];
-            $user_data = $this->userRepository->findById($user_id);
-            $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $data['user_id']);
-            $profile_logs = $this->profileLogsRepository->getAll()->where('profile_id', '=', $profile_id['id']);
-            $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile_id['id'])->first();
-            $exams = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile_id['id']);
-            return view('operator::pages.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams'));
+//            $data = $this->profileRepository->findById($profile_id['id']);
+//            $user_id = $data['user_id'];
+//            $user_data = $this->userRepository->findById($user_id);
+//            $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $data['user_id']);
+//            $profile_logs = $this->profileLogsRepository->getAll()->where('profile_id', '=', $profile_id['id']);
+//            $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile_id['id'])->first();
+//            $exams = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile_id['id']);
+//            return view('operator::pages.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams'));
 
-//            session()->flash('success','Exam Processing has been started');
-//            return redirect()->to('student/dashboard');
+            session()->flash('success','Exam Processing has been started');
+            return redirect()->to('student/dashboard');
         } catch (\Exception $e) {
             session()->flash('danger', 'Oops! Something went wrong.');
             return redirect()->back()->withInput();
