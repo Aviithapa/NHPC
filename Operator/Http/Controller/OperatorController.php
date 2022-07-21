@@ -122,20 +122,18 @@ class OperatorController extends BaseController
             }
     }
 
-    public function getProgramWiseStudent($id,  $status){
+    public function getProgramWiseStudent($id,  $status, $state){
         $students = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
                             ->where('exam_registration.program_id','=',$id)
             ->join('program','program.id','=','exam_registration.program_id')
 //            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
             ->where('exam_registration.status','=',$status)
-            ->where('exam_registration.state','=','computer_operator')
+            ->where('exam_registration.state','=',$state)
             ->where('exam_registration.created_at','>','2022-07-16')
             ->get(['profiles.*','program.name as program_name','profiles.id as profile_id']);
 
 
         return view('operator::pages.program-student',compact('students'));
-
-
     }
     public function exam($status, $state)
     {

@@ -26,7 +26,7 @@ Route::get('/certificate/isPrinted/{id}',  [\Operator\Http\Controller\OperatorCo
 Route::get('/certificate/card/{status}',  [\Operator\Http\Controller\OperatorController::class,'printCertificateDashboard'])->middleware(['auth'])->name('operator.dashboard.printCertificateDashboard');
 
 
-Route::get('/student/program/{id}/{status}',  [\Operator\Http\Controller\OperatorController::class,'getProgramWiseStudent'])->middleware(['auth'])->name('operator.dashboard.getProgramWiseStudent');
+Route::get('/student/program/{id}/{status}/{state}',  [\Operator\Http\Controller\OperatorController::class,'getProgramWiseStudent'])->middleware(['auth'])->name('operator.dashboard.getProgramWiseStudent');
 
 Route::get('/subjectCommittee/dashboard',[\Operator\Http\Controller\OperatorController::class,'subjectCommitteeDashboard'])->middleware(['auth'])->name('subjectCommittee.dashboard.operator');
 Route::get('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}',[\Operator\Http\Controller\OperatorController::class,'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.operator.list');

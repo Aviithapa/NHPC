@@ -139,19 +139,6 @@
                     </div>
                     </a>
                 </div>
-                @foreach($tslc as $exam)
-                <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{url("operator/dashboard/student/program/".$exam->program_id."/progress")}}">
-
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="info-box-content"> <span class="info-box-number">{{$exam->count}}</span>
-                                <span class="info-box-text">{{$exam->getProgramName()}}</span> </div>
-                        </div>
-                    </div>
-                    </a>
-                </div>
-                    @endforeach
             </div>
         </div>
 
@@ -176,7 +163,34 @@
 
             </style>
 
-            <div class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="content-header sty-one mb-3 collapsible">
+                            <h1> Student Subject Wise List (2022-07-17)</h1>
+                        </div>
+                        <div class="contented">
+                            <div class="row">
+                                @foreach($tslc as $exam)
+                                    <div class="col-lg-3 col-xs-6 m-b-3">
+                                        <a href="{{url("operator/dashboard/student/program/".$exam->program_id."/progress/computer_operator")}}">
+
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="info-box-content"> <span class="info-box-number">{{$exam->count}}</span>
+                                                        <span class="info-box-text">{{$exam->getProgramName()}}</span> </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid mt-2">
                 <div class="card">
                     <div class="card-body">
                 <div class="content-header sty-one mb-3 collapsible">
@@ -204,7 +218,7 @@
                 </div>
             </div>
 
-            <div class="content">
+            <div class="container-fluid mt-2 mb-2">
                 <div class="card">
                     <div class="card-body">
                         <div class="content-header sty-one mb-3 collapsible">
@@ -214,7 +228,7 @@
                             <div class="row">
                                 @foreach($re_apply_student as $exam)
                                     <div class="col-lg-3 col-xs-6 m-b-3">
-                                        <a href="#">
+                                        <a href="{{url("operator/dashboard/student/program/".$exam->program_id."/re-exam/exam_committee")}}">
 
                                             <div class="card">
                                                 <div class="card-body">
