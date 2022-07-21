@@ -50,26 +50,27 @@ class ProfileController extends BaseController
 
     public function dashboard(){
         $data=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
-        $re_exam  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id','=',$data['id'])->where('is_admit_card_generate','=','yes')
-            ->where('attempt','=','2')->where('isPassed','=','0')->first();
+
         $rejected = null;
         $exam_re = null;
         if ($data) {
             if ($data['profile_status'] === "Rejected") {
                 $rejected = "Your application has been rejected";
             }
+            $re_exam  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id','=',$data['id'])->where('is_admit_card_generate','=','yes')
+                ->where('attempt','=','2')->where('isPassed','=','0')->first();
+            if($re_exam){
+                $re_exam_applied  = ExamProcessing::orderBy('created_at', 'desc')->where('status','=','re-exam')->first();
+                if($re_exam_applied){
+                    $exam_re = null;
 
-        }
-        if($re_exam){
-            $re_exam_applied  = ExamProcessing::orderBy('created_at', 'desc')->where('status','=','re-exam')->first();
-            if($re_exam_applied){
-                $exam_re = null;
+                }else{
+                    $exam_re = "Please upload your voucher to reapply for the exam";
+                }
 
-            }else{
-                $exam_re = "Please upload your voucher to reapply for the exam";
             }
-
         }
+
         $exam=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
         $level = $this->levelRepository->getAll();
         return view('student::pages.dashboard',compact('rejected','exam', 'data','level','exam_re'));
