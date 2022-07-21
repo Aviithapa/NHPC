@@ -58,70 +58,213 @@ class RegistrarController  extends BaseController
     public function dashboard()
     {
         if (Auth::user()->mainRole()->name === 'registrar') {
-            $data= Profile::select(\DB::raw("COUNT(*) as count"), \DB::raw("profile_status as profile_status"))
-                ->groupBy('profile_status')
-                ->orderBy('count')
-                ->get();
-            $profile= Profile::select(\DB::raw("COUNT(*) as count"), \DB::raw("profile_state as profile_state"))
-                ->groupBy('profile_state')
-                ->orderBy('count')
-                ->get();
-
-            $exams = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
+//            $data= Profile::select(\DB::raw("COUNT(*) as count"), \DB::raw("profile_status as profile_status"))
+//                ->groupBy('profile_status')
+//                ->orderBy('count')
+//                ->get();
+//            $profile= Profile::select(\DB::raw("COUNT(*) as count"), \DB::raw("profile_state as profile_state"))
+//                ->groupBy('profile_state')
+//                ->orderBy('count')
+//                ->get();
+//
+//            $exams = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
+//                ->groupBy('program_id')
+//                ->orderBy('count')
+//                ->get();
+//            $tslc = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
+//                ->groupBy('program_id')
+//                ->orderBy('count')
+//                ->where('level_id', '<', 3)
+//                ->get();
+//
+//
+//
+//            $examPieChart = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
+//                ->groupBy('program_id')
+//                ->orderBy('count')
+//                ->get();
+//            $verified= Profile::where('profile_status','Verified')->get();
+//            $reviewing= Profile::where('profile_status','Reviewing')->get();
+//            $rejected= Profile::where('profile_status','Rejected')->get();
+//
+//            $examApplied = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+//                ->where('exam_registration.level_id','<','4')
+//                ->join('program','program.id','=','exam_registration.program_id')
+//                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+//                ->where('profile_processing.status','=',"progress")
+//                ->count(['profiles.id']);
+//
+//            $examNotTaken = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+//                ->where('exam_registration.level_id','=','4')
+//                ->join('program','program.id','=','exam_registration.program_id')
+//                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+//                ->where('profile_processing.current_state','!=','computer_operator')
+//                ->count(['profiles.id']);
+//
+//            $subjectCommiteeExamApplied = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+//                ->where('exam_registration.level_id','<','4')
+//                ->join('program','program.id','=','exam_registration.program_id')
+//                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+//                ->where('profile_processing.status','=',"progress")
+//                ->where('profile_processing.current_state','!=','computer_operator')
+//                ->count(['profiles.id']);
+//
+//            $subjectCommiteeRejectList = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+//                ->where('exam_registration.level_id','<','4')
+//                ->join('program','program.id','=','exam_registration.program_id')
+//                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+//                ->where('profile_processing.status','=',"rejected")
+//                ->where('profile_processing.current_state','=','subject_committee')
+//                ->count(['profiles.id']);
+//
+//            return view('registrar::pages.dashboard',compact('data','profile','verified','reviewing','rejected',
+//                'examPieChart','exams','tslc','examApplied','examNotTaken','subjectCommiteeExamApplied','subjectCommiteeRejectList'));
+            $tslc = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"), \DB::raw("program_id as program_id"))
                 ->groupBy('program_id')
                 ->orderBy('count')
+                ->where('level_id','<=',3)
+                ->where('created_at','>','2022-07-16')
                 ->get();
-            $tslc = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
+
+            $failed_student = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"), \DB::raw("program_id as program_id"))
                 ->groupBy('program_id')
                 ->orderBy('count')
-                ->where('level_id', '<', 3)
+                ->where('level_id','<=',3)
+                ->where('isPassed','=',0)
+                ->where('state','=','exam_committee')
                 ->get();
 
-
-
-            $examPieChart = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
+            $re_apply_student = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"), \DB::raw("program_id as program_id"))
                 ->groupBy('program_id')
                 ->orderBy('count')
+                ->where('level_id','<=',3)
+                ->where('status','=','re-exam')
                 ->get();
-            $verified= Profile::where('profile_status','Verified')->get();
-            $reviewing= Profile::where('profile_status','Reviewing')->get();
-            $rejected= Profile::where('profile_status','Rejected')->get();
 
-            $examApplied = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-                ->where('exam_registration.level_id','<','4')
-                ->join('program','program.id','=','exam_registration.program_id')
-                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-                ->where('profile_processing.status','=',"progress")
-                ->count(['profiles.id']);
+            $re_apply_student_count = ExamProcessing::
+            where('status','=','re-exam')
+                ->get();
 
-            $examNotTaken = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-                ->where('exam_registration.level_id','=','4')
-                ->join('program','program.id','=','exam_registration.program_id')
-                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-                ->where('profile_processing.current_state','!=','computer_operator')
-                ->count(['profiles.id']);
+            $third_licence_exam_student_count = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"))
+                ->orderBy('count')
+                ->where('created_at','<','2022-07-16')
+                ->where('level_id','!=','4')
+                ->count();
 
-            $subjectCommiteeExamApplied = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-                ->where('exam_registration.level_id','<','4')
-                ->join('program','program.id','=','exam_registration.program_id')
-                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-                ->where('profile_processing.status','=',"progress")
-                ->where('profile_processing.current_state','!=','computer_operator')
-                ->count(['profiles.id']);
 
-            $subjectCommiteeRejectList = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-                ->where('exam_registration.level_id','<','4')
-                ->join('program','program.id','=','exam_registration.program_id')
-                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-                ->where('profile_processing.status','=',"rejected")
-                ->where('profile_processing.current_state','=','subject_committee')
-                ->count(['profiles.id']);
+            $third_licence_exam_qualified_student_count = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"))
+                ->orderBy('count')
+                ->where('state','=','exam_committee')
+                ->orWhere('state','=','council')
+                ->where('created_at','<','2022-07-16')
+                ->where('level_id','!=','4')
+                ->count();
 
-            return view('registrar::pages.dashboard',compact('data','profile','verified','reviewing','rejected',
-                'examPieChart','exams','tslc','examApplied','examNotTaken','subjectCommiteeExamApplied','subjectCommiteeRejectList'));
+            $third_licence_exam_passed_student_count = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"))
+                ->orderBy('count')
+//                ->where('state','=','exam_committee')
+                ->where('state','=','council')
+                ->where('created_at','<','2022-07-16')
+                ->where('level_id','!=','4')
+                ->count();
+
+            $third_licence_exam_failed_student_count = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"))
+                ->orderBy('count')
+                ->where('state','=','exam_committee')
+//                ->where('status','=','rejected')
+//                ->where('attempt','=',2)
+                ->where('is_admit_card_generate','=','Yes')
+                ->where('created_at','<','2022-07-16')
+                ->where('level_id','!=','4')
+                ->count();
+
+            $operator_pending = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"))
+                ->orderBy('count')
+                ->where('state','=','computer_operator')
+                ->where('status','=','progress')
+//                ->where('attempt','=',2)
+//                ->where('is_admit_card_generate','=','Yes')
+                ->where('created_at','>','2022-07-16')
+                ->where('level_id','!=','4')
+                ->count();
+
+            $operator_rejected = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"))
+                ->orderBy('count')
+                ->where('state','=','computer_operator')
+                ->where('status','=','rejected')
+//                ->where('attempt','=',2)
+//                ->where('is_admit_card_generate','=','Yes')
+                ->where('created_at','>','2022-07-16')
+                ->where('level_id','!=','4')
+                ->count();
+
+            $operator_verified = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"))
+                ->orderBy('count')
+                ->where('state','!=','computer_operator')
+                ->where('status','=','progress')
+//                ->where('attempt','=',2)
+//                ->where('is_admit_card_generate','=','Yes')
+                ->where('created_at','>','2022-07-16')
+                ->where('level_id','!=','4')
+                ->count();
+
+
+            $officer_pending = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"))
+                ->orderBy('count')
+                ->where('state','=','officer')
+                ->where('status','=','progress')
+//                ->where('attempt','=',2)
+//                ->where('is_admit_card_generate','=','Yes')
+                ->where('created_at','>','2022-07-16')
+                ->where('level_id','!=','4')
+                ->count();
+
+            $officer_rejected = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"))
+                ->orderBy('count')
+                ->where('state','=','officer')
+                ->where('status','=','rejected')
+//                ->where('attempt','=',2)
+//                ->where('is_admit_card_generate','=','Yes')
+                ->where('created_at','>','2022-07-16')
+                ->where('level_id','!=','4')
+                ->count();
+
+            $officer_verified = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"))
+                ->orderBy('count')
+                ->where('state','!=','officer')
+                ->where('state','!=','computer_operator')
+                ->where('status','=','progress')
+//                ->where('attempt','=',2)
+//                ->where('is_admit_card_generate','=','Yes')
+                ->where('created_at','>','2022-07-16')
+                ->where('level_id','!=','4')
+                ->count();
+
+
+//            dd($third_licence_exam_failed_student_count);
+
+            return view('registrar::pages.dashboard',compact('tslc', 'failed_student','re_apply_student','re_apply_student_count','third_licence_exam_student_count','third_licence_exam_qualified_student_count',
+            'third_licence_exam_passed_student_count','third_licence_exam_failed_student_count',
+            'operator_pending','operator_verified','operator_rejected',
+            'officer_pending','officer_rejected','officer_verified'));
         }else{
             return redirect()->route('login');
         }
+    }
+
+    public function internalData($state,$status){
+        $datas = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.state', '=', $state)
+            ->where('exam_registration.status', '=', $status)
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->where('exam_registration.level_id', '!=', 4)
+            ->where('exam_registration.created_at', '>', '2022-07-16')
+            ->orderBy('profiles.created_at','ASC')
+            ->get(['profiles.*','exam_registration.*','program.name as program_name']);
+
+//        dd($datas);
+
+        return view('registrar::pages.internalData',compact('datas'));
     }
 
     public function profile($status, $current_state, $level, $page = 0)
