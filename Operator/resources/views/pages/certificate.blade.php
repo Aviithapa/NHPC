@@ -205,7 +205,7 @@
         font-weight: 700;">{{$certificate->province_name}}</span>
 
         Province is registered as <span style="font-size: 26px;
-        font-weight: 700;">{{$certificate->certificate_program_name}}</span>
+        font-weight: 700;">PCL General Medicine</span>
         of <span style="font-size: 26px;
         font-weight: 700;">{{$certificate->level_name}}</span> Level
         in the registration book and this Registration Certificate is hereby
@@ -290,7 +290,13 @@
         font-weight: bold;
         width: 140px;
 
-">{{$certificate->certificate_program_name}}</td>
+">PCL General Medicine</td>
+{{--            <td style=" border: 1px solid black;--}}
+{{--        text-align: center;  font-size: 16px;--}}
+{{--        font-weight: bold;--}}
+{{--        width: 140px;--}}
+
+{{--">{{$certificate->certificate_program_name}}</td>--}}
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
