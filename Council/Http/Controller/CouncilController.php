@@ -103,7 +103,7 @@ class CouncilController extends BaseController
     }
     public function dartaBookIndex(){
         if (Auth::user()->mainRole()->name === 'council') {
-            $date = "2022-07-10";
+            $date = "2022-07-12";
             if($date){
                 $certificate = DB::table('certificate_history')
 
