@@ -101,8 +101,22 @@ class OperatorController extends BaseController
                     ->where('state','=','exam_committee')
                     ->get();
 
+                $re_apply_student = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"), \DB::raw("program_id as program_id"))
+                    ->groupBy('program_id')
+                    ->orderBy('count')
+                    ->where('level_id','<=',3)
+//                    ->where('created_at','>','2022-07-16')
+//                    ->where('isPassed','=',0)
+                    ->where('status','=','re-exam')
+                    ->get();
+
+                $re_apply_student_count = ExamProcessing::
+//                    ->where('created_at','>','2022-07-16')
+//                    ->where('isPassed','=',0)
+                      where('status','=','re-exam')
+                    ->get();
 //                dd($failed_student);
-                return view('operator::pages.dashboard',compact('tslc', 'failed_student'));
+                return view('operator::pages.dashboard',compact('tslc', 'failed_student','re_apply_student','re_apply_student_count'));
             }else {
                 return redirect()->route('login');
             }

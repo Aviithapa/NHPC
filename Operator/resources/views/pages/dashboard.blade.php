@@ -155,11 +155,35 @@
             </div>
         </div>
 
+            <style>
+                .collapsible {
+                    cursor: pointer;
+                    padding: 18px;
+                    width: 100%;
+                    border: none;
+                    text-align: left;
+                    outline: none;
+                    font-size: 15px;
+                }
+
+                .active{
+                    background-color: #555;
+                }
+
+                .contented {
+                    display: none;
+                }
+
+            </style>
+
             <div class="content">
-                <div class="content-header sty-one mb-3">
+                <div class="card">
+                    <div class="card-body">
+                <div class="content-header sty-one mb-3 collapsible">
                     <h1>Failed Student Subject Wise List</h1>
                 </div>
-                <div class="row">
+                <div class="contented">
+                    <div class="row">
                 @foreach($failed_student as $exam)
                     <div class="col-lg-3 col-xs-6 m-b-3">
                         <a href="#">
@@ -174,6 +198,37 @@
                         </a>
                     </div>
                 @endforeach
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+
+            <div class="content">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="content-header sty-one mb-3 collapsible">
+                            <h1>Re-Exam Applied Student Subject Wise List (2022-07-17)  <span style="float: right; font-weight: bold;">Count: {{ $re_apply_student_count->count()}}</span></h1>
+                        </div>
+                        <div class="contented">
+                            <div class="row">
+                                @foreach($re_apply_student as $exam)
+                                    <div class="col-lg-3 col-xs-6 m-b-3">
+                                        <a href="#">
+
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="info-box-content"> <span class="info-box-number">{{$exam->count}}</span>
+                                                        <span class="info-box-text">{{$exam->getProgramName()}}</span> </div>
+                                                    <button class="btn btn-primary">Failed  Count</button>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 @endif
@@ -185,3 +240,22 @@
 
 
 @endsection
+
+@push('scripts')
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+    @endpush
