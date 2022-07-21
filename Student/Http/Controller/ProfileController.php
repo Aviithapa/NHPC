@@ -225,7 +225,7 @@ class ProfileController extends BaseController
                 $exam = $this->examProcessingRepository->getAll()->where('profile_id','=',$profile['id'])->where('state','!=','council');
                 if ($exam->isEmpty()){
                     $qualification = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id)
-                                                                            ->where('level','!=' , 5);
+                                                                           ;
                     if ($qualification != null){
                         foreach ($qualification as $quali)
                             if (is_numeric($quali['program_id']) )
