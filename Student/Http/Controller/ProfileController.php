@@ -236,7 +236,7 @@ class ProfileController extends BaseController
                     $re_exam  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id','=',$profile['id'])->where('is_admit_card_generate','=','yes')
                         ->where('attempt','=','2')->where('isPassed','=','0')->first();
                     if ($re_exam){
-                        $re_exam_applied  = ExamProcessing::orderBy('created_at', 'desc')->where('status','=','re-exam')->first();
+                        $re_exam_applied  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id','=',$profile['id'])->where('status','=','re-exam')->first();
                         if($re_exam_applied){
                             session()->flash('success', 'You have already enrolled in licence Exam ');
                             return redirect()->back();
