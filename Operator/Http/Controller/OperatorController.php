@@ -276,8 +276,48 @@ class OperatorController extends BaseController
                         ->skip(0)
                         ->take(20)
                         ->get();
+                $countmaster = ExamProcessing::select(\DB::raw("COUNT(level_id) as count"))
+                    ->groupBy('level_id')
+                    ->orderBy('count')
+//                    ->where('created_at','>','2022-07-16')
+                    ->where('level_id', '=', 1)
+                    ->where('state','=',$state)
+                    ->where('status','=',$status)
+                    ->where('created_at','>','2022-07-16')
+                    ->get();
 
-                return view('operator::pages.applicant-profile-list', compact('data','state','status'));
+                $countbachelor = ExamProcessing::select(\DB::raw("COUNT(level_id) as count"))
+                    ->groupBy('level_id')
+                    ->orderBy('count')
+//                    ->where('created_at','>','2022-07-16')
+                    ->where('level_id', '=', 2)
+                    ->where('state','=',$state)
+                    ->where('status','=',$status)
+                    ->where('created_at','>','2022-07-16')
+                    ->get();
+
+                $countPCL = ExamProcessing::select(\DB::raw("COUNT(level_id) as count"))
+                    ->groupBy('level_id')
+                    ->orderBy('count')
+//                    ->where('created_at','>','2022-07-16')
+                    ->where('level_id', '=', 3)
+                    ->where('state','=',$state)
+                    ->where('status','=',$status)
+                    ->where('created_at','>','2022-07-16')
+                    ->get();
+
+                $countTSLC =   ExamProcessing::select(\DB::raw("COUNT(level_id) as count"))
+                    ->groupBy('level_id')
+                    ->orderBy('count')
+//                    ->where('created_at','>','2022-07-16')
+                    ->where('level_id', '=', 4)
+                    ->where('state','=',$state)
+                    ->where('status','=',$status)
+                    ->where('created_at','>','2022-07-16')
+                    ->get('count');
+
+                return view('operator::pages.applicant-profile-list', compact('data','state','status','countTSLC','countPCL',
+                    'countmaster','countbachelor'));
             } catch (\Exception $e) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
