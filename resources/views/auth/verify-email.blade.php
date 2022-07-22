@@ -7,14 +7,11 @@
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __(" Thank you for signing up! Before getting started. Please, could you verify your email address by entering the code send to your email address, we just emailed to you? We will gladly send you another if you didn't receive the email or have any query please contact to
-            Mr Satyanand : 9803283319.") }}
+            {{ __(" Thank you for signing up, before starting. Please, verify your email by entering the code sent in your email address. If any confusion, please contact to NHPC at Office hours") }}
 
         </div>
         <div class="mb-4 text-sm text-gray-600">
-            {{ __("साइन अप गर्नुभएकोमा धन्यवाद! सुरु गर्नु अघि।
-कृपया, हामीले भर्खरै तपाईलाई इमेल गरेका थियौं, तपाईको इमेल ठेगानामा पठाइएको कोड प्रविष्ट गरेर तपाईले आफ्नो इमेल ठेगाना प्रमाणित गर्न सक्नुहुन्छ?
- यदि तपाईले इमेल प्राप्त गर्नुभएन भने हामी खुशीसाथ तपाईलाई अर्को पठाउनेछौं") }}
+            {{ __("परिषदको नाम दर्ता प्रकृया साईन अप गर्नु भएकोमा धन्यबाद । कृपया आफ्नो ईमेल ठेगानामा  परिषदबाट पठाईएको कोड राखी आफ्नो ईमेल प्रमाणित गर्नुहोस । यदी कुनै समस्या छ भने कार्यालय समयमा परिषद मा सम्पर्क  गर्नुहोला ।") }}
         </div>
 
         <form method="POST" action="{{ route('verify.user.code') }}">

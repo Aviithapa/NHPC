@@ -68,7 +68,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 style="font-weight: bold; color: red; font-size: 16px; line-height: 20px; text-align: center;">कृपया आवेदन स्तर र कार्यक्रम नाम चयन गर्नुहोस्।  Please select the application level and program name.</h3>
+                        <h3 style="font-weight: bold; color: red; font-size: 16px; line-height: 20px; text-align: center;">कृपया आफ्नो दर्ता हुन चाहेको कार्यक्रम (बिषय)  र तह चयन गर्नुहोस ।   Please select the application level and program name.</h3>
                     </div>
 
                     <div class="modal-body">
