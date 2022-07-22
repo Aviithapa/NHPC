@@ -479,7 +479,7 @@ class ProfileController extends BaseController
 
         if($request->ajax()) {
 //            $output = "";
-            $programs = Program::all()->where('level_id', '=',  $request->level_id);
+            $programs = Program::all()->where('level_id', '=',  $request->level_id)->where('status','=',1);
             $output = '<option value= >Select Program</option>';
 
             if ($programs) {
