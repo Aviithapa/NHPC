@@ -15,6 +15,8 @@
             </ol>
         </div>
 
+
+
 {{--        <div class="content">--}}
 {{--@if($data->coordinator)--}}
 {{--            <div class="row">--}}

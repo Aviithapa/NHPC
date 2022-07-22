@@ -7,6 +7,7 @@ use App\Models\Address\District;
 use App\Models\Address\Municipality;
 use App\Models\Address\Provinces;
 use App\Models\Admin\Program;
+use App\Models\Admin\University;
 use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Admin\Level\Repositories\LevelRepository;
@@ -166,8 +167,9 @@ class ProfileController extends BaseController
                     $bachelor_program = $this->programRepository->getAll()->where('level_id','=',2);
                     $master_program = $this->programRepository->getAll()->where('level_id','=',1);
                     $collage = $this->collegeRepository->getAll();
+                    $university = University::get();
                     return view('student::pages.specific',compact('slc_data','plus_2','bachelor','master','slc_program',
-                                                                            'plus_2_program','bachelor_program','master_program','tslc_data','collage','province','profile'));
+                                                                            'plus_2_program','bachelor_program','master_program','tslc_data','collage','province','profile','university'));
                     break;
                 default :
                     return view('student::pages.404');

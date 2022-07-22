@@ -83,7 +83,15 @@
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>University</label>
-                        <input name="board_university" class="form-control" id="basicInput" type="text" required>
+
+                        <select class="form-control" name="board_university"  id="bachorBoardUniversityNepalValue" onchange="bachelorUniversityChange()">
+                            <option value="">Select University</option>
+                            @foreach($university as $program)
+                                <option value="{{$program->name}}">{{$program->name}}</option>
+                            @endforeach
+                            <option value="other">Others</option>
+                        </select>
+                        <input name="nothing" class="form-control" id="bachorBoardUniversityOutsideValue" type="text" required>
                     </fieldset>
                 </div>
                 <div class="col-lg-4">
@@ -591,6 +599,23 @@
 
 @push('scripts')
     <script>
+        function bachelorUniversityChange() {
+            const sb = document.querySelector('#bachorBoardUniversityNepalValue');
+            switch (sb.value) {
+                case 'other':
+                    $("#bachorBoardUniversityOutsideValue").show();
+                    $("#bachorBoardUniversityNepalValue").hide();
+                    $("#bachorBoardUniversityNepalValue").attr('name', 'nothing');
+                    $('#bachorBoardUniversityOutsideValue').attr('name', 'board_university');
+                    break;
+                default:
+                    $("#bachorBoardUniversityNepalValue").show();
+                    $("#bachorBoardUniversityOutsideValue").hide();
+                    $("#bachorBoardUniversityOutsideValue").attr('name', 'nothing');
+                    $('#bachorBoardUniversityNepalValue').attr('name', 'board_university');
+                    break;
+            }
+        }
         function chnageBachorType() {
 
             const sb = document.querySelector('#bachorcollageType');

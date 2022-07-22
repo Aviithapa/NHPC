@@ -4,6 +4,7 @@
 namespace Student\Http\Controller;
 
 
+use App\Models\Admin\University;
 use App\Models\Profile\ProfileProcessing;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Admin\Level\Repositories\LevelRepository;
@@ -42,6 +43,7 @@ class QualificationController extends BaseController
     public function index(Request $request){
         $qualifications = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id);
         $profile = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+
        return view('student::pages.qualification.index',compact('qualifications','profile'));
     }
 
@@ -55,8 +57,9 @@ class QualificationController extends BaseController
         $bachelor_program = $this->programRepository->getAll()->where('level_id','=',2);
         $master_program = $this->programRepository->getAll()->where('level_id','=',1);
         $collage = $this->collegeRepository->getAll();
+        $university = University::get();
         if ($data)
-        return view('student::pages.qualification.update.form',compact('data','slc_program','plus_2_program','bachelor_program','master_program','collage'));
+        return view('student::pages.qualification.update.form',compact('data','slc_program','plus_2_program','bachelor_program','master_program','collage','university'));
         else
             return redirect()->route('student.dashboard');
 
@@ -152,8 +155,9 @@ class QualificationController extends BaseController
         $bachelor_program = $this->programRepository->getAll()->where('level_id','=',2);
         $master_program = $this->programRepository->getAll()->where('level_id','=',1);
         $collage = $this->collegeRepository->getAll();
+        $university = University::get();
         return view('student::pages.qualification.form',compact('master_program','collage','qualifications','slc_data','plus_2','bachelor','master','slc_program',
-            'plus_2_program','bachelor_program','master_program','tslc_data','collage'));
+            'plus_2_program','bachelor_program','master_program','tslc_data','collage','university'));
     }
 
     public function store(Request $request)
@@ -231,16 +235,16 @@ class QualificationController extends BaseController
             $collage = $this->collegeRepository->getAll();
 
 
-            if($level_number['level_number'] == $level){
-                $qualification = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id)
-                    ->where('level','!=' , 1);
-                if ($qualification != null){
-                    foreach ($qualification as $quali)
-                        if (is_numeric($quali['program_id']) )
-                            $all_program[] = $this->programRepository->findById($quali['program_id']);
-                }
-                return view('student::pages.apply-exam', compact( 'all_program'));
-            }
+//            if($level_number['level_number'] == $level){
+//                $qualification = $this->qualificationRepository->getAll()->where('user_id','=',Auth::user()->id)
+//                    ->where('level','!=' , 1);
+//                if ($qualification != null){
+//                    foreach ($qualification as $quali)
+//                        if (is_numeric($quali['program_id']) )
+//                            $all_program[] = $this->programRepository->findById($quali['program_id']);
+//                }
+//                return view('student::pages.apply-exam', compact( 'all_program'));
+//            }
 
             session()->flash('success', $data["level_name"].' Qualification have been Saved Successfully');
             return redirect()->route('student.specific',compact('slc_data','plus_2','bachelor','master','tslc_data'));

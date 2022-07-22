@@ -74,7 +74,15 @@
                     <div class="col-lg-4">
                         <fieldset class="form-group">
                             <label>University</label>
-                            <input name="board_university" class="form-control" id="basicInput" type="text">
+                            <select class="form-control" name="board_university"  id="MASTERBoardUniversityNepalValue" onchange="masterUniversityChange()">
+                                <option value="">Select University</option>
+                                @foreach($university as $program)
+                                    <option value="{{$program->name}}">{{$program->name}}</option>
+                                @endforeach
+                                <option value="other">Others</option>
+                            </select>
+                            <input name="nothing" class="form-control" id="MASTERBoardUniversityOutsideValue" type="text" required>
+
                         </fieldset>
                     </div>
                     <div class="col-lg-4">
@@ -431,6 +439,24 @@
 
                 }
 
+            }
+
+            function masterUniversityChange() {
+                const sb = document.querySelector('#MASTERBoardUniversityNepalValue');
+                switch (sb.value) {
+                    case 'other':
+                        $("#MASTERBoardUniversityOutsideValue").show();
+                        $("#MASTERBoardUniversityNepalValue").hide();
+                        $("#MASTERBoardUniversityNepalValue").attr('name', 'nothing');
+                        $('#MASTERBoardUniversityOutsideValue').attr('name', 'board_university');
+                        break;
+                    default:
+                        $("#MASTERBoardUniversityNepalValue").show();
+                        $("#MASTERBoardUniversityOutsideValue").hide();
+                        $("#MASTERBoardUniversityOutsideValue").attr('name', 'nothing');
+                        $('#MASTERBoardUniversityNepalValue').attr('name', 'board_university');
+                        break;
+                }
             }
 
         </script>
