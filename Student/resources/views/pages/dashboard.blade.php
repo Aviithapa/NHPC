@@ -44,8 +44,8 @@
                                     <tr>
                                         <td><a href="#">OR9842</a></td>
                                         <td>Licence Exam</td>
-                                        <td>2078-12-25</td>
-                                        <td>2079-01-19</td>
+                                        <td>2022-07-17</td>
+                                        <td>2022-08-16</td>
                                         <td><a href="{{route('apply.for.exam')}}"><span class="label label-success">Apply</span></a></td>
                                     </tr>
                                     </tbody>
