@@ -6,7 +6,10 @@ namespace officer\Http\Controller;
 
 use App\Http\Controllers\MailController;
 use App\Models\Exam\ExamProcessing;
+use App\Models\Profile\Profilelogs;
 use App\Models\Profile\ProfileProcessing;
+use App\Models\SubjectCommittee\SubjectCommittee;
+use App\Models\SubjectCommittee\SubjectCommitteeUser;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
@@ -344,6 +347,27 @@ class OfficerController  extends BaseController
 
 
         return view('officer::pages.subjectCommittee',compact('examApplied','GM','lM','radio','opt','den','phy'));
+    }
+
+
+    public function minuteDataSubjectCommitteeIndex(){
+        $subjectCommitteeUser = SubjectCommitteeUser::join('users','users.id','=','subject_committee_user.user_id')
+                                         ->join('subject_committee','subject_committee.id','=','subject_committee_user.subjecr_committee_id')
+            ->get(['users.*','subject_committee.name as subject_committee_name']);
+        return view('officer::pages.minute-subject-index',compact('subjectCommitteeUser'));
+    }
+    public function minuteDataApplicantIndex($id){
+        $profiles = Profilelogs::join('profiles','profiles.id','=','profile_logs.profile_id')
+            ->where('profile_logs.created_by','=', $id)
+            ->join('exam_registration','exam_registration.profile_id','=','profile_logs.profile_id')
+            ->join('level','level.id','=','exam_registration.level_id')
+            ->where('profile_logs.status','!=','rejected')
+            ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id' ])
+           ->unique('profile_id');
+
+//        dd($profiles);
+
+        return view('officer::pages.minute-applicant-list',compact('profiles'));
     }
 
 }

@@ -60,9 +60,21 @@
                     </div>
                     </a>
                 </div>
+
             </div>
 
             <div class="row">
+                <div class="col-lg-3 col-xs-6 m-b-3">
+                    <a
+                        href="{{route("operator.applicant.profile.list", ['status'=> 'rejected','state' => 'computer_operator' ,'level'=>"1"])}}">
+                        <div class="card">
+                            <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
+                                <div class="info-box-content"> <span class="info-box-number">{{count($rejected)}}</span>
+                                    <span class="info-box-text">All Rejected Application </span></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator','level'=>"1"])}}">
 

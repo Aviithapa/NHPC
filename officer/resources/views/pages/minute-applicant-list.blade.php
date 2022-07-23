@@ -1,0 +1,96 @@
+@extends('officer::layout.app')
+
+@section('content')
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header sty-one">
+            <h1>Officer Dashboard</h1>
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><i class="fa fa-angle-right"></i> Applicant Profile Details</li>
+            </ol>
+        </div>
+
+        <!-- Main content -->
+        <div class="content">
+            {{--            <div class="row">--}}
+            {{--                <div class="col-lg-3 m-b-3">--}}
+            {{--                    <a href="{{route("officer.applicant.profile.list", ['status'=>  $status,'current_state' => $current_state,'exam'=>"true"])}}" class="btn {{ (request()->is('officer/dashboard/officer/applicant-profile-list/'.$status.'/'.$current_state.'/true')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>--}}
+            {{--                        Exam To be Taken</a>--}}
+            {{--                </div>--}}
+            {{--                <div class="col-lg-3 m-b-3">--}}
+            {{--                    <a href="{{route("officer.applicant.profile.list", ['status'=> $status,'current_state' => $current_state,'exam'=>"false"])}}" class="btn {{ (request()->is('officer/dashboard/officer/applicant-profile-list/'.$status.'/'.$current_state.'/false')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>--}}
+            {{--                        Exam Not to be taken</a>--}}
+            {{--                </div>--}}
+            {{--            </div>--}}
+
+
+            <div class="row">
+                <div class="col-lg-12 m-b-3">
+                    <div class="box box-info">
+                        <div class="box-header with-border p-t-1">
+                            <h3 class="box-title text-black">Applicant Profile Details</h3>
+                            <div class="pull-right">
+                                {{count($profiles)}} Total Applicant
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="data-table" class="table no-margin">
+                                    <thead>
+                                    <tr>
+                                        <th>S.N.</th>
+                                        <th>Name</th>
+                                        <th>Passed Status</th>
+                                        <th>Darta Number</th>
+                                        <th>Certificate</th>
+                                        <th>Level</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if($profiles === null)
+                                        <tr>
+                                            <td> No Subject Committee Member Found</td>
+                                        </tr>
+
+                                    @else
+                                        @foreach($profiles as $key => $data)
+                                            <tr>
+                                                <td>{{++$key}}</td>
+                                                <td>{{$data->first_name .' '. $data->middle_name.' '. $data->last_name}}  </td>
+                                                <td>{{$data->isPassed ? 'Yes' : 'No'}}</td>
+                                                <td>{{$data->darta_number}}</td>
+                                                <td>{{$data->certificate_generate}}</td>
+                                                <td>{{$data->level_name}}</td>
+{{--                                                <td> <a href="{{url("officer/dashboard/officer/minute-applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>--}}
+                                                <td> <a href="{{url("officer/dashboard/officer/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
+
+                                            </tr>
+                                        @endforeach
+                                    @endif
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.content -->
+    </div>
+
+
+@endsection
+
+@push('scripts')
+
+@endpush

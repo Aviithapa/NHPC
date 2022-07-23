@@ -20,3 +20,8 @@ Route::get('/search',[\officer\Http\Controller\SearchController::class,"search"]
 Route::get('/subjectCommittee/dashboard',[\officer\Http\Controller\OfficerController::class,'subjectCommitteeDashboard'])->middleware(['auth'])->name('subjectCommittee.dashboard.officer');
 Route::get('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}',[\officer\Http\Controller\OfficerController::class,'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.officer.list');
 Route::post('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}',[\officer\Http\Controller\OfficerController::class,'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.officer.list');
+
+
+
+Route::get('/officer/subjectCommittee/minuteIndex',[\officer\Http\Controller\OfficerController::class,'minuteDataSubjectCommitteeIndex'])->middleware(['auth'])->name('subjectCommittee.minuteDataSubjectCommitteeIndex.officer');
+Route::get('/officer/minute/applicant/list/{id}',[\officer\Http\Controller\OfficerController::class,'minuteDataApplicantIndex'])->middleware(['auth'])->name('subjectCommittee.minute.applicant.list.officer');

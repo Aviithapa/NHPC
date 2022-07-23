@@ -20,20 +20,26 @@
             <div class="row">
                 <div class="col-lg-3 m-b-3">
                     <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"1"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/1')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        Specialization @if(count($countmaster) === 1){{$countmaster}}
-                                      @endif</a>
+                        Specialization
+
+                            {{count($countmaster)}}
+                     </a>
                 </div>
                 <div class="col-lg-3 m-b-3">
                     <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"2"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/2')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        Bachelor @if(count($countbachelor) === 1){{$countbachelor[0]->count}}@endif</a>
+                        Bachelor {{count($countbachelor)}}</a>
                 </div>
                 <div class="col-lg-3 m-b-3">
                     <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"3"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/3')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        PCL @if(count($countPCL) === 1){{$countPCL[0]->count}}@endif</a>
+                        PCL
+                            {{count($countPCL)}}
+                       </a>
             </div>
                 <div class="col-lg-3 m-b-3">
                     <a href="{{route("operator.applicant.profile.list", ['status'=>  $status,'state' => $state,'level'=>"4"])}}" class="btn {{ (request()->is('operator/dashboard/operator/applicant-profile-list/'.$status.'/'.$state.'/4')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        TSLC @if(count($countTSLC) === 1){{$countTSLC[0]->count}}@endif</a>
+                        TSLC
+                            {{count($countTSLC)}}
+                       </a>
                 </div>
             </div>
 
