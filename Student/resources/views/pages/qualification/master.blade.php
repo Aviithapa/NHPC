@@ -81,7 +81,7 @@
                                 @endforeach
                                 <option value="other">Others</option>
                             </select>
-                            <input name="nothing" class="form-control" id="MASTERBoardUniversityOutsideValue" type="text" required>
+                            <input name="nothing" class="form-control" id="MASTERBoardUniversityOutsideValue" type="text">
 
                         </fieldset>
                     </div>

@@ -849,7 +849,49 @@ class OperatorController extends BaseController
 
 
 
-    public  function DataHub(){
+    public  function forwardStudent(Request $request){
+        $data = $request->all();
+        try {
+            $id= $data->id;
+            $profileProcessing['profile_id'] = $data->id;
+            $profileEmail = $this->profileRepository->findById($data->id);
+            $email = $this->userRepository->findBy('id','=',$profileEmail['user_id'])->first();
+            $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
+            if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
+                $data['status'] = 'progress';
+                $data['remarks'] = 'Document Verified and is Forwarded to Officer';
+                $data['review_status'] = 'Successful';
+                $data['current_state'] = 'officer';
+                $profileEmail = $this->profileRepository->findById($id);
+                $email = $this->userRepository->findBy('id','=',$profileEmail['user_id'])->first();
+                if ($profileProcessingId){
+                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
+                }else
+                    $profileProcessings = $this->profileProcessingRepository->create($data);
+
+            } elseif ($data['profile_status'] == "Rejected") {
+                $data['status'] = 'rejected';
+                $data['review_status'] = 'Rejected';
+                $data['current_state'] = 'computer_operator';
+                MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+                if ($profileProcessingId){
+                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
+                }else
+                    $profileProcessings = $this->profileProcessingRepository->create($data);
+            } elseif ($data['profile_status'] === "Pending") {
+                $data['status'] = 'pending';
+                $data['review_status'] = 'Pending';
+                $data['current_state'] = 'computer_operator';
+                MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+                if ($profileProcessingId){
+                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
+                }else
+                    $profileProcessings = $this->profileProcessingRepository->create($data);
+            }
+        } catch (\Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
 
      }
 }
