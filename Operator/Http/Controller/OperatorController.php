@@ -21,6 +21,7 @@ use Database\Seeders\District;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Krishnahimself\DateConverter\DateConverter;
+use Mockery\Exception;
 use Operator\Modules\Framework\Request;
 use Student\Http\Controller\ProfileController;
 use Student\Models\Profile;
@@ -896,6 +897,35 @@ class OperatorController extends BaseController
             return redirect()->back()->withInput();
         }
 
+     }
+
+
+     public function fowardStudentState(Request $request){
+        $data = $request->all();
+        $data['current_state'] = $data['state'];
+         $data['status'] = 'progress';
+         $profileData['profile_state'] = $data['state'];
+         $profileData['profile_status'] = 'Reviewing';
+         try{
+               $exam = $this->examProcessingRepository->findBy('profile_id','=',$data['profile_id'])->where('attempt','=',1)
+                    ->where('isPassed','=',0)->first();
+               $profileProcesing  = $this->profileProcessingRepository->findBy('profile_id','=',$data['profile_id'])->first();
+              $examUpdate =  $this->examProcessingRepository->update($data,$exam['id']);
+               $this->profileProcessingRepository->update($data,$profileProcesing['id']);
+
+             $profileProcesingUpdate =  $this->profileRepository->update($profileData, $data['profile_id']);
+
+
+//             $id = $this->profileRepository->findById($data['profile_id']);
+
+//             dd('you are heer');
+//             return redirect()
+ return redirect()->route('operator.applicant.list.review',['id'=>$data['profile_id']]);
+         }catch (\Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            dd('Exception');
+             return redirect()->route('operator.applicant.list.review',['id'=>$data['profile_id']]);
+        }
      }
 }
 

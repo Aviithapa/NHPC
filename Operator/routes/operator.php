@@ -35,3 +35,6 @@ Route::get('/exam/dashboard/{level_id}',[\Operator\Http\Controller\OperatorContr
 
 Route::get('/update/certificate/{certificate_id}/{level}',[\Operator\Http\Controller\OperatorController::class,'updateCertificateIndex'])->middleware(['auth'])->name('examStudentCount.dashboard.updateCertificateIndex');
 Route::post('/update/certificates',[\Operator\Http\Controller\OperatorController::class,'updateCertificate'])->middleware(['auth'])->name('examStudentCount.dashboard.updateCertificate');
+
+
+Route::post('/operator/fowardStudents',[\Operator\Http\Controller\OperatorController::class,'fowardStudentState'])->middleware(['auth'])->name('operator.fowardStudentState');
