@@ -40,7 +40,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="content-header sty-one mb-3 collapsible">
-                        <h1> Student Subject Wise List  Fourth License Exam</h1>
+                        <h1> Level Wise  Student List  Fourth License Exam</h1>
                     </div>
                     <div class="contented">
                         <div class="row">
@@ -51,7 +51,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="info-box-content"> <span class="info-box-number">{{$exam->count}}</span>
-                                                    <span class="info-box-text">{{$exam->getProgramName()}}</span> </div>
+                                                    <span class="info-box-text">{{$exam->getLevelName()}}</span> </div>
                                             </div>
                                         </div>
                                     </a>

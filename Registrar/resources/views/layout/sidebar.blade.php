@@ -26,18 +26,18 @@
             <li class="treeview {{ (request()->is('registrar/dashboard/registrar/applicant-profile-list/*/*')) ? 'active':''  }}"> <a href="#"> <i class="icon-grid"></i> <span>Applicant Profile</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
                 <ul class="treeview-menu">
                     <li class="{{ (request()->is('registrar/dashboard/registrar/applicant-profile-list/progress/registrar/*')) ? 'active':''  }}">
-                        <a href="{{route("registrar.applicant.profile.list", ['status'=> 'progress','current_state' => 'registrar', 'level'=>'5'])}}">
+                        <a href="{{route("registrar.applicant.profile.list", ['status'=> 'progress','state' => 'registrar', 'level'=>'1'])}}">
                             <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantProcessingCount('progress','registrar')}}</span></span>
                         </a>
                     </li>
                     <li class="{{ (request()->is('registrar/dashboard/registrar/applicant-profile-list/rejected/registrar/*')) ? 'active':''  }}">
-                        <a href="{{route("registrar.applicant.profile.list", ['status'=> 'rejected','current_state' => 'registrar', 'level'=>'5'])}}">
+                        <a href="{{route("registrar.applicant.profile.list", ['status'=> 'rejected','state' => 'registrar', 'level'=>'1'])}}">
                             <i class="icon-ban"></i> <span>Reject Profile List <span class="badge badge-pill badge-danger">{{getApplicantProcessingCount('rejected','registrar')}}</span></span>
                         </a>
                     </li>
 
                     <li class="{{ (request()->is('registrar/dashboard/registrar/applicant-profile-list/progress/subject_committee/*')) ? 'active':''  }}">
-                        <a href="{{route("registrar.applicant.profile.list", ['status'=> 'progress','current_state' => 'subject_committee', 'level' => "5"])}}">
+                        <a href="{{route("registrar.applicant.profile.list", ['status'=> 'progress','state' => 'subject_committee', 'level' => "1"])}}">
                             <i class="icon-badge"></i> <span>Verified Profile List <span class="badge badge-pill badge-danger">{{getApplicantProcessingCount('progress','subject_committee')}}</span></span>
                         </a>
                     </li>
