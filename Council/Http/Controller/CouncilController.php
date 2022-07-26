@@ -83,7 +83,7 @@ class CouncilController extends BaseController
 
             $users = $this->examProcessingRepository->getAll()->where('status', '=', $status)
                 ->where('state', '=', $current_state)
-                ->where('level_id','=', 4);
+               ;
 
             return $this->view('pages.application-list', $users);
         }else{
@@ -153,7 +153,8 @@ class CouncilController extends BaseController
         if (Auth::user()->mainRole()->name === 'council') {
 
             $data = $this->examProcessingRepository->getAll()->where('state', '=', 'council')
-                ->where('status', '=', 'progress');
+                ->where('status', '=', 'progress')
+                ->where('level_id','=', 4);
             return \view('council::pages.passed-list', compact('data'));
         }else{
             return redirect()->route('login');
