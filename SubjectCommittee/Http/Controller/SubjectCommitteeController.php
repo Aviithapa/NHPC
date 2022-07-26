@@ -414,6 +414,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             ;
         $profile_processing['state'] = 'council';
 
+        dd($data);
         foreach($data as $datas){
 //            $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id','=',$datas->id)->first();
 //            $this->profileProcessingRepository->update($profile_processing,$datas->id);
