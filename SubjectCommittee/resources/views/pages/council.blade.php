@@ -21,7 +21,16 @@
                         <div class="box-header with-border p-t-1">
                             <h3 class="box-title text-black">Applicant Profile To Be Moved To Council</h3>
                             <div class="pull-right">
+                                {{count($datas)}} Applicant List
                             </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3 m-b-3">
+                                <a href="{{route("subjectCommittee.application.list.moveCouncilPost")}}" class="btn btn-primary ml-3 mt-3"><i class="fa fa-book"></i>
+                                    Move to Council </a>
+                            </div>
+
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">

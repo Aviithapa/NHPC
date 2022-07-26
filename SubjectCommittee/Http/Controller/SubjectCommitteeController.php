@@ -394,7 +394,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
             ->where('profile_processing.current_state','subject_committee')
             ->where('profile_processing.status','progress')
-            ->where('profiles.level','=','4')
+            ->where('exam_registration.level_id','=','4')
             ->where('profile_processing.subject_committee_accepted_num','>=',$average)
             ->orderBy('profiles.created_at','ASC')
             ->get(['profiles.*']);
@@ -413,7 +413,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
             ->where('profile_processing.current_state','subject_committee')
             ->where('profile_processing.status','progress')
-            ->where('profiles.level','=','4')
+            ->where('exam_registration.level_id','=','4')
             ->where('profile_processing.subject_committee_accepted_num','>=',$average)
             ->orderBy('profiles.created_at','ASC')
             ->get(['profiles.*','profiles.id as profile_id']);
