@@ -101,7 +101,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                       ;
                 })
                 ->where('profile_processing.current_state',$current_state)
-                ->where('profiles.level',$level)
+                ->where('exam_registration.level_id',$level)
                 ->where('profile_processing.status',$status)
                 ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
                 ->orderBy('profiles.created_at','ASC')
@@ -132,6 +132,8 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             return redirect()->route('login');
         }
     }
+
+
 
     public function exam($status, $current_state)
     {
