@@ -417,8 +417,9 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         foreach($data as $datas){
 //            $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id','=',$datas->id)->first();
 //            $this->profileProcessingRepository->update($profile_processing,$datas->id);
-            $this->examProcessingRepository->update($profile_processing,$datas->id);
+           $exam = $this->examProcessingRepository->update($profile_processing,$datas->id);
 
+           dd($exam);
         }
 //        dd($data);
 
