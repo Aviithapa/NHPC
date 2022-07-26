@@ -92,7 +92,9 @@ if (! function_exists('getDoubleDusturCountList')) {
     {
          $count =0;
         $date = "2022-05-05 00:00:00";
-         $exams =  ExamProcessing::all()->where('created_at','>', $date);
+        $date_2 = "2022-05-10 00:00:00";
+         $exams =  ExamProcessing::all()->where('created_at','>', $date)
+                                        ->where('created_at','<',$date_2);
          foreach ($exams as $exam)
              $count++;
         return $count;
