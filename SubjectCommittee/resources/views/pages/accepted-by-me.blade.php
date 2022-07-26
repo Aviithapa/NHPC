@@ -15,29 +15,14 @@
 
         <!-- Main content -->
         <div class="content">
-            <div class="row">
-                <div class="col-lg-3 m-b-3">
-                    <a href="{{route("subjectCommittee.acceptedByMe", ['status'=>  $status,'current_state' => $current_state,'level'=>"5"])}}" class="btn {{ (request()->is('subjectCommittee/dashboard/subjectCommittee/acceptedByMe/'.$status.'/'.$current_state.'/5/*')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        Specialization</a>
-                </div>
-                <div class="col-lg-3 m-b-3">
-                    <a href="{{route("subjectCommittee.acceptedByMe", ['status'=>  $status,'current_state' => $current_state,'level'=>"4"])}}" class="btn {{ (request()->is('subjectCommittee/dashboard/subjectCommittee/acceptedByMe/'.$status.'/'.$current_state.'/4/*')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        Bachelor</a>
-                </div>
-                <div class="col-lg-3 m-b-3">
-                    <a href="{{route("subjectCommittee.acceptedByMe", ['status'=>  $status,'current_state' => $current_state,'level'=>"3"])}}" class="btn {{ (request()->is('subjectCommittee/dashboard/subjectCommittee/acceptedByMe/'.$status.'/'.$current_state.'/3/*')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>PCL</a>
-                </div>
-                <div class="col-lg-3 m-b-3">
-                    <a href="{{route("subjectCommittee.acceptedByMe", ['status'=>  $status,'current_state' => $current_state,'level'=>"2"])}}" class="btn {{ (request()->is('subjectCommittee/dashboard/subjectCommittee/acceptedByMe/'.$status.'/'.$current_state.'/2/*')) ? 'btn-primary':''  }}  mt-2"><i class="fa fa-book"></i>
-                        TSLC</a>
-                </div>
-            </div>
+
             <div class="row">
                 <div class="col-lg-12 m-b-3">
                     <div class="box box-info">
                         <div class="box-header with-border p-t-1">
                             <h3 class="box-title text-black">Applicant Profile Details</h3>
                             <div class="pull-right">
+                                {{count($datas)}} Accepted By Me
                             </div>
                         </div>
                         <!-- /.box-header -->
@@ -48,8 +33,8 @@
                                     <tr>
                                         <th>Registration Number</th>
                                         <th>Name</th>
-                                        <th>Citizenship</th>
-                                        <th>Registration Date</th>
+{{--                                        <th>Citizenship</th>--}}
+                                        <th>Accepted Date</th>
                                         <th>Program Name</th>
                                         <th>Action</th>
                                     </tr>
@@ -61,17 +46,15 @@
                                         </tr>
 
                                     @else
-                                        @foreach($datas as $data)
+                                        @foreach($datas as $key => $data)
                                             <tr>
-                                                @if($data->created_by === \Illuminate\Support\Facades\Auth::user()->id)
-                                                    <td>{{$data->id}}</td>
-                                                    <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
-                                                    <td>{{$data->citizenship_number}}</td>
-                                                    <td>{{$data->created_at->toDateString()}}</td>
+                                                    <td>{{$data->profile_id}}</td>
+                                                    <td style="text-transform: capitalize">{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
+{{--                                                    <td>{{$data->citizenship_number}}</td>--}}
+                                                    <td>{{$data->profiles_logs}}</td>
 
-                                                    <td> {{$data->program_name}}</td>
-                                                    <td> <a href="{{url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
-                                                @endif
+                                                    <td> {{$data->program}}</td>
+                                                    <td> <a href="{{url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$data->profile_id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>
                                         @endforeach
 {{--                                        @foreach($datas as $dataes)--}}
