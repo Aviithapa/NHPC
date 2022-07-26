@@ -38,6 +38,7 @@
                         <div class="box-header with-border p-t-1">
                             <h3 class="box-title text-black">Applicant Profile Details</h3>
                             <div class="pull-right">
+                                {{count($datas)}} Applicant Count
                             </div>
                         </div>
                         <!-- /.box-header -->
