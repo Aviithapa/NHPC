@@ -412,13 +412,14 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
              ->where('level_id','=',4)
 //             ->where('updated_at','=','2022-07-26')
             ;
-        $profile_processing['current_state'] = 'exam_committee';
+        $profile_processing['state'] = 'council';
 
-        dd($data);
         foreach($data as $datas){
 //            $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id','=',$datas->id)->first();
-            $this->profileProcessingRepository->update($profile_processing,$datas->id);
-         }
+//            $this->profileProcessingRepository->update($profile_processing,$datas->id);
+            $this->examProcessingRepository->update($profile_processing,$datas->id);
+
+        }
 
         dd($data);
 
