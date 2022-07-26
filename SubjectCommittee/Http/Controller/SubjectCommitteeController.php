@@ -407,10 +407,12 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
     }
 
     public function  changeState(){
-         $data =$this->profileProcessingRepository->getAll()->where('current_state','=','exam_committee')
+         $data =$this->examProcessingRepository->getAll()->where('current_state','=','exam_committee')
+             ->where('updated_at','=','2022-07-26')
             ;
-        $profile_processing['current_state'] = 'council';
+        $profile_processing['current_state'] = 'exam_committee';
 
+        dd($data);
         foreach($data as $datas){
 //            $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id','=',$datas->id)->first();
             $this->profileProcessingRepository->update($profile_processing,$datas->id);
