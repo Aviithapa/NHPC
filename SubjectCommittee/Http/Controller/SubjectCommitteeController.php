@@ -422,13 +422,13 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             ->orderBy('profiles.created_at','ASC')
             ->get(['profiles.*']);
 
-        $exam['state'] = 'exam_committee';
+        $exam['state'] = 'council';
         $exam['status'] = 'progress';
 
-        $profile_processing['current_state'] = 'exam_committee';
+        $profile_processing['current_state'] = 'council';
         $profile_processing['status'] = 'progress';
 
-        $profile['profile_state'] = 'exam_committee';
+        $profile['profile_state'] = 'council';
         $profile['profile_status'] = 'Reviewing';
         foreach ($datas as $data){
             $exam_id = $this->examProcessingRepository->getAll()->where('profile_id','=',$data->id)->first();
