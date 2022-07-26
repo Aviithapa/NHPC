@@ -82,7 +82,8 @@ class CouncilController extends BaseController
         if (Auth::user()->mainRole()->name === 'council') {
 
             $users = $this->examProcessingRepository->getAll()->where('status', '=', $status)
-                ->where('state', '=', $current_state);
+                ->where('state', '=', $current_state)
+                ->where('level_id','=', 4);
 
             return $this->view('pages.application-list', $users);
         }else{
