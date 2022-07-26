@@ -409,15 +409,15 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         $subject_Committee_number = SubjectCommitteeUser::where('subjecr_committee_id', '=', $subject_Committee['subjecr_committee_id'])->get();
         $subjectCommitteeCount = $subject_Committee_number->count();
         $average = $subjectCommitteeCount / 2;
-        $datas = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+        $datas =Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
             ->join('program','program.id','=','exam_registration.program_id')
             ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
             ->where('profile_processing.current_state','subject_committee')
             ->where('profile_processing.status','progress')
-            ->where('exam_registration.level_id','=','4')
+            ->where('profiles.level','=',2)
             ->where('profile_processing.subject_committee_accepted_num','>=',$average)
             ->orderBy('profiles.created_at','ASC')
-            ->get(['profiles.*','profiles.id as profile_id']);
+            ->get(['profiles.*']);
 
         $exam['state'] = 'exam_committee';
         $exam['status'] = 'progress';
