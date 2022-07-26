@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Operator\Modules\Framework\Request;
+use Student\Models\Profile;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
 
@@ -163,48 +164,65 @@ class CouncilController extends BaseController
 
 
     public function moveToDartaBook(){
-        $exams = $this->examProcessingRepository->getAll()->where('state','=','council')
-                                                         ->where('status','=','progress');
-        if ($exams->isEmpty()){
-            session()->flash('success', 'No Application has been Found');
-            return redirect()->back()->withInput();
-        }else {
-            $srn_number = Certificate::orderBy('srn', 'desc')->first();
+        $students = $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->join('level','level.id','=','program.level_id')
+            ->join('provinces','provinces.id','=','profiles.development_region')
+            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+            ->where('exam_registration.status',"=",'progress')
+            ->where('exam_registration.state',"=",'council')
+            ->where('exam_registration.level_id',"=",'4')
+            ->where('exam_registration.attempt',"=",'1')
+//            ->where('exam_registration.isPassed',"=",true)
+            ->where('exam_registration.certificate_generate','=','No')
+            ->orderBy('profiles.created_at','ASC')
+            ->get(['profiles.*','profiles.id as profile_id','profiles.created_at as profile_created_at','program.name as program_name','program.*',
+                'program.id as program_id','level.*','provinces.province_name','exam_registration.id as exam_registration_id']);
+        foreach ($students as $student){
+            $srn_number = 0;
+            $date= '2022/07/26';
+            $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
+            $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
+            $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
+                ->where('program_id','=', $student['program_id'])->first();
             if ($srn_number)
                 $srn = $srn_number['srn'];
-            else
-                $srn = 0;
-            foreach ($exams as $exam) {
-                $program = $this->programRepository->findById($exam['program_id']);
-                $profile = $this->profileRepository->findById($exam['profile_id']);
-                $level = $this->levelRepository->findById($exam['level_id']);
-                $data['exam_processing_id'] = $exam['id'];
-                $data['program_id'] = $exam['program_id'];
-                $data['program_certificate_code'] = $program['certificate_name'];
-                $data['srn'] = ++$srn;
-                $data['cert_registration_number'] = $this->certRegistrationNumber($level, $srn, $program);
-                $data['registrar'] = 'kashi nath rimal';
-                $data['decision_date'] = Carbon::today()->toDateString();
-                $data['name'] = $profile['first_name'] . ' ' . $profile['middle_name'] . ' ' . $profile['last_name'];
-                $data['date_of_birth'] = $profile['dob_nep'] . ' (' . $profile['dob_eng'] . ' A.D.)';
-                $data['address'] = $profile['dob_nep'] . ' (' . $profile['dob_eng'] . ' A.D.)';
-                $data['program_name'] = $program['name'];
-                $data['level_name'] = $level['name'];
-                $data['qualification'] = $program['name'];
-                $data['issued_year'] = Carbon::today()->year;
-                $data['issued_date'] = Carbon::today()->toDateString();
-                $data['valid_till'] = Carbon::now()->addYears(5);
-                $data['certificate'] = 'new';
-                $data['issued_by'] = Auth::user()->id;
-                $data['certificate_status'] = 1;
-                $this->certificateRepository->create($data);
-                $examupdate['status'] = "accepted";
-                $this->examProcessingRepository->update($examupdate, $exam['id']);
-                $this->updateQualificationHistory($exam['profile_id'],$exam['program_id']);
-            }
-            session()->flash('success', 'All Application has been Moved to darta book');
-            return redirect()->back()->withInput();
+            $registration_id = $registration_number['registration_id'];
+            $data['registration_id'] = ++ $registration_id ;
+            $data['category_id'] = $student[''];
+            $data['profile_id'] = $student['profile_id'];
+            $data['program_id'] = $student['program_id'];
+            $data['srn'] = ++ $srn;
+            $data['program_certificate_code'] = $student['certificate_name'];
+            $data['cert_registration_number'] = $this->certRegistrationNumber($student['level_code'], $data['srn'], $student['certificate_name']);
+            $data['registrar'] = 'puspa raj khanal';
+            $data['decision_date'] =            $date;
+
+//            $date;
+            $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
+            $data['date_of_birth'] = $student['dob_nep'];
+            $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
+            $data['program_name'] = $student['qualification'];
+            $data['level_name'] = $student['level_'];
+            $data['qualification'] = $student['program_name'] . ':' . $student['board_university'] . ':'  . $student['passed_year'] ;
+            $data['issued_year'] = Carbon::today()->year;
+            $data['issued_date'] = $date;
+            $data['valid_till'] = Carbon::now()->addYears(5);
+            $data['certificate'] = 'new';
+            $data['issued_by'] = Auth::user()->id;
+            $data['certificate_status'] = 1;
+            $certificate = $this->certificateRepository->create($data);
+            $examupdate['status'] = "accepted";
+            $examupdate['state'] = "council";
+            $this->examProcessingRepository->update($examupdate, $student['exam_registration_id']);
+//                $this->updateQualificationHistory($qualification);
+            $profilesProcessing = $this->profileProcessingRepository->getAll()->where('profile_id','=',$student['profile_id'])->first();
+            $data['current_state'] = 'council';
+            $data['status'] = 'accepted';
+            $this->profileProcessingRepository->update($data,$profilesProcessing['id']);
         }
+
+        return redirect()->back();
 
     }
 
