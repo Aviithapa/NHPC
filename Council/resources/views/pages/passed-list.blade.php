@@ -25,6 +25,9 @@
                                     Move to Dartabook</a>
                             </div>
                         </div>
+                        <div class="float-lg-right">
+                            {{count($data)}}
+                        </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
