@@ -226,9 +226,8 @@ class CouncilController extends BaseController
 
     }
 
-    private function certRegistrationNumber( $srn, $program){
-        $program_code= $program['certificate_name'];
-        return  $srn.' '.$program_code;
+    private function certRegistrationNumber(  $srn, $program_code){
+        return$srn.' '.$program_code;
     }
 
     public function updateQualificationHistory($id, $programId){
