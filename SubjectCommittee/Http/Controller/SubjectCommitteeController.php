@@ -431,12 +431,12 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         $profile['profile_state'] = 'exam_committee';
         $profile['profile_status'] = 'Reviewing';
         foreach ($datas as $data){
-            $exam_id = $this->examProcessingRepository->getAll()->where('profile_id','=',$data->profile_id)->first();
-            $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id','=',$data->profile_id)->first();
-            $this->profileRepository->update($profile,$data->profile_id);
+            $exam_id = $this->examProcessingRepository->getAll()->where('profile_id','=',$data->id)->first();
+            $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id','=',$data->id)->first();
+            $this->profileRepository->update($profile,$data->id);
             $this->profileProcessingRepository->update($profile_processing,$profile_processing_id->id);
             $this->examProcessingRepository->update($exam,$exam_id->id);
-            $this->ExamProcessingLog($exam, Auth::user()->id, $data->profile_id);
+            $this->ExamProcessingLog($exam, Auth::user()->id, $data->id);
             $this->profileLog($profile_processing);
         }
         $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
