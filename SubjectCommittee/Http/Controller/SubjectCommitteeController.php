@@ -420,7 +420,6 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             $this->examProcessingRepository->update($profile_processing,$datas->id);
 
         }
- return redirect()->back();
 //        dd($data);
 
     }
