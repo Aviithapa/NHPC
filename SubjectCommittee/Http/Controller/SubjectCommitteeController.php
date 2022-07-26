@@ -392,13 +392,13 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         $datas = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
             ->join('program','program.id','=','exam_registration.program_id')
             ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-            ->where('profiles.profile_state','subject_committee')
-            ->where('profiles.profile_status','Reviewing')
-            ->where('profiles.level','=',$level)
-            ->where('profile_processing.subject_committee_accepted_num','>=',3)
+            ->where('profile_processing.current_state','subject_committee')
+            ->where('profile_processing.status','progress')
+            ->where('profiles.level','=',2)
+            ->where('profile_processing.subject_committee_accepted_num','>=',$average)
             ->orderBy('profiles.created_at','ASC')
-            ->get(['profiles.*','exam_registration.*','profile_processing.*']);
-//        dd($datas);
+            ->get(['profiles.*']);
+        dd($datas);
         $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
         $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
         return view('subjectCommittee::pages.council', compact('datas','subject_committee'));
