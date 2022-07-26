@@ -51,9 +51,9 @@
                                         </tr>
 
                                     @else
-                                        @foreach($data as $exam)
+                                        @foreach($data as $key => $exam)
                                             <tr>
-                                                <td>1</td>
+                                                <td>{{++$key}}</td>
 
                                                 <td>{{$exam->getFirstName()}}</td>
                                                 <td>{{$exam->getMiddleName()}}</td>

@@ -194,7 +194,7 @@ class CouncilController extends BaseController
             $data['program_id'] = $student['program_id'];
             $data['srn'] = ++ $srn;
             $data['program_certificate_code'] = $student['certificate_name'];
-            $data['cert_registration_number'] = $this->certRegistrationNumber($student['level_code'], $data['srn'], $student['certificate_name']);
+            $data['cert_registration_number'] = $this->certRegistrationNumber( $data['srn'], $student['certificate_name']);
             $data['registrar'] = 'puspa raj khanal';
             $data['decision_date'] =            $date;
 
@@ -226,10 +226,9 @@ class CouncilController extends BaseController
 
     }
 
-    private function certRegistrationNumber($level , $srn, $program){
-        $level_code = $level['level_code'];
+    private function certRegistrationNumber( $srn, $program){
         $program_code= $program['certificate_name'];
-        return $level_code.'- '.$srn.' '.$program_code;
+        return  $srn.' '.$program_code;
     }
 
     public function updateQualificationHistory($id, $programId){
