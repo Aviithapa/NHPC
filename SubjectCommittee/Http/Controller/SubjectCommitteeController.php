@@ -420,8 +420,8 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             $this->examProcessingRepository->update($profile_processing,$datas->id);
 
         }
-
-        dd($data);
+ return redirect()->back();
+//        dd($data);
 
     }
     public function moveCouncilPost(Request $request){
