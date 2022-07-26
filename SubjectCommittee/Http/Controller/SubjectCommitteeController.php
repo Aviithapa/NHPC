@@ -406,6 +406,17 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         return view('subjectCommittee::pages.council', compact('datas','subject_committee'));
     }
 
+    public function  changeState(Request $request){
+         $data =$this->profileProcessingRepository->getAll()->where('current_state','=','exam_committee')
+             ->where('updated_at','=','2022-07-26 ');
+        $profile_processing['current_state'] = 'council';
+
+        foreach($data as $datas){
+//            $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id','=',$datas->id)->first();
+            $this->profileProcessingRepository->update($profile_processing,$datas->id);
+         }
+
+    }
     public function moveCouncilPost(Request $request){
         $subject_Committee = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
         $subject_Committee_number = SubjectCommitteeUser::where('subjecr_committee_id', '=', $subject_Committee['subjecr_committee_id'])->get();

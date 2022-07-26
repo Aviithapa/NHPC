@@ -23,3 +23,5 @@ Route::get('/search', [\SubjectCommittee\Http\Controller\SearchController::class
 Route::get('/countSubjectCom', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "countSubjectCom"])->middleware(['auth'])->name('countSubjectCom');
 Route::get('/backSubjectCommittee', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "backSubjectCommittee"])->middleware(['auth'])->name('backSubjectCommittee');
 Route::get('/rejectProfileName', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "rejectProfileName"])->middleware(['auth'])->name('rejectProfileName');
+
+Route::post('/changeState',[\SubjectCommittee\Http\Controller\SubjectCommitteeController::class,'changeState'])->middleware(['auth'])->name('rejectProfileName');
