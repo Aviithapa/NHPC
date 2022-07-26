@@ -66,6 +66,7 @@
                                 <table id="data-table" class="table no-margin">
                                     <thead>
                                     <tr>
+                                        <th>S.N.</th>
                                         <th>Registration Number</th>
                                         <th>Name</th>
                                         <th>Citizenship</th>
@@ -81,8 +82,9 @@
                                         </tr>
 
                                     @else
-                                        @foreach($datas as $data)
+                                        @foreach($datas as $key => $data)
                                         <tr>
+                                            <td>{{++$key}}</td>
                                             <td>{{$data->id}}</td>
                                             <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
                                             <td>{{$data->citizenship_number}}</td>
