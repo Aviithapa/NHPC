@@ -196,7 +196,7 @@ class OperatorController extends BaseController
                     ->get();
             }elseif($level == 4){
                 $data = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+//                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
 //                    ->where('profile_processing.current_state', '=', $state)
 //                    ->where('profile_processing.status', '=', $status)
                     ->where('exam_registration.state', '=', $state)
@@ -208,7 +208,7 @@ class OperatorController extends BaseController
                     ->get(['profiles.*', 'exam_registration.*', 'program.name as program_name']);
 
                 $countmaster =ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+//                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
 //                    ->where('profile_processing.current_state', '=', $state)
 //                    ->where('profile_processing.status', '=', $status)
                     ->where('exam_registration.state', '=', $state)
@@ -219,7 +219,7 @@ class OperatorController extends BaseController
                     ->get();
 
                 $countbachelor = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+//                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
 //                    ->where('profile_processing.current_state', '=', $state)
 //                    ->where('profile_processing.status', '=', $status)
                     ->where('exam_registration.state', '=', $state)
@@ -230,7 +230,7 @@ class OperatorController extends BaseController
                     ->get();
 
                 $countPCL = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+//                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
 //                    ->where('profile_processing.current_state', '=', $state)
 //                    ->where('profile_processing.status', '=', $status)
                     ->where('exam_registration.state', '=', $state)
@@ -241,7 +241,7 @@ class OperatorController extends BaseController
                     ->get();
 
                 $countTSLC = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+//                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
 //                    ->where('profile_processing.current_state', '=', $state)
 //                    ->where('profile_processing.status', '=', $status)
                     ->where('exam_registration.state', '=', $state)
