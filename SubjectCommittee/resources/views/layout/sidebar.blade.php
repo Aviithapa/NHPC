@@ -48,7 +48,7 @@
             <li class="treeview {{ (request()->is('subjectCommittee/dashboard/subjectCommittee/move/*/*')) ? 'active':''  }}"> <a href="#"> <i class="icon-grid"></i> <span>Move Applications</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
                 <ul class="treeview-menu">
                     <li class="">
-                        <a href="{{route("subjectCommittee.application.list.council")}}">
+                        <a href="{{route("subjectCommittee.application.list.council",['level' => 2])}}">
                             <i class="icon-book-open"></i> <span>Move to Council</span>
                         </a>
                     </li>

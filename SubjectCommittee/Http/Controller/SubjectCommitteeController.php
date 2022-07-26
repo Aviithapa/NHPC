@@ -384,7 +384,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
         return view('subjectCommittee::pages.exam', compact('datas','subject_committee'));
     }
-    public function moveCouncil(){
+    public function moveCouncil($level){
         $subject_Committee = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
         $subject_Committee_number = SubjectCommitteeUser::where('subjecr_committee_id', '=', $subject_Committee['subjecr_committee_id'])->get();
         $subjectCommitteeCount = $subject_Committee_number->count();
@@ -394,7 +394,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
             ->where('profile_processing.current_state','subject_committee')
             ->where('profile_processing.status','progress')
-            ->where('exam_registration.level_id','=',4)
+            ->where('exam_registration.level_id','=',$level)
             ->where('profile_processing.subject_committee_accepted_num','>=',3)
             ->orderBy('profiles.created_at','ASC')
             ->get(['profiles.*','exam_registration.*','profile_processing.*']);
