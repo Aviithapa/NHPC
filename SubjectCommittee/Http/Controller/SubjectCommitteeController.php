@@ -115,7 +115,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         }
     }
 
-    public function acceptedByMe($status, $current_state, $level, $page = 0)
+    public function acceptedByMe()
     {
         if (Auth::user()->mainRole()->name === 'subject_committee') {
 
