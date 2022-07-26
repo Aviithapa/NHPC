@@ -161,7 +161,7 @@ class OperatorController extends BaseController
                     ->where('exam_registration.level_id', '=', $level)
 //                    ->where('exam_registration.created_at', '>', '2022-07-16')
                     ->orderBy('profiles.created_at', 'ASC')
-                    ->get(['profiles.*', 'exam_registration.*', 'program.name as program_name','profile_processing.*']);
+                    ->get(['profiles.*', 'program.name as program_name','profile_processing.*']);
 
                 $countmaster =ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
                     ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
@@ -205,7 +205,7 @@ class OperatorController extends BaseController
                     ->where('exam_registration.level_id', '=', 4)
 //                    ->where('exam_registration.created_at', '<', '2022-07-16')
                     ->orderBy('profiles.created_at', 'ASC')
-                    ->get(['profiles.*', 'exam_registration.*', 'program.name as program_name']);
+                    ->get(['profiles.*', 'profiles.id as profile_id','program.name as program_name']);
 
                 $countmaster =ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
 //                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
@@ -265,9 +265,7 @@ class OperatorController extends BaseController
                     ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
 //                    ->where('exam_registration.created_at', '>', '2022-07-16')
 //                    ->orderBy('profiles.created_at', 'ASC')
-                    ->skip(0)
-                    ->take(100)
-                    ->get(['exam_registration.*', 'profiles.*', 'program.name as program_name']);
+                    ->get([ 'profiles.*', 'program.name as program_name']);
 
 //                dd($data);
                 $countmaster =ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
