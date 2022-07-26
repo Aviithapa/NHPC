@@ -406,7 +406,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         return view('subjectCommittee::pages.council', compact('datas','subject_committee'));
     }
 
-    public function  changeState(Request $request){
+    public function  changeState(){
          $data =$this->profileProcessingRepository->getAll()->where('current_state','=','exam_committee')
              ->where('updated_at','=','2022-07-26 ');
         $profile_processing['current_state'] = 'council';
