@@ -393,9 +393,9 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             ->join('program','program.id','=','exam_registration.program_id')
             ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
             ->where('profiles.profile_state','subject_committee')
-            ->where('profiles.profile_state','progress')
+            ->where('profiles.profile_state','Reviewing')
             ->where('profiles.level','=',$level)
-//            ->where('profile_processing.subject_committee_accepted_num','>=',3)
+            ->where('profile_processing.subject_committee_accepted_num','>=',3)
             ->orderBy('profiles.created_at','ASC')
             ->get(['profiles.*','exam_registration.*','profile_processing.*']);
 //        dd($datas);
