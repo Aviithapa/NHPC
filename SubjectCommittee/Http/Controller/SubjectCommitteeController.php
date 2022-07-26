@@ -397,7 +397,8 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             ->where('profiles.level','=',2)
             ->where('profile_processing.subject_committee_accepted_num','>=',$average)
             ->orderBy('profiles.created_at','ASC')
-            ->get(['profiles.*']);
+            ->get(['profiles.*'])
+        ->unique('id');
 //        dd($datas);
         $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
         $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
