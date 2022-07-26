@@ -410,7 +410,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
          $data =$this->examProcessingRepository->getAll()->where('state','=','exam_committee')
              ->where('status','=','progress')
              ->where('level_id','=',4)
-             ->where('updated_at','=','2022-07-26')
+//             ->where('updated_at','=','2022-07-26')
             ;
         $profile_processing['current_state'] = 'exam_committee';
 
