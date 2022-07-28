@@ -363,6 +363,7 @@ class OperatorController extends BaseController
                     $data['profile_state'] = 'officer';
                     $data['state'] ='officer';
                     $data['current_state'] = 'officer';
+                    $data['exam_id'] = $exam['id'];
                     $exams = $this->examProcessingRepository->update($data,$exam['id']);
                     $profileProcessing = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
                     $this->profileLog($data);
@@ -372,6 +373,7 @@ class OperatorController extends BaseController
                     $data['review_status'] = 'Rejected';
                     $data['profile_state'] = 'student';
                     $data['state'] = 'computer_operator';
+                    $data['exam_id'] = $exam['id'];
                     $this->examProcessingRepository->update($data,$exam['id']);
                     $profileProcessing = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
                     $this->profileLog($data);
@@ -403,6 +405,7 @@ class OperatorController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'operator') {
             $logs = $this->profileLogsRepository->create($data);
+            $this->ExamProcessingLog($data, $data['exam_id'], $data['profile_id']);
             if ($logs == false)
                 return false;
             return true;
