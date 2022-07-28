@@ -488,7 +488,6 @@ class OperatorController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'operator') {
             $id = $data;
-dd($data);
             $data['status'] = $status;
             $data['state'] = 'computer_operator';
             try {
@@ -537,6 +536,31 @@ dd($data);
             return redirect()->route('login');
         }
     }
+    public function ReExamProcessing(Request $request){
+        if (Auth::user()->mainRole()->name === 'operator') {
+
+            $data = $request->all();
+            $id = $data['id'];
+            $data['rejected'] = 1;
+            try {
+                $exam_processing = $this->examProcessingRepository->update($data, $id);
+                $profile_id = $exam_processing['profile_id'];
+                $this->ExamProcessingLog($data, $id, $profile_id);
+                if ($exam_processing == false) {
+                    session()->flash('danger', 'Oops! Something went wrong.');
+                    return redirect()->back()->withInput();
+                }
+                session()->flash('success', 'Application have been Rejected');
+                return redirect()->back();
+
+            } catch (\Exception $e) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+        } else {
+            return redirect()->route('login');
+        }
+    }
 
     public function AcceptExam($id)
     {
@@ -546,7 +570,7 @@ dd($data);
             try {
                 $exam_processing = $this->examProcessingRepository->update($data, $id);
                 $profile_id = $exam_processing['profile_id'];
-                $this->ExamProcessingLog($data, $id, $profile_id);
+//                $this->ExamProcessingLog($data, $id, $profile_id);
                 if ($exam_processing == false) {
                     session()->flash('danger', 'Oops! Something went wrong.');
                     return redirect()->back()->withInput();

@@ -9,6 +9,7 @@ Route::post('/operator/applicant-profile-list',[\Operator\Http\Controller\Operat
 Route::get('/operator/applicant-list-view/{id}',[\Operator\Http\Controller\OperatorController::class,'edit'])->middleware(['auth'])->name('operator.applicant.list.review');
 Route::get('/operator/accept-exam-applied/{id}',[\Operator\Http\Controller\OperatorController::class,"AcceptExamProcessing"])->middleware(['auth'])->name('operator.accept.exam.apply');
 Route::post('/operator/rejected-exam-applied',[\Operator\Http\Controller\OperatorController::class,"RejectExamProcessing"])->middleware(['auth'])->name('operator.reject.exam.apply');
+Route::post('/operator/rejected-re-exam-applied',[\Operator\Http\Controller\OperatorController::class,"ReExamProcessing"])->middleware(['auth'])->name('operator.re-exam.exam.apply');
 Route::get('/search/student',[\Operator\Http\Controller\SearchController::class,"index"])->middleware(['auth'])->name('search.student');
 Route::get('/search',[\Operator\Http\Controller\SearchController::class,"search"])->middleware(['auth'])->name('search');
 

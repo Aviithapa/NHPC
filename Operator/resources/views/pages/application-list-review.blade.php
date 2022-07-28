@@ -591,6 +591,9 @@
                                                                             <a href="{{url('operator/dashboard/apply/exam',$data->id)}}" ><span class="label label-success">Edit</span> </a>
 
                                                                         @endif
+                                                                            @if($exam->status === "re-exam" && $exam->rejected === 0)
+                                                                                <a href="" id="editCompanyModel" data-toggle="modal" data-target='#practice_reject_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>
+                                                                            @endif
                                                                             @endif
                                                                     </td>
                                                                 </tr>
@@ -667,6 +670,41 @@
                 </div>
             </div>
         </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="practice_reject_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reject Applicant Licence Applied ? </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal form-material" action="{{route("operator.re-exam.exam.apply")}}" method="POST">
+                        @csrf
+                        <input type="hidden" class="form-control" name="id" id="idkl123" value="">
+                        <div class="form-group">
+                            <label class="col-md-12">Remarks</label>
+                            <div class="col-md-12">
+                                <textarea rows="5" name="remarks" class="form-control form-control-line" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
 
@@ -691,6 +729,12 @@
                 event.preventDefault();
                 var id = $(this).data('id');
                 $("#idkl").val( id );
+            });
+            $('body').on('click', '#editCompanyModel', function (event) {
+
+                event.preventDefault();
+                var id = $(this).data('id');
+                $("#idkl123").val( id );
             });
 
         });

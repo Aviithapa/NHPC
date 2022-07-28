@@ -62,7 +62,7 @@ class ProfileController extends BaseController
                 ->where('attempt','=','2')->where('isPassed','=','0')->first();
             if($re_exam){
                 $re_exam_applied  = ExamProcessing::orderBy('created_at', 'desc')->where('status','=','re-exam')->first();
-                if($re_exam_applied){
+                if($re_exam_applied['rejected'] === 0){
                     $exam_re = null;
 
                 }else{
@@ -219,6 +219,7 @@ class ProfileController extends BaseController
 
     public function applyforExam(){
         $profile = $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        $all_program = [];
         if ($profile){
             if ($profile['level'] === 0 || $profile['level'] === null){
                 session()->flash('error', 'Please fill your qualification details');
@@ -239,11 +240,19 @@ class ProfileController extends BaseController
                         ->where('attempt','=','2')->where('isPassed','=','0')->first();
                     if ($re_exam){
                         $re_exam_applied  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id','=',$profile['id'])->where('status','=','re-exam')->first();
-                        if($re_exam_applied){
+                        if($re_exam_applied['rejected'] === 0){
                             session()->flash('success', 'You have already enrolled in licence Exam ');
                             return redirect()->back();
 
-                        }else{
+                        }elseif($re_exam_applied['rejected'] === 0){
+                            $specific_program = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id','=',$profile['id'])->where('rejected','=','1')->first();
+                            if ($specific_program == null){
+                                session()->flash('success', 'You have already enrolled in licence Exam ');
+                                return redirect()->back();
+                            }else{
+                                return view('student::pages.update-apply-exam', compact(  'specific_program'));
+                            }
+                        }else {
                             $all_program[] = $this->programRepository->findById($re_exam['program_id']);
                             return view('student::pages.apply-exam', compact( 'all_program'));
                         }
