@@ -351,21 +351,31 @@ class OperatorController extends BaseController
             try {
                 $id = $data['profile_id'];
                 $data['created_by'] = Auth::user()->id;
+                $exam = $this->examProcessingRepository->getAll()->where('profile_id','=', $id)->last();
+                $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
                 $data['state'] = 'computer_operator';
                 $data['profile_state'] = 'officer';
-                if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
+
+                if ($data['profile_status'] === "Reviewing") {
                     $data['status'] = 'progress';
                     $data['remarks'] = 'Document Verified and is Forwarded to Officer';
                     $data['review_status'] = 'Successful';
                     $data['profile_state'] = 'officer';
+                    $data['state'] ='officer';
+                    $data['current_state'] = 'officer';
+                    $exams = $this->examProcessingRepository->update($data,$exam['id']);
+                    $profileProcessing = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
                     $this->profileLog($data);
-                    $this->profileProcessing($id,$data);
+
                 } elseif ($data['profile_status'] === "Rejected") {
                     $data['status'] = 'rejected';
                     $data['review_status'] = 'Rejected';
                     $data['profile_state'] = 'student';
+                    $data['state'] = 'computer_operator';
+                    $this->examProcessingRepository->update($data,$exam['id']);
+                    $profileProcessing = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
                     $this->profileLog($data);
-                    $this->profileProcessing($id,$data);
+
                 } elseif ($data['profile_status'] === "Pending") {
                     $data['status'] = 'pending';
                     $data['review_status'] = 'Pending';
@@ -378,59 +388,7 @@ class OperatorController extends BaseController
                     return redirect()->back()->withInput();
                 }
 
-                $state = "computer_operator";
-                $status = "Reviewing";
-                $level = $profile['level'];
-
-                    $data = Profile::where('profile_state', '=', $state)
-                        ->where('profile_status', '=', $status)
-                        ->where('level', '=', $level)
-                        ->orderBy('created_at','ASC')
-                        ->skip(0)
-                        ->take(20)
-                        ->get();
-                $countmaster = ExamProcessing::select(\DB::raw("COUNT(level_id) as count"))
-                    ->groupBy('level_id')
-                    ->orderBy('count')
-//                    ->where('created_at','>','2022-07-16')
-                    ->where('level_id', '=', 1)
-                    ->where('state','=',$state)
-                    ->where('status','=',$status)
-                    ->where('created_at','>','2022-07-16')
-                    ->get();
-
-                $countbachelor = ExamProcessing::select(\DB::raw("COUNT(level_id) as count"))
-                    ->groupBy('level_id')
-                    ->orderBy('count')
-//                    ->where('created_at','>','2022-07-16')
-                    ->where('level_id', '=', 2)
-                    ->where('state','=',$state)
-                    ->where('status','=',$status)
-                    ->where('created_at','>','2022-07-16')
-                    ->get();
-
-                $countPCL = ExamProcessing::select(\DB::raw("COUNT(level_id) as count"))
-                    ->groupBy('level_id')
-                    ->orderBy('count')
-//                    ->where('created_at','>','2022-07-16')
-                    ->where('level_id', '=', 3)
-                    ->where('state','=',$state)
-                    ->where('status','=',$status)
-                    ->where('created_at','>','2022-07-16')
-                    ->get();
-
-                $countTSLC =   ExamProcessing::select(\DB::raw("COUNT(level_id) as count"))
-                    ->groupBy('level_id')
-                    ->orderBy('count')
-//                    ->where('created_at','>','2022-07-16')
-                    ->where('level_id', '=', 4)
-                    ->where('state','=',$state)
-                    ->where('status','=',$status)
-                    ->where('created_at','>','2022-07-16')
-                    ->get('count');
-
-                return view('operator::pages.applicant-profile-list', compact('data','state','status','countTSLC','countPCL',
-                    'countmaster','countbachelor'));
+                return redirect()->route("operator.applicant.profile.list", ['status'=> 'progress','state' => 'computer_operator','level'=>$exam['level_id']]);
             } catch (\Exception $e) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
@@ -461,6 +419,7 @@ class OperatorController extends BaseController
             $profileEmail = $this->profileRepository->findById($id);
             $email = $this->userRepository->findBy('id','=',$profileEmail['user_id'])->first();
             $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
+
             if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
                 $data['status'] = 'progress';
                 $data['remarks'] = 'Document Verified and is Forwarded to Officer';
@@ -468,6 +427,7 @@ class OperatorController extends BaseController
                 $data['current_state'] = 'officer';
                 $profileEmail = $this->profileRepository->findById($id);
                 $email = $this->userRepository->findBy('id','=',$profileEmail['user_id'])->first();
+
                 MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
                 if ($profileProcessingId){
                     $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
@@ -478,6 +438,7 @@ class OperatorController extends BaseController
                 $data['status'] = 'rejected';
                 $data['review_status'] = 'Rejected';
                 $data['current_state'] = 'computer_operator';
+
                 MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
                 if ($profileProcessingId){
                     $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
@@ -520,6 +481,32 @@ class OperatorController extends BaseController
 
     }
 
+    public function RejectExam($data, $status)
+    {
+        if (Auth::user()->mainRole()->name === 'operator') {
+            $id = $data;
+dd($data);
+            $data['status'] = $status;
+            $data['state'] = 'computer_operator';
+            try {
+                $exam_processing = $this->examProcessingRepository->update($data, $id);
+                $profile_id = $exam_processing['profile_id'];
+                $this->ExamProcessingLog($data, $id, $profile_id);
+                if ($exam_processing == false) {
+                    session()->flash('danger', 'Oops! Something went wrong.');
+                    return redirect()->back()->withInput();
+                }
+                session()->flash('success', 'Application have been Rejected');
+                return redirect()->back();
+
+            } catch (\Exception $e) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+        } else {
+            return redirect()->route('login');
+        }
+    }
 
     public function RejectExamProcessing(Request $request)
     {
@@ -546,6 +533,32 @@ class OperatorController extends BaseController
         } else {
             return redirect()->route('login');
         }
+    }
+
+    public function AcceptExam($id)
+    {
+        if (Auth::user()->mainRole()->name === 'operator') {
+            $data['status'] = 'progress';
+            $data['state'] = 'officer';
+            try {
+                $exam_processing = $this->examProcessingRepository->update($data, $id);
+                $profile_id = $exam_processing['profile_id'];
+                $this->ExamProcessingLog($data, $id, $profile_id);
+                if ($exam_processing == false) {
+                    session()->flash('danger', 'Oops! Something went wrong.');
+                    return redirect()->back()->withInput();
+                }
+                session()->flash('success', 'Application Move to forward for Verification');
+                return redirect()->back()->refresh()->withInput();
+
+            } catch (\Exception $e) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+        } else {
+            return redirect()->route('login');
+        }
+
     }
 
     public function AcceptExamProcessing($id)
