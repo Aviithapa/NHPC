@@ -51,10 +51,10 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'rejected','state' => 'student' ,'level'=>"1"])}}">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'rejected','state' => 'computer_operator' ,'level'=>"1"])}}">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Rejected','student')}}</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('rejected','computer_operator')}}</span>
                                 <span class="info-box-text">Rejected Application List </span></div>
                         </div>
                     </div>
@@ -76,81 +76,81 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator','level'=>"1"])}}">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'progress', 'state' => 'computer_operator','level'=>"1"])}}">
 
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('5',"computer_operator","Reviewing")}}</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('1',"computer_operator","progress")}}</span>
                                 <span class="info-box-text">Specialization </span> </div>
                         </div>
                     </div>
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator','level'=>"2"])}}">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'progress', 'state' => 'computer_operator','level'=>"2"])}}">
 
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('4',"computer_operator","Reviewing")}}</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('2',"computer_operator","progress")}}</span>
                                 <span class="info-box-text">Bachelor </span> </div>
                         </div>
                     </div>
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator','level'=>"3"])}}">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'progress', 'state' => 'computer_operator','level'=>"3"])}}">
 
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('3',"computer_operator","Reviewing")}}</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('3',"computer_operator","progress")}}</span>
                                 <span class="info-box-text">PCL </span> </div>
                         </div>
                     </div>
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'computer_operator','level'=>"4"])}}">
+                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'progress', 'state' => 'computer_operator','level'=>"4"])}}">
 
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('2',"computer_operator","Reviewing")}}</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('4',"computer_operator","progress")}}</span>
                                 <span class="info-box-text">TSLC</span> </div>
                         </div>
                     </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route('examStudentCount.dashboard.operator',['level_id' => '1'])}}">
+{{--                <div class="col-lg-3 col-xs-6 m-b-3">--}}
+{{--                    <a href="{{route('examStudentCount.dashboard.operator',['level_id' => '1'])}}">--}}
 
-                    <div class="card">
-                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{examStudentCount('1')}}</span>
-                                <span class="info-box-text">Specilazition</span> </div>
-                        </div>
-                    </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route('examStudentCount.dashboard.operator',['level_id' => '2'])}}">
+{{--                    <div class="card">--}}
+{{--                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>--}}
+{{--                            <div class="info-box-content"> <span class="info-box-number">{{examStudentCount('1')}}</span>--}}
+{{--                                <span class="info-box-text">Specilazition</span> </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-3 col-xs-6 m-b-3">--}}
+{{--                    <a href="{{route('examStudentCount.dashboard.operator',['level_id' => '2'])}}">--}}
 
-                    <div class="card">
-                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{examStudentCount('2')}}</span>
-                                <span class="info-box-text">First Level Bachelor</span> </div>
-                        </div>
-                    </div>
-                    </a>
-                </div>
-                <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route('examStudentCount.dashboard.operator',['level_id' => '3'])}}">
-                    <div class="card">
-                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{examStudentCount('3')}}</span>
-                                <span class="info-box-text">Second Level PCL</span> </div>
-                        </div>
-                    </div>
-                    </a>
-                </div>
+{{--                    <div class="card">--}}
+{{--                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>--}}
+{{--                            <div class="info-box-content"> <span class="info-box-number">{{examStudentCount('2')}}</span>--}}
+{{--                                <span class="info-box-text">First Level Bachelor</span> </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+{{--                <div class="col-lg-3 col-xs-6 m-b-3">--}}
+{{--                    <a href="{{route('examStudentCount.dashboard.operator',['level_id' => '3'])}}">--}}
+{{--                    <div class="card">--}}
+{{--                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>--}}
+{{--                            <div class="info-box-content"> <span class="info-box-number">{{examStudentCount('3')}}</span>--}}
+{{--                                <span class="info-box-text">Second Level PCL</span> </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
             </div>
         </div>
 
@@ -190,7 +190,7 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="info-box-content"> <span class="info-box-number">{{$exam->count}}</span>
-                                                        <span class="info-box-text">{{$exam->getProgramName()}}</span> </div>
+                                                        <span class="mt-3" style="font-weight: bold; font-size: 16px; color: black">{{$exam->getProgramName()}}</span> </div>
                                                 </div>
                                             </div>
                                         </a>
@@ -217,7 +217,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="info-box-content"> <span class="info-box-number">{{$exam->count}}</span>
-                                        <span class="info-box-text">{{$exam->getProgramName()}}</span> </div>
+                                        <span class="mt-3" style="font-weight: bold; font-size: 16px; color: black">{{$exam->getProgramName()}}</span> </div>
                                     <button class="btn btn-primary">Failed  Count</button>
                                 </div>
                             </div>
@@ -245,7 +245,7 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <div class="info-box-content"> <span class="info-box-number">{{$exam->count}}</span>
-                                                        <span class="info-box-text">{{$exam->getProgramName()}}</span> </div>
+                                                        <span class="mt-3" style="font-weight: bold; font-size: 16px; color: black">{{$exam->getProgramName()}}</span> </div>
                                                     <button class="btn btn-primary">Failed  Count</button>
                                                 </div>
                                             </div>

@@ -76,9 +76,11 @@ if (! function_exists('getApplicantCount')) {
          $profiles = ExamProcessing::all()->where("status",'=' ,$status)
                                                     ->where("state",'=',$state);
 //                   ->where('created_at','>','2022-07-16');
-         foreach ($profiles as $profile)
-             $count++;
-        return $count;
+
+        return count($profiles);
+//         foreach ($profiles as $profile)
+//             $count++;
+//        return $count;
     }
 }
 if (! function_exists('getDoubleDusturCountList')) {
@@ -95,9 +97,9 @@ if (! function_exists('getDoubleDusturCountList')) {
         $date_2 = "2022-05-10 00:00:00";
          $exams =  ExamProcessing::all()->where('created_at','>', $date)
                                         ->where('created_at','<',$date_2);
-         foreach ($exams as $exam)
-             $count++;
-        return $count;
+
+         return count($exams);
+
     }
 }
 
@@ -177,14 +179,10 @@ if (! function_exists('getLevelWiseStudentCount')) {
      */
     function getLevelWiseStudentCount($level, $state, $status)
     {
-
-        $count =0;
-        $profiles = \Student\Models\Profile::all()->where("level",'=' ,$level)
-            ->where('profile_state', '=', $state)
-            ->where('profile_status', '=', $status);
-        foreach ($profiles as $profile)
-            $count++;
-        return $count;
+        $profiles = ExamProcessing::all()->where("level_id",'=' ,$level)
+            ->where('state', '=', $state)
+            ->where('status', '=', $status);
+        return count($profiles);
     }
 }
 

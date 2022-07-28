@@ -152,7 +152,7 @@ class OperatorController extends BaseController
     public function profile($status, $state, $level=5)
     {
         if (Auth::user()->mainRole()->name === 'operator') {
-            if ($status === 'rejected'){
+            if ($status === 'reviewinf'){
                 $data = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
                     ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
                     ->where('profile_processing.current_state', '=', $state)
