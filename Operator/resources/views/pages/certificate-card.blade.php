@@ -29,7 +29,7 @@
 {{--                                        Admit Card Generated: {{checkStatus($exam->program_id)}}--}}
 {{--                                        <a href="{{route("examCommittee.admit.card.generate", ['status'=> 'progress','current_state' => 'exam_committee', 'program_id' => $exam->program_id])}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>--}}
 {{--                                            Generate Admit Cards</a>--}}
-                                        <span class="mt-3" style="font-weight: bold; font-size: 16px; color: black">{{$exam->getProgramName()}}</span>
+                                        <button class="mt-3" style="border:none; font-weight: bold; font-size: 14px; color: white; background: blue;">{{$exam->getProgramName()}}</button>
                                 </div>
                             </div>
                         </a>
