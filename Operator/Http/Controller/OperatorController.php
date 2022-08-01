@@ -405,6 +405,7 @@ class OperatorController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'operator') {
             $logs = $this->profileLogsRepository->create($data);
+
             $this->ExamProcessingLog($data, $data['exam_id'], $data['profile_id']);
             if ($logs == false)
                 return false;
@@ -437,7 +438,7 @@ class OperatorController extends BaseController
                 }else
                   $profileProcessings = $this->profileProcessingRepository->create($data);
 
-            } elseif ($data['profile_status'] == "Rejected") {
+            } elseif ($data['profile_status'] == "Rejected" || $data['status'] === 'rejected') {
                 $data['status'] = 'rejected';
                 $data['review_status'] = 'Rejected';
                 $data['current_state'] = 'computer_operator';
@@ -490,10 +491,13 @@ class OperatorController extends BaseController
             $id = $data;
             $data['status'] = $status;
             $data['state'] = 'computer_operator';
+            dd($data);
             try {
                 $exam_processing = $this->examProcessingRepository->update($data, $id);
                 $profile_id = $exam_processing['profile_id'];
+                $profile = $this->profileRepository->findById($profile_id);
                 $this->ExamProcessingLog($data, $id, $profile_id);
+
                 if ($exam_processing == false) {
                     session()->flash('danger', 'Oops! Something went wrong.');
                     return redirect()->back()->withInput();
@@ -521,6 +525,13 @@ class OperatorController extends BaseController
                 $exam_processing = $this->examProcessingRepository->update($data, $id);
                 $profile_id = $exam_processing['profile_id'];
                 $this->ExamProcessingLog($data, $id, $profile_id);
+                $data['profile_id'] = $profile_id;
+                $data['created_by'] = Auth::user()->id;
+//                dd($data);
+                $this->profileLog($data);
+                $profileEmail = $this->profileRepository->findById($profile_id);
+                $email = $this->userRepository->findBy('id','=',$profileEmail['user_id'])->first();
+                MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
                 if ($exam_processing == false) {
                     session()->flash('danger', 'Oops! Something went wrong.');
                     return redirect()->back()->withInput();
@@ -571,6 +582,10 @@ class OperatorController extends BaseController
                 $exam_processing = $this->examProcessingRepository->update($data, $id);
                 $profile_id = $exam_processing['profile_id'];
 //                $this->ExamProcessingLog($data, $id, $profile_id);
+                $data['profile_id'] = $profile_id;
+                $data['exam_id'] = $exam_processing->id;
+                $data['created_by'] = Auth::user()->id;
+                $this->profileLog($data);
                 if ($exam_processing == false) {
                     session()->flash('danger', 'Oops! Something went wrong.');
                     return redirect()->back()->withInput();
@@ -638,20 +653,13 @@ class OperatorController extends BaseController
     }
 
     public function editExamApply($id){
-        $profile = $this->profileRepository->findById($id);
-        if ($profile){
 
-            $qualification = $this->qualificationRepository->getAll()->where('user_id','=',$profile->user_id)
-                ->where('level','!=' , 1);
-            $exam = $this->examProcessingRepository->getAll()->where('profile_id','=',$id)->first();
-            if ($qualification != null){
-                foreach ($qualification as $quali)
-                    if (is_numeric($quali['program_id']) )
-                        $all_program[] = $this->programRepository->findById($quali['program_id']);
-            }
+
+            $exam = $this->examProcessingRepository->findById($id);
+$profile = $this->profileRepository->findById($exam->profile_id);
+                        $all_program = $this->programRepository->getAll();
+//                        dd($all_program);
             return view('superAdmin::admin.applicant.edit-program-name', compact( 'all_program', "profile",'exam'));
-
-        }
 
     }
 

@@ -303,7 +303,7 @@ class ApplicantController  extends BaseController
 
     public function applyExam(Request $request){
         $data= $request->all();
-        $data["status"] = 'progress';
+//        $data["status"] = 'progress';
         $data['voucher_image'] = $data['voucher'];
         try {
             $exam = $this->examProcessingRepository->update($data,$data['exam_processing_id']);
@@ -312,7 +312,7 @@ class ApplicantController  extends BaseController
                 return redirect()->back()->withInput();
             }
             session()->flash('success','Program has been changed successfully');
-            return redirect()->route('superAdmin.applicant.list.review',['id'=> $data['profile_id']]);
+            return redirect()->route('operator.applicant.list.review',['id'=> $data['profile_id']]);
         } catch (\Exception $e) {
             session()->flash('success','Program has been changed successfully.');
             return redirect()->back()->withInput();
