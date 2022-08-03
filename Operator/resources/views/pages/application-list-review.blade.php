@@ -566,6 +566,8 @@
                                                         <td>Voucher Image</td>
                                                         <td>Applied Date</td>
                                                         <td>Program Name</td>
+                                                        <td>State</td>
+                                                        <td>Status</td>
                                                         <td>Action</td>
                                                         </thead>
                                                         <tbody>
@@ -582,6 +584,8 @@
                                                                     <td><img src="{{$exam->getVoucherImage()}}" onclick="onClick(this)"  alt="voucher image" height="150" width="150"/></td>
                                                                     <td>{{$exam->created_at}}</td>
                                                                     <td>{{$exam->getProgramName()}}</td>
+                                                                    <td>{{$exam->state}}</td>
+                                                                    <td>{{$exam->status}}</td>
                                                                     <td>
                                                                         @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com')
                                                                             @else
