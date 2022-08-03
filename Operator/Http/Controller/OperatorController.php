@@ -161,7 +161,7 @@ class OperatorController extends BaseController
                     ->where('exam_registration.level_id', '=', $level)
 //                    ->where('exam_registration.created_at', '>', '2022-07-16')
                     ->orderBy('profiles.created_at', 'ASC')
-                    ->get([ 'profiles.*', 'program.name as program_name','profile_processing.*','exam_registration.state as exam_registration_state','exam_registration.status as exam_registration_status']);
+                    ->get([ 'profiles.*', 'program.name as program_name','profiles.id as profile_id','profile_processing.*','exam_registration.state as exam_registration_state','exam_registration.status as exam_registration_status']);
 
 
                 $countmaster =ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
@@ -267,7 +267,7 @@ class OperatorController extends BaseController
                     ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
 //                    ->where('exam_registration.created_at', '>', '2022-07-16')
 //                    ->orderBy('profiles.created_at', 'ASC')
-                    ->get([ 'profiles.*', 'program.name as program_name','exam_registration.state as exam_registration_state','exam_registration.status as exam_registration_status']);
+                    ->get([ 'profiles.*', 'program.name as program_name','profiles.id as profile_id','exam_registration.state as exam_registration_state','exam_registration.status as exam_registration_status']);
 
 //                dd($data);
                 $countmaster =ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
@@ -903,7 +903,7 @@ $profile = $this->profileRepository->findById($exam->profile_id);
     public  function forwardStudent(Request $request){
         $data = $request->all();
         try {
-            $id= $data->id;
+            $id= $data->profile_id;
             $profileProcessing['profile_id'] = $data->id;
             $profileEmail = $this->profileRepository->findById($data->id);
             $email = $this->userRepository->findBy('id','=',$profileEmail['user_id'])->first();
@@ -949,20 +949,32 @@ $profile = $this->profileRepository->findById($exam->profile_id);
 
      public function fowardStudentState(Request $request){
         $data = $request->all();
+        $id = $data['profile_id'];
         $data['current_state'] = $data['state'];
          $data['status'] = 'progress';
          $profileData['profile_state'] = $data['state'];
          $profileData['profile_status'] = 'Reviewing';
+         $data['remark'] = "Forwared to Officer";
          try{
                $exam = $this->examProcessingRepository->findBy('profile_id','=',$data['profile_id'])->where('attempt','=',1)
                     ->where('isPassed','=',0)->first();
                $profileProcesing  = $this->profileProcessingRepository->findBy('profile_id','=',$data['profile_id'])->first();
               $examUpdate =  $this->examProcessingRepository->update($data,$exam['id']);
-               $this->profileProcessingRepository->update($data,$profileProcesing['id']);
+            //   dd($id);
+              $profileProcesingUpdate =  $this->profileRepository->update($profileData, $data['profile_id']);
+           
+            
+                if($profileProcesing){
+                $this->profileProcessingRepository->update($data,$profileProcesing['id']);
+                  }
+                else{
+                    $profileProcessings = $this->profileProcessingRepository->create($data);
+                }
 
-             $profileProcesingUpdate =  $this->profileRepository->update($profileData, $data['profile_id']);
+                $this->profileLog($data);
 
-
+              
+            
 //             $id = $this->profileRepository->findById($data['profile_id']);
 
 //             dd('you are heer');
@@ -970,7 +982,8 @@ $profile = $this->profileRepository->findById($exam->profile_id);
  return redirect()->route('operator.applicant.list.review',['id'=>$data['profile_id']]);
          }catch (\Exception $e) {
             session()->flash('danger', 'Oops! Something went wrong.');
-            dd('Exception');
+            dd($e);
+        
              return redirect()->route('operator.applicant.list.review',['id'=>$data['profile_id']]);
         }
      }

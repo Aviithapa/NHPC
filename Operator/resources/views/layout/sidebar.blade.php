@@ -39,7 +39,7 @@
                         </a>
                     </li>
                     <li class="{{ (request()->is('operator/dashboard/operator/applicant-profile-list/Rejected/computer_operator/*')) ? 'active':''  }}">
-                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'rejected', 'state' => 'student','level'=>"1"])}}">
+                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'rejected', 'state' => 'computer_operator','level'=>"1"])}}">
                             <i class="icon-ban"></i> <span>Reject Profile List <span class="badge badge-pill badge-danger">{{getApplicantCount('rejected','computer_operator')}}</span></span>
                         </a>
                     </li>

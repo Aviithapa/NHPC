@@ -77,13 +77,13 @@
                                         @foreach($data  as $key => $datas)
                                                 <tr>
                                                     <td>{{++$key}}</td>
-                                                    <td>{{$datas->id}}</td>
+                                                    <td>{{$datas->profile_id}}</td>
                                                     <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
                                                     <td>{{$datas->exam_registration_state}}</td>
                                                     <td>{{$datas->exam_registration_status}}</td>
                                                     <td>{{$datas->created_at->toDateString()}}</td>
                                                     <td> {{$datas->program_name}}</td>
-                                                    <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->id)}}"><span class="label label-success">View</span></a></td>
+                                                    <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->profile_id)}}"><span class="label label-success">View</span></a></td>
                                                 </tr>
                                         @endforeach
                                     @endif
