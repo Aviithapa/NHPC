@@ -960,6 +960,7 @@ $profile = $this->profileRepository->findById($exam->profile_id);
                     ->where('isPassed','=',0)->first();
                $profileProcesing  = $this->profileProcessingRepository->findBy('profile_id','=',$data['profile_id'])->first();
               $examUpdate =  $this->examProcessingRepository->update($data,$exam['id']);
+              $data['exam_id'] = $exam['id'];
             //   dd($id);
               $profileProcesingUpdate =  $this->profileRepository->update($profileData, $data['profile_id']);
            
