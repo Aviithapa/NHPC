@@ -22,14 +22,14 @@
                     <a href="{{route("officer.applicant.profile.list", ['status'=> 'progress', 'state' => 'officer', 'level'=>'5'])}}">
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>
-                                <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Reviewing', 'officer')}}</span>
+                                <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('progress', 'officer')}}</span>
                                     <span class="info-box-text">New Applicant Profile List</span> </div>
                             </div>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'pending', 'state' => 'officer' , 'level'=>'5'])}}">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'pending', 'state' => 'officer' , 'level'=>'1'])}}">
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
                                 <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Pending','officer')}}</span>
@@ -39,17 +39,17 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'rejected','state' => 'student' , 'level'=>'5'])}}">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'rejected','state' => 'officer' , 'level'=>'1'])}}">
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
-                                <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('Rejected','student')}}</span>
+                                <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('rejected','officer')}}</span>
                                     <span class="info-box-text">All Rejected Application List </span></div>
                             </div>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Rejected','state' => 'student', 'level'=>'5'])}}">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'rejected','state' => 'officer', 'level'=>'1'])}}">
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
                                 <div class="info-box-content"> <span class="info-box-number"> {{getApplicantProcessingCount('rejected','officer')}}</span>
@@ -63,44 +63,44 @@
 
             <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'officer','level'=>"5"])}}">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'progress', 'state' => 'officer','level'=>"1"])}}">
 
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                                <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('5',"officer","Reviewing")}}</span>
+                                <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('1',"officer","progress")}}</span>
                                     <span class="info-box-text">Specialization </span> </div>
                             </div>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'officer','level'=>"4"])}}">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'progress', 'state' => 'officer','level'=>"2"])}}">
 
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                                <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('4',"officer","Reviewing")}}</span>
+                                <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('2',"officer","progress")}}</span>
                                     <span class="info-box-text">Bachelor </span> </div>
                             </div>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'officer','level'=>"3"])}}">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'progress', 'state' => 'officer','level'=>"3"])}}">
 
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                                <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('3',"officer","Reviewing")}}</span>
+                                <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('3',"officer","progress")}}</span>
                                     <span class="info-box-text">PCL </span> </div>
                             </div>
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'Reviewing', 'state' => 'officer','level'=>"2"])}}">
+                    <a href="{{route("officer.applicant.profile.list", ['status'=> 'progress', 'state' => 'officer','level'=>"4"])}}">
 
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>
-                                <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('2',"officer","Reviewing")}}</span>
+                                <div class="info-box-content"> <span class="info-box-number">{{getLevelWiseStudentCount('4',"officer","progress")}}</span>
                                     <span class="info-box-text">TSLC</span> </div>
                             </div>
                         </div>

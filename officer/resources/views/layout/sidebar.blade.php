@@ -28,7 +28,7 @@
                 <ul class="treeview-menu">
                     <li class="{{ (request()->is('officer/dashboard/officer/applicant-profile-list/progress/officer/*')) ? 'active':''  }}">
                         <a href="{{route("officer.applicant.profile.list", ['status'=> 'progress','state' => 'officer', 'level'=>'1'])}}">
-                            <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantCount('Reviewing','officer')}}</span></span>
+                            <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantCount('progress', 'officer')}}</span></span>
                         </a>
                     </li>
                     <li class="{{ (request()->is('officer/dashboard/officer/applicant-profile-list/rejected/officer/*')) ? 'active':''  }}">
@@ -39,7 +39,7 @@
 
                     <li class="{{ (request()->is('officer/dashboard/officer/applicant-profile-list/progress/registrar/*')) ? 'active':''  }}">
                         <a href="{{route("officer.applicant.profile.list", ['status'=> 'progress','state' => 'registrar',  'level'=>'1'])}}">
-                            <i class="icon-badge"></i> <span>Verified by Officer<span class="badge badge-pill badge-danger">{{getApplicantCount('Reviewing','registrar')}}</span></span>
+                            <i class="icon-badge"></i> <span>Verified by Officer<span class="badge badge-pill badge-danger">{{getApplicantCount('progress','registrar')}}</span></span>
                         </a>
                     </li>
                 </ul>

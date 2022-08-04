@@ -71,7 +71,7 @@ class OfficerController  extends BaseController
                     ->where('exam_registration.level_id', '=', $level)
 //                    ->where('exam_registration.created_at', '>', '2022-07-16')
                     ->orderBy('profiles.created_at', 'ASC')
-                    ->get(['profiles.*', 'program.name as program_name','profile_processing.*']);
+                    ->get(['profiles.*', 'program.name as program_name','profile_processing.*', 'profiles.id as profile_id']);
 
                 $countmaster =ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
                     ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
@@ -175,7 +175,7 @@ class OfficerController  extends BaseController
                     ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
 //                    ->where('exam_registration.created_at', '>', '2022-07-16')
 //                    ->orderBy('profiles.created_at', 'ASC')
-                    ->get([ 'profiles.*', 'program.name as program_name']);
+                    ->get([ 'profiles.*', 'program.name as program_name','profiles.id as profile_id']);
 
 //                dd($data);
                 $countmaster =ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
@@ -265,6 +265,11 @@ class OfficerController  extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'officer') {
             $data = $request->all();
+            $profile_log['profile_id'] = $data ['profile_id'];
+            $profile_log['state'] = 'officer';
+            $profile_log['created_by'] = Auth::user()->id;
+            $profile_id = $data['profile_id'];
+            $exam_processing = '';
         try {
             $id=$data['profile_id'];
             $data['created_by'] = Auth::user()->id;
@@ -272,31 +277,89 @@ class OfficerController  extends BaseController
             $profileEmail = $this->profileRepository->findById($id);
             $email = $this->userRepository->findBy('id','=',$profileEmail['user_id'])->first();
             if ( $data['profile_status']=== "Verified" || $data['profile_status'] === "Reviewing"){
-                $data['status'] = 'progress';
-                $data['remarks'] =  'Profile Verified and forwarded to Registrar';
-                $data['review_status'] =  'Successful';
                 $data['profile_state'] = 'registrar';
-//                MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
-                $this->profileLog($data);
-                $this->profileProcessing($id,$data);
+                $profile_log['status'] = 'progress';
+                $profile_log['remarks'] =  isset($data['remarks']) ? $data['remarks'] : 'Profile Verified and forwarded to Registrar';
+                $profile_log['review_status'] = 'Successfully Accepeted';
+                $profile_processing['current_state'] = 'registrar';
+                $profile_processing['status'] = 'progress';
+                $exam['state'] = 'registrar';
+                $exam['status'] = 'progress';        
+               $logs = $this->profileLog($profile_log);
+               if($logs){
+                $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $profile_id)->first();
+                $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
+                if($profileProcessings == 'fasle'){
+                    dd($profileProcessings,'pp');
+                    session()->flash('error','Error Occured While Saving Data');
+                }
+                // dd($profile_processing,'p1');
+                $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','officer')->where('status','=','progress')->where('profile_id','=',$profile_id)->first();
+    
+                if($examProcessing){
+                    $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
+                    if($exam_processing === 'false'){
+                        dd($exam_processing);
+                     session()->flash('error','Error Occured While Saving Data');
+                    }
+                    // dd($exam_processing, 'p2');
+
+                     $profile_log['exam_processing_id'] = $examProcessing['id'];
+                    $examlog = $this->examLog($profile_log);
+                    // dd($examLog);
+                    if($examlog){
+                        MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+                    }
+                }    
+             }
+
             }elseif($data['profile_status']=== "Rejected"){
-                $data['status'] =  'rejected';
-                $data['review_status'] =  'Rejected';
-//                MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
-//                $data['profile_state'] = 'student';
-                $this->profileLog($data);
-                $this->profileProcessing($id, $data);
+                $profile_log['status'] = 'rejected';
+                $profile_log['remarks'] = isset($data['remarks']) ? $data['remarks'] : 'Rejected By Officer';
+                $profile_log['review_status'] = 'Rejected';
+                $profile_processing['current_state'] = 'officer';
+                $profile_processing['status'] = 'rejected';
+                $exam['state'] = 'officer';
+                $exam['status'] = 'rejected';
+                $data['profile_state'] = 'officer';
+               $logs = $this->profileLog($profile_log);
+               if($logs){
+                $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $profile_id)->first();
+                $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
+               
+               
+                if($profileProcessings == 'fasle'){
+                    session()->flash('error','Error Occured While Saving Data');
+                }
+                $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','officer')->where('status','=','progress')->where('profile_id','=',$profile_id)->first();
+                if($examProcessing){
+                    $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
+                    if($exam_processing === 'false'){
+                     session()->flash('error','Error Occured While Saving Data');
+                    }
+                     $profile_log['exam_processing_id'] = $examProcessing['id'];
+                    $examlog = $this->examLog($profile_log);
+                    if($examlog){
+                        MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+                    }
+                } 
             }
+        }
             $profile = $this->profileRepository->update($data,$id);
+
             if ($profile == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
             session()->flash('success','User Profile Status Information have been saved successfully');
-            return redirect()->route('officer.applicant.profile.list');
+            $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','officer')->where('profile_id','=',$profile_id)->first();
+
+           
+            return redirect()->route('officer.applicant.profile.list',['status'=> 'progress','state' => 'officer',  'level'=>isset($examProcessing['level_id']) ? $examProcessing['level_id'] : 1]);
 //
         } catch (\Exception $e) {
-            session()->flash('danger', 'Oops! Something went wrong.');
+            dd($e);
+            session()->flash('error','Error Occured While Saving Data');
             return redirect()->back()->withInput();
         }
         }else {
@@ -312,6 +375,13 @@ class OfficerController  extends BaseController
             return false;
         return true;
 
+    }
+
+    public function examLog($data){
+        $logs = $this->examProcessingDetailsRepository->create($data);
+        if($logs == false)
+            return false;
+        return true;
     }
 
     public function profileProcessing( $id , $data){

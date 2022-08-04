@@ -191,7 +191,10 @@ class CouncilController extends BaseController
 
 
     public function moveToDartaBook(){
-        $students = $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+
+        try {
+            //code...
+            $students = $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
             ->join('program','program.id','=','exam_registration.program_id')
             ->join('level','level.id','=','program.level_id')
             ->join('provinces','provinces.id','=','profiles.development_region')
@@ -250,6 +253,10 @@ class CouncilController extends BaseController
         }
 
         return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+      
 
     }
 
