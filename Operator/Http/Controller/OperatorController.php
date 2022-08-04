@@ -349,57 +349,129 @@ class OperatorController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'operator') {
             $data = $request->all();
-            try {
-                $id = $data['profile_id'];
-                $data['created_by'] = Auth::user()->id;
-                $exam = $this->examProcessingRepository->getAll()->where('profile_id','=', $id)->last();
-                $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
-                $data['state'] = 'computer_operator';
+            $profile_log['profile_id'] = $data ['profile_id'];
+            $profile_log['state'] = 'computer_operator';
+            $profile_log['created_by'] = Auth::user()->id;
+            $profile_id = $data['profile_id'];
+            $exam_processing = '';
+        try {
+            $id=$data['profile_id'];
+            $data['created_by'] = Auth::user()->id;
+            $data['state'] =  'computer_operator';
+            $profileEmail = $this->profileRepository->findById($id);
+            $email = $this->userRepository->findBy('id','=',$profileEmail['user_id'])->first();
+            if ( $data['profile_status']=== "Verified" || $data['profile_status'] === "Reviewing"){
                 $data['profile_state'] = 'officer';
-
-                if ($data['profile_status'] === "Reviewing") {
-                    $data['status'] = 'progress';
-                    $data['remarks'] = 'Document Verified and is Forwarded to Officer';
-                    $data['review_status'] = 'Successful';
-                    $data['profile_state'] = 'officer';
-                    $data['state'] ='officer';
-                    $data['current_state'] = 'officer';
-                    $data['exam_id'] = $exam['id'];
-                    $exams = $this->examProcessingRepository->update($data,$exam['id']);
-                    $profileProcessing = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
-                    $this->profileLog($data);
-
-                } elseif ($data['profile_status'] === "Rejected") {
-                    $data['status'] = 'rejected';
-                    $data['review_status'] = 'Rejected';
-                    $data['profile_state'] = 'student';
-                    $data['state'] = 'computer_operator';
-                    $data['exam_id'] = $exam['id'];
-                    $this->examProcessingRepository->update($data,$exam['id']);
-                    $profileProcessing = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
-                    $this->profileLog($data);
-
-                } elseif ($data['profile_status'] === "Pending") {
-                    $data['status'] = 'pending';
-                    $data['review_status'] = 'Pending';
-                    $this->profileLog($data);
-                    $this->profileProcessing($id,$data);
+                $profile_log['status'] = 'progress';
+                $profile_log['remarks'] =  isset($data['remarks']) ? $data['remarks'] : 'Profile Verified and forwarded to Officer';
+                $profile_log['review_status'] = 'Successfully Accepeted';
+                $profile_processing['current_state'] = 'officer';
+                $profile_processing['status'] = 'progress';
+                $exam['state'] = 'officer';
+                $exam['status'] = 'progress';        
+               $logs = $this->profileLogs($profile_log);
+               if($logs){
+                $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $profile_id)->first();
+                if($profileProcessingId)
+                    $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
+                 else{
+                        $profileProcessings = $this->profileProcessingRepository->create($profile_processing);
+                 }
+                if($profileProcessings == 'false'){
+                    session()->flash('error','Error Occured While Saving Data');
                 }
-                $profile = $this->profileRepository->update($data, $id);
-                if ($profile == false) {
-                    session()->flash('danger', 'Oops! Something went wrong.');
-                    return redirect()->back()->withInput();
-                }
+                // dd($profile_processing,'p1');
+                $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','computer_operator')->where('status','=','progress')->where('profile_id','=',$profile_id)->first();
+    
+                if($examProcessing){
+                    $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
+                    if($exam_processing === 'false'){
+                        
+                     session()->flash('error','Error Occured While Saving Data');
+                    }
+                    // dd($exam_processing, 'p2');
 
-                return redirect()->route("operator.applicant.profile.list", ['status'=> 'progress','state' => 'computer_operator','level'=>$exam['level_id']]);
-            } catch (\Exception $e) {
+                     $profile_log['exam_processing_id'] = $examProcessing['id'];
+                    $examlog = $this->examLog($profile_log);
+                    // dd($examLog);
+                    if($examlog){
+                        MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+                    }
+                }    
+             }
+
+            }elseif($data['profile_status']=== "Rejected"){
+                $profile_log['status'] = 'rejected';
+                $profile_log['remarks'] = isset($data['remarks']) ? $data['remarks'] : 'Rejected By Computer Operator';
+                $profile_log['review_status'] = 'Rejected';
+                $profile_processing['current_state'] = 'computer_operator';
+                $profile_processing['status'] = 'rejected';
+                $exam['state'] = 'computer_operator';
+                $exam['status'] = 'rejected';
+                $data['profile_state'] = 'officer';
+               $logs = $this->profileLogs($profile_log);
+               if($logs){
+                $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $profile_id)->first();
+                if($profileProcessingId)
+                    $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
+                 else{
+                        $profileProcessings = $this->profileProcessingRepository->create($profile_processing);
+                 }
+               
+               
+                if($profileProcessings == 'fasle'){
+                    session()->flash('error','Error Occured While Saving Data');
+                }
+                $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','computer_operator')->where('status','=','progress')->where('profile_id','=',$profile_id)->first();
+                if($examProcessing){
+                    $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
+                    if($exam_processing === 'false'){
+                     session()->flash('error','Error Occured While Saving Data');
+                    }
+                     $profile_log['exam_processing_id'] = $examProcessing['id'];
+                    $examlog = $this->examLog($profile_log);
+                    if($examlog){
+                        MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+                    }
+                } 
+            }
+        }
+            $profile = $this->profileRepository->update($data,$id);
+
+            if ($profile == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
-        } else {
-            return redirect()->route('login');
+            session()->flash('success','User Profile Status Information have been saved successfully');
+            $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','officer')->where('profile_id','=',$profile_id)->first();
+
+           
+            return redirect()->route('operator.applicant.profile.list',['status'=> 'progress','state' => 'computer_operator',  'level'=>isset($examProcessing['level_id']) ? $examProcessing['level_id'] : 1]);
+//
+        } catch (\Exception $e) {
+            dd($e);
+            session()->flash('error','Error Occured While Saving Data');
+            return redirect()->back()->withInput();
+        }
+        }else {
+             return redirect()->route('login');
         }
 
+    }
+
+    public function profileLogs($data){
+        $logs = $this->profileLogsRepository->create($data);
+        if($logs == false)
+            return false;
+        return true;
+
+    }
+
+    public function examLog($data){
+        $logs = $this->examProcessingDetailsRepository->create($data);
+        if($logs == false)
+            return false;
+        return true;
     }
 
     public function profileLog(array $data)
@@ -473,6 +545,14 @@ class OperatorController extends BaseController
             try {
                 $id = $data['profile_id'];
                 $profile = $this->profileRepository->update($data,$id);
+                $examProcessing = $this->examProcessingRepository->getAll()->where('profile_id','=',$id);
+                foreach($examProcessing as $exam){
+                  
+                    $exams = $this->examProcessingRepository->findById($exam['id']);
+                    // dd($exams);
+                    $data['level_id'] = $data['level'];
+                    $this->examProcessingRepository->update($data, $exams['id']);
+                }
                 session()->flash('success', 'User Profile Level has been changed successfully');
                 return redirect()->back();
 //

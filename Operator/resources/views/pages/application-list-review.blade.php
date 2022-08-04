@@ -239,10 +239,10 @@
                                                             <div class="col-sm-12">
                                                                 <select class="form-control form-control-line" name="level" required>
                                                                     <option >{{$data->level}}</option>
-                                                                    <option value="5">Specification</option>
-                                                                    <option value="4">Bachelor</option>
+                                                                    <option value="1">Specification</option>
+                                                                    <option value="2">Bachelor</option>
                                                                     <option value="3">PCL</option>
-                                                                    <option value="2">TSLC</option>
+                                                                    <option value="4">TSLC</option>
                                                                 </select>
                                                             </div>
                                                         </div>
