@@ -103,11 +103,25 @@ class CouncilController extends BaseController
             return redirect()->route('login');
         }
     }
-    public function dartaBookIndex(){
+    public function dartaBookIndex(Request $request){
         if (Auth::user()->mainRole()->name === 'council') {
-            $date = "2022-07-26";
-            if($date){
-                $certificate = DB::table('certificate_history')
+            $data = $request->all();
+           
+            if(isset($data['date'])){
+                $date = $data['date'];
+                if($data['date']  === "2022-07-08"){
+                    $certificate = DB::table('certificate_history')
+
+                    ->select('program_id','level_name','program_certificate_code',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns') )
+                    ->groupBy('program_id','level_name','program_certificate_code')
+                    ->orWhere('decision_date','=', '2022-07-12')
+                   ->orWhere('decision_date','=','2022-07-14')
+                   ->orWhere('decision_date','=','2022-07-18')
+                    ->orderBy('level_name')
+                    ->get(array('srn'))
+                   ->unique('program_id');
+                }else{
+                    $certificate = DB::table('certificate_history')
 
                     ->select('program_id','level_name','program_certificate_code',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns') )
                     ->groupBy('program_id','level_name','program_certificate_code')
@@ -117,6 +131,8 @@ class CouncilController extends BaseController
                     ->orderBy('level_name')
                     ->get(array('srn'))
                    ->unique('program_id');
+                }
+              
 
 
 //                $program_certificates_code = Certificate::all()
@@ -129,6 +145,17 @@ class CouncilController extends BaseController
 ////                foreach ($program_certificates_code as $program){
 ////                    if()
 ////                }
+            }else{
+                $certificate = DB::table('certificate_history')
+
+                ->select('program_id','level_name','program_certificate_code',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns') )
+                ->groupBy('program_id','level_name','program_certificate_code')
+                ->orWhere('decision_date','=', '2022-06-05')
+//                    ->orWhere('decision_date','=','2022-07-14')
+//                    ->orWhere('decision_date','=','2022-07-18')
+                ->orderBy('level_name')
+                ->get(array('srn'))
+               ->unique('program_id');
             }
 
 //            else

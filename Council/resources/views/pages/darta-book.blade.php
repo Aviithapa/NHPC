@@ -25,6 +25,37 @@
                             </div>
                         </div>
 
+                <div class="box box-info">
+                    <div class="box-header with-border p-t-1">
+                        <form method="POST" 
+                        action="{{url('council/dashboard/council/darta/book')}}">
+                            @csrf
+
+
+                            <div class="row">
+
+                                <div class="col-lg-4">
+                                    <fieldset class="form-group">
+
+                                        <select class="form-control" name="date"  id="date" >
+                                            <option value="0">All</option>
+                                            <option value="2022-07-26">2022-07-26</option>
+                                            <option value="2022-07-08">2022-07-08</option>
+                                            <option value="2022-06-05">2022-06-05</option>
+
+                                           
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <div class="col-lg-4" >
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>
+                                Search</button>
+                                </div>
+                                </div>
+
+                        </form>
+                    </div>
+
 {{--                        <div class="box-header with-border p-t-1">--}}
 {{--                            <form method="POST" action="{{url('student/dashboard/student/collage/data')}}">--}}
 {{--                                @csrf--}}

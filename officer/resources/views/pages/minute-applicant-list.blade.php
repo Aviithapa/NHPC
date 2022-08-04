@@ -27,7 +27,36 @@
             {{--            </div>--}}
 
 
-            <div class="row">
+                <div class="box box-info">
+                        <div class="box-header with-border p-t-1">
+                            <form method="POST" action="{{url('officer/dashboard/officer/minute/applicant/list/'.$id)}}">
+                                @csrf
+    
+    
+                                <div class="row">
+    
+                                    <div class="col-lg-4">
+                                        <fieldset class="form-group">
+    
+                                            <select class="form-control" name="date"  id="date" >
+                                                <option value="0">All</option>
+                                                <option value="2022-07-26">2022-07-26</option>
+                                                <option value="2022-07-08">2022-07-08</option>
+                                                <option value="2022-06-05">2022-06-05</option>
+
+                                               
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-4" >
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>
+                                    Search</button>
+                                    </div>
+                                    </div>
+    
+                            </form>
+                        </div>
+            <div class="row mt-2">
                 <div class="col-lg-12 m-b-3">
                     <div class="box box-info">
                         <div class="box-header with-border p-t-1">
@@ -48,6 +77,7 @@
                                         <th>Darta Number</th>
                                         <th>Certificate</th>
                                         <th>Level</th>
+                                        <th>Accepted Date</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -66,6 +96,7 @@
                                                 <td>{{$data->darta_number}}</td>
                                                 <td>{{$data->certificate_generate}}</td>
                                                 <td>{{$data->level_name}}</td>
+                                                <td>{{ $data->profile_logs_created }}
 {{--                                                <td> <a href="{{url("officer/dashboard/officer/minute-applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>--}}
                                                 <td> <a href="{{url("officer/dashboard/officer/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
 
