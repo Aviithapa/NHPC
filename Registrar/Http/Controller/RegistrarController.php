@@ -528,7 +528,14 @@ class RegistrarController  extends BaseController
                     $examlog = $this->examLog($profile_log);
                     // dd($examLog);
                     if($examlog){
+                        try {
+                            //code...
                         MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+
+                        } catch (\Throwable $th) {
+                            //throw $th;
+                            session()->flash('error','Error While Sending Mail');
+                        }
                     }
                 }    
              }
@@ -560,7 +567,14 @@ class RegistrarController  extends BaseController
                      $profile_log['exam_processing_id'] = $examProcessing['id'];
                     $examlog = $this->examLog($profile_log);
                     if($examlog){
-                        // MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+                        try {
+                            //code...
+                        MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
+
+                        } catch (\Throwable $th) {
+                            //throw $th;
+                            session()->flash('error','Error While Sending Mail');
+                        }
                     }
                 } 
             }
