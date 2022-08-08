@@ -84,7 +84,10 @@
                 <div class="col-lg-4">
                     <fieldset class="form-group">
                         <label>Board</label>
-                        <input name="board_university" class="form-control" id="pclnationalboard" type="text" value="CTEVT, Nepal" readonly>
+                        <select name="board_university" class="form-control" id="pclnationalboard">
+                            <option value="CTEVT, Nepal">CTEVT, Nepal</option>
+                            <option value="Karnali Academy of Health Sciences, Karnali Nepal">Karnali Academy of Health Sciences, Karnali Nepal</option>
+                        </select>
                         <input name="board_university" class="form-control" id="pclinternationalboard" type="text" >
                     </fieldset>
                 </div>
