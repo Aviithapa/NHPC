@@ -29,6 +29,7 @@ use Student\Models\Qualification;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\DB;
 
 class OperatorController extends BaseController
 {
@@ -334,7 +335,13 @@ class OperatorController extends BaseController
             $profile_logs = $this->profileLogsRepository->getAll()->where('profile_id', '=', $id);
             $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
             $exams = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id);
-            return view('operator::pages.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams'));
+            $examslatest = DB::table('exam_registration')
+            ->where('profile_id', '=', $id)
+            ->latest()
+            ->first();
+            // $this->examProcessingRepository->getAll()->where('profile_id', '=', $id);
+
+            return view('operator::pages.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams','examslatest'));
         } else {
             return redirect()->route('login');
         }

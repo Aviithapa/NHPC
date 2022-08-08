@@ -6,12 +6,15 @@
         <!-- Content Header (Page header) -->
         <div class="content-header sty-one">
             <h1>Current State :: <span class="text-uppercase text-bold">
-                    @if($profile_processing)
+                    {{-- @if($profile_processing)
                     {{$profile_processing->current_state}}
                         @else
                         Computer Operator
-                        @endif
+                        @endif --}}
 
+                        @isset($examslatest)
+                {{ $examslatest->state }}
+                        @endisset
                 </span></h1>
             <ol class="breadcrumb">
                 <li><a href="#">Dashboard</a></li>
