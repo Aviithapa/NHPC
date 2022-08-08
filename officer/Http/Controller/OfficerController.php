@@ -592,6 +592,7 @@ $newformat = date('Y-m-d',$time);
             ->join('level','level.id','=','exam_registration.level_id')
             ->where('profile_logs.status','!=','rejected')
             ->where('profile_logs.created_at', '<','2022-06-06')
+            ->where('exam_registration.isPassed','=','1')
             ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id','profile_logs.created_at as profile_logs_created' ])
            ->unique('profile_id');
         }else if($data['date'] === '2022-07-08'){ 
@@ -606,6 +607,7 @@ $newformat = date('Y-m-d',$time);
             ->where('profile_logs.status','!=','rejected')
             ->where('profile_logs.created_at', '>=', '2022-06-06')
             ->where('profile_logs.created_at', '<=', $newformat)
+            ->where('exam_registration.isPassed','=','1')
             ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id','profile_logs.created_at as profile_logs_created' ])
            ->unique('profile_id');
         }else if($data['date'] === '2022-07-26'){ 
@@ -620,6 +622,7 @@ $newformat = date('Y-m-d',$time);
             ->where('profile_logs.status','!=','rejected')
             ->where('profile_logs.created_at', '>=', '2022-07-09')
             ->where('profile_logs.created_at', '<=', $newformat)
+            ->where('exam_registration.isPassed','=','1')
             ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id','profile_logs.created_at as profile_logs_created' ])
            ->unique('profile_id');
         }else{
@@ -628,6 +631,7 @@ $newformat = date('Y-m-d',$time);
             ->join('exam_registration','exam_registration.profile_id','=','profile_logs.profile_id')
             ->join('level','level.id','=','exam_registration.level_id')
             ->where('profile_logs.status','!=','rejected')
+            ->where('exam_registration.isPassed','=','1')
             ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id' , 'profile_logs.created_at as profile_logs_created'])
            ->unique('profile_id');
         }
@@ -637,6 +641,7 @@ $newformat = date('Y-m-d',$time);
     ->join('exam_registration','exam_registration.profile_id','=','profile_logs.profile_id')
     ->join('level','level.id','=','exam_registration.level_id')
     ->where('profile_logs.status','!=','rejected')
+    ->where('exam_registration.isPassed','=','1')
     ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id' , 'profile_logs.created_at as profile_logs_created'])
    ->unique('profile_id');
 }
