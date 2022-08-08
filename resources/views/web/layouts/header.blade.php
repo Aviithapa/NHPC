@@ -6,8 +6,8 @@
                 <div class="col-sm-12 col-lg-5">
                     <div class="top-info__list d-flex align-self-center pt-2">
                         <ul class="list-unstyled d-flex top-nav__language float-right">
-                            <li class=""><a href="#">Need Technical Help : 9803283319</a></li>
-                            <li class=""><a href="#">Support Email : support@trimax.com.np</a></li>
+                            <li class=""><a href="#">Need Technical Help : 977-1-4373118, 1-4375079</a></li>
+                            <li class=""><a href="#">Support Email : admin@nhpc.gov.np</a></li>
 
                         </ul>
                     </div>
