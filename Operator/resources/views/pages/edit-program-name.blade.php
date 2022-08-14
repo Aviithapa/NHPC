@@ -49,18 +49,7 @@
                                                 </fieldset>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <fieldset class="form-group">
-                                                    <label>Status</label>
-                                                    <select class="form-control" name="status" required>
-                                                        <option value="re-exam">Re-Exam</option>
-                                                        <option value="pending">Pending</option>
-                                                        <option value="progress">Progress</option>
-                                                    </select>
-                                                </fieldset>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="row">
 
 

@@ -42,10 +42,19 @@
                                                 <fieldset class="form-group">
                                                     <label>Program Name</label>
                                                     <select class="form-control" name="program_id" required>
+                                                        <option value="{{ $exam->program_id }}">{{ $exam->program_id }}</option>
                                                         @foreach($all_program as $specific_program)
                                                         <option value="{{$specific_program->id}}">{{$specific_program->name}}</option>
                                                      @endforeach
                                                     </select>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <fieldset class="form-group">
+                                                    <label>Attempt</label>
+                                                    <input  class="form-control" type="number" name="attempt" value="{{ $exam->attempt }}"/>
                                                 </fieldset>
                                             </div>
                                         </div>

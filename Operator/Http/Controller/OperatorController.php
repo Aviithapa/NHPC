@@ -748,7 +748,7 @@ class OperatorController extends BaseController
 
 
             $exam = $this->examProcessingRepository->findById($id);
-$profile = $this->profileRepository->findById($exam->profile_id);
+            $profile = $this->profileRepository->findById($exam->profile_id);
                         $all_program = $this->programRepository->getAll();
 //                        dd($all_program);
             return view('superAdmin::admin.applicant.edit-program-name', compact( 'all_program', "profile",'exam'));

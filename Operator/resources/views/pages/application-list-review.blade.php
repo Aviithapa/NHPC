@@ -543,6 +543,7 @@
             </div>
 
 
+
             <!-- Main row -->
 
             <div class="row">
@@ -601,7 +602,6 @@
                                                                             @if($exam->status === "re-exam" && $exam->rejected === 0)
                                                                                 <a href="" id="editCompanyModel" data-toggle="modal" data-target='#practice_reject_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>
                                                                                 <a href="{{url('operator/dashboard/apply/exam',$exam->id)}}" ><span class="label label-success">Edit</span> </a>
-
                                                                             @endif
                                                                             <a href="{{url('operator/dashboard/apply/exam',$exam->id)}}" ><span class="label label-success">Edit</span> </a>
                                                                             <a href="{{url('operator/dashboard/examApplied/'. $exam->id . '/'. $data->id)}}" ><span class="label label-danger">Delete</span> </a>
