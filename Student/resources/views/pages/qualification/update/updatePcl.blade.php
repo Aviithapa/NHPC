@@ -102,34 +102,6 @@
                     </div>
                 </div>
             </div>
-            <div id="neb">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <fieldset class="form-group">
-                            <label>Collage Name</label>
-                            <input name="collage_name" class="form-control" id="nebcollagename" type="text" value="{{$data->collage_name}}">
-                        </fieldset>
-                    </div>
-                    <div class="col-lg-4">
-                        <fieldset class="form-group">
-                            <label>Program Name</label>
-                            <input name="program_id" class="form-control" id="nebprogramid" type="text" value="{{$data->program_id}}">
-                        </fieldset>
-                    </div>
-                    <div class="col-lg-4">
-                        <fieldset class="form-group">
-                            <label>Passed Year </label>
-                            <input name="passed_year" class="form-control" id="nebpassedYear" type="number" min="2050" value="{{$data->passed_year}}" max="2078" step="1" placeholder="2075" />
-                        </fieldset>
-                    </div>
-                    <div class="col-lg-4">
-                        <fieldset class="form-group">
-                            <label>Board </label>
-                            <input class="form-control" name="board_university" id="nebnationalboard" value="{{$data->board_university}}" type="text" />
-                        </fieldset>
-                    </div>
-                </div>
-            </div>
 
 {{--                <div class="col-lg-4" id="nepal">--}}
 {{--                    <fieldset class="form-group">--}}
@@ -434,33 +406,6 @@
 
 
 @push('scripts')
-    <script>
-        function chnagePclType() {
-
-            const sb = document.querySelector('#collageType');
-
-            switch (sb.value) {
-                case 'nepal':
-                    $("#nepal").show();
-                    $("#international").hide();
-                    $("#internationalValue").attr('name', 'nothing');
-                    $('#nepalValue').attr('name', 'collage_name');
-
-                    break;
-                case 'international':
-                    $("#nepal").hide();
-                    $("#international").show();
-                    $('#nepalValue').attr('name', 'nothing');
-                    $("#internationalValue").attr('name', 'collage_name');
-
-                    break;
-
-
-            }
-
-        }
-
-    </script>
     <script>
         function levelIntermediate(){
             const sb = document.querySelector('#level_type');
