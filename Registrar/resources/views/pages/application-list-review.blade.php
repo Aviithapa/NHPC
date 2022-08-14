@@ -352,7 +352,6 @@
             </div>
 
 
-        @if(isset($profile_processing)?$profile_processing->current_state === "registrar":'')
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="info-box">
@@ -398,7 +397,6 @@
                         </div>
                     </div>
                 </div>
-            @endif
 
 
 {{--            <div class="row">--}}

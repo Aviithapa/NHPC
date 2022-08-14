@@ -604,6 +604,7 @@
 
                                                                             @endif
                                                                             <a href="{{url('operator/dashboard/apply/exam',$exam->id)}}" ><span class="label label-success">Edit</span> </a>
+                                                                            <a href="{{url('operator/dashboard/examApplied/'. $exam->id . '/'. $data->id)}}" ><span class="label label-danger">Delete</span> </a>
 
                                                                         @endif
                                                                     </td>

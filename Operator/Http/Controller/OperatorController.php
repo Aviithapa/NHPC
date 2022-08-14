@@ -985,6 +985,28 @@ $profile = $this->profileRepository->findById($exam->profile_id);
         }
     }
 
+    public function deleteExamApplied($id, $profile_id)
+    {
+        try{
+
+            $profile_log['exam_processing_id'] = $id;
+            $profile_log['state'] = 'computer_operator';
+            $profile_log['status'] = 'rejected';
+            $profile_log['remarks'] = 'Delete the applied Voucher';
+            $profile_log['created_by'] = Auth::user()->id;
+            $profile_log['profile_id'] = $profile_id;
+            $examlog = $this->examLog($profile_log);
+            $this->examProcessingRepository->delete($id);
+
+             session()->flash('success', 'Exam has been deleted successfully');
+             return redirect()->back();
+       
+        }catch(Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+      
+    }
 
 
     public  function forwardStudent(Request $request){
@@ -1075,5 +1097,8 @@ $profile = $this->profileRepository->findById($exam->profile_id);
              return redirect()->route('operator.applicant.list.review',['id'=>$data['profile_id']]);
         }
      }
+
+ 
 }
+
 
