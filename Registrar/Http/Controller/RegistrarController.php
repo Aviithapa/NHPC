@@ -13,6 +13,7 @@ use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDe
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Operator\Modules\Framework\Request;
 use Student\Models\Profile;
 use Student\Modules\Profile\Repositories\ProfileRepository;
@@ -475,7 +476,10 @@ class RegistrarController  extends BaseController
             $profile_logs = $this->profileLogsRepository->getAll()->where('profile_id', '=', $id);
             $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
             $exams = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id);
-            return view('registrar::pages.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams'));
+            $certificate = DB::table('certificate_history')
+            ->where('profile_id', '=', $id)
+            ->get();
+            return view('registrar::pages.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams','certificate'));
         }else{
             return redirect()->route('login');
         }

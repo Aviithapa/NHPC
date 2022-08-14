@@ -339,9 +339,13 @@ class OperatorController extends BaseController
             ->where('profile_id', '=', $id)
             ->latest()
             ->first();
+            $certificate = DB::table('certificate_history')
+            ->where('profile_id', '=', $id)
+            ->get();
+            // dd($certificate);
             // $this->examProcessingRepository->getAll()->where('profile_id', '=', $id);
 
-            return view('operator::pages.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams','examslatest'));
+            return view('operator::pages.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams','examslatest','certificate'));
         } else {
             return redirect()->route('login');
         }
