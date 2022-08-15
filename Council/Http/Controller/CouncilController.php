@@ -224,7 +224,7 @@ class CouncilController extends BaseController
                 ]);
             foreach ($students as $student) {
                 $srn_number = 0;
-                $date = '2022/07/26';
+                $date = '2022/08/15';
                 $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
                 $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
                 $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
@@ -240,7 +240,7 @@ class CouncilController extends BaseController
                 $data['program_certificate_code'] = $student['certificate_name'];
                 $data['cert_registration_number'] = $this->certRegistrationNumber($data['srn'], $student['certificate_name']);
                 $data['registrar'] = 'puspa raj khanal';
-                $data['decision_date'] =            $date;
+                $data['decision_date'] = $date;
 
                 //            $date;
                 $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
