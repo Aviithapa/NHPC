@@ -180,7 +180,7 @@ class CouncilController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'council') {
             $date = "2022-08-15";
-            $certificate = $this->certificateRepository->getAll()->where('program_id', '=', $id)->where('decision_date', '>=', $date);
+            $certificate = $this->certificateRepository->getAll()->where('program_id', '=', $id)->where('decision_date', '=', $date);
             return \view('council::pages.darta-book-details', compact('certificate'));
         } else {
             return redirect()->route('login');

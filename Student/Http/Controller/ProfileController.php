@@ -73,7 +73,7 @@ class ProfileController extends BaseController
         }
 
         $exam=$this->profileRepository->findByFirst('user_id',Auth::user()->id,'=');
-        $level = $this->levelRepository->getAll();
+        $level = $this->levelRepository->getAll()->where('id','=', '4');
         return view('student::pages.dashboard',compact('rejected','exam', 'data','level','exam_re'));
     }
 
