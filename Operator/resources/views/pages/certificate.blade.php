@@ -193,8 +193,8 @@
         line-height: 1;
         ">
         Pursuant to the decision dated
-{{--        {{date('d-m-Y',strtotime($certificate->decision_date))}}--}}
-        08-07-2022
+       {{date('d-m-Y',strtotime($certificate->decision_date))}}
+        {{-- 08-07-2022 --}}
         of the Council, the name of
         <span style="font-size: 26px;
         font-weight: 600;"> {{ucwords(strtolower($certificate->certificate_name))}}</span> date of birth
