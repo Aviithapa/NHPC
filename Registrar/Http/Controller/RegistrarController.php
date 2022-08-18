@@ -123,7 +123,10 @@ class RegistrarController  extends BaseController
             $tslc = ExamProcessing::select(\DB::raw("COUNT(level_id) as count"), \DB::raw("level_id as level_id"))
                 ->groupBy('level_id')
                 ->orderBy('count')
-                ->where('created_at','>','2022-07-16')
+                // ->where('exam_registration.status','!=', 'rejected')
+                // ->where('exam_registration.state','!=','exam_committee')
+                ->where('exam_registration.state','!=','council')
+                ->where('created_at','<','2022-07-16')
                 ->get();
 
             $failed_student = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"), \DB::raw("program_id as program_id"))
@@ -312,6 +315,58 @@ class RegistrarController  extends BaseController
                     ->join('program', 'program.id', '=', 'exam_registration.program_id')
                     ->where('exam_registration.level_id', '=', 4)
                     ->get();
+            }elseif($status === 'all'){
+                $datas = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+                                    ->join('program', 'program.id', '=', 'exam_registration.program_id')
+                                    ->where('exam_registration.level_id', '=', $level)
+                                   ->where('exam_registration.created_at', '>', '2022-07-16')
+                                   ->where('exam_registration.status','!=', 'rejected')
+                                    ->orderBy('profiles.created_at', 'ASC')
+                                    ->get(['profiles.*', 'profiles.id as profile_id','program.name as program_name', 'exam_registration.created_at as exam_created']);
+
+        
+                
+                                $countmaster =ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+                //                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+                //                    ->where('profile_processing.current_state', '=', $state)
+                //                    ->where('profile_processing.status', '=', $status)
+                              
+                                    ->join('program', 'program.id', '=', 'exam_registration.program_id')
+                                    ->where('exam_registration.level_id', '=', 1)
+                                    ->where('exam_registration.created_at', '>', '2022-07-16')
+                                    ->get();
+                
+                                $countbachelor = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+                //                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+                //                    ->where('profile_processing.current_state', '=', $state)
+                //                    ->where('profile_processing.status', '=', $status)
+                                   
+                                    ->join('program', 'program.id', '=', 'exam_registration.program_id')
+                                    ->where('exam_registration.level_id', '=', 2)
+                                   ->where('exam_registration.status','!=', 'rejected')
+                                    ->where('exam_registration.created_at', '>', '2022-07-16')
+                                    ->get();
+                
+                                $countPCL = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+                //                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+                //                    ->where('profile_processing.current_state', '=', $state)
+                //                    ->where('profile_processing.status', '=', $status)
+                                    
+                                    ->join('program', 'program.id', '=', 'exam_registration.program_id')
+                                    ->where('exam_registration.level_id', '=', 3)
+                                    ->where('exam_registration.created_at', '>', '2022-07-16')
+                                    ->get();
+                
+                                $countTSLC = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+                //                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+                //                    ->where('profile_processing.current_state', '=', $state)
+                //                    ->where('profile_processing.status', '=', $status)
+                                    
+                                    ->join('program', 'program.id', '=', 'exam_registration.program_id')
+                                    ->where('exam_registration.level_id', '=', 4)
+                                   ->where('exam_registration.created_at', '>', '2022-07-16')
+                                    ->get();
+                
             }elseif($level == 4){
                 $datas = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
 //                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')

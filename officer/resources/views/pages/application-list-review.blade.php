@@ -5,7 +5,10 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header sty-one">
-            <h1>Current State :: <span class="text-uppercase text-bold">{{isset($profile_processing)?$profile_processing->current_state:''}}</span></h1>
+            <h1>Profile State :: <span class="text-uppercase text-bold">{{isset($profile_processing)?$profile_processing->current_state:'Officer'}}</span> 
+                   <span>     /  </span>Exam State :: <span class="text-uppercase text-bold">{{isset($examState)?$examState->state:'Officer'}}</span>
+            
+            </h1>
             <ol class="breadcrumb">
                 <li><a href="#">Dashboard</a></li>
                 <li><i class="fa fa-angle-right"></i>Applicant List</li>
@@ -436,7 +439,7 @@
                                                         <td>Applied Date</td>
                                                         <td>State</td>
                                                         <td>Status</td>
-                                                        <td>Action</td>
+                                                        {{-- <td>Action</td> --}}
                                                         </thead>
                                                         <tbody>
                                                         @if($exams === null)
@@ -453,12 +456,12 @@
                                                                         <td>{{$exam->created_at}}</td>
                                                                         <td>{{$exam->state}}</td>
                                                                         <td>{{$exam->status}}</td>
-                                                                        <td>
+                                                                        {{-- <td>
                                                                             @if($exam->state === "officer")
                                                                             <a href="{{url('officer/dashboard/officer/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
                                                                             <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>
                                                                                 @endif
-                                                                        </td>
+                                                                        </td> --}}
                                                                     </tr>
                                                             @endforeach
                                                         @endif

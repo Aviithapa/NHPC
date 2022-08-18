@@ -256,10 +256,11 @@ class OfficerController  extends BaseController
         $profile_logs = $this->profileLogsRepository->getAll()->where('profile_id','=',$id);
         $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id','=',$id)->first();
         $exams = $this->examProcessingRepository->getAll()->where('profile_id','=',$id);
+        $examState = $this->examProcessingRepository->getAll()->where('state','=','officer')->where('status','=','progress')->where('profile_id','=',$id)->first();;
         $certificate = DB::table('certificate_history')
         ->where('profile_id', '=', $id)
         ->get();
-        return view('officer::pages.application-list-review',compact('data','user_data','qualification','profile_logs','profile_processing','exams','certificate'));
+        return view('officer::pages.application-list-review',compact('data','user_data','qualification','profile_logs','profile_processing','exams','certificate', 'examState'));
         }else {
             return redirect()->route('login');
         }
@@ -307,11 +308,8 @@ class OfficerController  extends BaseController
                         dd($exam_processing);
                      session()->flash('error','Error Occured While Saving Data');
                     }
-                    // dd($exam_processing, 'p2');
-
                      $profile_log['exam_processing_id'] = $examProcessing['id'];
                     $examlog = $this->examLog($profile_log);
-                    // dd($examLog);
                     if($examlog){
                         MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
                     }
@@ -357,13 +355,10 @@ class OfficerController  extends BaseController
                 return redirect()->back()->withInput();
             }
             session()->flash('success','User Profile Status Information have been saved successfully');
-            $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','officer')->where('profile_id','=',$profile_id)->first();
-
-           
+            $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','registrar')->where('profile_id','=',$profile_id)->first();
             return redirect()->route('officer.applicant.profile.list',['status'=> 'progress','state' => 'officer',  'level'=>isset($examProcessing['level_id']) ? $examProcessing['level_id'] : 1]);
 //
         } catch (\Exception $e) {
-            dd($e);
             session()->flash('error','Error Occured While Saving Data');
             return redirect()->back()->withInput();
         }

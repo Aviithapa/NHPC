@@ -469,6 +469,70 @@
             <div class="card tab-style1">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs profile-tab" role="tablist">
+                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#abc" role="tab" aria-expanded="true">Licence Exam Applied</a> </li>
+
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <!--second tab-->
+                    <div class="tab-pane active" id="abc" role="tabpanel" aria-expanded="true">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <td>S.N.</td>
+                                            <td>Exam Name</td>
+                                            <td>Voucher Image</td>
+                                            <td>Applied Date</td>
+                                            <td>State</td>
+                                            <td>Status</td>
+                                            {{-- <td>Action</td> --}}
+                                            </thead>
+                                            <tbody>
+                                            @if($exams === null)
+                                                <tr>
+                                                    <td> No Applicant List found at officer</td>
+                                                </tr>
+
+                                            @else
+                                                @foreach($exams as $exam)
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>{{$exam->getExamName()}}</td>
+                                                            <td><img src="{{$exam->getVoucherImage()}}" onclick="onClick(this)" alts="voucher image" height="150" width="150"/></td>
+                                                            <td>{{$exam->created_at}}</td>
+                                                            <td>{{$exam->state}}</td>
+                                                            <td>{{$exam->status}}</td>
+                                                            {{-- <td>
+                                                                @if($exam->state === "officer")
+                                                                <a href="{{url('officer/dashboard/officer/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
+                                                                <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>
+                                                                    @endif
+                                                            </td> --}}
+                                                        </tr>
+                                                @endforeach
+                                            @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="info-box">
+            <div class="card tab-style1">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs profile-tab" role="tablist">
                     <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#abc" role="tab" aria-expanded="true">Certificate History</a> </li>
 
                 </ul>

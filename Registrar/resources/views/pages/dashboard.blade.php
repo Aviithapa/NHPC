@@ -46,8 +46,7 @@
                         <div class="row">
                             @foreach($tslc as $exam)
                                 <div class="col-lg-3 col-xs-6 m-b-3">
-                                    <a href="{{url("operator/dashboard/student/program/".$exam->program_id."/progress/computer_operator")}}">
-
+                                        <a href="{{route("registrar.applicant.profile.list", ['status'=>  'all','state' => 'all','level'=>$exam->level])}}">
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="info-box-content"> <span class="info-box-number">{{$exam->count}}</span>
