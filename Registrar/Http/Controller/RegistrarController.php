@@ -59,75 +59,13 @@ class RegistrarController  extends BaseController
     public function dashboard()
     {
         if (Auth::user()->mainRole()->name === 'registrar') {
-//            $data= Profile::select(\DB::raw("COUNT(*) as count"), \DB::raw("profile_status as profile_status"))
-//                ->groupBy('profile_status')
-//                ->orderBy('count')
-//                ->get();
-//            $profile= Profile::select(\DB::raw("COUNT(*) as count"), \DB::raw("profile_state as profile_state"))
-//                ->groupBy('profile_state')
-//                ->orderBy('count')
-//                ->get();
-//
-//            $exams = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
-//                ->groupBy('program_id')
-//                ->orderBy('count')
-//                ->get();
-//            $tslc = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
-//                ->groupBy('program_id')
-//                ->orderBy('count')
-//                ->where('level_id', '<', 3)
-//                ->get();
-//
-//
-//
-//            $examPieChart = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
-//                ->groupBy('program_id')
-//                ->orderBy('count')
-//                ->get();
-//            $verified= Profile::where('profile_status','Verified')->get();
-//            $reviewing= Profile::where('profile_status','Reviewing')->get();
-//            $rejected= Profile::where('profile_status','Rejected')->get();
-//
-//            $examApplied = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-//                ->where('exam_registration.level_id','<','4')
-//                ->join('program','program.id','=','exam_registration.program_id')
-//                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-//                ->where('profile_processing.status','=',"progress")
-//                ->count(['profiles.id']);
-//
-//            $examNotTaken = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-//                ->where('exam_registration.level_id','=','4')
-//                ->join('program','program.id','=','exam_registration.program_id')
-//                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-//                ->where('profile_processing.current_state','!=','computer_operator')
-//                ->count(['profiles.id']);
-//
-//            $subjectCommiteeExamApplied = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-//                ->where('exam_registration.level_id','<','4')
-//                ->join('program','program.id','=','exam_registration.program_id')
-//                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-//                ->where('profile_processing.status','=',"progress")
-//                ->where('profile_processing.current_state','!=','computer_operator')
-//                ->count(['profiles.id']);
-//
-//            $subjectCommiteeRejectList = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-//                ->where('exam_registration.level_id','<','4')
-//                ->join('program','program.id','=','exam_registration.program_id')
-//                ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-//                ->where('profile_processing.status','=',"rejected")
-//                ->where('profile_processing.current_state','=','subject_committee')
-//                ->count(['profiles.id']);
-//
-//            return view('registrar::pages.dashboard',compact('data','profile','verified','reviewing','rejected',
-//                'examPieChart','exams','tslc','examApplied','examNotTaken','subjectCommiteeExamApplied','subjectCommiteeRejectList'));
-            $tslc = ExamProcessing::select(\DB::raw("COUNT(level_id) as count"), \DB::raw("level_id as level_id"))
+          $tslc = ExamProcessing::select(\DB::raw("COUNT(level_id) as count"), \DB::raw("level_id as level_id"))
                 ->groupBy('level_id')
                 ->orderBy('count')
-                // ->where('exam_registration.status','!=', 'rejected')
-                // ->where('exam_registration.state','!=','exam_committee')
                 ->where('exam_registration.state','!=','council')
-                ->where('created_at','<','2022-07-16')
-                ->get();
+                ->where('exam_registration.created_at','>','2022-07-16')
+                ->get()
+                ->unique('exam_registration.profile_id');
 
             $failed_student = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"), \DB::raw("program_id as program_id"))
                 ->groupBy('program_id')
@@ -321,6 +259,7 @@ class RegistrarController  extends BaseController
                                     ->where('exam_registration.level_id', '=', $level)
                                    ->where('exam_registration.created_at', '>', '2022-07-16')
                                    ->where('exam_registration.status','!=', 'rejected')
+                                   ->where('exam_registration.state','!=', 'exam_committee')
                                     ->orderBy('profiles.created_at', 'ASC')
                                     ->get(['profiles.*', 'profiles.id as profile_id','program.name as program_name', 'exam_registration.created_at as exam_created']);
 
@@ -575,6 +514,7 @@ class RegistrarController  extends BaseController
                 // dd($profile_processing,'p1');
                 $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','registrar')->where('status','=','progress')->where('profile_id','=',$profile_id)->first();
     
+                dd($examProcessing);
                 if($examProcessing){
                     $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
                     if($exam_processing === 'false'){

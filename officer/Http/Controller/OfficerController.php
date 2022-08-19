@@ -292,23 +292,23 @@ class OfficerController  extends BaseController
                 $exam['state'] = 'registrar';
                 $exam['status'] = 'progress';        
                $logs = $this->profileLog($profile_log);
+        
                if($logs){
                 $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $profile_id)->first();
-                $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
-                if($profileProcessings == 'fasle'){
-                    dd($profileProcessings,'pp');
-                    session()->flash('error','Error Occured While Saving Data');
+                if($profileProcessingId === null){
+                    $profile_processing['profile_id'] = $profile_id;
+                    $this->profileProcessingRepository->create($profile_processing);
                 }
-                // dd($profile_processing,'p1');
-                $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','officer')->where('status','=','progress')->where('profile_id','=',$profile_id)->first();
-    
+                else{
+                    $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
+                }
+                $examProcessing = $this->examProcessingRepository->getAll()->where('profile_id','=',$profile_id)->first();
                 if($examProcessing){
                     $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
                     if($exam_processing === 'false'){
-                        dd($exam_processing);
                      session()->flash('error','Error Occured While Saving Data');
                     }
-                     $profile_log['exam_processing_id'] = $examProcessing['id'];
+                    $profile_log['exam_processing_id'] = $examProcessing['id'];
                     $examlog = $this->examLog($profile_log);
                     if($examlog){
                         MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);

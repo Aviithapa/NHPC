@@ -383,10 +383,14 @@ class OperatorController extends BaseController
                $logs = $this->profileLogs($profile_log);
                if($logs){
                 $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $profile_id)->first();
-                if($profileProcessingId)
-                    $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
+                if($profileProcessingId === null){
+                    $profileProcessings = $this->profileProcessingRepository->create($profile_processing);
+
+                }
+
                  else{
-                        $profileProcessings = $this->profileProcessingRepository->create($profile_processing);
+                    $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
+
                  }
                 if($profileProcessings == 'false'){
                     session()->flash('error','Error Occured While Saving Data');
