@@ -27,7 +27,11 @@
         <div class="content">
             <div class="row">
                 <div class="col-lg-4">
+                    @if(getExamStats($data->id))
+                    <div class="user-profile-box m-b-3 bg-red">
+                    @else
                     <div class="user-profile-box m-b-3 bg-black">
+                        @endif
                         <div class="verified-section">
                             <span>Verified by</span><br>
                             <ul class="nav nav-tabs profile-tab" role="tablist">
@@ -572,6 +576,8 @@
                                                         <td>Program Name</td>
                                                         <td>State</td>
                                                         <td>Status</td>
+                                                        <td>Symbol Number</td>
+                                                        <td>Exam Status</td>
                                                         <td>Action</td>
                                                         </thead>
                                                         <tbody>
@@ -590,6 +596,8 @@
                                                                     <td>{{$exam->getProgramName()}}</td>
                                                                     <td>{{$exam->state}}</td>
                                                                     <td>{{$exam->status}}</td>
+                                                                    <td>{{getSymbolNo($exam->id) }} </td>
+                                                                    <td>{{getExamStatus($exam->id) }} </td>
                                                                     <td>
                                                                         @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com')
                                                                             @else

@@ -505,6 +505,7 @@
                                                             <td>{{$exam->created_at}}</td>
                                                             <td>{{$exam->state}}</td>
                                                             <td>{{$exam->status}}</td>
+                                                            
                                                             {{-- <td>
                                                                 @if($exam->state === "officer")
                                                                 <a href="{{url('officer/dashboard/officer/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
