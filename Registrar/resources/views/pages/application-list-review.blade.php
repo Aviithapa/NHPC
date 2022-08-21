@@ -17,7 +17,11 @@
         <div class="content">
             <div class="row">
                 <div class="col-lg-4">
+                    @if(getExamStats($data->id))
+                    <div class="user-profile-box m-b-3 bg-red">
+                    @else
                     <div class="user-profile-box m-b-3 bg-black">
+                        @endif
                         <div class="verified-section">
                             <span>Verified by</span><br>
                             <ul class="nav nav-tabs profile-tab" role="tablist">
@@ -150,6 +154,8 @@
                                                         <td>Remarks</td>
                                                         <td>Date</td>
                                                         <td>Time</td>
+                                                        <td>Approved By</td>
+
                                                         </thead>
                                                         <tbody>
                                                         @foreach($profile_logs as $profile_log)
@@ -159,6 +165,7 @@
                                                                 <td>{{$profile_log->remarks}}</td>
                                                                 <td>{{$profile_log->created_at->toDateString()}}</td>
                                                                 <td>{{$profile_log->created_at->toTimeString()}}</td>
+                                                                <td>{{$profile_log->getUserName()}}</td>
                                                             </tr>
                                                         @endforeach
                                                         </tbody>
@@ -488,6 +495,8 @@
                                             <td>Applied Date</td>
                                             <td>State</td>
                                             <td>Status</td>
+                                            <td>Symbol Number</td>
+                                            <td>Exam Status</td>
                                             {{-- <td>Action</td> --}}
                                             </thead>
                                             <tbody>
@@ -505,7 +514,8 @@
                                                             <td>{{$exam->created_at}}</td>
                                                             <td>{{$exam->state}}</td>
                                                             <td>{{$exam->status}}</td>
-                                                            
+                                                            <td>{{getSymbolNo($exam->id) }} </td>
+                                                            <td>{{getExamStatus($exam->id) }} </td>
                                                             {{-- <td>
                                                                 @if($exam->state === "officer")
                                                                 <a href="{{url('officer/dashboard/officer/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
@@ -527,6 +537,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="row">
     <div class="col-lg-12">
