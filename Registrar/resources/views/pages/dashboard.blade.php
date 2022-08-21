@@ -36,6 +36,22 @@
 
         </style>
 
+<div class="content">
+    <div class="row">
+        @foreach($examCount as $exam)
+        <div class="col-lg-3 col-xs-6 m-b-3">
+            <a href="#">
+                <div class="card">
+                    <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>
+                        <div class="info-box-content"> <span class="info-box-number">{{$exam->count}}</span>
+                            <span class="info-box-text">Total Application List</span> </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        @endforeach
+    </div>
+</div>
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body">

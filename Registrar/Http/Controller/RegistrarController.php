@@ -59,6 +59,17 @@ class RegistrarController  extends BaseController
     public function dashboard()
     {
         if (Auth::user()->mainRole()->name === 'registrar') {
+            $examCount = ExamProcessing::select(\DB::raw("COUNT(profile_id) as count"))
+            ->orderBy('count')
+            ->where('exam_registration.state','!=','council')
+            ->where('exam_registration.level_id','!=','4')
+            ->where('exam_registration.created_at','>','2022-07-16')
+            ->get()
+            ->unique('exam_registration.profile_id');
+
+
+
+
           $tslc = ExamProcessing::select(\DB::raw("COUNT(level_id) as count"), \DB::raw("level_id as level_id"))
                 ->groupBy('level_id')
                 ->orderBy('count')
@@ -187,7 +198,7 @@ class RegistrarController  extends BaseController
             return view('registrar::pages.dashboard',compact('tslc', 'failed_student','re_apply_student','re_apply_student_count','third_licence_exam_student_count','third_licence_exam_qualified_student_count',
             'third_licence_exam_passed_student_count','third_licence_exam_failed_student_count',
             'operator_pending','operator_verified','operator_rejected',
-            'officer_pending','officer_rejected','officer_verified'));
+            'officer_pending','officer_rejected','officer_verified','examCount'));
         }else{
             return redirect()->route('login');
         }
