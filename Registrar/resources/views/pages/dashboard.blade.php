@@ -53,7 +53,7 @@
     </div>
 </div>
         <div class="container-fluid">
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-body">
                     <div class="content-header sty-one mb-3 collapsible">
                         <h1> Level Wise  Student List  Fourth License Exam</h1>
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         <div class="container-fluid mt-2">
