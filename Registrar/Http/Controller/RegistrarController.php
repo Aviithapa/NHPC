@@ -373,12 +373,9 @@ class RegistrarController  extends BaseController
                     session()->flash('error','Error Occured While Saving Data');
                 }
                 $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','registrar')->where('status','=','progress')->where('profile_id','=',$profile_id)->first();
-    
-                dd($examProcessing);
                 if($examProcessing){
                     $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
                     if($exam_processing === 'false'){
-                        dd($exam_processing);
                      session()->flash('error','Error Occured While Saving Data');
                     }
                      $profile_log['exam_processing_id'] = $examProcessing['id'];
