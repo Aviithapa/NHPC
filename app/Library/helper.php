@@ -845,21 +845,19 @@ if (!function_exists('getProgramNameForProfileLevel')) {
 
 if(!function_exists('getSymbolNo')){
     function getSymbolNo($exam_id){
-        try{
+  
            $symbolNumber = AdmitCard::all()->where('exam_processing_id','=', $exam_id)->first();
            if($symbolNumber === null)
                return 'Not Generated Yet';
            return $symbolNumber['symbol_number'];
-        }catch(Exception){
-            return '';
-        }
+      
 
     }
 }
 
 if(!function_exists('getExamStatus')){
     function getExamStatus($exam_id){
-        try{
+ 
            $exam = ExamProcessing::all()->where('id','=', $exam_id)->first();
            if($exam['isPassed']==0 && $exam['is_admit_card_generate'] == 'yes')
              return 'Failed';
@@ -867,22 +865,16 @@ if(!function_exists('getExamStatus')){
              return 'Re Exam';
            else
           return 'New Applied';
-        }catch(Exception){
-            return '';
-        }
+       
     }
 }
 
 if(!function_exists('examStats')){
     function getExamStats($profile_id){
-        try{
            $exam = ExamProcessing::all()->where('profile_id','=', $profile_id)->where('isPassed','=','0')->where('attempt','=',2)->first();
            if($exam === null)
              return;
              return $exam;
-        }catch(Exception){
-            return '';
-        }
     }
 }
 
