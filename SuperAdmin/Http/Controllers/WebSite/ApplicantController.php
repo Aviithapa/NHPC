@@ -150,6 +150,14 @@ class ApplicantController  extends BaseController
         }
     }
 
+    public function changeStateProfileLogs(Request $request, $id){
+        $data = $request->all();
+        $profile_logs = $this->profileLogsRepository->update($data, $id);
+        if($profile_logs === false){
+            session('error','error while saving the logs');
+        }
+        return redirect()->back()->withInput();
+    }
 
     public function status(Request $request)
     {

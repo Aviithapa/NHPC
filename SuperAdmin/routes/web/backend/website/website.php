@@ -316,4 +316,5 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::get('/minute/data','ApplicantController@minuteData')->middleware(['auth'])->name('superAdmin.minuteData');
 
 
+    Route::post('/changeStateProfileLogs/{id}', 'ApplicantController@changeStateProfileLogs')->middleware(['auth'])->name('superAdmin.changeStateProfileLogs');
 });
