@@ -1105,6 +1105,51 @@ class OperatorController extends BaseController
         }
      }
 
+
+     public function exportCsv(Request $request)
+     {
+         $fileName = 'tasks.csv';
+ 
+         $tasks = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"), \DB::raw("program_id as program_id"))
+         ->groupBy('program_id')
+         ->orderBy('count')
+         ->where('level_id','<=',3)
+         ->where('exam_registration.created_at','>=','2022-07-16')
+         ->get();
+       
+         $headers = array(
+             "Content-type"        => "text/csv",
+             "Content-Disposition" => "attachment; filename=$fileName",
+             "Pragma"              => "no-cache",
+             "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+             "Expires"             => "0"
+         );
+ 
+         $columns = array('Count','Program Name');
+ 
+         $callback = function() use($tasks, $columns) {
+ 
+             $file = fopen('php://output', 'w');
+             fputcsv($file, $columns);
+             foreach ($tasks as $task) {
+                 $row['count'] = $task->count;
+                 $row['program_name'] = $task->getProgramName();
+                
+ 
+                 fputcsv($file, array(
+                     $row['count'] ,
+                     $row['program_name'] ,
+                     ));
+             }
+ 
+             fclose($file);
+         };
+ 
+         return response()->stream($callback, 200, $headers);
+     }
+ 
+    
+
  
 }
 

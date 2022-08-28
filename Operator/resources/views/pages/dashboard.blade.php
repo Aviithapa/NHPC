@@ -179,7 +179,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="content-header sty-one mb-3 collapsible">
-                            <h1> Student Subject Wise List (2022-07-17)</h1>
+                            <h1> Student Subject Wise List (2022-07-17)  <a href="{{ url("/operator/dashboard/exportCSV") }}">Export to excel </a></h1>
+
                         </div>
                         <div class="contented">
                             <div class="row">

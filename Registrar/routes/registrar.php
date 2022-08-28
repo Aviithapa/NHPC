@@ -16,3 +16,4 @@ Route::get('/subjectCommittee/dashboard',[\Registrar\Http\Controller\RegistrarCo
 Route::get('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}',[\Registrar\Http\Controller\RegistrarController::class,'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.registrar.list');
 Route::post('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}',[\Registrar\Http\Controller\RegistrarController::class,'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.registrar.list');
 Route::get('/internalData/{state}/{status}',[\Registrar\Http\Controller\RegistrarController::class,'internalData'])->middleware(['auth'])->name('subjectCommittee.dashboard.internalData');
+Route::get('/pclToSubjectCommittee',[\Registrar\Http\Controller\RegistrarController::class,'pclToSubjectCommittee'])->middleware(['auth'])->name('subjectCommittee.pclToSubjectCommittee');

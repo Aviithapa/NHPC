@@ -41,3 +41,4 @@ Route::post('/update/certificates',[\Operator\Http\Controller\OperatorController
 Route::post('/operator/fowardStudents',[\Operator\Http\Controller\OperatorController::class,'fowardStudentState'])->middleware(['auth'])->name('operator.fowardStudentState');
 
 Route::get('examApplied/{id}/{profile_id}',[\Operator\Http\Controller\OperatorController::class,'deleteExamApplied'])->middleware(['auth'])->name('operator.deleteExamApplied');
+Route::get('/exportCSV',[\Operator\Http\Controller\OperatorController::class,'exportCsv'])->middleware(['auth'])->name('operator.exportCsv');

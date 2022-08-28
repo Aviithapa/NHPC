@@ -656,6 +656,41 @@ class RegistrarController  extends BaseController
 
         return view('registrar::pages.subjectCommiteeList',compact('datas','level','status','subject_commitee_id','page'));
     }
+
+
+    public function pclToSubjectCommittee(){
+        $datas = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+        ->join('profile_processing','profile_processing.profile_id' , '=' , 'exam_registration.profile_id')
+        ->where('exam_registration.state', '=', 'registrar')
+        ->where('exam_registration.status', '=', 'progress')
+        ->where('exam_registration.level_id', '=', 3)
+        ->get([  'profiles.id as profile_id', 'exam_registration.id as exam_processing_id', 'profile_processing.id as profile_processing_id']);
+        $profile_log['status'] = 'progress';
+        $profile_log['remarks'] =  isset($data['remarks']) ? $data['remarks'] : 'Profile Verified and forwarded to Subject Committee';
+        $profile_log['review_status'] = 'Successfully Accepeted';
+        $profile_log['state'] = 'subject_committee';
+        $exam['state'] = 'registrar';
+        $exam['status'] = 'progress';
+
+        $profile['profile_state'] = 'subject_committee';
+        $profile['profile_status'] = 'Reviewing';
+
+        $profile_processing['current_state'] = 'subject_committee';
+        $profile_processing['status'] = 'progress';
+
+        foreach($datas as $data){
+            $this->profileRepository->update($profile, $data->profile_id);
+             $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$data->profile_processing_id);
+             $exam_processing = $this->examProcessingRepository->update($exam, $data->exam_processing_id);
+             $profile_log['profile_id'] = $data->profile_id;
+            $this->profileLog($profile_log);
+             $profile_log['exam_processing_id'] = $data->exam_processing_id;
+             $this->examLog($profile_log);
+
+        }
+
+        return redirect()->back();
+    }
 }
 
 

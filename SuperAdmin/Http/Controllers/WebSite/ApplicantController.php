@@ -615,4 +615,10 @@ class ApplicantController  extends BaseController
         session()->flash('success','Role has been Assigned');
         return redirect()->back();
     }
+
+
+    // public function getRejectedList(){
+    //     $exam= ExamProcessing::all()->where('status','!=','council')->where('state','=','rejected');
+    //     return view()
+    // }
 }
