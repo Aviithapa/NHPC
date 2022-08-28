@@ -668,8 +668,8 @@ class RegistrarController  extends BaseController
         $profile_log['status'] = 'progress';
         $profile_log['remarks'] =  isset($data['remarks']) ? $data['remarks'] : 'Profile Verified and forwarded to Subject Committee';
         $profile_log['review_status'] = 'Successfully Accepeted';
-        $profile_log['state'] = 'subject_committee';
-        $exam['state'] = 'registrar';
+        $profile_log['state'] = 'registrar';
+        $exam['state'] = 'subject_committee';
         $exam['status'] = 'progress';
 
         $profile['profile_state'] = 'subject_committee';
@@ -679,7 +679,12 @@ class RegistrarController  extends BaseController
         $profile_processing['status'] = 'progress';
 
         foreach($datas as $data){
-            $this->profileRepository->update($profile, $data->profile_id);
+
+              $logs = $this->profileLogsRepository->getAll()->where('profile_id','=',$data->profile_id)->where('state','=','subject_committee');
+              foreach($logs as $log){
+                $this->profileLogsRepository->delete($log->id);
+              }
+             $profiles =  $this->profileRepository->update($profile, $data->profile_id);
              $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$data->profile_processing_id);
              $exam_processing = $this->examProcessingRepository->update($exam, $data->exam_processing_id);
              $profile_log['profile_id'] = $data->profile_id;
