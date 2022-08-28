@@ -90,11 +90,6 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
                 ->leftJoin('profile_logs', function ($join) {
                     $join->on('profiles.id', '=', 'profile_logs.profile_id')
-
-
-                        ->where('profile_logs.state', '!=', 'computer_operator')
-                        ->where('profile_logs.state', '!=', 'officer')
-                        ->where('profile_logs.state', '!=', 'registrar')
                         ->where('profile_logs.state','=','subject_committee')
                         ->where('profile_logs.review_status','=','Successful')
                         ->where('profile_logs.created_by', '=', Auth::user()->id)
@@ -105,7 +100,6 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 ->where('profile_processing.status',$status)
                 ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
                 ->orderBy('profiles.created_at','ASC')
-
                 ->get(['profiles.*','program.name as program_name','profile_logs.created_by','profile_logs.state']);
             $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
             $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
@@ -118,8 +112,6 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
     public function acceptedByMe()
     {
         if (Auth::user()->mainRole()->name === 'subject_committee') {
-
-
             $datas = Profilelogs::join('profiles','profiles.id','=','profile_logs.profile_id')
                 ->where('profile_logs.created_by','=', Auth::user()->id)
                 ->join('exam_registration','exam_registration.profile_id','=','profiles.id')

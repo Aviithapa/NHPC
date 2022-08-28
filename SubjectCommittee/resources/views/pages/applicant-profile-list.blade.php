@@ -65,16 +65,13 @@
                                         @foreach($datas as $key => $data)
                                                 <tr>
                                                     @if($data->created_by != \Illuminate\Support\Facades\Auth::user()->id)
-{{--                                                    @if(!getAccepted($data->id))--}}
-
-{{--                                                        {{$data->created_by }}--}}
                                                      <td>{{ $key }}</td>
                                                     <td>{{$data->id}}</td>
                                                     <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
                                                     <td>{{$data->citizenship_number}}</td>
                                                     <td>{{$data->created_at->toDateString()}}</td>
                                                     <td> {{$data->program_name}}</td>
-                                                    <td> <a href="{{url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
+                                                    <td> <a href="{{url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$data->id)}}" target="_blank"><span class="label label-success">View</span></a></td>
                                                         @endif
                                                 </tr>
                                         @endforeach
