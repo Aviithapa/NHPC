@@ -91,8 +91,9 @@ class OperatorController extends BaseController
                     ->groupBy('program_id')
                     ->orderBy('count')
                     ->where('level_id','<=',3)
-                    ->where('created_at','>','2022-07-16')
+                    ->where('exam_registration.created_at','>=','2022-07-16')
                     ->get();
+
 
                 $failed_student = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"), \DB::raw("program_id as program_id"))
                     ->groupBy('program_id')
@@ -131,8 +132,6 @@ class OperatorController extends BaseController
                             ->where('exam_registration.program_id','=',$id)
             ->join('program','program.id','=','exam_registration.program_id')
 //            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-            ->where('exam_registration.status','=',$status)
-            ->where('exam_registration.state','=',$state)
             ->where('exam_registration.created_at','>','2022-07-16')
             ->get(['profiles.*','program.name as program_name','profiles.id as profile_id']);
 

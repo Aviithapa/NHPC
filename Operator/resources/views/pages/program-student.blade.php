@@ -24,6 +24,7 @@
                         <div class="box-header with-border p-t-1">
                             <h3 class="box-title text-black">Applicant Profile Details</h3>
                             <div class="pull-right">
+                                {{ count($students) }} applied student count
                             </div>
                         </div>
                         <!-- /.box-header -->
@@ -32,10 +33,12 @@
                                 <table id="data-table" class="table no-margin">
                                     <thead>
                                     <tr>
+                                        <th>S.N.</th>
                                         <th>Registration Number</th>
                                         <th>Name</th>
                                         <th>State</th>
                                         <th>Status</th>
+                                        <th>Applied Data</th>
                                         <th>Program Name</th>
                                         <th>Action</th>
                                     </tr>
@@ -47,12 +50,14 @@
                                         </tr>
 
                                     @else
-                                        @foreach($students as $datas)
+                                        @foreach($students as $key => $datas)
                                             <tr>
+                                                <td>{{ $key }}</td>
                                                 <td>{{$datas->profile_id}}</td>
                                                 <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
-                                                <td>{{$datas->current_state}}</td>
+                                                <td>{{$datas->state}}</td>
                                                 <td>{{$datas->status}}</td>
+                                                <td>{{ $datas->created_at }} </td>
                                                 <td> {{$datas->program_name}}</td>
                                                 <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->profile_id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>
