@@ -42,3 +42,5 @@ Route::post('/operator/fowardStudents',[\Operator\Http\Controller\OperatorContro
 
 Route::get('examApplied/{id}/{profile_id}',[\Operator\Http\Controller\OperatorController::class,'deleteExamApplied'])->middleware(['auth'])->name('operator.deleteExamApplied');
 Route::get('/exportCSV',[\Operator\Http\Controller\OperatorController::class,'exportCsv'])->middleware(['auth'])->name('operator.exportCsv');
+
+Route::get('/move/exam_committee/{id}',[\Operator\Http\Controller\OperatorController::class,'examAppliedReExam'])->middleware(['auth'])->name('operator.examApplied');

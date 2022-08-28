@@ -473,6 +473,18 @@ class OperatorController extends BaseController
 
     }
 
+
+    public function examAppliedReExam($id){
+        try{
+            $exam['status'] = 'progress';
+            $examUpdate = $this->examProcessingRepository->update($exam , $id);
+            return redirect()->back();
+        }catch(\Exception $e){
+            session()->flash('error','Error Occured While Saving Data');
+            return redirect()->back()->withInput(); 
+        }
+    }
+
     public function profileLogs($data){
         $logs = $this->profileLogsRepository->create($data);
         if($logs == false)
@@ -1096,7 +1108,7 @@ class OperatorController extends BaseController
 
 //             dd('you are heer');
 //             return redirect()
- return redirect()->route('operator.applicant.list.review',['id'=>$data['profile_id']]);
+            return redirect()->route('operator.applicant.list.review',['id'=>$data['profile_id']]);
          }catch (\Exception $e) {
             session()->flash('danger', 'Oops! Something went wrong.');
             dd($e);
