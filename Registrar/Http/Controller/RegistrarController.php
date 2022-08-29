@@ -681,10 +681,10 @@ class RegistrarController  extends BaseController
 
         foreach($datas as $data){
 
-              $logs = $this->profileLogsRepository->getAll()->where('profile_id','=',$data->profile_id)->where('state','=','subject_committee');
-              foreach($logs as $log){
-                $this->profileLogsRepository->delete($log->id);
-              }
+            //   $logs = $this->profileLogsRepository->getAll()->where('profile_id','=',$data->profile_id)->where('state','=','subject_committee');
+            //   foreach($logs as $log){
+            //     $this->profileLogsRepository->delete($log->id);
+            //   }
              $profiles =  $this->profileRepository->update($profile, $data->profile_id);
              $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$data->profile_processing_id);
              $exam_processing = $this->examProcessingRepository->update($exam, $data->exam_processing_id);
