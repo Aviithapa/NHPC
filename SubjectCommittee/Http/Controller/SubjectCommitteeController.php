@@ -69,8 +69,87 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
     public function index(){
         $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
         $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
+        $subject_Committee_id = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        $pcl_count = 0 ;
+        $master_count = 0;
+        $bachelor_count = 0;
 
-        return view('subjectCommittee::pages.dashboard',compact('data','subject_committee'));
+        $datas= Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+        ->join('program','program.id','=','exam_registration.program_id')
+        ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+        ->leftJoin('profile_logs', function ($join) {
+            $join->on('profiles.id', '=', 'profile_logs.profile_id')
+                ->where('profile_logs.state','=','subject_committee')
+                ->where('profile_logs.review_status','=','Successful')
+                ->where('profile_logs.created_by', '=', Auth::user()->id);
+        })
+        ->where('profile_processing.current_state','subject_committee')
+        ->where('exam_registration.level_id',3)
+        ->where('profile_processing.status','progress')
+        ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
+        ->orderBy('profiles.created_at','ASC')
+       
+        ->select('profile_logs.created_by as profile_logs_created_by' )
+        ->get();
+       
+
+        foreach($datas as $data){
+        if($data->profile_logs_created_by != Auth::user()->id){
+           $pcl_count = ++$pcl_count;
+        }
+    }
+
+    $master_datas= Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+    ->join('program','program.id','=','exam_registration.program_id')
+    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+    ->leftJoin('profile_logs', function ($join) {
+        $join->on('profiles.id', '=', 'profile_logs.profile_id')
+            ->where('profile_logs.state','=','subject_committee')
+            ->where('profile_logs.review_status','=','Successful')
+            ->where('profile_logs.created_by', '=', Auth::user()->id);
+    })
+    ->where('profile_processing.current_state','subject_committee')
+    ->where('exam_registration.level_id',1)
+    ->where('profile_processing.status','progress')
+    ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
+    ->orderBy('profiles.created_at','ASC')
+   
+    ->select('profile_logs.created_by as profile_logs_created_by' )
+    ->get();
+   
+
+    foreach( $master_datas as $data){
+    if($data->profile_logs_created_by != Auth::user()->id){
+       $master_count = ++$master_count;
+    }
+}
+
+$bachelor_datas= Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+->join('program','program.id','=','exam_registration.program_id')
+->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+->leftJoin('profile_logs', function ($join) {
+    $join->on('profiles.id', '=', 'profile_logs.profile_id')
+        ->where('profile_logs.state','=','subject_committee')
+        ->where('profile_logs.review_status','=','Successful')
+        ->where('profile_logs.created_by', '=', Auth::user()->id);
+})
+->where('profile_processing.current_state','subject_committee')
+->where('exam_registration.level_id',2)
+->where('profile_processing.status','progress')
+->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
+->orderBy('profiles.created_at','ASC')
+
+->select('profile_logs.created_by as profile_logs_created_by' )
+->get();
+
+
+foreach( $bachelor_datas as $data){
+if($data->profile_logs_created_by != Auth::user()->id){
+   $bachelor_count = ++$bachelor_count;
+}
+}
+       
+        return view('subjectCommittee::pages.dashboard',compact('data','subject_committee', 'pcl_count','master_count','bachelor_count'));
 
     }
 
@@ -213,7 +292,9 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                 ->where('profile_processing.status',$status)
                 ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
                 ->orderBy('profiles.created_at','ASC')
-                ->get(['profiles.*','program.name as program_name','profile_logs.created_by','profile_logs.state']);
+        ->select('profiles.id','profiles.first_name','profiles.middle_name', 'profiles.last_name', 'profiles.citizenship_number','profiles.created_at', 'program.name as program_name', 'profile_logs.created_by as profile_logs_created_by' )
+                ->get();
+
             $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
             $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
             return view('subjectCommittee::pages.applicant-profile-list', compact('datas','status','current_state','page','level','subject_committee',"master_count", "bachelor_count", "pcl_count", "tslc_count"));

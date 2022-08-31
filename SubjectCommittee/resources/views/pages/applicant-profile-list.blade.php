@@ -37,6 +37,8 @@
                     <div class="box box-info">
                         <div class="box-header with-border p-t-1">
                             <h3 class="box-title text-black">Applicant Profile Details</h3>
+                            {{ $count = 0 }}
+
                             <div class="pull-right">
                             </div>
                         </div>
@@ -64,8 +66,8 @@
                                     @else
                                         @foreach($datas as $key => $data)
                                                 <tr>
-                                                    @if($data->created_by != \Illuminate\Support\Facades\Auth::user()->id)
-                                                     <td>{{ $key }}</td>
+                                                    @if($data->profile_logs_created_by != \Illuminate\Support\Facades\Auth::user()->id)
+                                                     <td>{{ ++$count }}</td>
                                                     <td>{{$data->id}}</td>
                                                     <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
                                                     <td>{{$data->citizenship_number}}</td>
@@ -75,24 +77,16 @@
                                                         @endif
                                                 </tr>
                                         @endforeach
-{{--                                        @foreach($datas as $dataes)--}}
-{{--                                             @foreach($dataes as $data)--}}
-{{--                                        <tr>--}}
-{{--                                            <td>{{$data->id}}</td>--}}
-{{--                                            <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>--}}
-{{--                                            <td>{{$data->citizenship_number}}</td>--}}
-{{--                                            <td>{{$data->created_at->toDateString()}}</td>--}}
-{{--                                            <td> {{$data->program_name}}</td>--}}
-{{--                                            <td> <a href="{{url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>--}}
-{{--                                        </tr>--}}
-{{--                                            @endforeach--}}
-{{--                                         @endforeach--}}
+
                                     @endif
 
-
+  
+                                    {{ $count }} Total Number of Student
+                                   
                                     </tbody>
 
                                 </table>
+                               
                                 <style>
                                     .pagination a {
                                         margin-top: 20px;
