@@ -110,7 +110,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             $join->on('profiles.id', '=', 'profile_logs.profile_id')
                 ->where('profile_logs.state','=','subject_committee')
                 ->where('profile_logs.review_status','=','Successful')
-                ->where('profile_logs.created_by', '=', Auth::user()->id);
+                ->where('profile_logs.created_by', '!=', Auth::user()->id);
                
         })
         ->where('profile_processing.current_state','subject_committee')
@@ -131,7 +131,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
             $join->on('profiles.id', '=', 'profile_logs.profile_id')
                 ->where('profile_logs.state','=','subject_committee')
                 ->where('profile_logs.review_status','=','Successful')
-                ->where('profile_logs.created_by', '=', Auth::user()->id);
+                ->where('profile_logs.created_by', '!=', Auth::user()->id);
                
         })
         ->where('profile_processing.current_state','subject_committee')
@@ -148,7 +148,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         
               // 
        
-              return $records;
+            //   return $records;
         
    
         $data_arr = array();
