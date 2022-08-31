@@ -133,6 +133,7 @@ class OperatorController extends BaseController
             ->join('program','program.id','=','exam_registration.program_id')
 //            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
             ->where('exam_registration.created_at','>','2022-07-16')
+            ->where('exam_registration.status','re-exam')
             ->get(['profiles.*','program.name as program_name','profiles.id as profile_id']);
 
 
