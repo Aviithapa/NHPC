@@ -148,6 +148,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         
               // 
        
+              return $records;
         
    
         $data_arr = array();
