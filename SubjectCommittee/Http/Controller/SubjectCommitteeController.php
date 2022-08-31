@@ -73,6 +73,119 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
         return view('subjectCommittee::pages.dashboard',compact('data','subject_committee'));
 
     }
+
+    public function ajaxIndex(){
+        return view('subjectCommittee::pages.index'); 
+     }
+
+    public function ajaxProfile(Request $request){
+        $draw = $request->get('draw');
+        $start = $request->get("start");
+        $rowperpage = $request->get("length"); // Rows display per page
+   
+        $columnIndex_arr = $request->get('order');
+        $columnName_arr = $request->get('columns');
+        $order_arr = $request->get('order');
+        $search_arr = $request->get('search');
+   
+        $columnIndex = $columnIndex_arr[0]['column']; // Column index
+        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+        $searchValue = $search_arr['value']; // Search value
+   
+        $level = $request->get('level');
+
+     
+        // Total records
+        $totalRecords = Profile::select('count(*) as allcount')->count();
+        $totalRecordswithFilter = Profile::select('count(*) as allcount')->where('first_name', 'like', '%' .$searchValue . '%')->count();
+   
+        $subject_Committee_id = $this->subjectCommitteeUserRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+        // Fetch records
+        if($level){
+            $records =  Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+        ->join('program','program.id','=','exam_registration.program_id')
+        ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+        ->leftJoin('profile_logs', function ($join) {
+            $join->on('profiles.id', '=', 'profile_logs.profile_id')
+                ->where('profile_logs.state','=','subject_committee')
+                ->where('profile_logs.review_status','=','Successful')
+                ->where('profile_logs.created_by', '=', Auth::user()->id);
+               
+        })
+        ->where('profile_processing.current_state','subject_committee')
+        ->where('profile_processing.status','progress')
+        ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
+        
+        ->where('exam_registration.level_id',$level)
+        ->orderBy($columnName,$columnSortOrder)
+        ->skip($start)
+        ->take($rowperpage)
+        ->select('profiles.id','profiles.first_name','profiles.middle_name', 'profiles.last_name', 'profiles.citizenship_number', 'program.name as program_name', 'profile_logs.created_by as profile_logs_created_by' )
+        ->get();
+        }else{
+        $records =  Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
+        ->join('program','program.id','=','exam_registration.program_id')
+        ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
+        ->leftJoin('profile_logs', function ($join) {
+            $join->on('profiles.id', '=', 'profile_logs.profile_id')
+                ->where('profile_logs.state','=','subject_committee')
+                ->where('profile_logs.review_status','=','Successful')
+                ->where('profile_logs.created_by', '=', Auth::user()->id);
+               
+        })
+        ->where('profile_processing.current_state','subject_committee')
+        ->where('profile_processing.status','progress')
+        ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
+        
+        // ->where('exam_registration.level_id',$level)
+        ->orderBy($columnName,$columnSortOrder)
+        ->skip($start)
+        ->take($rowperpage)
+        ->select('profiles.id','profiles.first_name','profiles.middle_name', 'profiles.last_name', 'profiles.citizenship_number', 'program.name as program_name', 'profile_logs.created_by as profile_logs_created_by' )
+        ->get();
+    }
+        
+              // 
+       
+        
+   
+        $data_arr = array();
+        $count = 1;
+        $totalRecords = 0;
+        $totalRecordswithFilter = 0;
+        foreach($records as $record){
+            
+            if(Auth::user()->id !== $record->profile_logs_created_by){
+                $totalRecords = $count + 1;
+                $totalRecordswithFilter = $count + 1;
+                $id = $record->id;
+                $name = $record->first_name. ' ' . $record->middle_name .' ' . $record->last_name;
+                $citizenship = $record->citizenship_number;
+                $program_name =  $record->program_name;
+                $data_arr[] = array(
+                  "id" => $id,
+                  "name" => $name,
+                  "program_name" => $program_name,
+                  "citizenship" =>  $citizenship,
+                  "action" => '
+                  <a target="_blank" href=' . url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$record["id"]). '><span class="label label-success">View</span></a>
+                  '
+                );
+            }
+        }
+   
+        $response = array(
+           "draw" => intval($draw),
+           "iTotalRecords" => $totalRecords,
+           "iTotalDisplayRecords" => $totalRecordswithFilter,
+           "aaData" => $data_arr
+        );
+   
+        echo json_encode($response);
+        exit;
+
+    }
     public function profile($status, $current_state, $level, $page = 0)
     {
         if (Auth::user()->mainRole()->name === 'subject_committee') {
@@ -92,8 +205,7 @@ SubjectCommitteeRepository $subjectCommitteeRepository, SubjectCommitteeUserRepo
                     $join->on('profiles.id', '=', 'profile_logs.profile_id')
                         ->where('profile_logs.state','=','subject_committee')
                         ->where('profile_logs.review_status','=','Successful')
-                        ->where('profile_logs.created_by', '=', Auth::user()->id)
-                      ;
+                        ->where('profile_logs.created_by', '=', Auth::user()->id);
                 })
                 ->where('profile_processing.current_state',$current_state)
                 ->where('exam_registration.level_id',$level)

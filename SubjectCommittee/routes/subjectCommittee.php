@@ -25,3 +25,6 @@ Route::get('/backSubjectCommittee', [\SubjectCommittee\Http\Controller\SubjectCo
 Route::get('/rejectProfileName', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "rejectProfileName"])->middleware(['auth'])->name('rejectProfileName');
 
 Route::get('/changeState',[\SubjectCommittee\Http\Controller\SubjectCommitteeController::class,"changeState"])->middleware(['auth'])->name('rejectProfileName');
+
+Route::get('/ajax',[\SubjectCommittee\Http\Controller\SubjectCommitteeController::class,"ajaxIndex"]);
+Route::get('/employees/getEmployees/',[\SubjectCommittee\Http\Controller\SubjectCommitteeController::class,"ajaxProfile"])->name('employees.getEmployees');
