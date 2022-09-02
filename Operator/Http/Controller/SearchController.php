@@ -81,21 +81,23 @@ class SearchController extends BaseController
     {
         if($request->ajax()) {
             $output = "";
-            $products = DB::table('profiles')->where('first_name', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('last_name', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('middle_name', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('dob_nep', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('profile_status', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('citizenship_number', 'LIKE', '%' . $request->search . "%")
-                ->get();
+            $products = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')->where('first_name', 'LIKE', '%' . $request->search . "%")
+                ->orwhere('profiles.last_name', 'LIKE', '%' . $request->search . "%")
+                ->orwhere('profiles.middle_name', 'LIKE', '%' . $request->search . "%")
+                ->orwhere('profiles.dob_nep', 'LIKE', '%' . $request->search . "%")
+                ->orwhere('profiles.profile_status', 'LIKE', '%' . $request->search . "%")
+                ->orwhere('profiles.citizenship_number', 'LIKE', '%' . $request->search . "%")
+                ->get(['profiles.*', 'profiles.id as profiles_id', 'exam_registration.*']);
+
+                // return $products;
             if ($products) {
                 foreach ($products as $key => $product) {
                     $output .= '<tr>' .
                         '<td>' . $product->first_name . '</td>' .
                         '<td>' . $product->citizenship_number . '</td>' .
                         '<td>' . $product->dob_nep . '</td>' .
-                        '<td>' . $product->profile_state . '</td>' .
-                        '<td><a href='.url("operator/dashboard/operator/applicant-list-view/".$product->id).'><span class="label label-success">View</span></a> </td>' .
+                        '<td>' . $product->state . '</td>' .
+                        '<td><a href='.url("operator/dashboard/operator/applicant-list-view/".$product->profiles_id).'><span class="label label-success">View</span></a> </td>' .
                         '</tr>';
                 }
                 return Response($output);

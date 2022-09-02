@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body">
+                        {{-- <div class="box-body">
                             <div class="table-responsive">
                                 <table class="table no-margin">
                                     <thead>
@@ -52,7 +52,7 @@
                                 </table>
                             </div>
                             <!-- /.table-responsive -->
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
