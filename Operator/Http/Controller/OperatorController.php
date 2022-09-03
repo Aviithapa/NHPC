@@ -91,6 +91,7 @@ class OperatorController extends BaseController
                     ->groupBy('program_id')
                     ->orderBy('count')
                     ->where('level_id','<=',3)
+         ->where('exam_registration_state','!=','rejected')
                     ->where('exam_registration.created_at','>=','2022-07-16')
                     ->get();
 
@@ -1127,6 +1128,7 @@ class OperatorController extends BaseController
          ->groupBy('program_id')
          ->orderBy('count')
          ->where('level_id','<=',3)
+         ->where('exam_registration_state','!=','rejected')
          ->where('exam_registration.created_at','>=','2022-07-16')
          ->get();
        

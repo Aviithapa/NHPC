@@ -64,6 +64,7 @@ class RegistrarController  extends BaseController
             ->where('exam_registration.state','!=','council')
             ->where('exam_registration.state','!=','computer_operator')
             ->where('exam_registration.level_id','!=','4')
+            ->where('exam_registration.status','=','progress')
             ->where('exam_registration.created_at','>','2022-07-16')
             ->get();
 
