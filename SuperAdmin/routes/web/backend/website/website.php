@@ -304,6 +304,8 @@ Route::group(['namespace' => 'WebSite'], function () {
 
     Route::post('/update/apply/exam','ApplicantController@applyExam')->middleware(['auth'])->name('update.apply.exam');
     Route::get('/apply/exam/{id}', 'ApplicantController@editExamApply')->middleware(['auth'])->name('apply.exam');
+    Route::get('/delete/certificate/{id}', 'ApplicantController@deleteCertificate')->middleware(['auth'])->name('delete.certificate');
+
     Route::get('/superAdmin/qualification/from/{id}', 'EditApplicantController@create')->middleware(['auth'])->name('superAdmin.qualificationForm');
 
     Route::post('/delete/{id}','ApplicantController@delete')->middleware(['auth'])->name('superAdmin.delete');
@@ -314,7 +316,5 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::get('/certificate/generateCertificate','ApplicantController@generateCertificate')->middleware(['auth'])->name('superAdmin.generateCertificate.generateCertificate');
     Route::get('/generate/single/certificate/{id}','ApplicantController@generateSingleCertificate')->middleware(['auth'])->name('superAdmin.generateCertificate.generateSingleCertificate');
     Route::get('/minute/data','ApplicantController@minuteData')->middleware(['auth'])->name('superAdmin.minuteData');
-
-
     Route::post('/changeStateProfileLogs/{id}', 'ApplicantController@changeStateProfileLogs')->middleware(['auth'])->name('superAdmin.changeStateProfileLogs');
 });

@@ -144,7 +144,10 @@ class ApplicantController  extends BaseController
             $profile_logs = $this->profileLogsRepository->getAll()->where('profile_id', '=', $id);
             $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
             $exams = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id);
-            return view('superAdmin::admin.applicant.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams'));
+            $certificate = DB::table('certificate_history')
+            ->where('profile_id', '=', $id)
+            ->get();
+            return view('superAdmin::admin.applicant.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams','certificate'));
         } else {
             return redirect()->route('login');
         }
@@ -621,4 +624,10 @@ class ApplicantController  extends BaseController
     //     $exam= ExamProcessing::all()->where('status','!=','council')->where('state','=','rejected');
     //     return view()
     // }
+
+
+    public function deleteCertificate($id){
+       $certificate = $this->certificateRepository->delete($id);
+       return redirect()->back();
+    }
 }
