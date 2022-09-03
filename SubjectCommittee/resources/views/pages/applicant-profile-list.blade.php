@@ -67,7 +67,7 @@
                                         @foreach($datas as $key => $data)
                                                 <tr>
                                                     @if($data->profile_logs_created_by != \Illuminate\Support\Facades\Auth::user()->id)
-                                                     <td>{{ ++$count }}</td>
+                                                    <td>{{ ++$count }}</td>
                                                     <td>{{$data->id}}</td>
                                                     <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
                                                     <td>{{$data->citizenship_number}}</td>
