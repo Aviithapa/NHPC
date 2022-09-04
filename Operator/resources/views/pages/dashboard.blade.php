@@ -51,14 +51,14 @@
                     </a>
                 </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
-                    <a href="{{route("operator.applicant.profile.list", ['status'=> 'rejected','state' => 'computer_operator' ,'level'=>"1"])}}">
+                    {{-- <a href="{{route("operator.applicant.profile.list", ['status'=> 'rejected','state' => 'computer_operator' ,'level'=>"1"])}}">
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
                             <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('rejected','computer_operator')}}</span>
                                 <span class="info-box-text">Rejected Application List </span></div>
                         </div>
                     </div>
-                    </a>
+                    </a> --}}
                 </div>
 
             </div>
@@ -70,7 +70,7 @@
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
                                 <div class="info-box-content"> <span class="info-box-number">{{count($rejected)}}</span>
-                                    <span class="info-box-text">All Rejected Application </span></div>
+                                    <span class="info-box-text">Rejected Application </span></div>
                             </div>
                         </div>
                     </a>

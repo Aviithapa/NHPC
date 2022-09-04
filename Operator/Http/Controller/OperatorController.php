@@ -219,7 +219,7 @@ class OperatorController extends BaseController
                     ->where('exam_registration.status', '=', $status)
                     ->join('program', 'program.id', '=', 'exam_registration.program_id')
                     ->where('exam_registration.level_id', '=', 1)
-                    ->where('exam_registration.created_at', '>', '2022-07-16')
+                    // ->where('exam_registration.created_at', '>', '2022-07-16')
                     ->get();
 
                 $countbachelor = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
@@ -230,7 +230,7 @@ class OperatorController extends BaseController
                     ->where('exam_registration.status', '=', $status)
                     ->join('program', 'program.id', '=', 'exam_registration.program_id')
                     ->where('exam_registration.level_id', '=', 2)
-                    ->where('exam_registration.created_at', '>', '2022-07-16')
+                    // ->where('exam_registration.created_at', '>', '2022-07-16')
                     ->get();
 
                 $countPCL = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
@@ -241,7 +241,7 @@ class OperatorController extends BaseController
                     ->where('exam_registration.status', '=', $status)
                     ->join('program', 'program.id', '=', 'exam_registration.program_id')
                     ->where('exam_registration.level_id', '=', 3)
-                    ->where('exam_registration.created_at', '>', '2022-07-16')
+                    // ->where('exam_registration.created_at', '>', '2022-07-16')
                     ->get();
 
                 $countTSLC = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')

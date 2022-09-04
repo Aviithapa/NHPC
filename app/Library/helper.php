@@ -79,9 +79,23 @@ if (! function_exists('getApplicantCount')) {
                                                 ->where("state",'=',$state);
 
         return count($profiles);
-//         foreach ($profiles as $profile)
-//             $count++;
-//        return $count;
+    }
+}
+
+if (! function_exists('getApplicantCountRejected')) {
+    /**
+     * Generates an asset path for the uploads.
+     * @param null $path
+     * @param null $file_name
+     * @return string
+     */
+    function getApplicantCount($status, $state)
+    {
+         $count =0;
+         $profiles = ExamProcessing::all()->where("status",'=' ,$status)
+                                                ->where("state",'=',$state);
+
+        return count($profiles);
     }
 }
 if (! function_exists('getDoubleDusturCountList')) {
