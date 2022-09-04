@@ -189,7 +189,7 @@ class RegistrarController  extends BaseController
                 // ->where('state','!=','exam_committee')
 //                ->where('attempt','=',2)
 //                ->where('is_admit_card_generate','=','Yes')
-                ->where('level_id','!=','4')
+                ->where('exam_registration.level_id','!=','4')
                 ->count();
 
              
