@@ -23,6 +23,7 @@
                             <h3 class="box-title text-black">Applicant Profile Details</h3>
                             <div class="pull-right">
                                 {{count($datas)}} Accepted By Me
+                                <a href="{{ route('employees.acceptedByMeSubmitCSV') }}">Export to CSV </a>
                             </div>
                         </div>
                         <!-- /.box-header -->
@@ -31,6 +32,7 @@
                                 <table id="data-table" class="table no-margin">
                                     <thead>
                                     <tr>
+                                        <th>S.N.</th>
                                         <th>Registration Number</th>
                                         <th>Name</th>
 {{--                                        <th>Citizenship</th>--}}
@@ -48,11 +50,11 @@
                                     @else
                                         @foreach($datas as $key => $data)
                                             <tr>
+                                                    <td> {{$key}} </td>
                                                     <td>{{$data->profile_id}}</td>
                                                     <td style="text-transform: capitalize">{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
 {{--                                                    <td>{{$data->citizenship_number}}</td>--}}
                                                     <td>{{$data->profiles_logs}}</td>
-
                                                     <td> {{$data->program}}</td>
                                                     <td> <a href="{{url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$data->profile_id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>

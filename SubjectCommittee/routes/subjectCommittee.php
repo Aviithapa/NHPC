@@ -28,3 +28,4 @@ Route::get('/changeState',[\SubjectCommittee\Http\Controller\SubjectCommitteeCon
 
 Route::get('/ajax',[\SubjectCommittee\Http\Controller\SubjectCommitteeController::class,"ajaxIndex"]);
 Route::get('/employees/getEmployees/',[\SubjectCommittee\Http\Controller\SubjectCommitteeController::class,"ajaxProfile"])->name('employees.getEmployees');
+Route::get('/acceptedByMeSubmitCSV',[\SubjectCommittee\Http\Controller\SubjectCommitteeController::class,"acceptedByMeSubmitCSV"])->name('employees.acceptedByMeSubmitCSV');
