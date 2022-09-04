@@ -187,7 +187,7 @@ class RegistrarController  extends BaseController
                 ->where('state','!=','officer')
                 ->where('state','!=','computer_operator')
                 ->where('status','=','progress')
-                ->where('state','!=','exam_committee')
+                // ->where('state','!=','exam_committee')
 //                ->where('attempt','=',2)
 //                ->where('is_admit_card_generate','=','Yes')
                 ->where('created_at','>','2022-07-16')
