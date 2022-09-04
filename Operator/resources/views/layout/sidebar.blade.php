@@ -107,6 +107,12 @@
                     </a>
                 </li>
 
+                <li class="{{ (request()->is('operator/dashboard/statusUpdateExam')) ? 'active':''  }}">
+                    <a href="{{route("operator.statusUpdate")}}">
+                        <i class="icon-book-open"></i> <span>Update Rejected List</span>
+                    </a>
+                </li>
+
             @endif
 
 

@@ -1173,6 +1173,7 @@ class OperatorController extends BaseController
                 $examStatue = $this->examProcessingRepository->update($examState, $exam->id);
             }
         }
+        return redirect()->back();
      }
     
 
