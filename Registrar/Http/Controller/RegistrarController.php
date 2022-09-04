@@ -184,7 +184,7 @@ class RegistrarController  extends BaseController
 
             $officer_verified = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
                 ->join('profile_logs', 'profiles.id', '=', 'profile_logs.profile_id')
-                ->where('profiles_logs.created_by','=','5248')
+                ->where('profile_logs.created_by','=','5248')
                 // ->where('state','!=','exam_committee')
 //                ->where('attempt','=',2)
 //                ->where('is_admit_card_generate','=','Yes')
