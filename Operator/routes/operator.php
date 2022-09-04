@@ -44,3 +44,6 @@ Route::get('examApplied/{id}/{profile_id}',[\Operator\Http\Controller\OperatorCo
 Route::get('/exportCSV',[\Operator\Http\Controller\OperatorController::class,'exportCsv'])->middleware(['auth'])->name('operator.exportCsv');
 
 Route::get('/move/exam_committee/{id}',[\Operator\Http\Controller\OperatorController::class,'examAppliedReExam'])->middleware(['auth'])->name('operator.examApplied');
+
+
+Route::get('statusUpdateExam', [\Operator\Http\Controller\OperatorController::class,'statusUpdateExam'])->middleware(['auth'])->name('operator.statusUpdate');

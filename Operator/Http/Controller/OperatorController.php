@@ -91,7 +91,7 @@ class OperatorController extends BaseController
                     ->groupBy('program_id')
                     ->orderBy('count')
                     ->where('level_id','<=',3)
-         ->where('exam_registration.state','!=','rejected')
+                    ->where('exam_registration.state','!=','rejected')
                     ->where('exam_registration.created_at','>=','2022-07-16')
                     ->get();
 
@@ -1164,6 +1164,16 @@ class OperatorController extends BaseController
          return response()->stream($callback, 200, $headers);
      }
  
+     public function statusUpdateExam(){
+        $exams = ExamProcessing::all()->where('status', '=', 'rejected')->where('attempt','=',1);
+        foreach($exams as $exam) {
+            $profile = $this->profileRepository->findById($exam->profile_id);
+            if($profile->profile_status == 'Reviewing'){
+                $examState['status'] = 'progress';
+                $examStatue = $this->examProcessingRepository->update($examState, $exam->id);
+            }
+        }
+     }
     
 
  
