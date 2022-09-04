@@ -363,7 +363,8 @@ class SubjectCommitteeController extends BaseController
                     $row['profile_id'],
                     $row['name'],
                     $row['citizenship_number'],
-                    $row['program']
+                    $row['program'],
+                    $row['profile_logs']
                 ));
             }
 
