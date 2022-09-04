@@ -182,17 +182,17 @@ class RegistrarController  extends BaseController
                 ->where('level_id','!=','4')
                 ->count();
 
-            $officer_verified = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-                ->join('profile_logs', 'profiles.id', '=', 'profile_logs.profile_id')
-                ->where('exam_registration.created_at','>','2022-07-16')
-                ->where('exam_registration.level_id','!=','4')
-                ->where('profile_logs.created_by','=','5248')
-                // ->where('state','!=','exam_committee')
+            $officer_verified = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"))
+                ->orderBy('count')
+                ->where('state','!=','officer')
+                ->where('state','!=','computer_operator')
+                ->where('status','=','progress')
 //                ->where('attempt','=',2)
 //                ->where('is_admit_card_generate','=','Yes')
+                ->where('created_at','>','2022-07-16')
+                ->where('level_id','!=','4')
                 ->count();
 
-             
 
 //            dd($third_licence_exam_failed_student_count);
 
