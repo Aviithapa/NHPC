@@ -141,15 +141,15 @@ class RegistrarController  extends BaseController
                 ->where('level_id','!=','4')
                 ->count();
 
-            $operator_rejected = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"))
-                ->orderBy('count')
-                ->where('state','=','computer_operator')
+            $operator_rejected = ExamProcessing::
+             where('state','=','computer_operator')
                 ->where('status','=','rejected')
-//                ->where('attempt','=',2)
-//                ->where('is_admit_card_generate','=','Yes')
+
                 ->where('created_at','>','2022-07-16')
                 ->where('level_id','!=','4')
                 ->count();
+
+                dd($operator_rejected);
 
             $operator_verified = ExamProcessing::select(\DB::raw("COUNT(program_id) as count"))
                 ->orderBy('count')
