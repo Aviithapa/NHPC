@@ -630,4 +630,10 @@ class ApplicantController  extends BaseController
        $certificate = $this->certificateRepository->delete($id);
        return redirect()->back();
     }
+
+
+    public function stats(){
+        // $computer_operator = 
+        return view('superAdmin::admin.applicant.stats');
+    }
 }

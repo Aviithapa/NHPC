@@ -58,6 +58,11 @@
                     <i class="icon-book-open"></i> <span>Ready to Generate Certificate</span>
                 </a>
             </li>
+            <li class="{{ (request()->is('superAdmin/dashboard/stats')) ? 'active':''  }}">
+                <a href="{{route('superAdmin.stats')}}">
+                    <i class="icon-book-open"></i> <span>Stats</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- /.sidebar -->

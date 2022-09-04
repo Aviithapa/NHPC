@@ -317,4 +317,6 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::get('/generate/single/certificate/{id}','ApplicantController@generateSingleCertificate')->middleware(['auth'])->name('superAdmin.generateCertificate.generateSingleCertificate');
     Route::get('/minute/data','ApplicantController@minuteData')->middleware(['auth'])->name('superAdmin.minuteData');
     Route::post('/changeStateProfileLogs/{id}', 'ApplicantController@changeStateProfileLogs')->middleware(['auth'])->name('superAdmin.changeStateProfileLogs');
+    Route::get('/stats', 'ApplicantController@stats')->middleware(['auth'])->name('superAdmin.stats');
+
 });
