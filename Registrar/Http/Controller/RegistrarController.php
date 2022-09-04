@@ -183,7 +183,7 @@ class RegistrarController  extends BaseController
                 ->count();
 
             $officer_verified = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-                ->join('profiles_logs', 'profiles.id', '=', 'profiles_logs.profile_id')
+                ->join('profile_logs', 'profiles.id', '=', 'profile_logs.profile_id')
                 ->where('profiles_logs.created_by','=','5248')
                 // ->where('state','!=','exam_committee')
 //                ->where('attempt','=',2)
