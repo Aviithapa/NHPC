@@ -114,9 +114,9 @@ class CouncilController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'council') {
             $data = $request->all();
-
+            $date = isset($data['date']);
             if (isset($data['date'])) {
-                $date = $data['date'];
+                
                 if ($data['date']  === "2022-07-08") {
                     $certificate = DB::table('certificate_history')
                         ->select('program_id', 'level_name', 'program_certificate_code',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns'))
@@ -169,14 +169,14 @@ class CouncilController extends BaseController
 
             //            else
             //                $program_certificates_code = Certificate::select('program_certificate_code')->distinct()->get();
-            return \view('council::pages.darta-book', compact('certificate'));
+            return \view('council::pages.darta-book', compact('certificate','date'));
         } else {
             return redirect()->route('login');
         }
     }
 
 
-    public function applicantdartaBookIndex($id)
+    public function applicantdartaBookIndex($id, $date)
     {
         if (Auth::user()->mainRole()->name === 'council') {
             $date = "2022-08-15";

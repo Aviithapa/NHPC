@@ -38,7 +38,7 @@
                                     <fieldset class="form-group">
 
                                         <select class="form-control" name="date"  id="date" >
-                                            <option value="0">All</option>
+                                            <option value="0">{{ $date }}</option>
                                             <option value="2022-08-15">2022-08-15</option>
                                             <option value="2022-07-26">2022-07-26</option>
                                             <option value="2022-07-08">2022-07-08</option>
@@ -96,7 +96,7 @@
                                             <td>{{$program->total}}</td>
                                             <td style="width:550px !important; word-break: break-word;">{{$program->srns}}</td>
 
-                                            <td> <a href="{{route("applicant.darta.details",['id' =>$program->program_id])}}"><span class="label label-success">View</span></a></td>
+                                            <td> <a href="{{route("applicant.darta.details",['id' =>$program->program_id , 'date' => $date])}}"><span class="label label-success">View</span></a></td>
 
                                         </tr>
                                         @endforeach
