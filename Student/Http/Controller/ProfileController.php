@@ -425,14 +425,10 @@ class ProfileController extends BaseController
 
     public function updateInformation(Request $request, $id){
         $data = $request->all();
-//        $profileCheck = $this->profileRepository->findById($id);
-//        $data['profile_status'] = 'Reviewing';
-//        $data['profile_state'] = 'computer_operator';
+
         try {
             $profile = $this->profileRepository->update($data,$id);
             $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
-//            $profiles['status'] = 'progress';
-//            $profiles_processing = $this->profileProcessingRepository->update($profiles,$profile_processing['id']);
             $this->profileLog();
             if ($profile == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
