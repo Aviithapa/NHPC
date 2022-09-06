@@ -25,7 +25,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-3 m-b-3">
-                                <a href="{{route("subjectCommittee.application.list.moveCouncilPost")}}" class="btn btn-primary ml-3 mt-3"><i class="fa fa-book"></i>
+                                <a href="{{route("subjectCommittee.application.list.moveExamPost")}}" class="btn btn-primary ml-3 mt-3"><i class="fa fa-book"></i>
                                     Move to Exam </a>
                             </div>
                         </div>
@@ -58,7 +58,10 @@
                                                 <td>{{$data->citizenship_number}}</td>
                                                 <td>{{$data->created_at->toDateString()}}</td>
                                                 <td> {{getProgramNameForProfile($data->id)}}</td>
-                                                <td> <a href="{{url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
+                                                <td> <a href="{{url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a>
+                                                    <a href="{{url("subjectCommittee/dashboard/subjectCommittee/moveExamById/".$data->id)}}"><span class="label label-success">Move to Exam</span></a>
+                                                
+                                                </td>
                                             </tr>
                                         @endforeach
                                     @endif
