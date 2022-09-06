@@ -21,6 +21,7 @@
                         <div class="box-header with-border p-t-1">
                             <h3 class="box-title text-black">Applicant Profile To Be Moved To Exam</h3>
                             <div class="pull-right">
+                                 {{ count($datas) }} Total Number of Student to Move to Exam
                             </div>
                         </div>
                         <div class="row">
@@ -35,6 +36,7 @@
                                 <table id="data-table" class="table no-margin">
                                     <thead>
                                     <tr>
+                                        <th>S.N.</th>
                                         <th>Registration Number</th>
                                         <th>Name</th>
                                         <th>Citizenship</th>
@@ -50,9 +52,11 @@
                                         </tr>
 
                                     @else
+                                    {{ $count = 0 }}
                                         @foreach($datas as $data)
 
                                             <tr>
+                                                <td>{{ ++$count  }}</td>
                                                 <td>{{$data->id}}</td>
                                                 <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
                                                 <td>{{$data->citizenship_number}}</td>
