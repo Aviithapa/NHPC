@@ -80,6 +80,7 @@ class  ExamCommitteeController extends BaseController
 
         $count = ExamProcessing::all()->where('status','=','progress')
             ->where('state','=','exam_committee')
+            ->where('is_admit_card_generate', '!=' ,'yes')
             ->count();
 
         return view('examCommittee::pages.dashboard',compact('programs','tslc','count'));
