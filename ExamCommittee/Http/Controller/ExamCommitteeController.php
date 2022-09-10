@@ -279,13 +279,14 @@ class  ExamCommitteeController extends BaseController
 
     public function exportCsv(Request $request)
     {
-        $fileName = 'tasks.csv';
+        $fileName = 'StudentSymbolNumberList.csv';
 
         $tasks = AdmitCard::join('profiles','profiles.id','=','admit_card.profile_id')
             ->join('exam_registration','exam_registration.id','=','admit_card.exam_processing_id')
             ->join('program','program.id','=','exam_registration.program_id')
             ->join('level','level.id','=','program.level_id')
             ->join('users','users.id','=','profiles.user_id')
+            ->where('admit_card.created_at','=','2022-09-10')
             ->get(['level.name as level_name','admit_card.*','profiles.*','program.*','users.email as email','users.phone_number as phone_number']);
 
 
