@@ -239,6 +239,7 @@ class  ExamCommitteeController extends BaseController
             $data = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
                 ->where('state', '=', 'exam_committee')
                 ->where('program_id', '=' ,$id)
+                ->where('status', '!=', 'rejected')
                 ->where('attempt','=',1);
             return view('examCommittee::pages.program-wise-application-list', compact('data','id'));
         }else{

@@ -366,11 +366,11 @@ if(!function_exists('symbolNumber')) {
      */
     function symbolNumber($id)
     {
-        $exam= \App\Models\Exam\ExamProcessing::all()->where('id','=',$id)->latest();
+        $exam= \App\Models\Exam\ExamProcessing::all()->where('id','=',$id)->first();
         if ($exam['is_admit_card_generate'] === 'no'){
             return "Not Generated yet";
         }else{
-            $admit_card = \App\Models\AdmitCard\AdmitCard::all()->where('exam_processing_id','=',$id)->latest();
+            $admit_card = \App\Models\AdmitCard\AdmitCard::all()->where('exam_processing_id','=',$id)->first();
             return $admit_card['symbol_number'];
         }
     }
