@@ -241,7 +241,6 @@ class  ExamCommitteeController extends BaseController
                 ->where('status', '!=', 'rejected')
                 ->where('attempt','=',1);
 
-            dd($data);
 
             return view('examCommittee::pages.program-wise-application-list', compact('data','id'));
         }else{

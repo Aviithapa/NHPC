@@ -54,7 +54,7 @@
 
                                     @else
                                     {{ $count = 0 }}
-                                        @foreach($data as $key => $exam)
+                                        @foreach($data as $exam)
                                             <tr>
                                                 <td> {{ ++ $count }}</td>
                                                 <td>{{$exam->id}}</td>
