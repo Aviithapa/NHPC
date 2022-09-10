@@ -89,7 +89,6 @@ class  ExamCommitteeController extends BaseController
     public function generateAdmitCard($status,$current_state, $program_id){
         $users = $this->examProcessingRepository->getAll()->where('status' ,'=',$status)
             ->where('state','=',$current_state)
-//            ->where('level_id', '<', 4)
             ->where('program_id','=',$program_id)
             ->where('is_admit_card_generate', '!=' ,'yes');
         if ($users->isEmpty()){
@@ -104,7 +103,7 @@ class  ExamCommitteeController extends BaseController
                 $darta = ++$darta_number;
                 $data['profile_id'] = $user['profile_id'];
                 $data['exam_processing_id'] = $user['id'];
-                $symbol_number =  $this->generateSymbolNumber($index, $data['level_id'], $program_id);
+                $symbol_number =  $this->generateSymbolNumber($index, $user['level_id'], $program_id);
                 $data['symbol_number'] = $symbol_number;
                 $data['created_by'] = Auth::user()->id;
                 $this->admitCardRepository->create($data);
