@@ -62,9 +62,7 @@ class RegistrarController  extends BaseController
             $examCount = ExamProcessing::select(\DB::raw("COUNT(profile_id) as count"))
             ->orderBy('count')
             ->where('exam_registration.state','!=','council')
-            ->where('exam_registration.state','!=','computer_operator')
             ->where('exam_registration.level_id','!=','4')
-            ->where('exam_registration.status','=','progress')
             ->where('exam_registration.created_at','>','2022-07-16')
             ->get();
 

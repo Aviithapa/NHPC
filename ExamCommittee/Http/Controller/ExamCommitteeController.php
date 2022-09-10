@@ -301,6 +301,22 @@ class  ExamCommitteeController extends BaseController
         }
     }
 
+    public function removeGeneratedAdmitCard(){
+
+        if (Auth::user()->mainRole()->name === 'exam_committee') {
+            $users = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
+                ->where('state', '=', 'exam_committee')
+                ->where('is_admit_card_generate', '=', 'yes');
+
+            foreach ($users as $user) {
+                $data['is_admit_card_generate'] = 'no';
+                $this->examProcessingRepository->update($data, $user->id);
+            }
+            return $this->view('pages.admit-card-generated-list', $users);
+        } else {
+            return redirect()->route('login');
+        }
+    }
     public function exportCsv(Request $request)
     {
         $fileName = 'StudentSymbolNumberList.csv';

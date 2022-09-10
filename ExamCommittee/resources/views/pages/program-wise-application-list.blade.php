@@ -34,8 +34,6 @@
                                 <table id="data-table" class="table no-margin" style=" font-size: 14px ;">
                                     <thead style=" font-size: 14px ; font-weight: bold;">
                                     <td>S.N.</td>
-                                    <td>Registration Number</td>
-
                                     <td>First Name</td>
                                     <td>Middle Name</td>
                                     <td>Last Name</td>
@@ -57,7 +55,6 @@
                                         @foreach($data as $exam)
                                             <tr>
                                                 <td> {{ ++ $count }}</td>
-                                                <td>{{$exam->id}}</td>
                                                 <td>{{$exam->getFirstName()}}</td>
                                                 <td>{{$exam->getMiddleName()}}</td>
                                                 <td>{{$exam->getLastName()}}</td>
