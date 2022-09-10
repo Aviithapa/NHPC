@@ -313,8 +313,6 @@ class  ExamCommitteeController extends BaseController
             ->where('exam_registration.updated_at', '>=', '2022-09-10')
             ->get(['level.name as level_name', 'admit_card.*', 'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number']);
 
-            dd($tasks);
-
         $headers = array(
             "Content-type"        => "text/csv",
             "Content-Disposition" => "attachment; filename=$fileName",

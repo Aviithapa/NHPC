@@ -371,6 +371,8 @@ if(!function_exists('symbolNumber')) {
             return "Not Generated yet";
         }else{
             $admit_card = \App\Models\AdmitCard\AdmitCard::all()->where('exam_processing_id','=',$id)->first();
+            if(!$admit_card)
+              return "Not Generated yet";
             return $admit_card['symbol_number'];
         }
     }
