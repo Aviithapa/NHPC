@@ -235,7 +235,7 @@ class  ExamCommitteeController extends BaseController
 
     public function programWiseStudent($id){
         if (Auth::user()->mainRole()->name === 'exam_committee') {
-            $data = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
+            $data = ExamProcessing::all()->where('status', '=', 'progress')
                 ->where('state', '=', 'exam_committee')
                 ->where('program_id', '=' ,$id)
                 ->where('status', '!=', 'rejected')
