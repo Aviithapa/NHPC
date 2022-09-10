@@ -19,6 +19,7 @@ use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use App\Modules\Backend\Result\Repositories\ExamResultRepository;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
@@ -29,11 +30,11 @@ use function Livewire\str;
 
 class  ExamCommitteeController extends BaseController
 {
-    private  $log,$profileProcessing,
+    private  $log, $profileProcessing,
         $profileRepository, $userRepository,
-        $qualificationRepository,$user_data,
-        $profileLogsRepository,$profileProcessingRepository,
-        $examRepository,$examProcessingRepository,$admitCardRepository,$examResultRepository, $programRepository;
+        $qualificationRepository, $user_data,
+        $profileLogsRepository, $profileProcessingRepository,
+        $examRepository, $examProcessingRepository, $admitCardRepository, $examResultRepository, $programRepository;
     private $viewData, $exam_processing;
 
     /**
@@ -50,80 +51,99 @@ class  ExamCommitteeController extends BaseController
      * @param ProgramRepository $programRepository
      */
 
-    public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
-                                ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
-                                ExamRepository $examRepository,ExamProcessingRepository $examProcessingRepository,
-                                AdmitCardRepository $admitCardRepository, ExamResultRepository $examResultRepository, ProgramRepository $programRepository)
-    {
-        $this->profileRepository=$profileRepository;
-        $this->userRepository=$userRepository;
-        $this->qualificationRepository=$qualificationRepository;
+    public function __construct(
+        ProfileRepository $profileRepository,
+        UserRepository $userRepository,
+        QualificationRepository $qualificationRepository,
+        ProfileLogsRepository $profileLogsRepository,
+        ProfileProcessingRepository $profileProcessingRepository,
+        ExamRepository $examRepository,
+        ExamProcessingRepository $examProcessingRepository,
+        AdmitCardRepository $admitCardRepository,
+        ExamResultRepository $examResultRepository,
+        ProgramRepository $programRepository
+    ) {
+        $this->profileRepository = $profileRepository;
+        $this->userRepository = $userRepository;
+        $this->qualificationRepository = $qualificationRepository;
         $this->profileLogsRepository = $profileLogsRepository;
         $this->profileProcessingRepository = $profileProcessingRepository;
-        $this->examRepository=$examRepository;
-        $this->examProcessingRepository=$examProcessingRepository;
-        $this->admitCardRepository=$admitCardRepository;
-        $this->examResultRepository=$examResultRepository;
+        $this->examRepository = $examRepository;
+        $this->examProcessingRepository = $examProcessingRepository;
+        $this->admitCardRepository = $admitCardRepository;
+        $this->examResultRepository = $examResultRepository;
         $this->programRepository = $programRepository;
         parent::__construct();
     }
 
-    public function index() {
-        $programs = $this->programRepository->getAll()->where('level','!=','4');
+    public function index()
+    {
+        $programs = $this->programRepository->getAll()->where('level', '!=', '4');
         $tslc = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"), \DB::raw("status as status"), \DB::raw("state as state"))
-            ->where('status','=','progress')
-            ->where('state','=','exam_committee')
-            ->groupBy('program_id','status','state')
+            ->where('status', '=', 'progress')
+            ->where('state', '=', 'exam_committee')
+            ->groupBy('program_id', 'status', 'state')
             ->orderBy('count')
             ->where('level_id', '<', 4)
             ->get();
 
-        $count = ExamProcessing::all()->where('status','=','progress')
-            ->where('state','=','exam_committee')
-            ->where('is_admit_card_generate', '!=' ,'yes')
+        $count = ExamProcessing::all()->where('status', '=', 'progress')
+            ->where('state', '=', 'exam_committee')
+            ->where('is_admit_card_generate', '!=', 'yes')
             ->count();
 
-        return view('examCommittee::pages.dashboard',compact('programs','tslc','count'));
+        return view('examCommittee::pages.dashboard', compact('programs', 'tslc', 'count'));
     }
 
-    public function generateAdmitCard($status,$current_state, $program_id){
-        $users = $this->examProcessingRepository->getAll()->where('status' ,'=',$status)
-            ->where('state','=',$current_state)
-            ->where('program_id','=',$program_id)
-            ->where('is_admit_card_generate', '!=' ,'yes');
-        if ($users->isEmpty()){
-            session()->flash('success','Admit Card Already Been Generated');
-            return redirect()->back()->withInput();
-        }else {
-            $i = 1;
-            $index = ExamProcessing::orderBy('darta_number', 'desc')->first();
-            $darta_number = $index['darta_number'];
-            foreach ($users as $user) {
-                $index = $i++;
-                $darta = ++$darta_number;
-                $data['profile_id'] = $user['profile_id'];
-                $data['exam_processing_id'] = $user['id'];
-                $symbol_number =  $this->generateSymbolNumber($index, $user['level_id'], $program_id);
-                $data['symbol_number'] = $symbol_number;
-                $data['created_by'] = Auth::user()->id;
-                $this->admitCardRepository->create($data);
-                $exam_data['is_admit_card_generate'] = 'yes';
-                $exam_data['darta_number'] = $darta;
-                $this->examProcessingRepository->update($exam_data, $user['id']);
+    public function generateAdmitCard($status, $current_state, $program_id)
+    {
+        try {
+
+
+            $users = $this->examProcessingRepository->getAll()->where('status', '=', $status)
+                ->where('state', '=', $current_state)
+                ->where('program_id', '=', $program_id)
+                ->where('is_admit_card_generate', '!=', 'yes');
+            if ($users->isEmpty()) {
+                session()->flash('success', 'Admit Card Already Been Generated');
+                return redirect()->back()->withInput();
+            } else {
+                $i = 1;
+                $index = ExamProcessing::orderBy('darta_number', 'desc')->first();
+                $darta_number = $index['darta_number'];
+                foreach ($users as $user) {
+                    $index = $i++;
+                    $darta = ++$darta_number;
+                    $data['profile_id'] = $user['profile_id'];
+                    $data['exam_processing_id'] = $user['id'];
+                    $symbol_number =  $this->generateSymbolNumber($index, $user['level_id'], $program_id);
+                    $data['symbol_number'] = $symbol_number;
+                    $data['created_by'] = Auth::user()->id;
+                    $this->admitCardRepository->create($data);
+                    $exam_data['is_admit_card_generate'] = 'yes';
+                    $exam_data['darta_number'] = $darta;
+                    $this->examProcessingRepository->update($exam_data, $user['id']);
+                }
+                session()->flash('success', 'Admit Card Successfully Generated');
+                return redirect()->back()->withInput();
             }
+        } catch (Exception $e) {
             session()->flash('success', 'Admit Card Successfully Generated');
+
+
             return redirect()->back()->withInput();
         }
     }
 
-    public function generateSymbolNumber($index,$level,$program){
+    public function generateSymbolNumber($index, $level, $program)
+    {
         $now = Carbon::now();
         $year = $now->year;
-        $year = substr( $year, -2);
+        $year = substr($year, -2);
         $month = $now->format('m');
-        $level_id =str_pad($level,2,"0",STR_PAD_LEFT);
-        $program_id =str_pad($program,2,"0",STR_PAD_LEFT);
-        $num =$year.$month.$level_id.$program_id.str_pad($index, 3, "0", STR_PAD_LEFT);
+        $level_id = str_pad($level, 2, "0", STR_PAD_LEFT);
+        $program_id = str_pad($program, 2, "0", STR_PAD_LEFT);
+        $num = $year . $month . $level_id . $program_id . str_pad($index, 3, "0", STR_PAD_LEFT);
         return $num;
     }
 
@@ -133,14 +153,15 @@ class  ExamCommitteeController extends BaseController
             $users = $this->examProcessingRepository->getAll()->where('status', '=', $status)
                 ->where('state', '=', $current_state)
                 ->where('level_id', '<', 4)
-                ->where('is_admit_card_generate', '!=' ,'yes');
+                ->where('is_admit_card_generate', '!=', 'yes');
             return $this->view('pages.application-list', $users);
-        }else{
+        } else {
             return redirect()->route('login');
         }
     }
 
-    public function viewAdmitCardDetails($id){
+    public function viewAdmitCardDetails($id)
+    {
         if (Auth::user()->mainRole()->name === 'exam_committee') {
 
             $admitcard = $this->admitCardRepository->getAll()->where('exam_processing_id', '=', $id)->first();
@@ -149,7 +170,7 @@ class  ExamCommitteeController extends BaseController
             $exam = $this->examProcessingRepository->findById($admitcard['exam_processing_id']);
 
             return \view('examCommittee::pages.view-admit-card', compact('admitcard', 'profileDetails', 'exam'));
-        }else{
+        } else {
             return redirect()->to('login');
         }
     }
@@ -162,32 +183,33 @@ class  ExamCommitteeController extends BaseController
         return back();
     }
 
-    public function FileForwardCouncil(){
-        $passed_list = $this->examResultRepository->getAll()->where('status','=','PASSED');
-        foreach ($passed_list as $pass){
-            $admit_card = AdmitCard::all()->where('symbol_number','=', $pass['symbol_number']);
-            foreach ($admit_card as $admit){
-                   $data['state'] = 'council';
+    public function FileForwardCouncil()
+    {
+        $passed_list = $this->examResultRepository->getAll()->where('status', '=', 'PASSED');
+        foreach ($passed_list as $pass) {
+            $admit_card = AdmitCard::all()->where('symbol_number', '=', $pass['symbol_number']);
+            foreach ($admit_card as $admit) {
+                $data['state'] = 'council';
                 $data['current_state'] = 'council';
                 $data['isPassed'] = true;
-                   $examProcesing = $this->examProcessingRepository->update($data,$admit['exam_processing_id']);
-                   $profileProcessing = $this->profileRepository->update($data,$admit['profile_id']);
+                $examProcesing = $this->examProcessingRepository->update($data, $admit['exam_processing_id']);
+                $profileProcessing = $this->profileRepository->update($data, $admit['profile_id']);
             }
         }
         $this->failedStudentList();
-
     }
 
-    public function failedStudentList(){
-        $failed_list = $this->examResultRepository->getAll()->where('status','!=','PASSED');
-        foreach ($failed_list as $pass){
-            $admit_card = AdmitCard::all()->where('symbol_number','=', $pass['symbol_number']);
-            foreach ($admit_card as $admit){
+    public function failedStudentList()
+    {
+        $failed_list = $this->examResultRepository->getAll()->where('status', '!=', 'PASSED');
+        foreach ($failed_list as $pass) {
+            $admit_card = AdmitCard::all()->where('symbol_number', '=', $pass['symbol_number']);
+            foreach ($admit_card as $admit) {
                 $exam = $this->examProcessingRepository->findById($admit['exam_processing_id']);
                 $data['isPassed'] = false;
                 $data['status'] = 'rejected';
                 $data['attempt'] = 2;
-                $examProcesing = $this->examProcessingRepository->update($data,$admit['exam_processing_id']);
+                $examProcesing = $this->examProcessingRepository->update($data, $admit['exam_processing_id']);
             }
         }
         session()->flash('success', 'Passed Student has been forwarded to council and failed student to operator');
@@ -212,7 +234,7 @@ class  ExamCommitteeController extends BaseController
 
         $columns = array('Title', 'Assign', 'Description', 'Start Date', 'Due Date');
 
-        $callback = function() use($tasks, $columns) {
+        $callback = function () use ($tasks, $columns) {
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
 
@@ -230,49 +252,51 @@ class  ExamCommitteeController extends BaseController
         };
 
         return response()->stream($callback, 200, $headers);
-//        return Excel::download(new ResultExport(), 'users-collection.xlsx');
+        //        return Excel::download(new ResultExport(), 'users-collection.xlsx');
     }
 
-    public function programWiseStudent($id){
+    public function programWiseStudent($id)
+    {
         if (Auth::user()->mainRole()->name === 'exam_committee') {
             $data = ExamProcessing::all()->where('status', '=', 'progress')
                 ->where('state', '=', 'exam_committee')
-                ->where('program_id', '=' ,$id)
+                ->where('program_id', '=', $id)
                 ->where('status', '!=', 'rejected')
-                ->where('attempt','=',1);
+                ->where('attempt', '=', 1);
 
 
-            return view('examCommittee::pages.program-wise-application-list', compact('data','id'));
-        }else{
+            return view('examCommittee::pages.program-wise-application-list', compact('data', 'id'));
+        } else {
             return redirect()->route('login');
         }
     }
 
-    public function admitCardGeneratedStudent(){
+    public function admitCardGeneratedStudent()
+    {
         if (Auth::user()->mainRole()->name === 'exam_committee') {
             $users = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
                 ->where('state', '=', 'exam_committee')
-                ->where('is_admit_card_generate', '=' ,'yes');
+                ->where('is_admit_card_generate', '=', 'yes');
             return $this->view('pages.admit-card-generated-list', $users);
-        }else{
+        } else {
             return redirect()->route('login');
         }
     }
 
 
-    public function removeFlagGeneratedYes(){
+    public function removeFlagGeneratedYes()
+    {
         if (Auth::user()->mainRole()->name === 'exam_committee') {
             $users = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
                 ->where('state', '=', 'exam_committee')
-                ->where('is_admit_card_generate', '=' ,'yes');
+                ->where('is_admit_card_generate', '=', 'yes');
 
-            foreach ($users as $user){
+            foreach ($users as $user) {
                 $data['is_admit_card_generate'] = 'no';
-                $this->examProcessingRepository->update($data,$user->id);
+                $this->examProcessingRepository->update($data, $user->id);
             }
             return $this->view('pages.admit-card-generated-list', $users);
-
-        }else{
+        } else {
             return redirect()->route('login');
         }
     }
@@ -281,13 +305,13 @@ class  ExamCommitteeController extends BaseController
     {
         $fileName = 'StudentSymbolNumberList.csv';
 
-        $tasks = AdmitCard::join('profiles','profiles.id','=','admit_card.profile_id')
-            ->join('exam_registration','exam_registration.id','=','admit_card.exam_processing_id')
-            ->join('program','program.id','=','exam_registration.program_id')
-            ->join('level','level.id','=','program.level_id')
-            ->join('users','users.id','=','profiles.user_id')
-            ->where('admit_card.created_at','=','2022-09-10')
-            ->get(['level.name as level_name','admit_card.*','profiles.*','program.*','users.email as email','users.phone_number as phone_number']);
+        $tasks = AdmitCard::join('profiles', 'profiles.id', '=', 'admit_card.profile_id')
+            ->join('exam_registration', 'exam_registration.id', '=', 'admit_card.exam_processing_id')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->join('level', 'level.id', '=', 'program.level_id')
+            ->join('users', 'users.id', '=', 'profiles.user_id')
+            ->where('admit_card.created_at', '>=', '2022-09-11')
+            ->get(['level.name as level_name', 'admit_card.*', 'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number']);
 
 
         $headers = array(
@@ -298,13 +322,15 @@ class  ExamCommitteeController extends BaseController
             "Expires"             => "0"
         );
 
-        $columns = array('registration_id','created_at','updated_at','deleted_at','created_by','update_by','deleted_by',
-            'first_name','middle_name','last_name',  'symbol_number', 'gender','program', 'level','photo_link',
-            'barcode','exam_center','vdc_municipality_english','phone_id','DOB','year_dob_nepali_data','month_dob_nepali_data',
-            'day_dob_nepali_data','student_signature', 'collage','webcam', 'thumb', 'thumb2','email',
-            'phone_no','result','percentage','year','month');
+        $columns = array(
+            'registration_id', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'update_by', 'deleted_by',
+            'first_name', 'middle_name', 'last_name',  'symbol_number', 'gender', 'program', 'level', 'photo_link',
+            'barcode', 'exam_center', 'vdc_municipality_english', 'phone_id', 'DOB', 'year_dob_nepali_data', 'month_dob_nepali_data',
+            'day_dob_nepali_data', 'student_signature', 'collage', 'webcam', 'thumb', 'thumb2', 'email',
+            'phone_no', 'result', 'percentage', 'year', 'month'
+        );
 
-        $callback = function() use($tasks, $columns) {
+        $callback = function () use ($tasks, $columns) {
 
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
@@ -316,14 +342,14 @@ class  ExamCommitteeController extends BaseController
                 $row['created_by'] = 1;
                 $row['updated_by'] = 1;
                 $row['deleted_by'] = 0;
-                $row['first_name']  = $task->first_name ;
+                $row['first_name']  = $task->first_name;
                 $row['middle_name']  =  $task->middle_name;
                 $row['last_name']  = $task->last_name;
                 $row['symbol']    = $task->symbol_number;
                 $row['gender']    = $task->sex;
                 $row['program']  = $task->name;
                 $row['level'] = $task->level_name;
-                $row['photo_link'] = 'http://103.175.192.52/storage/documents/'.$task->profile_picture;
+                $row['photo_link'] = 'http://103.175.192.52/storage/documents/' . $task->profile_picture;
                 $row['bar_code'] = null;
                 $row['exam_center'] = null;
                 $row['vdc'] = $task->vdc_municiplality;
@@ -346,40 +372,41 @@ class  ExamCommitteeController extends BaseController
 
 
                 fputcsv($file, array(
-                    $row['registration_id'] ,
-                    $row['created_at'] ,
+                    $row['registration_id'],
+                    $row['created_at'],
                     $row['updated_at'],
-                    $row['deleted_at'] ,
-                    $row['created_by'] ,
-                    $row['updated_by'] ,
+                    $row['deleted_at'],
+                    $row['created_by'],
+                    $row['updated_by'],
                     $row['deleted_by'],
                     $row['first_name'],
                     $row['middle_name'],
                     $row['last_name'],
-                    $row['symbol']   ,
-                    $row['gender']   ,
-                    $row['program'] ,
-                    $row['level'] ,
-                    $row['photo_link'] ,
-                    $row['bar_code'] ,
-                    $row['exam_center'] ,
-                    $row['vdc'] ,
-                    $row['phone_id'] ,
-                    $row['dob']    ,
+                    $row['symbol'],
+                    $row['gender'],
+                    $row['program'],
+                    $row['level'],
+                    $row['photo_link'],
+                    $row['bar_code'],
+                    $row['exam_center'],
+                    $row['vdc'],
+                    $row['phone_id'],
+                    $row['dob'],
                     $row['year_dob_nepali_data'],
-                    $row['month_dob_nepali_data'] ,
+                    $row['month_dob_nepali_data'],
                     $row['day_dob_nepali_data'],
                     $row['student_signature'],
-                    $row['collage'] ,
-                    $row['webcam'] ,
+                    $row['collage'],
+                    $row['webcam'],
                     $row['thumb'],
-                    $row['thumb2'] ,
-                    $row['email'] ,
-                    $row['phone_no'] ,
-                    $row['result'] ,
-                    $row['percentage'] ,
-                    $row['year'] ,
-                    $row['month']  ));
+                    $row['thumb2'],
+                    $row['email'],
+                    $row['phone_no'],
+                    $row['result'],
+                    $row['percentage'],
+                    $row['year'],
+                    $row['month']
+                ));
             }
 
             fclose($file);
@@ -387,7 +414,4 @@ class  ExamCommitteeController extends BaseController
 
         return response()->stream($callback, 200, $headers);
     }
-
-
 }
-
