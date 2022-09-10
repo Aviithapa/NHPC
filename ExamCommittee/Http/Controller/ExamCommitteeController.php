@@ -74,6 +74,7 @@ class  ExamCommitteeController extends BaseController
             ->where('status','=','progress')
             ->where('state','=','exam_committee')
             ->groupBy('program_id','status','state')
+            ->where('is_admit_card_generate', '!=' ,'yes')
             ->orderBy('count')
             ->where('level_id', '<', 4)
             ->get();
