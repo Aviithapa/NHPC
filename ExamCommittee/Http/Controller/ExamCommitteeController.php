@@ -73,7 +73,6 @@ class  ExamCommitteeController extends BaseController
         $tslc = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"), \DB::raw("status as status"), \DB::raw("state as state"))
             ->where('status','=','progress')
             ->where('state','=','exam_committee')
-            ->where('is_admit_card_generate', '!=' ,'yes')
             ->groupBy('program_id','status','state')
             ->orderBy('count')
             ->where('level_id', '<', 4)
@@ -241,6 +240,9 @@ class  ExamCommitteeController extends BaseController
                 ->where('program_id', '=' ,$id)
                 ->where('status', '!=', 'rejected')
                 ->where('attempt','=',1);
+
+            dd($data);
+
             return view('examCommittee::pages.program-wise-application-list', compact('data','id'));
         }else{
             return redirect()->route('login');
