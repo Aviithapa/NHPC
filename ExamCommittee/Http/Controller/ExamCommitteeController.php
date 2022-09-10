@@ -310,7 +310,7 @@ class  ExamCommitteeController extends BaseController
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->join('level', 'level.id', '=', 'program.level_id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
-            ->where('exam_registration.created_at', '>=', '2022-07-08')
+            ->where('exam_registration.updated_at', '>=', '2022-09-10')
             ->get(['level.name as level_name', 'admit_card.*', 'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number']);
 
             dd($tasks);
