@@ -82,6 +82,7 @@ class  ExamCommitteeController extends BaseController
         $tslc = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"), \DB::raw("status as status"), \DB::raw("state as state"))
             ->where('status', '=', 'progress')
             ->where('state', '=', 'exam_committee')
+            ->where('updated_at', '>=', '2022-09-10')
             ->groupBy('program_id', 'status', 'state')
             ->orderBy('count')
             ->where('level_id', '<', 4)
