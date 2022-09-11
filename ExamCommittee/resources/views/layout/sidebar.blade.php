@@ -28,7 +28,9 @@
 
             <li class="{{ (request()->is('examCommittee/dashboard/examCommittee/dashboard/examCommittee/admit-Card-Generated-Student')) ? 'active':''  }}">
                 <a href="{{route("examCommittee.admit.card.generated")}}">
-                    <i class="icon-book-open"></i> <span>Admit Card Students  <span class="badge badge-pill badge-danger heartbit" >{{countAdmitGeneratedCard()}}</span>
+                    <i class="icon-book-open"></i> <span>Admit Card Students  <span class="badge badge-pill badge-danger heartbit" > 4914 
+                        {{-- {{countAdmitGeneratedCard()}} --}}
+                    </span>
                 </span>
                 </a>
             </li>
