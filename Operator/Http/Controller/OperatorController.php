@@ -1160,7 +1160,7 @@ class OperatorController extends BaseController
         $exams = ExamProcessing::all()->where('status', '=', 'rejected')->where('attempt', '=', 1);
         foreach ($exams as $exam) {
             $profile = $this->profileRepository->findById($exam->profile_id);
-            if ($profile->profile_status == 'Rejected' && $profile->updated_at >= '2022-08-25' && $profile->profile_state == 'officer') {
+            if ($profile->profile_status == 'Rejected' && $profile->updated_at >= '2022-08-10' && $profile->profile_state == 'officer') {
                 $examState['status'] = 'progress';
                 $profileState['profile_state'] = 'computer_operator';
                 $profileState['profile_status'] = 'Reviewing';
