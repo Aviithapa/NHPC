@@ -340,7 +340,10 @@ class  ExamCommitteeController extends BaseController
 
         $columns = array(
             'registration_id', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'update_by', 'deleted_by',
-            'first_name', 'middle_name', 'last_name',  'symbol_number', 'gender', 'program', 'level', 'photo_link',
+            'name', 
+            // 'middle_name', 
+            // 'last_name', 
+             'symbol_number', 'gender', 'program', 'level', 'photo_link',
             'barcode', 'exam_center', 'vdc_municipality_english', 'phone_id', 'DOB', 'year_dob_nepali_data', 'month_dob_nepali_data',
             'day_dob_nepali_data', 'student_signature', 'collage', 'webcam', 'thumb', 'thumb2', 'email',
             'phone_no', 'result', 'percentage', 'year', 'month'
@@ -358,9 +361,9 @@ class  ExamCommitteeController extends BaseController
                 $row['created_by'] = 1;
                 $row['updated_by'] = 1;
                 $row['deleted_by'] = 0;
-                $row['first_name']  = $task->first_name;
-                $row['middle_name']  =  $task->middle_name;
-                $row['last_name']  = $task->last_name;
+                $row['name']  = $task->first_name .' ' .  $task->middle_name .' ' . $task->last_name;
+                // $row['middle_name']  =  $task->middle_name;
+                // $row['last_name']  = $task->last_name;
                 $row['symbol']    = $task->symbol_number;
                 $row['gender']    = $task->sex;
                 $row['program']  = $task->name;
@@ -395,9 +398,9 @@ class  ExamCommitteeController extends BaseController
                     $row['created_by'],
                     $row['updated_by'],
                     $row['deleted_by'],
-                    $row['first_name'],
-                    $row['middle_name'],
-                    $row['last_name'],
+                    $row['name'],
+                    // $row['middle_name'],
+                    // $row['last_name'],
                     $row['symbol'],
                     $row['gender'],
                     $row['program'],
