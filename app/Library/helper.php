@@ -57,6 +57,7 @@ if (! function_exists('checkStatus')) {
             ->where('state','=','exam_committee')
             ->where('state','=','exam_committee')
             ->where('is_admit_card_generate', '=' ,'yes')
+            ->where('updated_at', '>=', '2022-08-25')
         ->where('program_id','=',$program_id)
             ->count();
 
