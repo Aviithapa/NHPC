@@ -401,7 +401,7 @@ class ProfileController extends BaseController
             $data = "Error";
             return view('student::pages.admit-download', compact('data'));
         }
-        $admit_card = $this->admitCardRepository->getAll()->where('profile_id','=',$profile['id'])->first();
+        $admit_card = $this->admitCardRepository->getAll()->where('profile_id','=',$profile['id'])->last();
         if ($admit_card === null){
             $data = "Error";
             return view('student::pages.admit-download', compact('data'));
