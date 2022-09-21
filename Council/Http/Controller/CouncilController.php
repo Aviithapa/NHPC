@@ -7,6 +7,7 @@ namespace Council\Http\Controller;
 use App\Exports\ResultExport;
 use App\Imports\ResultImport;
 use App\Models\Certificate\Certificate;
+use App\Models\Certificate\CertificateHistory;
 use App\Modules\Backend\Admin\Level\Repositories\LevelRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
@@ -116,60 +117,29 @@ class CouncilController extends BaseController
             $data = $request->all();
             $date = isset($data['date']);
             if (isset($data['date'])) {
-                
-                if ($data['date']  === "2022-07-08") {
-                    $certificate = DB::table('certificate_history')
-                        ->select('program_id', 'level_name', 'program_certificate_code',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns'))
-                        ->groupBy('program_id', 'level_name', 'program_certificate_code')
-                        ->orWhere('decision_date', '=', '2022-07-12')
-                        ->orWhere('decision_date', '=', '2022-07-14')
-                        ->orWhere('decision_date', '=', '2022-07-18')
-                        ->orderBy('srn','DESC')
-                        ->get(array('srn'))
-                        ->unique('program_id');
-                } else {
-                    $certificate = DB::table('certificate_history')
 
-                        ->select('program_id', 'level_name', 'program_certificate_code',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns'))
-                        ->groupBy('program_id', 'level_name', 'program_certificate_code')
-                        ->orWhere('decision_date', '=', $date)
-                        //                    ->orWhere('decision_date','=','2022-07-14')
-                        //                    ->orWhere('decision_date','=','2022-07-18')
-                        ->orderBy('level_name')
-                        ->orderBy('srn', 'ASC')
-                        ->get(array('srn'))
-                        ->unique('program_id');
-                }
-
-
-
-                //                $program_certificates_code = Certificate::all()
-                //                    ->where('decision_date','=', $date)
-                //                    ->groupBy('program_id','srn')
-                //
-                //                                  ;
-                //                $attributes = array_keys($program_certificates_code->toArray());
-                //                dd($attributes , $program_certificates_code);
-                ////                foreach ($program_certificates_code as $program){
-                ////                    if()
-                ////                }
+                $certificate = DB::table('certificate_history')
+                    ->select('program_id', 'level_name', 'program_certificate_code',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns'))
+                    ->groupBy('program_id', 'level_name', 'program_certificate_code')
+                    ->orWhere('decision_date', '=', $data['date'])
+                    ->orderBy('level_name')
+                    ->orderBy('srn', 'ASC')
+                    ->get(array('srn'))
+                    ->unique('program_id');
             } else {
                 $certificate = DB::table('certificate_history')
 
                     ->select('program_id', 'level_name', 'program_certificate_code',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns'))
                     ->groupBy('program_id', 'level_name', 'program_certificate_code')
-                    ->orWhere('decision_date', '=', '2022-06-05')
-                    //                    ->orWhere('decision_date','=','2022-07-14')
-                    //                    ->orWhere('decision_date','=','2022-07-18')
                     ->orderBy('level_name')
                     ->orderBy('srn', 'ASC')
                     ->get(array('srn'))
                     ->unique('program_id');
             }
+            $selectedDate = isset($data['date']) ? $data['date'] : '';
 
-            //            else
-            //                $program_certificates_code = Certificate::select('program_certificate_code')->distinct()->get();
-            return \view('council::pages.darta-book', compact('certificate','date'));
+
+            return \view('council::pages.darta-book', compact('certificate', 'date', 'selectedDate'));
         } else {
             return redirect()->route('login');
         }
@@ -179,14 +149,37 @@ class CouncilController extends BaseController
     public function applicantdartaBookIndex($id, $date)
     {
         if (Auth::user()->mainRole()->name === 'council') {
-            $date = "2022-08-15";
-            $certificate = $this->certificateRepository->getAll()->where('program_id', '=', $id)->where('decision_date', '=', $date);
-            return \view('council::pages.darta-book-details', compact('certificate'));
+
+            $data = isset($date) ?  $date : "";
+
+            $certificate = Certificate::where('decision_date', '=', $data)->where('program_id', '=', $id)->get();
+
+
+            //    dd($certificate);
+            return \view('council::pages.darta-book-details', compact('certificate','data'));
         } else {
             return redirect()->route('login');
         }
     }
 
+    public function changeDecisionDate()
+    {
+        if (Auth::user()->mainRole()->name === 'council') {
+            $certificates = Certificate::orWhere('decision_date', '=', '2022-07-12')
+                ->orWhere('decision_date', '=', '2022-07-14')
+                ->orWhere('decision_date', '=', '2022-07-18')->get();
+
+
+            foreach ($certificates as $certificate) {
+                $data['decision_date'] = '2022-07-08';
+                $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
+            }
+
+            return redirect()->back();
+        } else {
+            return redirect()->route('login');
+        }
+    }
     public function getallExamPassedList()
     {
         if (Auth::user()->mainRole()->name === 'council') {
@@ -287,5 +280,31 @@ class CouncilController extends BaseController
         if ($update == false)
             return false;
         return true;
+    }
+
+    public function edit($id)
+    {
+        if (Auth::user()->mainRole()->name === 'council') {
+            $data = $this->profileRepository->findById($id);
+            $user_id = $data['user_id'];
+            $user_data = $this->userRepository->findById($user_id);
+            $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $data['user_id']);
+            $profile_logs = $this->profileLogsRepository->getAll()->where('profile_id', '=', $id);
+            $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
+            $exams = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id);
+            $examslatest = DB::table('exam_registration')
+                ->where('profile_id', '=', $id)
+                ->latest()
+                ->first();
+            $certificate = DB::table('certificate_history')
+                ->where('profile_id', '=', $id)
+                ->get();
+            // dd($certificate);
+            // $this->examProcessingRepository->getAll()->where('profile_id', '=', $id);
+
+            return view('council::pages.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams', 'examslatest', 'certificate'));
+        } else {
+            return redirect()->route('login');
+        }
     }
 }

@@ -21,6 +21,7 @@
                         <div class="box-header with-border p-t-1">
                             <h3 class="box-title text-black">Applicant of Darta Book</h3>
                             <div class="pull-right">
+                             {{ $data }} Decision Date <br>   {{ count($certificate) }} Total Student Count
                             </div>
                         </div>
                         <!-- /.box-header -->
@@ -28,32 +29,34 @@
                             <div class="table-responsive">
                                 <table id="data-table" class="table no-margin" style=" font-size: 14px ;">
                                     <thead style=" font-size: 14px ; font-weight: bold;">
+                                        <td>S.N.</td>
                                     <td>Darta Number</td>
                                     <td>Name</td>
                                     <td>Address</td>
                                     <td>Qualification</td>
                                     <td>Date of Birth</td>
                                     <td>Cert Registration Number</td>
+                                    <td>Action</td>
                                     </thead>
                                     <tbody>
-                                    @if($certificate->isEmpty())
-                                        <tr>
-                                            <td>
-                                            No data found related to this
-                                            </td>
-                                        </tr>
-                                    @else
                                     @foreach($certificate as $key => $certificates)
                                         <tr>
+                                            <td> {{ ++ $key}} </td>
                                             <td>{{$certificates->srn}}</td>
                                             <td>{{$certificates->name}}</td>
                                             <td>{{$certificates->address}}</td>
                                             <td>{{$certificates->qualification}}</td>
                                             <td>{{$certificates->date_of_birth}}</td>
                                             <td>{{$certificates->cert_registration_number}}</td>
+                                            @if($certificates->profile_id != 0)
+                                            <td> <a href="{{url("council/dashboard/student/view/".$certificates->profile_id)}}"><span class="label label-success">View</span></a></td>
+                                            @else
+                                            <td><span class="label label-success">Old Application</span></></td>
+
+                                            @endif
                                         </tr>
                                     @endforeach
-                                                @endif
+                                                {{-- @endif --}}
                                     </tbody>
                                 </table>
                             </div>

@@ -18,18 +18,18 @@
         <!-- sidebar menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">PERSONAL</li>
-            <li class="active">
+            <li class="{{ (request()->is('council/dashboard')) ? 'active':''  }}">
                 <a href="{{route('council.dashboard')}}">
                     <i class="icon-home"></i> <span>Dashboard</span>
 
                 </a>
             </li>
-            <li class="">
+            <li class="{{ (request()->is('council/dashboard/council/applicant/passed/list')) ? 'active':''  }}">
                 <a href="{{route("council.pass.list")}}">
                     <i class="icon-graduation"></i> <span>View all Passed List</span>
                 </a>
             </li>
-            <li class="">
+            <li class="{{ (request()->is('council/dashboard/council/darta/book')) ? 'active':  ''  }}">
                 <a href="{{route('council.darta.book')}}">
                     <i class="icon-book-open"></i> <span>Darta Book</span>
 
