@@ -62,13 +62,9 @@
                             
                                                 //code...
                                               }} --}}
-                                              @try
-                                              {!!  \SimpleSoftwareIO\QrCode\Facades\QrCode::size(100)->generate('Name : '.$profile->getFullName(). 'Symbol Number'  . $admit_card->symbol_number. ' Dob' . $profile->dob_nep ) ?? "Invalid"
-                                                 !!}
-  @catch (e) {
-    "Invalid"
-  }
-                                               <p>रोल नम्बर<span style="padding-left:1em;">:
+                                              
+                                              {!!  \SimpleSoftwareIO\QrCode\Facades\QrCode::size(100)->generate('Name : '.$profile->getFullName(). 'Symbol Number'  . $admit_card->symbol_number. ' Dob' . $profile->dob_nep )  !!}
+                                      <p>रोल नम्बर<span style="padding-left:1em;">:
                                                            @if($admit_card)
                                                            {{$admit_card->symbol_number}}
                                                        @else
