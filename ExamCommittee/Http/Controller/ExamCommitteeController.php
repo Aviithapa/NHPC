@@ -187,7 +187,7 @@ class  ExamCommitteeController extends BaseController
     public function FileForwardCouncil()
     {
         $date = "2022-09-27";
-        $passed_list = $this->examResultRepository->getAll()->where('status', '=', 'PASSED')->where('created_at', 'Like', '%' . $date . '%');
+        $passed_list = $this->examResultRepository->getAll()->where('status', '=', 'PASSED');
         foreach ($passed_list as $pass) {
             $admit_card = AdmitCard::all()->where('symbol_number', '=', $pass['symbol_number']);
             foreach ($admit_card as $admit) {
@@ -198,7 +198,8 @@ class  ExamCommitteeController extends BaseController
                 $profileProcessing = $this->profileRepository->update($data, $admit['profile_id']);
             }
         }
-        $this->absentStudentList();
+        return redirect()->back();
+        // $this->absentStudentList();
     }
     public function absentStudentList()
     {
