@@ -17,4 +17,4 @@ Route::post('examCommittee/dashboard/examCommittee/import-result', [ \ExamCommit
 Route::get('/examCommittee/search/student',[\ExamCommittee\Http\Controller\SearchController::class,"index"])->middleware(['auth'])->name('examCommittee.search.student');
 Route::get('/examCommittee/search',[\ExamCommittee\Http\Controller\SearchController::class,"search"])->middleware(['auth'])->name('examCommittee.search');
 
-Route::get('/examCommittee/FileForwardCouncil', [\ExamCommittee\Http\Controller\SearchController::class,"FileForwardCouncil"])->middleware(['auth'])->name('examCommittee.FileForwardCouncil');
+Route::get('/examCommittee/FileForwardCouncil', [\ExamCommittee\Http\Controller\ExamCommitteeController::class,"FileForwardCouncil"])->middleware(['auth'])->name('examCommittee.FileForwardCouncil');
