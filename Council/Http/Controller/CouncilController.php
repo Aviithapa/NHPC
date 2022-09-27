@@ -8,6 +8,8 @@ use App\Exports\ResultExport;
 use App\Imports\ResultImport;
 use App\Models\Certificate\Certificate;
 use App\Models\Certificate\CertificateHistory;
+use App\Models\Profile\Profilelogs;
+use App\Models\SubjectCommittee\SubjectCommitteeUser;
 use App\Modules\Backend\Admin\Level\Repositories\LevelRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
@@ -156,7 +158,7 @@ class CouncilController extends BaseController
 
 
             //    dd($certificate);
-            return \view('council::pages.darta-book-details', compact('certificate','data'));
+            return \view('council::pages.darta-book-details', compact('certificate', 'data'));
         } else {
             return redirect()->route('login');
         }
@@ -186,15 +188,98 @@ class CouncilController extends BaseController
 
             $data = $this->examProcessingRepository->getAll()->where('state', '=', 'council')
                 ->where('status', '=', 'progress')
-                ->where('level_id', '=', 4);
+                ->where('level_id', '!=', 4);
             return \view('council::pages.passed-list', compact('data'));
         } else {
             return redirect()->route('login');
         }
     }
 
+    public function getallTSLCPassedList()
+    {
+        if (Auth::user()->mainRole()->name === 'council') {
+
+            $data = $this->examProcessingRepository->getAll()->where('state', '=', 'council')
+                ->where('status', '=', 'progress')
+                ->where('level_id', '=', 4);
+            return \view('council::pages.tslc-passed-list', compact('data'));
+        } else {
+            return redirect()->route('login');
+        }
+    }
 
     public function moveToDartaBook()
+    {
+
+        try {
+            //code...
+            $students = $profiles = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+                ->join('program', 'program.id', '=', 'exam_registration.program_id')
+                ->join('level', 'level.id', '=', 'program.level_id')
+                ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
+                ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+                ->where('exam_registration.status', "=", 'progress')
+                ->where('exam_registration.state', "=", 'council')
+                ->where('exam_registration.level_id', "!=", '4')
+                ->where('exam_registration.attempt', "=", '1')
+                //            ->where('exam_registration.isPassed',"=",true)
+                ->where('exam_registration.certificate_generate', '=', 'No')
+                ->orderBy('profiles.created_at', 'ASC')
+                ->get([
+                    'profiles.*', 'profiles.id as profile_id', 'profiles.created_at as profile_created_at', 'program.name as program_name', 'program.*',
+                    'program.id as program_id', 'level.*', 'provinces.province_name', 'exam_registration.id as exam_registration_id'
+                ]);
+            foreach ($students as $student) {
+                $srn_number = 0;
+                $date = '2022-09-25';
+                $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
+                $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
+                $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
+                    ->where('program_id', '=', $student['program_id'])->first();
+                if ($srn_number)
+                    $srn = $srn_number['srn'];
+                $registration_id = $registration_number['registration_id'];
+                $data['registration_id'] = ++$registration_id;
+                $data['category_id'] = $student[''];
+                $data['profile_id'] = $student['profile_id'];
+                $data['program_id'] = $student['program_id'];
+                $data['srn'] = ++$srn;
+                $data['program_certificate_code'] = $student['certificate_name'];
+                $data['cert_registration_number'] = $this->certRegistrationNumber($data['srn'], $student['certificate_name'], $student['level_code']);
+                $data['registrar'] = 'puspa raj khanal';
+                $data['decision_date'] = $date;
+
+                //            $date;
+                $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
+                $data['date_of_birth'] = $student['dob_nep'];
+                $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
+                $data['program_name'] = $student['qualification'];
+                $data['level_name'] = $student['level_'];
+                $data['qualification'] = $student['program_name'] . ':' . $student['board_university'] . ':'  . $student['passed_year'];
+                $data['issued_year'] = Carbon::today()->year;
+                $data['issued_date'] = $date;
+                $data['valid_till'] = Carbon::now()->addYears(5);
+                $data['certificate'] = 'new';
+                $data['issued_by'] = Auth::user()->id;
+                $data['certificate_status'] = 1;
+                $certificate = $this->certificateRepository->create($data);
+                $examupdate['status'] = "accepted";
+                $examupdate['state'] = "council";
+                $this->examProcessingRepository->update($examupdate, $student['exam_registration_id']);
+                //                $this->updateQualificationHistory($qualification);
+                $profilesProcessing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $student['profile_id'])->first();
+                $data['current_state'] = 'council';
+                $data['status'] = 'accepted';
+                $this->profileProcessingRepository->update($data, $profilesProcessing['id']);
+            }
+
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+
+    public function moveToTSLCDartaBook()
     {
 
         try {
@@ -231,9 +316,9 @@ class CouncilController extends BaseController
                 $data['program_id'] = $student['program_id'];
                 $data['srn'] = ++$srn;
                 $data['program_certificate_code'] = $student['certificate_name'];
-                $data['cert_registration_number'] = $this->certRegistrationNumber($data['srn'], $student['certificate_name']);
+                $data['cert_registration_number'] = $this->certRegistrationNumber($data['srn'], $student['certificate_name'], $student['level_code']);
                 $data['registrar'] = 'puspa raj khanal';
-                $data['decision_date'] = $date;
+                $data['decision_date'] = Carbon::now();
 
                 //            $date;
                 $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
@@ -265,9 +350,10 @@ class CouncilController extends BaseController
         }
     }
 
-    private function certRegistrationNumber($srn, $program_code)
+    private function certRegistrationNumber($srn, $program_code, $level)
     {
-        return $srn . ' ' . $program_code;
+        $crtn = $level ? $level . '-' . $srn . ' ' . $program_code : $srn . ' ' . $program_code;
+        return $crtn;
     }
 
     public function updateQualificationHistory($id, $programId)
@@ -306,5 +392,85 @@ class CouncilController extends BaseController
         } else {
             return redirect()->route('login');
         }
+    }
+
+    public function minuteDataSubjectCommitteeIndex()
+    {
+        $subjectCommitteeUser = SubjectCommitteeUser::join('users', 'users.id', '=', 'subject_committee_user.user_id')
+            ->join('subject_committee', 'subject_committee.id', '=', 'subject_committee_user.subjecr_committee_id')
+            ->get(['users.*', 'subject_committee.name as subject_committee_name']);
+        return view('council::pages.minute-subject-index', compact('subjectCommitteeUser'));
+    }
+    public function minuteDataApplicantIndex(Request $request, $id)
+    {
+        $data = $request->all();
+        if (isset($data['date'])) {
+            if ($data['date'] === '2022-06-05') {
+                $time = strtotime($data['date']);
+
+                $newformat = date('Y-m-d', $time);
+                // dd($newformat);
+                $profiles = Profilelogs::join('profiles', 'profiles.id', '=', 'profile_logs.profile_id')
+                    ->where('profile_logs.created_by', '=', $id)
+                    ->join('exam_registration', 'exam_registration.profile_id', '=', 'profile_logs.profile_id')
+                    ->join('level', 'level.id', '=', 'exam_registration.level_id')
+                    ->where('profile_logs.status', '!=', 'rejected')
+                    ->where('profile_logs.created_at', '<', '2022-06-06')
+                    ->where('exam_registration.isPassed', '=', '1')
+                    ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created'])
+                    ->unique('profile_id');
+            } else if ($data['date'] === '2022-07-08') {
+                $time = strtotime($data['date']);
+
+                $newformat = date('Y-m-d', $time);
+                // dd($newformat);
+                $profiles = Profilelogs::join('profiles', 'profiles.id', '=', 'profile_logs.profile_id')
+                    ->where('profile_logs.created_by', '=', $id)
+                    ->join('exam_registration', 'exam_registration.profile_id', '=', 'profile_logs.profile_id')
+                    ->join('level', 'level.id', '=', 'exam_registration.level_id')
+                    ->where('profile_logs.status', '!=', 'rejected')
+                    ->where('profile_logs.created_at', '>=', '2022-06-06')
+                    ->where('profile_logs.created_at', '<=', $newformat)
+                    ->where('exam_registration.isPassed', '=', '1')
+                    ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created'])
+                    ->unique('profile_id');
+            } else if ($data['date'] === '2022-07-26') {
+                $time = strtotime($data['date']);
+
+                $newformat = date('Y-m-d', $time);
+                // dd($newformat);
+                $profiles = Profilelogs::join('profiles', 'profiles.id', '=', 'profile_logs.profile_id')
+                    ->where('profile_logs.created_by', '=', $id)
+                    ->join('exam_registration', 'exam_registration.profile_id', '=', 'profile_logs.profile_id')
+                    ->join('level', 'level.id', '=', 'exam_registration.level_id')
+                    ->where('profile_logs.status', '!=', 'rejected')
+                    ->where('profile_logs.created_at', '>=', '2022-07-09')
+                    ->where('profile_logs.created_at', '<=', $newformat)
+                    ->where('exam_registration.isPassed', '=', '1')
+                    ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created'])
+                    ->unique('profile_id');
+            } else {
+                $profiles = Profilelogs::join('profiles', 'profiles.id', '=', 'profile_logs.profile_id')
+                    ->where('profile_logs.created_by', '=', $id)
+                    ->join('exam_registration', 'exam_registration.profile_id', '=', 'profile_logs.profile_id')
+                    ->join('level', 'level.id', '=', 'exam_registration.level_id')
+                    ->where('profile_logs.status', '!=', 'rejected')
+                    ->where('exam_registration.isPassed', '=', '1')
+                    ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created'])
+                    ->unique('profile_id');
+            }
+        } else {
+            $profiles = Profilelogs::join('profiles', 'profiles.id', '=', 'profile_logs.profile_id')
+                ->where('profile_logs.created_by', '=', $id)
+                ->join('exam_registration', 'exam_registration.profile_id', '=', 'profile_logs.profile_id')
+                ->join('level', 'level.id', '=', 'exam_registration.level_id')
+                ->where('profile_logs.status', '!=', 'rejected')
+                ->where('exam_registration.isPassed', '=', '1')
+                ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created'])
+                ->unique('profile_id');
+        }
+        //        dd($profiles);
+
+        return view('council::pages.minute-applicant-list', compact('profiles', 'id'));
     }
 }

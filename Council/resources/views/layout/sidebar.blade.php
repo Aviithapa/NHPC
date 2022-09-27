@@ -6,7 +6,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="image text-center">
-                <img src="{{asset('dist/img/avatar.png')}}" class="img-circle" alt="User Image" />
+                {{-- <img src="{{asset('dist/img/avatar.png')}}" class="img-circle" alt="User Image" /> --}}
             </div>
             <div class="info">
                 <p>{{\Illuminate\Support\Facades\Auth::user()->name}}</p>
@@ -29,13 +29,22 @@
                     <i class="icon-graduation"></i> <span>View all Passed List</span>
                 </a>
             </li>
+            <li class="{{ (request()->is('council/dashboard/council/applicant/tslc/list')) ? 'active':''  }}">
+                <a href="{{route("council.tslc.list")}}">
+                    <i class="icon-graduation"></i> <span>View TSLC Student List</span>
+                </a>
+            </li>
             <li class="{{ (request()->is('council/dashboard/council/darta/book')) ? 'active':  ''  }}">
                 <a href="{{route('council.darta.book')}}">
                     <i class="icon-book-open"></i> <span>Darta Book</span>
 
                 </a>
             </li>
-
+            <li class="{{ (request()->is('council/dashboard/officer/subjectCommittee/minuteIndex')) ? 'active':''  }}">
+                <a href="{{route("subjectCommittee.minuteDataSubjectCommitteeIndex.officer")}}">
+                    <i class="icon-book-open"></i> <span>Minute  Committee Data</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- /.sidebar -->

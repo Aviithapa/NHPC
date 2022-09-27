@@ -16,7 +16,7 @@
                 </li>
             </ul>
             <div class="pull-left search-box">
-                <form action="#" method="get" class="search-form">
+                {{-- <form action="#" method="get" class="search-form">
                     <div class="input-group">
                         <input name="search" class="form-control" placeholder="" type="text" />
                         <span class="input-group-btn">
@@ -26,12 +26,12 @@
               </span>
                     </div>
                 </form>
-                <!-- search form -->
+                <!-- search form --> --}}
             </div>
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Messages -->
-                    <li class="dropdown messages-menu">
+                    {{-- <li class="dropdown messages-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
                             <div class="notify">
@@ -86,17 +86,17 @@
                                 <a href="#">Check all Notifications</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <!-- User Account  -->
                     <li class="dropdown user user-menu p-ph-res">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{asset('dist/img/img1.jpg')}}" class="user-image" alt="User Image" />
+                            {{-- <img src="{{asset('dist/img/img1.jpg')}}" class="user-image" alt="User Image" /> --}}
                             <span class="hidden-xs">{{ Auth::user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
                                 <div class="pull-left user-img">
-                                    <img src="{{asset('dist/img/avatar.png')}}" class="img-responsive img-circle" alt="User" />
+                                    {{-- <img src="{{asset('dist/img/avatar.png')}}" class="img-responsive img-circle" alt="User" /> --}}
                                 </div>
                                 <p class="text-left">
                                     {{ Auth::user()->name }} <small style="font-size: 8px;">{{ Auth::user()->email }}</small>

@@ -572,83 +572,85 @@ class OfficerController  extends BaseController
     }
 
 
-    public function minuteDataSubjectCommitteeIndex(){
-        $subjectCommitteeUser = SubjectCommitteeUser::join('users','users.id','=','subject_committee_user.user_id')
-                                         ->join('subject_committee','subject_committee.id','=','subject_committee_user.subjecr_committee_id')
-            ->get(['users.*','subject_committee.name as subject_committee_name']);
-        return view('officer::pages.minute-subject-index',compact('subjectCommitteeUser'));
-    }
-    public function minuteDataApplicantIndex(Request $request,$id){
-        $data = $request->all();
-        if(isset($data['date'])){
-        if($data['date'] === '2022-06-05'){ 
-            $time = strtotime($data['date']);
 
-$newformat = date('Y-m-d',$time);
-// dd($newformat);
-            $profiles = Profilelogs::join('profiles','profiles.id','=','profile_logs.profile_id')
-            ->where('profile_logs.created_by','=', $id)
-            ->join('exam_registration','exam_registration.profile_id','=','profile_logs.profile_id')
-            ->join('level','level.id','=','exam_registration.level_id')
-            ->where('profile_logs.status','!=','rejected')
-            ->where('profile_logs.created_at', '<','2022-06-06')
-            ->where('exam_registration.isPassed','=','1')
-            ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id','profile_logs.created_at as profile_logs_created' ])
-           ->unique('profile_id');
-        }else if($data['date'] === '2022-07-08'){ 
-            $time = strtotime($data['date']);
 
-$newformat = date('Y-m-d',$time);
-// dd($newformat);
-            $profiles = Profilelogs::join('profiles','profiles.id','=','profile_logs.profile_id')
-            ->where('profile_logs.created_by','=', $id)
-            ->join('exam_registration','exam_registration.profile_id','=','profile_logs.profile_id')
-            ->join('level','level.id','=','exam_registration.level_id')
-            ->where('profile_logs.status','!=','rejected')
-            ->where('profile_logs.created_at', '>=', '2022-06-06')
-            ->where('profile_logs.created_at', '<=', $newformat)
-            ->where('exam_registration.isPassed','=','1')
-            ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id','profile_logs.created_at as profile_logs_created' ])
-           ->unique('profile_id');
-        }else if($data['date'] === '2022-07-26'){ 
-            $time = strtotime($data['date']);
+//     public function minuteDataSubjectCommitteeIndex(){
+//         $subjectCommitteeUser = SubjectCommitteeUser::join('users','users.id','=','subject_committee_user.user_id')
+//                                          ->join('subject_committee','subject_committee.id','=','subject_committee_user.subjecr_committee_id')
+//             ->get(['users.*','subject_committee.name as subject_committee_name']);
+//         return view('officer::pages.minute-subject-index',compact('subjectCommitteeUser'));
+//     }
+//     public function minuteDataApplicantIndex(Request $request,$id){
+//         $data = $request->all();
+//         if(isset($data['date'])){
+//         if($data['date'] === '2022-06-05'){ 
+//             $time = strtotime($data['date']);
 
-$newformat = date('Y-m-d',$time);
-// dd($newformat);
-            $profiles = Profilelogs::join('profiles','profiles.id','=','profile_logs.profile_id')
-            ->where('profile_logs.created_by','=', $id)
-            ->join('exam_registration','exam_registration.profile_id','=','profile_logs.profile_id')
-            ->join('level','level.id','=','exam_registration.level_id')
-            ->where('profile_logs.status','!=','rejected')
-            ->where('profile_logs.created_at', '>=', '2022-07-09')
-            ->where('profile_logs.created_at', '<=', $newformat)
-            ->where('exam_registration.isPassed','=','1')
-            ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id','profile_logs.created_at as profile_logs_created' ])
-           ->unique('profile_id');
-        }else{
-            $profiles = Profilelogs::join('profiles','profiles.id','=','profile_logs.profile_id')
-            ->where('profile_logs.created_by','=', $id)
-            ->join('exam_registration','exam_registration.profile_id','=','profile_logs.profile_id')
-            ->join('level','level.id','=','exam_registration.level_id')
-            ->where('profile_logs.status','!=','rejected')
-            ->where('exam_registration.isPassed','=','1')
-            ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id' , 'profile_logs.created_at as profile_logs_created'])
-           ->unique('profile_id');
-        }
-}else{
-    $profiles = Profilelogs::join('profiles','profiles.id','=','profile_logs.profile_id')
-    ->where('profile_logs.created_by','=', $id)
-    ->join('exam_registration','exam_registration.profile_id','=','profile_logs.profile_id')
-    ->join('level','level.id','=','exam_registration.level_id')
-    ->where('profile_logs.status','!=','rejected')
-    ->where('exam_registration.isPassed','=','1')
-    ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id' , 'profile_logs.created_at as profile_logs_created'])
-   ->unique('profile_id');
-}
-//        dd($profiles);
+// $newformat = date('Y-m-d',$time);
+// // dd($newformat);
+//             $profiles = Profilelogs::join('profiles','profiles.id','=','profile_logs.profile_id')
+//             ->where('profile_logs.created_by','=', $id)
+//             ->join('exam_registration','exam_registration.profile_id','=','profile_logs.profile_id')
+//             ->join('level','level.id','=','exam_registration.level_id')
+//             ->where('profile_logs.status','!=','rejected')
+//             ->where('profile_logs.created_at', '<','2022-06-06')
+//             ->where('exam_registration.isPassed','=','1')
+//             ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id','profile_logs.created_at as profile_logs_created' ])
+//            ->unique('profile_id');
+//         }else if($data['date'] === '2022-07-08'){ 
+//             $time = strtotime($data['date']);
 
-        return view('officer::pages.minute-applicant-list',compact('profiles', 'id'));
-    }
+// $newformat = date('Y-m-d',$time);
+// // dd($newformat);
+//             $profiles = Profilelogs::join('profiles','profiles.id','=','profile_logs.profile_id')
+//             ->where('profile_logs.created_by','=', $id)
+//             ->join('exam_registration','exam_registration.profile_id','=','profile_logs.profile_id')
+//             ->join('level','level.id','=','exam_registration.level_id')
+//             ->where('profile_logs.status','!=','rejected')
+//             ->where('profile_logs.created_at', '>=', '2022-06-06')
+//             ->where('profile_logs.created_at', '<=', $newformat)
+//             ->where('exam_registration.isPassed','=','1')
+//             ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id','profile_logs.created_at as profile_logs_created' ])
+//            ->unique('profile_id');
+//         }else if($data['date'] === '2022-07-26'){ 
+//             $time = strtotime($data['date']);
+
+// $newformat = date('Y-m-d',$time);
+// // dd($newformat);
+//             $profiles = Profilelogs::join('profiles','profiles.id','=','profile_logs.profile_id')
+//             ->where('profile_logs.created_by','=', $id)
+//             ->join('exam_registration','exam_registration.profile_id','=','profile_logs.profile_id')
+//             ->join('level','level.id','=','exam_registration.level_id')
+//             ->where('profile_logs.status','!=','rejected')
+//             ->where('profile_logs.created_at', '>=', '2022-07-09')
+//             ->where('profile_logs.created_at', '<=', $newformat)
+//             ->where('exam_registration.isPassed','=','1')
+//             ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id','profile_logs.created_at as profile_logs_created' ])
+//            ->unique('profile_id');
+//         }else{
+//             $profiles = Profilelogs::join('profiles','profiles.id','=','profile_logs.profile_id')
+//             ->where('profile_logs.created_by','=', $id)
+//             ->join('exam_registration','exam_registration.profile_id','=','profile_logs.profile_id')
+//             ->join('level','level.id','=','exam_registration.level_id')
+//             ->where('profile_logs.status','!=','rejected')
+//             ->where('exam_registration.isPassed','=','1')
+//             ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id' , 'profile_logs.created_at as profile_logs_created'])
+//            ->unique('profile_id');
+//         }
+// }else{
+//     $profiles = Profilelogs::join('profiles','profiles.id','=','profile_logs.profile_id')
+//     ->where('profile_logs.created_by','=', $id)
+//     ->join('exam_registration','exam_registration.profile_id','=','profile_logs.profile_id')
+//     ->join('level','level.id','=','exam_registration.level_id')
+//     ->where('profile_logs.status','!=','rejected')
+//     ->where('exam_registration.isPassed','=','1')
+//     ->get(['profiles.*','exam_registration.*','level.level_ as level_name','profiles.id as profile_id' , 'profile_logs.created_at as profile_logs_created'])
+//    ->unique('profile_id');
+// }
+// //        dd($profiles);
+
+//         return view('officer::pages.minute-applicant-list',compact('profiles', 'id'));
+//     }
 
 }
 

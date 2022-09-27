@@ -78,11 +78,11 @@
                     <i class="icon-book-open"></i> <span>Subject Committee</span>
                 </a>
             </li>
-            <li class="{{ (request()->is('officer/dashboard/officer/subjectCommittee/minuteIndex')) ? 'active':''  }}">
+            {{-- <li class="{{ (request()->is('officer/dashboard/officer/subjectCommittee/minuteIndex')) ? 'active':''  }}">
                 <a href="{{route("subjectCommittee.minuteDataSubjectCommitteeIndex.officer")}}">
                     <i class="icon-book-open"></i> <span>Minute  Committee Data</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
     <!-- /.sidebar -->

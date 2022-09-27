@@ -197,12 +197,26 @@ class  ExamCommitteeController extends BaseController
                 $profileProcessing = $this->profileRepository->update($data, $admit['profile_id']);
             }
         }
+        $this->absentStudentList();
+    }
+    public function absentStudentList()
+    {
+        $failed_list = $this->examResultRepository->getAll()->where('status', '=', 'ABSENT');
+        foreach ($failed_list as $pass) {
+            $admit_card = AdmitCard::all()->where('symbol_number', '=', $pass['symbol_number']);
+            foreach ($admit_card as $admit) {
+                $exam = $this->examProcessingRepository->findById($admit['exam_processing_id']);
+                $data['isPassed'] = false;
+                $data['status'] = 'rejected';
+                $data['attempt'] = 2;
+                $examProcesing = $this->examProcessingRepository->update($data, $admit['exam_processing_id']);
+            }
+        }
         $this->failedStudentList();
     }
-
     public function failedStudentList()
     {
-        $failed_list = $this->examResultRepository->getAll()->where('status', '!=', 'PASSED');
+        $failed_list = $this->examResultRepository->getAll()->where('status', '=', 'FAILED');
         foreach ($failed_list as $pass) {
             $admit_card = AdmitCard::all()->where('symbol_number', '=', $pass['symbol_number']);
             foreach ($admit_card as $admit) {

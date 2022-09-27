@@ -39,10 +39,12 @@
 
                                         <select class="form-control" name="date"  id="date" >
                                             <option value={{ $selectedDate }}>{{ $selectedDate }}</option>
-                                            <option value="2022-08-15">2022-08-15</option>
-                                            <option value="2022-07-26">2022-07-26</option>
-                                            <option value="2022-07-08">2022-07-08</option>
-                                            <option value="2022-06-05">2022-06-05</option>
+                                            <option value="2022-09-25">2022-09-25  (2079-06-09)</option>
+                                            <option value="2022-09-21">2022-09-21 (2079-06-05)</option>
+                                            <option value="2022-08-15">2022-08-15 (2079-04-30)</option>
+                                            <option value="2022-07-26">2022-07-26 (2079-04-10)</option>
+                                            <option value="2022-07-08">2022-07-08 (2079-03-24)</option>
+                                            <option value="2022-06-05">2022-06-05  (2079-02-22) </option>
                                         </select>
                                     </fieldset>
                                    

@@ -23,5 +23,5 @@ Route::post('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_commit
 
 
 
-Route::get('/officer/subjectCommittee/minuteIndex',[\officer\Http\Controller\OfficerController::class,'minuteDataSubjectCommitteeIndex'])->middleware(['auth'])->name('subjectCommittee.minuteDataSubjectCommitteeIndex.officer');
-Route::match(['get', 'post'], '/officer/minute/applicant/list/{id}',[\officer\Http\Controller\OfficerController::class,'minuteDataApplicantIndex'])->middleware(['auth'])->name('subjectCommittee.minute.applicant.list.officer');
+// Route::get('/officer/subjectCommittee/minuteIndex',[\officer\Http\Controller\OfficerController::class,'minuteDataSubjectCommitteeIndex'])->middleware(['auth'])->name('subjectCommittee.minuteDataSubjectCommitteeIndex.officer');
+// Route::match(['get', 'post'], '/officer/minute/applicant/list/{id}',[\officer\Http\Controller\OfficerController::class,'minuteDataApplicantIndex'])->middleware(['auth'])->name('subjectCommittee.minute.applicant.list.officer');
