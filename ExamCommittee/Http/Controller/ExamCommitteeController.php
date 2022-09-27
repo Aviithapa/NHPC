@@ -186,7 +186,8 @@ class  ExamCommitteeController extends BaseController
 
     public function FileForwardCouncil()
     {
-        $passed_list = $this->examResultRepository->getAll()->where('status', '=', 'PASSED');
+        $date = "2022-09-27";
+        $passed_list = $this->examResultRepository->getAll()->where('status', '=', 'PASSED')->where('created_at', 'Like', '%' . $date . '%');
         foreach ($passed_list as $pass) {
             $admit_card = AdmitCard::all()->where('symbol_number', '=', $pass['symbol_number']);
             foreach ($admit_card as $admit) {
@@ -316,7 +317,8 @@ class  ExamCommitteeController extends BaseController
         }
     }
 
-    public function removeGeneratedAdmitCard(){
+    public function removeGeneratedAdmitCard()
+    {
 
         if (Auth::user()->mainRole()->name === 'exam_committee') {
             $users = $this->examProcessingRepository->getAll()->where('status', '=', 'progress')
@@ -341,7 +343,7 @@ class  ExamCommitteeController extends BaseController
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->join('level', 'level.id', '=', 'program.level_id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
-            ->where('exam_registration.status','!=','rejected')
+            ->where('exam_registration.status', '!=', 'rejected')
             ->where('exam_registration.updated_at', '>=', '2022-08-01')
             ->get(['level.name as level_name', 'admit_card.*', 'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number']);
 
@@ -355,10 +357,10 @@ class  ExamCommitteeController extends BaseController
 
         $columns = array(
             'registration_id', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'update_by', 'deleted_by',
-            'first_name', 
-            'middle_name', 
-            'last_name', 
-             'symbol_number', 'gender', 'program', 'level', 'photo_link',
+            'first_name',
+            'middle_name',
+            'last_name',
+            'symbol_number', 'gender', 'program', 'level', 'photo_link',
             'barcode', 'exam_center', 'vdc_municipality_english', 'phone_id', 'DOB', 'year_dob_nepali_data', 'month_dob_nepali_data',
             'day_dob_nepali_data', 'student_signature', 'collage', 'webcam', 'thumb', 'thumb2', 'email',
             'phone_no', 'result', 'percentage', 'year', 'month'
