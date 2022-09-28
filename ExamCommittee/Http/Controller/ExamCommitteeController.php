@@ -187,13 +187,14 @@ class  ExamCommitteeController extends BaseController
     public function FileForwardCouncil()
     {
         $date = "2022-09-27";
-        $passed_list = $this->examResultRepository->getAll()->where('status', '=', 'PASSED');
+        $data['state'] = 'council';
+        $data['current_state'] = 'council';
+        $data['isPassed'] = true;
+        $passed_list = $this->examResultRepository->getAll()->where('status', '=', 'PASSED')->where('created_at', 'Like', '%' . $date . '%');
+        dd($passed_list);
         foreach ($passed_list as $pass) {
             $admit_card = AdmitCard::all()->where('symbol_number', '=', $pass['symbol_number']);
             foreach ($admit_card as $admit) {
-                $data['state'] = 'council';
-                $data['current_state'] = 'council';
-                $data['isPassed'] = true;
                 $examProcesing = $this->examProcessingRepository->update($data, $admit['exam_processing_id']);
                 $profileProcessing = $this->profileRepository->update($data, $admit['profile_id']);
             }
