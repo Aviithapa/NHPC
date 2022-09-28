@@ -9,6 +9,7 @@ use App\Exports\UsersExport;
 use App\Imports\ResultImport;
 use App\Models\Admin\Program;
 use App\Models\AdmitCard\AdmitCard;
+use App\Models\AdmitCard\ExamResult;
 use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
@@ -186,12 +187,11 @@ class  ExamCommitteeController extends BaseController
 
     public function FileForwardCouncil()
     {
-        $date = "2022-09-27";
+        $date = '2022-09-25';
         $data['state'] = 'council';
         $data['current_state'] = 'council';
         $data['isPassed'] = true;
-        $passed_list = $this->examResultRepository->getAll()->where('status', '=', 'PASSED')->where('created_at', 'Like', '%' . $date . '%');
-        dd($passed_list);
+        $passed_list = ExamResult::all()->where('status', '=', 'PASSED')->where('created_at','>', $date);
         foreach ($passed_list as $pass) {
             $admit_card = AdmitCard::all()->where('symbol_number', '=', $pass['symbol_number']);
             foreach ($admit_card as $admit) {
