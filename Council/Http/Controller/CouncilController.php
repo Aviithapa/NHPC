@@ -140,11 +140,9 @@ class CouncilController extends BaseController
                     ->unique('program_id');
             }
             $selectedDate = isset($data['date']) ? $data['date'] : '';
-            $data = DB::table('certificate_history')
-            
+            $data =isset($data['date']) ? DB::table('certificate_history')
             ->where('decision_date', '=', $data['date'])
-          
-            ->count();
+            ->count() : 0;
       
         
 
