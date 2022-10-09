@@ -213,7 +213,7 @@ class CouncilController extends BaseController
 
         try {
             //code...
-            $students = $profiles = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            $students = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
                 ->join('program', 'program.id', '=', 'exam_registration.program_id')
                 ->join('level', 'level.id', '=', 'program.level_id')
                 ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
@@ -225,6 +225,8 @@ class CouncilController extends BaseController
                 //            ->where('exam_registration.isPassed',"=",true)
                 ->where('exam_registration.certificate_generate', '=', 'No')
                 ->orderBy('profiles.created_at', 'ASC')
+                ->skip(0)
+                ->take(100)
                 ->get([
                     'profiles.*', 'profiles.id as profile_id', 'profiles.created_at as profile_created_at', 'program.name as program_name', 'program.*',
                     'program.id as program_id', 'level.*', 'provinces.province_name', 'exam_registration.id as exam_registration_id'
