@@ -41,8 +41,6 @@
                                     <td>Gender</td>
                                     <td>Program Name</td>
                                     <td>Level</td>
-                                    <td>Photo</td>
-                                    <td>Result Status</td>
                                     </thead>
                                     <tbody>
                                     @if($data === null)
@@ -51,10 +49,10 @@
                                         </tr>
 
                                     @else
+                                    {{ $count = 0 }}
                                         @foreach($data as $key => $exam)
                                             <tr>
-                                                <td>{{++$key}}</td>
-
+                                                <td>{{++$count}}</td>
                                                 <td>{{$exam->getFirstName()}}</td>
                                                 <td>{{$exam->getMiddleName()}}</td>
                                                 <td>{{$exam->getLastName()}}</td>
@@ -62,8 +60,6 @@
                                                 <td>{{$exam->getGender()}}</td>
                                                 <td>{{$exam->getProgramName()}}</td>
                                                 <td>{{$exam->getLevelName()}}</td>
-                                                <td><img src="{{$exam->getProfileImage()}}" src="Student Profile image" height="100" width="100"/></td>
-                                                <td>{{$exam->getPassedStatus}}</td>
                                             </tr>
                                         @endforeach
                                     @endif
