@@ -394,11 +394,33 @@ class CouncilController extends BaseController
         }
     }
 
-    public function minuteDataSubjectCommitteeIndex()
+    public function minuteDataSubjectCommitteeIndex(Request $request)
     {
-        $subjectCommitteeUser = SubjectCommitteeUser::join('users', 'users.id', '=', 'subject_committee_user.user_id')
-            ->join('subject_committee', 'subject_committee.id', '=', 'subject_committee_user.subjecr_committee_id')
-            ->get(['users.*', 'subject_committee.name as subject_committee_name']);
+        $data = $request->all();
+        if (isset($data['date'])) {
+            if (isset($data['subject_committee'])) {
+                if ($data['subject_committee'] == 0) {
+                    $subjectCommitteeUser = SubjectCommitteeUser::join('users', 'users.id', '=', 'subject_committee_user.user_id')
+                        ->join('subject_committee', 'subject_committee.id', '=', 'subject_committee_user.subjecr_committee_id')
+                        ->get(['users.*', 'subject_committee.name as subject_committee_name']);
+                } else {
+
+                    $subjectCommitteeUser = SubjectCommitteeUser::join('users', 'users.id', '=', 'subject_committee_user.user_id')
+                        ->join('subject_committee', 'subject_committee.id', '=', 'subject_committee_user.subjecr_committee_id')
+                        ->where('subject_committee.id', '=', $data['subject_committee'])
+                        ->get(['users.*', 'subject_committee.name as subject_committee_name']);
+                }
+            } else {
+                $subjectCommitteeUser = SubjectCommitteeUser::join('users', 'users.id', '=', 'subject_committee_user.user_id')
+                    ->join('subject_committee', 'subject_committee.id', '=', 'subject_committee_user.subjecr_committee_id')
+                    ->get(['users.*', 'subject_committee.name as subject_committee_name']);
+            }
+        } else {
+            $subjectCommitteeUser = SubjectCommitteeUser::join('users', 'users.id', '=', 'subject_committee_user.user_id')
+                ->join('subject_committee', 'subject_committee.id', '=', 'subject_committee_user.subjecr_committee_id')
+                ->get(['users.*', 'subject_committee.name as subject_committee_name']);
+        }
+
         return view('council::pages.minute-subject-index', compact('subjectCommitteeUser'));
     }
     public function minuteDataApplicantIndex(Request $request, $id)

@@ -199,8 +199,8 @@ class  ExamCommitteeController extends BaseController
                 $profileProcessing = $this->profileRepository->update($data, $admit['profile_id']);
             }
         }
-        return redirect()->back();
-        // $this->absentStudentList();
+        // return redirect()->back();
+        $this->absentStudentList();
     }
     public function absentStudentList()
     {

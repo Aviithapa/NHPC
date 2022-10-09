@@ -35,6 +35,47 @@
                             <div class="pull-right">
                             </div>
                         </div>
+                        <div class="box-header with-border p-t-1">
+                            <form method="POST" action="">
+                                @csrf
+                                <div class="row">
+    
+                                    <div class="col-lg-4">
+                                        <fieldset class="form-group">
+                                            <select class="form-control" name="date"  id="date" >
+                                                <option value="0">DECISION DATE</option>
+                                                <option value="2022-08-15">2022-08-15</option>
+                                                <option value="2022-07-26">2022-07-26</option>
+                                                <option value="2022-07-08">2022-07-08</option>
+                                                <option value="2022-06-05">2022-06-05</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <fieldset class="form-group">
+                                            <select class="form-control" name="subject_committee"  id="date" >
+                                                <option value="0">ALL SUBJECT COMMITTEE</option>
+                                                <option value="1">PUBLIC HEALTH</option>
+                                                <option value="2">GENERAL MEDICINE</option>
+                                                <option value="3">LABORATORY MEDICINE</option>
+                                                <option value="4">RADIOLOGY</option>
+                                                <option value="5">OPTOMETRY</option>
+                                                <option value="6">DENTAL</option>
+                                                <option value="7">PHYSIOTHERAPY</option>
+                                                <option value="8">MISCELLANEOUS</option>
+
+
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="col-lg-4" >
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>
+                                    Search</button>
+                                    </div>
+                                    </div>
+    
+                            </form>
+                        </div>
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
