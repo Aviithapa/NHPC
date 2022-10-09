@@ -26,7 +26,7 @@
                             </div>
                         </div>
                         <div class="float-lg-right">
-                            {{count($data)}}
+                            {{$count}}
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">

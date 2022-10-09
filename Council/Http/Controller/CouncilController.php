@@ -8,6 +8,7 @@ use App\Exports\ResultExport;
 use App\Imports\ResultImport;
 use App\Models\Certificate\Certificate;
 use App\Models\Certificate\CertificateHistory;
+use App\Models\Exam\ExamProcessing;
 use App\Models\Profile\Profilelogs;
 use App\Models\SubjectCommittee\SubjectCommitteeUser;
 use App\Modules\Backend\Admin\Level\Repositories\LevelRepository;
@@ -186,10 +187,16 @@ class CouncilController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'council') {
 
-            $data = $this->examProcessingRepository->getAll()->where('state', '=', 'council')
+            $count = ExamProcessing::all()->where('state', '=', 'council')
                 ->where('status', '=', 'progress')
-                ->where('level_id', '!=', 4);
-            return \view('council::pages.passed-list', compact('data'));
+                ->where('level_id', '!=', 4)->count();
+              
+            $data = ExamProcessing::all()->where('state', '=', 'council')
+                ->where('status', '=', 'progress')
+                ->where('level_id', '!=', 4)
+                ->take(100)
+                ->skip(0);
+            return \view('council::pages.passed-list', compact('data','count'));
         } else {
             return redirect()->route('login');
         }
