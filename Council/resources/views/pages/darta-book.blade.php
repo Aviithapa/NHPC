@@ -22,6 +22,7 @@
                         <div class="box-header with-border p-t-1">
                             <h3 class="box-title text-black">Darta Book</h3>
                             <div class="pull-right">
+                                {{ $data  }} Total 
                             </div>
                         </div>
 

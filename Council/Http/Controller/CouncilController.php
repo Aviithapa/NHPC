@@ -140,9 +140,15 @@ class CouncilController extends BaseController
                     ->unique('program_id');
             }
             $selectedDate = isset($data['date']) ? $data['date'] : '';
+            $data = DB::table('certificate_history')
+            
+            ->where('decision_date', '=', $data['date'])
+          
+            ->count();
+      
+        
 
-
-            return \view('council::pages.darta-book', compact('certificate', 'date', 'selectedDate'));
+            return \view('council::pages.darta-book', compact('certificate', 'date', 'selectedDate', 'data'));
         } else {
             return redirect()->route('login');
         }
