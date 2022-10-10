@@ -209,7 +209,8 @@
 
         Province is registered as <span style="font-size: 26px;
         font-weight: 700;">
-           {!! htmlspecialchars_decode($certificate->certificate_program_name) !!}
+           {{-- {!! htmlspecialchars_decode($certificate->certificate_program_name) !!} --}}
+           {{ $certificate->program_code }}
         </span>
         of <span style="font-size: 26px;
         font-weight: 700;">{{$certificate->level_name}}</span> Level
@@ -301,7 +302,11 @@
         font-weight: bold;
         width: 140px;
 
-">{!! htmlspecialchars_decode($certificate->certificate_program_name) !!}</td>
+">
+{{-- {!! htmlspecialchars_decode($certificate->certificate_program_name) !!} --}}
+{{ $certificate->program_code }}
+
+</td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
