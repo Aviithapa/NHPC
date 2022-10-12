@@ -11,8 +11,6 @@ interface ProgramRepository  extends  Repository
     /**Gets all data for data-table
      * @return mixed
      */
-    public function getAllRecruitersForDataTable();
-
-    public function paginates();
+  
 
 }

@@ -985,12 +985,15 @@ class OperatorController extends BaseController
         $data = $request->all();
         try {
             $id = $data['certificate_history_id'];
+            $program['code_'] = $data['program_name'];
             $profile = $this->certificateRepository->findById($id);
             $certificate = $this->certificateRepository->update($data, $id);
             $profileUpdate = $this->profileRepository->update($data, $profile['profile_id']);
             $documents = $this->qualificationRepository->getAll()->where('user_id', '=', $profileUpdate['user_id'])
                 ->where('level', '=', $data['level'])->first();
             $updateDocuments =  $this->qualificationRepository->update($data, $documents['id']);
+            $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['profile_id'])->first();
+            $updateProgram = $this->programRepository->update($program, $exam['program_id']);
             session()->flash('success', 'Certificate data has been changed successfully');
             return redirect()->back();
             //
