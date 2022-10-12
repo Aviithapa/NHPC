@@ -796,7 +796,7 @@ class OperatorController extends BaseController
             ->where('certificate_history.id', '=', $id)
             ->where('registrant_qualification.level', '=', $level)
             ->orderBy('certificate_history.id', 'ASC')
-            ->get(['certificate_history.*', 'certificate_history.name as certificate_name', 'certificate_history.program_name as certificate_program_name', 'profiles.*', 'program.name as Name_program', 'registrant_qualification.*', 'provinces.province_name', 'certificate_history.id as certificate_history_id', 'program.code_ as program_code'])->first();
+            ->get(['certificate_history.*', 'certificate_history.name as certificate_name', 'certificate_history.program_name as certificate_program_name', 'profiles.*', 'program.name as Name_program', 'registrant_qualification.*', 'provinces.province_name', 'certificate_history.id as certificate_history_id', 'program.code_ as program_code', 'program.qualification as program_qualification'])->first();
 
         //        dd($certificate);
         //        $this->certificateRepository->findById($id);
@@ -986,6 +986,7 @@ class OperatorController extends BaseController
         try {
             $id = $data['certificate_history_id'];
             $program['code_'] = $data['program_name'];
+            $program['qualification'] = $data['code'];
             $profile = $this->certificateRepository->findById($id);
             $certificate = $this->certificateRepository->update($data, $id);
             $profileUpdate = $this->profileRepository->update($data, $profile['profile_id']);

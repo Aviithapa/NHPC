@@ -109,7 +109,7 @@
                                                     </select></span>
 
                                             Province is registered as <span style="font-size: 26px;
-        font-weight: 700;">{{$certificate->certificate_program_name}}</span>
+        font-weight: 700;"><input type="text" name="code" value="{{$certificate->certificate_program_name}}"/></td></span>
                                             of <span style="font-size: 26px;
         font-weight: 700;">{{$certificate->level_name}}</span> Level
                                             in the registration book and this Registration Certificate is hereby
