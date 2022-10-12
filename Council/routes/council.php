@@ -16,4 +16,4 @@ Route::get('/student/view/{id}', [\Council\Http\Controller\CouncilController::cl
 
 
 Route::match(['get', 'post'], '/officer/subjectCommittee/minuteIndex',[\Council\Http\Controller\CouncilController::class,'minuteDataSubjectCommitteeIndex'])->middleware(['auth'])->name('subjectCommittee.minuteDataSubjectCommitteeIndex.officer');
-Route::match(['get', 'post'], '/officer/minute/applicant/list/{id}',[\Council\Http\Controller\CouncilController::class,'minuteDataApplicantIndex'])->middleware(['auth'])->name('subjectCommittee.minute.applicant.list.officer');
+Route::match(['get', 'post'], '/officer/minute/applicant/list/{id}/{date?}',[\Council\Http\Controller\CouncilController::class,'minuteDataApplicantIndex'])->middleware(['auth'])->name('subjectCommittee.minute.applicant.list.officer');

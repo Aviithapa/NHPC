@@ -27,7 +27,9 @@ use Database\Seeders\District;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Mockery\Expectation;
 use Operator\Modules\Framework\Request;
+use PhpParser\Node\Stmt\TryCatch;
 use Student\Models\Profile;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
@@ -67,12 +69,22 @@ class ApplicantController  extends BaseController
      * @param CertificateRepository $certificateRepository
      */
 
-    public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
-                                ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
-                                ExamRepository $examRepository, MunicipalityRepository $municipalityRepository, CollegeRepository $collageRepository,
-                                ExamProcessingRepository $examProcessingRepository,ProgramRepository $programRepository, SubjectCommitteeUserRepository $subjectCommitteeUserRepository,
-                                ExamProcessingDetailsRepository $examProcessingDetailsRepository, RoleRepository $roleRepository,CertificateRepository $certificateRepository)
-    {
+    public function __construct(
+        ProfileRepository $profileRepository,
+        UserRepository $userRepository,
+        QualificationRepository $qualificationRepository,
+        ProfileLogsRepository $profileLogsRepository,
+        ProfileProcessingRepository $profileProcessingRepository,
+        ExamRepository $examRepository,
+        MunicipalityRepository $municipalityRepository,
+        CollegeRepository $collageRepository,
+        ExamProcessingRepository $examProcessingRepository,
+        ProgramRepository $programRepository,
+        SubjectCommitteeUserRepository $subjectCommitteeUserRepository,
+        ExamProcessingDetailsRepository $examProcessingDetailsRepository,
+        RoleRepository $roleRepository,
+        CertificateRepository $certificateRepository
+    ) {
         $this->viewData['commonRoute'] = $this->commonRoute;
         $this->viewData['commonView'] = 'superAdmin::' . $this->commonView;
         $this->viewData['commonName'] = $this->commonName;
@@ -145,19 +157,20 @@ class ApplicantController  extends BaseController
             $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
             $exams = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id);
             $certificate = DB::table('certificate_history')
-            ->where('profile_id', '=', $id)
-            ->get();
-            return view('superAdmin::admin.applicant.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams','certificate'));
+                ->where('profile_id', '=', $id)
+                ->get();
+            return view('superAdmin::admin.applicant.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams', 'certificate'));
         } else {
             return redirect()->route('login');
         }
     }
 
-    public function changeStateProfileLogs(Request $request, $id){
+    public function changeStateProfileLogs(Request $request, $id)
+    {
         $data = $request->all();
         $profile_logs = $this->profileLogsRepository->update($data, $id);
-        if($profile_logs === false){
-            session('error','error while saving the logs');
+        if ($profile_logs === false) {
+            session('error', 'error while saving the logs');
         }
         return redirect()->back()->withInput();
     }
@@ -169,19 +182,19 @@ class ApplicantController  extends BaseController
             try {
                 $id = $data['profile_id'];
                 $data['created_by'] = Auth::user()->id;
-                $profile = $this->profileRepository->update($data,$id);
-                $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=',$id)->first();
+                $profile = $this->profileRepository->update($data, $id);
+                $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
                 $profileProcessing['current_state'] = $data['profile_state'];
-                if ($data['profile_status'] == 'Reviewing' || $data['profile_status'] == 'Verified'){
-                 $profileProcessing['status'] = 'progress';
-                }else if($data['profile_status'] == 'Rejected'){
+                if ($data['profile_status'] == 'Reviewing' || $data['profile_status'] == 'Verified') {
+                    $profileProcessing['status'] = 'progress';
+                } else if ($data['profile_status'] == 'Rejected') {
                     $profileProcessing['status'] = 'progress';
                 }
-                $profileProcessings = $this->profileProcessingRepository->update($profileProcessing,$profileProcessingId['id']);
+                $profileProcessings = $this->profileProcessingRepository->update($profileProcessing, $profileProcessingId['id']);
 
                 session()->flash('success', 'User Profile Status Information have been saved successfully');
                 return redirect()->route('superAdmin.applicant.profile.list');
-//
+                //
             } catch (\Exception $e) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
@@ -189,7 +202,6 @@ class ApplicantController  extends BaseController
         } else {
             return redirect()->route('login');
         }
-
     }
 
     public function level(Request $request)
@@ -198,10 +210,10 @@ class ApplicantController  extends BaseController
             $data = $request->all();
             try {
                 $id = $data['profile_id'];
-                $profile = $this->profileRepository->update($data,$id);
+                $profile = $this->profileRepository->update($data, $id);
                 session()->flash('success', 'User Profile Level has been changed successfully');
                 return redirect()->back();
-//
+                //
             } catch (\Exception $e) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
@@ -209,7 +221,6 @@ class ApplicantController  extends BaseController
         } else {
             return redirect()->route('login');
         }
-
     }
 
 
@@ -224,10 +235,10 @@ class ApplicantController  extends BaseController
         } else {
             return redirect()->route('login');
         }
-
     }
 
-    public function userIndex(){
+    public function userIndex()
+    {
         if (Auth::user()->mainRole()->name === 'superadmin') {
             $data = $this->userRepository->getAll();
             return view('superAdmin::admin.applicant.login-user', compact("data"));
@@ -236,7 +247,8 @@ class ApplicantController  extends BaseController
         }
     }
 
-    public function userSearch(Request $request){
+    public function userSearch(Request $request)
+    {
         if ($request->ajax()) {
             $output = "";
             $products = DB::table('users')->where('name', 'LIKE', '%' . $request->search . "%")
@@ -253,7 +265,7 @@ class ApplicantController  extends BaseController
                         '<td>' . $product->phone_number . '</td>' .
                         '<td>' . $product->password_reference . '</td>' .
                         '<td><a href=' . url("superAdmin/dashboard/active/" . $product->id) . '><span class="label label-success">Active</span></a> <a href=' . url("superAdmin/dashboard/inactive/" . $product->id) . '><span class="label label-danger">In Active</span></a></td>' .
-                        '<td><a href=' . url("superAdmin/dashboard/mapUser/index/" . $product->id) . '><span class="label label-danger">Assign</span></a></td>'.
+                        '<td><a href=' . url("superAdmin/dashboard/mapUser/index/" . $product->id) . '><span class="label label-danger">Assign</span></a></td>' .
                         '</tr>';
                 }
                 return Response($output);
@@ -261,11 +273,12 @@ class ApplicantController  extends BaseController
         }
     }
 
-    public function active($id){
+    public function active($id)
+    {
         if (Auth::user()->mainRole()->name === 'superadmin') {
             $data = $this->userRepository->findById($id);
-            $profile['status']= 'active';
-            $this->userRepository->update($profile,$id);
+            $profile['status'] = 'active';
+            $this->userRepository->update($profile, $id);
             session()->flash('success', 'User has been successfully activated');
             return redirect()->back();
         } else {
@@ -273,11 +286,12 @@ class ApplicantController  extends BaseController
         }
     }
 
-    public function inactive($id){
+    public function inactive($id)
+    {
         if (Auth::user()->mainRole()->name === 'superadmin') {
             $data = $this->userRepository->findById($id);
-            $profile['status']= 'in-active';
-            $this->userRepository->update($profile,$id);
+            $profile['status'] = 'in-active';
+            $this->userRepository->update($profile, $id);
             session()->flash('success', 'User has been successfully in activated');
             return redirect()->back();
         } else {
@@ -285,47 +299,48 @@ class ApplicantController  extends BaseController
         }
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         if (Auth::user()->mainRole()->name === 'superadmin') {
-           $this->profileRepository->hardDelete($id);
+            $this->profileRepository->hardDelete($id);
             session()->flash('success', 'User has been deleted successfully');
             return redirect()->back();
         } else {
             return redirect()->route('login');
         }
     }
-    public function editExamApply($id){
+    public function editExamApply($id)
+    {
         $profile = $this->profileRepository->findById($id);
-        if ($profile){
+        if ($profile) {
 
-                    $qualification = $this->qualificationRepository->getAll()->where('user_id','=',$profile->user_id)
-                        ->where('level','!=' , 1);
-                    $exam = $this->examProcessingRepository->getAll()->where('profile_id','=',$id)->first();
-                    if ($qualification != null){
-                        foreach ($qualification as $quali)
-                            if (is_numeric($quali['program_id']) )
-                                $all_program[] = $this->programRepository->findById($quali['program_id']);
-                    }
-                    return view('superAdmin::admin.applicant.edit-program-name', compact( 'all_program', "profile",'exam'));
-
+            $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $profile->user_id)
+                ->where('level', '!=', 1);
+            $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
+            if ($qualification != null) {
+                foreach ($qualification as $quali)
+                    if (is_numeric($quali['program_id']))
+                        $all_program[] = $this->programRepository->findById($quali['program_id']);
+            }
+            return view('superAdmin::admin.applicant.edit-program-name', compact('all_program', "profile", 'exam'));
         }
-
     }
 
-    public function applyExam(Request $request){
-        $data= $request->all();
-//        $data["status"] = 'progress';
+    public function applyExam(Request $request)
+    {
+        $data = $request->all();
+        //        $data["status"] = 'progress';
         $data['voucher_image'] = $data['voucher'];
         try {
-            $exam = $this->examProcessingRepository->update($data,$data['exam_processing_id']);
+            $exam = $this->examProcessingRepository->update($data, $data['exam_processing_id']);
             if ($exam == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
-            session()->flash('success','Program has been changed successfully');
-            return redirect()->route('operator.applicant.list.review',['id'=> $data['profile_id']]);
+            session()->flash('success', 'Program has been changed successfully');
+            return redirect()->route('operator.applicant.list.review', ['id' => $data['profile_id']]);
         } catch (\Exception $e) {
-            session()->flash('success','Program has been changed successfully.');
+            session()->flash('success', 'Program has been changed successfully.');
             return redirect()->back()->withInput();
         }
     }
@@ -333,79 +348,82 @@ class ApplicantController  extends BaseController
 
 
 
-    public function mapUser(Request $request){
+    public function mapUser(Request $request)
+    {
         $data = $request->all();
         try {
-            $isAlreadyAssigned  =  $this->subjectCommitteeUserRepository->findBy('user_id',$data['user_id'],'=')->first();
+            $isAlreadyAssigned  =  $this->subjectCommitteeUserRepository->findBy('user_id', $data['user_id'], '=')->first();
             if ($isAlreadyAssigned)
-                $subject_committee = $this->subjectCommitteeUserRepository->update($data,$isAlreadyAssigned['id']);
+                $subject_committee = $this->subjectCommitteeUserRepository->update($data, $isAlreadyAssigned['id']);
             else
-            $subject_committee = $this->subjectCommitteeUserRepository->create($data);
+                $subject_committee = $this->subjectCommitteeUserRepository->create($data);
             if ($subject_committee == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
-            session()->flash('success','User has been assigned role successfully.');
+            session()->flash('success', 'User has been assigned role successfully.');
             return redirect()->back();
-        }catch (\Exception $e) {
-            session()->flash('success','Program has been changed successfully.');
+        } catch (\Exception $e) {
+            session()->flash('success', 'Program has been changed successfully.');
             return redirect()->back()->withInput();
         }
     }
-    public function mapUserIndex($id){
-        return view('superAdmin::admin.applicant.role-assign', compact( 'id'));
+    public function mapUserIndex($id)
+    {
+        return view('superAdmin::admin.applicant.role-assign', compact('id'));
     }
 
 
 
-//    public function profileProcessing($id,$data)
-//    {
-//        if (Auth::user()->mainRole()->name === 'superadmin') {
-//            $profileProcessing['profile_id'] = $id;
-//            $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
-//            if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
-//                $data['status'] = 'progress';
-//                $data['remarks'] = 'Profile is forward to Officer';
-//                $data['review_status'] = 'Successful';
-//                $data['current_state'] = 'officer';
-//                if ($profileProcessingId){
-//                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
-//                }else
-//                    $profileProcessings = $this->profileProcessingRepository->create($data);
-//            } elseif ($data['profile_status'] == "Rejected") {
-//
-//                $data['status'] = 'rejected';
-//                $data['review_status'] = 'Rejected';
-//                $data['current_state'] = 'computer_operator';
-//                if ($profileProcessingId){
-//                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
-//                }else
-//                    $profileProcessings = $this->profileProcessingRepository->create($data);
-//            } elseif ($data['profile_status'] === "Pending") {
-//                $data['status'] = 'pending';
-//                $data['review_status'] = 'Pending';
-//                $data['current_state'] = 'computer_operator';
-//                if ($profileProcessingId){
-//                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
-//                }else
-//                    $profileProcessings = $this->profileProcessingRepository->create($data);
-//
-//            }
-//
-//        } else {
-//            return redirect()->route('login');
-//        }
-//    }
+    //    public function profileProcessing($id,$data)
+    //    {
+    //        if (Auth::user()->mainRole()->name === 'superadmin') {
+    //            $profileProcessing['profile_id'] = $id;
+    //            $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $id)->first();
+    //            if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
+    //                $data['status'] = 'progress';
+    //                $data['remarks'] = 'Profile is forward to Officer';
+    //                $data['review_status'] = 'Successful';
+    //                $data['current_state'] = 'officer';
+    //                if ($profileProcessingId){
+    //                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
+    //                }else
+    //                    $profileProcessings = $this->profileProcessingRepository->create($data);
+    //            } elseif ($data['profile_status'] == "Rejected") {
+    //
+    //                $data['status'] = 'rejected';
+    //                $data['review_status'] = 'Rejected';
+    //                $data['current_state'] = 'computer_operator';
+    //                if ($profileProcessingId){
+    //                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
+    //                }else
+    //                    $profileProcessings = $this->profileProcessingRepository->create($data);
+    //            } elseif ($data['profile_status'] === "Pending") {
+    //                $data['status'] = 'pending';
+    //                $data['review_status'] = 'Pending';
+    //                $data['current_state'] = 'computer_operator';
+    //                if ($profileProcessingId){
+    //                    $profileProcessings = $this->profileProcessingRepository->update($data,$profileProcessingId['id']);
+    //                }else
+    //                    $profileProcessings = $this->profileProcessingRepository->create($data);
+    //
+    //            }
+    //
+    //        } else {
+    //            return redirect()->route('login');
+    //        }
+    //    }
 
 
 
-    public function municipality(){
+    public function municipality()
+    {
         $data = \App\Models\Address\District::all();
         return view('superAdmin::admin.applicant.municipality', compact("data"));
-
     }
-    public function municipalitySave(Request $request){
-        $data= $request->all();
+    public function municipalitySave(Request $request)
+    {
+        $data = $request->all();
         $mun = $this->municipalityRepository->create($data);
         if ($mun == false) {
             session()->flash('error', 'Oops! Something went wrong.');
@@ -414,16 +432,16 @@ class ApplicantController  extends BaseController
 
         session()->flash('success', 'New Municipality has been added');
         return redirect()->back();
-
     }
 
-    public function collage(){
+    public function collage()
+    {
         $data = \App\Models\Address\District::all();
         return view('superAdmin::admin.applicant.collage', compact("data"));
-
     }
-    public function collageSave(Request $request){
-        $data= $request->all();
+    public function collageSave(Request $request)
+    {
+        $data = $request->all();
         $mun = $this->collageRepository->create($data);
         if ($mun == false) {
             session()->flash('error', 'Oops! Something went wrong.');
@@ -432,190 +450,201 @@ class ApplicantController  extends BaseController
 
         session()->flash('success', 'New Collage has been added');
         return redirect()->back();
-
     }
 
 
-    public function generateCertificateIndex(){
-        $student = $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
-            ->join('program','program.id','=','exam_registration.program_id')
-            ->join('level','level.id','=','program.level_id')
-            ->join('provinces','provinces.id','=','profiles.development_region')
-            ->where('exam_registration.status',"=",'progress')
-            ->where('exam_registration.state',"=",'council')
-            ->where('exam_registration.level_id',"=",'3')
-            ->where('exam_registration.attempt',"=",'1')
-            ->where('exam_registration.isPassed',"=",true)
-            ->where('exam_registration.certificate_generate','=','No')
-            ->orderBy('profiles.created_at','ASC')
-            ->get(['profiles.*','profiles.id as profile_id','profiles.created_at as profile_created_at','program.name as program_name','program.*',
-                'program.id as program_id','level.*','provinces.province_name','exam_registration.id as exam_registration_id','exam_registration.*']);
+    public function generateCertificateIndex()
+    {
+        $student = $profiles = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->join('level', 'level.id', '=', 'program.level_id')
+            ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
+            ->where('exam_registration.status', "=", 'progress')
+            ->where('exam_registration.state', "=", 'council')
+            ->where('exam_registration.level_id', "=", '3')
+            ->where('exam_registration.attempt', "=", '1')
+            ->where('exam_registration.isPassed', "=", true)
+            ->where('exam_registration.certificate_generate', '=', 'No')
+            ->orderBy('profiles.created_at', 'ASC')
+            ->get([
+                'profiles.*', 'profiles.id as profile_id', 'profiles.created_at as profile_created_at', 'program.name as program_name', 'program.*',
+                'program.id as program_id', 'level.*', 'provinces.province_name', 'exam_registration.id as exam_registration_id', 'exam_registration.*'
+            ]);
 
-        return view('superAdmin::admin.applicant.certificate-index',compact('student'));
+        return view('superAdmin::admin.applicant.certificate-index', compact('student'));
     }
 
-    public function generateCertificate(){
-        $students = $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
-            ->join('program','program.id','=','exam_registration.program_id')
-            ->join('level','level.id','=','program.level_id')
-            ->join('provinces','provinces.id','=','profiles.development_region')
-            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-            ->where('exam_registration.status',"=",'progress')
-            ->where('exam_registration.state',"=",'council')
-            ->where('exam_registration.level_id',"=",'3')
-            ->where('exam_registration.attempt',"=",'1')
-            ->where('exam_registration.isPassed',"=",true)
-            ->where('exam_registration.certificate_generate','=','No')
-            ->orderBy('profiles.created_at','ASC')
-            ->get(['profiles.*','profiles.id as profile_id','profiles.created_at as profile_created_at','program.name as program_name','program.*',
-                'program.id as program_id','level.*','provinces.province_name','exam_registration.id as exam_registration_id']);
-        foreach ($students as $student){
+    public function generateCertificate()
+    {
+        $students = $profiles = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->join('level', 'level.id', '=', 'program.level_id')
+            ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
+            ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+            ->where('exam_registration.status', "=", 'progress')
+            ->where('exam_registration.state', "=", 'council')
+            ->where('exam_registration.level_id', "=", '3')
+            ->where('exam_registration.attempt', "=", '1')
+            ->where('exam_registration.isPassed', "=", true)
+            ->where('exam_registration.certificate_generate', '=', 'No')
+            ->orderBy('profiles.created_at', 'ASC')
+            ->get([
+                'profiles.*', 'profiles.id as profile_id', 'profiles.created_at as profile_created_at', 'program.name as program_name', 'program.*',
+                'program.id as program_id', 'level.*', 'provinces.province_name', 'exam_registration.id as exam_registration_id'
+            ]);
+        foreach ($students as $student) {
             $srn_number = 0;
-            $date= '2022/07/08';
+            $date = '2022/07/08';
             $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
             $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
             $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
-                ->where('program_id','=', $student['program_id'])->first();
+                ->where('program_id', '=', $student['program_id'])->first();
             if ($srn_number)
                 $srn = $srn_number['srn'];
-                $registration_id = $registration_number['registration_id'];
-            $data['registration_id'] = ++ $registration_id ;
-                $data['category_id'] = $student[''];
-                $data['profile_id'] = $student['profile_id'];
-                $data['program_id'] = $student['program_id'];
-                $data['srn'] = ++ $srn;
-                $data['program_certificate_code'] = $student['certificate_name'];
-                $data['cert_registration_number'] = $this->certRegistrationNumber($student['level_code'], $data['srn'], $student['certificate_name']);
-                $data['registrar'] = 'puspa raj khanal';
-                $data['decision_date'] =                    Carbon::today()->toDateString();
+            $registration_id = $registration_number['registration_id'];
+            $data['registration_id'] = ++$registration_id;
+            $data['category_id'] = $student[''];
+            $data['profile_id'] = $student['profile_id'];
+            $data['program_id'] = $student['program_id'];
+            $data['srn'] = ++$srn;
+            $data['program_certificate_code'] = $student['certificate_name'];
+            $data['cert_registration_number'] = $this->certRegistrationNumber($student['level_code'], $data['srn'], $student['certificate_name']);
+            $data['registrar'] = 'puspa raj khanal';
+            $data['decision_date'] =                    Carbon::today()->toDateString();
 
-//            $date;
-                $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
-                $data['date_of_birth'] = $student['dob_nep'];
-                $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
-                $data['program_name'] = $student['qualification'];
-                $data['level_name'] = $student['level_'];
-                $data['qualification'] = $student['program_name'] . ':' . $student['board_university'] . ':'  . $student['passed_year'] ;
-                $data['issued_year'] = Carbon::today()->year;
-                $data['issued_date'] = $date;
-                $data['valid_till'] = Carbon::now()->addYears(5);
-                $data['certificate'] = 'new';
-                $data['issued_by'] = Auth::user()->id;
-                $data['certificate_status'] = 1;
-                $certificate = $this->certificateRepository->create($data);
-                $examupdate['status'] = "accepted";
-                $examupdate['state'] = "council";
-                $this->examProcessingRepository->update($examupdate, $student['exam_registration_id']);
-//                $this->updateQualificationHistory($qualification);
-                $profilesProcessing = $this->profileProcessingRepository->getAll()->where('profile_id','=',$student['profile_id'])->first();
-                $data['current_state'] = 'council';
-                $data['status'] = 'accepted';
-                $this->profileProcessingRepository->update($data,$profilesProcessing['id']);
+            //            $date;
+            $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
+            $data['date_of_birth'] = $student['dob_nep'];
+            $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
+            $data['program_name'] = $student['qualification'];
+            $data['level_name'] = $student['level_'];
+            $data['qualification'] = $student['program_name'] . ':' . $student['board_university'] . ':'  . $student['passed_year'];
+            $data['issued_year'] = Carbon::today()->year;
+            $data['issued_date'] = $date;
+            $data['valid_till'] = Carbon::now()->addYears(5);
+            $data['certificate'] = 'new';
+            $data['issued_by'] = Auth::user()->id;
+            $data['certificate_status'] = 1;
+            $certificate = $this->certificateRepository->create($data);
+            $examupdate['status'] = "accepted";
+            $examupdate['state'] = "council";
+            $this->examProcessingRepository->update($examupdate, $student['exam_registration_id']);
+            //                $this->updateQualificationHistory($qualification);
+            $profilesProcessing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $student['profile_id'])->first();
+            $data['current_state'] = 'council';
+            $data['status'] = 'accepted';
+            $this->profileProcessingRepository->update($data, $profilesProcessing['id']);
         }
 
-            return redirect()->back();
+        return redirect()->back();
     }
-    public function generateSingleCertificate($id){
-        $students  = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
-            ->join('program','program.id','=','exam_registration.program_id')
-            ->join('level','level.id','=','program.level_id')
-            ->join('provinces','provinces.id','=','profiles.development_region')
-            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-            ->where('profiles.id','=',$id)
-            ->where('exam_registration.status',"=",'progress')
-            ->where('exam_registration.state',"=",'council')
-            ->where('exam_registration.level_id',"=",'1')
-            ->where('exam_registration.attempt',"=",'1')
-            ->where('exam_registration.isPassed',"=",true)
-            ->where('exam_registration.certificate_generate','=','No')
-            ->get(['profiles.*','profiles.id as profile_id','profiles.created_at as profile_created_at','program.name as program_name','program.*',
-                'program.id as program_id','level.*','provinces.province_name','exam_registration.id as exam_registration_id']);
+    public function generateSingleCertificate($id)
+    {
+        $students  = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->join('level', 'level.id', '=', 'program.level_id')
+            ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
+            ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+            ->where('profiles.id', '=', $id)
+            ->where('exam_registration.status', "=", 'progress')
+            ->where('exam_registration.state', "=", 'council')
+            ->where('exam_registration.level_id', "=", '1')
+            ->where('exam_registration.attempt', "=", '1')
+            ->where('exam_registration.isPassed', "=", true)
+            ->where('exam_registration.certificate_generate', '=', 'No')
+            ->get([
+                'profiles.*', 'profiles.id as profile_id', 'profiles.created_at as profile_created_at', 'program.name as program_name', 'program.*',
+                'program.id as program_id', 'level.*', 'provinces.province_name', 'exam_registration.id as exam_registration_id'
+            ]);
 
 
-        foreach ($students as $student){
-            $date= '2022/07/08';
+        foreach ($students as $student) {
+            $date = '2022/07/08';
             $srn_number = 0;
             $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
             $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
             $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
-                ->where('program_id','=', $student['program_id'])->first();
+                ->where('program_id', '=', $student['program_id'])->first();
             if ($srn_number)
                 $srn = $srn_number['srn'];
-                $registration_id = $registration_number['registration_id'];
-            $data['registration_id'] = ++ $registration_id ;
-                $data['category_id'] = $student[''];
-                $data['profile_id'] = $student['profile_id'];
-                $data['program_id'] = $student['program_id'];
-                $data['srn'] = ++ $srn;
-                $data['program_certificate_code'] = $student['certificate_name'];
-                $data['cert_registration_number'] = $this->certRegistrationNumber($student['level_code'], $data['srn'], $student['certificate_name']);
-                $data['registrar'] = 'puspa raj khanal';
-                $data['decision_date'] =
-//                    $date;
-                    Carbon::today()->toDateString();
-                $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
-                $data['date_of_birth'] = $student['dob_nep'];
-                $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
-                $data['program_name'] = $student['qualification'];
-                $data['level_name'] = $student['level_'];
-                $data['qualification'] = $student['program_name'] . ':' . $student['board_university'] . ':'  . $student['passed_year'] ;
-                $data['issued_year'] = Carbon::today()->year;
-                $data['issued_date'] =
-//                    $date;
-                    Carbon::today()->toDateString();
-                $data['valid_till'] = Carbon::now()->addYears(5);
-                $data['certificate'] = 'new';
-                $data['issued_by'] = Auth::user()->id;
-                $data['certificate_status'] = 1;
-                $certificate = $this->certificateRepository->create($data);
-                $examupdate['status'] = "accepted";
-                $examupdate['state'] = "council";
-                $this->examProcessingRepository->update($examupdate, $student['exam_registration_id']);
-//                $this->updateQualificationHistory($qualification);
-                $profilesProcessing = $this->profileProcessingRepository->getAll()->where('profile_id','=',$student['profile_id'])->first();
-                $data['current_state'] = 'council';
-                $data['status'] = 'accepted';
-                $this->profileProcessingRepository->update($data,$profilesProcessing['id']);
+            $registration_id = $registration_number['registration_id'];
+            $data['registration_id'] = ++$registration_id;
+            $data['category_id'] = $student[''];
+            $data['profile_id'] = $student['profile_id'];
+            $data['program_id'] = $student['program_id'];
+            $data['srn'] = ++$srn;
+            $data['program_certificate_code'] = $student['certificate_name'];
+            $data['cert_registration_number'] = $this->certRegistrationNumber($student['level_code'], $data['srn'], $student['certificate_name']);
+            $data['registrar'] = 'puspa raj khanal';
+            $data['decision_date'] =
+                //                    $date;
+                Carbon::today()->toDateString();
+            $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
+            $data['date_of_birth'] = $student['dob_nep'];
+            $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
+            $data['program_name'] = $student['qualification'];
+            $data['level_name'] = $student['level_'];
+            $data['qualification'] = $student['program_name'] . ':' . $student['board_university'] . ':'  . $student['passed_year'];
+            $data['issued_year'] = Carbon::today()->year;
+            $data['issued_date'] =
+                //                    $date;
+                Carbon::today()->toDateString();
+            $data['valid_till'] = Carbon::now()->addYears(5);
+            $data['certificate'] = 'new';
+            $data['issued_by'] = Auth::user()->id;
+            $data['certificate_status'] = 1;
+            $certificate = $this->certificateRepository->create($data);
+            $examupdate['status'] = "accepted";
+            $examupdate['state'] = "council";
+            $this->examProcessingRepository->update($examupdate, $student['exam_registration_id']);
+            //                $this->updateQualificationHistory($qualification);
+            $profilesProcessing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $student['profile_id'])->first();
+            $data['current_state'] = 'council';
+            $data['status'] = 'accepted';
+            $this->profileProcessingRepository->update($data, $profilesProcessing['id']);
         }
 
-            return redirect()->back();
+        return redirect()->back();
     }
 
-    private function certRegistrationNumber($level_code , $srn, $program_code){
-        return $level_code.'-'.$srn.' '.$program_code;
+    private function certRegistrationNumber($level_code, $srn, $program_code)
+    {
+        return $level_code . '-' . $srn . ' ' . $program_code;
     }
 
-    public function updateQualificationHistory($qualification){
-        $data['licence'] ='yes';
-        $update= $this->qualificationRepository->update($data,$qualification['id']);
+    public function updateQualificationHistory($qualification)
+    {
+        $data['licence'] = 'yes';
+        $update = $this->qualificationRepository->update($data, $qualification['id']);
         if ($update == false)
             return false;
         return true;
     }
 
-    public function minuteData(){
-        $certificates = Certificate::all()->where('decision_date','=','2022-06-05')->groupBy('program_id');
+    public function minuteData()
+    {
+        $certificates = Certificate::all()->where('decision_date', '=', '2022-06-05')->groupBy('program_id');
         $count = 0;
         $count42 = 0;
 
-        foreach($certificates[41] as $certificate)
-         $count = $count + 1;
+        foreach ($certificates[41] as $certificate)
+            $count = $count + 1;
 
-        foreach($certificates[42] as $certificate)
+        foreach ($certificates[42] as $certificate)
             $count42 = $count42 + 1;
-        return view('superAdmin::admin.applicant.minuteData',compact('certificates','count','count42'));
-
+        return view('superAdmin::admin.applicant.minuteData', compact('certificates', 'count', 'count42'));
     }
 
 
-    public function attachRole(Request $request){
+    public function attachRole(Request $request)
+    {
         $data = $request->all();
         $user = $this->userRepository->findById($data['user_id']);
-//        $role = $this->roleRepository->getAll()->where('user_id','=',$data['user_id']);
+        //        $role = $this->roleRepository->getAll()->where('user_id','=',$data['user_id']);
         $assignRole =  $user->roles()->sync([$data['role']]);
-//        $user->attachRole($data['role']);
-//        dd($user);
-        session()->flash('success','Role has been Assigned');
+        //        $user->attachRole($data['role']);
+        //        dd($user);
+        session()->flash('success', 'Role has been Assigned');
         return redirect()->back();
     }
 
@@ -626,14 +655,68 @@ class ApplicantController  extends BaseController
     // }
 
 
-    public function deleteCertificate($id){
-       $certificate = $this->certificateRepository->delete($id);
-       return redirect()->back();
+    public function deleteCertificate($id)
+    {
+        $certificate = $this->certificateRepository->delete($id);
+        return redirect()->back();
     }
 
 
-    public function stats(){
+    public function stats()
+    {
         // $computer_operator = 
         return view('superAdmin::admin.applicant.stats');
+    }
+
+
+    public function examDetails()
+    {
+        $exam = $this->examRepository->getAll();
+        return view('superAdmin::admin.applicant.exam.index', compact('exam'));
+    }
+
+    public function create()
+    {
+        return view('superAdmin::admin.applicant.exam.create');
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        $data['created_by'] = Auth::user()->id;
+        try {
+            $exam = $this->examRepository->create($data);
+            if ($exam == false) {
+                session()->flash('error', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success', 'Exam Has been Added Successfully');
+            return redirect()->to(route('superAdmin.exam'));
+        } catch (Expectation $ex) {
+            session()->flash('error', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function update($status , $id ,Request $request){
+        $data['status'] = $status;
+
+        try {
+            $exam = $this->examRepository->update($data, $id);
+            if ($exam == false) {
+                session()->flash('error', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success', `Exam Has been ${status} Successfully`);
+            return redirect()->to(route('superAdmin.exam'));
+        } catch (Expectation $ex) {
+            session()->flash('error', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function show($id){
+        return view('superAdmin::admin.applicant.exam.show');
+    
     }
 }

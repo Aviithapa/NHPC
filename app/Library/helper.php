@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\AdmitCard\AdmitCard;
+use App\Models\Certificate\Certificate;
+use App\Models\Certificate\CertificateHistory;
 use App\Models\Exam\ExamProcessing;
 use App\Models\Profile\ProfileProcessing;
 use Carbon\Carbon;
@@ -10,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Student\Models\Profile;
 
 
-if (! function_exists('uploadedAsset')) {
+if (!function_exists('uploadedAsset')) {
     /**
      * Generates an asset path for the uploads.
      * @param null $path
@@ -19,11 +21,11 @@ if (! function_exists('uploadedAsset')) {
      */
     function uploadedAsset($path = null, $file_name = null)
     {
-        $path  = Storage::url($path.'/'.$file_name);
+        $path  = Storage::url($path . '/' . $file_name);
         return $path;
     }
 }
-if (! function_exists('examStudentCount')) {
+if (!function_exists('examStudentCount')) {
     /**
      * Generates an asset path for the uploads.
      * @param null $path
@@ -32,19 +34,46 @@ if (! function_exists('examStudentCount')) {
      */
     function examStudentCount($level_id)
     {
-        $datas = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-            ->where('exam_registration.level_id','=',$level_id)
-            ->join('program','program.id','=','exam_registration.program_id')
-            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-            ->where('profile_processing.current_state','!=','operator')
-            ->where('profile_processing.current_state','!=','officer')
+        $datas = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->where('exam_registration.level_id', '=', $level_id)
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+            ->where('profile_processing.current_state', '!=', 'operator')
+            ->where('profile_processing.current_state', '!=', 'officer')
             ->count(['profile_processing.profile_id']);
 
         return $datas;
     }
 }
 
-if (! function_exists('checkStatus')) {
+if (!function_exists('examMinuteStudentCount')) {
+    /**
+     * Generates an asset path for the uploads.
+     * @param null $path
+     * @param null $file_name
+     * @return string
+     */
+    function examMinuteStudentCount($id, $date = null)
+    {
+        $datas = 0 ;
+        if($date != null){
+            $datas =  Certificate::join('profile_logs', 'profile_logs.profile_id', '=', 'certificate_history.profile_id')
+            ->where('profile_logs.created_by', '=', $id)
+            ->where('certificate_history.decision_date', '=', $date)
+            ->select('certificate_history.profile_id')
+            // ->distinct('certificate_history.profile_id')
+            ->count(['certificate_history.profile_id']);
+        }else{
+            $datas =  Certificate::join('profile_logs', 'profile_logs.profile_id', '=', 'certificate_history.profile_id')
+            ->where('profile_logs.created_by', '=', $id)
+            ->select('certificate_history.profile_id','certificate_history.decision_date')
+            ->count(['certificate_history.profile_id']);
+        }
+        return $datas;
+    }
+}
+
+if (!function_exists('checkStatus')) {
     /**
      * Generates an asset path for the uploads.
      * @param null $path
@@ -53,12 +82,12 @@ if (! function_exists('checkStatus')) {
      */
     function checkStatus($program_id)
     {
-        $datas = ExamProcessing::all()->where('status','=','progress')
-            ->where('state','=','exam_committee')
-            ->where('state','=','exam_committee')
-            ->where('is_admit_card_generate', '=' ,'yes')
+        $datas = ExamProcessing::all()->where('status', '=', 'progress')
+            ->where('state', '=', 'exam_committee')
+            ->where('state', '=', 'exam_committee')
+            ->where('is_admit_card_generate', '=', 'yes')
             ->where('updated_at', '>=', '2022-08-25')
-        ->where('program_id','=',$program_id)
+            ->where('program_id', '=', $program_id)
             ->count();
 
         return $datas;
@@ -66,7 +95,7 @@ if (! function_exists('checkStatus')) {
 }
 
 
-if (! function_exists('getApplicantCount')) {
+if (!function_exists('getApplicantCount')) {
     /**
      * Generates an asset path for the uploads.
      * @param null $path
@@ -75,14 +104,14 @@ if (! function_exists('getApplicantCount')) {
      */
     function getApplicantCount($status, $state)
     {
-         $count =0;
-         $profiles = ExamProcessing::all()->where("status",'=' ,$status)
-                                                ->where("state",'=',$state);
+        $count = 0;
+        $profiles = ExamProcessing::all()->where("status", '=', $status)
+            ->where("state", '=', $state);
 
         return count($profiles);
     }
 }
-if (! function_exists('getDoubleDusturCountList')) {
+if (!function_exists('getDoubleDusturCountList')) {
     /**
      * Generates an asset path for the uploads.
      * @param null $path
@@ -91,19 +120,18 @@ if (! function_exists('getDoubleDusturCountList')) {
      */
     function getDoubleDusturCountList()
     {
-         $count =0;
+        $count = 0;
         $date = "2022-05-05 00:00:00";
         $date_2 = "2022-05-10 00:00:00";
-         $exams =  ExamProcessing::all()->where('created_at','>', $date)
-                                        ->where('created_at','<',$date_2);
+        $exams =  ExamProcessing::all()->where('created_at', '>', $date)
+            ->where('created_at', '<', $date_2);
 
-         return count($exams);
-
+        return count($exams);
     }
 }
 
 
-if (! function_exists('getApplicantProcessingCount')) {
+if (!function_exists('getApplicantProcessingCount')) {
     /**
      * Generates an asset path for the uploads.
      * @param null $path
@@ -112,16 +140,16 @@ if (! function_exists('getApplicantProcessingCount')) {
      */
     function getApplicantProcessingCount($status, $state)
     {
-        $count =0;
-        $profiles = \App\Models\Profile\ProfileProcessing::all()->where("status",'=' ,$status)
-            ->where("current_state",'=',$state);
+        $count = 0;
+        $profiles = \App\Models\Profile\ProfileProcessing::all()->where("status", '=', $status)
+            ->where("current_state", '=', $state);
         foreach ($profiles as $profile)
             $count++;
         return $count;
     }
 }
 
-if (! function_exists('getProgramLicenceCount')) {
+if (!function_exists('getProgramLicenceCount')) {
     /**
      * Generates an asset path for the uploads.
      * @param null $path
@@ -130,15 +158,15 @@ if (! function_exists('getProgramLicenceCount')) {
      */
     function getProgramLicenceCount($id)
     {
-        $count =0;
-        $exam = \App\Models\Exam\ExamProcessing::all()->where("state",'=' ,'council');
+        $count = 0;
+        $exam = \App\Models\Exam\ExamProcessing::all()->where("state", '=', 'council');
         foreach ($exam as $ex)
             if ($ex['program_id'] === $id)
-                  $count++;
+                $count++;
         return $count;
     }
 }
-if (! function_exists('getDartaNumber')) {
+if (!function_exists('getDartaNumber')) {
     /**
      * Generates an asset path for the uploads.
      * @param null $path
@@ -147,12 +175,12 @@ if (! function_exists('getDartaNumber')) {
      */
     function getDartaNumber($id)
     {
-        $exam = \App\Models\Certificate\Certificate::all()->where("program_id",'=' ,$id)->where('decision_date','=', \date("2022-03-14"))->pluck('srn');
+        $exam = \App\Models\Certificate\Certificate::all()->where("program_id", '=', $id)->where('decision_date', '=', \date("2022-03-14"))->pluck('srn');
         return $exam;
     }
 }
 
-if (! function_exists('getExamApplicantList')) {
+if (!function_exists('getExamApplicantList')) {
     /**
      * Generates an asset path for the uploads.
      * @param $status
@@ -161,15 +189,15 @@ if (! function_exists('getExamApplicantList')) {
      */
     function getExamApplicantList($status, $state = null)
     {
-        $count =0;
-        $profiles = \App\Models\Exam\ExamProcessing::all()->where("status",'=' ,$status)
-                                                          ->where("state",'=', $state);
+        $count = 0;
+        $profiles = \App\Models\Exam\ExamProcessing::all()->where("status", '=', $status)
+            ->where("state", '=', $state);
         foreach ($profiles as $profile)
             $count++;
         return $count;
     }
 }
-if (! function_exists('getLevelWiseStudentCount')) {
+if (!function_exists('getLevelWiseStudentCount')) {
     /**
      * Generates an asset path for the uploads.
      * @param $status
@@ -178,29 +206,29 @@ if (! function_exists('getLevelWiseStudentCount')) {
      */
     function getLevelWiseStudentCount($level, $state, $status)
     {
-        $profiles = ExamProcessing::all()->where("level_id",'=' ,$level)
+        $profiles = ExamProcessing::all()->where("level_id", '=', $level)
             ->where('state', '=', $state)
             ->where('status', '=', $status);
         return count($profiles);
     }
 }
 
-if (! function_exists('getCommitteeWiseStudentCount')) {
+if (!function_exists('getCommitteeWiseStudentCount')) {
     /**
      * Generates an asset path for the uploads.
      * @param $status
      * @param null $state
      * @return string
      */
-    function getCommitteeWiseStudentCount( $state, $status)
+    function getCommitteeWiseStudentCount($state, $status)
     {
-        $subject_Committee_id = \App\Models\SubjectCommittee\SubjectCommitteeUser::all()->where('user_id','=',Auth::user()->id)->first();
+        $subject_Committee_id = \App\Models\SubjectCommittee\SubjectCommitteeUser::all()->where('user_id', '=', Auth::user()->id)->first();
 
-        $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
-            ->join('program','program.id','=','exam_registration.program_id')
-            ->where('profiles.profile_state',$state)
-            ->where('profiles.profile_status',$status)
-            ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
+        $profiles = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->where('profiles.profile_state', $state)
+            ->where('profiles.profile_status', $status)
+            ->where('program.subject-committee_id', $subject_Committee_id['subjecr_committee_id'])
             ->count();
 
 
@@ -208,16 +236,17 @@ if (! function_exists('getCommitteeWiseStudentCount')) {
     }
 }
 
-if(! function_exists('getAccepted')){
-    function getAccepted($id){
+if (!function_exists('getAccepted')) {
+    function getAccepted($id)
+    {
         $current_user = $this->profileLogsRepository->getAll()->where('created_by', '=', Auth::user()->id)
-            ->where('status','progress')
+            ->where('status', 'progress')
             ->where('profile_id', '=', $id);
 
         return $current_user;
     }
 }
-if (! function_exists('getLevelWiseStudentCountSubject')) {
+if (!function_exists('getLevelWiseStudentCountSubject')) {
     /**
      * Generates an asset path for the uploads.
      * @param $status
@@ -226,26 +255,26 @@ if (! function_exists('getLevelWiseStudentCountSubject')) {
      */
     function getLevelWiseStudentCountSubject($level, $state, $status)
     {
-        $subject_Committee_id = \App\Models\SubjectCommittee\SubjectCommitteeUser::all()->where('user_id','=',Auth::user()->id)->first();
-        $subject_committee = \App\Models\SubjectCommittee\SubjectCommittee::all()->where('id','=',$subject_Committee_id['subjecr_committee_id'])->first();
-        $count =0;
+        $subject_Committee_id = \App\Models\SubjectCommittee\SubjectCommitteeUser::all()->where('user_id', '=', Auth::user()->id)->first();
+        $subject_committee = \App\Models\SubjectCommittee\SubjectCommittee::all()->where('id', '=', $subject_Committee_id['subjecr_committee_id'])->first();
+        $count = 0;
 
-        $profiles = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')
-            ->join('program','program.id','=','exam_registration.program_id')
-            ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
-            ->where('profile_processing.current_state',$state)
-            ->where('profiles.level',$level)
-            ->where('profile_processing.status',$status)
-            ->where('program.subject-committee_id',$subject_Committee_id['subjecr_committee_id'])
-            ->orderBy('profiles.created_at','ASC')
+        $profiles = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+            ->where('profile_processing.current_state', $state)
+            ->where('profiles.level', $level)
+            ->where('profile_processing.status', $status)
+            ->where('program.subject-committee_id', $subject_Committee_id['subjecr_committee_id'])
+            ->orderBy('profiles.created_at', 'ASC')
             ->get(['profiles.*']);
 
 
-        foreach ($profiles as $data){
+        foreach ($profiles as $data) {
             $log = \App\Models\Profile\Profilelogs::all()->where('profile_id', '=', $data['id'])
                 ->where('state', '=', $state)
                 ->where('status', '=', $status)
-                ->where('created_by','=',Auth::user()->id)
+                ->where('created_by', '=', Auth::user()->id)
                 ->first();
             if (!$log) {
                 $count++;
@@ -259,14 +288,14 @@ if (! function_exists('getLevelWiseStudentCountSubject')) {
 
 
 
-if(!function_exists('imageNotFound')) {
+if (!function_exists('imageNotFound')) {
     /**
      * @param null $type
      * @return string
      */
     function imageNotFound($type = null)
     {
-        switch ($type){
+        switch ($type) {
             case 'user':
                 return 'https://media.accessiblecms.com.au/uploads/opan/2021/12/200.jpeg';
                 break;
@@ -275,75 +304,74 @@ if(!function_exists('imageNotFound')) {
                 break;
             default:
                 return 'dist/img/avatar.png';
-            //return asset('images/default.png');
+                //return asset('images/default.png');
 
         }
     }
 }
 
-if (!function_exists('getProfileImage')){
-    function getProfileImage(){
-        $data = \Student\Models\Profile::all()->where('user_id','=', Auth::user()->id)->first();
-        if (!$data){
-           return asset('dist/img/avatar.png');
-        }else{
+if (!function_exists('getProfileImage')) {
+    function getProfileImage()
+    {
+        $data = \Student\Models\Profile::all()->where('user_id', '=', Auth::user()->id)->first();
+        if (!$data) {
+            return asset('dist/img/avatar.png');
+        } else {
             return $data->getProfileImage();
         }
     }
 }
 
 
-if(!function_exists('profileImage')) {
+if (!function_exists('profileImage')) {
     /**
      * @param null $type
      * @return string
      */
     function profileImage()
     {
-            return  \Student\Models\Profile::getProfileImage();
-
+        return  \Student\Models\Profile::getProfileImage();
     }
 }
-if(!function_exists('levelExits')) {
+if (!function_exists('levelExits')) {
     /**
      * @param null $type
      * @return string
      */
     function levelExits()
     {
-        $data = \Student\Models\Profile::all()->where('user_id','=', Auth::user()->id)->first();
+        $data = \Student\Models\Profile::all()->where('user_id', '=', Auth::user()->id)->first();
         if ($data != null) {
             if ($data['level'] === 0) {
                 return false;
             } else {
                 return true;
             }
-        }else{
+        } else {
             return false;
         }
     }
 }
 
-if(!function_exists('getProgramName')) {
+if (!function_exists('getProgramName')) {
     /**
      * @param null $type
      * @return string
      */
     function getProgramName($id)
     {
-        $data = \App\Models\Admin\Program::query()->where('id','=',$id)->first();
+        $data = \App\Models\Admin\Program::query()->where('id', '=', $id)->first();
         return $data['name'];
-
     }
 }
-if(!function_exists('admitCard')) {
+if (!function_exists('admitCard')) {
     /**
      * @param null $type
      * @return string
      */
     function admitCard()
     {
-        $data = \Student\Models\Profile::all()->where('user_id','=', Auth::user()->id)->first();
+        $data = \Student\Models\Profile::all()->where('user_id', '=', Auth::user()->id)->first();
         if ($data != null) {
             $exam = \App\Models\Exam\ExamProcessing::all()->where('profile_id', '=', $data['id'])->first();
             if ($exam != null) {
@@ -353,34 +381,34 @@ if(!function_exists('admitCard')) {
                     return true;
                 }
             }
-        }else{
+        } else {
             return false;
         }
     }
 }
 
 
-if(!function_exists('symbolNumber')) {
+if (!function_exists('symbolNumber')) {
     /**
      * @param null $type
      * @return string
      */
     function symbolNumber($id)
     {
-        $exam= \App\Models\Exam\ExamProcessing::all()->where('id','=',$id)->first();
-        if ($exam['is_admit_card_generate'] === 'no'){
+        $exam = \App\Models\Exam\ExamProcessing::all()->where('id', '=', $id)->first();
+        if ($exam['is_admit_card_generate'] === 'no') {
             return "Not Generated yet";
-        }else{
-            $admit_card = \App\Models\AdmitCard\AdmitCard::all()->where('exam_processing_id','=',$id)->first();
-            if(!$admit_card)
-              return "Not Generated yet";
+        } else {
+            $admit_card = \App\Models\AdmitCard\AdmitCard::all()->where('exam_processing_id', '=', $id)->first();
+            if (!$admit_card)
+                return "Not Generated yet";
             return $admit_card['symbol_number'];
         }
     }
 }
 
 
-if(!function_exists('countAdmitCard')) {
+if (!function_exists('countAdmitCard')) {
     /**
      * @param null $type
      * @return string
@@ -388,18 +416,18 @@ if(!function_exists('countAdmitCard')) {
     function countAdmitCard()
     {
         $count = 0;
-        $exams= \App\Models\Exam\ExamProcessing::all()->where('state','=', 'exam_committee')
-        ->where('status','=','progress');
+        $exams = \App\Models\Exam\ExamProcessing::all()->where('state', '=', 'exam_committee')
+            ->where('status', '=', 'progress');
         foreach ($exams as $exam) {
             if ($exam['is_admit_card_generate'] === 'no') {
-                 $count = ++$count;
+                $count = ++$count;
             }
         }
         return $count;
     }
 }
 
-if(!function_exists('countAdmitGeneratedCard')) {
+if (!function_exists('countAdmitGeneratedCard')) {
     /**
      * @param null $type
      * @return string
@@ -407,8 +435,8 @@ if(!function_exists('countAdmitGeneratedCard')) {
     function countAdmitGeneratedCard()
     {
         $count = 0;
-        $exams= \App\Models\Exam\ExamProcessing::all()->where('state','=', 'exam_committee')
-            ->where('status','=','progress');
+        $exams = \App\Models\Exam\ExamProcessing::all()->where('state', '=', 'exam_committee')
+            ->where('status', '=', 'progress');
         foreach ($exams as $exam) {
             if ($exam['is_admit_card_generate'] === 'yes') {
                 $count = ++$count;
@@ -445,7 +473,6 @@ if (!function_exists('pagination_links')) {
 
         return $data->render($view);
     }
-
 }
 
 
@@ -602,7 +629,7 @@ if (!function_exists('imageNotFound')) {
                 break;
             default:
                 return 'https://via.placeholder.com/350x150';
-            //return asset('images/default.png');
+                //return asset('images/default.png');
 
         }
     }
@@ -620,7 +647,6 @@ if (!function_exists('getDateFormat')) {
         }
         return date('jS M, Y', strtotime($date));
     }
-
 }
 
 if (!function_exists('getActiveInactiveStatus')) {
@@ -628,7 +654,6 @@ if (!function_exists('getActiveInactiveStatus')) {
     {
         return ['active' => 'Active', 'in-active' => 'In Active'];
     }
-
 }
 
 
@@ -643,7 +668,6 @@ if (!function_exists('getUniversityCategory')) {
             'other' => 'Other'
         ];
     }
-
 }
 if (!function_exists('getPublicationCategory')) {
     function getPublicationCategory()
@@ -663,7 +687,6 @@ if (!function_exists('getPublicationCategory')) {
             'other' => "Other"
         ];
     }
-
 }
 if (!function_exists('getYear')) {
     function getYear()
@@ -676,7 +699,6 @@ if (!function_exists('getYear')) {
             '4_year' => "4th Year",
         ];
     }
-
 }
 if (!function_exists('getSubCategory')) {
     function getSubCategory()
@@ -692,7 +714,6 @@ if (!function_exists('getSubCategory')) {
             'medical-examination' => 'Medical Examination',
         ];
     }
-
 }
 
 
@@ -705,7 +726,6 @@ if (!function_exists('getCountryList')) {
         }
         return $new_array;
     }
-
 }
 if (!function_exists('getSchoolType')) {
     function getSchoolType()
@@ -716,7 +736,6 @@ if (!function_exists('getSchoolType')) {
         }
         return $new_array;
     }
-
 }
 
 if (!function_exists('generateSlug')) {
@@ -741,7 +760,6 @@ if (!function_exists('generateSlug')) {
         $string = preg_replace('/[^a-zA-Z0-9_ %\[\]\.\(\)%&-]/s', '', $string);
         return $string;
     }
-
 }
 
 
@@ -767,7 +785,7 @@ if (!function_exists('removeKeyFromArray')) {
     function removeKeyFromArray($array, $removeKeys)
     {
         foreach ($removeKeys as $removeKey)
-//        dd($array[$removeKey]);
+            //        dd($array[$removeKey]);
             unset($array[$removeKey]);
         return $array;
     }
@@ -777,8 +795,8 @@ if (!function_exists('removeKeyFromArray')) {
 if (!function_exists('getApplliedStudent')) {
     function getApplliedStudent($id)
     {
-        $count =0;
-        $student = \App\Models\Exam\ExamProcessing::all()->where("program_id",'=' ,$id);
+        $count = 0;
+        $student = \App\Models\Exam\ExamProcessing::all()->where("program_id", '=', $id);
         foreach ($student as $student_count)
             $count++;
         return $count;
@@ -788,7 +806,7 @@ if (!function_exists('getApplliedStudent')) {
 if (!function_exists('getTotalApplication')) {
     function getTotalApplication()
     {
-        $count =0;
+        $count = 0;
         $student = \Student\Models\Profile::all();
         foreach ($student as $student_count)
             $count++;
@@ -796,20 +814,20 @@ if (!function_exists('getTotalApplication')) {
     }
 }
 if (!function_exists('getVerifiedStudent')) {
-    function getVerifiedStudent($state,$status)
+    function getVerifiedStudent($state, $status)
     {
-        $count =0;
-        $student = \Student\Models\Profile::all()->where('profile_state','=',$state)->where('profile_status','=',$status);
+        $count = 0;
+        $student = \Student\Models\Profile::all()->where('profile_state', '=', $state)->where('profile_status', '=', $status);
         foreach ($student as $student_count)
             $count++;
         return $count;
     }
 }
 if (!function_exists('getprofileVerifiedStudent')) {
-    function getprofileVerifiedStudent($state,$status)
+    function getprofileVerifiedStudent($state, $status)
     {
-        $count =0;
-        $student = \App\Models\Profile\ProfileProcessing::all()->where('current_state','=',$state)->where('status','=',$status);
+        $count = 0;
+        $student = \App\Models\Profile\ProfileProcessing::all()->where('current_state', '=', $state)->where('status', '=', $status);
         foreach ($student as $student_count)
             $count++;
         return $count;
@@ -820,10 +838,10 @@ if (!function_exists('getProgramNameForProfile')) {
     function getProgramNameForProfile($id)
     {
 
-        $program_id = \App\Models\Exam\ExamProcessing::all()->where('profile_id','=',$id)->first();
-       if ($program_id == null)
-           return '';
-         $program= \App\Models\Admin\Program::all()->where('id','=',$program_id['program_id'])->first();
+        $program_id = \App\Models\Exam\ExamProcessing::all()->where('profile_id', '=', $id)->first();
+        if ($program_id == null)
+            return '';
+        $program = \App\Models\Admin\Program::all()->where('id', '=', $program_id['program_id'])->first();
 
         return $program['name'];
     }
@@ -833,47 +851,47 @@ if (!function_exists('getProgramNameForProfileLevel')) {
     function getProgramNameForProfileLevel($id)
     {
 
-        $program_id = \App\Models\Exam\ExamProcessing::all()->where('profile_id','=',$id)->first();
+        $program_id = \App\Models\Exam\ExamProcessing::all()->where('profile_id', '=', $id)->first();
         if ($program_id == null)
             return '';
-        $program= \App\Models\Admin\Program::all()->where('id','=',$program_id['program_id'])->first();
+        $program = \App\Models\Admin\Program::all()->where('id', '=', $program_id['program_id'])->first();
         return $program['level_id'];
     }
 }
 
 
-if(!function_exists('getSymbolNo')){
-    function getSymbolNo($exam_id){
-  
-           $symbolNumber = AdmitCard::all()->where('exam_processing_id','=', $exam_id)->first();
-           if($symbolNumber === null)
-               return 'Not Generated Yet';
-           return $symbolNumber['symbol_number'];
-      
+if (!function_exists('getSymbolNo')) {
+    function getSymbolNo($exam_id)
+    {
 
+        $symbolNumber = AdmitCard::all()->where('exam_processing_id', '=', $exam_id)->first();
+        if ($symbolNumber === null)
+            return 'Not Generated Yet';
+        return $symbolNumber['symbol_number'];
     }
 }
 
-if(!function_exists('getExamStatus')){
-    function getExamStatus($exam_id){
- 
-           $exam = ExamProcessing::all()->where('id','=', $exam_id)->first();
-           if($exam['isPassed']==0 && $exam['is_admit_card_generate'] == 'yes')
-             return 'Failed';
-           elseif($exam['isPassed']=0 && $exam['attempt'] == '2')
-             return 'Re Exam';
-           else
-          return 'New Applied';
-       
+if (!function_exists('getExamStatus')) {
+    function getExamStatus($exam_id)
+    {
+
+        $exam = ExamProcessing::all()->where('id', '=', $exam_id)->first();
+        if ($exam['isPassed'] == 0 && $exam['is_admit_card_generate'] == 'yes')
+            return 'Failed';
+        elseif ($exam['isPassed'] = 0 && $exam['attempt'] == '2')
+            return 'Re Exam';
+        else
+            return 'New Applied';
     }
 }
 
-if(!function_exists('examStats')){
-    function getExamStats($profile_id){
-           $exam = ExamProcessing::all()->where('profile_id','=', $profile_id)->where('isPassed','=','0')->where('attempt','=',2)->first();
-           if($exam === null)
-             return;
-             return $exam;
+if (!function_exists('examStats')) {
+    function getExamStats($profile_id)
+    {
+        $exam = ExamProcessing::all()->where('profile_id', '=', $profile_id)->where('isPassed', '=', '0')->where('attempt', '=', 2)->first();
+        if ($exam === null)
+            return;
+        return $exam;
     }
 }
 
@@ -881,7 +899,7 @@ if(!function_exists('examStats')){
 if (!function_exists('getHighteshQualification')) {
     function getHighteshQualification($qualification)
     {
-        if ($qualification == 0){
+        if ($qualification == 0) {
             return [
                 '1' => 'SLC',
                 '2' => 'TSLC',
@@ -889,7 +907,7 @@ if (!function_exists('getHighteshQualification')) {
                 '4' => 'Bachelor',
                 '5' => 'Master',
             ];
-        }else if ($qualification == 1){
+        } else if ($qualification == 1) {
             return [
                 '1' => 'SLC',
                 '2' => 'TSLC',
@@ -897,7 +915,7 @@ if (!function_exists('getHighteshQualification')) {
                 '4' => 'Bachelor',
                 '5' => 'Master',
             ];
-        }else if ($qualification == 2){
+        } else if ($qualification == 2) {
             return [
                 '1' => 'SLC',
                 '2' => 'TSLC',
@@ -905,7 +923,7 @@ if (!function_exists('getHighteshQualification')) {
                 '4' => 'Bachelor',
                 '5' => 'Master',
             ];
-        }else if ($qualification == 3){
+        } else if ($qualification == 3) {
             return [
                 '1' => 'SLC',
                 '2' => 'TSLC',
@@ -913,7 +931,7 @@ if (!function_exists('getHighteshQualification')) {
                 '4' => 'Bachelor',
                 '5' => 'Master',
             ];
-        }else if ($qualification == 4){
+        } else if ($qualification == 4) {
             return [
                 '1' => 'SLC',
                 '2' => 'TSLC',
@@ -921,8 +939,7 @@ if (!function_exists('getHighteshQualification')) {
                 '4' => 'Bachelor',
                 '5' => 'Master',
             ];
-        }
-        else if ($qualification == 4){
+        } else if ($qualification == 4) {
             return [
                 '1' => 'SLC',
                 '2' => 'TSLC',
@@ -930,7 +947,7 @@ if (!function_exists('getHighteshQualification')) {
                 '4' => 'Bachelor',
                 '5' => 'Master',
             ];
-        }else {
+        } else {
             return [
                 '1' => 'SLC',
                 '2' => 'TSLC',
@@ -940,5 +957,4 @@ if (!function_exists('getHighteshQualification')) {
             ];
         }
     }
-
 }

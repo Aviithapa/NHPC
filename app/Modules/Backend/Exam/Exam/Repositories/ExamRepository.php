@@ -3,8 +3,9 @@
 
 namespace App\Modules\Backend\Exam\Exam\Repositories;
 
+use App\Modules\Framework\Repository;
 
-interface ExamRepository
+interface ExamRepository extends Repository
 {
 
 }

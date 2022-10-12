@@ -29,7 +29,7 @@
 
                 <div class="box box-info">
                         <div class="box-header with-border p-t-1">
-                            <form method="POST" action="{{url('officer/dashboard/officer/minute/applicant/list/'.$id)}}">
+                            {{-- <form method="POST" action="{{url('officer/dashboard/officer/minute/applicant/list/'.$id)}}">
                                 @csrf
     
     
@@ -55,7 +55,7 @@
                                     </div>
                                     </div>
     
-                            </form>
+                            </form> --}}
                         </div>
             <div class="row mt-2">
                 <div class="col-lg-12 m-b-3">
@@ -74,9 +74,8 @@
                                     <tr>
                                         <th>S.N.</th>
                                         <th>Name</th>
-                                        <th>Passed Status</th>
                                         <th>Darta Number</th>
-                                        <th>Certificate</th>
+                                        <th>Printed</th>
                                         <th>Level</th>
                                         <th>Accepted Date</th>
                                         <th>Action</th>
@@ -89,15 +88,16 @@
                                         </tr>
 
                                     @else
+                                    {{ $count = 0 }}
                                         @foreach($profiles as $key => $data)
                                             <tr>
-                                                <td>{{++$key}}</td>
+                                                <td>{{++$count}}</td>
                                                 <td>{{$data->first_name .' '. $data->middle_name.' '. $data->last_name}}  </td>
-                                                <td>{{$data->isPassed ? 'Yes' : 'No'}}</td>
                                                 <td>{{$data->darta_number}}</td>
-                                                <td>{{$data->certificate_generate}}</td>
+                                                <td>{{$data->is_printed ? 'Yes' : 'No'}}</td>
                                                 <td>{{$data->level_name}}</td>
-                                                <td>{{ $data->profile_logs_created }}
+                                                <td>{{$data->is_printed ?  $data->certificate_updated_at : 'No' }}
+                                            
 {{--                                                <td> <a href="{{url("officer/dashboard/officer/minute-applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>--}}
                                                 <td> <a href="{{url("officer/dashboard/officer/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
 

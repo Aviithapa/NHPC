@@ -43,18 +43,20 @@
                                     <div class="col-lg-4">
                                         <fieldset class="form-group">
                                             <select class="form-control" name="date"  id="date" >
-                                                <option value="0">DECISION DATE</option>
-                                                <option value="2022-08-15">2022-08-15</option>
-                                                <option value="2022-07-26">2022-07-26</option>
-                                                <option value="2022-07-08">2022-07-08</option>
-                                                <option value="2022-06-05">2022-06-05</option>
+                                                <option value={{ isset($date) ?  $date : 0  }}>{{ isset($date) ?  $date : 'DECISION DATE'  }}</option>
+                                                <option value="2022-09-25">2022-09-25  (2079-06-09)</option>
+                                                <option value="2022-09-21">2022-09-21 (2079-06-05)</option>
+                                                <option value="2022-08-15">2022-08-15 (2079-04-30)</option>
+                                                <option value="2022-07-26">2022-07-26 (2079-04-10)</option>
+                                                <option value="2022-07-08">2022-07-08 (2079-03-24)</option>
+                                                <option value="2022-06-05">2022-06-05  (2079-02-22) </option>
                                             </select>
                                         </fieldset>
                                     </div>
                                     <div class="col-lg-4">
                                         <fieldset class="form-group">
                                             <select class="form-control" name="subject_committee"  id="date" >
-                                                <option value="0">ALL SUBJECT COMMITTEE</option>
+                                                <option value={{ isset($subjectCommittee->subject_committee_id) ?  $subjectCommittee->subject_committee_id : 0  }}>{{ isset($subjectCommittee->subject_committee_name) ?  $subjectCommittee->subject_committee_name : 'ALL SUBJECT COMMITTEE'}}</option>
                                                 <option value="1">PUBLIC HEALTH</option>
                                                 <option value="2">GENERAL MEDICINE</option>
                                                 <option value="3">LABORATORY MEDICINE</option>
@@ -86,6 +88,7 @@
                                         <th>Name</th>
                                         <th>Phone Number</th>
                                         <th>Subject Committeee</th>
+                                        <th>Count</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -102,7 +105,8 @@
                                                 <td>{{$data->name   }}  </td>
                                                 <td>{{$data->phone_number}}</td>
                                                 <td>{{$data->subject_committee_name}}</td>
-                                                <td> <a href="{{url("council/dashboard/officer/minute/applicant/list/".$data->id)}}"><span class="label label-success">View</span></a></td>
+                                                <td>{{ $date ? examMinuteStudentCount($data->id, $date) : examMinuteStudentCount($data->id) }}</td>
+                                                <td> <a href="{{isset($date) ? url("council/dashboard/officer/minute/applicant/list/".$data->id . '/' . $date)  : url("council/dashboard/officer/minute/applicant/list/".$data->id) }}"><span class="label label-success">View</span></a></td>
                                             </tr>
                                         @endforeach
                                     @endif

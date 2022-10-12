@@ -10,6 +10,7 @@ use App\Models\Certificate\Certificate;
 use App\Models\Certificate\CertificateHistory;
 use App\Models\Exam\ExamProcessing;
 use App\Models\Profile\Profilelogs;
+use App\Models\SubjectCommittee\SubjectCommittee;
 use App\Models\SubjectCommittee\SubjectCommitteeUser;
 use App\Modules\Backend\Admin\Level\Repositories\LevelRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
@@ -118,13 +119,13 @@ class CouncilController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'council') {
             $data = $request->all();
-            $date = isset($data['date']);
-            if (isset($data['date'])) {
+            $date = isset($date);
+            if (isset($date)) {
 
                 $certificate = DB::table('certificate_history')
                     ->select('program_id', 'level_name', 'program_certificate_code',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns'))
                     ->groupBy('program_id', 'level_name', 'program_certificate_code')
-                    ->orWhere('decision_date', '=', $data['date'])
+                    ->orWhere('decision_date', '=', $date)
                     ->orderBy('level_name')
                     ->orderBy('srn', 'ASC')
                     ->get(array('srn'))
@@ -139,12 +140,12 @@ class CouncilController extends BaseController
                     ->get(array('srn'))
                     ->unique('program_id');
             }
-            $selectedDate = isset($data['date']) ? $data['date'] : '';
-            $data =isset($data['date']) ? DB::table('certificate_history')
-            ->where('decision_date', '=', $data['date'])
-            ->count() : 0;
-      
-        
+            $selectedDate = isset($date) ? $date : '';
+            $data = isset($date) ? DB::table('certificate_history')
+                ->where('decision_date', '=', $date)
+                ->count() : 0;
+
+
 
             return \view('council::pages.darta-book', compact('certificate', 'date', 'selectedDate', 'data'));
         } else {
@@ -194,13 +195,13 @@ class CouncilController extends BaseController
             $count = ExamProcessing::all()->where('state', '=', 'council')
                 ->where('status', '=', 'progress')
                 ->where('level_id', '!=', 4)->count();
-              
+
             $data = ExamProcessing::all()->where('state', '=', 'council')
                 ->where('status', '=', 'progress')
                 ->where('level_id', '!=', 4)
                 ->take(100)
                 ->skip(0);
-            return \view('council::pages.passed-list', compact('data','count'));
+            return \view('council::pages.passed-list', compact('data', 'count'));
         } else {
             return redirect()->route('login');
         }
@@ -410,23 +411,19 @@ class CouncilController extends BaseController
     public function minuteDataSubjectCommitteeIndex(Request $request)
     {
         $data = $request->all();
-        if (isset($data['date'])) {
-            if (isset($data['subject_committee'])) {
-                if ($data['subject_committee'] == 0) {
-                    $subjectCommitteeUser = SubjectCommitteeUser::join('users', 'users.id', '=', 'subject_committee_user.user_id')
-                        ->join('subject_committee', 'subject_committee.id', '=', 'subject_committee_user.subjecr_committee_id')
-                        ->get(['users.*', 'subject_committee.name as subject_committee_name']);
-                } else {
-
-                    $subjectCommitteeUser = SubjectCommitteeUser::join('users', 'users.id', '=', 'subject_committee_user.user_id')
-                        ->join('subject_committee', 'subject_committee.id', '=', 'subject_committee_user.subjecr_committee_id')
-                        ->where('subject_committee.id', '=', $data['subject_committee'])
-                        ->get(['users.*', 'subject_committee.name as subject_committee_name']);
-                }
-            } else {
+        $date = isset($data['date']) ? $data['date'] : false;
+        $subjectCommittee = '';
+        if (isset($data['subject_committee'])) {
+            if ($data['subject_committee'] == 0) {
                 $subjectCommitteeUser = SubjectCommitteeUser::join('users', 'users.id', '=', 'subject_committee_user.user_id')
                     ->join('subject_committee', 'subject_committee.id', '=', 'subject_committee_user.subjecr_committee_id')
                     ->get(['users.*', 'subject_committee.name as subject_committee_name']);
+            } else {
+                $subjectCommitteeUser = SubjectCommitteeUser::join('users', 'users.id', '=', 'subject_committee_user.user_id')
+                    ->join('subject_committee', 'subject_committee.id', '=', 'subject_committee_user.subjecr_committee_id')
+                    ->where('subject_committee.id', '=', $data['subject_committee'])
+                    ->get(['users.*', 'subject_committee.name as subject_committee_name']);
+                $subjectCommittee =  SubjectCommittee::where('subject_committee.id', '=', $data['subject_committee'])->get(['subject_committee.name as subject_committee_name', 'subject_committee.id as subject_committee_id'])->first();
             }
         } else {
             $subjectCommitteeUser = SubjectCommitteeUser::join('users', 'users.id', '=', 'subject_committee_user.user_id')
@@ -434,77 +431,31 @@ class CouncilController extends BaseController
                 ->get(['users.*', 'subject_committee.name as subject_committee_name']);
         }
 
-        return view('council::pages.minute-subject-index', compact('subjectCommitteeUser'));
+
+
+        return view('council::pages.minute-subject-index', compact('subjectCommitteeUser', 'date', 'subjectCommittee'));
     }
-    public function minuteDataApplicantIndex(Request $request, $id)
+    public function minuteDataApplicantIndex(Request $request, $id, $date = null)
     {
         $data = $request->all();
-        if (isset($data['date'])) {
-            if ($data['date'] === '2022-06-05') {
-                $time = strtotime($data['date']);
-
-                $newformat = date('Y-m-d', $time);
-                // dd($newformat);
-                $profiles = Profilelogs::join('profiles', 'profiles.id', '=', 'profile_logs.profile_id')
-                    ->where('profile_logs.created_by', '=', $id)
-                    ->join('exam_registration', 'exam_registration.profile_id', '=', 'profile_logs.profile_id')
-                    ->join('level', 'level.id', '=', 'exam_registration.level_id')
-                    ->where('profile_logs.status', '!=', 'rejected')
-                    ->where('profile_logs.created_at', '<', '2022-06-06')
-                    ->where('exam_registration.isPassed', '=', '1')
-                    ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created'])
-                    ->unique('profile_id');
-            } else if ($data['date'] === '2022-07-08') {
-                $time = strtotime($data['date']);
-
-                $newformat = date('Y-m-d', $time);
-                // dd($newformat);
-                $profiles = Profilelogs::join('profiles', 'profiles.id', '=', 'profile_logs.profile_id')
-                    ->where('profile_logs.created_by', '=', $id)
-                    ->join('exam_registration', 'exam_registration.profile_id', '=', 'profile_logs.profile_id')
-                    ->join('level', 'level.id', '=', 'exam_registration.level_id')
-                    ->where('profile_logs.status', '!=', 'rejected')
-                    ->where('profile_logs.created_at', '>=', '2022-06-06')
-                    ->where('profile_logs.created_at', '<=', $newformat)
-                    ->where('exam_registration.isPassed', '=', '1')
-                    ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created'])
-                    ->unique('profile_id');
-            } else if ($data['date'] === '2022-07-26') {
-                $time = strtotime($data['date']);
-
-                $newformat = date('Y-m-d', $time);
-                // dd($newformat);
-                $profiles = Profilelogs::join('profiles', 'profiles.id', '=', 'profile_logs.profile_id')
-                    ->where('profile_logs.created_by', '=', $id)
-                    ->join('exam_registration', 'exam_registration.profile_id', '=', 'profile_logs.profile_id')
-                    ->join('level', 'level.id', '=', 'exam_registration.level_id')
-                    ->where('profile_logs.status', '!=', 'rejected')
-                    ->where('profile_logs.created_at', '>=', '2022-07-09')
-                    ->where('profile_logs.created_at', '<=', $newformat)
-                    ->where('exam_registration.isPassed', '=', '1')
-                    ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created'])
-                    ->unique('profile_id');
-            } else {
-                $profiles = Profilelogs::join('profiles', 'profiles.id', '=', 'profile_logs.profile_id')
-                    ->where('profile_logs.created_by', '=', $id)
-                    ->join('exam_registration', 'exam_registration.profile_id', '=', 'profile_logs.profile_id')
-                    ->join('level', 'level.id', '=', 'exam_registration.level_id')
-                    ->where('profile_logs.status', '!=', 'rejected')
-                    ->where('exam_registration.isPassed', '=', '1')
-                    ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created'])
-                    ->unique('profile_id');
-            }
-        } else {
-            $profiles = Profilelogs::join('profiles', 'profiles.id', '=', 'profile_logs.profile_id')
-                ->where('profile_logs.created_by', '=', $id)
+        if ($date != null) {
+            $profiles =  Certificate::join('profile_logs', 'profile_logs.profile_id', '=', 'certificate_history.profile_id')
+                ->join('profiles', 'profiles.id', '=', 'profile_logs.profile_id')
                 ->join('exam_registration', 'exam_registration.profile_id', '=', 'profile_logs.profile_id')
                 ->join('level', 'level.id', '=', 'exam_registration.level_id')
-                ->where('profile_logs.status', '!=', 'rejected')
-                ->where('exam_registration.isPassed', '=', '1')
-                ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created'])
+                ->where('profile_logs.created_by', '=', $id)
+                ->where('certificate_history.decision_date', '=', $date)
+                ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created','certificate_history.*','certificate_history.updated_at as certificate_updated_at'])
+                ->unique('profile_id');
+        } else {
+            $profiles =  Certificate::join('profile_logs', 'profile_logs.profile_id', '=', 'certificate_history.profile_id')
+                ->join('profiles', 'profiles.id', '=', 'profile_logs.profile_id')
+                ->join('exam_registration', 'exam_registration.profile_id', '=', 'profile_logs.profile_id')
+                ->join('level', 'level.id', '=', 'exam_registration.level_id')
+                ->where('profile_logs.created_by', '=', $id)
+                ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created','certificate_history.*','certificate_history.updated_at as certificate_updated_at'])
                 ->unique('profile_id');
         }
-        //        dd($profiles);
 
         return view('council::pages.minute-applicant-list', compact('profiles', 'id'));
     }

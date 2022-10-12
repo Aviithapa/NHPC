@@ -9,5 +9,5 @@ use Illuminate\Database\Eloquent\Model;
 class Exam extends Model
 {
    protected $table="exam";
-   protected $fillable=['Exam_Name','form_opening_date','form_closing_date','exam_date','Level_id','description'];
+   protected $fillable=['Exam_name','form_opening_date','form_closing_date','exam_date','Level_id','description','status'];
 }

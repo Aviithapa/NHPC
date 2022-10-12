@@ -319,4 +319,15 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::post('/changeStateProfileLogs/{id}', 'ApplicantController@changeStateProfileLogs')->middleware(['auth'])->name('superAdmin.changeStateProfileLogs');
     Route::get('/stats', 'ApplicantController@stats')->middleware(['auth'])->name('superAdmin.stats');
 
+
+    Route::get('/exam', 'ApplicantController@examDetails')->middleware(['auth'])->name('superAdmin.exam');
+    Route::get('/exam/create', 'ApplicantController@create')->middleware(['auth'])->name('superAdmin.exam.create');
+    Route::post('/exam/store', 'ApplicantController@store')->middleware(['auth'])->name('superAdmin.exam.store');
+    Route::get('/exam/update/{status}/{id}', 'ApplicantController@update')->middleware(['auth'])->name('superAdmin.exam.update');
+    Route::get('/exam/view/{id}', 'ApplicantController@show')->middleware(['auth'])->name('superAdmin.exam.view');
+
+
+
+
+
 });
