@@ -242,14 +242,14 @@ class CouncilController extends BaseController
             // dd($students);
             foreach ($students as $student) {
                 $srn_number = 0;
+                $srn = 0;
                 $date = '2022-09-21';
                 $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
                 $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
                 $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
                     ->where('program_id', '=', $student['program_id'])->first();
                 if ($srn_number)
-                $srn = $srn_number === null ? 0 : $srn_number['srn'];
-                dd($srn);
+                $srn = $srn_number['srn'];
                 $registration_id = $registration_number['registration_id'];
                 $data['registration_id'] = ++$registration_id;
                 $data['category_id'] = $student[''];
