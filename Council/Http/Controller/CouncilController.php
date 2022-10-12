@@ -139,13 +139,6 @@ class CouncilController extends BaseController
                     ->get(array('srn'))
                     ->unique('program_id');
             }
-            // $certificate = DB::table('certificate_history')
-            //         ->select('program_id', 'level_name', 'program_certificate_code',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns'))
-            //         ->groupBy('program_id', 'level_name', 'program_certificate_code')
-            //         ->orderBy('level_name')
-            //         ->orderBy('srn', 'ASC')
-            //         ->get(array('srn'))
-            //         ->unique('program_id');
             $selectedDate = isset($date) ? $date : '';
             $data = isset($date) ? DB::table('certificate_history')
                 ->where('decision_date', '=', $date)
@@ -336,7 +329,7 @@ class CouncilController extends BaseController
                 $data['program_certificate_code'] = $student['certificate_name'];
                 $data['cert_registration_number'] = $this->certRegistrationNumber($data['srn'], $student['certificate_name'], $student['level_code']);
                 $data['registrar'] = 'puspa raj khanal';
-                $data['decision_date'] = Carbon::now();
+                $data['decision_date'] = '2022-09-25';
 
                 //            $date;
                 $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
