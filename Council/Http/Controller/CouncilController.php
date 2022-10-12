@@ -239,7 +239,7 @@ class CouncilController extends BaseController
                     'program.id as program_id', 'level.*', 'provinces.province_name', 'exam_registration.id as exam_registration_id'
                 ]);
 
-            dd($students);
+            // dd($students);
             foreach ($students as $student) {
                 $srn_number = 0;
                 $date = '2022-09-21';
