@@ -304,7 +304,7 @@
 
 ">
 {{-- {!! htmlspecialchars_decode($certificate->certificate_program_name) !!} --}}
-{{ $certificate->program_code }}
+{!!  html_entity_decode($certificate->program_code)  !!}
 
 </td>
             <td style=" border: 1px solid black;
