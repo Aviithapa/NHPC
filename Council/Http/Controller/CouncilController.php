@@ -248,7 +248,7 @@ class CouncilController extends BaseController
                 $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
                     ->where('program_id', '=', $student['program_id'])->first();
                 if ($srn_number)
-                $srn = $srn_number ? 0 : $srn_number['srn'];
+                $srn = $srn_number === null ? 0 : $srn_number['srn'];
                 dd($srn);
                 $registration_id = $registration_number['registration_id'];
                 $data['registration_id'] = ++$registration_id;
