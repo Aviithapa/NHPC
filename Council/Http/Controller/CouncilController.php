@@ -120,8 +120,8 @@ class CouncilController extends BaseController
         if (Auth::user()->mainRole()->name === 'council') {
             $data = $request->all();
             $date = isset($date);
+            $certificate = '';
             if (isset($date)) {
-
                 $certificate = DB::table('certificate_history')
                     ->select('program_id', 'level_name', 'program_certificate_code',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns'))
                     ->groupBy('program_id', 'level_name', 'program_certificate_code')
@@ -132,7 +132,6 @@ class CouncilController extends BaseController
                     ->unique('program_id');
             } else {
                 $certificate = DB::table('certificate_history')
-
                     ->select('program_id', 'level_name', 'program_certificate_code',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns'))
                     ->groupBy('program_id', 'level_name', 'program_certificate_code')
                     ->orderBy('level_name')
@@ -140,13 +139,19 @@ class CouncilController extends BaseController
                     ->get(array('srn'))
                     ->unique('program_id');
             }
+            $certificate = DB::table('certificate_history')
+                    ->select('program_id', 'level_name', 'program_certificate_code',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns'))
+                    ->groupBy('program_id', 'level_name', 'program_certificate_code')
+                    ->orderBy('level_name')
+                    ->orderBy('srn', 'ASC')
+                    ->get(array('srn'))
+                    ->unique('program_id');
             $selectedDate = isset($date) ? $date : '';
             $data = isset($date) ? DB::table('certificate_history')
                 ->where('decision_date', '=', $date)
                 ->count() : 0;
 
-
-
+                dd($certificate);
             return \view('council::pages.darta-book', compact('certificate', 'date', 'selectedDate', 'data'));
         } else {
             return redirect()->route('login');

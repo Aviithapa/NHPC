@@ -197,7 +197,7 @@
         {{-- 08-07-2022 --}}
         of the Council, the name of
         <span style="font-size: 26px;
-        font-weight: 600;"> {{ucwords(strtolower($certificate->program_qualification))}}</span> date of birth
+        font-weight: 600;"> {{ucwords(strtolower($certificate->certificate_name))}}</span> date of birth
         {{ $profile->dob_nep}}
         a resident ward No. <span style="font-size: 26px;
         font-weight: 700;">{{$profile->ward_no}}</span> of <span style="font-size: 26px;
@@ -210,7 +210,7 @@
         Province is registered as <span style="font-size: 26px;
         font-weight: 700;">
            {{-- {!! htmlspecialchars_decode($certificate->certificate_program_name) !!} --}}
-           {{ $certificate->program_code }}
+           {{ $certificate->program_qualification}}
         </span>
         of <span style="font-size: 26px;
         font-weight: 700;">{{$certificate->level_name}}</span> Level
