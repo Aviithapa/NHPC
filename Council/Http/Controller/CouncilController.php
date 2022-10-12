@@ -249,7 +249,7 @@ class CouncilController extends BaseController
                     ->where('program_id', '=', $student['program_id'])->first();
                 if ($srn_number)
                 $srn = $srn_number === 0 ? $srn_number : $srn_number['srn'];
-                dd($srn);
+                dd($srn_number);
                 $registration_id = $registration_number['registration_id'];
                 $data['registration_id'] = ++$registration_id;
                 $data['category_id'] = $student[''];
