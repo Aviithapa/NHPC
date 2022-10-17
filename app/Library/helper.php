@@ -8,6 +8,7 @@ use App\Models\Profile\ProfileProcessing;
 use Carbon\Carbon;
 use Carbon\Exceptions\Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Student\Models\Profile;
 
@@ -61,8 +62,8 @@ if (!function_exists('examMinuteStudentCount')) {
             ->where('profile_logs.created_by', '=', $id)
             ->where('certificate_history.decision_date', '=', $date)
             ->select('certificate_history.profile_id')
-            // ->distinct('certificate_history.profile_id')
-            ->count(['certificate_history.profile_id']);
+            ->distinct('certificate_history.profile_id')
+            ->count(DB::raw('DISTINCT name certificate_history.profile_id'));
         }else{
             $datas =  Certificate::join('profile_logs', 'profile_logs.profile_id', '=', 'certificate_history.profile_id')
             ->where('profile_logs.created_by', '=', $id)

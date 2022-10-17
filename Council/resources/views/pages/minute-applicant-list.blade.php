@@ -77,7 +77,7 @@
                                         <th>Darta Number</th>
                                         <th>Printed</th>
                                         <th>Level</th>
-                                        <th>Accepted Date</th>
+                                        <th>Printed Date</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -93,7 +93,7 @@
                                             <tr>
                                                 <td>{{++$count}}</td>
                                                 <td>{{$data->first_name .' '. $data->middle_name.' '. $data->last_name}}  </td>
-                                                <td>{{$data->darta_number}}</td>
+                                                <td>{{$data->srn}}</td>
                                                 <td>{{$data->is_printed ? 'Yes' : 'No'}}</td>
                                                 <td>{{$data->level_name}}</td>
                                                 <td>{{$data->is_printed ?  $data->certificate_updated_at : 'No' }}

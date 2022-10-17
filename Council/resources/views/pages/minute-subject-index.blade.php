@@ -102,10 +102,11 @@
                                         @foreach($subjectCommitteeUser as $key => $data)
                                             <tr>
                                                 <td>{{++$key}}</td>
+                                                <td>{{ $data->id }}</td>
                                                 <td>{{$data->name   }}  </td>
                                                 <td>{{$data->phone_number}}</td>
                                                 <td>{{$data->subject_committee_name}}</td>
-                                                <td>{{ $date ? examMinuteStudentCount($data->id, $date) : examMinuteStudentCount($data->id) }}</td>
+                                                <td>{{ $date ? examMinuteStudentCount($data->id, $date) : examMinuteStudentCount($data->id , '2022-07-26') }}</td>
                                                 <td> <a href="{{isset($date) ? url("council/dashboard/officer/minute/applicant/list/".$data->id . '/' . $date)  : url("council/dashboard/officer/minute/applicant/list/".$data->id) }}"><span class="label label-success">View</span></a></td>
                                             </tr>
                                         @endforeach
