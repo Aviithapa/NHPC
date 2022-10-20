@@ -809,6 +809,29 @@ class OperatorController extends BaseController
         return view('operator::pages.certificate', compact('certificate', 'profile'));
     }
 
+    public function printed($id, $level)
+    {
+        $certificate = Certificate::join('profiles', 'profiles.id', '=', 'certificate_history.profile_id')
+            ->join('program', 'program.id', '=', 'certificate_history.program_id')
+            ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
+            ->join('registrant_qualification', 'registrant_qualification.user_id', '=', 'profiles.user_id')
+            ->where('certificate_history.id', '=', $id)
+            ->where('registrant_qualification.level', '=', $level)
+            ->orderBy('certificate_history.id', 'ASC')
+            ->get(['certificate_history.*', 'certificate_history.name as certificate_name', 'certificate_history.program_name as certificate_program_name', 'profiles.*', 'program.name as Name_program', 'registrant_qualification.*', 'provinces.province_name', 'certificate_history.id as certificate_history_id', 'program.code_ as program_code', 'program.qualification as program_qualification'])->first();
+
+        //        dd($certificate);
+        //        $this->certificateRepository->findById($id);
+        $profile = $this->profileRepository->findById($certificate['profile_id']);
+        //        $year= auth()->user()->created_at->format('Y');
+        //        $month= auth()->user()->created_at->format('m');
+        //        $day= auth()->user()->created_at->format('d');
+        //        $date=($year,$month,$day);
+        //        dd($certificate);
+        return view('operator::pages.printedCertificate', compact('certificate', 'profile'));
+    }
+
+
     public function printCertificateIndex($status, $program_id)
     {
         $certificates =  Certificate::join('profiles', 'profiles.id', '=', 'certificate_history.profile_id')
@@ -1179,6 +1202,33 @@ class OperatorController extends BaseController
                 }
             }
         }
+        return redirect()->back();
+    }
+
+    public function deleteDuplicate($id)
+    {
+        $duplicateMessage = "Has been removed by Operator, Due to Duplicate";
+        $profile_log['status'] = 'rejected';
+        $profile_log['remarks'] = $duplicateMessage;
+        $profile_log['review_status'] = 'Rejected';
+        $profile_log['created_by'] = Auth::user()->id;
+        $profile_log['profile_id'] = $id;
+ 
+        $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id);
+        if (count($exam) > 1) {
+            return redirect()->back();
+        } else {
+            try{
+                $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
+                $deleteExam = $this->examProcessingRepository->delete($exam->id);
+                $deleteProfile = $this->profileRepository->delete($id);
+                $logs = $this->profileLogs($profile_log);
+            }catch(Exception $e){
+               return redirect()->back();
+            }
+         
+        }
+        session()->flash('success', 'Deleted Successfully');
         return redirect()->back();
     }
 }

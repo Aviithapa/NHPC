@@ -25,6 +25,7 @@ Route::get('/view/certificate/{id}/{level}',  [\Operator\Http\Controller\Operato
 Route::get('/certificate/index/{status}/{program_id}',  [\Operator\Http\Controller\OperatorController::class,'printCertificateIndex'])->middleware(['auth'])->name('operator.dashboard.printCertificateIndex');
 Route::get('/certificate/isPrinted/{id}',  [\Operator\Http\Controller\OperatorController::class,'printedCertificate'])->middleware(['auth'])->name('operator.dashboard.printedCertificate');
 Route::get('/certificate/card/{status}',  [\Operator\Http\Controller\OperatorController::class,'printCertificateDashboard'])->middleware(['auth'])->name('operator.dashboard.printCertificateDashboard');
+Route::get('/view/printedCertificate/{id}/{level}',  [\Operator\Http\Controller\OperatorController::class,'printed'])->middleware(['auth'])->name('operator.dashboard.view.printedCertificate');
 
 
 Route::get('/student/program/{id}/{status}/{state}',  [\Operator\Http\Controller\OperatorController::class,'getProgramWiseStudent'])->middleware(['auth'])->name('operator.dashboard.getProgramWiseStudent');
@@ -47,3 +48,4 @@ Route::get('/move/exam_committee/{id}',[\Operator\Http\Controller\OperatorContro
 
 
 Route::get('statusUpdateExam', [\Operator\Http\Controller\OperatorController::class,'statusUpdateExam'])->middleware(['auth'])->name('operator.statusUpdate');
+Route::get('deleteDuplicate/{id}', [\Operator\Http\Controller\OperatorController::class,'deleteDuplicate'])->middleware(['auth'])->name('operator.deleteDuplicate');

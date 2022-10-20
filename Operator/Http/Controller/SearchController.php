@@ -98,6 +98,7 @@ class SearchController extends BaseController
                         '<td>' . $product->dob_nep . '</td>' .
                         '<td>' . $product->state . '</td>' .
                         '<td><a href='.url("operator/dashboard/operator/applicant-list-view/".$product->profiles_id).'><span class="label label-success">View</span></a> </td>' .
+                        '<td><a href='.url("operator/dashboard/deleteDuplicate/".$product->profiles_id).'><span class="label label-danger">Delete</span></a> </td>' .
                         '</tr>';
                 }
                 return Response($output);
