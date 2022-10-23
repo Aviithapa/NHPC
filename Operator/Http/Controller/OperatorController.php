@@ -1190,6 +1190,7 @@ class OperatorController extends BaseController
         $tasks =  Certificate::join('admit_card', 'admit_card.profile_id', 'certificate_history.profile_id')
             ->where('certificate_history.level_name', '=', 'Second')
             ->where('certificate_history.decision_date', '=', '2022-09-21')
+            ->whereDate('admit_card.created_at','!=',date('2022-07-01'))
             ->get();
 
         $headers = array(
@@ -1220,7 +1221,7 @@ class OperatorController extends BaseController
                     $row['Registration Number'],
                     $row['Symbol Number'],
                     $row['Date of Birth'],
-                    $row['Profile'],
+                    $row['Profile Id'],
 
 
                 ));
