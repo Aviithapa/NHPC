@@ -49,3 +49,6 @@ Route::get('/move/exam_committee/{id}',[\Operator\Http\Controller\OperatorContro
 
 Route::get('statusUpdateExam', [\Operator\Http\Controller\OperatorController::class,'statusUpdateExam'])->middleware(['auth'])->name('operator.statusUpdate');
 Route::get('deleteDuplicate/{id}', [\Operator\Http\Controller\OperatorController::class,'deleteDuplicate'])->middleware(['auth'])->name('operator.deleteDuplicate');
+
+
+Route::get('/exportPCLCertificate',[\Operator\Http\Controller\OperatorController::class,'exportPCLCertificate'])->middleware(['auth'])->name('operator.exportPCLCertificate');

@@ -7,6 +7,7 @@ namespace Operator\Http\Controller;
 use App\Http\Controllers\MailController;
 use App\Models\Address\Provinces;
 use App\Models\Certificate\Certificate;
+use App\Models\Certificate\CertificateHistory;
 use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
@@ -1182,6 +1183,51 @@ class OperatorController extends BaseController
         return response()->stream($callback, 200, $headers);
     }
 
+    public function exportPCLCertificate(Request $request)
+    {
+        $fileName = 'pclRegistrationNumber.csv';
+
+        $tasks =  Certificate::join('admit_card', 'admit_card.profile_id', 'certificate_history.profile_id')
+            ->where('certificate_history.level_name', '=', 'Second')
+            ->where('certificate_history.decision_date', '=', '2022-09-21')
+            ->get();
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('Name', 'Registration Number', ' Symbol Number', 'Date of Birth');
+
+        $callback = function () use ($tasks, $columns) {
+
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+            foreach ($tasks as $task) {
+                $row['Name'] = $task->name;
+                $row['Registration Number'] = $task->cert_registration_number;
+                $row['Symbol Number'] = $task->symbol_number;
+                $row['Date of Birth'] = $task->date_of_birth;
+
+
+                fputcsv($file, array(
+                    $row['Name'],
+                    $row['Registration Number'],
+                    $row['Symbol Number'],
+                    $row['Date of Birth'],
+
+                ));
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
     public function statusUpdateExam()
     {
         $exams = ExamProcessing::all()->where('status', '=', 'rejected')->where('attempt', '=', 1);
@@ -1213,20 +1259,19 @@ class OperatorController extends BaseController
         $profile_log['review_status'] = 'Rejected';
         $profile_log['created_by'] = Auth::user()->id;
         $profile_log['profile_id'] = $id;
- 
+
         $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id);
         if (count($exam) > 1) {
             return redirect()->back();
         } else {
-            try{
+            try {
                 $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
                 $deleteExam = $this->examProcessingRepository->delete($exam->id);
                 $deleteProfile = $this->profileRepository->delete($id);
                 $logs = $this->profileLogs($profile_log);
-            }catch(Exception $e){
-               return redirect()->back();
+            } catch (Exception $e) {
+                return redirect()->back();
             }
-         
         }
         session()->flash('success', 'Deleted Successfully');
         return redirect()->back();
