@@ -1190,6 +1190,7 @@ class OperatorController extends BaseController
         $tasks =  Certificate::join('admit_card', 'admit_card.profile_id', 'certificate_history.profile_id')
             ->where('certificate_history.level_name', '=', 'Second')
             ->where('certificate_history.decision_date', '=', '2022-09-21')
+            ->whereDate('admit_card.created_at','!=',date('2022-07-01'))
             ->get();
 
         $headers = array(
@@ -1200,7 +1201,7 @@ class OperatorController extends BaseController
             "Expires"             => "0"
         );
 
-        $columns = array('Name', 'Registration Number', ' Symbol Number', 'Date of Birth');
+        $columns = array('Name', 'Registration Number', ' Symbol Number', 'Date of Birth','Profile Id');
 
         $callback = function () use ($tasks, $columns) {
 
@@ -1211,6 +1212,8 @@ class OperatorController extends BaseController
                 $row['Registration Number'] = $task->cert_registration_number;
                 $row['Symbol Number'] = $task->symbol_number;
                 $row['Date of Birth'] = $task->date_of_birth;
+                $row['Profile Id'] = $task->profile_id;
+
 
 
                 fputcsv($file, array(
@@ -1218,6 +1221,8 @@ class OperatorController extends BaseController
                     $row['Registration Number'],
                     $row['Symbol Number'],
                     $row['Date of Birth'],
+                    $row['Profile'],
+
 
                 ));
             }
