@@ -84,6 +84,8 @@
                                                     <td>{{$datas->created_at->toDateString()}}</td>
                                                     <td> {{$datas->program_name}}</td>
                                                     <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->profile_id)}}"><span class="label label-success">View</span></a></td>
+                                                    <td><a href={{url("operator/dashboard/deleteDuplicate/".$datas->profile_id)}}><span class="label label-danger">Delete</span></a> </td>
+                                               
                                                 </tr>
                                         @endforeach
                                     @endif
