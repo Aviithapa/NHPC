@@ -45,7 +45,7 @@
                                         @csrf
 
 
-                                        <input type="hidden" name="exam_id" value="1"/>
+                                        <input type="hidden" name="exam_id" value={{ $profile->exam_id }}>
 
                                             <div class="row">
                                                 <div class="col-lg-4">

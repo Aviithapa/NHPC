@@ -17,13 +17,12 @@
 
         <!-- Main content -->
         <div class="content">
-
-            @if($exam)
+            @if($licenceExam)
             <div class="row">
                 <div class="col-lg-12 m-b-3">
                     <div class="box box-info">
                         <div class="box-header with-border p-t-1">
-                            <h3 class="box-title text-black">Opened Licence Exam</h3>
+                            <h3 class="box-title text-black">Licenced Exam</h3>
                             <div class="pull-right">
                             </div>
                         </div>
@@ -42,10 +41,47 @@
                                     </thead>
                                     <tbody>
                                     <tr>
+                                        <td><a href="#">{{ $licenceExam->id}}</a></td>
+                                        <td>{{ $licenceExam->Exam_name }}</td>
+                                        <td>{{ $licenceExam->form_opening_date }}</td>
+                                        <td>{{ $licenceExam->form_closing_date }}</td>
+                                        <td><a href="{{route('apply.for.exam',['id' => $licenceExam->id ])}}"><span class="label label-success">Apply</span></a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @endif
+
+            @if($exam)
+            <div class="row">
+                <div class="col-lg-12 m-b-3">
+                    <div class="box box-info">
+                        <div class="box-header with-border p-t-1">
+                            <h3 class="box-title text-black">TSLC Licenced Voucher</h3>
+                            <div class="pull-right">
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table class="table no-margin">
+                                    <thead>
+                                    <tr>
+                                        <th>Exam ID</th>
+                                        <th>Exam Name</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
                                         <td><a href="#">OR9842</a></td>
-                                        <td>Licence Exam</td>
-                                        <td>2022-07-17</td>
-                                        <td>2022-08-16</td>
+                                        <td>TSLC Licence Exam</td>
                                         <td><a href="{{route('apply.for.exam')}}"><span class="label label-success">Apply</span></a></td>
                                     </tr>
                                     </tbody>

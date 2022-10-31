@@ -8,11 +8,13 @@ use App\Models\Address\Municipality;
 use App\Models\Address\Provinces;
 use App\Models\Admin\Program;
 use App\Models\Admin\University;
+use App\Models\Exam\Exam;
 use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Admin\Level\Repositories\LevelRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
+use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
@@ -26,7 +28,9 @@ use Student\Modules\Qualification\Repositories\QualificationRepository;
 
 class ProfileController extends BaseController
 {
-    private $profileRepository, $log, $collegeRepository, $levelRepository, $qualificationRepository, $profileLogsRepository, $programRepository, $examProcessingRepository, $admitCardRepository, $profileProcessingRepository;
+    private $profileRepository, $log, $collegeRepository, $levelRepository,
+     $qualificationRepository, $profileLogsRepository, 
+    $programRepository, $examProcessingRepository, $admitCardRepository, $profileProcessingRepository, $examRepository;
     public function __construct(
         Log $log,
         ProfileRepository $profileRepository,
@@ -37,7 +41,8 @@ class ProfileController extends BaseController
         ProfileProcessingRepository $profileProcessingRepository,
         ProfileLogsRepository $profileLogsRepository,
         CollegeRepository $collegeRepository,
-        LevelRepository $levelRepository
+        LevelRepository $levelRepository,
+        ExamRepository $examRepository
     ) {
         $this->profileRepository = $profileRepository;
         $this->qualificationRepository = $qualificationRepository;
@@ -48,6 +53,7 @@ class ProfileController extends BaseController
         $this->profileLogsRepository = $profileLogsRepository;
         $this->collegeRepository = $collegeRepository;
         $this->levelRepository = $levelRepository;
+        $this->examRepository = $examRepository;
         $this->log = $log;
         parent::__construct();
     }
@@ -77,7 +83,8 @@ class ProfileController extends BaseController
 
         $exam = $this->profileRepository->findByFirst('user_id', Auth::user()->id, '=');
         $level = $this->levelRepository->getAll()->where('id', '=', '4');
-        return view('student::pages.dashboard', compact('rejected', 'exam', 'data', 'level', 'exam_re'));
+        $licenceExam = Exam::orderBy('created_at', 'desc')->where('status', '=', 'active')->first();
+        return view('student::pages.dashboard', compact('rejected', 'exam', 'data', 'level', 'exam_re','licenceExam'));
     }
 
     public function saveLevelProgramSave(Request $request)
@@ -235,15 +242,20 @@ class ProfileController extends BaseController
 
 
 
-    public function applyforExam()
+    public function applyforExam($id = null) 
     {
         $profile = $this->profileRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
+        $profile['exam_id'] = $id;
         $all_program = [];
         if ($profile) {
             if ($profile['level'] === 0 || $profile['level'] === null) {
                 session()->flash('error', 'Please fill your qualification details');
                 return redirect()->to('student/dashboard/student/specific');
-            } else {
+            } else if($id == null) {
+                $all_program = $this->programRepository->getAll()->where('level_id','=',4)->where('status','=',1);
+                return view('student::pages.apply-exam', compact('all_program','profile'));
+            }
+            else {
                 $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('state', '!=', 'council');
                 if ($exam->isEmpty()) {
                     $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', Auth::user()->id);
@@ -252,7 +264,7 @@ class ProfileController extends BaseController
                             if (is_numeric($quali['program_id']))
                                 $all_program[] = $this->programRepository->findById($quali['program_id']);
                     }
-                    return view('student::pages.apply-exam', compact('all_program'));
+                    return view('student::pages.apply-exam', compact('all_program','profile'));
                 } else {
                     $re_exam  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $profile['id'])->where('is_admit_card_generate', '=', 'yes')
                         ->where('attempt', '=', '2')->where('isPassed', '=', '0')->first();
@@ -263,7 +275,7 @@ class ProfileController extends BaseController
                             return redirect()->back();
                         } else {
                             $all_program[] = $this->programRepository->findById($re_exam['program_id']);
-                            return view('student::pages.apply-exam', compact('all_program'));
+                            return view('student::pages.apply-exam', compact('all_program','profile'));
                         }
                     } else {
                         $specific_program = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $profile['id'])->where('status', '=', 'rejected')->first();
@@ -271,7 +283,7 @@ class ProfileController extends BaseController
                             session()->flash('success', 'You have already enrolled in licence Exam ');
                             return redirect()->back();
                         } else {
-                            return view('student::pages.update-apply-exam', compact('specific_program'));
+                            return view('student::pages.update-apply-exam', compact('specific_program','profile'));
                         }
                     }
                 }
