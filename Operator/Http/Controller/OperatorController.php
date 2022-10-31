@@ -801,7 +801,7 @@ class OperatorController extends BaseController
 
             // dd($certificate->certificate_program_id);
         $qualification= $this->qualificationRepository->getAll()->where('user_id','=', $certificate->user_id)->where('program_id','=', $certificate->certificate_program_id)->first();
-               dd($qualification);
+            //    dd($qualification);
         //        $this->certificateRepository->findById($id);
         $profile = $this->profileRepository->findById($certificate['profile_id']);
         //        $year= auth()->user()->created_at->format('Y');
