@@ -790,6 +790,10 @@ class OperatorController extends BaseController
 
     public function printCertificate($id, $level)
     {
+        $level_id = 0;
+        if($level == 1){
+          $level_id = 5;
+        }
         $certificate = Certificate::join('profiles', 'profiles.id', '=', 'certificate_history.profile_id')
             ->join('program', 'program.id', '=', 'certificate_history.program_id')
             ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
@@ -800,8 +804,11 @@ class OperatorController extends BaseController
             ->get(['certificate_history.*', 'certificate_history.name as certificate_name', 'certificate_history.program_name as certificate_program_name', 'profiles.*', 'program.name as Name_program', 'registrant_qualification.*', 'provinces.province_name', 'certificate_history.id as certificate_history_id', 'program.code_ as program_code', 'program.qualification as program_qualification','registrant_qualification.program_id as regis','certificate_history.program_id as certificate_program_id'])->first();
 
             // dd();
-        $qualification= $this->qualificationRepository->getAll()->where('user_id','=', $certificate->user_id)->where('program_id','=', $certificate->certificate_program_id)->first();
-            //    dd($qualification, $certificate);
+        $qualification = $this->qualificationRepository->getAll()->where('user_id','=', $certificate->user_id)->where('program_id','=', $certificate->certificate_program_id)->first();
+         if($qualification == null){
+            $qualification = $this->qualificationRepository->getAll()->where('level','=',$level)->where('user_id','=', $certificate->user_id)->first();
+         }
+        //    dd($qualification, $certificate);
         //        $this->certificateRepository->findById($id);
         $profile = $this->profileRepository->findById($certificate['profile_id']);
         //        $year= auth()->user()->created_at->format('Y');
