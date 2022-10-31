@@ -312,13 +312,13 @@
         font-weight: bold;
         width: 200px;
 
-" >{{$certificate->board_university}}</td>
+" >{{$qualification->board_university}}</td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 80px;
 
-">{{$certificate->passed_year}}</td>
+">{{$qualification->passed_year}}</td>
         </tr>
         <tr style=" border: 1px solid black;
         text-align: center;         height: 15px;
