@@ -795,11 +795,12 @@ class OperatorController extends BaseController
             ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
             ->join('registrant_qualification', 'registrant_qualification.user_id', '=', 'profiles.user_id')
             ->where('certificate_history.id', '=', $id)
+            // ->where('registrant_qualification.program_id', '=', 'program.id')
             ->orderBy('certificate_history.id', 'ASC')
-            ->get(['certificate_history.*', 'certificate_history.name as certificate_name', 'certificate_history.program_name as certificate_program_name', 'profiles.*', 'program.name as Name_program', 'registrant_qualification.*', 'provinces.province_name', 'certificate_history.id as certificate_history_id', 'program.code_ as program_code', 'program.qualification as program_qualification'])->first();
+            ->get(['certificate_history.*', 'certificate_history.name as certificate_name', 'certificate_history.program_name as certificate_program_name', 'profiles.*', 'program.name as Name_program', 'registrant_qualification.*', 'provinces.province_name', 'certificate_history.id as certificate_history_id', 'program.code_ as program_code', 'program.qualification as program_qualification','registrant_qualification.program_id as regis'])->first();
 
-        
-        $qualification= $this->qualificationRepository->getAll()->where('user_id','=', $certificate->user_id)->where('program_id','=', $certificate->program_id)->first();
+            dd($certificate);
+        $qualification= $this->qualificationRepository->getAll()->where('user_id','=', $certificate->user_id)->where('program_id','=', $certificate->regis)->first();
             //    dd($qualification);
         //        $this->certificateRepository->findById($id);
         $profile = $this->profileRepository->findById($certificate['profile_id']);
