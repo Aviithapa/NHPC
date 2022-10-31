@@ -53,11 +53,11 @@
                     <i class="icon-book-open"></i> <span>Profile Status</span>
                 </a>
             </li>
-            <li class="{{ (request()->is('student/dashboard/student/status/index/exam')) ? 'active' : '' }}">
+            {{-- <li class="{{ (request()->is('student/dashboard/student/status/index/exam')) ? 'active' : '' }}">
                 <a href="{{route('status.index', ['status'=> 'exam'])}}">
                     <i class="icon-book-open"></i> <span>Exam Status</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
     <!-- /.sidebar -->
