@@ -151,11 +151,11 @@ class CouncilController extends BaseController
     }
 
 
-    public function applicantdartaBookIndex($id, $date)
+    public function applicantdartaBookIndex($id, $date = null)
     {
         if (Auth::user()->mainRole()->name === 'council') {
 
-            $data = isset($date) ?  $date : "";
+            $data = $date != null ?  $date : "";
 
             $certificate = Certificate::where('decision_date', '=', $data)->where('program_id', '=', $id)->get();
 
