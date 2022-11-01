@@ -99,7 +99,7 @@
                                                 <td>{{$data->is_printed ?  $data->certificate_updated_at : 'No' }}
                                             
 {{--                                                <td> <a href="{{url("officer/dashboard/officer/minute-applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>--}}
-                                                <td> <a href="{{url("officer/dashboard/officer/applicant-list-view/".$data->id)}}"><span class="label label-success">View</span></a></td>
+                                                <td> <a href="{{url("council/dashboard/student/view/".$data->id)}}"><span class="label label-success">View</span></a></td>
 
                                             </tr>
                                         @endforeach
