@@ -331,7 +331,7 @@ class CouncilController extends BaseController
                 $data['program_certificate_code'] = $student['certificate_name'];
                 $data['cert_registration_number'] = $this->certRegistrationNumber($data['srn'], $student['certificate_name'], $student['level_code']);
                 $data['registrar'] = 'puspa raj khanal';
-                $data['decision_date'] = '2022-11-05';
+                $data['decision_date'] = Carbon::now()->format('YYYY/MM/DD');
 
                 //            $date;
                 $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
