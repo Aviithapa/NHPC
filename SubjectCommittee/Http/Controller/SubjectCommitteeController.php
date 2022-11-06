@@ -813,6 +813,31 @@ class SubjectCommitteeController extends BaseController
         return redirect()->back();
     }
 
+    public function chnageStatus(){
+        $profiles = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+        ->join('program', 'program.id', '=', 'exam_registration.program_id')
+        ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+        ->where('profile_processing.current_state', 'subject_committee')
+        ->where('profile_processing.status', 'progress')
+        ->orderBy('profiles.created_at', 'ASC')
+        ->get(['profiles.*', 'profiles.id as profile_id']);
+
+        $data['current_state'] = 'council';
+        $data['status'] = 'progress';
+        $data['state'] = 'council';
+        foreach($profiles as $profile) {
+            $certificate = $this->certificateRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
+            dd($certificate);
+            if($certificate){
+                $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
+                $this->profileProcessingRepository->update($data, $profile_processing_id->id);
+                $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
+                $this->examProcessingRepository->update($data, $exam->id);
+            }
+        }
+       
+    }
+
     public function countSubjectCom()
     {
 
