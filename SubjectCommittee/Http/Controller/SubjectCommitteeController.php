@@ -3,13 +3,14 @@
 
 namespace SubjectCommittee\Http\Controller;
 
-
+use App\Models\Certificate\Certificate;
 use App\Models\Exam\ExamProcessing;
 use App\Models\Profile\Profilelogs;
 use App\Models\Profile\ProfileProcessing;
 use App\Models\SubjectCommittee\SubjectCommitteeUser;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
+use App\Modules\Backend\Certificate\Repositories\CertificateRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDetailsRepository;
@@ -29,7 +30,7 @@ class SubjectCommitteeController extends BaseController
         $profileRepository, $userRepository,
         $qualificationRepository, $user_data,
         $profileLogsRepository, $profileProcessingRepository,
-        $examRepository, $examProcessingRepository, $subjectCommitteeUserRepository, $subjectCommitteeRepository, $programRepository;
+        $examRepository, $examProcessingRepository, $subjectCommitteeUserRepository, $subjectCommitteeRepository, $programRepository, $certificateRepository;
     private $viewData, $exam_processing, $current_user = false;
 
     /**
@@ -58,7 +59,8 @@ class SubjectCommitteeController extends BaseController
         ExamProcessingDetailsRepository $examProcessingDetailsRepository,
         SubjectCommitteeRepository $subjectCommitteeRepository,
         SubjectCommitteeUserRepository $subjectCommitteeUserRepository,
-        ProgramRepository $programRepository
+        ProgramRepository $programRepository,
+        CertificateRepository $certificateRepository,
     ) {
         $this->profileRepository = $profileRepository;
         $this->userRepository = $userRepository;
@@ -71,6 +73,7 @@ class SubjectCommitteeController extends BaseController
         $this->subjectCommitteeRepository = $subjectCommitteeRepository;
         $this->subjectCommitteeUserRepository = $subjectCommitteeUserRepository;
         $this->programRepository = $programRepository;
+        $this->certificateRepository = $certificateRepository;
         parent::__construct();
     }
 
@@ -631,23 +634,23 @@ class SubjectCommitteeController extends BaseController
 
         $profile['profile_state'] = 'exam_committee';
         $profile['profile_status'] = 'Reviewing';
-      
-            $exam_id = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
-            $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
-            $this->profileRepository->update($profile, $id);
-            $this->profileProcessingRepository->update($profile_processing, $profile_processing_id->id);
-            $this->examProcessingRepository->update($exam, $exam_id->id);
-            $this->ExamProcessingLog($exam, Auth::user()->id, $id);
-            $this->profileLog($profile_processing);
-        
+
+        $exam_id = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
+        $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
+        $this->profileRepository->update($profile, $id);
+        $this->profileProcessingRepository->update($profile_processing, $profile_processing_id->id);
+        $this->examProcessingRepository->update($exam, $exam_id->id);
+        $this->ExamProcessingLog($exam, Auth::user()->id, $id);
+        $this->profileLog($profile_processing);
+
         $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
         $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
         return redirect()->back();
-    
     }
 
 
-    public function moveExamPost(){
+    public function moveExamPost()
+    {
         $subject_Committee = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
         $subject_Committee_number = SubjectCommitteeUser::where('subjecr_committee_id', '=', $subject_Committee['subjecr_committee_id'])->get();
         $subjectCommitteeCount = $subject_Committee_number->count();
@@ -813,29 +816,27 @@ class SubjectCommitteeController extends BaseController
         return redirect()->back();
     }
 
-    public function chnageStatus(){
+    public function chnageStatus()
+    {
         $profiles = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
-        ->join('program', 'program.id', '=', 'exam_registration.program_id')
-        ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
-        ->where('profile_processing.current_state', 'subject_committee')
-        ->where('profile_processing.status', 'progress')
-        ->orderBy('profiles.created_at', 'ASC')
-        ->get(['profiles.*', 'profiles.id as profile_id']);
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->join('certificate_history', 'certificate_history.profile_id', '=', 'profiles.id')
+            ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+            ->where('profile_processing.current_state', 'subject_committee')
+            ->where('profile_processing.status', 'progress')
+            ->orderBy('profiles.created_at', 'ASC')
+            ->get(['profiles.*', 'profiles.id as profile_id']);
+
 
         $data['current_state'] = 'council';
         $data['status'] = 'progress';
         $data['state'] = 'council';
-        foreach($profiles as $profile) {
-            $certificate = $this->certificateRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
-            dd($certificate);
-            if($certificate){
-                $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
-                $this->profileProcessingRepository->update($data, $profile_processing_id->id);
-                $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
-                $this->examProcessingRepository->update($data, $exam->id);
-            }
+        foreach ($profiles as $profile) {
+            $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
+            $this->profileProcessingRepository->update($data, $profile_processing_id->id);
+            $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
+            $this->examProcessingRepository->update($data, $exam->id);
         }
-       
     }
 
     public function countSubjectCom()
