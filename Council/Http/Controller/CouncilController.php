@@ -313,7 +313,6 @@ class CouncilController extends BaseController
                     'program.id as program_id', 'level.*', 'provinces.province_name', 'exam_registration.id as exam_registration_id'
                 ]);
 
-                dd($students);
             foreach ($students as $student) {
                 $srn_number = 0;
                 $date = '2022/11/05';
@@ -351,7 +350,6 @@ class CouncilController extends BaseController
                 $examupdate['status'] = "accepted";
                 $examupdate['state'] = "council";
                 $this->examProcessingRepository->update($examupdate, $student['exam_registration_id']);
-                //                $this->updateQualificationHistory($qualification);
                 $profilesProcessing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $student['profile_id'])->first();
                 $data['current_state'] = 'council';
                 $data['status'] = 'accepted';
