@@ -59,8 +59,7 @@ class SubjectCommitteeController extends BaseController
         ExamProcessingDetailsRepository $examProcessingDetailsRepository,
         SubjectCommitteeRepository $subjectCommitteeRepository,
         SubjectCommitteeUserRepository $subjectCommitteeUserRepository,
-        ProgramRepository $programRepository,
-        CertificateRepository $certificateRepository,
+        ProgramRepository $programRepository
     ) {
         $this->profileRepository = $profileRepository;
         $this->userRepository = $userRepository;
@@ -73,7 +72,6 @@ class SubjectCommitteeController extends BaseController
         $this->subjectCommitteeRepository = $subjectCommitteeRepository;
         $this->subjectCommitteeUserRepository = $subjectCommitteeUserRepository;
         $this->programRepository = $programRepository;
-        $this->certificateRepository = $certificateRepository;
         parent::__construct();
     }
 
