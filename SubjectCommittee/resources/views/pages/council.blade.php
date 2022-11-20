@@ -26,9 +26,14 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-3 m-b-3">
+                            <div class="col-lg-2 m-b-3">
                                 <a href="{{route("subjectCommittee.application.list.moveCouncilPost")}}" class="btn btn-primary ml-3 mt-3"><i class="fa fa-book"></i>
                                     Move to Council </a>
+                            </div>
+
+                            <div class="col-lg-3 m-b-3">
+                                <a href="{{route("countSubjectCom")}}" class="btn btn-secondary ml-3 mt-3">
+                                    Get Subject Committee Majority Student List </a>
                             </div>
 
                         </div>

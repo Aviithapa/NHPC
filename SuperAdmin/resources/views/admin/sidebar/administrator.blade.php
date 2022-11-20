@@ -23,11 +23,6 @@
                     <i class="icon-home"></i> <span>Dashboard</span>
                 </a>
             </li>
-{{--            <li class="{{ (request()->is('superAdmin/dashboard/site-settings')) ? 'active':''  }}">--}}
-{{--                <a href="{{route("dashboard.site-settings.index")}}">--}}
-{{--                    <i class="icon-graduation"></i> <span>Site Setting</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
             <li class="{{ (request()->is('superAdmin/dashboard/user/list')) ? 'active':''  }}">
                 <a href="{{route("admin.user.list")}}">
                     <i class="icon-people"></i> <span>User Login List</span>
@@ -38,9 +33,9 @@
                     <i class="icon-people"></i> <span>Applicant List</span>
                 </a>
             </li>
-            <li class="{{ (request()->is('superAdmin/dashboard/certificateLink')) ? 'active':''  }}">
-                <a href="{{route('council.darta.book')}}">
-                    <i class="icon-book-open"></i> <span>Link Certificate to Applicant List</span>
+            <li class="{{ (request()->is('superAdmin/dashboard/exam')) ? 'active':''  }}">
+                <a href="{{route('superAdmin.exam')}}">
+                    <i class="icon-book-open"></i> <span>Exam</span>
                 </a>
             </li>
             <li class="{{ (request()->is('superAdmin/dashboard/add/municipality')) ? 'active':''  }}">
@@ -53,16 +48,16 @@
                     <i class="icon-book-open"></i> <span>Add Collage</span>
                 </a>
             </li>
-            <li class="{{ (request()->is('superAdmin/dashboard/certificate/index')) ? 'active':''  }}">
+            {{-- <li class="{{ (request()->is('superAdmin/dashboard/certificate/index')) ? 'active':''  }}">
                 <a href="{{route('superAdmin.generateCertificate.index')}}">
                     <i class="icon-book-open"></i> <span>Ready to Generate Certificate</span>
                 </a>
             </li>
-            <li class="{{ (request()->is('superAdmin/dashboard/stats')) ? 'active':''  }}">
-                <a href="{{route('superAdmin.stats')}}">
-                    <i class="icon-book-open"></i> <span>Stats</span>
+            <li class="{{ (request()->is('superAdmin/dashboard/certificateLink')) ? 'active':''  }}">
+                <a href="{{route('council.darta.book')}}">
+                    <i class="icon-book-open"></i> <span>Link Certificate to Applicant List</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
     <!-- /.sidebar -->

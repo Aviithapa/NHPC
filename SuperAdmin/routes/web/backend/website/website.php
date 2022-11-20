@@ -326,8 +326,4 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::get('/exam/update/{status}/{id}', 'ApplicantController@update')->middleware(['auth'])->name('superAdmin.exam.update');
     Route::get('/exam/view/{id}', 'ApplicantController@show')->middleware(['auth'])->name('superAdmin.exam.view');
 
-
-
-
-
 });

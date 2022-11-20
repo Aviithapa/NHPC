@@ -1,6 +1,16 @@
 @extends('subjectCommittee::layout.app')
 
 @section('content')
+ <style> 
+ .hides {
+  display: none;
+}
+   
+ .myDiv:hover + .hides {
+  display: block;
+  color: red;
+}
+</style>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -25,9 +35,14 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-3 m-b-3">
+                            <div class="col-lg-2 m-b-3">
                                 <a href="{{route("subjectCommittee.application.list.moveExamPost")}}" class="btn btn-primary ml-3 mt-3"><i class="fa fa-book"></i>
                                     Move to Exam </a>
+                            </div>
+                            <div class="col-lg-3 m-b-3 myDiv">
+                                <a href="{{route("countSubjectCom")}}" class="btn btn-secondary ml-3 mt-3">
+                                    Get Subject Committee Majority Student List </a>
+                                    <div class="hides">I am shown when someone hovers over the div above.</div>
                             </div>
                         </div>
                         <!-- /.box-header -->
