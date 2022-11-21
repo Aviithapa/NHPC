@@ -112,6 +112,29 @@ if (!function_exists('getApplicantCount')) {
         return count($profiles);
     }
 }
+
+
+if (!function_exists('getSortSrn')) {
+    /**
+     * Generates an asset path for the uploads.
+     * @param null $path
+     * @param null $file_name
+     * @return string
+     */
+    function getSortSrn($sortSrn)
+    {
+
+       $arr = explode(",",$sortSrn);
+       sort($arr);
+
+      
+       $string = implode(" ", $arr);
+  
+       return $string;
+    }
+}
+
+
 if (!function_exists('getDoubleDusturCountList')) {
     /**
      * Generates an asset path for the uploads.

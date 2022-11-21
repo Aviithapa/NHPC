@@ -127,7 +127,7 @@ class CouncilController extends BaseController
                     ->groupBy('program_id', 'level_name', 'program_certificate_code')
                     ->orWhere('decision_date', '=', $data['date'])
                     ->orderBy('level_name')
-                    ->orderBy('srn', 'ASC')
+                    ->orderBy('srn', 'DESC')
                     ->get(array('srn'))
                     ->unique('program_id');
             } else {
@@ -135,7 +135,7 @@ class CouncilController extends BaseController
                     ->select('program_id', 'level_name', 'program_certificate_code',  DB::raw('count(*) as total'), DB::raw('group_concat(srn) as srns'))
                     ->groupBy('program_id', 'level_name', 'program_certificate_code')
                     ->orderBy('level_name')
-                    ->orderBy('srn', 'ASC')
+                    ->orderBy('srn', 'DESC')
                     ->get(array('srn'))
                     ->unique('program_id');
             }

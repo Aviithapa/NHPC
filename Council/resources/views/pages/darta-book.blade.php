@@ -97,7 +97,7 @@
                                             <td>{{$program->level_name}}</td>
                                             <td>{{$program->program_certificate_code}}</td>
                                             <td>{{$program->total}}</td>
-                                            <td style="width:550px !important; word-break: break-word;">{{$program->srns}}</td>
+                                            <td style="width:550px !important; word-break: break-word;">{{getSortSrn($program->srns)}}</td>
 
                                             <td> <a href="{{route("applicant.darta.details",['id' =>$program->program_id , 'date' => $selectedDate])}}"><span class="label label-success">View</span></a></td>
 
