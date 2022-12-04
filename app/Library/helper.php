@@ -123,13 +123,9 @@ if (!function_exists('getSortSrn')) {
      */
     function getSortSrn($sortSrn)
     {
-
        $arr = explode(",",$sortSrn);
        sort($arr);
-
-      
        $string = implode(" ", $arr);
-  
        return $string;
     }
 }

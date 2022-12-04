@@ -44,8 +44,8 @@
                         </a>
                     </li>
 
-                    <li class="{{ (request()->is('operator/dashboard/operator/applicant-profile-list/Reviewing/officer/*')) ? 'active':''  }}">
-                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'progress', 'state' => 'officer' ,'level'=>"1"])}}">
+                    <li class="{{ (request()->is('operator/dashboard/operator/applicant-profile-list/accepted/officer/*')) ? 'active':''  }}">
+                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'accepted', 'state' => 'officer' ,'level'=>"1"])}}">
                             <i class="icon-badge"></i> <span>Operator Verified Profile List <span class="badge badge-pill badge-danger">{{getApplicantCount('progress','officer')}}</span></span>
                         </a>
                     </li>
