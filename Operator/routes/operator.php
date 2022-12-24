@@ -52,3 +52,6 @@ Route::get('deleteDuplicate/{id}', [\Operator\Http\Controller\OperatorController
 
 
 Route::get('/exportPCLCertificate',[\Operator\Http\Controller\OperatorController::class,'exportPCLCertificate'])->middleware(['auth'])->name('operator.exportPCLCertificate');
+
+
+Route::match(['get','post'],'/search/lost/student',[\Operator\Http\Controller\SearchController::class,"searchStudent"])->middleware(['auth'])->name('search.lost.student');

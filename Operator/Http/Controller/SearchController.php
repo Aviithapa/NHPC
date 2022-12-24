@@ -23,7 +23,7 @@ class SearchController extends BaseController
 {
     private $log, $profileProcessing, $profileRepository,
         $userRepository, $qualificationRepository,
-        $user_data, $profileLogsRepository,$collageRepository, $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository;
+        $user_data, $profileLogsRepository, $collageRepository, $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository;
 
     private $commonView = 'operator::pages.';
     private $commonMessage = 'Profile ';
@@ -44,10 +44,17 @@ class SearchController extends BaseController
      * @param CollegeRepository $collageRepository
      */
 
-    public function __construct(ProfileRepository $profileRepository, UserRepository $userRepository, QualificationRepository $qualificationRepository,
-                                ProfileLogsRepository $profileLogsRepository, ProfileProcessingRepository $profileProcessingRepository,
-                                ExamRepository $examRepository, ExamProcessingRepository $examProcessingRepository, ExamProcessingDetailsRepository $examProcessingDetailsRepository, CollegeRepository $collageRepository)
-    {
+    public function __construct(
+        ProfileRepository $profileRepository,
+        UserRepository $userRepository,
+        QualificationRepository $qualificationRepository,
+        ProfileLogsRepository $profileLogsRepository,
+        ProfileProcessingRepository $profileProcessingRepository,
+        ExamRepository $examRepository,
+        ExamProcessingRepository $examProcessingRepository,
+        ExamProcessingDetailsRepository $examProcessingDetailsRepository,
+        CollegeRepository $collageRepository
+    ) {
         $this->viewData['commonRoute'] = $this->commonRoute;
         $this->viewData['commonView'] = 'operator::' . $this->commonView;
         $this->viewData['commonName'] = $this->commonName;
@@ -79,9 +86,9 @@ class SearchController extends BaseController
 
     public function search(Request $request)
     {
-        if($request->ajax()) {
+        if ($request->ajax()) {
             $output = "";
-            $products = Profile::join('exam_registration','exam_registration.profile_id','=','profiles.id')->where('first_name', 'LIKE', '%' . $request->search . "%")
+            $products = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')->where('first_name', 'LIKE', '%' . $request->search . "%")
                 ->orwhere('profiles.last_name', 'LIKE', '%' . $request->search . "%")
                 ->orwhere('profiles.middle_name', 'LIKE', '%' . $request->search . "%")
                 ->orwhere('profiles.dob_nep', 'LIKE', '%' . $request->search . "%")
@@ -89,7 +96,7 @@ class SearchController extends BaseController
                 ->orwhere('profiles.citizenship_number', 'LIKE', '%' . $request->search . "%")
                 ->get(['profiles.*', 'profiles.id as profiles_id', 'exam_registration.*']);
 
-                // return $products;
+            // return $products;
             if ($products) {
                 foreach ($products as $key => $product) {
                     $output .= '<tr>' .
@@ -97,8 +104,8 @@ class SearchController extends BaseController
                         '<td>' . $product->citizenship_number . '</td>' .
                         '<td>' . $product->dob_nep . '</td>' .
                         '<td>' . $product->state . '</td>' .
-                        '<td><a href='.url("operator/dashboard/operator/applicant-list-view/".$product->profiles_id).'><span class="label label-success">View</span></a> </td>' .
-                        '<td><a href='.url("operator/dashboard/deleteDuplicate/".$product->profile_id).'><span class="label label-danger">Delete</span></a> </td>' .
+                        '<td><a href=' . url("operator/dashboard/operator/applicant-list-view/" . $product->profiles_id) . '><span class="label label-success">View</span></a> </td>' .
+                        '<td><a href=' . url("operator/dashboard/deleteDuplicate/" . $product->profile_id) . '><span class="label label-danger">Delete</span></a> </td>' .
                         '</tr>';
                 }
                 return Response($output);
@@ -111,7 +118,7 @@ class SearchController extends BaseController
         if (Auth::user()->mainRole()->name === 'operator') {
             $data = null;
             $collage = $this->collageRepository->getAll();
-            return view('operator::pages.search-collage', compact( 'data', "collage"));
+            return view('operator::pages.search-collage', compact('data', "collage"));
         } else {
             return redirect()->route('login');
         }
@@ -122,23 +129,46 @@ class SearchController extends BaseController
 
     public function collageSearch(Request $request)
     {
-        $qualifications = DB::table('registrant_qualification')->where('collage_name','LIKE', '%' . $request->search . "%")->get();
+        $qualifications = DB::table('registrant_qualification')->where('collage_name', 'LIKE', '%' . $request->search . "%")->get();
 
-        if ($qualifications->isEmpty()){
+        if ($qualifications->isEmpty()) {
             $data = null;
-        }else {
+        } else {
             foreach ($qualifications as $qualification) {
-                  $data[] = $this->profileRepository->getAll()->where('user_id', '=', $qualification->user_id);
+                $data[] = $this->profileRepository->getAll()->where('user_id', '=', $qualification->user_id);
             }
         }
-//        foreach ($data as $datas)
-//            foreach ($datas as $profile)
-//                dd($profile->id);
+        //        foreach ($data as $datas)
+        //            foreach ($datas as $profile)
+        //                dd($profile->id);
 
-                $collage = $this->collageRepository->getAll();
-        return view('operator::pages.search-collage', compact( 'data', "collage"));
+        $collage = $this->collageRepository->getAll();
+        return view('operator::pages.search-collage', compact('data', "collage"));
     }
 
+    public function searchStudent(Request $request)
+    {
+        
+        if ($request->isMethod('post')) {
 
+            $query = Profile::query()->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id');
+           
+            if ($request->state != null) {
+                $query->where('exam_registration.state', 'like', $request->state);
+            }
+            if ($request->status !=null) {
+                $query->where('exam_registration.status', 'like', $request->status);
+            }
+            if ($request->level != null) {
+                $query->where('exam_registration.level_id', 'like', $request->level);
+            }
+            $data = $query->get();
+
+            // dd(isset($data));
+
+            return view('operator::pages.search-students', compact('data'));
+        }else{
+            return view('operator::pages.search-students');
+        }
+    }
 }
-
