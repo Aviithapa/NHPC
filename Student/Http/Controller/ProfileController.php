@@ -83,7 +83,7 @@ class ProfileController extends BaseController
             }
 
             $exam = $this->profileRepository->findByFirst('user_id', Auth::user()->id, '=');
-            $level = $this->levelRepository->getAll()->where('id', '=', '4');
+            $level = $this->levelRepository->getAll();
             $licenceExam = Exam::orderBy('created_at', 'desc')->where('status', '=', 'active')->first();
             return view('student::pages.dashboard', compact('rejected', 'exam', 'data', 'level', 'exam_re', 'licenceExam'));
         } catch (\Exception $e) {

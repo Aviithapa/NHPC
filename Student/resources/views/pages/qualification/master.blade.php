@@ -1,4 +1,4 @@
-{{-- 
+
 
 @if($master)
 
@@ -462,4 +462,4 @@
         </script>
     @endpush
 
-@endif --}}
+@endif
