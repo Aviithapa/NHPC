@@ -138,6 +138,7 @@
                                             </thead>
                                             <tbody>
                                             @if(isset($data))
+                                             <div style="margin-left: 10px; color:red; font-weight:600; font-size:16px"> {{ count($data) }} number of Students filtered</div>
                                             @foreach($data as $exam)
                                             <tr>
                                                 <td>{{ $exam->profile_id }}<td>
