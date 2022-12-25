@@ -97,6 +97,7 @@ class ExamProcessing extends Model
     }
 
     public  function  getLevelName(){
+        return isset($this->level->name);
         if(isset($this->level->name)) {
             return $this->level->name;
         }

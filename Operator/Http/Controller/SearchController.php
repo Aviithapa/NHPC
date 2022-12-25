@@ -3,7 +3,7 @@
 
 namespace Operator\Http\Controller;
 
-
+use App\Models\Admin\Program;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
@@ -148,10 +148,10 @@ class SearchController extends BaseController
 
     public function searchStudent(Request $request)
     {
-        
+        $program = Program::get()->where('status', '=', 1);
         if ($request->isMethod('post')) {
 
-            $query = Profile::query()->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id');
+            $query = Profile::query()->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')->join('program','program.id','=','exam_registration.program_id');
            
             if ($request->state != null) {
                 $query->where('exam_registration.state', 'like', $request->state);
@@ -161,14 +161,36 @@ class SearchController extends BaseController
             }
             if ($request->level != null) {
                 $query->where('exam_registration.level_id', 'like', $request->level);
+                $program = Program::get()->where('level_id', '=',  $request->level)->where('status', '=', 1);
             }
+            if($request->program != null) {
+                $query->where('exam_registration.program_id', 'like', $request->program);
+            }
+            if($request->darta_number != null) {
+                $query->where('exam_registration.profile_id', 'like', $request->darta_number);
+            }
+
+            if($request->first_name != null) {
+                $query->where('profiles.first_name', 'like', '%' . $request->first_name  .'%');
+            }
+
+            if($request->middle_name != null) {
+                $query->where('profiles.middle_name', 'like', '%' . $request->middle_name  .'%');
+            }
+            
+            if($request->last_name != null) {
+                $query->where('profiles.last_name', 'like', '%' . $request->last_name  .'%');
+            }
+            // $query->join('program','program.id','=','exam_registration.program_id');
+
             $data = $query->get();
 
+            // dd($data[0]);
             // dd(isset($data));
 
-            return view('operator::pages.search-students', compact('data'));
+            return view('operator::pages.search-students', compact('data', 'program' ,'request'));
         }else{
-            return view('operator::pages.search-students');
+            return view('operator::pages.search-students', compact('program'));
         }
     }
 }

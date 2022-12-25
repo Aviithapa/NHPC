@@ -28,6 +28,33 @@
 
                                 <div class="col-lg-3">
                                     <fieldset class="form-group">
+                                        <input type="text" name="darta_number" class = "form-control" placeholder="Enter Darta Number" value={{ isset($request->darta_number) ? $request->darta_number : '' }}>
+                                    </fieldset>
+                                   
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <fieldset class="form-group">
+                                        <input type="text" name="first_name" class = "form-control" placeholder="Enter First Name" value={{ isset($request->first_name) ? $request->first_name : '' }}>
+                                    </fieldset>
+                                   
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <fieldset class="form-group">
+                                        <input type="text" name="middle_name" class = "form-control" placeholder="Enter Middel Name" value={{ isset($request->middle_name) ? $request->middle_name : '' }} >
+                                    </fieldset>
+                                   
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <fieldset class="form-group">
+                                        <input type="text" name="last_name" class = "form-control" placeholder="Enter Last Name" value={{ isset($request->last_name) ? $request->last_name : '' }} >
+                                    </fieldset>
+                                   
+                                </div>
+                                <div class="col-lg-3">
+                                    <fieldset class="form-group">
                                         <select class="form-control" name="state"  id="date" >
                                             <option value="">Select State</option>
                                             <option value="computer_operator">Computer Operator </option>
@@ -59,11 +86,22 @@
                                 <div class="col-lg-3">
                                     <fieldset class="form-group">
                                         <select class="form-control" name="level"  id="date" >
-                                            <option value="">Select Level</option>
-                                            <option value="2">TSLC</option>
+                                            <option value={{ isset($request->level) ?  $request->level : '' }}>{{ isset($request->level) ? (($request->level == 4) ? 'TSLC' : (($request->level == 3) ? 'PCL' : (($request->level == 2) ? 'Bachelor' : (($request->level == 1) ? 'Master' :'') ) )) :'Select Level' }}</option>
+                                            <option value="4">TSLC</option>
                                             <option value="3">PCL</option>
-                                            <option value="4">BACHELOR</option>
-                                            <option value="5">MASTER</option>
+                                            <option value="2">BACHELOR</option>
+                                            <option value="1">MASTER</option>
+                                        </select>
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <fieldset class="form-group">
+                                        <select class="form-control" name="program"  id="date" >
+                                            <option value="">Select Program</option>
+                                            @foreach($program as $programs)
+                                            <option value={{ $programs->id }}>{{ $programs->name }}</option>
+                                            @endforeach
                                         </select>
                                     </fieldset>
                                 </div>
@@ -90,7 +128,7 @@
                                     <div class="table-responsive">
                                         <table id="data-table" class="table no-margin">
                                             <thead>
-                                            <td>S.N.</td>
+                                            <td>Darta Number</td>
                                             <td>Name</td>
                                             <td>State</td>
                                             <td>Status</td>
@@ -102,11 +140,11 @@
                                             @if(isset($data))
                                             @foreach($data as $exam)
                                             <tr>
-                                                <td>1</td>
+                                                <td>{{ $exam->profile_id }}<td>
                                                 <td>{{ $exam->first_name }} {{ $exam->middle_name }} {{ $exam->last_name }}</td>
-                                                 <td>{{$exam->created_at}}</td>
                                                 <td>{{$exam->state}}</td>
                                                 <td>{{$exam->status}}</td>
+                                                <td>{{($exam->level_id == 4) ? 'TSLC' : (($exam->level_id == 3) ? 'PCL' : (($exam->level_id == 2) ? 'Bachelor' : (($exam->level_id == 1) ? 'Master' :'' ) ))  }}</td>
                                                 <td>{{ $exam->dob_nep }}</td>
                                                 <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$exam->profile_id)}}"><span class="label label-success">View</span></a></td>
                                                 {{-- <td><a href={{url("operator/dashboard/deleteDuplicate/".$exam->profile_id)}}><span class="label label-danger">Delete</span></a> </td> --}}
