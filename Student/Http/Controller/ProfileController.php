@@ -70,8 +70,7 @@ class ProfileController extends BaseController
                 if ($data['profile_status'] === "Rejected") {
                     $rejected = "Your application has been rejected";
                 }
-                $re_exam  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $data['id'])->where('is_admit_card_generate', '=', 'yes')
-                    ->where('attempt', '=', '2')->where('isPassed', '=', '0')->first();
+                $re_exam  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $data['id'])->where('exam_id', '=', '3')->first();
                 if ($re_exam) {
                     $re_exam_applied  = ExamProcessing::orderBy('created_at', 'desc')->where('status', '=', 're-exam')->first();
                     if ($re_exam_applied['rejected'] === 0) {
@@ -265,7 +264,7 @@ class ProfileController extends BaseController
                     $all_program = $this->programRepository->getAll()->where('level_id', '=', 4)->where('status', '=', 1);
                     return view('student::pages.apply-exam', compact('all_program', 'profile'));
                 } else {
-                    $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('state', '!=', 'council');
+                    $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', '=', '3');
                     if ($exam->isEmpty()) {
                         $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', Auth::user()->id);
                         if ($qualification != null) {
@@ -275,25 +274,12 @@ class ProfileController extends BaseController
                         }
                         return view('student::pages.apply-exam', compact('all_program', 'profile'));
                     } else {
-                        $re_exam  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $profile['id'])->where('is_admit_card_generate', '=', 'yes')
-                            ->where('attempt', '=', '2')->where('isPassed', '=', '0')->first();
-                        if ($re_exam) {
-                            $re_exam_applied  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $profile['id'])->where('status', '=', 're-exam')->first();
-                            if ($re_exam_applied) {
-                                session()->flash('success', 'You have already enrolled in licence Exam ');
-                                return redirect()->back();
-                            } else {
-                                $all_program[] = $this->programRepository->findById($re_exam['program_id']);
-                                return view('student::pages.apply-exam', compact('all_program', 'profile'));
-                            }
+                        $specific_program = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $profile['id'])->where('status', '=', 'rejected')->where('exam_id', '=', '3')->first();
+                        if ($specific_program == null) {
+                            session()->flash('success', 'You have already enrolled in licence Exam');
+                            return redirect()->back();
                         } else {
-                            $specific_program = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $profile['id'])->where('status', '=', 'rejected')->first();
-                            if ($specific_program == null) {
-                                session()->flash('success', 'You have already enrolled in licence Exam ');
-                                return redirect()->back();
-                            } else {
-                                return view('student::pages.update-apply-exam', compact('specific_program', 'profile'));
-                            }
+                            return view('student::pages.update-apply-exam', compact('specific_program', 'profile'));
                         }
                     }
                 }
@@ -341,7 +327,7 @@ class ProfileController extends BaseController
             ->where('attempt', '=', '2')->where('isPassed', '=', '0')->first();
 
         if ($re_exam) {
-            $data["status"] = 're-exam';
+            $data["status"] = 'progress';
             $data["state"] = 'exam_committee';
         } else {
             $data["status"] = 'progress';
