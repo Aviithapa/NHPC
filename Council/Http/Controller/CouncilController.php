@@ -173,7 +173,6 @@ class CouncilController extends BaseController
             $certificates = Certificate::orWhere('created_at', 'like', '%' . '2022-12-27' . '%')->get();
 
 
-            dd($certificates);
             foreach ($certificates as $certificate) {
                 $data['decision_date'] = '2022-12-27';
                 $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
