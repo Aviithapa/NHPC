@@ -381,7 +381,7 @@ if (!function_exists('getProgramName')) {
     function getProgramName($id)
     {
         $data = \App\Models\Admin\Program::query()->where('id', '=', $id)->first();
-        return $data['name'];
+        return isset($data['name']) ? $data['name'] : '';
     }
 }
 if (!function_exists('admitCard')) {

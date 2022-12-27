@@ -51,12 +51,18 @@
                                     <fieldset class="form-group">
                                         <input type="text" name="last_name" class = "form-control" placeholder="Enter Last Name" value={{ isset($request->last_name) ? $request->last_name : '' }} >
                                     </fieldset>
-                                   
                                 </div>
+
+                                <div class="col-lg-3">
+                                    <fieldset class="form-group">
+                                        <input type="text" name="citizenship_number" class = "form-control" placeholder="Enter Citizenship Number" value={{ isset($request->citizenship_number) ? $request->citizenship_number : '' }} >
+                                    </fieldset> 
+                                </div> 
+
                                 <div class="col-lg-3">
                                     <fieldset class="form-group">
                                         <select class="form-control" name="state"  id="date" >
-                                            <option value="">Select State</option>
+                                            <option value={{ isset($request->state) ? $request->state : ''}}>{{ isset($request->state) ? $request->state : 'Select State'}}</option>
                                             <option value="computer_operator">Computer Operator </option>
                                             <option value="officer">Officer</option>
                                             <option value="registrar">Registrar</option>
@@ -72,7 +78,7 @@
                                 <div class="col-lg-3">
                                     <fieldset class="form-group">
                                         <select class="form-control" name="status"  id="date" >
-                                            <option value="">Select Status</option>
+                                            <option value={{ isset($request->status) ? $request->status : ''}}>{{ isset($request->status) ? $request->status : 'Select Status'}}</option>
                                             <option value="progress">Reviewing</option>
                                             <option value="pending">Pending</option>
                                             <option value="rejected">Rejected</option>
@@ -98,13 +104,15 @@
                                 <div class="col-lg-3">
                                     <fieldset class="form-group">
                                         <select class="form-control" name="program"  id="date" >
-                                            <option value="">Select Program</option>
+                                            <option value={{ isset($request->program) ? $request->program : '' }}>{{ isset($request->program) ? getProgramName($request->program) : 'Select Program' }}</option>
                                             @foreach($program as $programs)
                                             <option value={{ $programs->id }}>{{ $programs->name }}</option>
                                             @endforeach
                                         </select>
                                     </fieldset>
                                 </div>
+                            </div>
+                            <div class="row float-right">
                                 <div class="col-lg-4" >
                             <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>
                                 Search</button>
@@ -141,10 +149,11 @@
                                              <div style="margin-left: 10px; color:red; font-weight:600; font-size:16px"> {{ count($data) }} number of Students filtered</div>
                                             @foreach($data as $exam)
                                             <tr>
-                                                <td>{{ $exam->profile_id }}<td>
+                                                <td>{{ $exam->profile_id }}</td>
                                                 <td>{{ $exam->first_name }} {{ $exam->middle_name }} {{ $exam->last_name }}</td>
                                                 <td>{{$exam->state}}</td>
                                                 <td>{{$exam->status}}</td>
+                                                <td>{{ getProgramName($exam->program_id) }}
                                                 <td>{{($exam->level_id == 4) ? 'TSLC' : (($exam->level_id == 3) ? 'PCL' : (($exam->level_id == 2) ? 'Bachelor' : (($exam->level_id == 1) ? 'Master' :'' ) ))  }}</td>
                                                 <td>{{ $exam->dob_nep }}</td>
                                                 <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$exam->profile_id)}}"><span class="label label-success">View</span></a></td>

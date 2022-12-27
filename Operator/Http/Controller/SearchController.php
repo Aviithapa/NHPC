@@ -151,7 +151,7 @@ class SearchController extends BaseController
         $program = Program::get()->where('status', '=', 1);
         if ($request->isMethod('post')) {
 
-            $query = Profile::query()->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')->join('program','program.id','=','exam_registration.program_id');
+            $query = Profile::query()->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id');
            
             if ($request->state != null) {
                 $query->where('exam_registration.state', 'like', $request->state);
@@ -180,6 +180,10 @@ class SearchController extends BaseController
             
             if($request->last_name != null) {
                 $query->where('profiles.last_name', 'like', '%' . $request->last_name  .'%');
+            }
+
+            if($request->citizenship_number != null){
+                $query->where('profiles.citizenship_number', 'like', '%' . $request->last_name  .'%');
             }
             // $query->join('program','program.id','=','exam_registration.program_id');
 
