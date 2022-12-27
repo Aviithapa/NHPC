@@ -16,6 +16,7 @@
         </div>
 
         <!-- Main content -->
+        @if(isset($data->first_name))
         <div class="content">
             @if($licenceExam)
             <div class="row">
@@ -95,6 +96,28 @@
 
                 @endif
         </div>
+        @else
+        <div class="content">
+            <div class="card">
+                <div class="card-body">
+                    <ul id="progressbar">
+                        <li class="active" id="account"><strong>Personal Information</strong></li>
+                        <li id="personal"><strong>Guardian Information</strong></li>
+                        <li  id="payment"><strong>Collage Information</strong></li>
+                    </ul> <!-- fieldsets -->
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body conatiner">
+                    <span class="text-justify text-danger">
+                        To apply for the license exam, please set up your profile and submit your qualifications.
+
+                    </span>
+
+                </div>
+            </div>
+        @endif
     </div>
     <!-- /.content -->
 </div>
