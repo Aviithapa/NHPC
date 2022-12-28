@@ -17,6 +17,7 @@
 
         <!-- Main content -->
         @if(isset($data->first_name))
+        @if($specific_program == null)
         <div class="content">
             @if($licenceExam)
             <div class="row">
@@ -96,6 +97,18 @@
 
                 @endif
         </div>
+        @else
+        <div class="content">
+            
+        <div class="card">
+            <div class="card-body conatiner">
+                <span class="text-justify text-danger">
+                   You have successfully enrolled in the {{$licenceExam->Exam_name}} please wait until next message
+                </span>
+
+            </div>
+        </div>
+        @endif
         @else
         <div class="content">
             <div class="card">
