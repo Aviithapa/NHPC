@@ -135,7 +135,7 @@
     <!-- /.content -->
 </div>
 
-    @if(!$data)
+    {{-- @if(!$data)
         <div class="modal show"  role="dialog" style="display: block"  >
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -176,7 +176,7 @@
             </div>
         </div>
 
-        @endif
+        @endif --}}
 
 
     @if($rejected != null)
@@ -194,8 +194,6 @@
                             <h1>Warning! Warning! Warning!<br>
                                 Profile has been rejected please review it</h1>
                             <p></p>
-{{--                            <button onclick="$('.modal').css('display','none')" class="btn btn-primary  mt-2"><i class="fa fa-check"></i>--}}
-{{--                                Ok</button>--}}
                             <a href="{{url("student/dashboard/student/status/index/profile")}}"><button class="btn btn-primary  mt-2"><i class="fa fa-check"></i>
                                     Check Profile logs</button></a>
 
@@ -212,8 +210,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-{{--                        <button type="button" onclick="$('.modal').css('display','none')" class="close" data-dismiss="modal" aria-label=""><span>×</span></button>--}}
-                    </div>
+                                         </div>
 
                     <div class="modal-body">
 
@@ -222,8 +219,6 @@
                             <h1>Warning! Warning! Warning!<br>
                                 {{$exam_re}}</h1>
                             <p></p>
-{{--                            <button onclick="$('.modal').css('display','none')" class="btn btn-primary  mt-2"><i class="fa fa-check"></i>--}}
-{{--                                Ok</button>--}}
                             <a href="{{route('apply.for.exam')}}"><button class="btn btn-primary  mt-2"><i class="fa fa-check"></i>
                                     Appy for Exam</button></a>
 

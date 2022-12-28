@@ -63,7 +63,6 @@ class ProfileController extends BaseController
     {
         try {
             $data = $this->profileRepository->findByFirst('user_id', Auth::user()->id, '=');
-
             $rejected = null;
             $exam_re = null;
             $specific_program = null;
@@ -82,15 +81,12 @@ class ProfileController extends BaseController
                 }
             }
             $specific_program = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $data['id'])->where('status', '!=', 'rejected')->where('exam_id', '=', '3')->first();
-
-           
-
             $exam = $this->profileRepository->findByFirst('user_id', Auth::user()->id, '=');
             $level = $this->levelRepository->getAll();
             $licenceExam = Exam::orderBy('created_at', 'desc')->where('status', '=', 'active')->first();
             return view('student::pages.dashboard', compact('rejected', 'exam', 'data', 'level', 'exam_re', 'licenceExam', 'specific_program'));
         } catch (\Exception $e) {
-            session()->flash('danger', 'Oops! Something went wrong.');
+            session()->flash('success', 'Oops! Something went wrong.');
             return redirect()->back();
         }
     }
