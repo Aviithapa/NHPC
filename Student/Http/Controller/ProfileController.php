@@ -110,7 +110,7 @@ class ProfileController extends BaseController
     {
         $data = $request->all();
         try {
-            $profile = $this->profileRepository->update($data, $data['profile_id']);
+            $profile = $this->profileRepository->create($data);
             if ($profile == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
