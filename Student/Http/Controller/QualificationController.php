@@ -77,7 +77,6 @@ class QualificationController extends BaseController
     {
         $data = $request->all();
         $qualification = Qualification::get()->where('user_id', '=', Auth::user()->id)->last();
-
         try {
             switch ($data['level']) {
                 case 1:
@@ -148,6 +147,7 @@ class QualificationController extends BaseController
             }
             return redirect()->route('qualification.update.index', ['id' => ++$data['level']]);
         } catch (\Exception $e) {
+            dd($e);
             session()->flash('danger', 'Oops! Something went wrong.');
             return redirect()->back()->withInput();
         }
@@ -196,19 +196,6 @@ class QualificationController extends BaseController
         $data['name'] = $data['level'];
         $data['user_id'] = Auth::user()->id;
         $level_number = $this->levelRepository->findById($profile['level']);
-
-        //        if($qualification){
-        //            $level = $qualification['level'] + 1;
-        //            if( $level != $data['level']){
-        //                session()->flash('error',  ' Please fill been Saved Successfully');
-        //                return redirect()->back();
-        //            }
-        //        }else{
-        //            if($data['level'] != 1 && $data['level'] !=2){
-        //                session()->flash('error', 'Please fill SLC or TSLC details First');
-        //                return redirect()->back();
-        //            }
-        //        }
         switch ($data['level']) {
             case 1:
                 $data['transcript_image'] = $data['transcript_slc'];
