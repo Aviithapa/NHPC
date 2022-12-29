@@ -135,7 +135,7 @@
     <!-- /.content -->
 </div>
 
-    {{-- @if(!$data)
+    @if(!$data)
         <div class="modal show"  role="dialog" style="display: block"  >
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -176,7 +176,7 @@
             </div>
         </div>
 
-        @endif --}}
+        @endif
 
 
     @if($rejected != null)

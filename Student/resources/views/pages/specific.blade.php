@@ -88,21 +88,7 @@
                     </div>
 
                     @break
-                    @default:
-                    @include('student::pages.qualification.slc')
-                    <div id="tslc" style="margin-top: 30px;">
-                        @include('student::pages.qualification.tslc')
-                    </div>
-                    <div id="pcl" >
-                        @include('student::pages.qualification.intermediate')
-                    </div>
-                    <div id="bachelor" >
-                        @include('student::pages.qualification.bachlor')
-                    </div>
-                    <div id="master" >
-                        @include('student::pages.qualification.master')
-                    </div>
-                    @break;
+                  
                     @endswitch
 
 
