@@ -239,7 +239,7 @@
                         </div>
                         <div class="contented">
                             <div class="row">
-                                @foreach($re_apply_student as $exam)
+                                {{-- @foreach($re_apply_student as $exam)
                                     <div class="col-lg-3 col-xs-6 m-b-3">
                                         <a href="{{url("operator/dashboard/student/program/".$exam->program_id."/re-exam/exam_committee")}}">
 
@@ -252,7 +252,7 @@
                                             </div>
                                         </a>
                                     </div>
-                                @endforeach
+                                @endforeach --}}
                             </div>
                         </div>
                     </div>

@@ -110,9 +110,13 @@ class OperatorController extends BaseController
                 ->where('status', '=', 're-exam')
                 ->get();
 
-            $re_apply_student_count = ExamProcessing::where('status', '=', 're-exam')
-                ->get();
+            $re_apply_student_count = ExamProcessing::select(\DB::raw("COUNT(profile_id) as count"))
+               ->groupBy('profile_id')
+               ->orderBy('count')
+               ->where('profile_id', '>=', 2)
+               ->get();
 
+                // dd($re_apply_student_count);
             $rejected = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
                 ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
                 ->where('profile_processing.current_state', '=', 'computer_operator')
@@ -1341,5 +1345,15 @@ class OperatorController extends BaseController
         }
         session()->flash('success', 'Deleted Successfully');
         return redirect()->back();
+    }
+
+    public function failedStudentList(){
+        $students =  DB::table('exam_registration')
+        ->select('profile_id','exam_id', DB::raw('COUNT(*) as `count`'))
+        ->groupBy('profile_id', 'exam_id')
+        ->havingRaw('COUNT(*) > 1')
+        ->get();
+
+        dd($students);
     }
 }

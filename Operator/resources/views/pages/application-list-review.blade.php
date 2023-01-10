@@ -32,6 +32,9 @@
                     @else
                     <div class="user-profile-box m-b-3 bg-black">
                         @endif
+                        @if(count($exams) >= 2)
+                        <div class="user-profile-box m-b-3 bg-red">
+                        @endif
                         <div class="verified-section">
                             <span>Verified by</span><br>
                             <ul class="nav nav-tabs profile-tab" role="tablist">
