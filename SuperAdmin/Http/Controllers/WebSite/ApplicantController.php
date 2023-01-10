@@ -716,7 +716,10 @@ class ApplicantController  extends BaseController
     }
 
     public function show($id){
-        return view('superAdmin::admin.applicant.exam.show');
+
+        $appliedCount = ExamProcessing::all()->where('exam_id','=',$id);
+        $rejectedCount = ExamProcessing::all()->where('status','=','rejected')->where('exam_id','=',$id);
+        return view('superAdmin::admin.applicant.exam.show',compact('appliedCount', 'rejectedCount'));
     
     }
 }

@@ -1351,7 +1351,7 @@ class OperatorController extends BaseController
         $students =  DB::table('exam_registration')
         ->select('profile_id','exam_id', DB::raw('COUNT(*) as `count`'))
         ->groupBy('profile_id', 'exam_id')
-        ->havingRaw('COUNT(*) > 1')
+        ->havingRaw('COUNT(*) >= 2')
         ->get();
 
         dd($students);

@@ -30,7 +30,7 @@
                      
                             <div class="card">
                                 <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
-                                    <div class="info-box-content"> <span class="info-box-number">500</span>
+                                    <div class="info-box-content"> <span class="info-box-number">{{ isset($appliedCount) ? count($appliedCount) : '' }}</span>
                                         <span class="info-box-text">Total Applied Student</span></div>
                                 </div>
                             </div>
@@ -42,8 +42,8 @@
                      
                         <div class="card">
                             <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
-                                <div class="info-box-content"> <span class="info-box-number">500</span>
-                                    <span class="info-box-text">Total Passed Student</span></div>
+                                <div class="info-box-content"> <span class="info-box-number">{{ isset($rejectedCount) ? count($rejectedCount) : '' }}</span>
+                                    <span class="info-box-text">Total Rejected Student</span></div>
                             </div>
                         </div>
     
