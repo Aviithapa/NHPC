@@ -110,11 +110,11 @@ class OperatorController extends BaseController
                 ->where('status', '=', 're-exam')
                 ->get();
 
-            $re_apply_student_count = ExamProcessing::select(\DB::raw("COUNT(profile_id) as count"))
-               ->groupBy('profile_id')
-               ->orderBy('count')
-               ->where('profile_id', '>=', 2)
-               ->get();
+            $re_apply_student_count = DB::table('exam_registration')
+            ->select('profile_id','exam_id', DB::raw('COUNT(*) as `count`'))
+            ->groupBy('profile_id', 'exam_id')
+            ->havingRaw('COUNT(*) >= 2')
+            ->get();
 
                 // dd($re_apply_student_count);
             $rejected = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
@@ -1171,10 +1171,11 @@ class OperatorController extends BaseController
         $profileData['profile_status'] = 'Reviewing';
         $data['remark'] = "Forwared to Officer";
         try {
-            $exam = $this->examProcessingRepository->findBy('profile_id', '=', $data['profile_id'])->where('attempt', '=', 1)
-                ->where('isPassed', '=', 0)->first();
+            $exam = $this->examProcessingRepository->findBy('profile_id', '=', $data['profile_id']);
             $profileProcesing  = $this->profileProcessingRepository->findBy('profile_id', '=', $data['profile_id'])->first();
-            $examUpdate =  $this->examProcessingRepository->update($data, $exam['id']);
+
+            foreach($exam as $exams)
+            $examUpdate =  $this->examProcessingRepository->update($data, $exams['id']);
             $data['exam_id'] = $exam['id'];
             //   dd($id);
             $profileProcesingUpdate =  $this->profileRepository->update($profileData, $data['profile_id']);
@@ -1355,5 +1356,10 @@ class OperatorController extends BaseController
         ->get();
 
         dd($students);
+    }
+
+    public function moveToCommittee(Request $request){
+
+
     }
 }
