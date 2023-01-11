@@ -53,7 +53,7 @@
                      
                     <div class="card">
                         <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">500</span>
+                            <div class="info-box-content"> <span class="info-box-number">{{ isset($failedCount) ? count($failedCount) : '' }}</span>
                                 <span class="info-box-text">Total Failed Student</span></div>
                         </div>
                     </div>

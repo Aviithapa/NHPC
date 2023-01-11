@@ -719,7 +719,12 @@ class ApplicantController  extends BaseController
 
         $appliedCount = ExamProcessing::all()->where('exam_id','=',$id);
         $rejectedCount = ExamProcessing::all()->where('status','=','rejected')->where('exam_id','=',$id);
-        return view('superAdmin::admin.applicant.exam.show',compact('appliedCount', 'rejectedCount'));
+        $failedCount =  DB::table('exam_registration')
+        ->select('profile_id','exam_id', DB::raw('COUNT(*) as `count`'))
+        ->groupBy('profile_id', 'exam_id')
+        ->havingRaw('COUNT(*) >= 2')
+        ->get();
+        return view('superAdmin::admin.applicant.exam.show',compact('appliedCount', 'rejectedCount','failedCount'));
     
     }
 }
