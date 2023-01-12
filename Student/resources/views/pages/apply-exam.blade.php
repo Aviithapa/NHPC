@@ -53,7 +53,7 @@
                                                         <label>Program Name</label>
                                                         <select class="form-control" name="program_id" required>
                                                             @foreach($all_program as $program)
-                                                            <option value="{{$program->id}}">{{$program->name}}</option>
+                                                            <option value="{{isset($program->id) ? $program->id : ''}}">{{isset($program->name) ? $program->name : ''}}</option>
                                                             @endforeach
                                                         </select>
                                                     </fieldset>
