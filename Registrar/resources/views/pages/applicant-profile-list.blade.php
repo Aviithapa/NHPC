@@ -62,6 +62,7 @@
                                 <table id="data-table" class="table no-margin">
                                     <thead>
                                     <tr>
+                                        <th>S.N. </th>
                                         <th>Registration Number</th>
                                         <th>Name</th>
                                         <th>Citizenship</th>
@@ -77,8 +78,10 @@
                                         </tr>
 
                                     @else
+                                    {{ $count = 0 }}
                                         @foreach($datas as $data)
                                             <tr>
+                                                <td>{{ ++$count }}
                                                 <td>{{$data->profile_id}}</td>
                                                 <td>{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
                                                 <td>{{$data->citizenship_number}}</td>
