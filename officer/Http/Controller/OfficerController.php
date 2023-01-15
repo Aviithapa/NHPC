@@ -305,7 +305,6 @@ class OfficerController  extends BaseController
                 $examProcessing = $this->examProcessingRepository->getAll()->where('profile_id','=',$profile_id)->first();
                 if($examProcessing){
                     $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
-                    dd($exam_processing);
                     if($exam_processing === 'false'){
                      session()->flash('error','Error Occured While Saving Data');
                     }
@@ -331,13 +330,13 @@ class OfficerController  extends BaseController
                 $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $profile_id)->first();
                 $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
                
-               
                 if($profileProcessings == 'fasle'){
                     session()->flash('error','Error Occured While Saving Data');
                 }
                 $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','officer')->where('status','=','progress')->where('profile_id','=',$profile_id)->first();
                 if($examProcessing){
                     $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
+                    dd($exam_processing);
                     if($exam_processing === 'false'){
                      session()->flash('error','Error Occured While Saving Data');
                     }
