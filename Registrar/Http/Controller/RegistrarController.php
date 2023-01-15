@@ -63,6 +63,7 @@ class RegistrarController  extends BaseController
             ->orderBy('count')
             ->where('exam_registration.state','!=','council')
             ->where('exam_registration.level_id','!=','4')
+            ->where('exam_registration.exam_id','=','3')
             ->where('exam_registration.created_at','>','2022-07-16')
             ->get();
 
