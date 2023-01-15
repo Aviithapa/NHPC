@@ -328,12 +328,12 @@ class OfficerController  extends BaseController
                $logs = $this->profileLog($profile_log);
                if($logs){
                 $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $profile_id)->first();
-                dd($profileProcessingId);
-
-                $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
-               
-                if($profileProcessings == 'fasle'){
-                    session()->flash('error','Error Occured While Saving Datas');
+                if($profileProcessingId === null){
+                    $profile_processing['profile_id'] = $profile_id;
+                    $this->profileProcessingRepository->create($profile_processing);
+                }
+                else{
+                    $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
                 }
                 $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','officer')->where('status','=','progress')->where('profile_id','=',$profile_id)->first();
                 if($examProcessing){
