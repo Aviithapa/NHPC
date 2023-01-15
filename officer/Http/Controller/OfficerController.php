@@ -360,7 +360,6 @@ class OfficerController  extends BaseController
             return redirect()->route('officer.applicant.profile.list',['status'=> 'progress','state' => 'officer',  'level'=>isset($examProcessing['level_id']) ? $examProcessing['level_id'] : 1]);
 //
         } catch (\Exception $e) {
-            dd($e);
             session()->flash('error','Error Occured While Saving Data');
             return redirect()->back()->withInput();
         }
