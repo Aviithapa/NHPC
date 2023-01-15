@@ -431,7 +431,7 @@ class RegistrarController  extends BaseController
                 return redirect()->back()->withInput();
             }
             session()->flash('success','User Profile Status Information have been saved successfully');
-            $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','registrar')->where('profile_id','=',$profile_id)->first();
+            $examProcessing = $this->examProcessingRepository->getAll()->where('profile_id','=',$profile_id)->first();
 
            
             return redirect()->route('registrar.applicant.profile.list',['status'=> 'progress','state' => 'registrar',  'level'=>isset($examProcessing['level_id']) ? $examProcessing['level_id'] : 1]);
