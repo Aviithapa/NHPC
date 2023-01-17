@@ -103,7 +103,7 @@
         <div class="card">
             <div class="card-body conatiner">
                 <span class="text-justify text-danger">
-                   You have successfully enrolled in the {{$licenceExam->Exam_name}} please wait until next message
+                   You have successfully enrolled in the {{isset($licenceExam->Exam_name) ? $licenceExam->Exam_name : 'fifth licence exam'}} please wait until next message
                 </span>
 
             </div>
