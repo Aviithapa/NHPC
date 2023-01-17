@@ -113,7 +113,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <fieldset class="form-group">
-                                        <input type="date" name="regratation_date" class = "form-control" placeholder="Enter Registration Date" value={{ isset($request->registration_date) ? $request->citizenship_number : '' }} >
+                                        <input type="date" name="regratation_date" class = "form-control" placeholder="Enter Registration Date" value={{ isset($request->regratation_date) ? $request->regratation_date : '' }} >
                                     </fieldset> 
                                 </div> 
                             </div>
@@ -145,6 +145,7 @@
                                             <td>Name</td>
                                             <td>State</td>
                                             <td>Status</td>
+                                            <td>Program Name</td>
                                             <td>Level</td>
                                             <td>Date of Birth</td>
                                             <td>Action</td>
