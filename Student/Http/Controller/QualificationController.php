@@ -124,6 +124,7 @@ class QualificationController extends BaseController
                 $id = $this->profileRepository->findByFirst('user_id', Auth::user()->id, '=');
                 $profile_pro['status'] = 'progress';
                 $profile_processing_id = ProfileProcessing::get()->where('profile_id', '=', $id['id'])->last();
+                dd($profile_processing_id);
                 $profiles_processing = $this->profileProcessingRepository->update($profile_pro, $profile_processing_id['id']);
                 $profiles['profile_status'] = "Reviewing";
                 $profiles['profile_state'] = $profiles_processing['current_state'];
