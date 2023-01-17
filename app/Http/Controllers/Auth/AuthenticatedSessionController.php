@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if ( Auth::check() ) {
-            // if(Auth::user()->active()) {
+            if(Auth::user()->active()) {
                 if (Auth::user()->mainRole()->name === 'administrator') {
                     dd("Student");
                 } else if (Auth::user()->mainRole()->name === 'student') {
@@ -53,7 +53,7 @@ class AuthenticatedSessionController extends Controller
                 } else if (Auth::user()->mainRole()->name === 'superadmin'){
                     return  redirect()->route('superAdmin.dashboard.index');
                 }
-            // }
+            }
             else{
                 Auth::logout();
                 return redirect()->back()->withErrors([
