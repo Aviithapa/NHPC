@@ -111,6 +111,11 @@
                                         </select>
                                     </fieldset>
                                 </div>
+                                <div class="col-lg-3">
+                                    <fieldset class="form-group">
+                                        <input type="date" name="regratation_date" class = "form-control" placeholder="Enter Registration Date" value={{ isset($request->registration_date) ? $request->citizenship_number : '' }} >
+                                    </fieldset> 
+                                </div> 
                             </div>
                             <div class="row float-right">
                                 <div class="col-lg-4" >

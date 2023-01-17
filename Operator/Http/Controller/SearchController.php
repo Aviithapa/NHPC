@@ -185,6 +185,9 @@ class SearchController extends BaseController
             if($request->citizenship_number != null){
                 $query->where('profiles.citizenship_number', 'like', '%' . $request->last_name  .'%');
             }
+            if($request->regratation_date != null){
+                $query->where('exam_registration.created_at', 'like', '%' . $request->regratation_date  .'%');
+            }
             // $query->join('program','program.id','=','exam_registration.program_id');
 
             $data = $query->get();
