@@ -260,7 +260,6 @@ class ProfileController extends BaseController
                     return view('student::pages.apply-exam', compact('all_program', 'profile'));
                 } else {
                     $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', '=', '3');
-                    dd($exam);
                     if ($exam->isEmpty()) {
                         $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', Auth::user()->id);
                         if ($qualification != null) {
