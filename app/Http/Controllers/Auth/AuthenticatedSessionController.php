@@ -32,29 +32,35 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if ( Auth::check() ) {
-            if(Auth::user()->active()) {
-                if (Auth::user()->mainRole()->name === 'administrator') {
-                    dd("Student");
-                } else if (Auth::user()->mainRole()->name === 'student') {
-                    return  redirect()->route('student.dashboard');
-                }  else if (Auth::user()->mainRole()->name === 'operator') {
-                    return  redirect()->route('operator.dashboard');
-                } else if (Auth::user()->mainRole()->name === 'officer') {
-                    return  redirect()->route('officer.dashboard');
-                } else if (Auth::user()->mainRole()->name === 'registrar') {
-                    return  redirect()->route('registrar.dashboard');
-                } else if (Auth::user()->mainRole()->name === 'subject_committee') {
+        if (Auth::check()) {
+
+            if (Auth::user()->mainRole()->name === 'administrator') {
+                dd("Student");
+            } else if (Auth::user()->mainRole()->name === 'student') {
+                return  redirect()->route('student.dashboard');
+            } else if (Auth::user()->mainRole()->name === 'operator') {
+                return  redirect()->route('operator.dashboard');
+            } else if (Auth::user()->mainRole()->name === 'officer') {
+                return  redirect()->route('officer.dashboard');
+            } else if (Auth::user()->mainRole()->name === 'registrar') {
+                return  redirect()->route('registrar.dashboard');
+            } else if (Auth::user()->mainRole()->name === 'subject_committee') {
+                if (Auth::user()->active()) {
+
                     return  redirect()->route('subjectCommittee.dashboard');
-                } else if (Auth::user()->mainRole()->name === 'exam_committee') {
-                    return  redirect()->route('examCommittee.dashboard');
-                } else if (Auth::user()->mainRole()->name === 'council') {
-                    return  redirect()->route('council.dashboard');
-                } else if (Auth::user()->mainRole()->name === 'superadmin'){
-                    return  redirect()->route('superAdmin.dashboard.index');
+                } else {
+                    Auth::logout();
+                    return redirect()->back()->withErrors([
+                        'active' => 'You must be an active user'
+                    ]);
                 }
-            }
-            else{
+            } else if (Auth::user()->mainRole()->name === 'exam_committee') {
+                return  redirect()->route('examCommittee.dashboard');
+            } else if (Auth::user()->mainRole()->name === 'council') {
+                return  redirect()->route('council.dashboard');
+            } else if (Auth::user()->mainRole()->name === 'superadmin') {
+                return  redirect()->route('superAdmin.dashboard.index');
+            } else {
                 Auth::logout();
                 return redirect()->back()->withErrors([
                     'active' => 'You must be an active user'
@@ -65,6 +71,7 @@ class AuthenticatedSessionController extends Controller
             //send them where they are going
 
         }
+        
     }
 
     /**
