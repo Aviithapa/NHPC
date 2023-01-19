@@ -454,9 +454,30 @@
                                                             </tr>
 
                                                         @else
-                                                            @foreach($exams as $exam)
-                                                                    <tr>
-                                                                        <td>1</td>
+                                                        {{ $count = 0 }}
+                                             
+                                                        @foreach($exams as $exam)
+                                                        @switch($exam->level_id)
+                                                        @case(1)
+                                                          <tr style= "background: lightgreen">
+                                                        @break
+                                                        @case(2)
+                                                          <tr style= "background: rgb(144, 235, 238)">
+                                                        @break
+                                                        @case(3)
+                                                          <tr style= "background: rgb(236, 238, 144)">
+                                                        @break
+                                                        @case(4)
+                                                          <tr style= "background: rgb(238, 144, 233)">
+                                                        @break
+                                                        @case(5)
+                                                           <tr style= "background: rgb(121, 61, 95)">
+                                                        @break
+                                                        @default
+                                                          <tr>
+                                                        @break
+                                                   @endswitch
+                                                   <td>{{ ++$count }}</td>
                                                                         <td>{{$exam->getExamName()}}</td>
                                                                         <td><img src="{{$exam->getVoucherImage()}}" onclick="onClick(this)" alts="voucher image" height="150" width="150"/></td>
                                                                         <td>{{$exam->created_at}}</td>
