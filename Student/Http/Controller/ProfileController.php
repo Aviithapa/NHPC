@@ -67,19 +67,20 @@ class ProfileController extends BaseController
             $rejected = null;
             $exam_re = null;
             $specific_program = null;
+            $examApplied = null;
             if ($data) {
                 if ($data['profile_status'] === "Rejected") {
                     $rejected = "Your application has been rejected";
-                }
+                } 
                 $re_exam  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $data['id'])->where('exam_id', '=', '3')->first();
                 $specific_program = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $data['id'])->where('status', '!=', 'rejected')->where('exam_id', '=', '3')->first();
-          
+                $examApplied = ExamProcessing::where('profile_id', '=', $data['id'])->where('status', '!=', 'rejected')->where('exam_id', '=', '3');
             }
             // $specific_program = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $data['id'])->where('status', '!=', 'rejected')->where('exam_id', '=', '3')->first();
             $exam = $this->profileRepository->findByFirst('user_id', Auth::user()->id, '=');
             $level = $this->levelRepository->getAll();
             $licenceExam = Exam::orderBy('created_at', 'desc')->where('status', '=', 'active')->first();
-            return view('student::pages.dashboard', compact('rejected', 'exam', 'data', 'level', 'exam_re', 'licenceExam', 'specific_program'));
+            return view('student::pages.dashboard', compact('rejected', 'exam', 'data', 'level', 'exam_re', 'licenceExam', 'specific_program', 'examApplied'));
         } catch (\Exception $e) {
             session()->flash('success', 'Oops! Something went wrong.');
             return redirect()->back();

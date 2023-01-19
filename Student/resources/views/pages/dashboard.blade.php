@@ -15,7 +15,21 @@
             </ol>
         </div>
 
+
+   @if($examApplied != null)
         <!-- Main content -->
+        <div class="content">
+            
+            <div class="card">
+                <div class="card-body conatiner">
+                    <span class="text-justify text-danger">
+                       You have successfully enrolled in the {{isset($licenceExam->Exam_name) ? $licenceExam->Exam_name : 'fifth licence exam'}} please wait until next message
+                    </span>
+    
+                </div>
+            </div>
+        </div>
+    @else
         @if(isset($data->first_name))
         @if($specific_program == null)
         <div class="content">
@@ -123,7 +137,10 @@
                                     <tr>
                                         <td><a href="#">OR9842</a></td>
                                         <td>TSLC Licence Exam</td>
-                                        <td><a href="{{route('apply.for.exam')}}"><span class="label label-success">Apply</span></a></td>
+                                        <td><button type="button" class="btn btn-primary m-2" data- 
+                                            toggle="modal" data-target="#demoModal">Apply for TSLC</button>
+                                            {{-- <a href="{{route('apply.for.exam')}}"><span class="label label-success">Apply</span></a> --}}
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -133,6 +150,29 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="demoModal" tabindex="-1" role="dialog" aria- 
+            labelledby="demoModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="demoModalLabel">Applying for TSLC</h5>
+								<button type="button" class="close" data-dismiss="modal" aria- 
+                                label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+						</div>
+						<div class="modal-body">
+								You are applying for TSLC are you sure you want to continue?
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data- 
+                            dismiss="modal">No</button>
+                            <a href="{{route('apply.for.exam')}}"><span class="label label-success">Yes</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
 
             
 
@@ -298,6 +338,8 @@
             </div>
         </div>
     </div>
+
+    @endif
 
 
 
