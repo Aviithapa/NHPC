@@ -16,20 +16,7 @@
         </div>
 
 
-   @if($examApplied != null)
-        <!-- Main content -->
-        <div class="content">
-            
-            <div class="card">
-                <div class="card-body conatiner">
-                    <span class="text-justify text-danger">
-                       You have successfully enrolled in the {{isset($licenceExam->Exam_name) ? $licenceExam->Exam_name : 'fifth licence exam'}} please wait until next message
-                    </span>
-    
-                </div>
-            </div>
-        </div>
-    @else
+  
         @if(isset($data->first_name))
         @if($specific_program == null)
         <div class="content">
@@ -339,7 +326,7 @@
         </div>
     </div>
 
-    @endif
+
 
 
 
