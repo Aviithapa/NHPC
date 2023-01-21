@@ -15,6 +15,9 @@
             </div>
         </div>
 
+        
+        
+
         <!-- sidebar menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">PERSONAL</li>
@@ -24,7 +27,7 @@
 
                 </a>
             </li>
-
+            @if(isset($examApplied) ?  ($examApplied == null || $examApplied->isNotEmpty()) : true)
             <li class="{{ (request()->is('student/dashboard/student/personal')) ? 'active' : '' }}">
                 <a href=" {{url("student/dashboard/student/personal")}}"> <i class="icon-user"></i> <span>Profile Setup</span> <span
                         class=""> </span>
@@ -47,6 +50,7 @@
 {{--                    <i class="icon-book-open"></i> <span>Admit Card</span>--}}
 {{--                </a>--}}
 {{--            </li>--}}
+            @endif
             @endif
             <li class="{{ (request()->is('student/dashboard/student/status/index/profile')) ? 'active' : '' }}">
                 <a href="{{route('status.index', ['status'=> 'profile'])}}">

@@ -426,6 +426,7 @@ class OperatorController extends BaseController
             $profile_log['created_by'] = Auth::user()->id;
             $profile_id = $data['profile_id'];
             $exam_processing = '';
+        
             try {
                 $id = $data['profile_id'];
                 $data['created_by'] = Auth::user()->id;
@@ -481,6 +482,7 @@ class OperatorController extends BaseController
                     $exam['status'] = 'rejected';
                     $data['profile_state'] = 'computer_operator';
                     $logs = $this->profileLogs($profile_log);
+
                     if ($logs) {
                         $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile_id)->first();
                         if ($profileProcessingId === null) {

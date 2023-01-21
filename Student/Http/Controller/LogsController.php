@@ -3,7 +3,7 @@
 
 namespace Student\Http\Controller;
 
-
+use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use Illuminate\Support\Facades\Auth;
@@ -25,8 +25,10 @@ class LogsController extends BaseController
 
     public function index($status){
         $data= $this->profileRepository->getAll()->where('user_id','=',Auth::user()->id)->first();
+    
         if ($data) {
             $profile_id = $data['id'];
+            $examApplieds = $this->examProcessingRepository->getAll()->where('profile_id', '=',  $data['id'])->where('status', '=', 'rejected')->where('exam_id', '=', 3);
             if ($status === "profile") {
                 $logs = $this->profileLogsRepository->getAll()->where('profile_id', '=', $profile_id);
 
@@ -36,7 +38,8 @@ class LogsController extends BaseController
         }else{
             $logs = "";
         }
-        return view('student::pages.logs',compact('logs'));
+        $examApplied = isset($examApplieds) ? $examApplieds : null;
+        return view('student::pages.logs',compact('logs', 'examApplied'));
 
     }
 }

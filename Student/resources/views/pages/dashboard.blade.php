@@ -11,12 +11,16 @@
             <h1>Student Dashboard</h1>
             <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
-                <li><i class="fa fa-angle-right"></i> Student Dashboard</li>
+        {{-- @if(isset($examApplied) ? $examApplied->isEmpty() : false) --}}
+        <li><i class="fa fa-angle-right"></i>  Student Dashboard </li>
+        {{-- @endif --}}
             </ol>
         </div>
 
 
-  
+       
+        @if($examApplied == null || $examApplied->isNotEmpty())
+        
         @if(isset($data->first_name))
         @if($specific_program == null)
         <div class="content">
@@ -324,7 +328,13 @@
                 </div>
             </div>
         </div>
-    </div>
+  
+  
+  
+  
+  
+  @endif
+  </div>
 
 
 

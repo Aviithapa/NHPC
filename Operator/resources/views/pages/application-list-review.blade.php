@@ -54,7 +54,19 @@
                                 <hr>
                                 <strong><i class="fa fa-phone margin-r-5"></i> Phone</strong>
                                 <p>{{isset($user_data)?$user_data->phone_number:'s'}} </p>
+                                <hr>
+                                <form class="form-horizontal form-material" action="{{route("operator.applicant.profile.list.status")}}" method="POST">
+                                    @csrf
 
+                                    <input type="hidden" name="profile_id" value="{{$data->id}}">
+                                    <input type="hidden" name="profile_status" value="Rejected" />
+                                    <input type="hidden" name="remarks" value="Rejected on the request from student to edit the profile" />
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <button class="btn btn-success">Open Edit Option to Student</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                             <!-- /.box-body -->
                         </div>
