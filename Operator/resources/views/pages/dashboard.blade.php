@@ -18,8 +18,10 @@
 {{--        <!-- Main content -->--}}
         @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com')
         @else
-        <div class="content">
-            <div class="row">
+        {{-- <div class="content"> --}}
+
+          
+            {{-- <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <a href="{{route("operator.applicant.profile.list", ['status'=> 'progress', 'state' => 'computer_operator','level'=>'1'])}}">
                     <div class="card">
@@ -50,20 +52,10 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3 col-xs-6 m-b-3">
-                    {{-- <a href="{{route("operator.applicant.profile.list", ['status'=> 'rejected','state' => 'computer_operator' ,'level'=>"1"])}}">
-                    <div class="card">
-                        <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
-                            <div class="info-box-content"> <span class="info-box-number">{{getApplicantCount('rejected','computer_operator')}}</span>
-                                <span class="info-box-text">Rejected Application List </span></div>
-                        </div>
-                    </div>
-                    </a> --}}
-                </div>
 
-            </div>
+            </div> --}}
 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <a
                         href="{{route("operator.applicant.profile.list", ['status'=> 'rejected','state' => 'computer_operator' ,'level'=>"1"])}}">
@@ -119,40 +111,8 @@
                     </div>
                     </a>
                 </div>
-{{--                <div class="col-lg-3 col-xs-6 m-b-3">--}}
-{{--                    <a href="{{route('examStudentCount.dashboard.operator',['level_id' => '1'])}}">--}}
-
-{{--                    <div class="card">--}}
-{{--                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>--}}
-{{--                            <div class="info-box-content"> <span class="info-box-number">{{examStudentCount('1')}}</span>--}}
-{{--                                <span class="info-box-text">Specilazition</span> </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--                <div class="col-lg-3 col-xs-6 m-b-3">--}}
-{{--                    <a href="{{route('examStudentCount.dashboard.operator',['level_id' => '2'])}}">--}}
-
-{{--                    <div class="card">--}}
-{{--                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>--}}
-{{--                            <div class="info-box-content"> <span class="info-box-number">{{examStudentCount('2')}}</span>--}}
-{{--                                <span class="info-box-text">First Level Bachelor</span> </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-{{--                <div class="col-lg-3 col-xs-6 m-b-3">--}}
-{{--                    <a href="{{route('examStudentCount.dashboard.operator',['level_id' => '3'])}}">--}}
-{{--                    <div class="card">--}}
-{{--                        <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-clock"></i></span>--}}
-{{--                            <div class="info-box-content"> <span class="info-box-number">{{examStudentCount('3')}}</span>--}}
-{{--                                <span class="info-box-text">Second Level PCL</span> </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
-            </div>
-        </div>
+            </div> --}}
+        {{-- </div> --}}
 
             <style>
                 .collapsible {
@@ -175,7 +135,54 @@
 
             </style>
 
-            <div class="container-fluid">
+            <div class="container-fluid mt-2">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="content-header sty-one mb-3 collapsible">
+                         <h1>Exam Details</h1>
+                    </div>
+                    <div class="contented">
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table id="data-table" class="table no-margin">
+                                    <thead>
+                                    <td>S.N.</td>
+                                    <td>Exam Name</td>
+                                    <td>Opening Date</td>
+                                    <td>Closing Date</td>
+                                    <td>Open By</td>
+                                    <td>Created At</td>
+                                    <td>Action</td>
+                                    </thead>
+                                    <tbody>
+                                    @if($exams === null)
+                                        <tr>
+                                            <td> No Applicant List found at Computer Operator</td>
+                                        </tr>
+
+                                    @else
+                                        @foreach($exams as $data)
+                                            <tr>
+                                                <td>{{ $data->id }}</td>
+                                                <td>{{$data->Exam_name}}</td>
+                                                <td>{{$data->form_opening_date}}</td>
+                                                <td>{{ $data->form_closing_date }}</td>
+                                                <td>{{ $data->created_by }}</td>
+                                                <td>{{ $data->created_at }}</td>
+                                                <td> <a href='{{ route('operator.exam.view',['id' => $data->id]) }}'><span class="label label-success">View Detail Data</span></a></td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            {{-- <div class="container-fluid">
                 <div class="card">
                     <div class="card-body">
                         <div class="content-header sty-one mb-3 collapsible">
@@ -201,9 +208,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="container-fluid mt-2">
+            {{-- <div class="container-fluid mt-2">
                 <div class="card">
                     <div class="card-body">
                 <div class="content-header sty-one mb-3 collapsible">
@@ -227,11 +234,11 @@
                 @endforeach
                     </div>
                 </div>
-            </div>
+            </div> --}}
                 </div>
             </div>
 
-            <div class="container-fluid mt-2 mb-2">
+           {{--  <div class="container-fluid mt-2 mb-2">
                 <div class="card">
                     <div class="card-body">
                         <div class="content-header sty-one mb-3 collapsible">
@@ -239,7 +246,7 @@
                         </div>
                         <div class="contented">
                             <div class="row">
-                                {{-- @foreach($re_apply_student as $exam)
+                                @foreach($re_apply_student as $exam)
                                     <div class="col-lg-3 col-xs-6 m-b-3">
                                         <a href="{{url("operator/dashboard/student/program/".$exam->program_id."/re-exam/exam_committee")}}">
 
@@ -252,12 +259,12 @@
                                             </div>
                                         </a>
                                     </div>
-                                @endforeach --}}
+                                @endforeach 
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
 
 @endif

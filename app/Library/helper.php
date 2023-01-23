@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Admin\Level;
 use App\Models\AdmitCard\AdmitCard;
 use App\Models\Certificate\Certificate;
 use App\Models\Certificate\CertificateHistory;
@@ -384,6 +385,19 @@ if (!function_exists('getProgramName')) {
         return isset($data['name']) ? $data['name'] : '';
     }
 }
+
+if (!function_exists('getLevelName')) {
+    /**
+     * @param null $type
+     * @return string
+     */
+    function getLevelName($id)
+    {
+        $data = Level::query()->where('id', '=', $id)->first();
+        return isset($data['name']) ? $data['name'] : '';
+    }
+}
+
 if (!function_exists('admitCard')) {
     /**
      * @param null $type

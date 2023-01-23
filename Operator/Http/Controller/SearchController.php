@@ -148,7 +148,7 @@ class SearchController extends BaseController
 
     public function searchStudent(Request $request)
     {
-        $program = Program::get()->where('status', '=', 1);
+        $program = Program::get();
         if ($request->isMethod('post')) {
 
             $query = Profile::query()->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id');

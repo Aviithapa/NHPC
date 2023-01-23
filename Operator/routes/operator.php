@@ -56,3 +56,12 @@ Route::get('/exportPCLCertificate',[\Operator\Http\Controller\OperatorController
 Route::get('/failedStudentList',[\Operator\Http\Controller\OperatorController::class,'failedStudentList'])->middleware(['auth'])->name('operator.failedStudentList');
 
 Route::match(['get','post'],'/search/lost/student',[\Operator\Http\Controller\SearchController::class,"searchStudent"])->middleware(['auth'])->name('search.lost.student');
+
+
+
+Route::get('/exam/view/{id}', [\Operator\Http\Controller\OperatorController::class,'examDetails'])->middleware(['auth'])->name('operator.exam.view');
+Route::get('/program/student/{id}/{exam_id}', [\Operator\Http\Controller\OperatorController::class,'getProgramStudent'])->middleware(['auth'])->name('operator.program.student');
+Route::post('/program/student/csv', [\Operator\Http\Controller\OperatorController::class,'programWiseStudentCountCSV'])->middleware(['auth'])->name('operator.program.student.csv');
+
+
+
