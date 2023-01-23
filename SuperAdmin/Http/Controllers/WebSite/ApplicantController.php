@@ -727,4 +727,9 @@ class ApplicantController  extends BaseController
         return view('superAdmin::admin.applicant.exam.show',compact('appliedCount', 'rejectedCount','failedCount'));
     
     }
+
+    public function studentCard(){
+        return view('superAdmin::admin.applicant.id-card');
+    
+    }
 }

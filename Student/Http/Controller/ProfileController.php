@@ -288,7 +288,6 @@ class ProfileController extends BaseController
                 return redirect()->to('student/dashboard/student/personal');
             }
         } catch (\Exception $e) {
-            dd($e);
             session()->flash('danger', 'Oops! Something went wrong.');
             return redirect()->back();
         }

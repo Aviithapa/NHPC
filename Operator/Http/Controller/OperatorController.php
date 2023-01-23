@@ -1217,7 +1217,8 @@ class OperatorController extends BaseController
             ->where('level_id', '<=', 3)
             ->where('exam_registration.status', '!=', 'rejected')
             ->where('exam_registration.state', '!=', 'council')
-            ->where('exam_registration.created_at', '>=', '2022-07-16')
+            ->where('exam_registration.state', '!=', 'computer_operator')
+            ->where('exam_registration.exam_id', '=', '3')
             ->get();
 
         $headers = array(
