@@ -141,6 +141,11 @@
                                         <input type="date" name="regratation_date" class = "form-control" placeholder="Enter Registration Date" value={{ isset($request->regratation_date) ? $request->regratation_date : '' }} >
                                     </fieldset> 
                                 </div> 
+                                <div class="col-lg-3">
+                                    <fieldset class="form-group">
+                                        <input type="date" name="regratation_date_greater" class = "form-control" placeholder="Enter Registration Date" value={{ isset($request->regratation_date_greater) ? $request->regratation_date_greater : '' }} >
+                                    </fieldset> 
+                                </div> 
                             </div>
                             <div class="row float-right">
                                 <div class="col-lg-4" >

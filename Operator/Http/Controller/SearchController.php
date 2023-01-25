@@ -151,7 +151,7 @@ class SearchController extends BaseController
         $program = Program::get();
         if ($request->isMethod('post')) {
 
-            $query = Profile::query()->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id');
+            $query = Profile::query()->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')->join('profile_processing','profile_processing.profile_id', '=', 'profiles.id');
            
             if ($request->state != null) {
                 $query->where('exam_registration.state', 'like', $request->state);
@@ -161,7 +161,7 @@ class SearchController extends BaseController
             }
             if ($request->level != null) {
                 $query->where('exam_registration.level_id', 'like', $request->level);
-                $program = Program::get()->where('level_id', '=',  $request->level)->where('status', '=', 1);
+                $program = Program::get()->where('level_id', '=',  $request->level);
             }
             if($request->program != null) {
                 $query->where('exam_registration.program_id', 'like', $request->program);
@@ -190,11 +190,14 @@ class SearchController extends BaseController
             }
 
             if($request->profile_processing_state !=null){
-                $query->join('profile_processing','profile_processing.profile_id', '=', 'profiles.id')
-                      ->where('profile_processing.status', '=', $request->profile_processing_state);
+                $query->where('profile_processing.status', '=', $request->profile_processing_state);
             }
             if($request->profile_processing_status !=null){
                 $query->where('profile_processing.current_state', '=', $request->profile_processing_status);
+            }
+            if($request->regratation_date_greater != null){
+                $query->where('exam_registration.created_at', '<', $request->profile_processing_status);
+
             }
             // $query->join('program','program.id','=','exam_registration.program_id');
 
