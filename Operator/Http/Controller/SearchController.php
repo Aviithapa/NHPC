@@ -4,6 +4,7 @@
 namespace Operator\Http\Controller;
 
 use App\Models\Admin\Program;
+use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
@@ -210,5 +211,18 @@ class SearchController extends BaseController
         }else{
             return view('operator::pages.search-students', compact('program'));
         }
+    }
+
+    public function studentUpdateExamApplyId(){
+            $datas = ExamProcessing::where('exam_registration.created_at', '>=', '2022-12-23')
+            ->where('exam_registration.exam_id','!=', 3)
+            ->where('exam_registration.level_id','!=', 4)
+            ->get();
+            
+            foreach($datas as $data){
+                $exam['exam_id'] = 3;
+                $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
+            }
+            return redirect()->back();  
     }
 }
