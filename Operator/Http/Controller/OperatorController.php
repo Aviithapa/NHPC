@@ -1359,6 +1359,7 @@ class OperatorController extends BaseController
         ->groupBy('profile_id', 'exam_id','first_name','middle_name','last_name','dob_nep','status','state', 'level_id')
         // ->where('level_id','!=', '4')
         ->havingRaw('COUNT(*) >= 2')
+        ->where('status', '=' , 'progress')
         ->orderBy('exam_id','asc')
         ->get();
 
