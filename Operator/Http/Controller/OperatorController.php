@@ -1541,18 +1541,5 @@ class OperatorController extends BaseController
 
         return response()->stream($callback, 200, $headers);
     }
-
-
-    public function studentUpdateExamId(){
-        $students = ExamProcessing::select('id','exam_id','status','state')
-        ->groupBy('id', 'exam_id','status','state')
-        // ->where('level_id','!=', '4')
-        ->where('exam_registration.state','=', 'exam_committee')
-        ->where('exam_registration.status','=','progress')
-        ->where('exam_registration.exam_id','=', 3)
-        ->get();
-
-        dd($students);
-    }
-          
+  
 }
