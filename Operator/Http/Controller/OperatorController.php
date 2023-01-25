@@ -1359,7 +1359,7 @@ class OperatorController extends BaseController
         // ->where('level_id','!=', '4')
         ->where('exam_registration.state','=', 'exam_committee')
         ->where('exam_registration.status','=','progress')
-        ->where('exam_registration_exam_id','=', 3)
+        ->where('exam_registration.exam_id','=', 3)
         ->get();
 
  
