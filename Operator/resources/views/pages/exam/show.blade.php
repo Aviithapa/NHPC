@@ -45,18 +45,21 @@
                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-xs-6 m-b-3">
-                            <div class="card">
-                                <a href="{{route("operator.failedStudentList")}}">
-                                <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
-                                    <div class="info-box-content"> <span class="info-box-number">{{ count($student) }}</span>
-                                       <span class="info-box-text">Re-Exam Applied Student</span></div>
-                                   </div>
+                            <div class="col-lg-4 col-xs-6 m-b-3">
+                                <div class="card">
+                            <a href="{{route("operator.failedStudentList")}}">
+    
+                                    <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
+                                        <div class="info-box-content"> <span class="info-box-number">{{ count($student) }}</span>
+                                           <span class="info-box-text">Re-Exam Applied Student</span></div>
+                                       </div>
+                            </a>
+                                    </div>
+    
                                 </div>
-                               </a>
                             </div>
-                        </div>
+                        
+                       
                         <h4 class="text-black">Computer Operator State</h4>
                         <div class="row">
                             <div class="col-lg-4 col-xs-6 m-b-3">
