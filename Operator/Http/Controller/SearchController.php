@@ -188,6 +188,11 @@ class SearchController extends BaseController
             if($request->regratation_date != null){
                 $query->where('exam_registration.created_at', 'like', '%' . $request->regratation_date  .'%');
             }
+
+            if($request->profile_processing_state !=null){
+                $query->join('profile_processing','profile_processing.profile_id', '=', 'profiles.id')
+                      ->where('profile_processing.status', 'like', $request->profile_processing_state);
+            }
             // $query->join('program','program.id','=','exam_registration.program_id');
 
             $data = $query->get();

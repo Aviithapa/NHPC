@@ -83,7 +83,17 @@
                                             <option value="pending">Pending</option>
                                             <option value="rejected">Rejected</option>
                                             <option value="accepted">Accepted</option>
-                                            <option value="re-exam">Accepted</option>
+                                        </select>
+                                    </fieldset>
+                                   
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <fieldset class="form-group">
+                                        <select class="form-control" name="profile_processing_state"  id="date" >
+                                            <option value={{ isset($request->profile_processing_state) ? $request->profile_processing_state : ''}}>{{ isset($request->profile_processing_state) ? $request->profile_processing_state : 'Select Profile Processing Status'}}</option>
+                                            <option value="progress">Reviewing</option>
+                                            <option value="rejected">Rejected</option>
                                         </select>
                                     </fieldset>
                                    
