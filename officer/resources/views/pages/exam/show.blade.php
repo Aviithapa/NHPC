@@ -260,7 +260,7 @@
                     <div class="row">
                             @foreach($programWiseCount as $key => $program)
                                  <div class="col-lg-4 m-b-3">
-                                   <a href="{{route("operator.program.student", ['id'=> $key, 'exam_id' => $id])}}">
+                                   <a href="{{route("officer.program.student", ['id'=> $key, 'exam_id' => $id])}}">
                                       <div class="card">
                                           <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
                                                <div class="info-box-content"> <span class="info-box-number">{{$program}}</span>
