@@ -31,6 +31,7 @@
                                 <table id="data-table" class="table no-margin">
                                     <thead>
                                     <tr>
+                                        <th>S.N.</th>
                                         <th>Registration Number</th>
                                         <th>Name</th>
                                         <th>Registration Date</th>
@@ -40,20 +41,22 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if($data === null)
+                                    @if($students === null)
                                         <tr>
                                             <td> No Applicant List found at officer</td>
                                         </tr>
 
                                     @else
-                                        @foreach($data as $datas)
+                                    {{ $count = 0  }}
+                                        @foreach($students as $datas)
                                             <tr>
-                                                <td>{{$datas->id}}</td>
+                                                <td>{{++ $count}}</td>
+                                                <td>{{ $datas->profile_id }}</td>
                                                 <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
-                                                <td>{{$datas->created_at->toDateString()}}</td>
-                                                <td>{{$datas->profile_state}}</td>
-                                                <td> {{getProgramNameForProfile($datas->id)}}</td>
-                                                <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->id)}}"><span class="label label-success">View</span></a></td>
+                                                <td>{{$datas->dob_nep}}</td>
+                                                <td>{{$datas->status}}</td>
+                                                <td></td>
+                                                <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->profile_id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>
                                         @endforeach
                                     @endif

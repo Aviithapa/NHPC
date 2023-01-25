@@ -1354,12 +1354,13 @@ class OperatorController extends BaseController
 
     public function failedStudentList(){
         $students =  DB::table('exam_registration')
-        ->select('profile_id','exam_id', DB::raw('COUNT(*) as `count`'))
-        ->groupBy('profile_id', 'exam_id')
+        ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+        ->select('profile_id','exam_id', DB::raw('COUNT(*) as `count`'),'first_name','middle_name','last_name','dob_nep','status','state')
+        ->groupBy('profile_id', 'exam_id','first_name','middle_name','last_name','dob_nep','status','state')
         ->havingRaw('COUNT(*) >= 2')
         ->get();
 
-        dd($students);
+        return view('operator::pages.application-list-double', compact('students'));
     }
 
     public function moveToCommittee(Request $request){
@@ -1436,9 +1437,17 @@ class OperatorController extends BaseController
             ->where('exam_registration.state','=','subject_committee')
             ->where('program.subject-committee_id','=','7')
             ->count(['profiles.id']);
+
+            $student =  DB::table('exam_registration')
+            ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->select('profile_id','exam_id', DB::raw('COUNT(*) as `count`'),'first_name','middle_name','last_name','dob_nep','status','state')
+            ->groupBy('profile_id', 'exam_id','first_name','middle_name','last_name','dob_nep','status','state')
+            ->havingRaw('COUNT(*) >= 2')
+            ->count();
+
         return view('operator::pages.exam.show',compact('appliedCount', 'rejectedCount','failedCount',
          'operatorState', 'operatorAcceptedState', 'operatorRejectedState', 'levelWiseCount', 'programWiseCount','id',
-         'examApplied','GM','lM','radio','opt','den','phy'));
+         'examApplied','GM','lM','radio','opt','den','phy', 'student'));
     }
 
     public function getProgramStudent($id,$exam_id)
