@@ -224,7 +224,6 @@ class SearchController extends BaseController
             // ->get();
             
             foreach($students as $data){
-                dd($data->id);
                 $exam['status'] = 're-exam';
                 $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
             }
