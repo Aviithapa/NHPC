@@ -36,7 +36,54 @@
 
         </style>
 
-<div class="content">
+        <div class="container-fluid mt-2">
+            <div class="card">
+              <div class="card-body">
+                <div class="content-header sty-one mb-3 collapsible">
+                     <h1>Exam Details</h1>
+                </div>
+                <div class="contented">
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table id="data-table" class="table no-margin">
+                                <thead>
+                                <td>S.N.</td>
+                                <td>Exam Name</td>
+                                <td>Opening Date</td>
+                                <td>Closing Date</td>
+                                <td>Open By</td>
+                                <td>Created At</td>
+                                <td>Action</td>
+                                </thead>
+                                <tbody>
+                                @if($exams === null)
+                                    <tr>
+                                        <td> No Applicant List found at Computer Operator</td>
+                                    </tr>
+
+                                @else
+                                    @foreach($exams as $data)
+                                        <tr>
+                                            <td>{{ $data->id }}</td>
+                                            <td>{{$data->Exam_name}}</td>
+                                            <td>{{$data->form_opening_date}}</td>
+                                            <td>{{ $data->form_closing_date }}</td>
+                                            <td>{{ $data->created_by }}</td>
+                                            <td>{{ $data->created_at }}</td>
+                                            <td> <a href='{{ route('registrar.exam.view',['id' => $data->id]) }}'><span class="label label-success">View Detail Data</span></a></td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                                </tbody>
+                            </table>
+                        </div>
+                   </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+{{-- <div class="content">
     <div class="row">
         @foreach($examCount as $exam)
         <div class="col-lg-3 col-xs-6 m-b-3">
@@ -51,8 +98,8 @@
         </div>
         @endforeach
     </div>
-</div>
-        <div class="container-fluid">
+</div> --}}
+        {{-- <div class="container-fluid"> --}}
             {{-- <div class="card">
                 <div class="card-body">
                     <div class="content-header sty-one mb-3 collapsible">
@@ -76,9 +123,9 @@
                     </div>
                 </div>
             </div> --}}
-        </div>
+        {{-- </div> --}}
 
-        <div class="container-fluid mt-2">
+        {{-- <div class="container-fluid mt-2">
             <div class="card">
                 <div class="card-body">
                     <div class="content-header sty-one mb-3 collapsible">
@@ -138,13 +185,13 @@
 {{--                                    </a>--}}
 {{--                                </div>--}}
 {{--                            @endforeach--}}
-                        </div>
+                        {{-- </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  --}}
 
-        <div class="container-fluid mt-2 mb-2">
+        {{-- <div class="container-fluid mt-2 mb-2">
             <div class="card">
                 <div class="card-body">
                     <div class="content-header sty-one mb-3 collapsible">
@@ -170,9 +217,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
-        <div class="container-fluid mt-2">
+        {{-- <div class="container-fluid mt-2">
             <div class="card">
                 <div class="card-body">
                     <div class="content-header sty-one mb-3 collapsible">
@@ -198,8 +245,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-
+        </div> --}}
+{{-- 
         <div class="container-fluid mt-2">
             <div class="card">
                 <div class="card-body">
@@ -216,7 +263,7 @@
                                             <div class="card-body">
                                                 <div class="info-box-content"> <span class="info-box-number">{{$third_licence_exam_student_count}}</span>
                                                     <span class="info-box-text">Exam Applied Student Count</span> </div>
-{{--                                                <button class="btn btn-primary">Failed  Count</button>--}}
+
                                             </div>
                                         </div>
                                     </a>
@@ -229,7 +276,7 @@
                                         <div class="card-body">
                                             <div class="info-box-content"> <span class="info-box-number">{{$third_licence_exam_qualified_student_count}}</span>
                                                 <span class="info-box-text">Exam Qualified Student Count</span> </div>
-                                            {{--                                                <button class="btn btn-primary">Failed  Count</button>--}}
+                                
                                         </div>
                                     </div>
                                 </a>
@@ -241,7 +288,7 @@
                                         <div class="card-body">
                                             <div class="info-box-content"> <span class="info-box-number">{{$third_licence_exam_passed_student_count}}</span>
                                                 <span class="info-box-text">Passed Student Count</span> </div>
-                                            {{--                                                <button class="btn btn-primary">Failed  Count</button>--}}
+                               
                                         </div>
                                     </div>
                                 </a>
@@ -253,7 +300,7 @@
                                         <div class="card-body">
                                             <div class="info-box-content"> <span class="info-box-number">{{$third_licence_exam_failed_student_count}}</span>
                                                 <span class="info-box-text">Failed Student Count</span> </div>
-                                            {{--                                                <button class="btn btn-primary">Failed  Count</button>--}}
+                                         
                                         </div>
                                     </div>
                                 </a>
@@ -262,7 +309,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
 
 

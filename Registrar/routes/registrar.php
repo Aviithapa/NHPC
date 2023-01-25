@@ -17,3 +17,10 @@ Route::get('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committ
 Route::post('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}',[\Registrar\Http\Controller\RegistrarController::class,'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.registrar.list');
 Route::get('/internalData/{state}/{status}',[\Registrar\Http\Controller\RegistrarController::class,'internalData'])->middleware(['auth'])->name('subjectCommittee.dashboard.internalData');
 Route::get('/pclToSubjectCommittee',[\Registrar\Http\Controller\RegistrarController::class,'pclToSubjectCommittee'])->middleware(['auth'])->name('subjectCommittee.pclToSubjectCommittee');
+
+
+Route::get('/exam/view/{id}', [\Registrar\Http\Controller\RegistrarController::class,'examDetails'])->middleware(['auth'])->name('registrar.exam.view');
+Route::get('/program/student/{id}/{exam_id}', [\Registrar\Http\Controller\RegistrarController::class,'getProgramStudent'])->middleware(['auth'])->name('registrar.program.student');
+Route::post('/program/student/csv', [\Registrar\Http\Controller\RegistrarController::class,'programWiseStudentCountCSV'])->middleware(['auth'])->name('registrar.program.student.csv');
+
+
