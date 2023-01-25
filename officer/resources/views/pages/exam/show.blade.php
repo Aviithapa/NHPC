@@ -1,14 +1,14 @@
-@extends('operator::layout.app')
+@extends('officer::layout.app')
 
 @section('content') 
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header sty-one">
-        <h1>Computer Operator Dashboard</h1>
+        <h1>Officer Dashboard</h1>
         <ol class="breadcrumb">
             <li><a href="#">Home</a></li>
-            <li><i class="fa fa-angle-right"></i>Computer Operator Dashboard</li>
+            <li><i class="fa fa-angle-right"></i>Officer Dashboard</li>
         </ol>
     </div>
 
@@ -46,13 +46,13 @@
                                 </div>
                             </div>
                         </div>
-                        <h4 class="text-black">Computer Operator State</h4>
+                        <h4 class="text-black">Officer State</h4>
                         <div class="row">
                             <div class="col-lg-4 col-xs-6 m-b-3">
                                 <div class="card">
                                     <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
                                         <div class="info-box-content"> <span class="info-box-number">{{ isset($operatorState) ? count($operatorState) : '' }}</span>
-                                            <span class="info-box-text">Operator Students</span>
+                                            <span class="info-box-text">Officer Students</span>
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                             <div class="card">
                                 <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
                                     <div class="info-box-content"> <span class="info-box-number">{{ isset($operatorAcceptedState) ? count($operatorAcceptedState) : '' }}</span>
-                                        <span class="info-box-text">Operator Accepted Students</span>
+                                        <span class="info-box-text">Officer Accepted Students</span>
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                              <div class="card">
                                 <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
                                     <div class="info-box-content"> <span class="info-box-number">{{ isset($operatorRejectedState) ? count($operatorRejectedState) : '' }}</span>
-                                        <span class="info-box-text">Operator Rejected Students</span>
+                                        <span class="info-box-text">Officer Rejected Students</span>
                                     </div>
                                 </div>
                              </div>
@@ -94,7 +94,7 @@
 
                     <div class="row">
                         <div class="col-lg-3 col-xs-6 m-b-3">
-                            <a href="{{route("subjectCommittee.dashboard.operator.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '1'])}}">
+                            <a href="{{route("subjectCommittee.dashboard.officer.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '1'])}}">
                                 <div class="card">
                                     <div class="card-body"><span class="info-box-icon bg-aqua"><i class="icon-briefcase"></i></span>
                                         <div class="info-box-content"> <span class="info-box-number">{{$examApplied}}</span>
@@ -104,7 +104,7 @@
                             </a>
                         </div>
                         <div class="col-lg-3 col-xs-6 m-b-3">
-                            <a href="{{route("subjectCommittee.dashboard.operator.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '2'])}}">
+                            <a href="{{route("subjectCommittee.dashboard.officer.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '2'])}}">
                                 <div class="card">
                                     <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
                                         <div class="info-box-content"> <span class="info-box-number">{{$GM}}</span>
@@ -114,7 +114,7 @@
                             </a>
                         </div>
                         <div class="col-lg-3 col-xs-6 m-b-3">
-                            <a href="{{route("subjectCommittee.dashboard.operator.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '3'])}}">
+                            <a href="{{route("subjectCommittee.dashboard.officer.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '3'])}}">
                                 <div class="card">
                                     <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
                                         <div class="info-box-content"> <span class="info-box-number">{{$lM}}</span>
@@ -125,7 +125,7 @@
                         </div>
         
                         <div class="col-lg-3 col-xs-6 m-b-3">
-                            <a href="{{route("subjectCommittee.dashboard.operator.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '4'])}}">
+                            <a href="{{route("subjectCommittee.dashboard.officer.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '4'])}}">
                                 <div class="card">
                                     <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
                                         <div class="info-box-content"> <span class="info-box-number">{{$radio}}</span>
@@ -136,7 +136,7 @@
                         </div>
         
                         <div class="col-lg-3 col-xs-6 m-b-3">
-                            <a href="{{route("subjectCommittee.dashboard.operator.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '5'])}}">
+                            <a href="{{route("subjectCommittee.dashboard.officer.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '5'])}}">
                                 <div class="card">
                                     <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
                                         <div class="info-box-content"> <span class="info-box-number">{{$opt}}</span>
@@ -147,7 +147,7 @@
                         </div>
         
                         <div class="col-lg-3 col-xs-6 m-b-3">
-                            <a href="{{route("subjectCommittee.dashboard.operator.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '6'])}}">
+                            <a href="{{route("subjectCommittee.dashboard.officer.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '6'])}}">
                                 <div class="card">
                                     <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
                                         <div class="info-box-content"> <span class="info-box-number">{{$den}}</span>
@@ -158,7 +158,7 @@
                         </div>
         
                         <div class="col-lg-3 col-xs-6 m-b-3">
-                            <a href="{{route("subjectCommittee.dashboard.operator.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '7'])}}">
+                            <a href="{{route("subjectCommittee.dashboard.officer.list", ['level'=> '1', 'status' => 'progress','subject_committee_id' => '7'])}}">
                                 <div class="card">
                                     <div class="card-body"><span class="info-box-icon bg-red"><i class="icon-reload"></i></span>
                                         <div class="info-box-content"> <span class="info-box-number">{{$phy}}</span>

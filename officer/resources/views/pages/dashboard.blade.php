@@ -17,7 +17,75 @@
 
         {{--        <!-- Main content -->--}}
         <div class="content">
-            <div class="row">
+            <style>
+                .collapsible {
+                    cursor: pointer;
+                    padding: 18px;
+                    width: 100%;
+                    border: none;
+                    text-align: left;
+                    outline: none;
+                    font-size: 15px;
+                }
+    
+                .active{
+                    background-color: #555;
+                }
+    
+                .contented {
+                    display: block;
+                }
+    
+            </style>
+    
+    <div class="row">
+
+            <div class="container-fluid mt-2 mb-5">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="content-header sty-one mb-3 collapsible">
+                         <h1>Exam Details</h1>
+                    </div>
+                    <div class="contented">
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table id="data-table" class="table no-margin">
+                                    <thead>
+                                    <td>S.N.</td>
+                                    <td>Exam Name</td>
+                                    <td>Opening Date</td>
+                                    <td>Closing Date</td>
+                                    <td>Open By</td>
+                                    <td>Created At</td>
+                                    <td>Action</td>
+                                    </thead>
+                                    <tbody>
+                                    @if($exams === null)
+                                        <tr>
+                                            <td> No Applicant List found at Computer Operator</td>
+                                        </tr>
+    
+                                    @else
+                                        @foreach($exams as $data)
+                                            <tr>
+                                                <td>{{ $data->id }}</td>
+                                                <td>{{$data->Exam_name}}</td>
+                                                <td>{{$data->form_opening_date}}</td>
+                                                <td>{{ $data->form_closing_date }}</td>
+                                                <td>{{ $data->created_by }}</td>
+                                                <td>{{ $data->created_at }}</td>
+                                                <td> <a href='{{ route('officer.exam.view',['id' => $data->id]) }}'><span class="label label-success">View Detail Data</span></a></td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
                 <div class="col-lg-3 col-xs-6 m-b-3">
                     <a href="{{route("officer.applicant.profile.list", ['status'=> 'progress', 'state' => 'officer', 'level'=>'5'])}}">
                         <div class="card">
@@ -106,9 +174,11 @@
                         </div>
                     </a>
                 </div>
+             
             </div>
         </div>
 
+       
 
     </div>
     <!-- /.content -->

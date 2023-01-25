@@ -1,7 +1,6 @@
 <?php
 
-Route::get('/',  function() {
-    return view('officer::pages.dashboard');})->middleware(['auth'])->name('officer.dashboard');
+Route::get('/', [\officer\Http\Controller\OfficerController::class,'dashboard'])->middleware(['auth'])->name('officer.dashboard');
 
 
 Route::get('/officer/applicant-list/{status}/{state}',[\officer\Http\Controller\OfficerController::class,'exam'])->middleware(['auth'])->name('officer.applicant.list');
@@ -25,3 +24,11 @@ Route::post('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_commit
 
 // Route::get('/officer/subjectCommittee/minuteIndex',[\officer\Http\Controller\OfficerController::class,'minuteDataSubjectCommitteeIndex'])->middleware(['auth'])->name('subjectCommittee.minuteDataSubjectCommitteeIndex.officer');
 // Route::match(['get', 'post'], '/officer/minute/applicant/list/{id}',[\officer\Http\Controller\OfficerController::class,'minuteDataApplicantIndex'])->middleware(['auth'])->name('subjectCommittee.minute.applicant.list.officer');
+
+
+Route::get('/exam/view/{id}', [\officer\Http\Controller\OfficerController::class,'examDetails'])->middleware(['auth'])->name('officer.exam.view');
+Route::get('/program/student/{id}/{exam_id}', [\officer\Http\Controller\OfficerController::class,'getProgramStudent'])->middleware(['auth'])->name('officer.program.student');
+Route::post('/program/student/csv', [\officer\Http\Controller\OfficerController::class,'programWiseStudentCountCSV'])->middleware(['auth'])->name('officer.program.student.csv');
+
+
+

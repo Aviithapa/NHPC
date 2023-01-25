@@ -60,6 +60,18 @@ class OfficerController  extends BaseController
         parent::__construct();
     }
 
+    public function dashboard()
+    {
+        if (Auth::user()->mainRole()->name === 'officer') {
+
+            $exams = DB::table('exam')->where('id', '>', '2')->get();
+          
+            return view('officer::pages.dashboard', compact('exams'));
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
     public function profile($status, $state, $level,$page = 0)
     {
         if (Auth::user()->mainRole()->name === 'officer') {
@@ -226,9 +238,11 @@ class OfficerController  extends BaseController
 
             }
 
+            $exams = DB::table('exam')->where('id', '>', '2')->get();
+
 
             return view('officer::pages.applicant-profile-list', compact('datas','state','status','countTSLC','countPCL',
-                'countmaster','countbachelor'));
+                'countmaster','countbachelor', 'exams'));
 //            return view('officer::pages.applicant-profile-list', compact('datas','state','status','page','level'));
         }else {
                 return redirect()->route('login');
@@ -653,5 +667,155 @@ class OfficerController  extends BaseController
 //         return view('officer::pages.minute-applicant-list',compact('profiles', 'id'));
 //     }
 
+
+public function examDetails($id){
+    $appliedCount = ExamProcessing::all()->where('exam_id','=',$id);
+    $rejectedCount = ExamProcessing::all()->where('status','=','rejected')->where('exam_id','=',$id);
+    $failedCount =  DB::table('exam_registration')
+    ->select('profile_id','exam_id', DB::raw('COUNT(*) as `count`'))
+    ->groupBy('profile_id', 'exam_id')
+    ->havingRaw('COUNT(*) >= 2')
+    ->get();
+    $operatorState = ExamProcessing::all()->where('exam_id','=',$id)->where('state','=','computer_operator')->where('status','!=','rejected');
+    $operatorAcceptedState = ExamProcessing::all()->where('exam_id','=',$id)->where('state','!=','computer_operator'); 
+    $operatorRejectedState = ExamProcessing::all()->where('exam_id','=',$id)->where('state','=','computer_operator')->where('status','=','rejected'); 
+    
+    $levelWiseCount = $appliedCount->groupBy('level_id')->map->count();
+    $programWiseCount = $appliedCount->groupBy('program_id')->map->count();
+
+    $examApplied = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+    ->where('exam_registration.exam_id','=',$id)
+    ->join('program','program.id','=','exam_registration.program_id')
+    ->where('exam_registration.state','=','subject_committee')
+    ->where('program.subject-committee_id','=','1')
+    ->count(['profiles.id']);
+
+    $GM = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+    ->where('exam_registration.exam_id','=',$id)
+    ->join('program','program.id','=','exam_registration.program_id')
+    ->where('exam_registration.state','=','subject_committee')
+    ->where('program.subject-committee_id','=','2')
+    ->count(['profiles.id']);
+
+
+        $lM = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+        ->where('exam_registration.exam_id','=',$id)
+        ->join('program','program.id','=','exam_registration.program_id')
+        ->where('exam_registration.state','=','subject_committee')
+        ->where('program.subject-committee_id','=','3')
+        ->count(['profiles.id']);
+
+
+        $radio = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+        ->where('exam_registration.exam_id','=',$id)
+        ->join('program','program.id','=','exam_registration.program_id')
+        ->where('exam_registration.state','=','subject_committee')
+        ->where('program.subject-committee_id','=','4')
+        ->count(['profiles.id']);
+
+
+        $opt = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+        ->where('exam_registration.exam_id','=',$id)
+        ->join('program','program.id','=','exam_registration.program_id')
+        ->where('exam_registration.state','=','subject_committee')
+        ->where('program.subject-committee_id','=','5')
+        ->count(['profiles.id']);
+
+
+        $den = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+        ->where('exam_registration.exam_id','=',$id)
+        ->join('program','program.id','=','exam_registration.program_id')
+        ->where('exam_registration.state','=','subject_committee')
+        ->where('program.subject-committee_id','=','6')
+        ->count(['profiles.id']);
+
+
+        $phy = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+        ->where('exam_registration.exam_id','=',$id)
+        ->join('program','program.id','=','exam_registration.program_id')
+        ->where('exam_registration.state','=','subject_committee')
+        ->where('program.subject-committee_id','=','7')
+        ->count(['profiles.id']);
+    return view('officer::pages.exam.show',compact('appliedCount', 'rejectedCount','failedCount',
+     'operatorState', 'operatorAcceptedState', 'operatorRejectedState', 'levelWiseCount', 'programWiseCount','id',
+     'examApplied','GM','lM','radio','opt','den','phy'));
+}
+
+public function getProgramStudent($id,$exam_id)
+{
+    $students = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+        ->where('exam_registration.program_id', '=', $id)
+        ->join('program', 'program.id', '=', 'exam_registration.program_id')
+        ->where('exam_registration.exam_id', '=', $exam_id)
+        ->get(['profiles.*', 'program.name as program_name', 'profiles.id as profile_id']);
+
+    return view('officer::pages.program-student', compact('students'));
+}
+
+public function programWiseStudentCountCSV(Request $request){
+    $fileName = 'programWiseStudentCount.csv';
+    $query =  ExamProcessing::query()->select(\DB::raw("COUNT(program_id) as count"), \DB::raw("program_id as program_id"))
+        ->groupBy('program_id')
+        ->orderBy('count')
+        ->where('level_id', '<=', 3)
+        ->where('exam_id','=',$request->exam_id);
+        if ($request->computer_operator != null) {
+            $query->where('exam_registration.state', 'Not like','%'. $request->computer_operator.'%' );
+        }
+        if ($request->officer != null) {
+            $query->where('exam_registration.state', 'Not like','%'. $request->officer.'%');
+        }
+        if ($request->registrar != null) {
+            $query->where('exam_registration.state', 'Not like','%'. $request->registar .'%');
+        }
+        if ($request->subject_committee != null) {
+            $query->where('exam_registration.state', 'Not like','%'. $request->subject_committee .'%' );
+        }
+        if ($request->exam_committee != null) {
+            $query->where('exam_registration.state', 'Not like','%'. $request->exam_committee .'%');
+        }
+        if ($request->council != null) {
+            $query->where('exam_registration.state', 'Not like','%'. $request->council .'%');
+        }
+        if ($request->rejected != null) {
+            $query->where('exam_registration.status', 'Not like','%'.  $request->rejected .'%');
+        }
+        if ($request->progress != null) {
+            $query->where('exam_registration.status', 'Not like','%'.  $request->progress .'%');
+        }
+        
+       $tasks = $query->get();
+
+    $headers = array(
+        "Content-type"        => "text/csv",
+        "Content-Disposition" => "attachment; filename=$fileName",
+        "Pragma"              => "no-cache",
+        "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+        "Expires"             => "0"
+    );
+
+    $columns = array('Count', 'Program Name');
+
+    $callback = function () use ($tasks, $columns) {
+
+        $file = fopen('php://output', 'w');
+        fputcsv($file, $columns);
+        foreach ($tasks as $task) {
+            $row['count'] = $task->count;
+            $row['program_name'] = $task->getProgramName();
+
+
+            fputcsv($file, array(
+                $row['count'],
+                $row['program_name'],
+            ));
+        }
+
+        fclose($file);
+    };
+
+    return response()->stream($callback, 200, $headers);
+}
+      
 }
 

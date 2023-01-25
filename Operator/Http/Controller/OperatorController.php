@@ -1382,8 +1382,63 @@ class OperatorController extends BaseController
         
         $levelWiseCount = $appliedCount->groupBy('level_id')->map->count();
         $programWiseCount = $appliedCount->groupBy('program_id')->map->count();
+
+        $examApplied = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+        ->where('exam_registration.exam_id','=',$id)
+        ->join('program','program.id','=','exam_registration.program_id')
+        ->where('exam_registration.state','=','subject_committee')
+        ->where('program.subject-committee_id','=','1')
+        ->count(['profiles.id']);
+
+        $GM = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+        ->where('exam_registration.exam_id','=',$id)
+        ->join('program','program.id','=','exam_registration.program_id')
+        ->where('exam_registration.state','=','subject_committee')
+        ->where('program.subject-committee_id','=','2')
+        ->count(['profiles.id']);
+
+
+            $lM = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.exam_id','=',$id)
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->where('exam_registration.state','=','subject_committee')
+            ->where('program.subject-committee_id','=','3')
+            ->count(['profiles.id']);
+
+
+            $radio = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.exam_id','=',$id)
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->where('exam_registration.state','=','subject_committee')
+            ->where('program.subject-committee_id','=','4')
+            ->count(['profiles.id']);
+
+
+            $opt = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.exam_id','=',$id)
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->where('exam_registration.state','=','subject_committee')
+            ->where('program.subject-committee_id','=','5')
+            ->count(['profiles.id']);
+
+
+            $den = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.exam_id','=',$id)
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->where('exam_registration.state','=','subject_committee')
+            ->where('program.subject-committee_id','=','6')
+            ->count(['profiles.id']);
+
+
+            $phy = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->where('exam_registration.exam_id','=',$id)
+            ->join('program','program.id','=','exam_registration.program_id')
+            ->where('exam_registration.state','=','subject_committee')
+            ->where('program.subject-committee_id','=','7')
+            ->count(['profiles.id']);
         return view('operator::pages.exam.show',compact('appliedCount', 'rejectedCount','failedCount',
-         'operatorState', 'operatorAcceptedState', 'operatorRejectedState', 'levelWiseCount', 'programWiseCount','id'));
+         'operatorState', 'operatorAcceptedState', 'operatorRejectedState', 'levelWiseCount', 'programWiseCount','id',
+         'examApplied','GM','lM','radio','opt','den','phy'));
     }
 
     public function getProgramStudent($id,$exam_id)
