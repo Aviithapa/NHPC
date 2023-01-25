@@ -50,7 +50,7 @@
                             <div class="card">
                                 <a href="{{route("operator.failedStudentList")}}">
                                 <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
-                                    <div class="info-box-content"> <span class="info-box-number">{{ $student }}</span>
+                                    <div class="info-box-content"> <span class="info-box-number">{{ count($student) }}</span>
                                        <span class="info-box-text">Re-Exam Applied Student</span></div>
                                    </div>
                                 </div>

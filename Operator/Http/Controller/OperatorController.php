@@ -1460,7 +1460,7 @@ class OperatorController extends BaseController
             ->where('exam_registration.state','=', 'exam_committee')
             ->where('exam_registration.status','=','re-exam')
             ->where('exam_registration.exam_id','=', 3)
-            ->count();
+            ->get();
 
         return view('operator::pages.exam.show',compact('appliedCount', 'rejectedCount','failedCount',
          'operatorState', 'operatorAcceptedState', 'operatorRejectedState', 'levelWiseCount', 'programWiseCount','id',
