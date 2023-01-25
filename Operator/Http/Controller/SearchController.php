@@ -221,16 +221,16 @@ class SearchController extends BaseController
         ->where('exam_registration.exam_id','=', 3)
         ->get();
 
-        dd($students[0]);
             // $datas = ExamProcessing::where('exam_registration.created_at', '>=', '2022-12-23')
             // ->where('exam_registration.exam_id','!=', 3)
             // ->where('exam_registration.level_id','!=', 4)
             // ->get();
             
-            // foreach($datas as $data){
-            //     $exam['exam_id'] = 3;
-            //     $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
-            // }
+            foreach($students as $data){
+                dd($data);
+                $exam['status'] = 're-exam';
+                $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
+            }
             return redirect()->back();  
     }
 }
