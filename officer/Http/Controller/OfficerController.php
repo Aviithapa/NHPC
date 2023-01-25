@@ -676,9 +676,9 @@ public function examDetails($id){
     ->groupBy('profile_id', 'exam_id')
     ->havingRaw('COUNT(*) >= 2')
     ->get();
-    $operatorState = ExamProcessing::all()->where('exam_id','=',$id)->where('state','=','computer_operator')->where('status','!=','rejected');
-    $operatorAcceptedState = ExamProcessing::all()->where('exam_id','=',$id)->where('state','!=','computer_operator'); 
-    $operatorRejectedState = ExamProcessing::all()->where('exam_id','=',$id)->where('state','=','computer_operator')->where('status','=','rejected'); 
+    $operatorState = ExamProcessing::all()->where('exam_id','=',$id)->where('state','=','officer')->where('status','!=','rejected');
+    $operatorAcceptedState = ExamProcessing::all()->where('exam_id','=',$id)->where('state','!=','computer_operator')->where('state','!=','officer'); 
+    $operatorRejectedState = ExamProcessing::all()->where('exam_id','=',$id)->where('state','=','officer')->where('status','=','rejected'); 
     
     $levelWiseCount = $appliedCount->groupBy('level_id')->map->count();
     $programWiseCount = $appliedCount->groupBy('program_id')->map->count();
