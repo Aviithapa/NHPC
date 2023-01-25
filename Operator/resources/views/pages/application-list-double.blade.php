@@ -49,6 +49,7 @@
                                     @else
                                     {{ $count = 0  }}
                                         @foreach($students as $datas)
+                                          @if($datas->exam_id == 3)
                                             <tr>
                                                 <td>{{++ $count}}</td>
                                                 <td>{{ $datas->profile_id }}</td>
@@ -58,6 +59,7 @@
                                                 <td>{{$datas->state}}</td>
                                                 <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->profile_id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>
+                                            @endif
                                         @endforeach
                                     @endif
 

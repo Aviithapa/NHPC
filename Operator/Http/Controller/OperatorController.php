@@ -1364,7 +1364,7 @@ class OperatorController extends BaseController
         ->get();
 
  
-        dd($students);
+
         // $students = [];
         // foreach($datas as $data){
         //     $exams = $this->examProcessingRepository->getAll()->where('profile_id','=', $data->profile_id);
