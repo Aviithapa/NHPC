@@ -455,7 +455,7 @@ class OperatorController extends BaseController
                             session()->flash('error', 'Error Occured While Saving Data');
                         }
                         // dd($profile_processing,'p1');
-                        $examProcessing = $this->examProcessingRepository->getAll()->where('state', '=', 'computer_operator')->where('status', '=', 'progress')->where('profile_id', '=', $profile_id)->first();
+                        $examProcessing = $this->examProcessingRepository->getAll()->where('state', '=', 'computer_operator')->where('profile_id', '=', $profile_id)->first();
 
                         if ($examProcessing) {
                             $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
@@ -491,7 +491,7 @@ class OperatorController extends BaseController
                         } else {
                             $profileProcessings = $this->profileProcessingRepository->update($profile_processing, $profileProcessingId['id']);
                         }
-                        $examProcessing = $this->examProcessingRepository->getAll()->where('state', '=', 'computer_operator')->where('status', '=', 'progress')->where('profile_id', '=', $profile_id)->first();
+                        $examProcessing = $this->examProcessingRepository->getAll()->where('state', '=', 'computer_operator')->where('profile_id', '=', $profile_id)->first();
                         if ($examProcessing) {
                             $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
                             if ($exam_processing === 'false') {
