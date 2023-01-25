@@ -87,7 +87,22 @@
                                     </fieldset>
                                    
                                 </div>
-
+                                
+                                <div class="col-lg-3">
+                                    <fieldset class="form-group">
+                                        <select class="form-control" name="profile_processing_status "  id="date" >
+                                            <option value={{ isset($request->profile_processing_status) ? $request->profile_processing_status  : ''}}>{{ isset($request->profile_processing_status) ? $request->profile_processing_status  : 'Select Profile Processing State'}}</option>
+                                            <option value="computer_operator">Computer Operator </option>
+                                            <option value="officer">Officer</option>
+                                            <option value="registrar">Registrar</option>
+                                            <option value="subject_committee">Subject Committee</option>
+                                            <option value="exam_committee">Exam Committeee</option>
+                                            <option value="council">Council</option>
+                                            <option value="student">Student</option>
+                                        </select>
+                                    </fieldset>
+                                   
+                                </div>
                                 <div class="col-lg-3">
                                     <fieldset class="form-group">
                                         <select class="form-control" name="profile_processing_state"  id="date" >

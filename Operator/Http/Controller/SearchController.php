@@ -193,6 +193,9 @@ class SearchController extends BaseController
                 $query->join('profile_processing','profile_processing.profile_id', '=', 'profiles.id')
                       ->where('profile_processing.status', 'like', $request->profile_processing_state);
             }
+            if($request->profile_processing_status !=null){
+                $query->where('profile_processing.current_state', 'like', $request->profile_processing_status);
+            }
             // $query->join('program','program.id','=','exam_registration.program_id');
 
             $data = $query->get();
