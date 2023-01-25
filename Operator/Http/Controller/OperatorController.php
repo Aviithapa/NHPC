@@ -1353,13 +1353,13 @@ class OperatorController extends BaseController
     }
 
     public function failedStudentList(){
-        $students =  DB::table('exam_registration')
+        $students = ExamProcessing::distinct()
         ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-        ->select('profile_id','exam_id', DB::raw('COUNT(*) as `count`'),'first_name','middle_name','last_name','dob_nep','status','state','level_id')
+        ->select('profile_id','exam_id','first_name','middle_name','last_name','dob_nep','status','state','level_id')
         ->groupBy('profile_id', 'exam_id','first_name','middle_name','last_name','dob_nep','status','state', 'level_id')
         // ->where('level_id','!=', '4')
-        ->havingRaw('COUNT(*) >= 2')
-        ->orderBy('exam_id','asc')
+        ->where('exam_processing.state','=', 'exam_committee')
+        ->where('exam_processing.status','=','progress')
         ->get();
 
  
