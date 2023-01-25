@@ -128,9 +128,8 @@
                                     <tr>
                                         <td><a href="#">OR9842</a></td>
                                         <td>TSLC Licence Exam</td>
-                                        <td><button type="button" class="btn btn-primary m-2" data- 
-                                            toggle="modal" data-target="#demoModal">Apply for TSLC</button>
-                                            {{-- <a href="{{route('apply.for.exam')}}"><span class="label label-success">Apply</span></a> --}}
+                                        <td>
+                                            <a href="{{route('apply.for.exam')}}"><span class="label label-success">Apply</span></a>
                                         </td>
                                     </tr>
                                     </tbody>

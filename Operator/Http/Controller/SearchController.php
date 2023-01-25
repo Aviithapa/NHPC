@@ -206,7 +206,6 @@ class SearchController extends BaseController
 
             // dd($data[0]);
             // dd(isset($data));
-
             return view('operator::pages.search-students', compact('data', 'program' ,'request'));
         }else{
             return view('operator::pages.search-students', compact('program'));
@@ -214,15 +213,15 @@ class SearchController extends BaseController
     }
 
     public function studentUpdateExamApplyId(){
-            $datas = ExamProcessing::where('exam_registration.created_at', '>=', '2022-12-23')
-            ->where('exam_registration.exam_id','!=', 3)
-            ->where('exam_registration.level_id','!=', 4)
-            ->get();
+            // $datas = ExamProcessing::where('exam_registration.created_at', '>=', '2022-12-23')
+            // ->where('exam_registration.exam_id','!=', 3)
+            // ->where('exam_registration.level_id','!=', 4)
+            // ->get();
             
-            foreach($datas as $data){
-                $exam['exam_id'] = 3;
-                $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
-            }
+            // foreach($datas as $data){
+            //     $exam['exam_id'] = 3;
+            //     $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
+            // }
             return redirect()->back();  
     }
 }
