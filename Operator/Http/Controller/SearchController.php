@@ -221,7 +221,7 @@ class SearchController extends BaseController
         ->where('exam_registration.exam_id','=', 3)
         ->get();
 
-        dd($students);
+        dd($students[0]);
             // $datas = ExamProcessing::where('exam_registration.created_at', '>=', '2022-12-23')
             // ->where('exam_registration.exam_id','!=', 3)
             // ->where('exam_registration.level_id','!=', 4)
