@@ -1362,7 +1362,6 @@ class OperatorController extends BaseController
         ->orderBy('exam_id','asc')
         ->get();
 
-        dd($students);
  
         // $students = [];
         // foreach($datas as $data){

@@ -35,8 +35,8 @@
                                         <th>Registration Number</th>
                                         <th>Name</th>
                                         <th>Registration Date</th>
+                                        <th>Status</th>
                                         <th>State</th>
-                                        <th>Program Name</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -55,7 +55,7 @@
                                                 <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
                                                 <td>{{$datas->dob_nep}}</td>
                                                 <td>{{$datas->status}}</td>
-                                                <td></td>
+                                                <td>{{$datas->state}}</td>
                                                 <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->profile_id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>
                                         @endforeach
