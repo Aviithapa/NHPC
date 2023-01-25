@@ -1353,25 +1353,29 @@ class OperatorController extends BaseController
     }
 
     public function failedStudentList(){
-        $datas =  DB::table('exam_registration')
+        $students =  DB::table('exam_registration')
         ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-        ->select('profile_id','exam_id', DB::raw('COUNT(*) as `count`'),'first_name','middle_name','last_name','dob_nep','status','state')
-        ->groupBy('profile_id', 'exam_id','first_name','middle_name','last_name','dob_nep','status','state')
+        ->select('profile_id','exam_id', DB::raw('COUNT(*) as `count`'),'first_name','middle_name','last_name','dob_nep','status','state','level_id')
+        ->groupBy('profile_id', 'exam_id','first_name','middle_name','last_name','dob_nep','status','state', 'level_id')
+        // ->where('level_id','!=', '4')
         ->havingRaw('COUNT(*) >= 2')
+        ->orderBy('exam_id','asc')
         ->get();
+
+        dd($students);
  
-        $students = [];
-        foreach($datas as $data){
-            $exams = $this->examProcessingRepository->getAll()->where('profile_id','=', $data->profile_id);
-            foreach($exams as $exam){
-                if($exam->exam_id == 3){
-                    $students = ExamProcessing::join('profiles', 'profiles.id', '=','exam_registration.profile_id')
-                                   ->where('profiles.id','=', $data->profile_id)
-                                   ->where('exam_registration.state','=', 'computer_operator')->get();
-                }
-            }
+        // $students = [];
+        // foreach($datas as $data){
+        //     $exams = $this->examProcessingRepository->getAll()->where('profile_id','=', $data->profile_id);
+        //     foreach($exams as $exam){
+        //         if($exam->exam_id == 1){
+        //             $students = ExamProcessing::join('profiles', 'profiles.id', '=','exam_registration.profile_id')
+        //                            ->where('profiles.id','=', $data->profile_id)
+        //                            ->where('exam_registration.state','=', 'computer_operator')->get();
+        //         }
+        //     }
            
-        }
+        // }
         return view('operator::pages.application-list-double', compact('students'));
     }
 
