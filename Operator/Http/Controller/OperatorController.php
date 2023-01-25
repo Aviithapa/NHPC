@@ -1367,7 +1367,7 @@ class OperatorController extends BaseController
                 if($exam->exam_id == 3){
                     $students = ExamProcessing::join('profiles', 'profiles.id', '=','exam_registration.profile_id')
                                    ->where('profiles.id','=', $data->profile_id)
-                                   ->where('exam_processing.state','=', 'computer_operator')->get();
+                                   ->where('exam_registration.state','=', 'computer_operator')->get();
                 }
             }
            
