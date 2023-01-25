@@ -80,7 +80,7 @@ class ProfileController extends BaseController
             // $specific_program = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $data['id'])->where('status', '!=', 'rejected')->where('exam_id', '=', '3')->first();
             //  dd($examApplieds);
             $examApplied = isset($examApplieds) ? $examApplieds : null;
-            dd($examApplied);
+            // dd($examApplied);
             $exam = $this->profileRepository->findByFirst('user_id', Auth::user()->id, '=');
             $level = $this->levelRepository->getAll();
             $licenceExam = Exam::orderBy('created_at', 'desc')->where('status', '=', 'active')->first();
