@@ -213,10 +213,7 @@ class SearchController extends BaseController
     }
 
     public function studentUpdateExamApplyId(){
-        $students = ExamProcessing::select('id','exam_id','status','state')
-        ->groupBy('id', 'exam_id','status','state')
-        // ->where('level_id','!=', '4')
-        ->where('exam_registration.state','=', 'exam_committee')
+        $students = ExamProcessing::where('exam_registration.state','=', 'exam_committee')
         ->where('exam_registration.status','=','progress')
         ->where('exam_registration.exam_id','=', 3)
         ->get();
