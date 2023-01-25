@@ -196,7 +196,8 @@ class SearchController extends BaseController
                 $query->where('profile_processing.current_state', '=', $request->profile_processing_status);
             }
             if($request->regratation_date_greater != null){
-                $query->where('exam_registration.created_at', '<', $request->profile_processing_status);
+                $query->where('exam_registration.created_at', '<', $request->profile_processing_status)
+                ->where('exam_registration.exam_id','!=', 3);
 
             }
             // $query->join('program','program.id','=','exam_registration.program_id');
