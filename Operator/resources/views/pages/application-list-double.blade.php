@@ -49,7 +49,7 @@
                                     @else
                                     {{ $count = 0  }}
                                         @foreach($students as $datas)
-                                          @if($datas->exam_id == 3)
+                                          @if($datas->state == "exam_committee")
                                             <tr>
                                                 <td>{{++ $count}}</td>
                                                 <td>{{ $datas->profile_id }}</td>
