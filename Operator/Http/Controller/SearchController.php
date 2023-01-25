@@ -213,20 +213,20 @@ class SearchController extends BaseController
     }
 
     public function studentUpdateExamApplyId(){
-        $students = ExamProcessing::where('exam_registration.state','=', 'exam_committee')
-        ->where('exam_registration.status','=','progress')
-        ->where('exam_registration.exam_id','=', 3)
-        ->get();
+        // $students = ExamProcessing::where('exam_registration.state','=', 'exam_committee')
+        // ->where('exam_registration.status','=','progress')
+        // ->where('exam_registration.exam_id','=', 3)
+        // ->get();
 
             // $datas = ExamProcessing::where('exam_registration.created_at', '>=', '2022-12-23')
             // ->where('exam_registration.exam_id','!=', 3)
             // ->where('exam_registration.level_id','!=', 4)
             // ->get();
             
-            foreach($students as $data){
-                $exam['status'] = 're-exam';
-                $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
-            }
+            // foreach($students as $data){
+            //     $exam['status'] = 're-exam';
+            //     $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
+            // }
             return redirect()->back();  
     }
 }
