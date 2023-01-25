@@ -1353,13 +1353,25 @@ class OperatorController extends BaseController
     }
 
     public function failedStudentList(){
-        $students =  DB::table('exam_registration')
+        $datas =  DB::table('exam_registration')
         ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
         ->select('profile_id','exam_id', DB::raw('COUNT(*) as `count`'),'first_name','middle_name','last_name','dob_nep','status','state')
         ->groupBy('profile_id', 'exam_id','first_name','middle_name','last_name','dob_nep','status','state')
         ->havingRaw('COUNT(*) >= 2')
         ->get();
-
+ 
+        $students = [];
+        foreach($datas as $data){
+            $exams = $this->examProcessingRepository->getAll()->where('profile_id','=', $data->profile_id);
+            foreach($exams as $exam){
+                if($exam->exam_id == 3){
+                    $students = ExamProcessing::join('profiles', 'profiles.id', '=','exam_registration.profile_id')
+                                   ->where('profiles.id','=', $data->profile_id)
+                                   ->where('exam_processing.state','=', 'computer_operator')->get();
+                }
+            }
+           
+        }
         return view('operator::pages.application-list-double', compact('students'));
     }
 
