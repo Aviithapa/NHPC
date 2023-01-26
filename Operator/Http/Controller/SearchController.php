@@ -201,7 +201,7 @@ class SearchController extends BaseController
                 $query->where('users.email', 'like', '%' . $request->email . '%');   
             }
     
-            $data = $query->distinct('profiles.id')->get();
+            $data = $query->distinct('profile_id')->get();
 
             // dd($data[0]);
             // dd(isset($data));
