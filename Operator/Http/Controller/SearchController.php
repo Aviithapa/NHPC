@@ -217,6 +217,7 @@ class SearchController extends BaseController
        ->join('profile_processing','profile_processing.profile_id', '=', 'profiles.id')
        ->where('profile_processing.current_state','=','officer')
        ->where('exam_registration.state','=','computer_operator')
+       ->where('exam_registration.exam_id','=',3)
        ->get();
 
        dd($data);
