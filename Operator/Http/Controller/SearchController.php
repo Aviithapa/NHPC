@@ -217,7 +217,7 @@ class SearchController extends BaseController
        ->where('profiles.profile_state','=','officer')
        ->where('exam_registration.state','=','computer_operator')
        ->where('exam_registration.exam_id','=',3)
-       ->get();
+       ->get('exam_registration.id as exam_registration_id');
 
        dd($datas[0]);
 
