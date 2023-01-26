@@ -369,11 +369,14 @@ class RegistrarController  extends BaseController
                $logs = $this->profileLog($profile_log);
                if($logs){
                 $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $profile_id)->first();
-                $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
-                if($profileProcessings == 'fasle'){
-                    session()->flash('error','Error Occured While Saving Data');
+                if($profileProcessingId === null){
+                    $profile_processing['profile_id'] = $profile_id;
+                    $this->profileProcessingRepository->create($profile_processing);
                 }
-                $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','registrar')->where('status','=','progress')->where('profile_id','=',$profile_id)->first();
+                else{
+                    $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
+                }
+                $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','registrar')->where('profile_id','=',$profile_id)->first();
                 if($examProcessing){
                     $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
                     if($exam_processing === 'false'){
@@ -404,13 +407,14 @@ class RegistrarController  extends BaseController
                $logs = $this->profileLog($profile_log);
                if($logs){
                 $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id','=', $profile_id)->first();
-                $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
-               
-               
-                if($profileProcessings == 'fasle'){
-                    session()->flash('error','Error Occured While Saving Data');
+                if($profileProcessingId === null){
+                    $profile_processing['profile_id'] = $profile_id;
+                    $this->profileProcessingRepository->create($profile_processing);
                 }
-                $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','registrar')->where('status','=','progress')->where('profile_id','=',$profile_id)->first();
+                else{
+                    $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
+                }
+                $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','registrar')->where('profile_id','=',$profile_id)->first();
                 if($examProcessing){
                     $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
                     if($exam_processing === 'false'){

@@ -347,7 +347,7 @@ class OfficerController  extends BaseController
                     $this->profileProcessingRepository->create($profile_processing);
                 }
                 else{
-                    $profileProcessings = $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
+                  $this->profileProcessingRepository->update($profile_processing,$profileProcessingId['id']);
                 }
                 $examProcessing = $this->examProcessingRepository->getAll()->where('state','=','officer')->where('status','=','progress')->where('profile_id','=',$profile_id)->first();
                 if($examProcessing){
