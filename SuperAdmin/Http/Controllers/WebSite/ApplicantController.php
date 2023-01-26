@@ -4,6 +4,7 @@ namespace SuperAdmin\Http\Controllers\WebSite;
 
 use App\Http\Controllers\Admin\BaseController;
 use App\Models\Address\Municipality;
+use App\Models\Admin\Program;
 use App\Models\Certificate\Certificate;
 use App\Models\Exam\ExamProcessing;
 use App\Models\Website\Post;
@@ -731,5 +732,69 @@ class ApplicantController  extends BaseController
     public function studentCard(){
         return view('superAdmin::admin.applicant.id-card');
     
+    }
+
+    public function searchStudent(Request $request)
+    {
+        $program = Program::get();
+        if ($request->isMethod('post')) {
+
+            $query = Profile::query()->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            ->join('users','users.id','=','profiles.user_id');
+           
+            if ($request->state != null) {
+                $query->where('exam_registration.state', 'like', $request->state);
+            }
+            if ($request->status !=null) {
+                $query->where('exam_registration.status', 'like', $request->status);
+            }
+            if ($request->level != null) {
+                $query->where('exam_registration.level_id', 'like', $request->level);
+                $program = Program::get()->where('level_id', '=',  $request->level);
+            }
+            if($request->program != null) {
+                $query->where('exam_registration.program_id', 'like', $request->program);
+            }
+            if($request->darta_number != null) {
+                $query->where('exam_registration.profile_id', 'like', $request->darta_number);
+            }
+
+            if($request->first_name != null) {
+                $query->where('profiles.first_name', 'like', '%' . $request->first_name  .'%');
+            }
+
+            if($request->middle_name != null) {
+                $query->where('profiles.middle_name', 'like', '%' . $request->middle_name  .'%');
+            }
+            
+            if($request->last_name != null) {
+                $query->where('profiles.last_name', 'like', '%' . $request->last_name  .'%');
+            }
+
+            if($request->citizenship_number != null){
+                $query->where('profiles.citizenship_number', 'like', '%' . $request->last_name  .'%');
+            }
+            if($request->regratation_date != null){
+                $query->where('exam_registration.created_at', 'like', '%' . $request->regratation_date  .'%');
+            }
+
+            if($request->profile_processing_state !=null){
+                $query->where('profiles.profile_status', '=', $request->profile_processing_state);
+            }
+            if($request->profile_processing_status !=null){
+                $query->where('profiles.profile_state', '=', $request->profile_processing_status);
+            }
+            if($request->email != null){
+                $query->where('users.email', 'like', '%' . $request->email . '%');   
+            }
+    
+            $data = $query->distinct('profile_id')->get();
+
+            // dd($data[0]);
+            // dd(isset($data));
+            return view('superAdmin::admin.applicant.search-students', compact('data', 'program' ,'request'));
+        }else{
+            return view('superAdmin::admin.applicant.search-students', compact('program'));
+        }
     }
 }

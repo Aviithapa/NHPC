@@ -643,7 +643,7 @@
                                                                         @if($exam->state === "computer_operator")
                                                                              <a href="{{url('operator/dashboard/operator/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>
                                                                             <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal' data-id="{{ $exam->id }}"><span class="label label-danger">Reject</span> </a>
-                                                                            <a href="{{url('operator/dashboard/apply/exam',$data->id)}}" ><span class="label label-success">Edit</span> </a>
+                                                                            {{-- <a href="{{url('operator/dashboard/apply/exam',$data->id)}}" ><span class="label label-success">Edit</span> </a> --}}
 
                                                                         @endif
                                                                             @if($exam->status === 're-exam')

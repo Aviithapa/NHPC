@@ -329,4 +329,7 @@ Route::group(['namespace' => 'WebSite'], function () {
 
     Route::get('/student/card', 'ApplicantController@studentCard')->middleware(['auth'])->name('superAdmin.student.card');
 
+    Route::match(['get','post'],'/search/lost/student','ApplicantController@searchStudent')->middleware(['auth'])->name('search.lost.student');
+
+
 });
