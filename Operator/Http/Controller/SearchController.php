@@ -214,8 +214,7 @@ class SearchController extends BaseController
 
     public function studentUpdateExamApplyId(){
        $data =  Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
-       ->join('profile_processing','profile_processing.profile_id', '=', 'profiles.id')
-       ->where('profile_processing.current_state','=','officer')
+       ->where('profiles.profile_state','=','officer')
        ->where('exam_registration.state','=','computer_operator')
        ->where('exam_registration.exam_id','=',3)
        ->get();
