@@ -61,6 +61,12 @@
 
                                 <div class="col-lg-3">
                                     <fieldset class="form-group">
+                                        <input type="text" name="email" class = "form-control" placeholder="Enter Email" value={{ isset($request->email) ? $request->email : '' }} >
+                                    </fieldset> 
+                                </div> 
+
+                                <div class="col-lg-3">
+                                    <fieldset class="form-group">
                                         <select class="form-control" name="state"  id="date" >
                                             <option value={{ isset($request->state) ? $request->state : ''}}>{{ isset($request->state) ? $request->state : 'Select State'}}</option>
                                             <option value="computer_operator">Computer Operator </option>
@@ -107,8 +113,8 @@
                                     <fieldset class="form-group">
                                         <select class="form-control" name="profile_processing_state"  id="date" >
                                             <option value={{ isset($request->profile_processing_state) ? $request->profile_processing_state : ''}}>{{ isset($request->profile_processing_state) ? $request->profile_processing_state : 'Select Profile Processing Status'}}</option>
-                                            <option value="progress">Reviewing</option>
-                                            <option value="rejected">Rejected</option>
+                                            <option value="Reviewing">Reviewing</option>
+                                            <option value="Rejected">Rejected</option>
                                         </select>
                                     </fieldset>
                                    
@@ -140,12 +146,7 @@
                                     <fieldset class="form-group">
                                         <input type="date" name="regratation_date" class = "form-control" placeholder="Enter Registration Date" value={{ isset($request->regratation_date) ? $request->regratation_date : '' }} >
                                     </fieldset> 
-                                </div> 
-                                <div class="col-lg-3">
-                                    <fieldset class="form-group">
-                                        <input type="date" name="regratation_date_greater" class = "form-control" placeholder="Enter Registration Date" value={{ isset($request->regratation_date_greater) ? $request->regratation_date_greater : '' }} >
-                                    </fieldset> 
-                                </div> 
+                                </div>
                             </div>
                             <div class="row float-right">
                                 <div class="col-lg-4" >
