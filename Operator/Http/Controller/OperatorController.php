@@ -1478,6 +1478,17 @@ class OperatorController extends BaseController
         return view('operator::pages.program-student', compact('students'));
     }
 
+    public function getDisappearStudents(){
+        $students  =  Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+        ->where('profiles.profile_state','=','officer')
+        ->where('exam_registration.state','=','computer_operator')
+        ->join('program', 'program.id', '=', 'exam_registration.program_id')
+        ->where('exam_registration.exam_id','=',3)
+        ->get(['profiles.*', 'program.name as program_name', 'profiles.id as profile_id']);
+        return view('operator::pages.program-student', compact('students'));
+    }
+
+
     public function programWiseStudentCountCSV(Request $request){
         $fileName = 'programWiseStudentCount.csv';
         $query =  ExamProcessing::query()->select(\DB::raw("COUNT(program_id) as count"), \DB::raw("program_id as program_id"))

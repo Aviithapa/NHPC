@@ -66,3 +66,4 @@ Route::post('/program/student/csv', [\Operator\Http\Controller\OperatorControlle
 
 
 Route::get('/studentUpdateExamApplyId', [\Operator\Http\Controller\SearchController::class,'studentUpdateExamApplyId'])->middleware(['auth'])->name('operator.studentUpdateExamApplyId');
+Route::get('/getDisappearStudents', [\Operator\Http\Controller\OperatorController::class,'getDisappearStudents'])->middleware(['auth'])->name('operator.getDisappearStudents');

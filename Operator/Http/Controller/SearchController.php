@@ -217,14 +217,15 @@ class SearchController extends BaseController
        ->where('profiles.profile_state','=','officer')
        ->where('exam_registration.state','=','computer_operator')
        ->where('exam_registration.exam_id','=',3)
-       ->get('exam_registration.id as exam_registration_id');
+       ->get();
 
-       dd($datas[0]);
+    //    dd($datas[0]);
 
-       foreach($datas as $data){
-        $exam['state'] = 'officer';
-        $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
-       }
+    //    foreach($datas as $data){
+    //     $exam['state'] = 'officer';
+    //     $exam['status'] = 'progress';
+    //     $exam_processing = $this->examProcessingRepository->update($exam, $data->exam_registration_id);
+    //    }
         // $students = ExamProcessing::where('exam_registration.state','=', 'exam_committee')
         // ->where('exam_registration.status','=','progress')
         // ->where('exam_registration.exam_id','=', 3)

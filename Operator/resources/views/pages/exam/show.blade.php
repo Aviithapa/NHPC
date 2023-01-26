@@ -57,6 +57,18 @@
                                     </div>
     
                                 </div>
+                                <div class="col-lg-4 col-xs-6 m-b-3">
+                                    <div class="card">
+                                <a href="{{route("operator.getDisappearStudents")}}">
+        
+                                        <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
+                                            <div class="info-box-content"> <span class="info-box-number"></span>
+                                               <span class="info-box-text">Get Student Lost</span></div>
+                                           </div>
+                                </a>
+                                        </div>
+        
+                                    </div>
                             </div>
                         
                        
