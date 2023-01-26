@@ -176,10 +176,11 @@
                                             <td>Darta Number</td>
                                             <td>Name</td>
                                             <td>State</td>
-                                            <td>Status</td>
+                                            {{-- <td>Status</td> --}}
                                             <td>Program Name</td>
                                             <td>Level</td>
                                             <td>Date of Birth</td>
+                                            <td>Email</td>
                                             <td>Action</td>
                                             </thead>
                                             <tbody>
@@ -190,10 +191,11 @@
                                                 <td>{{ $exam->profile_id }}</td>
                                                 <td>{{ $exam->first_name }} {{ $exam->middle_name }} {{ $exam->last_name }}</td>
                                                 <td>{{$exam->state}}</td>
-                                                <td>{{$exam->status}}</td>
+                                                {{-- <td>{{$exam->status}}</td> --}}
                                                 <td>{{ getProgramName($exam->program_id) }}
                                                 <td>{{($exam->level_id == 4) ? 'TSLC' : (($exam->level_id == 3) ? 'PCL' : (($exam->level_id == 2) ? 'Bachelor' : (($exam->level_id == 1) ? 'Master' :'' ) ))  }}</td>
                                                 <td>{{ $exam->dob_nep }}</td>
+                                                <td>{{ $exam->email }}</td>
                                                 <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$exam->profile_id)}}"><span class="label label-success">View</span></a></td>
                                                 {{-- <td><a href={{url("operator/dashboard/deleteDuplicate/".$exam->profile_id)}}><span class="label label-danger">Delete</span></a> </td> --}}
 

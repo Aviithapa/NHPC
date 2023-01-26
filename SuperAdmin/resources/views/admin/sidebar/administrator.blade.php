@@ -53,6 +53,11 @@
                     <i class="icon-book-open"></i> <span>ID Card</span>
                 </a>
             </li>
+            <li class="{{ (request()->is('operator/dashboard/search/lost/student')) ? 'active':''  }}">
+                <a href="{{route("search.lost.student")}}">
+                    <i class="icon-book-open"></i> <span>Search applicant Filters</span>
+                </a>
+            </li>
             {{-- <li class="{{ (request()->is('superAdmin/dashboard/certificate/index')) ? 'active':''  }}">
                 <a href="{{route('superAdmin.generateCertificate.index')}}">
                     <i class="icon-book-open"></i> <span>Ready to Generate Certificate</span>
