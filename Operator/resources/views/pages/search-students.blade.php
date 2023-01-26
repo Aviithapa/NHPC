@@ -68,7 +68,7 @@
                                 <div class="col-lg-3">
                                     <fieldset class="form-group">
                                         <select class="form-control" name="state"  id="date" >
-                                            <option value={{ isset($request->state) ? $request->state : ''}}>{{ isset($request->state) ? $request->state : 'Select State'}}</option>
+                                            <option value={{ isset($request->state) ? $request->state : ''}}>{{ isset($request->state) ? $request->state : 'Select Exam State'}}</option>
                                             <option value="computer_operator">Computer Operator </option>
                                             <option value="officer">Officer</option>
                                             <option value="registrar">Registrar</option>
@@ -84,11 +84,12 @@
                                 <div class="col-lg-3">
                                     <fieldset class="form-group">
                                         <select class="form-control" name="status"  id="date" >
-                                            <option value={{ isset($request->status) ? $request->status : ''}}>{{ isset($request->status) ? $request->status : 'Select Status'}}</option>
+                                            <option value={{ isset($request->status) ? $request->status : ''}}>{{ isset($request->status) ? $request->status : 'Select Exam Status'}}</option>
                                             <option value="progress">Reviewing</option>
                                             <option value="pending">Pending</option>
                                             <option value="rejected">Rejected</option>
                                             <option value="accepted">Accepted</option>
+                                            <option value="re-exam">Re-Exam</option>
                                         </select>
                                     </fieldset>
                                    
@@ -97,7 +98,7 @@
                                 <div class="col-lg-3">
                                     <fieldset class="form-group">
                                         <select class="form-control" name="profile_processing_status "  id="date" >
-                                            <option value={{ isset($request->profile_processing_status) ? $request->profile_processing_status  : ''}}>{{ isset($request->profile_processing_status) ? $request->profile_processing_status  : 'Select Profile Processing State'}}</option>
+                                            <option value={{ isset($request->profile_processing_status) ? $request->profile_processing_status  : ''}}>{{ isset($request->profile_processing_status) ? $request->profile_processing_status  : 'Select Profile State'}}</option>
                                             <option value="computer_operator">Computer Operator </option>
                                             <option value="officer">Officer</option>
                                             <option value="registrar">Registrar</option>
@@ -112,7 +113,7 @@
                                 <div class="col-lg-3">
                                     <fieldset class="form-group">
                                         <select class="form-control" name="profile_processing_state"  id="date" >
-                                            <option value={{ isset($request->profile_processing_state) ? $request->profile_processing_state : ''}}>{{ isset($request->profile_processing_state) ? $request->profile_processing_state : 'Select Profile Processing Status'}}</option>
+                                            <option value={{ isset($request->profile_processing_state) ? $request->profile_processing_state : ''}}>{{ isset($request->profile_processing_state) ? $request->profile_processing_state : 'Select Profile Status'}}</option>
                                             <option value="Reviewing">Reviewing</option>
                                             <option value="Rejected">Rejected</option>
                                         </select>
