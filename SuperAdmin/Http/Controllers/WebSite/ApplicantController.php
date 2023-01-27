@@ -25,9 +25,11 @@ use App\Modules\Backend\Website\Post\Requests\CreatePostRequest;
 use App\Modules\Backend\Website\Post\Requests\UpdatePostRequest;
 use Carbon\Carbon;
 use Database\Seeders\District;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Mockery\Expectation;
 use Operator\Modules\Framework\Request;
 use PhpParser\Node\Stmt\TryCatch;
@@ -124,7 +126,11 @@ class ApplicantController  extends BaseController
     public function search(Request $request)
     {
       
+        try{
+
+        
             $output = "";
+        if ($request->ajax()) {
             $products = DB::table('profiles')->join('users','users.id','=','profiles.user_id')
             ->select('profiles.first_name as first_name',
             'profiles.last_name as last_name',
@@ -142,7 +148,7 @@ class ApplicantController  extends BaseController
                 ->orwhere('profile_status', 'LIKE', '%' . $request->search . "%")
                 ->orwhere('citizenship_number', 'LIKE', '%' . $request->search . "%")
                 ->orWhere('email','LIKE', '%' . $request->search . "%")
-                ->get();
+                ->paginate(15);
 
             if ($products->isNotEmpty()) {
                 foreach ($products as $key => $product) {
@@ -164,6 +170,15 @@ class ApplicantController  extends BaseController
         
         return Response($output);
             }
+        }
+
+    }catch(Exception $e){
+        $output .= '<tr>' .
+        '<td>' . "No record Found" . '</td>' .
+          '</tr>';
+
+return Response($output);
+    }
         
     }
 
