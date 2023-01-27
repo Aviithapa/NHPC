@@ -55,7 +55,7 @@ Route::get('/exportPCLCertificate',[\Operator\Http\Controller\OperatorController
 
 Route::get('/failedStudentList',[\Operator\Http\Controller\OperatorController::class,'failedStudentList'])->middleware(['auth'])->name('operator.failedStudentList');
 
-Route::match(['get','post'],'/search/lost/student',[\Operator\Http\Controller\SearchController::class,"searchStudent"])->middleware(['auth'])->name('search.lost.student');
+Route::match(['get','post'],'/search/lost/students',[\Operator\Http\Controller\SearchController::class,"searchStudent"])->middleware(['auth'])->name('search.lost.students');
 
 
 

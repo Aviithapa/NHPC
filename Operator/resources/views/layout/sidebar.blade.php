@@ -79,7 +79,7 @@
             </li>
 
             <li class="{{ (request()->is('operator/dashboard/search/lost/student')) ? 'active':''  }}">
-                <a href="{{route("search.lost.student")}}">
+                <a href="{{route("search.lost.students")}}">
                     <i class="icon-book-open"></i> <span>Search applicant Filters</span>
                 </a>
             </li>

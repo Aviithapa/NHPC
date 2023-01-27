@@ -125,12 +125,14 @@ class ApplicantController  extends BaseController
     {
         if ($request->ajax()) {
             $output = "";
-            $products = DB::table('profiles')->where('first_name', 'LIKE', '%' . $request->search . "%")
+            $products = DB::table('profiles')->join('users','users.id','=','profiles.user_id')
+                 ->where('first_name', 'LIKE', '%' . $request->search . "%")
                 ->orwhere('last_name', 'LIKE', '%' . $request->search . "%")
                 ->orwhere('middle_name', 'LIKE', '%' . $request->search . "%")
                 ->orwhere('dob_nep', 'LIKE', '%' . $request->search . "%")
                 ->orwhere('profile_status', 'LIKE', '%' . $request->search . "%")
                 ->orwhere('citizenship_number', 'LIKE', '%' . $request->search . "%")
+                ->orWhere('email','LIKE', '%' . $request->search . "%")
                 ->get();
             if ($products) {
                 foreach ($products as $key => $product) {
@@ -139,6 +141,7 @@ class ApplicantController  extends BaseController
                         '<td>' . $product->citizenship_number . '</td>' .
                         '<td>' . $product->dob_nep . '</td>' .
                         '<td>' . $product->profile_status . '</td>' .
+                        '<td>' . $product->email . '</td>' .
                         '<td><a href=' . url("superAdmin/dashboard/applicant-list-view/" . $product->id) . '><span class="label label-success">View</span></a> <a href=' . url("superAdmin/dashboard/delete/" . $product->id) . '><span class="label label-danger">Delete</span></a></td>' .
                         '</tr>';
                 }

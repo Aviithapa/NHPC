@@ -28,16 +28,16 @@
                     <i class="icon-people"></i> <span>User Login List</span>
                 </a>
             </li>
-            <li class="{{ (request()->is('superAdmin/dashboard/search/lost/student')) ? 'active':''  }}">
+            {{-- <li class="{{ (request()->is('superAdmin/dashboard/search/lost/student')) ? 'active':''  }}">
                 <a href="{{route("search.lost.student")}}">
                     <i class="icon-book-open"></i> <span>Applicant List</span>
                 </a>
-            </li>
-            {{-- <li class="{{ (request()->is('superAdmin/dashboard/applicantList')) ? 'active':''  }}">
+            </li> --}}
+            <li class="{{ (request()->is('superAdmin/dashboard/applicantList')) ? 'active':''  }}">
                 <a href="{{route('admin.applicant.list')}}">
                     <i class="icon-people"></i> <span>Applicant List</span>
                 </a>
-            </li> --}}
+            </li>
             <li class="{{ (request()->is('superAdmin/dashboard/exam')) ? 'active':''  }}">
                 <a href="{{route('superAdmin.exam')}}">
                     <i class="icon-book-open"></i> <span>Exam</span>

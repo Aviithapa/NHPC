@@ -20,7 +20,7 @@
                     <div class="box box-info">
                     <div class="box-header with-border p-t-1">
                         <form method="POST" 
-                        action="{{url('operator/dashboard/search/lost/student')}}">
+                        action="{{url('operator/dashboard/search/lost/students')}}">
                             @csrf
 
 

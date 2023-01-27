@@ -41,6 +41,7 @@
                                         <th>Citizenship</th>
                                         <th>Date of birth</th>
                                         <th>Profile Status</th>
+                                        <th>Email</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
