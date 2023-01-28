@@ -389,7 +389,7 @@ class RegistrarController  extends BaseController
                         MailController::sendprofileVerification($email["name"], $email['email'], $data['remarks']);
 
                         } catch (\Throwable $th) {
-                            session()->flash('error','Error While Sending Mail');
+                            // session()->flash('error','Error While Sending Mail');
                         }
                     }
                 }    

@@ -212,11 +212,11 @@ class SearchController extends BaseController
     }
 
     public function studentUpdateExamApplyId(){
-       $datas =  Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
-       ->where('profiles.profile_state','=','officer')
-       ->where('exam_registration.state','=','computer_operator')
-       ->where('exam_registration.exam_id','=',3)
-       ->get();
+    //    $datas =  Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+    //    ->where('profiles.profile_state','=','officer')
+    //    ->where('exam_registration.state','=','computer_operator')
+    //    ->where('exam_registration.exam_id','=',3)
+    //    ->get();
 
     //    dd($datas[0]);
 
@@ -230,11 +230,16 @@ class SearchController extends BaseController
         // ->where('exam_registration.exam_id','=', 3)
         // ->get();
 
-            // $datas = ExamProcessing::where('exam_registration.created_at', '>=', '2022-12-23')
-            // ->where('exam_registration.exam_id','!=', 3)
-            // ->where('exam_registration.level_id','!=', 4)
-            // ->get();
+            $datas = ExamProcessing::where('exam_registration.created_at', '>=', '2022-12-23')
+            ->where('exam_registration.exam_id','!=', 3)
+            ->where('exam_registration.level_id','!=', 4)
+            ->get();
             
+             foreach($datas as $data){
+                $exam['exam_id'] = 3;
+                $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
+            }
+
             // foreach($students as $data){
             //     $exam['status'] = 're-exam';
             //     $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
