@@ -76,25 +76,46 @@ class SearchController extends BaseController
     {
         if($request->ajax()) {
             $output = "";
-            $products = DB::table('profiles')->where('first_name', 'LIKE', '%' . $request->search . "%")
+            $products =  DB::table('profiles')->join('users','users.id','=','profiles.user_id')
+            ->select('profiles.first_name as first_name',
+            'profiles.last_name as last_name',
+            // 'profiles.middle_name as middle_name',
+             'profiles.dob_nep as dob_nep',
+            'profiles.profile_status as profile_status',
+            'profiles.citizenship_number as citizenship_number',
+             'users.email as email', 
+             'profiles.id as profile_id'
+             )
+                 ->where('first_name', 'LIKE', '%' . $request->search . "%")
                 ->orwhere('last_name', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('middle_name', 'LIKE', '%' . $request->search . "%")
+                // ->orwhere('middle_name', 'LIKE', '%' . $request->search . "%")
                 ->orwhere('dob_nep', 'LIKE', '%' . $request->search . "%")
                 ->orwhere('profile_status', 'LIKE', '%' . $request->search . "%")
                 ->orwhere('citizenship_number', 'LIKE', '%' . $request->search . "%")
-                ->get();
-            if ($products) {
+                ->orWhere('email','LIKE', '%' . $request->search . "%")
+                ->paginate(15);
+
+            if ($products->isNotEmpty()) {
                 foreach ($products as $key => $product) {
                     $output .= '<tr>' .
                         '<td>' . $product->first_name . '</td>' .
                         '<td>' . $product->citizenship_number . '</td>' .
-                        '<td>' . $product->dob_nep . '</td>' .
-                        '<td>' . $product->profile_state . '</td>' .
-                        '<td><a href='.url("officer/dashboard/officer/applicant-list-view/".$product->id).'><span class="label label-success">View</span></a> </td>' .
+                         '<td>' . $product->dob_nep . '</td>' .
+                        '<td>' . $product->profile_status . '</td>' .
+                        '<td>' . $product->email . '</td>' .
+                        '<td><a href=' . url("superAdmin/dashboard/applicant-list-view/" . $product->profile_id) . '><span class="label label-success">View</span></a> <a href=' . url("superAdmin/dashboard/delete/" . $product->profile_id) . '><span class="label label-danger">Delete</span></a></td>' .
                         '</tr>';
                 }
                 return Response($output);
             }
+            else{
+                $output .= '<tr>' .
+                '<td>' . "No record Found" . '</td>' .
+                  '</tr>';
+        
+        return Response($output);
+            }
+         }
         }
     }
 
