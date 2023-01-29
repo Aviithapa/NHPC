@@ -1590,8 +1590,6 @@ class OperatorController extends BaseController
             
            $tasks = $query ->get(['level.name as level_name', 'profiles.*', 'users.email as email', 'users.phone_number as phone_number','exam_registration.*', 'exam_registration.id as exam_regisration_id']);;
 
-
-           dd($tasks);
         $headers = array(
             "Content-type"        => "text/csv",
             "Content-Disposition" => "attachment; filename=$fileName",
