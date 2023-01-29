@@ -809,9 +809,11 @@ return Response($output);
         $data = Certificate::where('certificate_history.id', '=', $id)
         ->get()->first();
         // dd($data);
+        $exam = ExamProcessing::where('profile_id','=', $data['profile_id'])->where('status','=','accepted')->where('state', '=','council')->first();
+
         $profile = $this->profileRepository->findById($data['profile_id']);
 
-        return view('superAdmin::admin.applicant.id-card', compact('data','profile'));
+        return view('superAdmin::admin.applicant.id-card', compact('data','profile', 'exam'));
     
     }
 

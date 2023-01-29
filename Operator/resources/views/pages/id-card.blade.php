@@ -1,14 +1,14 @@
-@extends('superAdmin::admin.layout.app')
+@extends('operator::layout.app')
 
 @section('content')
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header sty-one">
-        <h1>SuperAdmin Dashboard</h1>
+        <h1>Operator Dashboard</h1>
         <ol class="breadcrumb">
             <li><a href="#">Home</a></li>
-            <li><i class="fa fa-angle-right"></i>SuperAdmin Dashboard</li>
+            <li><i class="fa fa-angle-right"></i>ID Card</li>
         </ol>
     </div>
 

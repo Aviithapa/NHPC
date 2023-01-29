@@ -1553,5 +1553,17 @@ class OperatorController extends BaseController
 
         return response()->stream($callback, 200, $headers);
     }
+
+
+
+    public function studentCardShow($id){
+        $data = Certificate::where('certificate_history.id', '=', $id)
+        ->get()->first();
+        $exam = ExamProcessing::where('profile_id','=', $data['profile_id'])->where('status','=','accepted')->where('state', '=','council')->first();
+        $profile = $this->profileRepository->findById($data['profile_id']);
+
+        return view('operator::pages.id-card', compact('data','profile', 'exam'));
+    
+    }
   
 }
