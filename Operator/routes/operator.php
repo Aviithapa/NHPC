@@ -62,6 +62,8 @@ Route::match(['get','post'],'/search/lost/students',[\Operator\Http\Controller\S
 Route::get('/exam/view/{id}', [\Operator\Http\Controller\OperatorController::class,'examDetails'])->middleware(['auth'])->name('operator.exam.view');
 Route::get('/program/student/{id}/{exam_id}', [\Operator\Http\Controller\OperatorController::class,'getProgramStudent'])->middleware(['auth'])->name('operator.program.student');
 Route::post('/program/student/csv', [\Operator\Http\Controller\OperatorController::class,'programWiseStudentCountCSV'])->middleware(['auth'])->name('operator.program.student.csv');
+Route::post('/student/detail/csv', [\Operator\Http\Controller\OperatorController::class,'studentDetailCSV'])->middleware(['auth'])->name('operator.student.detail.csv');
+
 
 
 

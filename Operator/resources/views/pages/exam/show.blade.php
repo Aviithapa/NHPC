@@ -194,6 +194,94 @@
                             </a>
                         </div>
                     </div>
+                    <h4 class="text-black">Student Detail CSV</h4><br/>
+                    <div class="box box-info mb-3">
+                        <div class="box-header with-border">
+                            <span> Please check the box from where you need the data </span>
+                    <form method="POST" 
+                    action="{{url('operator/dashboard/student/detail/csv')}}">
+                        @csrf
+
+
+                        <div class="row">
+
+                            <input class="text" type="hidden" value={{ $id }} name="exam_id">
+
+                            <div class="col-lg-3  mt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" name="computer_operator" type="checkbox" value="computer_operator" id="flexCheckDefaultOperator">
+                                    <label class="form-check-label" for="flexCheckDefaultOperator">
+                                      Computer Operator
+                                    </label>
+                                  </div>
+                            </div>
+                            <div class="col-lg-3  mt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" name="officer" type="checkbox" value="officer" id="flexCheckDefaultOfficer">
+                                    <label class="form-check-label" for="flexCheckDefaultOfficer">
+                                      Officer
+                                    </label>
+                                  </div>
+                            </div>
+                            <div class="col-lg-3  mt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" name="registrar" type="checkbox" value="registrar" id="flexCheckDefaultRegistrar">
+                                    <label class="form-check-label" for="flexCheckDefaultRegistrar">
+                                      Registrar
+                                    </label>
+                                  </div>
+                            </div>
+                            <div class="col-lg-3  mt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" name="subject_committee" type="checkbox" value="subject_commmittee" id="flexCheckDefaultSubjectCommittee">
+                                    <label class="form-check-label" for="flexCheckDefaultSubjectCommittee">
+                                      Subject Committee
+                                    </label>
+                                  </div>
+                            </div>
+                            <div class="col-lg-3 mt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" name = "exam_committee" type="checkbox" value="exam_committee" id="flexCheckDefaultExamCommittee">
+                                    <label class="form-check-label" for="flexCheckDefaultExamCommittee">
+                                      Exam Committee
+                                    </label>
+                                  </div>
+                            </div>
+                            <div class="col-lg-3 mt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" name="council" type="checkbox" value="council" id="flexCheckDefaultCouncil">
+                                    <label class="form-check-label" for="flexCheckDefaultCouncil">
+                                      Council
+                                    </label>
+                                  </div>
+                            </div>
+                            <div class="col-lg-3 mt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" name="rejected" type="checkbox" value="rejected" id="flexCheckDefaultRejected">
+                                    <label class="form-check-label" for="flexCheckDefaultRejected">
+                                      Rejected
+                                    </label>
+                                  </div>
+                            </div>
+                            <div class="col-lg-3 mt-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" name="progress" type="checkbox" value="progress" id="flexCheckDefaultProgress">
+                                    <label class="form-check-label" for="flexCheckDefaultProgress">
+                                      Progress
+                                    </label>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-lg-4" >
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>
+                            Export to CSV</button>
+                            </div>
+                            </div>
+
+                    </form>
+                </div>
+            </div>
 
                     <h4 class="text-black">Program Wise Count</h4><br/>
                     <div class="box box-info mb-3">
