@@ -327,7 +327,8 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::get('/exam/view/{id}', 'ApplicantController@show')->middleware(['auth'])->name('superAdmin.exam.view');
 
 
-    Route::get('/student/card', 'ApplicantController@studentCard')->middleware(['auth'])->name('superAdmin.student.card');
+    Route::match(['get','post'], '/student/card', 'ApplicantController@studentCard')->middleware(['auth'])->name('superAdmin.student.card');
+    Route::get('/student/card/{id}', 'ApplicantController@studentCardShow')->middleware(['auth'])->name('superAdmin.student.card.show');
 
     Route::match(['get','post'],'/search/lost/student','ApplicantController@searchStudent')->middleware(['auth'])->name('search.lost.student');
 

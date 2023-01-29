@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\BaseController;
 use App\Models\Address\Municipality;
 use App\Models\Admin\Program;
 use App\Models\Certificate\Certificate;
+use App\Models\Certificate\CertificateHistory;
 use App\Models\Exam\ExamProcessing;
 use App\Models\Website\Post;
 use App\Modules\Backend\Address\Repositories\MunicipalityRepository;
@@ -764,8 +765,53 @@ return Response($output);
     
     }
 
-    public function studentCard(){
-        return view('superAdmin::admin.applicant.id-card');
+    public function studentCard(Request $request){
+
+        if ($request->isMethod('post')) {
+
+            $query =  Certificate::query();
+           
+           
+            if ($request->level != null) {
+                $query->where('level_name', 'Like', '%' . $request->level . '%');
+            }
+            if($request->darta_number != null) {
+                $query->where('srn', 'like', $request->darta_number);
+            }
+
+            if($request->first_name != null) {
+                $query->where('name', 'like', '%' . $request->first_name  .'%');
+            }
+
+ 
+
+            if($request->profile_id != null) {
+                $query->where('profile_id', '=',   $request->profile_id  );
+            } 
+
+            if($request->regratation_date != null){
+                $query->where('decision_date', '=',  $request->regratation_date );
+            }
+
+            
+            $data = $query->get();
+
+            return view('superAdmin::admin.applicant.id-card-list', compact('data', 'request'));
+        }else{
+            $data  = Certificate::where('profile_id', '!=',  '')->where('level_name', 'Like', '%' . 'Specialization' . '%')->get(); 
+            return view('superAdmin::admin.applicant.id-card-list', compact('data'));
+        }
+      
+    
+    }
+
+    public function studentCardShow($id){
+        $data = Certificate::where('certificate_history.id', '=', $id)
+        ->get()->first();
+        // dd($data);
+        $profile = $this->profileRepository->findById($data['profile_id']);
+
+        return view('superAdmin::admin.applicant.id-card', compact('data','profile'));
     
     }
 
