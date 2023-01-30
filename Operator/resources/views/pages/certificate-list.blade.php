@@ -78,12 +78,14 @@
                                                 <td> <a href="{{ url('operator/dashboard/view/certificate/'. $certificate->certificate_history_id .'/'.$certificate->level)}}"><span class="label label-success">View</span></a>
                                                 @if($certificate->is_printed == 1)
                                                 <td> <a href="{{ url('operator/dashboard/view/printedCertificate/'. $certificate->certificate_history_id .'/'.$certificate->level)}}"><span class="label label-success">Duplicate</span></a>
-                                                 <a href="{{ url('operator/dashboard/view/printedCertificate/'. $certificate->certificate_history_id .'/'.$certificate->level)}}"><span class="label label-success">Duplicate</span></a>
+                                                 {{-- <a href="{{ url('operator/dashboard/view/printedCertificate/'. $certificate->certificate_history_id .'/'.$certificate->level)}}"><span class="label label-success">Duplicate</span></a> --}}
 
                                                  @endif
                                                  <a href="{{url('operator/dashboard/certificate/isPrinted/'. $certificate->certificate_history_id)}}"><span class="label label-danger">Printed</span></a>
                                                     <a href="{{url('operator/dashboard/student/card/'. $certificate->certificate_history_id)}}"><span class="label label-success">Print Id Card</span></a>
-{{--                                                    <a href=""><span class="label label-success">Edit</span></a>--}}
+                                               <a href="{{url('operator/dashboard/update/certificate/'. $certificate->certificate_history_id .'/'.$certificate->level)}}"><span class="label label-success">Edit</span></a>   
+    
+  {{--    <a href=""><span class="label label-success">Edit</span></a>--}}
                                                 </td>
                                             </tr>
                                          @endforeach
