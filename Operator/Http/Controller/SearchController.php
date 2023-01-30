@@ -156,7 +156,7 @@ class SearchController extends BaseController
             ->join('users','users.id','=','profiles.user_id');
            
             if ($request->state != null) {
-                $query->where('exam_registration.state', 'like', $request->state);
+                $query->where('exam_registration.state', 'like', $request->state)->where('exam_registration.exam_id','=',3);
             }
             if ($request->status !=null) {
                 $query->where('exam_registration.status', 'like', $request->status);
@@ -200,7 +200,7 @@ class SearchController extends BaseController
             if($request->email != null){
                 $query->where('users.email', 'like', '%' . $request->email . '%');   
             }
-    
+
             $data = $query->distinct('profile_id')->get();
 
             // dd($data[0]);
