@@ -77,7 +77,7 @@ class ProfileController extends BaseController
                 $examApplieds = $this->examProcessingRepository->getAll()->where('profile_id', '=',  $data['id'])->where('status', '=', 'rejected')->where('exam_id', '=', 3);
             }
             $examApplie = isset($examApplieds) ? $examApplieds : null;
-            if($examApplieds != null){
+            if($examApplie != null){
 
                 $examApplied = $examApplie->isEmpty() ? null : $examApplie;
             }else{

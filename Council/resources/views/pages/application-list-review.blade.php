@@ -364,7 +364,7 @@
                 </div>
             </div>
 
-            @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com')
+            @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com' || \Illuminate\Support\Facades\Auth::user()->email == 'mksshrestha@gmail.com' )
 
                 @else
             @if($profile_processing)
