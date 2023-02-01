@@ -103,7 +103,7 @@ class SearchController extends BaseController
                          '<td>' . $product->dob_nep . '</td>' .
                         '<td>' . $product->profile_status . '</td>' .
                         '<td>' . $product->email . '</td>' .
-                        '<td><a href=' . url("superAdmin/dashboard/applicant-list-view/" . $product->profile_id) . '><span class="label label-success">View</span></a> <a href=' . url("superAdmin/dashboard/delete/" . $product->profile_id) . '><span class="label label-danger">Delete</span></a></td>' .
+                        '<td><a href=' . url("officer/dashboard/officer/applicant-list-view/" . $product->profile_id) . '><span class="label label-success">View</span></a> <a href=' . url("superAdmin/dashboard/delete/" . $product->profile_id) . '><span class="label label-danger">Delete</span></a></td>' .
                         '</tr>';
                 }
                 return Response($output);
