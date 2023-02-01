@@ -8,13 +8,21 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header sty-one">
+            @if(\Illuminate\Support\Facades\Auth::user()->email == 'mksshrestha@gmail.com')
+            <h1>Chairperson Dashboard</h1>
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><i class="fa fa-angle-right"></i>Chairperson Dashboard</li>
+            </ol>
+            @else
             <h1>Operator Dashboard</h1>
             <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
                 <li><i class="fa fa-angle-right"></i> Operator Dashboard</li>
             </ol>
+            @endif
         </div>
-
+        
 {{--        <!-- Main content -->--}}
         @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com')
         @else

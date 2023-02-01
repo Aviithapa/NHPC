@@ -69,7 +69,6 @@ class ProfileController extends BaseController
             $specific_program = null;
 
             if ($data) {
-                // dd($data);
                 if ($data['profile_status'] === "Rejected") {
                     $rejected = "Your application has been rejected";
                 } 
@@ -77,7 +76,6 @@ class ProfileController extends BaseController
                 $specific_program = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $data['id'])->where('status', '!=', 'rejected')->where('exam_id', '=', '3')->first();
                 $examApplieds = $this->examProcessingRepository->getAll()->where('profile_id', '=',  $data['id'])->where('status', '=', 'rejected')->where('exam_id', '=', 3);
             }
-            // $specific_program = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $data['id'])->where('status', '!=', 'rejected')->where('exam_id', '=', '3')->first();
             $examApplie = isset($examApplieds) ? $examApplieds : null;
             if($examApplieds != null){
 

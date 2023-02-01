@@ -55,6 +55,9 @@
                                 <strong><i class="fa fa-phone margin-r-5"></i> Phone</strong>
                                 <p>{{isset($user_data)?$user_data->phone_number:'s'}} </p>
                                 <hr>
+                                @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com' || \Illuminate\Support\Facades\Auth::user()->email == 'mksshrestha@gmail.com')
+
+                                @else
                                 <form class="form-horizontal form-material" action="{{route("operator.applicant.profile.list.status")}}" method="POST">
                                     @csrf
 
@@ -67,6 +70,7 @@
                                         </div>
                                     </div>
                                 </form>
+                                @endif
                             </div>
                             <!-- /.box-body -->
                         </div>
@@ -410,59 +414,59 @@
                 </div>
             </div>
 
-            @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com')
+            @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com' || \Illuminate\Support\Facades\Auth::user()->email == 'mksshrestha@gmail.com')
 
                 @else
             @if($profile_processing)
                 @if($profile_processing->current_state === "computer_operator")
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="info-box">
-                        <div class="card tab-style1">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs profile-tab" role="tablist">
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="info-box">
+                                <div class="card tab-style1">
+                                    <!-- Nav tabs -->
+                                    <ul class="nav nav-tabs profile-tab" role="tablist">
+                                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
 
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="settings" role="tabpanel">
-                                    <div class="card-body">
-                                        <form class="form-horizontal form-material" action="{{route("operator.applicant.profile.list.status")}}" method="POST">
-                                            @csrf
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="settings" role="tabpanel">
+                                            <div class="card-body">
+                                                <form class="form-horizontal form-material" action="{{route("operator.applicant.profile.list.status")}}" method="POST">
+                                                    @csrf
 
-                                            <input type="hidden" name="profile_id" value="{{$data->id}}">
-                                            <div class="form-group">
-                                                <label class="col-md-12">Remarks</label>
-                                                <div class="col-md-12">
-                                                    <textarea rows="5" name="remarks" class="form-control form-control-line"></textarea>
-                                                </div>
+                                                    <input type="hidden" name="profile_id" value="{{$data->id}}">
+                                                    <div class="form-group">
+                                                        <label class="col-md-12">Remarks</label>
+                                                        <div class="col-md-12">
+                                                            <textarea rows="5" name="remarks" class="form-control form-control-line"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-12">Select Status</label>
+                                                        <div class="col-sm-12">
+                                                            <select class="form-control form-control-line" name="profile_status" required>
+                                                                <option value="Rejected">Rejected</option>
+                                                                <option value="Reviewing">Verified</option>
+                                                                <option value="Reviewing">Reviewing</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <button class="btn btn-success">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-12">Select Status</label>
-                                                <div class="col-sm-12">
-                                                    <select class="form-control form-control-line" name="profile_status" required>
-                                                        <option value="Rejected">Rejected</option>
-                                                        <option value="Reviewing">Verified</option>
-                                                        <option value="Reviewing">Reviewing</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-12">
-                                                    <button class="btn btn-success">Submit</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        </div>
+
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            @endif
-        @else
+              @endif
+            @else
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="info-box">
@@ -514,7 +518,7 @@
 
                 @endif
 
-            @endif
+            
 
             <div class="row">
                 <div class="col-lg-12">
@@ -560,7 +564,7 @@
                 </div>
             </div>
 
-
+            @endif
 
             <!-- Main row -->
 
@@ -638,7 +642,7 @@
                                                                     <td>{{getSymbolNo($exam->id) }} </td>
                                                                     <td>{{getExamStatus($exam->id) }} </td>
                                                                     <td>
-                                                                        @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com')
+                                                                        @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com' || \Illuminate\Support\Facades\Auth::user()->email == 'mksshrestha@gmail.com')
                                                                             @else
                                                                         @if($exam->state === "computer_operator")
                                                                              <a href="{{url('operator/dashboard/operator/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>

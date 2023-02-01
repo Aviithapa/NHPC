@@ -20,13 +20,12 @@
             <li class="{{ (request()->is('operator/dashboard')) ? 'active':''  }}">
                 <a href="{{route('operator.dashboard')}}">
                     <i class="icon-home"></i> <span>Dashboard</span>
-
                 </a>
             </li>
 
-            @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com')
-                <li class="{{ (request()->is('operator/dashboard/search/student')) ? 'active':''  }}">
-                    <a href="{{route("search.student")}}">
+            @if(\Illuminate\Support\Facades\Auth::user()->email == 'pujalamichhane24@gmail.com' || \Illuminate\Support\Facades\Auth::user()->email == 'mksshrestha@gmail.com')
+                <li class="{{ (request()->is('operator/dashboard/search/lost/student')) ? 'active':''  }}">
+                    <a href="{{route("search.lost.students")}}">
                         <i class="icon-book-open"></i> <span>Search applicant</span>
                     </a>
                 </li>
