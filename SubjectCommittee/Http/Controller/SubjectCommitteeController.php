@@ -614,7 +614,7 @@ class SubjectCommitteeController extends BaseController
             ->where('exam_registration.level_id', '<', '4')
             ->where('program.subject-committee_id', $subject_Committee['subjecr_committee_id'])
             ->where('profile_processing.status', 'progress')
-            ->where('profile_processing.subject_committee_accepted_num', '>=', 3)
+            ->where('profile_processing.subject_committee_accepted_num', '>=', 2)
             ->orderBy('profiles.created_at', 'ASC')
             ->get(['profiles.*']);
         $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
@@ -660,7 +660,7 @@ class SubjectCommitteeController extends BaseController
             ->where('profile_processing.status', 'progress')
             ->where('exam_registration.level_id', '<', '4')
             ->where('program.subject-committee_id', $subject_Committee['subjecr_committee_id'])
-            ->where('profile_processing.subject_committee_accepted_num', '>=', 3)
+            ->where('profile_processing.subject_committee_accepted_num', '>=', 2)
             ->orderBy('profiles.created_at', 'ASC')
             ->get(['profiles.*']);
 
@@ -875,6 +875,6 @@ class SubjectCommitteeController extends BaseController
         // $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
         // return view('subjectCommittee::pages.council', compact('datas', 'subject_committee'));
 
-        return redirect()->back();
+        // return redirect()->back();
     }
 }
