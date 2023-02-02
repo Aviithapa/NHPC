@@ -18,8 +18,77 @@
         <!-- Main content -->
         <div class="content">
 
-             <h4>Total Student Count for exam:            <b> {{$count}}</b>
-             </h4>
+            <style>
+                .collapsible {
+                    cursor: pointer;
+                    padding: 18px;
+                    width: 100%;
+                    border: none;
+                    text-align: left;
+                    outline: none;
+                    font-size: 15px;
+                }
+
+                .active{
+                    background-color: #555;
+                }
+
+                .contented {
+                    display: block;
+                }
+
+            </style>
+
+            <div class="container-fluid mt-2">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="content-header sty-one mb-3 collapsible">
+                         <h1>Exam Details</h1>
+                    </div>
+                    <div class="contented">
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table id="data-table" class="table no-margin">
+                                    <thead>
+                                    <td>S.N.</td>
+                                    <td>Exam Name</td>
+                                    <td>Opening Date</td>
+                                    <td>Closing Date</td>
+                                    <td>Student Count</td>
+                                    <td>Created At</td>
+                                    <td>Action</td>
+                                    </thead>
+                                    <tbody>
+                                    @if($exams === null)
+                                        <tr>
+                                            <td> No Applicant List found at Computer Operator</td>
+                                        </tr>
+
+                                    @else
+                                        @foreach($exams as $data)
+                                            <tr>
+                                                <td>{{ $data->id }}</td>
+                                                <td>{{$data->Exam_name}}</td>
+                                                <td>{{$data->form_opening_date}}</td>
+                                                <td>{{ $data->form_closing_date }}</td>
+                                                <td>{{ getExamCommitteeCount($data->id) }}</td>
+                                                <td>{{ $data->created_at }}</td>
+                                                <td> <a href='{{ route('examCommittee.exam.view',['id' => $data->id]) }}'><span class="label label-success">View Detail Data</span></a></td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+
+             {{-- <h4>Total Student Count for exam:            <b> {{$count}}</b>
+             </h4> --}}
             <div class="row">
 {{--                @foreach($programs as $program)--}}
 {{--                <div class="col-lg-3 col-xs-6 m-b-3">--}}
@@ -33,7 +102,7 @@
 {{--                    </a>--}}
 {{--                </div>--}}
 {{--                    @endforeach--}}
-                    @foreach($tslc as $exam)
+                    {{-- @foreach($tslc as $exam)
                         <div class="col-lg-3 col-xs-6 m-b-3">
                             <a href="{{route("examCommittee.program.wise.student", ['program_id'=> $exam->program_id])}}">
 
@@ -48,7 +117,7 @@
                                 </div>
                             </a>
                         </div>
-                    @endforeach
+                    @endforeach --}}
             </div>
         </div>
 
@@ -59,3 +128,22 @@
 
 
 @endsection
+
+@push('scripts')
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+    @endpush

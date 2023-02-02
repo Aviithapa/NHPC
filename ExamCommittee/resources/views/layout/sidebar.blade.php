@@ -18,7 +18,7 @@
         <!-- sidebar menu -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">PERSONAL</li>
-            @if(\Illuminate\Support\Facades\Auth::user()->id === 5383 )
+            {{-- @if(\Illuminate\Support\Facades\Auth::user()->id === 5383 ) --}}
             <li class="{{ (request()->is('examCommittee/dashboard')) ? 'active':''  }}">
                 <a href="{{route('examCommittee.dashboard')}}">
                     <i class="icon-home"></i> <span>Dashboard</span>
@@ -39,19 +39,19 @@
                         <i class="icon-book-open"></i> <span>Search applicant</span>
                     </a>
                 </li>
-            <li class="">
+            {{-- <li class="">
                 <a href="{{route('examCommittee.export')}}" ><span class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
                                     Export to csv File</span> </a>
-            </li>
+            </li> --}}
 
 
-         @else
+         {{-- @else
                 <li class="{{ (request()->is('examCommittee/dashboard/examCommittee/search/student')) ? 'active':''  }}">
                     <a href="{{route("examCommittee.search.student")}}">
                         <i class="icon-book-open"></i> <span>Search applicant</span>
                     </a>
                 </li>
-            @endif
+            @endif --}}
 {{--            <li class="treeview"> <a href="#"> <i class="icon-grid"></i> <span>Applicant Profile</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>--}}
 {{--                <ul class="treeview-menu">--}}
 {{--                    <li class="">--}}

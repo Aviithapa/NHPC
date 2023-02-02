@@ -22,6 +22,7 @@ use App\Modules\Backend\Result\Repositories\ExamResultRepository;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Operator\Modules\Framework\Request;
@@ -79,6 +80,8 @@ class  ExamCommitteeController extends BaseController
 
     public function index()
     {
+        $exams = DB::table('exam')->where('id', '>', '2')->get();
+
         $programs = $this->programRepository->getAll()->where('level', '!=', '4');
         $tslc = ExamProcessing::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"), \DB::raw("status as status"), \DB::raw("state as state"))
             ->where('status', '=', 'progress')
@@ -94,7 +97,7 @@ class  ExamCommitteeController extends BaseController
             ->where('is_admit_card_generate', '!=', 'yes')
             ->count();
 
-        return view('examCommittee::pages.dashboard', compact('programs', 'tslc', 'count'));
+        return view('examCommittee::pages.dashboard', compact('programs', 'tslc', 'count', 'exams'));
     }
 
     public function generateAdmitCard($status, $current_state, $program_id)
@@ -334,7 +337,7 @@ class  ExamCommitteeController extends BaseController
             return redirect()->route('login');
         }
     }
-    public function exportCsv(Request $request)
+    public function exportCsv($id)
     {
         $fileName = 'StudentSymbolNumberList.csv';
 
@@ -343,8 +346,8 @@ class  ExamCommitteeController extends BaseController
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->join('level', 'level.id', '=', 'program.level_id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
-            ->where('exam_registration.status', '!=', 'rejected')
-            ->where('exam_registration.updated_at', '>=', '2022-08-01')
+            ->where('exam_registration.status', '=', 'progress')
+            ->where('exam_registration.exam_id','=', $id)
             ->get(['level.name as level_name', 'admit_card.*', 'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number']);
 
         $headers = array(
@@ -449,5 +452,16 @@ class  ExamCommitteeController extends BaseController
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+    public function examDetails($id){
+        $appliedCount = ExamProcessing::all()->where('exam_id','=',$id)->where('state','=','exam_committee')->where('status','=','progress');
+       
+        $levelWiseCount = $appliedCount->groupBy('level_id')->map->count();
+        $programWiseCount = $appliedCount->groupBy('program_id')->map->count();
+
+        $admitCardGeneratedCount = ExamProcessing::all()->where('exam_id','=',$id)->where('state','=','exam_committee')->where('status','=','progress')->where('is_admit_card_generate','=','yes')->count();
+        return view('examCommittee::pages.exam.show',compact('appliedCount', 'levelWiseCount', 'programWiseCount','id','admitCardGeneratedCount'
+         ));
     }
 }

@@ -9,7 +9,7 @@ Route::get('examCommittee/dashboard/examCommittee/generate-admit-card/{status}/{
 Route::get('examCommittee/dashboard/examCommittee/view-admit-card/{id}', [ \ExamCommittee\Http\Controller\ExamCommitteeController ::class, 'viewAdmitCardDetails'])->middleware(['auth'])->name('examCommittee.view.admit.card');
 Route::get('examCommittee/dashboard/examCommittee/admit-Card-Generated-Student', [ \ExamCommittee\Http\Controller\ExamCommitteeController ::class, 'admitCardGeneratedStudent'])->middleware(['auth'])->name('examCommittee.admit.card.generated');
 Route::get('examCommittee/dashboard/examCommittee/view-program-wise-registered-student/{program_id}', [ \ExamCommittee\Http\Controller\ExamCommitteeController ::class, 'programWiseStudent'])->middleware(['auth'])->name('examCommittee.program.wise.student');
-Route::get('/export', [ \ExamCommittee\Http\Controller\ExamCommitteeController ::class, 'exportCsv'])->middleware(['auth'])->name('examCommittee.export');
+Route::get('/export/{id}', [ \ExamCommittee\Http\Controller\ExamCommitteeController ::class, 'exportCsv'])->middleware(['auth'])->name('examCommittee.export');
 Route::get('/removeFlagGeneratedYes', [ \ExamCommittee\Http\Controller\ExamCommitteeController ::class, 'removeFlagGeneratedYes'])->middleware(['auth'])->name('examCommittee.removeFlagGeneratedYes');
 Route::post('examCommittee/dashboard/examCommittee/import-result', [ \ExamCommittee\Http\Controller\ExamCommitteeController ::class, 'fileImport'])->middleware(['auth'])->name('examCommittee.import.result');
 
@@ -18,3 +18,6 @@ Route::get('/examCommittee/search/student',[\ExamCommittee\Http\Controller\Searc
 Route::get('/examCommittee/search',[\ExamCommittee\Http\Controller\SearchController::class,"search"])->middleware(['auth'])->name('examCommittee.search');
 
 Route::get('/examCommittee/FileForwardCouncil', [\ExamCommittee\Http\Controller\ExamCommitteeController::class,"FileForwardCouncil"])->middleware(['auth'])->name('examCommittee.FileForwardCouncil');
+
+
+Route::get('/exam/view/{id}', [\ExamCommittee\Http\Controller\ExamCommitteeController::class,'examDetails'])->middleware(['auth'])->name('examCommittee.exam.view');
