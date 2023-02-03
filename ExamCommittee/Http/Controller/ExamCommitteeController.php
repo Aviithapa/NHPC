@@ -348,9 +348,10 @@ class  ExamCommitteeController extends BaseController
             ->join('users', 'users.id', '=', 'profiles.user_id')
             ->where('exam_registration.status', '=', 'progress')
             ->where('exam_registration.exam_id', '=', $id)
-            ->where('admit_card.created_at', '=', '2023-02-03')
+            ->where('admit_card.created_at', 'Like', '%' . '2023-02-03' . '%')
             ->get(['level.name as level_name', 'admit_card.*', 'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number']);
 
+        dd($tasks);
         $headers = array(
             "Content-type"        => "text/csv",
             "Content-Disposition" => "attachment; filename=$fileName",
@@ -376,8 +377,8 @@ class  ExamCommitteeController extends BaseController
             fputcsv($file, $columns);
             foreach ($tasks as $task) {
                 $row['registration_id'] = $task->profile_id;
-                $row['created_at'] = "2021-12-21 09:51:53";
-                $row['updated_at'] = "2021-12-21 09:51:53";
+                $row['created_at'] = "2023-02-03 09:51:53";
+                $row['updated_at'] = "2023-02-03 09:51:53";
                 $row['deleted_at'] = null;
                 $row['created_by'] = 1;
                 $row['updated_by'] = 1;
