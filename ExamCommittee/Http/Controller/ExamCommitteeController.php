@@ -454,6 +454,24 @@ class  ExamCommitteeController extends BaseController
         return response()->stream($callback, 200, $headers);
     }
 
+
+    public function examDetails($id)
+    {
+        $appliedCount = ExamProcessing::all()->where('exam_id', '=', $id)->where('state', '=', 'exam_committee')->where('status', '=', 'progress');
+
+        $levelWiseCount = $appliedCount->groupBy('level_id')->map->count();
+        $programWiseCount = $appliedCount->groupBy('program_id')->map->count();
+
+        $admitCardGeneratedCount = ExamProcessing::all()->where('exam_id', '=', $id)->where('state', '=', 'exam_committee')->where('status', '=', 'progress')->where('is_admit_card_generate', '=', 'yes')->count();
+        return view('examCommittee::pages.exam.show', compact(
+            'appliedCount',
+            'levelWiseCount',
+            'programWiseCount',
+            'id',
+            'admitCardGeneratedCount'
+        ));
+    }
+
     public function exportAllExamCommitteeStudent($id)
     {
         $fileName = 'StudentSymbolNumberList.csv';
@@ -465,6 +483,7 @@ class  ExamCommitteeController extends BaseController
             ->where('exam_registration.status', '=', 'progress')
             ->where('exam_registration.exam_id', '=', $id)
             ->get(['level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number']);
+
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -485,14 +504,15 @@ class  ExamCommitteeController extends BaseController
             'phone_no', 'result', 'percentage', 'year', 'month'
         );
 
-        $callback = function () use ($tasks, $columns) {
 
+
+        $callback = function () use ($tasks, $columns) {
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
             foreach ($tasks as $task) {
                 $row['registration_id'] = $task->profile_id;
-                $row['created_at'] = "2021-12-21 09:51:53";
-                $row['updated_at'] = "2021-12-21 09:51:53";
+                $row['created_at'] = "2023-02-03 09:51:53";
+                $row['updated_at'] = "2023-02-03 09:51:53";
                 $row['deleted_at'] = null;
                 $row['created_by'] = 1;
                 $row['updated_by'] = 1;
@@ -508,7 +528,7 @@ class  ExamCommitteeController extends BaseController
                 $row['exam_center'] = null;
                 $row['vdc'] = $task->vdc_municiplality;
                 $row['phone_id'] = null;
-                $row['dob']    = $task->dob_nep;
+                $row['dob']    = null;
                 $row['year_dob_nepali_data'] = null;
                 $row['month_dob_nepali_data'] = null;
                 $row['day_dob_nepali_data'] = null;
@@ -536,7 +556,6 @@ class  ExamCommitteeController extends BaseController
                     $row['first_name'],
                     $row['middle_name'],
                     $row['last_name'],
-                    $row['symbol'],
                     $row['gender'],
                     $row['program'],
                     $row['level'],
@@ -567,22 +586,5 @@ class  ExamCommitteeController extends BaseController
         };
 
         return response()->stream($callback, 200, $headers);
-    }
-
-    public function examDetails($id)
-    {
-        $appliedCount = ExamProcessing::all()->where('exam_id', '=', $id)->where('state', '=', 'exam_committee')->where('status', '=', 'progress');
-
-        $levelWiseCount = $appliedCount->groupBy('level_id')->map->count();
-        $programWiseCount = $appliedCount->groupBy('program_id')->map->count();
-
-        $admitCardGeneratedCount = ExamProcessing::all()->where('exam_id', '=', $id)->where('state', '=', 'exam_committee')->where('status', '=', 'progress')->where('is_admit_card_generate', '=', 'yes')->count();
-        return view('examCommittee::pages.exam.show', compact(
-            'appliedCount',
-            'levelWiseCount',
-            'programWiseCount',
-            'id',
-            'admitCardGeneratedCount'
-        ));
     }
 }

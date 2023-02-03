@@ -10,7 +10,9 @@ Route::get('examCommittee/dashboard/examCommittee/view-admit-card/{id}', [\ExamC
 Route::get('examCommittee/dashboard/examCommittee/admit-Card-Generated-Student', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'admitCardGeneratedStudent'])->middleware(['auth'])->name('examCommittee.admit.card.generated');
 Route::get('examCommittee/dashboard/examCommittee/view-program-wise-registered-student/{program_id}', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'programWiseStudent'])->middleware(['auth'])->name('examCommittee.program.wise.student');
 Route::get('/export/{id}', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'exportCsv'])->middleware(['auth'])->name('examCommittee.export');
+
 Route::get('/exportAllExamCommitteeStudent/{id}', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'exportAllExamCommitteeStudent'])->middleware(['auth'])->name('examCommittee.exportAllExamCommitteeStudent');
+
 Route::get('/removeFlagGeneratedYes', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'removeFlagGeneratedYes'])->middleware(['auth'])->name('examCommittee.removeFlagGeneratedYes');
 Route::post('examCommittee/dashboard/examCommittee/import-result', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'fileImport'])->middleware(['auth'])->name('examCommittee.import.result');
 
