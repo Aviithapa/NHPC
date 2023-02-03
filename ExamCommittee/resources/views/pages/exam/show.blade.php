@@ -82,6 +82,9 @@
                     <h4 class="text-black">Program Wise Count</h4><br/>
                     <a href="{{route('examCommittee.export',['id' => $id])}}" ><span class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
                         Get all admit card Student Detail in CSV</span> </a>
+
+                          <a href="{{route('examCommittee.exportAllExamCommitteeStudent',['id' => $id])}}" ><span class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
+                        Get all Student Detail in CSV</span> </a>
                     <div class="row">
                             @foreach($programWiseCount as $key => $program)
 
