@@ -348,6 +348,7 @@ class  ExamCommitteeController extends BaseController
             ->join('users', 'users.id', '=', 'profiles.user_id')
             ->where('exam_registration.status', '=', 'progress')
             ->where('exam_registration.exam_id', '=', $id)
+            ->where('admit_card.created_at', '=', '2023-02-03')
             ->get(['level.name as level_name', 'admit_card.*', 'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number']);
 
         $headers = array(
@@ -474,8 +475,6 @@ class  ExamCommitteeController extends BaseController
 
     public function exportAllExamCommitteeStudent($id)
     {
-
-
 
         $fileName = 'StudentDetail.csv';
         $query =  ExamProcessing::query()
