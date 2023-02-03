@@ -19,7 +19,8 @@
 
             <div class="content">
                 <div class="card">
-                    <div class="card-body">
+                    <h1>Please Try After 12:00 PM. Sorry for the inconvince.</h1>
+                    {{-- <div class="card-body">
                         <h3 style="color: red">{{isset($data)?"Invalid Details":''}}</h3>
                         <h4 class="text-black">Admit  Card Information</h4>
                         <form method="POST" action="{{ route('admit.card.admitCardRequestTemplate') }}">
@@ -50,7 +51,7 @@
                             <button type="submit" class="btn btn-primary float-right"><i class="fa fa-check"></i> Download</button>
                         </form>
 
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
