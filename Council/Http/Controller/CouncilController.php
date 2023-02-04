@@ -460,7 +460,7 @@ class CouncilController extends BaseController
     public function FileChangeCouncilDate()
     {
         $date = '2023-02-03';
-        $passed_list = CertificateHistory::all()->where('created_at', '>', $date);
+        $passed_list = Certificate::all()->where('created_at', '>', $date);
         dd($passed_list);
     }
 }
