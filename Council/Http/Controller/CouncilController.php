@@ -219,71 +219,71 @@ class CouncilController extends BaseController
     {
 
         // try {
-            //code...
-            $students = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
-                ->join('program', 'program.id', '=', 'exam_registration.program_id')
-                ->join('level', 'level.id', '=', 'program.level_id')
-                ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
-                ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
-                ->where('exam_registration.status', "=", 'progress')
-                ->where('exam_registration.state', "=", 'council')
-                ->where('exam_registration.level_id', "!=", '4')
-                ->where('exam_registration.attempt', "=", '1')
-                //            ->where('exam_registration.isPassed',"=",true)
-                ->where('exam_registration.certificate_generate', '=', 'No')
-                ->orderBy('profiles.created_at', 'ASC')
-                ->get([
-                    'profiles.*', 'profiles.id as profile_id', 'profiles.created_at as profile_created_at', 'program.name as program_name', 'program.*',
-                    'program.id as program_id', 'level.*', 'provinces.province_name', 'exam_registration.id as exam_registration_id'
-                ]);
+        //code...
+        $students = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->join('level', 'level.id', '=', 'program.level_id')
+            ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
+            ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+            ->where('exam_registration.status', "=", 'progress')
+            ->where('exam_registration.state', "=", 'council')
+            ->where('exam_registration.level_id', "!=", '4')
+            ->where('exam_registration.attempt', "=", '1')
+            //            ->where('exam_registration.isPassed',"=",true)
+            ->where('exam_registration.certificate_generate', '=', 'No')
+            ->orderBy('profiles.created_at', 'ASC')
+            ->get([
+                'profiles.*', 'profiles.id as profile_id', 'profiles.created_at as profile_created_at', 'program.name as program_name', 'program.*',
+                'program.id as program_id', 'level.*', 'provinces.province_name', 'exam_registration.id as exam_registration_id'
+            ]);
 
-            // dd($students);
-            foreach ($students as $student) {
-                $srn_number = 0;
-                $srn = 0;
-                $date = '2022-09-21';
-                $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
-                $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
-                $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
-                    ->where('program_id', '=', $student['program_id'])->first();
-                if ($srn_number)
+        // dd($students);
+        foreach ($students as $student) {
+            $srn_number = 0;
+            $srn = 0;
+            $date = '2022-09-21';
+            $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
+            $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
+            $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
+                ->where('program_id', '=', $student['program_id'])->first();
+            if ($srn_number)
                 $srn = $srn_number['srn'];
-                $registration_id = $registration_number['registration_id'];
-                $data['registration_id'] = ++$registration_id;
-                $data['category_id'] = $student[''];
-                $data['profile_id'] = $student['profile_id'];
-                $data['program_id'] = $student['program_id'];
-                $data['srn'] = ++$srn;
-                $data['program_certificate_code'] = $student['certificate_name'];
-                $data['cert_registration_number'] = $this->certRegistrationNumber($data['srn'], $student['certificate_name'], $student['level_code']);
-                $data['registrar'] = 'puspa raj khanal';
-                $data['decision_date'] = $date;
+            $registration_id = $registration_number['registration_id'];
+            $data['registration_id'] = ++$registration_id;
+            $data['category_id'] = $student[''];
+            $data['profile_id'] = $student['profile_id'];
+            $data['program_id'] = $student['program_id'];
+            $data['srn'] = ++$srn;
+            $data['program_certificate_code'] = $student['certificate_name'];
+            $data['cert_registration_number'] = $this->certRegistrationNumber($data['srn'], $student['certificate_name'], $student['level_code']);
+            $data['registrar'] = 'puspa raj khanal';
+            $data['decision_date'] = $date;
 
-                //            $date;
-                $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
-                $data['date_of_birth'] = $student['dob_nep'];
-                $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
-                $data['program_name'] = $student['qualification'];
-                $data['level_name'] = $student['level_'];
-                $data['qualification'] = $student['program_name'] . ':' . $student['board_university'] . ':'  . $student['passed_year'];
-                $data['issued_year'] = Carbon::today()->year;
-                $data['issued_date'] = $date;
-                $data['valid_till'] = Carbon::now()->addYears(5);
-                $data['certificate'] = 'new';
-                $data['issued_by'] = Auth::user()->id;
-                $data['certificate_status'] = 1;
-                $certificate = $this->certificateRepository->create($data);
-                $examupdate['status'] = "accepted";
-                $examupdate['state'] = "council";
-                $this->examProcessingRepository->update($examupdate, $student['exam_registration_id']);
-                //                $this->updateQualificationHistory($qualification);
-                $profilesProcessing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $student['profile_id'])->first();
-                $data['current_state'] = 'council';
-                $data['status'] = 'accepted';
-                $this->profileProcessingRepository->update($data, $profilesProcessing['id']);
-            }
+            //            $date;
+            $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
+            $data['date_of_birth'] = $student['dob_nep'];
+            $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
+            $data['program_name'] = $student['qualification'];
+            $data['level_name'] = $student['level_'];
+            $data['qualification'] = $student['program_name'] . ':' . $student['board_university'] . ':'  . $student['passed_year'];
+            $data['issued_year'] = Carbon::today()->year;
+            $data['issued_date'] = $date;
+            $data['valid_till'] = Carbon::now()->addYears(5);
+            $data['certificate'] = 'new';
+            $data['issued_by'] = Auth::user()->id;
+            $data['certificate_status'] = 1;
+            $certificate = $this->certificateRepository->create($data);
+            $examupdate['status'] = "accepted";
+            $examupdate['state'] = "council";
+            $this->examProcessingRepository->update($examupdate, $student['exam_registration_id']);
+            //                $this->updateQualificationHistory($qualification);
+            $profilesProcessing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $student['profile_id'])->first();
+            $data['current_state'] = 'council';
+            $data['status'] = 'accepted';
+            $this->profileProcessingRepository->update($data, $profilesProcessing['id']);
+        }
 
-            return redirect()->back();
+        return redirect()->back();
         // } catch (\Throwable $th) {
         //     //throw $th;
         // }
@@ -313,7 +313,7 @@ class CouncilController extends BaseController
 
             foreach ($students as $student) {
                 $srn_number = 0;
-                $date = '2023/01/18';
+                $date = '2023/02/04';
                 $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
                 $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
                 $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
@@ -442,7 +442,7 @@ class CouncilController extends BaseController
                 ->join('level', 'level.id', '=', 'exam_registration.level_id')
                 ->where('profile_logs.created_by', '=', $id)
                 ->where('certificate_history.decision_date', '=', $date)
-                ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created','certificate_history.*','certificate_history.updated_at as certificate_updated_at'])
+                ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created', 'certificate_history.*', 'certificate_history.updated_at as certificate_updated_at'])
                 ->unique('profile_id');
         } else {
             $profiles =  Certificate::join('profile_logs', 'profile_logs.profile_id', '=', 'certificate_history.profile_id')
@@ -450,10 +450,17 @@ class CouncilController extends BaseController
                 ->join('exam_registration', 'exam_registration.profile_id', '=', 'profile_logs.profile_id')
                 ->join('level', 'level.id', '=', 'exam_registration.level_id')
                 ->where('profile_logs.created_by', '=', $id)
-                ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created','certificate_history.*','certificate_history.updated_at as certificate_updated_at'])
+                ->get(['profiles.*', 'exam_registration.*', 'level.level_ as level_name', 'profiles.id as profile_id', 'profile_logs.created_at as profile_logs_created', 'certificate_history.*', 'certificate_history.updated_at as certificate_updated_at'])
                 ->unique('profile_id');
         }
 
         return view('council::pages.minute-applicant-list', compact('profiles', 'id'));
+    }
+
+    public function FileChangeCouncilDate()
+    {
+        $date = '2023-02-03';
+        $passed_list = CertificateHistory::all()->where('created_at', '>', $date);
+        dd($passed_list);
     }
 }
