@@ -442,7 +442,7 @@ class ProfileController extends BaseController
                 $data = "Error";
                 return view('student::pages.admit-download', compact('data'));
             }
-            $admit_card = $this->admitCardRepository->getAll()->where('profile_id', '=', $profile['id'])->last();
+            $admit_card = $this->admitCardRepository->getAll()->where('profile_id', '=', $profile['id'])->where('created_at', '=', '2023-02-03');
             if ($admit_card === null) {
                 $data = "Error";
                 return view('student::pages.admit-download', compact('data'));
@@ -453,6 +453,7 @@ class ProfileController extends BaseController
             } else {
                 $exam_applied = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->first();
             }
+            dd($admit_card);
             return view('student::pages.admit-card-template-index', compact('profile', 'admit_card', 'exam_applied'));
         } catch (Exception $e) {
             return redirect()->back();
