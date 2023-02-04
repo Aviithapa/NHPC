@@ -149,96 +149,72 @@ class SearchController extends BaseController
         if ($request->isMethod('post')) {
 
             $query = Profile::query()->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
-            ->join('users','users.id','=','profiles.user_id');
+                ->join('users', 'users.id', '=', 'profiles.user_id');
             if ($request->state != null) {
-                $query->where('exam_registration.state', 'like', $request->state)->where('exam_registration.exam_id','=',3);
+                $query->where('exam_registration.state', 'like', $request->state)->where('exam_registration.exam_id', '!=', 3);
             }
-            if ($request->status !=null) {
+            if ($request->status != null) {
                 $query->where('exam_registration.status', 'like', $request->status);
             }
             if ($request->level != null) {
                 $query->where('exam_registration.level_id', 'like', $request->level);
                 $program = Program::get()->where('level_id', '=',  $request->level);
             }
-            if($request->program != null) {
+            if ($request->program != null) {
                 $query->where('exam_registration.program_id', 'like', $request->program);
             }
-            if($request->darta_number != null) {
+            if ($request->darta_number != null) {
                 $query->where('exam_registration.profile_id', 'like', $request->darta_number);
             }
 
-            if($request->first_name != null) {
-                $query->where('profiles.first_name', 'like', '%' . $request->first_name  .'%');
+            if ($request->first_name != null) {
+                $query->where('profiles.first_name', 'like', '%' . $request->first_name  . '%');
             }
 
-            if($request->middle_name != null) {
-                $query->where('profiles.middle_name', 'like', '%' . $request->middle_name  .'%');
-            }
-            
-            if($request->last_name != null) {
-                $query->where('profiles.last_name', 'like', '%' . $request->last_name  .'%');
+            if ($request->middle_name != null) {
+                $query->where('profiles.middle_name', 'like', '%' . $request->middle_name  . '%');
             }
 
-            if($request->citizenship_number != null){
-                $query->where('profiles.citizenship_number', 'like', '%' . $request->last_name  .'%');
-            }
-            if($request->regratation_date != null){
-                $query->where('exam_registration.created_at', 'like', '%' . $request->regratation_date  .'%');
+            if ($request->last_name != null) {
+                $query->where('profiles.last_name', 'like', '%' . $request->last_name  . '%');
             }
 
-            if($request->profile_processing_state !=null){
+            if ($request->citizenship_number != null) {
+                $query->where('profiles.citizenship_number', 'like', '%' . $request->last_name  . '%');
+            }
+            if ($request->regratation_date != null) {
+                $query->where('exam_registration.created_at', 'like', '%' . $request->regratation_date  . '%');
+            }
+
+            if ($request->profile_processing_state != null) {
                 $query->where('profiles.profile_status', '=', $request->profile_processing_state);
             }
-            if($request->profile_processing_status !=null){
+            if ($request->profile_processing_status != null) {
                 $query->where('profiles.profile_state', '=', $request->profile_processing_status);
             }
-            if($request->email != null){
-                $query->where('users.email', 'like', '%' . $request->email . '%');   
+            if ($request->email != null) {
+                $query->where('users.email', 'like', '%' . $request->email . '%');
             }
 
             $data = $query->distinct('profile_id')->get();
 
-            // dd($data[0]);
-            // dd(isset($data));
-            return view('operator::pages.search-students', compact('data', 'program' ,'request'));
-        }else{
+            return view('operator::pages.search-students', compact('data', 'program', 'request'));
+        } else {
             return view('operator::pages.search-students', compact('program'));
         }
     }
 
-    public function studentUpdateExamApplyId(){
-    //    $datas =  Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
-    //    ->where('profiles.profile_state','=','officer')
-    //    ->where('exam_registration.state','=','computer_operator')
-    //    ->where('exam_registration.exam_id','=',3)
-    //    ->get();
-
-    //    dd($datas[0]);
-
-    //    foreach($datas as $data){
-    //     $exam['state'] = 'officer';
-    //     $exam['status'] = 'progress';
-    //     $exam_processing = $this->examProcessingRepository->update($exam, $data->exam_registration_id);
-    //    }
-        // $students = ExamProcessing::where('exam_registration.state','=', 'exam_committee')
-        // ->where('exam_registration.status','=','progress')
-        // ->where('exam_registration.exam_id','=', 3)
-        // ->get();
-
-            $datas = ExamProcessing::where('exam_registration.created_at', '>=', '2022-12-23')
-            ->where('exam_registration.exam_id','!=', 3)
-            ->where('exam_registration.level_id','!=', 4)
+    public function studentUpdateExamApplyId()
+    {
+        $datas = ExamProcessing::where('exam_registration.created_at', '>=', '2022-12-23')
+            ->where('exam_registration.exam_id', '!=', 3)
+            ->where('exam_registration.level_id', '!=', 4)
             ->get();
-            
-             foreach($datas as $data){
-                $exam['exam_id'] = 3;
-                $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
-            }
 
-            // foreach($students as $data){
-            //     $exam['status'] = 're-exam';
-            //     $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
-            // }
-            return redirect()->back();  
+        foreach ($datas as $data) {
+            $exam['exam_id'] = 3;
+            $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
+        }
+        return redirect()->back();
     }
 }
