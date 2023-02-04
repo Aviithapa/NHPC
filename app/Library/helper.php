@@ -57,19 +57,19 @@ if (!function_exists('examMinuteStudentCount')) {
      */
     function examMinuteStudentCount($id, $date = null)
     {
-        $datas = 0 ;
-        if($date != null){
+        $datas = 0;
+        if ($date != null) {
             $datas =  Certificate::join('profile_logs', 'profile_logs.profile_id', '=', 'certificate_history.profile_id')
-            ->where('profile_logs.created_by', '=', $id)
-            ->where('certificate_history.decision_date', '=', $date)
-            ->select('certificate_history.profile_id')
-            ->distinct('certificate_history.profile_id')
-            ->count(DB::raw('DISTINCT name certificate_history.profile_id'));
-        }else{
+                ->where('profile_logs.created_by', '=', $id)
+                ->where('certificate_history.decision_date', '=', $date)
+                ->select('certificate_history.profile_id')
+                ->distinct('certificate_history.profile_id')
+                ->count(DB::raw('DISTINCT name certificate_history.profile_id'));
+        } else {
             $datas =  Certificate::join('profile_logs', 'profile_logs.profile_id', '=', 'certificate_history.profile_id')
-            ->where('profile_logs.created_by', '=', $id)
-            ->select('certificate_history.profile_id','certificate_history.decision_date')
-            ->count(['certificate_history.profile_id']);
+                ->where('profile_logs.created_by', '=', $id)
+                ->select('certificate_history.profile_id', 'certificate_history.decision_date')
+                ->count(['certificate_history.profile_id']);
         }
         return $datas;
     }
@@ -123,10 +123,10 @@ if (!function_exists('getSortSrn')) {
      */
     function getSortSrn($sortSrn)
     {
-       $arr = explode(",",$sortSrn);
-       sort($arr);
-       $string = implode(" ", $arr);
-       return $string;
+        $arr = explode(",", $sortSrn);
+        sort($arr);
+        $string = implode(" ", $arr);
+        return $string;
     }
 }
 
@@ -909,7 +909,7 @@ if (!function_exists('getExamStatus')) {
     {
 
         $exam = ExamProcessing::all()->where('id', '=', $exam_id)->first();
-        if ($exam['isPassed'] == 0 && $exam['is_admit_card_generate'] == 'yes')
+        if ($exam['isPassed'] == 0 && $exam['is_admit_card_generate'] == 'yes' && $exam['exam_id'] != 3)
             return 'Failed';
         elseif ($exam['isPassed'] = 0 && $exam['attempt'] == '2')
             return 'Re Exam';
@@ -1002,10 +1002,10 @@ if (!function_exists('getExamCommitteeCount')) {
      */
     function getExamCommitteeCount($id)
     {
-        
+
         $profiles = ExamProcessing::all()->where("status", '=', 'progress')
             ->where("state", '=', 'exam_committee')
-            ->where("exam_id",'=' , $id) -> count();
+            ->where("exam_id", '=', $id)->count();
 
         return $profiles;
     }
