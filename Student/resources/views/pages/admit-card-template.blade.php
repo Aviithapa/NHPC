@@ -49,6 +49,7 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body container mt-2">
+                            {{ $admit_card }}
                             <span>पाँचौं नाम दर्ता  प्रमाण पत्र परीक्षाको  प्रवेश पत्र</span>
                             <div class="student-admit-card-body mt-3" style="border: 1px solid #000; padding: 20px;height: 500px;">
                                    <div class="row">

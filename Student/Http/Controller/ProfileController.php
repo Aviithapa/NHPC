@@ -443,7 +443,6 @@ class ProfileController extends BaseController
                 return view('student::pages.admit-download', compact('data'));
             }
             $admit_card = $this->admitCardRepository->getAll()->where('profile_id', '=', $profile['id'])->last();
-            dd($admit_card);
             if ($admit_card === null) {
                 $data = "Error";
                 return view('student::pages.admit-download', compact('data'));
