@@ -71,16 +71,16 @@ class ProfileController extends BaseController
             if ($data) {
                 if ($data['profile_status'] === "Rejected") {
                     $rejected = "Your application has been rejected";
-                } 
+                }
                 $re_exam  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $data['id'])->where('exam_id', '=', '3')->first();
                 $specific_program = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $data['id'])->where('status', '!=', 'rejected')->where('exam_id', '=', '3')->first();
                 $examApplieds = $this->examProcessingRepository->getAll()->where('profile_id', '=',  $data['id'])->where('status', '=', 'rejected')->where('exam_id', '=', 3);
             }
             $examApplie = isset($examApplieds) ? $examApplieds : null;
-            if($examApplie != null){
+            if ($examApplie != null) {
 
                 $examApplied = $examApplie->isEmpty() ? null : $examApplie;
-            }else{
+            } else {
                 $examApplied = null;
             }
             $exam = $this->profileRepository->findByFirst('user_id', Auth::user()->id, '=');
@@ -272,12 +272,12 @@ class ProfileController extends BaseController
                         $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', Auth::user()->id);
                         if ($qualification != null) {
                             foreach ($qualification as $quali)
-                            if (is_numeric($quali['program_id']))
-                            $all_program[] = $this->programRepository->findById($quali['program_id']);
+                                if (is_numeric($quali['program_id']))
+                                    $all_program[] = $this->programRepository->findById($quali['program_id']);
                         }
                         return view('student::pages.apply-exam', compact('all_program', 'profile'));
                     } else {
-                        $specific_program =$this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('status', '=', 'rejected')->where('exam_id', '=', '3')->first();
+                        $specific_program = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('status', '=', 'rejected')->where('exam_id', '=', '3')->first();
                         if ($specific_program == null) {
                             session()->flash('success', 'You have already enrolled in licence Exam');
                             return redirect()->back();
@@ -442,7 +442,7 @@ class ProfileController extends BaseController
                 $data = "Error";
                 return view('student::pages.admit-download', compact('data'));
             }
-            $admit_card = $this->admitCardRepository->getAll()->where('profile_id', '=', $profile['id'])->last();
+            $admit_card = $this->admitCardRepository->getAll()->where('profile_id', '=', $profile['id'])->where('created_at', 'Like', '%' . '2023-02-03' . '%')->last();
             if ($admit_card === null) {
                 $data = "Error";
                 return view('student::pages.admit-download', compact('data'));
