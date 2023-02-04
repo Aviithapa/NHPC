@@ -151,7 +151,7 @@ class SearchController extends BaseController
             $query = Profile::query()->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
                 ->join('users', 'users.id', '=', 'profiles.user_id');
             if ($request->state != null) {
-                $query->where('exam_registration.state', 'like', $request->state)->where('exam_registration.exam_id', '!=', 3);
+                $query->where('exam_registration.state', 'like', $request->state)->where('exam_registration.exam_id', '!=', 3)->where('exam_registration.is_admit_card_generated', '=', 'no');
             }
             if ($request->status != null) {
                 $query->where('exam_registration.status', 'like', $request->status);
