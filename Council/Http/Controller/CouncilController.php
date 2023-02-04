@@ -461,6 +461,10 @@ class CouncilController extends BaseController
     {
         $date = '2023-02-03';
         $passed_list = Certificate::all()->where('created_at', '>', $date);
-        dd($passed_list);
+        foreach ($passed_list as $pass) {
+            $data['decision_date'] = '2023-02-04';
+            $this->certificateRepository->update($pass['id'], $date);
+        }
+        return redirect()->back();
     }
 }
