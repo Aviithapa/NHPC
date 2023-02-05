@@ -112,7 +112,7 @@ class SearchController extends BaseController
             if ($products) {
                 foreach ($products as $key => $product) {
                     $output .= '<tr>' .
-                        '<td>' . $product->first_name  . $product->middle_name .    $product->last_name . '</td>' .
+                        '<td>' . $product->first_name  .    $product->last_name . '</td>' .
                         '<td>' . $product->citizenship_number . '</td>' .
                         '<td>' . $product->dob_nep . '</td>' .
                         '<td>' . $product->profile_status . '</td>' .
