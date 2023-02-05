@@ -89,22 +89,34 @@ class SearchController extends BaseController
     {
         if ($request->ajax()) {
             $output = "";
-            $products = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')->where('first_name', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('profiles.last_name', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('profiles.middle_name', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('profiles.dob_nep', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('profiles.profile_status', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('profiles.citizenship_number', 'LIKE', '%' . $request->search . "%")
-                ->get(['profiles.*', 'profiles.id as profiles_id', 'exam_registration.*']);
-
+            $products = DB::table('profiles')->join('users', 'users.id', '=', 'profiles.user_id')
+                ->select(
+                    'profiles.first_name as first_name',
+                    'profiles.last_name as last_name',
+                    // 'profiles.middle_name as middle_name',
+                    'profiles.dob_nep as dob_nep',
+                    'profiles.profile_status as profile_status',
+                    'profiles.citizenship_number as citizenship_number',
+                    'users.email as email',
+                    'profiles.id as profile_id'
+                )
+                ->where('first_name', 'LIKE', '%' . $request->search . "%")
+                ->orwhere('last_name', 'LIKE', '%' . $request->search . "%")
+                // ->orwhere('middle_name', 'LIKE', '%' . $request->search . "%")
+                ->orwhere('dob_nep', 'LIKE', '%' . $request->search . "%")
+                ->orwhere('profile_status', 'LIKE', '%' . $request->search . "%")
+                ->orwhere('citizenship_number', 'LIKE', '%' . $request->search . "%")
+                ->orWhere('email', 'LIKE', '%' . $request->search . "%")
+                ->paginate(15);
             // return $products;
             if ($products) {
                 foreach ($products as $key => $product) {
                     $output .= '<tr>' .
-                        '<td>' . $product->first_name . '</td>' .
+                        '<td>' . $product->first_name . ' ' . $product->middle_name . '' . $product->last_name . '</td>' .
                         '<td>' . $product->citizenship_number . '</td>' .
                         '<td>' . $product->dob_nep . '</td>' .
-                        '<td>' . $product->state . '</td>' .
+                        '<td>' . $product->profile_status . '</td>' .
+                        '<td>' . $product->email . '</td>' .
                         '<td><a href=' . url("operator/dashboard/operator/applicant-list-view/" . $product->profiles_id) . '><span class="label label-success">View</span></a> </td>' .
                         '<td><a href=' . url("operator/dashboard/deleteDuplicate/" . $product->profile_id) . '><span class="label label-danger">Delete</span></a> </td>' .
                         '</tr>';
