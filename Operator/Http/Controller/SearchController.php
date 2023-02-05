@@ -112,12 +112,12 @@ class SearchController extends BaseController
             if ($products) {
                 foreach ($products as $key => $product) {
                     $output .= '<tr>' .
-                        '<td>' . $product->first_name  .  $product->last_name . '</td>' .
+                        '<td>' . $product->first_name  . $product->middle_name .    $product->last_name . '</td>' .
                         '<td>' . $product->citizenship_number . '</td>' .
                         '<td>' . $product->dob_nep . '</td>' .
                         '<td>' . $product->profile_status . '</td>' .
                         '<td>' . $product->email . '</td>' .
-                        '<td><a href=' . url("operator/dashboard/operator/applicant-list-view/" . $product->profiles_id) . '><span class="label label-success">View</span></a> </td>' .
+                        '<td><a href=' . url("operator/dashboard/operator/applicant-list-view/" . $product->profile_id) . '><span class="label label-success">View</span></a> </td>' .
                         '<td><a href=' . url("operator/dashboard/deleteDuplicate/" . $product->profile_id) . '><span class="label label-danger">Delete</span></a> </td>' .
                         '</tr>';
                 }
