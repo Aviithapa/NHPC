@@ -50,8 +50,14 @@
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body container mt-2">
-                            <span>
-पाँचौं नाम दर्ता  प्रमाण पत्र परीक्षाको  प्रवेश पत्र</span>
+                           @if($admit_card)
+                              @if($admit_card->created_by == 21748)
+<span>पाँचौं नाम दर्ता  प्रमाण पत्र परीक्षाको  प्रवेश पत्र</span>
+                              @else
+<span>
+चौथो नाम दर्ता  प्रमाण पत्र परीक्षाको  प्रवेश पत्र</span>
+                              @endif
+                            @endif
                             <div class="student-admit-card-body mt-3" style="border: 1px solid #000; padding: 20px;height: 500px;">
                                    <div class="row">
                                        <div class="col-lg-8">
