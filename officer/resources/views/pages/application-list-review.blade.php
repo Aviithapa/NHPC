@@ -214,7 +214,7 @@
                                                                 <td>{{$key ++}}</td>
                                                                 <td>{{$qualifications->getLevelName()}}</td>
                                                                 <td>{{$qualifications->board_university}}</td>
-                                                                <td>{{$qualifications->getProgramName() || $qualifications->program_id}}</td>
+                                                                <td>{{$qualifications->getProgramName()}}</td>
                                                                 <td>{{$qualifications->collage_id}}</td>
                                                             </tr>
                                                         @endforeach
@@ -441,10 +441,13 @@
                                                         <td>Exam Name</td>
                                                         <td>Voucher Image</td>
                                                         <td>Applied Date</td>
+                                                        <td>Program Name</td>
+                                                        <td>Level</td>
                                                         <td>State</td>
                                                         <td>Status</td>
                                                         <td>Symbol Number</td>
                                                         <td>Exam Status</td>
+                                                        {{-- <td>Action</td> --}}
                                                         {{-- <td>Action</td> --}}
                                                         </thead>
                                                         <tbody>
@@ -478,13 +481,18 @@
                                                         @break
                                                    @endswitch
                                                    <td>{{ ++$count }}</td>
-                                                                        <td>{{$exam->getExamName()}}</td>
-                                                                        <td><img src="{{$exam->getVoucherImage()}}" onclick="onClick(this)" alts="voucher image" height="150" width="150"/></td>
-                                                                        <td>{{$exam->created_at}}</td>
-                                                                        <td>{{$exam->state}}</td>
-                                                                        <td>{{$exam->status}}</td>
-                                                                        <td>{{getSymbolNo($exam->id) }} </td>
-                                                                        <td>{{getExamStatus($exam->id) }} </td>
+                                                                         <td>{{ ++$count }}</td>
+                                                                    <td>{{$exam->getExamName()}}</td>
+                                                                    <td><img src="{{$exam->getVoucherImage()}}" onclick="onClick(this)"  alt="voucher image" height="150" width="150"/></td>
+                                                                    <td>{{$exam->created_at}}</td>
+                                                                    <td>{{$exam->getProgramName()}}</td>
+                                                                    <td>{{ $exam->level->name }}
+                                                                    <td>{{$exam->state}}</td>
+                                                                    <td>{{$exam->status}}</td>
+                                                           
+
+                                                                    <td>{{getSymbolNo($exam->id) }} </td>
+                                                                    <td>{{getExamStatus($exam->id) }} </td>
                                                                         {{-- <td>
                                                                             @if($exam->state === "officer")
                                                                             <a href="{{url('officer/dashboard/officer/accept-exam-applied',$exam->id)}}" ><span class="label label-success">Accept</span> </a>

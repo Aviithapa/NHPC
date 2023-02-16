@@ -44,26 +44,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="treeview {{ (request()->is('officer/dashboard/officer/applicant-list/*/*')) ? 'active':''  }}"> <a href="#"> <i class="icon-grid"></i> <span>Exam Applied</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
-                <ul class="treeview-menu">
-                    <li class="{{ (request()->is('officer/dashboard/officer/applicant-list/progress/officer')) ? 'active':''  }}">
-                        <a href="{{route("officer.applicant.list", ['status'=> 'progress','state' => 'officer'])}}">
-                            <i class="icon-book-open"></i> <span>Exam Applied List <span class="badge badge-pill badge-success">{{getExamApplicantList('progress','officer')}}</span></span>
-                        </a>
-                    </li>
-                    <li class="{{ (request()->is('officer/dashboard/officer/applicant-list/progress/registrar')) ? 'active':''  }}">
-                        <a href="{{route("officer.applicant.list",['status'=> 'progress','state' => 'registrar'])}}">
-                            <i class="icon-book-open"></i> <span>Exam Applied Verified List <span class="badge badge-pill badge-success">{{getExamApplicantList('progress','registrar')}}</span></span>
-                        </a>
-                    </li>
-
-                    <li class="{{ (request()->is('officer/dashboard/officer/applicant-list/rejected/computer_operator')) ? 'active':''  }}">
-                        <a href="{{route("officer.applicant.list",['status'=> 'rejected','state'=> 'computer_operator'])}}">
-                            <i class="icon-book-open"></i> <span>Exam Applied Rejected List <span class="badge badge-pill badge-danger">{{getExamApplicantList('rejected','computer_operator')}}</span></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+           
 
 
 
@@ -73,16 +54,18 @@
                 </a>
             </li>
 
+             <li class="{{ (request()->is('operator/dashboard/search/lost/student')) ? 'active':''  }}">
+                 <a href="{{route("search.lost.students.officer")}}">
+                   <i class="icon-book-open"></i> <span>Advance Search Applicant</span>
+                </a>
+            </li>
+
             <li class="{{ (request()->is('officer/dashboard/subjectCommittee/dashboard')) ? 'active':''  }}">
                 <a href="{{route("subjectCommittee.dashboard.officer")}}">
                     <i class="icon-book-open"></i> <span>Subject Committee</span>
                 </a>
             </li>
-            {{-- <li class="{{ (request()->is('officer/dashboard/officer/subjectCommittee/minuteIndex')) ? 'active':''  }}">
-                <a href="{{route("subjectCommittee.minuteDataSubjectCommitteeIndex.officer")}}">
-                    <i class="icon-book-open"></i> <span>Minute  Committee Data</span>
-                </a>
-            </li> --}}
+           
         </ul>
     </div>
     <!-- /.sidebar -->
