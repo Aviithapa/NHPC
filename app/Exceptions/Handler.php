@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -34,6 +38,24 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
+        $this->renderable(function (ThrottleRequestsException $e, $request) {
+            return response()->view('errors.429', [], 429);
+        });
+
+        $this->renderable(function (QueryException $e, $request) {
+            return response()->view('errors.database', [], 500);
+        });
+
+        $this->renderable(function (HttpException $e, $request) {
+            $statusCode = $e->getStatusCode();
+            if ($statusCode == 404) {
+                return response()->view('errors.404', [], $statusCode);
+            } elseif ($statusCode == 500) {
+                return response()->view('errors.database', [], $statusCode);
+            }
+        });
+
+
         $this->reportable(function (Throwable $e) {
             //
         });
