@@ -190,16 +190,17 @@ class CouncilController extends BaseController
 
             $program = Program::get();
             if ($request->isMethod('post')) {
-                $data = ExamProcessing::query()->where('state', '=', 'council')
+                $query = ExamProcessing::query()->where('state', '=', 'council')
                     ->where('status', '=', 'progress')
                     ->where('level_id', '!=', 4);
                 if ($request->level != null) {
-                    $data->where('level_id', 'like', $request->level);
+                    $query->where('level_id', 'like', $request->level);
                     $program = Program::get()->where('level_id', '=',  $request->level);
                 }
                 if ($request->program != null) {
-                    $data->where('program_id', 'like', $request->program);
+                    $query->where('program_id', 'like', $request->program);
                 }
+                $data = $query->get();
             } else {
 
 
