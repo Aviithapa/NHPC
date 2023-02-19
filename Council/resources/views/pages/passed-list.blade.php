@@ -46,7 +46,7 @@
                                             </select>
                                         </fieldset>
                                     </div>
-                                    <div class="col-lg-3">
+                                    {{-- <div class="col-lg-3">
                                         <fieldset class="form-group">
                                             <select class="form-control" name="program"  id="date" >
                                                 <option value={{ isset($request->program) ? $request->program : '' }}>{{ isset($request->program) ? getProgramName($request->program) : 'Select Program' }}</option>
@@ -55,7 +55,7 @@
                                                 @endforeach
                                             </select>
                                         </fieldset>
-                                    </div>
+                                    </div> --}}
                                     
                                 </div>
                                 <div class="row float-right">

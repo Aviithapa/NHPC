@@ -6,7 +6,6 @@ namespace Council\Http\Controller;
 
 use App\Exports\ResultExport;
 use App\Imports\ResultImport;
-use App\Models\Admin\Program;
 use App\Models\Certificate\Certificate;
 use App\Models\Certificate\CertificateHistory;
 use App\Models\Exam\ExamProcessing;
@@ -184,32 +183,17 @@ class CouncilController extends BaseController
             return redirect()->route('login');
         }
     }
-    public function getallExamPassedList(Request $request)
+    public function getallExamPassedList()
     {
         if (Auth::user()->mainRole()->name === 'council') {
-
-            $program = Program::get();
-            if ($request->isMethod('post')) {
-                $query = ExamProcessing::query()->where('state', '=', 'council')
-                    ->where('status', '=', 'progress');
-                if ($request->level != null) {
-                    $query->where('level_id', 'like', $request->level);
-                    $program = Program::get()->where('level_id', '=',  $request->level);
-                }
-                if ($request->program != null) {
-                    $query->where('program_id', 'like', $request->program);
-                }
-                $data = $query->get();
-            } else {
-                $data = ExamProcessing::all()->where('state', '=', 'council')
-                    ->where('status', '=', 'progress')
-                    ->where('level_id', '!=', 4);
-            }
             $count = ExamProcessing::all()->where('state', '=', 'council')
                 ->where('status', '=', 'progress')
                 ->where('level_id', '!=', 4)->count();
 
-            return \view('council::pages.passed-list', compact('data', 'count', 'program', 'request'));
+            $data = ExamProcessing::all()->where('state', '=', 'council')
+                ->where('status', '=', 'progress')
+                ->where('level_id', '!=', 4);
+            return \view('council::pages.passed-list', compact('data', 'count'));
         } else {
             return redirect()->route('login');
         }
