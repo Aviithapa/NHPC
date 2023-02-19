@@ -545,9 +545,9 @@ class CouncilController extends BaseController
     {
         $data['state'] = 'council';
         $data['current_state'] = 'council';
+        $data['status'] = 'progress';
         $data['isPassed'] = true;
         $passed_list = ExamResult::all()->where('status', '=', 'PASSED')->where('remarks', '=', '3');
-        dd($passed_list, count($passed_list));
         foreach ($passed_list as $pass) {
             $admit_card = AdmitCard::all()->where('symbol_number', '=', $pass['symbol_number']);
             foreach ($admit_card as $admit) {
@@ -555,5 +555,7 @@ class CouncilController extends BaseController
                 $profileProcessing = $this->profileRepository->update($data, $admit['profile_id']);
             }
         }
+
+        return redirect()->back();
     }
 }
