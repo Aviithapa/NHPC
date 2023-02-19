@@ -203,8 +203,7 @@ class CouncilController extends BaseController
             } else {
                 $data = ExamProcessing::all()->where('state', '=', 'council')
                     ->where('status', '=', 'progress')
-                    ->where('level_id', '!=', 4)
-                    ->get();
+                    ->where('level_id', '!=', 4);
             }
             $count = ExamProcessing::all()->where('state', '=', 'council')
                 ->where('status', '=', 'progress')
