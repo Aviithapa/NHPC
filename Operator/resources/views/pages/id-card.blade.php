@@ -41,7 +41,7 @@
                 <div class="logo" style="line-height: 1.8; width: 80%; float:left; font-size:11px;">
                     <span>Reg No : <span style="font-weight:700;"> {{  $data->cert_registration_number }} </span> </span><br>
                     <span>Name       : <span style="font-weight:700; text-transform: capitalize;"> {{  $data->name }} </span></span></br>
-                    <span>Level      : <span style="font-weight:700; text-transform: capitalize;"> {{ isset($exam) ? getLevelName($exam->level_id) :  $data->level_name }} </span></span></br>
+                    <span>Level      : <span style="font-weight:700; text-transform: capitalize;"> {{ isset($exam) ? $data->level_name :  $data->level_name }} </span></span></br>
                     <span>Discipline (Sub): <span style="font-weight:700; text-transform: capitalize;"> {{ isset($exam) ? getProgramName($exam->program_id) : $data->qualification }} </span></span></br>
                     <span>Valid Up To     : {{ $data->valid_till }}</span></br>
                     <span>Signature       : ....................................................</span></br>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="logo" style="width: 20%;float:left; text-align:center; font-size:11px;">
                     <img class="img-responsive" width="90" height="90" style="margin-top: 20px;" src={{ $profile->getProfileImage() }}></br>
-                    <span>.........................</span></br>
+                    <span style="z-index: 2000;"> <img src="http://103.175.192.52/storage/documents/tKtyJYTTE9JiesiME3bLts5EMNGQgL3IQV6BF5Qp.png" class="signature" width="50px" height="25px"></span></br>
                     <span>Registrar</span>
                 </div>
               </div>
