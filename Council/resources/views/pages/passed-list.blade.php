@@ -24,10 +24,6 @@
                                 <a href="{{route("council.move.to.darta.book")}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
                                     Move to Dartabook</a>
                             </div>
-                             <div class="col-lg-4 m-b-3 ml-4">
-                                <a href="{{route("council.move.to.darta.book")}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
-                                    Export Passed List</a>
-                            </div>
                         </div>
 
                          <div class="row">
@@ -40,8 +36,6 @@
 
                                 <div class="row">
 
-                        
-
                                     <div class="col-lg-3">
                                         <fieldset class="form-group">
                                             <select class="form-control" name="level"  id="date" >
@@ -52,7 +46,6 @@
                                             </select>
                                         </fieldset>
                                     </div>
-
                                     <div class="col-lg-3">
                                         <fieldset class="form-group">
                                             <select class="form-control" name="program"  id="date" >
@@ -99,7 +92,7 @@
 
                                     @else
                                     {{ $count = 0 }}
-                                        @foreach($data as $key => $exam)
+                                        @foreach($data as $exam)
                                             <tr>
                                                 <td>{{++$count}}</td>
                                                 <td>{{$exam->getFirstName()}}</td>
@@ -122,39 +115,7 @@
         </div>
 
     </div>
-    <div class="modal fade" id="practice_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Upload Result </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form class="form-horizontal form-material" action="{{ route('examCommittee.import.result') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <div class="custom-file text-left">
-                                    <input type="file" name="file" class="custom-file-input" id="customFile">
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-12">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
+   
     <!-- /.content -->
     </div>
 
