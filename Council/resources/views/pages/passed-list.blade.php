@@ -27,46 +27,7 @@
                         </div>
 
                          <div class="row">
-                    <div class="box-header with-border p-t-1">
-
-                            <form method="POST" 
-                            action="{{url('council/dashboard/council/applicant/passed/list')}}">
-                                @csrf
-
-
-                                <div class="row">
-
-                                    <div class="col-lg-3">
-                                        <fieldset class="form-group">
-                                            <select class="form-control" name="level"  id="date" >
-                                                <option value={{ isset($request->level) ?  $request->level : '' }}>{{ isset($request->level) ? (($request->level == 4) ? 'TSLC' : (($request->level == 3) ? 'PCL' : (($request->level == 2) ? 'Bachelor' : (($request->level == 1) ? 'Master' :'') ) )) :'Select Level' }}</option>
-                                                <option value="3">PCL</option>
-                                                <option value="2">BACHELOR</option>
-                                                <option value="1">MASTER</option>
-                                            </select>
-                                        </fieldset>
-                                    </div>
-                                    {{-- <div class="col-lg-3">
-                                        <fieldset class="form-group">
-                                            <select class="form-control" name="program"  id="date" >
-                                                <option value={{ isset($request->program) ? $request->program : '' }}>{{ isset($request->program) ? getProgramName($request->program) : 'Select Program' }}</option>
-                                                @foreach($program as $programs)
-                                                <option value={{ $programs->id }}>{{ $programs->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </fieldset>
-                                    </div> --}}
-                                    
-                                </div>
-                                <div class="row float-right">
-                                    <div class="col-lg-4" >
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>
-                                    Search</button>
-                                    </div>
-                                    </div>
-
-                            </form>
-                    </div>
+                    
                         </div>
                         <div class="float-lg-right">
                             {{$count}}
