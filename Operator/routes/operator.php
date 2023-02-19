@@ -72,3 +72,13 @@ Route::get('/getDisappearStudents', [\Operator\Http\Controller\OperatorControlle
 
 
 Route::get('/student/card/{id}', [\Operator\Http\Controller\OperatorController::class, 'studentCardShow'])->middleware(['auth'])->name('operator.student.card.show');
+
+
+
+
+Route::get('/certificate/history', [\Operator\Http\Controller\OperatorController::class, 'certificateIndex'])->middleware(['auth'])->name('operator.certificateIndex');
+Route::post('/certificate/storeCertificateData', [\Operator\Http\Controller\OperatorController::class, 'storeCertificateData'])->middleware(['auth'])->name('operator.storeCertificateData');
+Route::get('/certificate/history/print/{id}', [\Operator\Http\Controller\OperatorController::class, 'printPartilipiCertificate'])->middleware(['auth'])->name('operator.certificateIndex.print');
+Route::get('/certificate/history/edit/{id}', [\Operator\Http\Controller\OperatorController::class, 'editCertificateData'])->middleware(['auth'])->name('operator.certificateIndex.edit');
+Route::post('/certificate/history/update', [\Operator\Http\Controller\OperatorController::class, 'updateCertificateData'])->middleware(['auth'])->name('operator.certificateIndex.update');
+Route::get('/certificate/history/add', [\Operator\Http\Controller\OperatorController::class, 'addPrintCertificate'])->middleware(['auth'])->name('operator.addPrintCertificate');

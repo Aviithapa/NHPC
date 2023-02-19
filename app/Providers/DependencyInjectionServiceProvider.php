@@ -15,7 +15,9 @@ use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
 use App\Modules\Backend\AdmitCard\Repositories\EloquentAdmitCardRepository;
 use App\Modules\Backend\Certificate\Repositories\CertificateRepository;
+use App\Modules\Backend\CertificateHistory\Repositories\EloquentCertificateHistoryRepository;
 use App\Modules\Backend\Certificate\Repositories\EloquentCertificateRepository;
+use App\Modules\Backend\CertificateHistory\Repositories\CertificateHistoryRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\EloquentExamRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\EloquentExamProcessingRepository;
@@ -78,31 +80,31 @@ class DependencyInjectionServiceProvider extends ServiceProvider
         );
 
 
-          $this->app->bind(
-                LevelRepository::class,
-                EloquentLevelRepository::class
-          );
+        $this->app->bind(
+            LevelRepository::class,
+            EloquentLevelRepository::class
+        );
 
-          $this->app->bind(
-              ProgramRepository::class,
-              EloquentProgramRepository::class
-          );
-          $this->app->bind(
-              CategoryRepository::class,
-              EloquentCategoryRepository::class
-          );
+        $this->app->bind(
+            ProgramRepository::class,
+            EloquentProgramRepository::class
+        );
+        $this->app->bind(
+            CategoryRepository::class,
+            EloquentCategoryRepository::class
+        );
 
-          $this->app->bind(
-              ProfileProcessingRepository::class,
-              EloquentProfileProcessingRepository::class,
+        $this->app->bind(
+            ProfileProcessingRepository::class,
+            EloquentProfileProcessingRepository::class,
 
-          );
+        );
 
 
         $this->app->bind(
             ProfileLogsRepository::class,
             EloquentProfileLogsRepository::class
-          );
+        );
 
         $this->app->bind(
             ExamRepository::class,
@@ -116,7 +118,7 @@ class DependencyInjectionServiceProvider extends ServiceProvider
 
         $this->app->bind(
             ExamProcessingDetailsRepository::class,
-              EloquentExamProcessingDetailsRepository::class
+            EloquentExamProcessingDetailsRepository::class
         );
 
         $this->app->bind(
@@ -152,6 +154,11 @@ class DependencyInjectionServiceProvider extends ServiceProvider
         $this->app->bind(
             SubjectCommitteeRepository::class,
             EloquentSubjectCommitteeRepository::class
+        );
+
+        $this->app->bind(
+            CertificateHistoryRepository::class,
+            EloquentCertificateHistoryRepository::class
         );
     }
 }

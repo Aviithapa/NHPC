@@ -112,13 +112,18 @@
                         <i class="icon-book-open"></i> <span>Subject Committee</span>
                     </a>
                 </li>
-
+{{-- 
                 <li class="{{ (request()->is('operator/dashboard/statusUpdateExam')) ? 'active':''  }}">
                     <a href="{{route("operator.statusUpdate")}}">
                         <i class="icon-book-open"></i> <span>Update Rejected List</span>
                     </a>
-                </li>
+                </li> --}}
 
+                 <li class="{{ (request()->is('operator/dashboard/certificate/history')) ? 'active':''  }}">
+                    <a href="{{route("operator.certificateIndex")}}">
+                        <i class="icon-book-open"></i> <span>Old Application New List</span>
+                    </a>
+                </li>
             @endif
 
 

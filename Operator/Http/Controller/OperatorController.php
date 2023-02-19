@@ -12,6 +12,7 @@ use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Certificate\Repositories\CertificateRepository;
+use App\Modules\Backend\CertificateHistory\Repositories\CertificateHistoryRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDetailsRepository;
@@ -30,7 +31,7 @@ class OperatorController extends BaseController
     private $log, $profileProcessing, $profileRepository,
         $userRepository, $qualificationRepository,
         $user_data, $profileLogsRepository, $programRepository,
-        $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository, $certificateRepository;
+        $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository, $certificateRepository, $certificateHistoryRepository;
 
     private $commonView = 'operator::pages.';
     private $commonMessage = 'Profile ';
@@ -62,7 +63,8 @@ class OperatorController extends BaseController
         ExamProcessingRepository $examProcessingRepository,
         ProgramRepository $programRepository,
         ExamProcessingDetailsRepository $examProcessingDetailsRepository,
-        CertificateRepository $certificateRepository
+        CertificateRepository $certificateRepository,
+        CertificateHistoryRepository $certificateHistoryRepository,
     ) {
         $this->viewData['commonRoute'] = $this->commonRoute;
         $this->viewData['commonView'] = 'operator::' . $this->commonView;
@@ -78,6 +80,7 @@ class OperatorController extends BaseController
         $this->examProcessingDetailsRepository = $examProcessingDetailsRepository;
         $this->programRepository = $programRepository;
         $this->certificateRepository = $certificateRepository;
+        $this->certificateHistoryRepository = $certificateHistoryRepository;
         parent::__construct();
     }
 
@@ -115,7 +118,7 @@ class OperatorController extends BaseController
             // ->havingRaw('COUNT(*) >= 2')
             // ->get();
 
-                // dd($re_apply_student_count);
+            // dd($re_apply_student_count);
             // $rejected = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             //     ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
             //     ->where('profile_processing.current_state', '=', 'computer_operator')
@@ -124,7 +127,7 @@ class OperatorController extends BaseController
             //                dd($rejected);
 
             $exams = DB::table('exam')->where('id', '>', '2')->get();
-          
+
             return view('operator::pages.dashboard', compact('exams'));
         } else {
             return redirect()->route('login');
@@ -201,7 +204,7 @@ class OperatorController extends BaseController
                     ->join('program', 'program.id', '=', 'exam_registration.program_id')
                     ->where('exam_registration.level_id', '=', 4)
                     ->get();
-            }else if ($status === 'accepted') {
+            } else if ($status === 'accepted') {
                 $data = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
                     ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
                     ->where('profile_processing.current_state', '!=', 'computer_operator')
@@ -252,7 +255,6 @@ class OperatorController extends BaseController
                     ->where('exam_registration.level_id', '=', 4)
                     ->get('profiles.id as profile_id')
                     ->unique('profile_id');
-
             } elseif ($level == 4) {
                 $data = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
                     //                    ->join('profile_processing','profile_processing.profile_id','=','profiles.id')
@@ -427,7 +429,7 @@ class OperatorController extends BaseController
             $profile_log['created_by'] = Auth::user()->id;
             $profile_id = $data['profile_id'];
             $exam_processing = '';
-        
+
             try {
                 $id = $data['profile_id'];
                 $data['created_by'] = Auth::user()->id;
@@ -850,8 +852,8 @@ class OperatorController extends BaseController
     public function printCertificate($id, $level)
     {
         $level_id = 0;
-        if($level == 1){
-          $level_id = 5;
+        if ($level == 1) {
+            $level_id = 5;
         }
         $certificate = Certificate::join('profiles', 'profiles.id', '=', 'certificate_history.profile_id')
             ->join('program', 'program.id', '=', 'certificate_history.program_id')
@@ -860,13 +862,13 @@ class OperatorController extends BaseController
             ->where('certificate_history.id', '=', $id)
             // ->where('registrant_qualification.program_id', '=', 'certificate_history.program_name')
             ->orderBy('certificate_history.id', 'ASC')
-            ->get(['certificate_history.*', 'certificate_history.name as certificate_name', 'certificate_history.program_name as certificate_program_name', 'profiles.*', 'program.name as Name_program', 'registrant_qualification.*', 'provinces.province_name', 'certificate_history.id as certificate_history_id', 'program.code_ as program_code', 'program.qualification as program_qualification','registrant_qualification.program_id as regis','certificate_history.program_id as certificate_program_id'])->first();
+            ->get(['certificate_history.*', 'certificate_history.name as certificate_name', 'certificate_history.program_name as certificate_program_name', 'profiles.*', 'program.name as Name_program', 'registrant_qualification.*', 'provinces.province_name', 'certificate_history.id as certificate_history_id', 'program.code_ as program_code', 'program.qualification as program_qualification', 'registrant_qualification.program_id as regis', 'certificate_history.program_id as certificate_program_id'])->first();
 
-            // dd();
-        $qualification = $this->qualificationRepository->getAll()->where('user_id','=', $certificate->user_id)->where('program_id','=', $certificate->certificate_program_id)->first();
-         if($qualification == null){
-            $qualification = $this->qualificationRepository->getAll()->where('level','=',$level)->where('user_id','=', $certificate->user_id)->first();
-         }
+        // dd();
+        $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $certificate->user_id)->where('program_id', '=', $certificate->certificate_program_id)->first();
+        if ($qualification == null) {
+            $qualification = $this->qualificationRepository->getAll()->where('level', '=', $level)->where('user_id', '=', $certificate->user_id)->first();
+        }
         //    dd($qualification, $certificate);
         //        $this->certificateRepository->findById($id);
         $profile = $this->profileRepository->findById($certificate['profile_id']);
@@ -1177,8 +1179,8 @@ class OperatorController extends BaseController
             $exam = $this->examProcessingRepository->findBy('profile_id', '=', $data['profile_id']);
             $profileProcesing  = $this->profileProcessingRepository->findBy('profile_id', '=', $data['profile_id'])->first();
 
-            foreach($exam as $exams)
-            $examUpdate =  $this->examProcessingRepository->update($data, $exams['id']);
+            foreach ($exam as $exams)
+                $examUpdate =  $this->examProcessingRepository->update($data, $exams['id']);
             $data['exam_id'] = $exam['id'];
             //   dd($id);
             $profileProcesingUpdate =  $this->profileRepository->update($profileData, $data['profile_id']);
@@ -1260,7 +1262,7 @@ class OperatorController extends BaseController
         $tasks =  Certificate::join('admit_card', 'admit_card.profile_id', 'certificate_history.profile_id')
             ->where('certificate_history.level_name', '=', 'Second')
             ->where('certificate_history.decision_date', '=', '2022-09-21')
-            ->whereDate('admit_card.created_at','!=',date('2022-07-01'))
+            ->whereDate('admit_card.created_at', '!=', date('2022-07-01'))
             ->get();
 
         $headers = array(
@@ -1271,7 +1273,7 @@ class OperatorController extends BaseController
             "Expires"             => "0"
         );
 
-        $columns = array('Name', 'Registration Number', ' Symbol Number', 'Date of Birth','Profile Id');
+        $columns = array('Name', 'Registration Number', ' Symbol Number', 'Date of Birth', 'Profile Id');
 
         $callback = function () use ($tasks, $columns) {
 
@@ -1352,17 +1354,18 @@ class OperatorController extends BaseController
         return redirect()->back();
     }
 
-    public function failedStudentList(){
+    public function failedStudentList()
+    {
         $students = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-        ->select('profile_id','exam_id','first_name','middle_name','last_name','dob_nep','status','state','level_id')
-        ->groupBy('profile_id', 'exam_id','first_name','middle_name','last_name','dob_nep','status','state', 'level_id')
-        // ->where('level_id','!=', '4')
-        ->where('exam_registration.state','=', 'exam_committee')
-        ->where('exam_registration.status','=','re-exam')
-        ->where('exam_registration.exam_id','=', 3)
-        ->get();
+            ->select('profile_id', 'exam_id', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
+            ->groupBy('profile_id', 'exam_id', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
+            // ->where('level_id','!=', '4')
+            ->where('exam_registration.state', '=', 'exam_committee')
+            ->where('exam_registration.status', '=', 're-exam')
+            ->where('exam_registration.exam_id', '=', 3)
+            ->get();
 
- 
+
 
         // $students = [];
         // foreach($datas as $data){
@@ -1374,100 +1377,116 @@ class OperatorController extends BaseController
         //                            ->where('exam_registration.state','=', 'computer_operator')->get();
         //         }
         //     }
-           
+
         // }
         return view('operator::pages.application-list-double', compact('students'));
     }
 
-    public function moveToCommittee(Request $request){
-
-
+    public function moveToCommittee(Request $request)
+    {
     }
 
 
-    public function examDetails($id){
-        $appliedCount = ExamProcessing::all()->where('exam_id','=',$id);
-        $rejectedCount = ExamProcessing::all()->where('status','=','rejected')->where('exam_id','=',$id);
+    public function examDetails($id)
+    {
+        $appliedCount = ExamProcessing::all()->where('exam_id', '=', $id);
+        $rejectedCount = ExamProcessing::all()->where('status', '=', 'rejected')->where('exam_id', '=', $id);
         $failedCount =  DB::table('exam_registration')
-        ->select('profile_id','exam_id', DB::raw('COUNT(*) as `count`'))
-        ->groupBy('profile_id', 'exam_id')
-        ->havingRaw('COUNT(*) >= 2')
-        ->get();
-        $operatorState = ExamProcessing::all()->where('exam_id','=',$id)->where('state','=','computer_operator')->where('status','!=','rejected');
-        $operatorAcceptedState = ExamProcessing::all()->where('exam_id','=',$id)->where('state','!=','computer_operator'); 
-        $operatorRejectedState = ExamProcessing::all()->where('exam_id','=',$id)->where('state','=','computer_operator')->where('status','=','rejected'); 
-        
+            ->select('profile_id', 'exam_id', DB::raw('COUNT(*) as `count`'))
+            ->groupBy('profile_id', 'exam_id')
+            ->havingRaw('COUNT(*) >= 2')
+            ->get();
+        $operatorState = ExamProcessing::all()->where('exam_id', '=', $id)->where('state', '=', 'computer_operator')->where('status', '!=', 'rejected');
+        $operatorAcceptedState = ExamProcessing::all()->where('exam_id', '=', $id)->where('state', '!=', 'computer_operator');
+        $operatorRejectedState = ExamProcessing::all()->where('exam_id', '=', $id)->where('state', '=', 'computer_operator')->where('status', '=', 'rejected');
+
         $levelWiseCount = $appliedCount->groupBy('level_id')->map->count();
         $programWiseCount = $appliedCount->groupBy('program_id')->map->count();
 
-        $examApplied = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-        ->where('exam_registration.exam_id','=',$id)
-        ->join('program','program.id','=','exam_registration.program_id')
-        ->where('exam_registration.state','=','subject_committee')
-        ->where('program.subject-committee_id','=','1')
-        ->count(['profiles.id']);
+        $examApplied = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->where('exam_registration.exam_id', '=', $id)
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->where('exam_registration.state', '=', 'subject_committee')
+            ->where('program.subject-committee_id', '=', '1')
+            ->count(['profiles.id']);
 
-        $GM = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-        ->where('exam_registration.exam_id','=',$id)
-        ->join('program','program.id','=','exam_registration.program_id')
-        ->where('exam_registration.state','=','subject_committee')
-        ->where('program.subject-committee_id','=','2')
-        ->count(['profiles.id']);
-
-
-            $lM = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-            ->where('exam_registration.exam_id','=',$id)
-            ->join('program','program.id','=','exam_registration.program_id')
-            ->where('exam_registration.state','=','subject_committee')
-            ->where('program.subject-committee_id','=','3')
+        $GM = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->where('exam_registration.exam_id', '=', $id)
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->where('exam_registration.state', '=', 'subject_committee')
+            ->where('program.subject-committee_id', '=', '2')
             ->count(['profiles.id']);
 
 
-            $radio = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-            ->where('exam_registration.exam_id','=',$id)
-            ->join('program','program.id','=','exam_registration.program_id')
-            ->where('exam_registration.state','=','subject_committee')
-            ->where('program.subject-committee_id','=','4')
+        $lM = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->where('exam_registration.exam_id', '=', $id)
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->where('exam_registration.state', '=', 'subject_committee')
+            ->where('program.subject-committee_id', '=', '3')
             ->count(['profiles.id']);
 
 
-            $opt = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-            ->where('exam_registration.exam_id','=',$id)
-            ->join('program','program.id','=','exam_registration.program_id')
-            ->where('exam_registration.state','=','subject_committee')
-            ->where('program.subject-committee_id','=','5')
+        $radio = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->where('exam_registration.exam_id', '=', $id)
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->where('exam_registration.state', '=', 'subject_committee')
+            ->where('program.subject-committee_id', '=', '4')
             ->count(['profiles.id']);
 
 
-            $den = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-            ->where('exam_registration.exam_id','=',$id)
-            ->join('program','program.id','=','exam_registration.program_id')
-            ->where('exam_registration.state','=','subject_committee')
-            ->where('program.subject-committee_id','=','6')
+        $opt = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->where('exam_registration.exam_id', '=', $id)
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->where('exam_registration.state', '=', 'subject_committee')
+            ->where('program.subject-committee_id', '=', '5')
             ->count(['profiles.id']);
 
 
-            $phy = ExamProcessing::join('profiles','profiles.id','=','exam_registration.profile_id')
-            ->where('exam_registration.exam_id','=',$id)
-            ->join('program','program.id','=','exam_registration.program_id')
-            ->where('exam_registration.state','=','subject_committee')
-            ->where('program.subject-committee_id','=','7')
+        $den = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->where('exam_registration.exam_id', '=', $id)
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->where('exam_registration.state', '=', 'subject_committee')
+            ->where('program.subject-committee_id', '=', '6')
             ->count(['profiles.id']);
 
-            $student = ExamProcessing::select('profile_id','exam_id','status','state')
-            ->groupBy('profile_id', 'exam_id','status','state')
+
+        $phy = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->where('exam_registration.exam_id', '=', $id)
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->where('exam_registration.state', '=', 'subject_committee')
+            ->where('program.subject-committee_id', '=', '7')
+            ->count(['profiles.id']);
+
+        $student = ExamProcessing::select('profile_id', 'exam_id', 'status', 'state')
+            ->groupBy('profile_id', 'exam_id', 'status', 'state')
             // ->where('level_id','!=', '4')
-            ->where('exam_registration.state','=', 'exam_committee')
-            ->where('exam_registration.status','=','re-exam')
-            ->where('exam_registration.exam_id','=', 3)
+            ->where('exam_registration.state', '=', 'exam_committee')
+            ->where('exam_registration.status', '=', 're-exam')
+            ->where('exam_registration.exam_id', '=', 3)
             ->get();
 
-        return view('operator::pages.exam.show',compact('appliedCount', 'rejectedCount','failedCount',
-         'operatorState', 'operatorAcceptedState', 'operatorRejectedState', 'levelWiseCount', 'programWiseCount','id',
-         'examApplied','GM','lM','radio','opt','den','phy', 'student'));
+        return view('operator::pages.exam.show', compact(
+            'appliedCount',
+            'rejectedCount',
+            'failedCount',
+            'operatorState',
+            'operatorAcceptedState',
+            'operatorRejectedState',
+            'levelWiseCount',
+            'programWiseCount',
+            'id',
+            'examApplied',
+            'GM',
+            'lM',
+            'radio',
+            'opt',
+            'den',
+            'phy',
+            'student'
+        ));
     }
 
-    public function getProgramStudent($id,$exam_id)
+    public function getProgramStudent($id, $exam_id)
     {
         $students = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             ->where('exam_registration.program_id', '=', $id)
@@ -1478,50 +1497,52 @@ class OperatorController extends BaseController
         return view('operator::pages.program-student', compact('students'));
     }
 
-    public function getDisappearStudents(){
+    public function getDisappearStudents()
+    {
         $students  =  Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
-        ->where('profiles.profile_state','=','officer')
-        ->where('exam_registration.state','=','computer_operator')
-        ->join('program', 'program.id', '=', 'exam_registration.program_id')
-        ->where('exam_registration.exam_id','=',3)
-        ->get(['profiles.*', 'program.name as program_name', 'profiles.id as profile_id']);
+            ->where('profiles.profile_state', '=', 'officer')
+            ->where('exam_registration.state', '=', 'computer_operator')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->where('exam_registration.exam_id', '=', 3)
+            ->get(['profiles.*', 'program.name as program_name', 'profiles.id as profile_id']);
         return view('operator::pages.program-student', compact('students'));
     }
 
 
-    public function programWiseStudentCountCSV(Request $request){
+    public function programWiseStudentCountCSV(Request $request)
+    {
         $fileName = 'programWiseStudentCount.csv';
         $query =  ExamProcessing::query()->select(\DB::raw("COUNT(program_id) as count"), \DB::raw("program_id as program_id"))
             ->groupBy('program_id')
             ->orderBy('count')
             ->where('level_id', '<=', 3)
-            ->where('exam_id','=',$request->exam_id);
-            if ($request->computer_operator != null) {
-                $query->where('exam_registration.state', '!=', $request->computer_operator );
-            }
-            if ($request->officer != null) {
-                $query->where('exam_registration.state', '!=', $request->officer);
-            }
-            if ($request->registrar != null) {
-                $query->where('exam_registration.state', '!=',  $request->registar);
-            }
-            if ($request->subject_committee != null) {
-                $query->where('exam_registration.state', '!=' , $request->subject_committee );
-            }
-            if ($request->exam_committee != null) {
-                $query->where('exam_registration.state', '!=' ,  $request->exam_committee );
-            }
-            if ($request->council != null) {
-                $query->where('exam_registration.state', '!=', $request->council);
-            }
-            if ($request->rejected != null) {
-                $query->where('exam_registration.status', '!=', $request->rejected);
-            }
-            if ($request->progress != null) {
-                $query->where('exam_registration.status', '!=', $request->progress);
-            }
-            
-           $tasks = $query->get();
+            ->where('exam_id', '=', $request->exam_id);
+        if ($request->computer_operator != null) {
+            $query->where('exam_registration.state', '!=', $request->computer_operator);
+        }
+        if ($request->officer != null) {
+            $query->where('exam_registration.state', '!=', $request->officer);
+        }
+        if ($request->registrar != null) {
+            $query->where('exam_registration.state', '!=',  $request->registar);
+        }
+        if ($request->subject_committee != null) {
+            $query->where('exam_registration.state', '!=', $request->subject_committee);
+        }
+        if ($request->exam_committee != null) {
+            $query->where('exam_registration.state', '!=',  $request->exam_committee);
+        }
+        if ($request->council != null) {
+            $query->where('exam_registration.state', '!=', $request->council);
+        }
+        if ($request->rejected != null) {
+            $query->where('exam_registration.status', '!=', $request->rejected);
+        }
+        if ($request->progress != null) {
+            $query->where('exam_registration.status', '!=', $request->progress);
+        }
+
+        $tasks = $query->get();
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -1554,41 +1575,42 @@ class OperatorController extends BaseController
         return response()->stream($callback, 200, $headers);
     }
 
-    public function studentDetailCSV(Request $request){
+    public function studentDetailCSV(Request $request)
+    {
         $fileName = 'StudentDetail.csv';
         $query =  ExamProcessing::query()
-            ->join('profiles','profiles.id','=','exam_registration.profile_id')
+            ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             ->where('level_id', '<=', 3)
-            ->where('exam_id','=',$request->exam_id) 
+            ->where('exam_id', '=', $request->exam_id)
             ->join('level', 'level.id', '=', 'exam_registration.level_id')
             ->join('users', 'users.id', '=', 'profiles.user_id');
-            if ($request->computer_operator != null) {
-                $query->where('exam_registration.state', '=', $request->computer_operator );
-            }
-            if ($request->officer != null) {
-                $query->where('exam_registration.state', '=', $request->officer);
-            }
-            if ($request->registrar != null) {
-                $query->where('exam_registration.state', '=',  $request->registar);
-            }
-            if ($request->subject_committee != null) {
-                $query->where('exam_registration.state', '=' , $request->subject_committee );
-            }
-            if ($request->exam_committee != null) {
-                $query->where('exam_registration.state', '=' ,  $request->exam_committee );
-            }
-            if ($request->council != null) {
-                $query->where('exam_registration.state', '=', $request->council);
-            }
-            if ($request->rejected != null) {
-                $query->where('exam_registration.status', '=', $request->rejected);
-            }
-            if ($request->progress != null) {
-                $query->where('exam_registration.status', '=', $request->progress);
-            }
-           
-            
-           $tasks = $query ->get(['level.name as level_name', 'profiles.*', 'users.email as email', 'users.phone_number as phone_number','exam_registration.*', 'exam_registration.id as exam_regisration_id']);;
+        if ($request->computer_operator != null) {
+            $query->where('exam_registration.state', '=', $request->computer_operator);
+        }
+        if ($request->officer != null) {
+            $query->where('exam_registration.state', '=', $request->officer);
+        }
+        if ($request->registrar != null) {
+            $query->where('exam_registration.state', '=',  $request->registar);
+        }
+        if ($request->subject_committee != null) {
+            $query->where('exam_registration.state', '=', $request->subject_committee);
+        }
+        if ($request->exam_committee != null) {
+            $query->where('exam_registration.state', '=',  $request->exam_committee);
+        }
+        if ($request->council != null) {
+            $query->where('exam_registration.state', '=', $request->council);
+        }
+        if ($request->rejected != null) {
+            $query->where('exam_registration.status', '=', $request->rejected);
+        }
+        if ($request->progress != null) {
+            $query->where('exam_registration.status', '=', $request->progress);
+        }
+
+
+        $tasks = $query->get(['level.name as level_name', 'profiles.*', 'users.email as email', 'users.phone_number as phone_number', 'exam_registration.*', 'exam_registration.id as exam_regisration_id']);;
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -1598,15 +1620,17 @@ class OperatorController extends BaseController
             "Expires"             => "0"
         );
 
-        $columns = array('Name', 'Father Name', 'Mother Name', 'Date of Birth' , 
-        'Gender' , 'Citizenship' , 'Program Name' , 'Level','Email', 'Phone Number', 'State', 'Status', 'Symbol Number');
+        $columns = array(
+            'Name', 'Father Name', 'Mother Name', 'Date of Birth',
+            'Gender', 'Citizenship', 'Program Name', 'Level', 'Email', 'Phone Number', 'State', 'Status', 'Symbol Number'
+        );
 
         $callback = function () use ($tasks, $columns) {
 
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
             foreach ($tasks as $task) {
-                $row['Name'] = $task->first_name .' '. $task->middle_name . '' . $task->last_name;
+                $row['Name'] = $task->first_name . ' ' . $task->middle_name . '' . $task->last_name;
                 $row['Father Name'] = $task->father_name;
                 $row['Mother Name'] = $task->mother_name;
                 $row['Date of Birth'] = $task->dob_nep;
@@ -1625,18 +1649,18 @@ class OperatorController extends BaseController
 
                 fputcsv($file, array(
                     $row['Name'],
-                    $row['Father Name'] ,
-                    $row['Mother Name'] ,
-                    $row['Date of Birth'] ,
-                    $row['Gender'] ,
-                    $row['Citizenship'] ,
+                    $row['Father Name'],
+                    $row['Mother Name'],
+                    $row['Date of Birth'],
+                    $row['Gender'],
+                    $row['Citizenship'],
                     $row['program_name'],
-                    $row['Level']  ,
-                    $row['Email'] ,
-                    $row['Phone Number'] ,
+                    $row['Level'],
+                    $row['Email'],
+                    $row['Phone Number'],
                     $row['State'],
-                    $row['Status'] ,
-                    $row['Symbol Number'] 
+                    $row['Status'],
+                    $row['Symbol Number']
                 ));
             }
 
@@ -1647,14 +1671,73 @@ class OperatorController extends BaseController
     }
 
 
-    public function studentCardShow($id){
+    public function studentCardShow($id)
+    {
         $data = Certificate::where('certificate_history.id', '=', $id)
-        ->get()->first();
-        $exam = ExamProcessing::where('profile_id','=', $data['profile_id'])->where('status','=','accepted')->where('state', '=','council')->first();
+            ->get()->first();
+        $exam = ExamProcessing::where('profile_id', '=', $data['profile_id'])->where('status', '=', 'accepted')->where('state', '=', 'council')->first();
         $profile = $this->profileRepository->findById($data['profile_id']);
 
-        return view('operator::pages.id-card', compact('data','profile', 'exam'));
-    
+        return view('operator::pages.id-card', compact('data', 'profile', 'exam'));
     }
-  
+
+
+
+    public function certificateIndex()
+    {
+
+        $data = $this->certificateHistoryRepository->getAll();
+        return view('operator::pages.certificate.index', compact('data'));
+    }
+
+    public function printPartilipiCertificate($id)
+    {
+        $data = $this->certificateHistoryRepository->findById($id);
+        return view('operator::pages.certificate.print', compact('data'));
+    }
+
+    public function addPrintCertificate()
+    {
+        return view('operator::pages.certificate.form');
+    }
+
+    public function storeCertificateData(Request $request)
+    {
+        $data = $request->all();
+        try {
+            $certificate = $this->certificateHistoryRepository->create($data);
+            if ($certificate == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            return redirect()->route("operator.certificateIndex");
+        } catch (Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function editCertificateData($id)
+    {
+        $data = $this->certificateHistoryRepository->findById($id);
+        return view('operator::pages.certificate.edit', compact('data'));
+    }
+
+
+    public function updateCertificateData(Request $request)
+    {
+        $data = $request->all();
+        $id = $data['id'];
+        try {
+            $certificate = $this->certificateHistoryRepository->update($data, $id);
+            if ($certificate == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            return redirect()->route("operator.certificateIndex");
+        } catch (Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
 }
