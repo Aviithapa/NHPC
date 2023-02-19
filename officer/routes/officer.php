@@ -35,3 +35,13 @@ Route::post('/program/student/csv', [\officer\Http\Controller\OfficerController:
 
 
 Route::match(['get', 'post'], '/search/lost/students', [SearchController::class, "searchStudent"])->middleware(['auth'])->name('search.lost.students.officer');
+
+
+
+
+Route::get('/certificate/history', [\officer\Http\Controller\OfficerController::class, 'certificateIndex'])->middleware(['auth'])->name('officer.certificateIndex');
+Route::post('/certificate/storeCertificateData', [\officer\Http\Controller\OfficerController::class, 'storeCertificateData'])->middleware(['auth'])->name('officer.storeCertificateData');
+Route::get('/certificate/history/print/{id}', [\officer\Http\Controller\OfficerController::class, 'printPartilipiCertificate'])->middleware(['auth'])->name('officer.certificateIndex.print');
+Route::get('/certificate/history/edit/{id}', [\officer\Http\Controller\OfficerController::class, 'editCertificateData'])->middleware(['auth'])->name('officer.certificateIndex.edit');
+Route::post('/certificate/history/update', [\officer\Http\Controller\OfficerController::class, 'updateCertificateData'])->middleware(['auth'])->name('officer.certificateIndex.update');
+Route::get('/certificate/history/add', [\officer\Http\Controller\OfficerController::class, 'addPrintCertificate'])->middleware(['auth'])->name('officer.addPrintCertificate');

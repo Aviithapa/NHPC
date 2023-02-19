@@ -11,11 +11,13 @@ use App\Models\Profile\ProfileProcessing;
 use App\Models\SubjectCommittee\SubjectCommittee;
 use App\Models\SubjectCommittee\SubjectCommitteeUser;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
+use App\Modules\Backend\CertificateHistory\Repositories\CertificateHistoryRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDetailsRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Operator\Modules\Framework\Request;
@@ -29,7 +31,7 @@ class OfficerController  extends BaseController
         $profileRepository, $userRepository,
         $qualificationRepository, $user_data,
         $profileLogsRepository, $profileProcessingRepository,
-        $examRepository, $examProcessingRepository, $examProcessingDetailsRepository;
+        $examRepository, $examProcessingRepository, $examProcessingDetailsRepository, $certificateHistoryRepository;
     private $viewData, $exam_processing;
 
     /**
@@ -52,7 +54,8 @@ class OfficerController  extends BaseController
         ProfileProcessingRepository $profileProcessingRepository,
         ExamRepository $examRepository,
         ExamProcessingRepository $examProcessingRepository,
-        ExamProcessingDetailsRepository $examProcessingDetailsRepository
+        ExamProcessingDetailsRepository $examProcessingDetailsRepository,
+        CertificateHistoryRepository $certificateHistoryRepository
     ) {
         $this->profileRepository = $profileRepository;
         $this->userRepository = $userRepository;
@@ -62,6 +65,7 @@ class OfficerController  extends BaseController
         $this->examRepository = $examRepository;
         $this->examProcessingRepository = $examProcessingRepository;
         $this->examProcessingDetailsRepository = $examProcessingDetailsRepository;
+        $this->certificateHistoryRepository = $certificateHistoryRepository;
         parent::__construct();
     }
 
@@ -841,5 +845,64 @@ class OfficerController  extends BaseController
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+
+    public function certificateIndex()
+    {
+
+        $data = $this->certificateHistoryRepository->getAll();
+        return view('officer::pages.certificate.index', compact('data'));
+    }
+
+    public function printPartilipiCertificate($id)
+    {
+        $data = $this->certificateHistoryRepository->findById($id);
+        return view('officer::pages.certificate.print', compact('data'));
+    }
+
+    public function addPrintCertificate()
+    {
+        return view('officer::pages.certificate.form');
+    }
+
+    public function storeCertificateData(Request $request)
+    {
+        $data = $request->all();
+        try {
+            $certificate = $this->certificateHistoryRepository->create($data);
+            if ($certificate == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            return redirect()->route("officer.certificateIndex");
+        } catch (Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function editCertificateData($id)
+    {
+        $data = $this->certificateHistoryRepository->findById($id);
+        return view('officer::pages.certificate.edit', compact('data'));
+    }
+
+
+    public function updateCertificateData(Request $request)
+    {
+        $data = $request->all();
+        $id = $data['id'];
+        try {
+            $certificate = $this->certificateHistoryRepository->update($data, $id);
+            if ($certificate == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            return redirect()->route("officer.certificateIndex");
+        } catch (Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
     }
 }

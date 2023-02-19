@@ -65,6 +65,11 @@
                     <i class="icon-book-open"></i> <span>Subject Committee</span>
                 </a>
             </li>
+            <li class="{{ (request()->is('officer/dashboard/certificate/history')) ? 'active':''  }}">
+                    <a href="{{route("officer.certificateIndex")}}">
+                        <i class="icon-book-open"></i> <span>Old Application New List</span>
+                    </a>
+                </li>
            
         </ul>
     </div>
