@@ -241,7 +241,7 @@ class CouncilController extends BaseController
         foreach ($students as $student) {
             $srn_number = 0;
             $srn = 0;
-            $date = '2022-09-21';
+            $date = '2023-02-11';
             $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
             $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
             $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
@@ -467,5 +467,77 @@ class CouncilController extends BaseController
             $updatedDecisionDate = $this->certificateRepository->update($data, $pass['id']);
         }
         return redirect()->back();
+    }
+
+    public function exportAllExamPassedList()
+    {
+        if (Auth::user()->mainRole()->name === 'council') {
+            $fileName = 'PassedList.csv';
+
+            $tasks = ExamProcessing::all()->where('state', '=', 'council')
+                ->where('status', '=', 'progress')
+                ->where('level_id', '!=', 4)
+                ->take(100)
+                ->skip(0);
+
+            $headers = array(
+                "Content-type"        => "text/csv",
+                "Content-Disposition" => "attachment; filename=$fileName",
+                "Pragma"              => "no-cache",
+                "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+                "Expires"             => "0"
+            );
+
+            $columns = array(
+                'Name', 'Father Name', 'Mother Name', 'Date of Birth',
+                'Gender', 'Citizenship', 'Program Name', 'Level', 'Email', 'Phone Number', 'State', 'Status', 'Symbol Number'
+            );
+
+            $callback = function () use ($tasks, $columns) {
+
+                $file = fopen('php://output', 'w');
+                fputcsv($file, $columns);
+                foreach ($tasks as $task) {
+                    $row['Name'] = $task->first_name . ' ' . $task->middle_name . '' . $task->last_name;
+                    $row['Father Name'] = $task->father_name;
+                    $row['Mother Name'] = $task->mother_name;
+                    $row['Date of Birth'] = $task->dob_nep;
+                    $row['Gender'] = $task->sex;
+                    $row['Citizenship'] = $task->citizenship_number;
+                    $row['program_name'] = getProgramName($task->program_id);
+                    $row['Level'] = $task->level_name;
+                    $row['Email'] = $task->email;
+                    $row['Phone Number'] = $task->phone_number;
+                    $row['State'] = $task->state;
+                    $row['Status'] = $task->status;
+                    $row['Symbol Number'] = getSymbolNo($task->exam_regisration_id);
+
+
+
+
+                    fputcsv($file, array(
+                        $row['Name'],
+                        $row['Father Name'],
+                        $row['Mother Name'],
+                        $row['Date of Birth'],
+                        $row['Gender'],
+                        $row['Citizenship'],
+                        $row['program_name'],
+                        $row['Level'],
+                        $row['Email'],
+                        $row['Phone Number'],
+                        $row['State'],
+                        $row['Status'],
+                        $row['Symbol Number']
+                    ));
+                }
+
+                fclose($file);
+            };
+
+            return response()->stream($callback, 200, $headers);
+        } else {
+            return redirect()->route('login');
+        }
     }
 }

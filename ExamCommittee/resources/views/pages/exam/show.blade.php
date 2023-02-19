@@ -34,6 +34,22 @@
                          <div class="col-lg-4 col-xs-6 m-b-3">
                             <div class="card">
                                 <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
+                                    <div class="info-box-content"> <span class="info-box-number">{{ isset($passedCount) ? count($passedCount) : 'No Data Yet ' }}</span>
+                                        <span class="info-box-text">Total Passed Student</span></div>
+                                </div>
+                            </div>
+                         </div>
+                         <div class="col-lg-4 col-xs-6 m-b-3">
+                            <div class="card">
+                                <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
+                                    <div class="info-box-content"> <span class="info-box-number">{{ isset($failedCount) ? count($failedCount) : 'No Data Yet' }}</span>
+                                        <span class="info-box-text">Total Failed Student</span></div>
+                                </div>
+                            </div>
+                         </div>
+                         <div class="col-lg-4 col-xs-6 m-b-3">
+                            <div class="card">
+                                <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
                                     <div class="info-box-content"> <span class="info-box-number">{{ isset($admitCardGeneratedCount) ? $admitCardGeneratedCount : '' }}</span>
                                         <span class="info-box-text">Total Admit Card Generated Student</span></div>
                                 </div>

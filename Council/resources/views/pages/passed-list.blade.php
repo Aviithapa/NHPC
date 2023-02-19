@@ -20,9 +20,13 @@
                 <div class="col-lg-12 m-b-3">
                     <div class="box box-info">
                         <div class="row">
-                            <div class="col-lg-12 m-b-3 ml-4">
+                            <div class="col-lg-4 m-b-3 ml-4">
                                 <a href="{{route("council.move.to.darta.book")}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
                                     Move to Dartabook</a>
+                            </div>
+                             <div class="col-lg-4 m-b-3 ml-4">
+                                <a href="{{route("council.move.to.darta.book")}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
+                                    Export Passed List</a>
                             </div>
                         </div>
                         <div class="float-lg-right">
@@ -40,7 +44,6 @@
                                     <td>Symbol Number</td>
                                     <td>Gender</td>
                                     <td>Program Name</td>
-                                    <td>Level</td>
                                     </thead>
                                     <tbody>
                                     @if($data === null)
@@ -59,7 +62,6 @@
                                                 <td>{{$exam->getSymbolNumber()}}</td>
                                                 <td>{{$exam->getGender()}}</td>
                                                 <td>{{$exam->getProgramName()}}</td>
-                                                <td>{{$exam->getLevelName()}}</td>
                                             </tr>
                                         @endforeach
                                     @endif

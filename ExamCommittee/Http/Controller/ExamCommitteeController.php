@@ -458,7 +458,10 @@ class  ExamCommitteeController extends BaseController
 
     public function examDetails($id)
     {
-        $appliedCount = ExamProcessing::all()->where('exam_id', '=', $id)->where('state', '=', 'exam_committee')->where('status', '=', 'progress')->where('level_id', '<=', 3);
+        $appliedCount = ExamProcessing::all()->where('exam_id', '=', $id)->where('level_id', '<=', 3);
+        $passedCount = ExamProcessing::all()->where('exam_id', '=', $id)->where('level_id', '<=', 3)->where('state', '=', 'council');
+        $failedCount = ExamProcessing::all()->where('exam_id', '=', $id)->where('level_id', '<=', 3)->where('state', '=', 'exam_committee')->where('status', '=', 'rejected');
+
 
         $levelWiseCount = $appliedCount->groupBy('level_id')->map->count();
         $programWiseCount = $appliedCount->groupBy('program_id')->map->count();
@@ -469,7 +472,9 @@ class  ExamCommitteeController extends BaseController
             'levelWiseCount',
             'programWiseCount',
             'id',
-            'admitCardGeneratedCount'
+            'admitCardGeneratedCount',
+            'passedCount',
+            'failedCount'
         ));
     }
 
