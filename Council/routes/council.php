@@ -21,3 +21,7 @@ Route::match(['get', 'post'], '/officer/minute/applicant/list/{id}/{date?}', [\C
 
 
 Route::get('/FileChangeCouncilDate', [\Council\Http\Controller\CouncilController::class, 'FileChangeCouncilDate'])->middleware(['auth'])->name('council.FileChangeCouncilDate');
+
+
+
+Route::get('/councilFile', [\Council\Http\Controller\CouncilController::class, 'getAll'])->middleware(['auth'])->name('council.councilFile');

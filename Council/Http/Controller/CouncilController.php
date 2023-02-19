@@ -538,4 +538,10 @@ class CouncilController extends BaseController
             return redirect()->route('login');
         }
     }
+
+    public function getAll()
+    {
+        $data = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-02-11');
+        dd(count($data), $data);
+    }
 }
