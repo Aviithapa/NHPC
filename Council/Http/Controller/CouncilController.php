@@ -541,7 +541,10 @@ class CouncilController extends BaseController
 
     public function getAll()
     {
-        $data = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-02-11');
-        dd(count($data), $data);
+        $datas = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-02-11');
+        foreach ($datas as $data) {
+            $this->certificateRepository->delete($data->id);
+        }
+        return redirect()->back();
     }
 }
