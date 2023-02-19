@@ -466,7 +466,7 @@ class  ExamCommitteeController extends BaseController
         $levelWiseCount = $appliedCount->groupBy('level_id')->map->count();
         $programWiseCount = $appliedCount->groupBy('program_id')->map->count();
 
-        $admitCardGeneratedCount = ExamProcessing::all()->where('exam_id', '=', $id)->where('state', '=', 'exam_committee')->where('status', '=', 'progress')->where('is_admit_card_generate', '=', 'yes')->count();
+        $admitCardGeneratedCount = ExamProcessing::all()->where('exam_id', '=', $id)->where('is_admit_card_generate', '=', 'yes')->count();
         return view('examCommittee::pages.exam.show', compact(
             'appliedCount',
             'levelWiseCount',
