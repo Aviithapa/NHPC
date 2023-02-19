@@ -34,8 +34,8 @@
 {{--                                <a href="{{route("examCommittee.export")}}" class="btn btn-primary  mt-2"><i class="fa fa-book"></i>--}}
 {{--                                    Export to Csv</a>--}}
 
-                                <a href="{{route('examCommittee.export')}}" ><span class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
-                                    Export to csv File</span> </a>
+                                {{-- <a href="{{route('examCommittee.export')}}" ><span class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
+                                    Export to csv File</span> </a> --}}
                             </div>
                         </div>
                         <!-- /.box-header -->
