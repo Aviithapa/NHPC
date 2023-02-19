@@ -188,6 +188,7 @@ class CouncilController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'council') {
 
+            $program = Program::get();
             if ($request->isMethod('post')) {
                 $data = ExamProcessing::query()->where('state', '=', 'council')
                     ->where('status', '=', 'progress')
@@ -212,7 +213,7 @@ class CouncilController extends BaseController
                 ->where('status', '=', 'progress')
                 ->where('level_id', '!=', 4)->count();
 
-            return \view('council::pages.passed-list', compact('data', 'count'));
+            return \view('council::pages.passed-list', compact('data', 'count', 'program'));
         } else {
             return redirect()->route('login');
         }
