@@ -6,6 +6,7 @@ namespace Council\Http\Controller;
 
 use App\Exports\ResultExport;
 use App\Imports\ResultImport;
+use App\Models\Admin\Program;
 use App\Models\Certificate\Certificate;
 use App\Models\Certificate\CertificateHistory;
 use App\Models\Exam\ExamProcessing;
@@ -183,19 +184,34 @@ class CouncilController extends BaseController
             return redirect()->route('login');
         }
     }
-    public function getallExamPassedList()
+    public function getallExamPassedList(Request $request)
     {
         if (Auth::user()->mainRole()->name === 'council') {
 
+            if ($request->isMethod('post')) {
+                $data = ExamProcessing::query()->where('state', '=', 'council')
+                    ->where('status', '=', 'progress')
+                    ->where('level_id', '!=', 4);
+                if ($request->level != null) {
+                    $data->where('level_id', 'like', $request->level);
+                    $program = Program::get()->where('level_id', '=',  $request->level);
+                }
+                if ($request->program != null) {
+                    $data->where('program_id', 'like', $request->program);
+                }
+            } else {
+
+
+                $data = ExamProcessing::all()->where('state', '=', 'council')
+                    ->where('status', '=', 'progress')
+                    ->where('level_id', '!=', 4)
+                    ->take(100)
+                    ->skip(0);
+            }
             $count = ExamProcessing::all()->where('state', '=', 'council')
                 ->where('status', '=', 'progress')
                 ->where('level_id', '!=', 4)->count();
 
-            $data = ExamProcessing::all()->where('state', '=', 'council')
-                ->where('status', '=', 'progress')
-                ->where('level_id', '!=', 4)
-                ->take(100)
-                ->skip(0);
             return \view('council::pages.passed-list', compact('data', 'count'));
         } else {
             return redirect()->route('login');
