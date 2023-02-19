@@ -214,6 +214,7 @@ class CouncilController extends BaseController
 
     public function moveToDartaBook()
     {
+        dd("you are here");
 
         // try {
         //code...
