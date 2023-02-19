@@ -64,7 +64,7 @@ class OperatorController extends BaseController
         ProgramRepository $programRepository,
         ExamProcessingDetailsRepository $examProcessingDetailsRepository,
         CertificateRepository $certificateRepository,
-        CertificateHistoryRepository $certificateHistoryRepository,
+        CertificateHistoryRepository $certificateHistoryRepository
     ) {
         $this->viewData['commonRoute'] = $this->commonRoute;
         $this->viewData['commonView'] = 'operator::' . $this->commonView;
