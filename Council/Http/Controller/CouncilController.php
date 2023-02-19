@@ -6,6 +6,8 @@ namespace Council\Http\Controller;
 
 use App\Exports\ResultExport;
 use App\Imports\ResultImport;
+use App\Models\AdmitCard\AdmitCard;
+use App\Models\AdmitCard\ExamResult;
 use App\Models\Certificate\Certificate;
 use App\Models\Certificate\CertificateHistory;
 use App\Models\Exam\ExamProcessing;
@@ -541,10 +543,17 @@ class CouncilController extends BaseController
 
     public function getAll()
     {
-        $datas = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-02-11');
-        foreach ($datas as $data) {
-            $this->certificateRepository->delete($data->id);
+        $data['state'] = 'council';
+        $data['current_state'] = 'council';
+        $data['isPassed'] = true;
+        $passed_list = ExamResult::all()->where('status', '=', 'PASSED')->where('remarks', '=', '3');
+        dd($passed_list, count($passed_list));
+        foreach ($passed_list as $pass) {
+            $admit_card = AdmitCard::all()->where('symbol_number', '=', $pass['symbol_number']);
+            foreach ($admit_card as $admit) {
+                $examProcesing = $this->examProcessingRepository->update($data, $admit['exam_processing_id']);
+                $profileProcessing = $this->profileRepository->update($data, $admit['profile_id']);
+            }
         }
-        return redirect()->back();
     }
 }
