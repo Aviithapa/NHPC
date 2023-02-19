@@ -209,7 +209,7 @@ class CouncilController extends BaseController
                     ->take(100)
                     ->skip(0);
             }
-            dd($data);
+            // dd($data);
             $count = ExamProcessing::all()->where('state', '=', 'council')
                 ->where('status', '=', 'progress')
                 ->where('level_id', '!=', 4)->count();
