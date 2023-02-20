@@ -481,7 +481,6 @@
                                                         @break
                                                    @endswitch
                                                    <td>{{ ++$count }}</td>
-                                                                         <td>{{ ++$count }}</td>
                                                                     <td>{{$exam->getExamName()}}</td>
                                                                     <td><img src="{{$exam->getVoucherImage()}}" onclick="onClick(this)"  alt="voucher image" height="150" width="150"/></td>
                                                                     <td>{{$exam->created_at}}</td>
