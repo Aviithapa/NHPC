@@ -27,7 +27,7 @@
                 </div>
                 <div class="logo" style="width: 70%; float:left; line-height:1.0;">
                     <span style="font-size: 14px;">Nepal Health Professional Council </span><br>
-                    <span style="font-size: 11px;">(Nepal Health Professional Council, Act-2053)</span><br>
+                    <span style="font-size: 11px;">Established by Nepal Health Professional Council Act.2053</span><br>
                     <span style="font-size: 10px;">Bansbari, Kathmandu, Tel: 4373118</span>
                     <div style="background:red; margin-top:6px; font-size:12px; padding:3px; border-radius: 5px; margin-left:28%; margin-right:28%;"> 
                         <span style= "font-weight: bold; color:white;" >IDENTITY CARD</span>
@@ -47,9 +47,10 @@
                     <span>Signature       : ....................................................</span></br>
                    
                 </div>
-                <div class="logo" style="width: 20%;float:left; text-align:center; font-size:11px;">
+               <div class="logo" style="width: 20%;float:left; text-align:center; font-size:11px; margin-top:-15px;">
+                    <span style="z-index: 2000;"> <img src="https://nhpc.gov.np/beta//assets/img/nhpc_logo.jpg" class="logo" width="25px" height="25px" style="margin-bottom: -30px; z-index: 10000; margin-left:45px;"></span></br>
                     <img class="img-responsive" width="90" height="90" style="margin-top: 20px;" src={{ $profile->getProfileImage() }}></br>
-                    <span>.........................</span></br>
+                    <span style="z-index: 2000; "> <img src="http://103.175.192.52/storage/documents/tKtyJYTTE9JiesiME3bLts5EMNGQgL3IQV6BF5Qp.png" class="signature" width="50px" height="25px" style="margin-top: -30px; z-index: 10000;"></span></br>
                     <span>Registrar</span>
                 </div>
               </div>
