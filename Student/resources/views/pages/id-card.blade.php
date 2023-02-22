@@ -1,11 +1,11 @@
-@extends('operator::layout.app')
+@extends('student::layout.app')
 
 @section('content')
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header sty-one">
-        <h1>Operator Dashboard</h1>
+        <h1>Student Dashboard</h1>
         <ol class="breadcrumb">
             <li><a href="#">Home</a></li>
             <li><i class="fa fa-angle-right"></i>ID Card</li>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="logo" style="width: 15%;float:left; justify-content:center; margin-top:10px;">
-                    {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(60)->generate('Name :- ' .  $data->name . ' Date of Birth :- ' .$profile->dob_nep .  ' Licence Number : -' . $data->cert_registration_number ) !!}
+                    {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(60)->generate('Name :- ' .  $data->name . ' Expired at :- ' .$data->valid_till .  ' Licence Number : -' . $data->cert_registration_number ) !!}
                 </div>
               </div>
               <div class= "body" style="width:100%; margin-top:20px;">
@@ -48,10 +48,10 @@
                    
                 </div>
                 <div class="logo" style="width: 20%;float:left; text-align:center; font-size:11px;">
-                    <span style="z-index: 2000;"> <img src="https://nhpc.gov.np/beta//assets/img/nhpc_logo.jpg" class="logo" width="25px" height="25px" style="position: absolute; margin-bottom: -15px; margin-top:10px; z-index: 10000;"></span></br>
+                   <span style="z-index: 2000;"> <img src="https://nhpc.gov.np/beta//assets/img/nhpc_logo.jpg" class="logo" width="25px" height="25px" style="position: absolute; margin-bottom: -15px; margin-top:10px; z-index: 10000;"></span></br>
                     <img class="img-responsive" width="90" height="90" src={{ $profile->getProfileImage() }}></br>
                     <span style="z-index: 2000; "> <img src="http://103.175.192.52/storage/documents/tKtyJYTTE9JiesiME3bLts5EMNGQgL3IQV6BF5Qp.png" class="signature" width="50px" height="25px" style="position: absolute; margin-top: -20px; z-index: 10000; margin-left: -15px;"></span></br>
-                    <span>Registrar</span>
+                     <span>Registrar</span>
                 </div>
               </div>
             </div>

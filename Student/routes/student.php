@@ -1,5 +1,7 @@
 <?php
 
+use Student\Http\Controller\ProfileController;
+
 Route::get('/',  [\Student\Http\Controller\ProfileController::class, 'dashboard'])->middleware(['auth', 'throttle:400,1'])->name('student.dashboard');
 Route::get('/student/{slug}', [\Student\Http\Controller\ProfileController::class, 'index'])->middleware(['auth'])->name('student.{slug}');
 Route::post('/save_image/{id?}', [\Student\Http\Controller\ProfileController::class, 'save_image'])->middleware(['auth'])->name('save_image');
@@ -40,3 +42,5 @@ Route::get('/admit/admitCardProfileId/{id}', [\Student\Http\Controller\ProfileCo
 
 Route::get('/level/program', [\Student\Http\Controller\ProfileController::class, 'getProgram'])->middleware(['auth'])->name('level.program');
 Route::post('/level/program', [\Student\Http\Controller\ProfileController::class, 'saveLevelProgramSave'])->middleware(['auth'])->name('level.program.save');
+
+Route::get('/idCard', [ProfileController::class, 'idCard'])->middleware(['auth'])->name('student.card');

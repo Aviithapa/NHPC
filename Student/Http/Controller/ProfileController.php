@@ -8,6 +8,7 @@ use App\Models\Address\Municipality;
 use App\Models\Address\Provinces;
 use App\Models\Admin\Program;
 use App\Models\Admin\University;
+use App\Models\Certificate\Certificate;
 use App\Models\Exam\Exam;
 use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
@@ -544,6 +545,22 @@ class ProfileController extends BaseController
                 }
                 return Response($output);
             }
+        }
+    }
+
+
+
+    public function idCard()
+    {
+        $profile = $this->profileRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
+
+        $data = Certificate::where('certificate_history.profile_id', '=', $profile->id)
+            ->get()->first();
+        if ($data) {
+            $exam = ExamProcessing::where('profile_id', '=', $data['profile_id'])->where('status', '=', 'accepted')->where('state', '=', 'council')->first();
+            return view('student::pages.id-card', compact('data', 'profile', 'exam'));
+        } else {
+            return redirect()->route('student.dashboard');
         }
     }
 }
