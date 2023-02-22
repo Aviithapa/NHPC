@@ -25,7 +25,7 @@
         ">
     <table style="
         text-align: center; border-collapse: collapse;
-        width: 100%; border:none; margin-top: 9cm;">
+        width: 100%; border:none; margin-top: 10.25cm;">
         <tr style="
         text-align: center;
           border:none;
@@ -41,9 +41,9 @@
 ">1</td>
 
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 16px;
+       font-size: 16px;
         font-weight: bold;
-        width: 5cm;
+        width: 2cm;
   border:none;
 
 ">
@@ -51,9 +51,9 @@
 
 </td>
             <td style=" border: 1px solid black;
-        text-align: center;  font-size: 16px;
+        font-size: 16px;
         font-weight: bold;
-        width: 5cm;
+        width: 2cm;
   border:none;
 
 " >
