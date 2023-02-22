@@ -231,7 +231,7 @@
             Registration No: <span style="        font-size: 26px;
 "> {{$data->registration_number}}</span><br>
             Date of issue: <span style="        font-size: 22px;
-            "> {{date('d-m-Y',strtotime($data->date_od_issue))}}</span><br>
+            "> {{date('d-m-Y',strtotime($data->date_of_issue))}}</span><br>
             Seal of the Council:
         </div>
         <div class="right" style="font-weight: 600;
