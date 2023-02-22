@@ -11,6 +11,7 @@ use App\Models\Certificate\CertificateHistory;
 use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
+use App\Modules\Backend\BackDate\BackDataRepository;
 use App\Modules\Backend\Certificate\Repositories\CertificateRepository;
 use App\Modules\Backend\CertificateHistory\Repositories\CertificateHistoryRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
@@ -18,6 +19,7 @@ use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepositor
 use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDetailsRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
 use Operator\Modules\Framework\Request;
@@ -31,7 +33,7 @@ class OperatorController extends BaseController
     private $log, $profileProcessing, $profileRepository,
         $userRepository, $qualificationRepository,
         $user_data, $profileLogsRepository, $programRepository,
-        $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository, $certificateRepository, $certificateHistoryRepository;
+        $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository, $certificateRepository, $certificateHistoryRepository, $backDataRepository;
 
     private $commonView = 'operator::pages.';
     private $commonMessage = 'Profile ';
@@ -64,7 +66,9 @@ class OperatorController extends BaseController
         ProgramRepository $programRepository,
         ExamProcessingDetailsRepository $examProcessingDetailsRepository,
         CertificateRepository $certificateRepository,
-        CertificateHistoryRepository $certificateHistoryRepository
+        CertificateHistoryRepository $certificateHistoryRepository,
+        BackDataRepository $backDataRepository
+
     ) {
         $this->viewData['commonRoute'] = $this->commonRoute;
         $this->viewData['commonView'] = 'operator::' . $this->commonView;
@@ -81,6 +85,7 @@ class OperatorController extends BaseController
         $this->programRepository = $programRepository;
         $this->certificateRepository = $certificateRepository;
         $this->certificateHistoryRepository = $certificateHistoryRepository;
+        $this->backDataRepository = $backDataRepository;
         parent::__construct();
     }
 
@@ -1744,12 +1749,13 @@ class OperatorController extends BaseController
     public function printDuplicateCertificate($id)
     {
         $data = $this->certificateHistoryRepository->findById($id);
-        return view('operator::pages.certificate.printDuplicate', compact('data'));
+        return view('operator::pages.certificate.index', compact('data'));
     }
 
-    public function backCertificate()
+    public function backCertificate($id)
     {
-        return view('operator::pages.certificate.back');
+        $data = $this->backDataRepository->getAll()->where('certificate_id', '=', $id);
+        return view('operator::pages.backdata.index', compact('data', 'id'));
     }
     // public function OldfileImport(Request $request)
     // {
@@ -1759,4 +1765,43 @@ class OperatorController extends BaseController
     // }
 
 
+    public function storeBackData(Request $request)
+    {
+        $data = $request->all();
+        $date = Carbon::parse($data['update_date']);
+        $data['expire_at'] = $date->addYear(5);
+        try {
+            $certificate = $this->backDataRepository->create($data);
+            if ($certificate == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            return redirect()->route("operator.certificateIndex.backCertificate", ['id' => $data['certificate_id']]);
+        } catch (Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function updateBackData(Request $request)
+    {
+        $data = $request->all();
+        $id = $data['id'];
+        try {
+            $certificate = $this->backDataRepository->update($data, $id);
+            if ($certificate == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            return redirect()->route("operator.certificateIndex");
+        } catch (Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function addDataCertificate($id)
+    {
+        return view('operator::pages.backdata.form', compact('id'));
+    }
 }

@@ -14,6 +14,8 @@ use App\Modules\Backend\Admin\Program\Repositories\EloquentProgramRepository;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
 use App\Modules\Backend\AdmitCard\Repositories\EloquentAdmitCardRepository;
+use App\Modules\Backend\BackDate\BackDataRepository;
+use App\Modules\Backend\BackDate\EloquentBackDataRepository;
 use App\Modules\Backend\Certificate\Repositories\CertificateRepository;
 use App\Modules\Backend\CertificateHistory\Repositories\EloquentCertificateHistoryRepository;
 use App\Modules\Backend\Certificate\Repositories\EloquentCertificateRepository;
@@ -159,6 +161,11 @@ class DependencyInjectionServiceProvider extends ServiceProvider
         $this->app->bind(
             CertificateHistoryRepository::class,
             EloquentCertificateHistoryRepository::class
+        );
+
+        $this->app->bind(
+            BackDataRepository::class,
+            EloquentBackDataRepository::class
         );
     }
 }

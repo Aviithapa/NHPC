@@ -17,6 +17,9 @@
 
 <div class="button" style="margin-top: 100px; margin-left: 300px">
     <button onclick="printDiv()" class="btn btn-primary">Print Certificate</button>
+
+    <a href="{{ url('operator/dashboard/certificate/back/add/'.$id) }}" class="btn btn-primary">Add Date</a>
+
 </div>
 
 <page size="A4" id="printContent" style="width: 21cm;
@@ -25,15 +28,17 @@
         ">
     <table style="
         text-align: center; border-collapse: collapse;
-        width: 100%; border:none; margin-top: 10.30cm; margin-left:-10px;">
-        <tr style="
+        width: 100%; border:none; margin-top: 10.25cm; margin-left:-10px;">
+       
+         
+
+ @foreach ($data as $key => $item)
+  <tr style="
         text-align: center;
           border:none;
 
 ">
-         
-
-            <td style="
+     <td style="
         text-align: center; 
          font-size: 16px;
         font-weight: bold;
@@ -41,18 +46,18 @@
         font-size: 25px;
         border:none;
         margin-left : 5px;
-">1</td>
-
-            <td style=" border: 1px solid black;
+        padding:10px;
+">{{++$key}}</td>
+ <td style=" border: 1px solid black;
         text-align: center; 
        font-size: 25px;
         font-weight: bold;
         width: 2cm;
   border:none;
-
+ margin-top : 20px;
 
 ">
-2055-02-11
+ {{ $item->update_date }}
 
 </td>
             <td style=" border: 1px solid black;
@@ -61,10 +66,10 @@
         font-weight: bold;
         width: 2cm;
   border:none;
-
+ margin-top : 20px;
 " >
 
-2055-02-11
+{{ $item->expire_at }}
 </td>
 </td>
             <td style=" border: 1px solid black;
@@ -87,8 +92,12 @@
 " >
 
 </td>
-         
-        </tr>
+
+</tr>
+ @endforeach
+            
+
+           
     </table>
 
 
