@@ -58,7 +58,7 @@
                                                         <td>{{$exam->program_code}}</td>
                                                         <td><a href="{{url("operator/dashboard/certificate/history/print/".$exam->id)}}"><span class="label label-success">Print</span></a>
                                                         <a href="{{url("operator/dashboard/certificate/history/edit/".$exam->id)}}"><span class="label label-success">Edit</span></a>
-                                                        <a href="{{url("operator/dashboard//".$exam->id)}}"><span class="label label-success">Partilipi</span></a></td>
+                                                        <a href="{{url("operator/dashboard/certificate/history/duplicate/".$exam->id)}}"><span class="label label-success">Partilipi</span></a></td>
 
                                                         {{-- <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$exam->profile_id)}}"><span class="label label-success">View</span></a></td>
                                                         <td><a href={{url("operator/dashboard/deleteDuplicate/".$exam->profile_id)}}><span class="label label-danger">Delete</span></a> </td> --}}

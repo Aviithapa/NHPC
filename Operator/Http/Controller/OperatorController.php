@@ -1740,4 +1740,10 @@ class OperatorController extends BaseController
             return redirect()->back()->withInput();
         }
     }
+
+    public function printDuplicateCertificate($id)
+    {
+        $data = $this->certificateHistoryRepository->findById($id);
+        return view('operator::pages.certificate.printDuplicate', compact('data'));
+    }
 }
