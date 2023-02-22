@@ -121,7 +121,7 @@
 
                  <li class="{{ (request()->is('operator/dashboard/certificate/history')) ? 'active':''  }}">
                     <a href="{{route("operator.certificateIndex")}}">
-                        <i class="icon-book-open"></i> <span>Old Application New List</span>
+                        <i class="icon-book-open"></i> <span>Duplicate List</span>
                     </a>
                 </li>
             @endif

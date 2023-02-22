@@ -25,7 +25,7 @@
         ">
     <table style="
         text-align: center; border-collapse: collapse;
-        width: 100%; border:none; margin-top: 10.25cm; margin-left:-10px;">
+        width: 100%; border:none; margin-top: 10.30cm; margin-left:-10px;">
         <tr style="
         text-align: center;
           border:none;
@@ -37,39 +37,29 @@
         font-weight: bold;
         width: 1cm;
         border:none;
-
+        margin-left : 5px;
 ">1</td>
 
             <td style=" border: 1px solid black;
-       font-size: 16px;
+       font-size: 25px;
         font-weight: bold;
         width: 2cm;
   border:none;
+
 
 ">
-2055
+2055-02-11
 
 </td>
             <td style=" border: 1px solid black;
-        font-size: 16px;
+        font-size: 25px;
         font-weight: bold;
         width: 2cm;
   border:none;
 
 " >
 
-2060
-</td>
-</td>
-            <td style=" border: 1px solid black;
-        font-size: 16px;
-        font-weight: bold;
-        width: 2cm;
-  border:none;
-
-" >
-
-2060
+2055-02-11
 </td>
 </td>
             <td style=" border: 1px solid black;
@@ -80,7 +70,17 @@
 
 " >
 
-2060
+
+</td>
+</td>
+            <td style=" border: 1px solid black;
+        font-size: 16px;
+        font-weight: bold;
+        width: 2cm;
+  border:none;
+
+" >
+
 </td>
          
         </tr>
