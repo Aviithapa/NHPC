@@ -24,19 +24,10 @@
         font-family: 'Arial Black';
         ">
     <div class="printLayout" style="padding: 2.5rem 2rem;">
-   <div class="header" style="text-align: center; font-weight: 500;">
-   </div>
-
-    <div id="container" style=" margin-top: 22px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;">
-
-
-    </div>
+  
     </div>
 
-    <div class="footer" style="text-align: center; margin-top: 30px;">
+    <div class="footer" style="text-align: center; margin-top: 415.748px;">
        
     </div>
         <style>
@@ -69,7 +60,7 @@
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
-        width: 140px;
+        width: 189px;
   border:none;
 
 ">
@@ -80,12 +71,12 @@
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
-        width: 200px;
+        width: 189px;
   border:none;
 
 " >
 
-
+2060
 </td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
