@@ -1746,4 +1746,17 @@ class OperatorController extends BaseController
         $data = $this->certificateHistoryRepository->findById($id);
         return view('operator::pages.certificate.printDuplicate', compact('data'));
     }
+
+    public function backCertificate()
+    {
+        return view('operator::pages.certificate.back');
+    }
+    // public function OldfileImport(Request $request)
+    // {
+    //     Excel::import(new ResultImport(), $request->file('file')->store('temp'));
+    //     $this->FileForwardCouncil();
+    //     return back();
+    // }
+
+
 }
