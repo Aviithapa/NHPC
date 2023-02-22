@@ -23,21 +23,9 @@
         height: 29.7cm;
         font-family: 'Arial Black';
         ">
-    <div class="printLayout" style="padding: 2.5rem 2rem;">
-  
-    </div>
-
-    <div class="footer" style="text-align: center; margin-top: 11cm;">
-       
-    </div>
-        <style>
-            table, th, td {
-                border: 1px solid black;
-            }
-        </style>
     <table style="
         text-align: center; border-collapse: collapse;
-        width: 100%; border:none; margin-top:120px;">
+        width: 100%; border:none; margin-top: 9cm;">
         <tr style="
         text-align: center;
           border:none;
@@ -51,12 +39,7 @@
         border:none;
 
 ">1</td>
-{{--            <td style=" border: 1px solid black;--}}
-{{--        text-align: center;  font-size: 16px;--}}
-{{--        font-weight: bold;--}}
-{{--        width: 140px;--}}
 
-{{--">PCL General Medicine</td>--}}
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
@@ -65,7 +48,6 @@
 
 ">
 2055
-{{-- {!! htmlspecialchars_decode($certificate->certificate_program_name) !!} --}}
 
 </td>
             <td style=" border: 1px solid black;
@@ -78,58 +60,7 @@
 
 2060
 </td>
-            <td style=" border: 1px solid black;
-        text-align: center;  font-size: 16px;
-        font-weight: bold;
-        width: 80px;
-  border:none;
-
-">
-
-</td>
-        </tr>
-        <tr style=" border: 1px solid black;
-        text-align: center;      border:none;
-     height: 15px;
-">
-            <td style=" border: 1px solid black;
-        text-align: center;         padding: 10px;
-        height: 15px;   border:none;
-
-"></td>
-            <td style=" border: 1px solid black;
-        text-align: center;      border:none;
-     padding: 10px;
-"></td>
-            <td style=" border: 1px solid black;
-        text-align: center;       border:none;
-    padding: 10px;
-"></td>
-            <td style=" border: 1px solid black;
-        text-align: center;       border:none;
-   padding: 10px;
-"></td>
-        </tr>
-        <tr style=" border: 1px solid black;
-        text-align: center;       border:none;
-    padding: 10px;
-">
-            <td style=" border: 1px solid black;
-        text-align: center;       border:none;
-    padding: 10px;
-"></td>
-            <td style=" border: 1px solid black;
-        text-align: center;      border:none;
-     padding: 10px;
-"></td>
-            <td style=" border: 1px solid black;
-        text-align: center;      border:none;
-     padding: 10px;
-"></td>
-            <td style=" border: 1px solid black;
-        text-align: center;       border:none;
-   padding: 10px;
-"></td>
+         
         </tr>
     </table>
 
