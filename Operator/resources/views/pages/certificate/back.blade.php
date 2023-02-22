@@ -27,7 +27,7 @@
   
     </div>
 
-    <div class="footer" style="text-align: center; margin-top: 415.748px;">
+    <div class="footer" style="text-align: center; margin-top: 11cm;">
        
     </div>
         <style>
@@ -47,7 +47,7 @@
             <td style="
         text-align: center;  font-size: 16px;
         font-weight: bold;
-        width: 20px;
+        width: 1cm;
         border:none;
 
 ">1</td>
@@ -60,7 +60,7 @@
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
-        width: 189px;
+        width: 5cm;
   border:none;
 
 ">
@@ -71,7 +71,7 @@
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
-        width: 189px;
+        width: 5cm;
   border:none;
 
 " >
