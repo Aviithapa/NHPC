@@ -558,4 +558,10 @@ class CouncilController extends BaseController
 
         return redirect()->back();
     }
+
+    public function oldCertificate()
+    {
+        $data = CertificateHistory::getAll()->where('decision_date', '=', '2023-01-18');
+        return view('council::pages.old-certificate-list', compact('data'));
+    }
 }

@@ -45,6 +45,12 @@
                     <i class="icon-book-open"></i> <span>Minute  Committee Data</span>
                 </a>
             </li>
+
+            <li class="{{ (request()->is('council/dashboard/old/councilFile')) ? 'active':''  }}">
+                <a href="{{route("council.councilFile.old")}}">
+                    <i class="icon-book-open"></i> <span>2023-01-18 details</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- /.sidebar -->
