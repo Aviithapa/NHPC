@@ -177,6 +177,20 @@
                                                                 <td>{{$profile_log->getUserName()}}</td>
                                                             </tr>
                                                         @endforeach
+                                                         @if($certificate === null)
+                                                            
+
+                                                        @else
+                                                            @foreach($certificate as $exam)
+                                                                <tr>
+                                                                    <td>Council</td>
+                                                                    <td>All Aproved</td>
+                                                                    <td></td>
+                                                                    <td></td>
+                                                                    <td>{{$exam->decision_date}}</td>
+                                                                </tr>
+                                                             @endforeach
+                                                        @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -225,6 +239,7 @@
                                                                 <td>{{$qualifications->collage_name}}</td>
                                                             </tr>
                                                         @endforeach
+
                                                         </tbody>
                                                     </table>
                                                 </div>
