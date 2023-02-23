@@ -89,3 +89,7 @@ Route::post('/certificate/storebackData', [\Operator\Http\Controller\OperatorCon
 Route::get('/certificate/backData/edit/{id}', [\Operator\Http\Controller\OperatorController::class, 'editCertificateData'])->middleware(['auth'])->name('operator.certificateIndex.edit');
 Route::post('/certificate/backData/update', [\Operator\Http\Controller\OperatorController::class, 'updateCertificateData'])->middleware(['auth'])->name('operator.certificateIndex.update');
 Route::get('/certificate/back/add/{id}', [\Operator\Http\Controller\OperatorController::class, 'addDataCertificate'])->middleware(['auth'])->name('operator.backCertificate.add');
+
+
+
+Route::post('/old-applicant/import', [\Operator\Http\Controller\OperatorController::class, 'OldfileImport'])->middleware(['auth'])->name('operator.import.old.file');

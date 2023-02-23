@@ -3,7 +3,6 @@
 @section('content')
 
 
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -29,6 +28,9 @@
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <a href="{{ url("operator/dashboard/certificate/history/add") }}" class="btn btn-primary" style="margin: 20px; color:white;">Add New Applicant </a>
+
+                                      <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal'><span class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
+                                    Uploads Results</span> </a>
                                     <div class="table-responsive">
                                         <table id="data-table" class="table no-margin">
                                             <thead>
@@ -87,6 +89,39 @@
                             </div>
                         </div>
                     </div>
+                      <div class="modal fade" id="practice_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upload Old Applicant Excel Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal form-material" action="{{ route('operator.import.old.file') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="custom-file text-left">
+                                    <input type="file" name="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
                 </div>
 
     </div>

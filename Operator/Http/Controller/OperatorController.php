@@ -5,6 +5,7 @@ namespace Operator\Http\Controller;
 
 
 use App\Http\Controllers\MailController;
+use App\Imports\OldFileImport;
 use App\Models\Address\Provinces;
 use App\Models\Certificate\Certificate;
 use App\Models\Certificate\CertificateHistory;
@@ -27,6 +28,7 @@ use Student\Models\Profile;
 use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OperatorController extends BaseController
 {
@@ -1749,7 +1751,7 @@ class OperatorController extends BaseController
     public function printDuplicateCertificate($id)
     {
         $data = $this->certificateHistoryRepository->findById($id);
-        return view('operator::pages.certificate.index', compact('data'));
+        return view('operator::pages.certificate.printDuplicate', compact('data'));
     }
 
     public function backCertificate($id)
@@ -1757,12 +1759,12 @@ class OperatorController extends BaseController
         $data = $this->backDataRepository->getAll()->where('certificate_id', '=', $id);
         return view('operator::pages.backdata.index', compact('data', 'id'));
     }
-    // public function OldfileImport(Request $request)
-    // {
-    //     Excel::import(new ResultImport(), $request->file('file')->store('temp'));
-    //     $this->FileForwardCouncil();
-    //     return back();
-    // }
+
+    public function OldfileImport(Request $request)
+    {
+        Excel::import(new OldFileImport(), $request->file('file')->store('temp'));
+        return back();
+    }
 
 
     public function storeBackData(Request $request)

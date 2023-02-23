@@ -19,7 +19,7 @@
     <button onclick="printDiv()" class="btn btn-primary">Print Certificate</button>
 
     <a href="{{ url('operator/dashboard/certificate/back/add/'.$id) }}" class="btn btn-primary">Add Date</a>
-
+   {{ $count = 0 }}
 </div>
 
 <page size="A4" id="printContent" style="width: 21cm;
@@ -47,7 +47,7 @@
         border:none;
         margin-left : 5px;
         padding:10px;
-">{{++$key}}</td>
+">{{++$count}}</td>
  <td style=" border: 1px solid black;
         text-align: center; 
        font-size: 25px;

@@ -196,7 +196,7 @@
         line-height: 1;
         ">
         Pursuant to the decision dated
-       {{date('d-m-Y',strtotime($data->decision_date))}}
+       {{$data->decision_date}}
         {{-- 08-07-2022 --}}
         of the Council, the name of
         <span style="font-size: 26px;
@@ -235,7 +235,7 @@
             Seal of the Council:
         </div>
         <div class="right" style="font-weight: 600;
-        margin-top: 50px;
+        margin-top: 45px;
         text-align: center;
         font-size:22px ;
         line-height: 1;
@@ -248,7 +248,7 @@
         </div>
     </div>
 
-    <div class="footer" style="text-align: center; margin-top: 30px;">
+    <div class="footer" style="text-align: center; margin-top: 35px;">
         <span style="text-align: center; font-weight: bold; font-size: 14px;">Descriptions of Qualifications / Degree</span>
     </div>
         <style>

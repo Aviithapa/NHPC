@@ -232,7 +232,7 @@
             Seal of the Council:
         </div>
         <div class="right" style="font-weight: 600;
-        margin-top: 50px;
+        margin-top: 45px;
         text-align: center;
         font-size:22px ;
         line-height: 1;
