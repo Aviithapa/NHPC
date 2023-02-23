@@ -561,7 +561,7 @@ class CouncilController extends BaseController
 
     public function oldCertificate()
     {
-        $data = CertificateHistory::getAll()->where('decision_date', '=', '2023-01-18');
+        $data = CertificateHistory::all()->where('decision_date', '=', '2023-01-18');
         return view('council::pages.old-certificate-list', compact('data'));
     }
 }
