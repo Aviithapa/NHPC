@@ -159,7 +159,7 @@ class CouncilController extends BaseController
 
             $data = $date != null ?  $date : "";
 
-            $certificate = Certificate::where('decision_date', '=', $data)->where('program_id', '=', $id)->get();
+            $certificate = Certificate::where('decision_date', '=', $data)->where('program_id', '=', $id)->orderBy('srn', 'ASC')->get();
 
 
             //    dd($certificate);
