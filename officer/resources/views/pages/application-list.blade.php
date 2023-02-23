@@ -48,9 +48,10 @@
                                         </tr>
 
                                     @else
+                                    {{ $count = 0 }}
                                         @foreach($data as $exam)
                                             <tr>
-                                                <td>1</td>
+                                                <td>{{ ++$count }}</td>
                                                 <td>{{$exam->getExamName()}}</td>
                                                 <td><img src="{{$exam->getVoucherImage()}}" src="voucher image" height="150" width="150"/></td>
                                                 <td>{{$exam->created_at}}</td>

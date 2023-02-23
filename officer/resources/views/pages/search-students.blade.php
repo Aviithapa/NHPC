@@ -157,6 +157,7 @@
                                     <div class="table-responsive">
                                         <table id="data-table" class="table no-margin">
                                             <thead>
+                                            <td>S.N.</td>
                                             <td>Darta Number</td>
                                             <td>Name</td>
                                             <td>State</td>
@@ -170,8 +171,11 @@
                                             <tbody>
                                             @if(isset($data))
                                              <div style="margin-left: 10px; color:red; font-weight:600; font-size:16px"> {{ count($data) }} number of Students filtered {{ isset($request->status) ? 'with' . ' ' .$request->status : ''}} {{ isset($request->state) ? 'and' . ' ' .$request->state : ''}}</div>
-                                            @foreach($data as $exam)
+                                             {{ $count = 0 }}
+                                            
+                                             @foreach($data as $exam)
                                             <tr>
+                                                <td> {{ ++$count }}</td>
                                                 <td>{{ $exam->profile_id }}</td>
                                                 <td>{{ $exam->first_name }} {{ $exam->middle_name }} {{ $exam->last_name }}</td>
                                                 <td>{{$exam->state}}</td>
