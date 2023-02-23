@@ -90,6 +90,7 @@
                             <div class="table-responsive">
                                 <table id="data-table" class="table no-margin" style=" font-size: 14px ;">
                                     <thead style=" font-size: 14px ; font-weight: bold;">
+                                        <td>S.N.</td>
                                     <td>Level</td>
                                     <td>Program</td>
                                     <td>Total</td>
@@ -98,8 +99,10 @@
                                     </thead>
                                     <tbody>
 
+                                        {{ $count =0 }}
                                     @foreach($certificate as $key => $program)
                                         <tr>
+                                            <td>{{ ++$count }}</td>
                                             <td>{{$program->level_name}}</td>
                                             <td>{{$program->program_certificate_code}}</td>
                                             <td>{{$program->total}}</td>

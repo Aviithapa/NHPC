@@ -26,6 +26,10 @@
         height: 29.7cm;
         font-family: 'Arial Black';
         ">
+
+         @foreach ($data as $key => $item)
+        <h2 class="text-align: center; font-weight:700;"> Copy of original Certificate is first time issued on  {{ $item->update_date }}. </h2>
+        @endforeach
     <table style="
         text-align: center; border-collapse: collapse;
         width: 100%; border:none; margin-top: 10.25cm; margin-left:-10px;">
@@ -45,9 +49,9 @@
         width: 1cm;
         font-size: 25px;
         border:none;
-        margin-left : 5px;
+        margin-left : 2px;
         padding:10px;
-">{{++$count}}</td>
+">{{++$count}}.</td>
  <td style=" border: 1px solid black;
         text-align: center; 
        font-size: 25px;
