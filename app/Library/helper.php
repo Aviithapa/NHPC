@@ -1016,12 +1016,15 @@ if (!function_exists('idCard')) {
     {
         $profile = Profile::all()->where('user_id', '=', Auth::user()->id)->first();
 
-        $data = Certificate::where('certificate_history.profile_id', '=', $profile->id)
-            ->get()->first();
-        if ($data) {
-            return true;
-        } else {
-            return false;
+        if (isset($profile)) {
+            $data = Certificate::where('certificate_history.profile_id', '=', $profile->id)
+                ->get()->first();
+            if ($data) {
+                return true;
+            } else {
+                return false;
+            }
         }
+        return false;
     }
 }
