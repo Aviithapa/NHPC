@@ -57,14 +57,14 @@
                     <i class="icon-book-open"></i> <span>Profile Status</span>
                 </a>
             </li>
-            
+{{--             
            @if(idCard())
             <li class="{{ (request()->is('student/dashboard/idCard')) ? 'active' : '' }}">
                 <a href="{{route('student.card')}}">
                     <i class="icon-book-open"></i> <span>Id Card </span>
                 </a>
             </li>
-            @endif
+            @endif --}}
         </ul>
     </div>
     <!-- /.sidebar -->
