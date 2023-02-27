@@ -195,7 +195,6 @@
                                                                 <td>{{$profile_log->getUserName()}}</td>
                                                             </tr>
                                                         @endforeach
-                                                         @endforeach
                                                          @if($certificate === null)
                                                             
 
