@@ -170,7 +170,7 @@
                                                                 <td>{{$profile_log->created_at->toTimeString()}}</td>
                                                                 <td>{{$profile_log->getUserName()}}</td>
                                                             </tr>
-                                                        @endforeach
+                                                
                                                          @endforeach
                                                          @if($certificate === null)
                                                             
