@@ -172,11 +172,10 @@ class CouncilController extends BaseController
     public function changeDecisionDate()
     {
         if (Auth::user()->mainRole()->name === 'council') {
-            $certificates = Certificate::orWhere('created_at', 'like', '%' . '2022-12-27' . '%')->get();
-
+            $certificates = Certificate::orWhere('decision_date', '=',  '2023-02-11')->get();
 
             foreach ($certificates as $certificate) {
-                $data['decision_date'] = '2022-12-27';
+                $data['decision_date'] = '2023-02-12';
                 $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
             }
 
