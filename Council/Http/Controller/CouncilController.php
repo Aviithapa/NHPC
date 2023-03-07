@@ -174,7 +174,7 @@ class CouncilController extends BaseController
         if (Auth::user()->mainRole()->name === 'council') {
             $certificates = Certificate::where('is_printed', '=', 0)->get();
 
-            dd($certificates);
+            dd($certificates[0]);
             foreach ($certificates as $certificate) {
                 $data['issued_date'] = '2023-03-05';
                 $data['valid_till'] = '2028-03-06';
