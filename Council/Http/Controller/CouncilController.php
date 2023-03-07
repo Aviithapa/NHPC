@@ -172,7 +172,7 @@ class CouncilController extends BaseController
     public function changeDecisionDate()
     {
         if (Auth::user()->mainRole()->name === 'council') {
-            $certificates = Certificate::where('is_printed', '=', 0)->get();
+            $certificates = Certificate::where('is_printed', '=', 0)->where('profile_id', '!=', 0)->get();
 
             dd($certificates[0]);
             foreach ($certificates as $certificate) {
