@@ -71,7 +71,7 @@ class Profile extends  Model
     public function getProfileImage()
     {
         if (isset($this->profile_picture)) {
-            return Storage::url('documents/-' . $this->profile_picture);
+            return Storage::url('documents/' . $this->profile_picture);
         } else {
             return imageNotFound();
         }
