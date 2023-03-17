@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Profile extends  Model
 {
-    protected $table="profiles";
+    protected $table = "profiles";
 
     /**
      * The attributes that are mass assignable.
@@ -70,72 +70,71 @@ class Profile extends  Model
 
     public function getProfileImage()
     {
-        if(isset($this->profile_picture)) {
-            return Storage::url('documents/' .$this->profile_picture);
-        }
-        else {
+        if (isset($this->profile_picture)) {
+            return Storage::url('documents/-' . $this->profile_picture);
+        } else {
             return imageNotFound();
         }
     }
     public function getCitizenshipFrontImage()
     {
-        if(isset($this->citizenship_front)) {
-            return Storage::url('documents/' .$this->citizenship_front);
-        }
-        else {
+        if (isset($this->citizenship_front)) {
+            return Storage::url('documents/' . $this->citizenship_front);
+        } else {
             return imageNotFound();
         }
     }
     public function getCitizenshipBackImage()
     {
-        if(isset($this->citizenship_back)) {
-            return Storage::url('documents/' .$this->citizenship_back);
-        }
-        else {
+        if (isset($this->citizenship_back)) {
+            return Storage::url('documents/' . $this->citizenship_back);
+        } else {
             return imageNotFound();
         }
     }
     public function getSignatureImage()
     {
-        if(isset($this->signature_image)) {
-            return Storage::url('documents/' .$this->signature_image);
-        }
-        else {
+        if (isset($this->signature_image)) {
+            return Storage::url('documents/' . $this->signature_image);
+        } else {
             return imageNotFound();
         }
     }
 
-    public function getLevel(){
-        return $this->hasOne(Level::class,'id','registration_level');
+    public function getLevel()
+    {
+        return $this->hasOne(Level::class, 'id', 'registration_level');
     }
 
-    public function getProvince(){
-        return $this->hasOne(Provinces::class,'id','development_region');
+    public function getProvince()
+    {
+        return $this->hasOne(Provinces::class, 'id', 'development_region');
     }
 
-    public function getProvinceName(){
-        if(isset($this->getProvince->name)) {
+    public function getProvinceName()
+    {
+        if (isset($this->getProvince->name)) {
             return $this->getProvince->name;
-        }
-        else {
+        } else {
             return '';
         }
     }
 
-    public function getLevelName(){
-        if(isset($this->getLevel->name)) {
+    public function getLevelName()
+    {
+        if (isset($this->getLevel->name)) {
             return $this->getLevel->name;
-        }
-        else {
+        } else {
             return '';
         }
     }
 
-    public function getFullName(){
+    public function getFullName()
+    {
         $first_name = $this->first_name;
         $middle_name = $this->middle_name;
         $last_name = $this->last_name;
-        $full_name = $first_name . ' ' . $middle_name .' '. $last_name;
+        $full_name = $first_name . ' ' . $middle_name . ' ' . $last_name;
         return $full_name;
     }
 }

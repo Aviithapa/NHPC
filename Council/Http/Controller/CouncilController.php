@@ -172,12 +172,57 @@ class CouncilController extends BaseController
     public function changeDecisionDate()
     {
         if (Auth::user()->mainRole()->name === 'council') {
-            $certificates = Certificate::where('is_printed', '=', 0)->where('decision_date', '=', '2023-02-12')->where('profile_id', '!=', 0)->get();
+            $certificates = Certificate::where('registrar', 'Like', '%' . 'Lila Nath Bhandari' . '%')->where('program_id', '=', '34')->get();
 
+            // $fileName = "srn.csv";
+            // $headers = array(
+            //     "Content-type"        => "text/csv",
+            //     "Content-Disposition" => "attachment; filename=$fileName",
+            //     "Pragma"              => "no-cache",
+            //     "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            //     "Expires"             => "0"
+            // );
+
+            // $columns = array(
+            //     'Name', 'Date of birth', 'SRN', 'Program Name', 'Level Name', 'Qualification', 'Decision Date'
+            // );
+
+            // $callback = function () use ($certificates, $columns) {
+
+            //     $file = fopen('php://output', 'w');
+            //     fputcsv($file, $columns);
+            //     foreach ($certificates as $task) {
+            //         $row['Name'] = $task->name;
+            //         // $row['Date of birth'] = $task->date_of_birth;
+            //         $row['SRN'] = $task->srn;
+            //         $row['Qualification'] = $task->qualification;
+            //         $row['Program Name'] = $task->program_name;
+            //         // $row['level Name'] = $task->level_name;
+            //         $row['Decision Date'] = $task->decision_date;
+
+
+
+
+
+            //         fputcsv($file, array(
+            //             $row['Name'],
+            //             // $row['Date of Birth'],
+            //             $row['SRN'],
+            //             $row['Qualification'],
+            //             $row['Program Name'],
+            //             // $row['Level Name'],
+            //             $row['Decision Date']
+            //         ));
+            //     }
+
+            //     fclose($file);
+            // };
+
+            // return response()->stream($callback, 200, $headers);
+            $srn = 9507;
             foreach ($certificates as $certificate) {
-                $data['issued_date'] = '2023-03-05';
-                $data['valid_till'] = '2028-03-06';
-                $data['registrar'] = 'Lila Nath Bhandari';
+                $data['srn'] = $srn++;
+                $data['cert_registration_number'] = 'B-' . $data['srn']  . ' MLT';
                 $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
             }
 
@@ -475,11 +520,8 @@ class CouncilController extends BaseController
         if (Auth::user()->mainRole()->name === 'council') {
             $fileName = 'PassedList.csv';
 
-            $tasks = ExamProcessing::all()->where('state', '=', 'council')
-                ->where('status', '=', 'progress')
-                ->where('level_id', '!=', 4)
-                ->take(100)
-                ->skip(0);
+            $tasks =
+                Certificate::where('registrar', 'Like', '%' . 'Lila Nath Bhandari' . '%')->get();
 
             $headers = array(
                 "Content-type"        => "text/csv",
@@ -490,8 +532,7 @@ class CouncilController extends BaseController
             );
 
             $columns = array(
-                'Name', 'Father Name', 'Mother Name', 'Date of Birth',
-                'Gender', 'Citizenship', 'Program Name', 'Level', 'Email', 'Phone Number', 'State', 'Status', 'Symbol Number'
+                'Name', 'Date of birth', 'SRN', 'Program Name', 'Level Name', 'Qualification', 'Decision Date'
             );
 
             $callback = function () use ($tasks, $columns) {
@@ -499,37 +540,25 @@ class CouncilController extends BaseController
                 $file = fopen('php://output', 'w');
                 fputcsv($file, $columns);
                 foreach ($tasks as $task) {
-                    $row['Name'] = $task->first_name . ' ' . $task->middle_name . '' . $task->last_name;
-                    $row['Father Name'] = $task->father_name;
-                    $row['Mother Name'] = $task->mother_name;
-                    $row['Date of Birth'] = $task->dob_nep;
-                    $row['Gender'] = $task->sex;
-                    $row['Citizenship'] = $task->citizenship_number;
-                    $row['program_name'] = getProgramName($task->program_id);
-                    $row['Level'] = $task->level_name;
-                    $row['Email'] = $task->email;
-                    $row['Phone Number'] = $task->phone_number;
-                    $row['State'] = $task->state;
-                    $row['Status'] = $task->status;
-                    $row['Symbol Number'] = getSymbolNo($task->exam_regisration_id);
+                    $row['Name'] = $task->name;
+                    // $row['Date of birth'] = $task->date_of_birth;
+                    $row['SRN'] = $task->srn;
+                    $row['Qualification'] = $task->qualification;
+                    $row['Program Name'] = $task->program_name;
+                    $row['level Name'] = $task->level_name;
+                    $row['Decision Date'] = $task->decision_date;
 
 
 
 
                     fputcsv($file, array(
                         $row['Name'],
-                        $row['Father Name'],
-                        $row['Mother Name'],
-                        $row['Date of Birth'],
-                        $row['Gender'],
-                        $row['Citizenship'],
-                        $row['program_name'],
-                        $row['Level'],
-                        $row['Email'],
-                        $row['Phone Number'],
-                        $row['State'],
-                        $row['Status'],
-                        $row['Symbol Number']
+                        // $row['Date of Birth'],
+                        $row['SRN'],
+                        $row['Qualification'],
+                        $row['Program Name'],
+                        $row['Level Name'],
+                        $row['Decision Date']
                     ));
                 }
 
