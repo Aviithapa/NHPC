@@ -93,3 +93,15 @@ Route::get('/certificate/back/add/{id}', [\Operator\Http\Controller\OperatorCont
 
 
 Route::post('/old-applicant/import', [\Operator\Http\Controller\OperatorController::class, 'OldfileImport'])->middleware(['auth'])->name('operator.import.old.file');
+
+
+
+
+Route::get('/certificate/data/print/{id}', [\Operator\Http\Controller\OperatorController::class, 'printCertificateBackUpData'])->middleware(['auth'])->name('operator.printCertificateBackUpData');
+Route::get('/certificate/edit/print/{id}', [\Operator\Http\Controller\OperatorController::class, 'editCertificateBackUpData'])->middleware(['auth'])->name('operator.editCertificateBackUpData');
+Route::post('/certificate/back/update', [\Operator\Http\Controller\OperatorController::class, 'updateCertificateBackUpData'])->middleware(['auth'])->name('operator.updateCertificateBackUpData');
+
+// Route::get('/certificate/history/edit/{id}', [\Operator\Http\Controller\OperatorController::class, 'editCertificateData'])->middleware(['auth'])->name('operator.certificateIndex.edit');
+// Route::post('/certificate/history/update', [\Operator\Http\Controller\OperatorController::class, 'updateCertificateData'])->middleware(['auth'])->name('operator.certificateIndex.update');
+// Route::get('/certificate/history/add', [\Operator\Http\Controller\OperatorController::class, 'addPrintCertificate'])->middleware(['auth'])->name('operator.addPrintCertificate');
+// Route::get('/certificate/history/duplicate/{id}', [\Operator\Http\Controller\OperatorController::class, 'printDuplicateCertificate'])->middleware(['auth'])->name('operator.certificateIndex.duplicate');

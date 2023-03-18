@@ -20,6 +20,9 @@ use App\Modules\Backend\Certificate\Repositories\CertificateRepository;
 use App\Modules\Backend\CertificateHistory\Repositories\EloquentCertificateHistoryRepository;
 use App\Modules\Backend\Certificate\Repositories\EloquentCertificateRepository;
 use App\Modules\Backend\CertificateHistory\Repositories\CertificateHistoryRepository;
+use App\Modules\Backend\CertificateHistoryDataBack\Repositories\CertificateHistoryDataBackRepository;
+use App\Modules\Backend\CertificateHistoryDataBack\Repositories\EloquentCertificateHistoryDataBackRepository;
+use App\Modules\Backend\CertificateHistoryDataBack\Repositories\EloquentCertificateHistoryRepository as RepositoriesEloquentCertificateHistoryRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\EloquentExamRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\EloquentExamProcessingRepository;
@@ -166,6 +169,11 @@ class DependencyInjectionServiceProvider extends ServiceProvider
         $this->app->bind(
             BackDataRepository::class,
             EloquentBackDataRepository::class
+        );
+
+        $this->app->bind(
+            CertificateHistoryDataBackRepository::class,
+            EloquentCertificateHistoryDataBackRepository::class
         );
     }
 }

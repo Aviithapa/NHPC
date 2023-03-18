@@ -15,6 +15,7 @@ use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\BackDate\BackDataRepository;
 use App\Modules\Backend\Certificate\Repositories\CertificateRepository;
 use App\Modules\Backend\CertificateHistory\Repositories\CertificateHistoryRepository;
+use App\Modules\Backend\CertificateHistoryDataBack\Repositories\CertificateHistoryDataBackRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDetailsRepository;
@@ -35,7 +36,7 @@ class OperatorController extends BaseController
     private $log, $profileProcessing, $profileRepository,
         $userRepository, $qualificationRepository,
         $user_data, $profileLogsRepository, $programRepository,
-        $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository, $certificateRepository, $certificateHistoryRepository, $backDataRepository;
+        $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository, $certificateRepository, $certificateHistoryRepository, $backDataRepository, $certificateHistoryDataBackRepository;
 
     private $commonView = 'operator::pages.';
     private $commonMessage = 'Profile ';
@@ -69,7 +70,8 @@ class OperatorController extends BaseController
         ExamProcessingDetailsRepository $examProcessingDetailsRepository,
         CertificateRepository $certificateRepository,
         CertificateHistoryRepository $certificateHistoryRepository,
-        BackDataRepository $backDataRepository
+        BackDataRepository $backDataRepository,
+        CertificateHistoryDataBackRepository $certificateHistoryDataBackRepository
 
     ) {
         $this->viewData['commonRoute'] = $this->commonRoute;
@@ -88,6 +90,7 @@ class OperatorController extends BaseController
         $this->certificateRepository = $certificateRepository;
         $this->certificateHistoryRepository = $certificateHistoryRepository;
         $this->backDataRepository = $backDataRepository;
+        $this->certificateHistoryDataBackRepository = $certificateHistoryDataBackRepository;
         parent::__construct();
     }
 
@@ -1805,5 +1808,52 @@ class OperatorController extends BaseController
     public function addDataCertificate($id)
     {
         return view('operator::pages.backdata.form', compact('id'));
+    }
+
+
+    public function printCertificateBackUpData($id)
+    {
+        $certificate = Certificate::where('profile_id', '=', $id)->first();
+
+        $detail_data = $this->certificateHistoryDataBackRepository->getAll()->where('profile_id', '=', $id)->first();
+        // dd($detail_data);
+        return view('operator::pages.certificateBackUpData.index', compact('certificate', 'detail_data'));
+    }
+
+    public function editCertificateBackUpData($id)
+    {
+        $data = Certificate::where('profile_id', '=', $id)->first();
+
+        $detail_data = $this->certificateHistoryDataBackRepository->getAll()->where('profile_id', '=', $id)->first();
+        // dd($detail_data);
+        return view('operator::pages.certificateBackUpData.edit', compact('data', 'detail_data'));
+    }
+
+    public function updateCertificateBackUpData(Request $request)
+    {
+        // $data = Certificate::where('profile_id', '=', $id)->first();
+
+        // $detail_data = $this->certificateHistoryDataBackRepository->getAll()->where('profile_id', '=', $id)->first();
+        // // dd($detail_data);
+        // // return 
+
+        $data = $request->all();
+        $certificate_id = $data['certificate_id'];
+        $certificate_back_id = $data['certificate_back_id'];
+
+        try {
+            $certificate = $this->certificateRepository->update($data, $certificate_id);
+            $certificate_back = $this->certificateHistoryDataBackRepository->update($data, $certificate_back_id);
+
+
+            if ($certificate == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            return redirect()->route("operator.printCertificateBackUpData", ['id' => $certificate['profile_id']]);
+        } catch (Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
     }
 }

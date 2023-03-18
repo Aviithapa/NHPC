@@ -83,7 +83,10 @@
                                                  @endif
                                                  <a href="{{url('operator/dashboard/certificate/isPrinted/'. $certificate->certificate_history_id)}}"><span class="label label-danger">Printed</span></a>
                                                     <a href="{{url('operator/dashboard/student/card/'. $certificate->certificate_history_id)}}"><span class="label label-success">Print Id Card</span></a>
-                                               <a href="{{url('operator/dashboard/update/certificate/'. $certificate->certificate_history_id .'/'.$certificate->level)}}"><span class="label label-success">Edit</span></a>   
+                                               <a href="{{url('operator/dashboard/update/certificate/'. $certificate->certificate_history_id .'/'.$certificate->level)}}"><span class="label label-success">Edit</span></a>  <br/>
+                                               <a href="{{url('operator/dashboard/certificate/data/print/'. $certificate->profile_id)}}"><span class="label label-success">Back Up Data Print</span></a>   <br/>
+                                               <a href="{{url('operator/dashboard/certificate/edit/print/'. $certificate->profile_id)}}"><span class="label label-success">Edit Data Print</span></a>   
+
     
   {{--    <a href=""><span class="label label-success">Edit</span></a>--}}
                                                 </td>
