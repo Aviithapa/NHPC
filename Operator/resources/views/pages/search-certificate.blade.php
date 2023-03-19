@@ -39,10 +39,10 @@
                                     <fieldset class="form-group">
                                         <select class="form-control" name="level"  id="date" >
                                             <option value={{ isset($request->level_name) ?  $request->level_name : '' }}>{{ isset($request->level_name) ? $request->level_name :'Select Level' }}</option>
-                                          
+                                            <option value="Specilization">Specilization</option>
+                                            <option value="First">First</option>
                                             <option value="Second">Second</option>
                                             <option value="Third">Third</option>
-                                            <option value="Specilization">Specilization</option>
                                         </select>
                                     </fieldset>
                                 </div>

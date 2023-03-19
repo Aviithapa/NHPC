@@ -19,6 +19,7 @@ use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\Certificate\Repositories\CertificateRepository;
+use App\Modules\Backend\CertificateHistoryDataBack\Repositories\CertificateHistoryDataBackRepository;
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
@@ -42,7 +43,7 @@ class CouncilController extends BaseController
         $qualificationRepository, $user_data,
         $profileLogsRepository, $profileProcessingRepository,
         $examRepository, $examProcessingRepository, $admitCardRepository, $examResultRepository, $levelRepository,
-        $programRepository, $certificateRepository;
+        $programRepository, $certificateRepository, $certificateDataResponsitory;
     private $viewData, $exam_processing;
 
     /**
@@ -73,7 +74,9 @@ class CouncilController extends BaseController
         ExamResultRepository $examResultRepository,
         ProgramRepository $programRepository,
         LevelRepository $levelRepository,
-        CertificateRepository $certificateRepository
+        CertificateRepository $certificateRepository,
+        CertificateHistoryDataBackRepository
+        $certificateDataResponsitory
     ) {
         $this->profileRepository = $profileRepository;
         $this->userRepository = $userRepository;
@@ -87,6 +90,8 @@ class CouncilController extends BaseController
         $this->programRepository = $programRepository;
         $this->levelRepository = $levelRepository;
         $this->certificateRepository = $certificateRepository;
+        $this->certificateDataResponsitory
+            = $certificateDataResponsitory;
 
         parent::__construct();
     }
@@ -173,57 +178,18 @@ class CouncilController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'council') {
             $certificates = Certificate::where('registrar', 'Like', '%' . 'Lila Nath Bhandari' . '%')->where('program_id', '=', '34')->get();
+            // $srn = 9507;
+            // foreach ($certificates as $certificate) {
+            //     $data['srn'] = $srn++;
+            //     $data['cert_registration_number'] = 'B-' . $data['srn']  . ' MLT';
+            //     $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
+            // }
 
-            // $fileName = "srn.csv";
-            // $headers = array(
-            //     "Content-type"        => "text/csv",
-            //     "Content-Disposition" => "attachment; filename=$fileName",
-            //     "Pragma"              => "no-cache",
-            //     "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
-            //     "Expires"             => "0"
-            // );
-
-            // $columns = array(
-            //     'Name', 'Date of birth', 'SRN', 'Program Name', 'Level Name', 'Qualification', 'Decision Date'
-            // );
-
-            // $callback = function () use ($certificates, $columns) {
-
-            //     $file = fopen('php://output', 'w');
-            //     fputcsv($file, $columns);
-            //     foreach ($certificates as $task) {
-            //         $row['Name'] = $task->name;
-            //         // $row['Date of birth'] = $task->date_of_birth;
-            //         $row['SRN'] = $task->srn;
-            //         $row['Qualification'] = $task->qualification;
-            //         $row['Program Name'] = $task->program_name;
-            //         // $row['level Name'] = $task->level_name;
-            //         $row['Decision Date'] = $task->decision_date;
-
-
-
-
-
-            //         fputcsv($file, array(
-            //             $row['Name'],
-            //             // $row['Date of Birth'],
-            //             $row['SRN'],
-            //             $row['Qualification'],
-            //             $row['Program Name'],
-            //             // $row['Level Name'],
-            //             $row['Decision Date']
-            //         ));
-            //     }
-
-            //     fclose($file);
-            // };
-
-            // return response()->stream($callback, 200, $headers);
-            $srn = 9507;
             foreach ($certificates as $certificate) {
-                $data['srn'] = $srn++;
-                $data['cert_registration_number'] = 'B-' . $data['srn']  . ' MLT';
-                $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
+
+                $data['insitutate'] = 'CTEVT, Nepal';
+                $certificateData = $this->certificateDataResponsitory->getAll()->where('profile_id', '=', $certificate->profile_id)->first();
+                $this->certificateDataResponsitory->update($data, $certificateData['id']);
             }
 
             return redirect()->back();
