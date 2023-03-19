@@ -4,6 +4,8 @@
 namespace Operator\Http\Controller;
 
 use App\Models\Admin\Program;
+use App\Models\Certificate\Certificate;
+use App\Models\Certificate\CertificateHistory;
 use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
@@ -228,5 +230,34 @@ class SearchController extends BaseController
             $exam_processing = $this->examProcessingRepository->update($exam, $data->id);
         }
         return redirect()->back();
+    }
+
+
+    public function searchCertificateStudent(Request $request)
+    {
+        $program = Program::get();
+        if ($request->isMethod('post')) {
+
+            $query = Certificate::query()->where('decision_date', '=', '2023-02-12');
+
+            if ($request->program != null) {
+                $query->where('program_id', 'like', $request->program);
+            }
+
+            if ($request->name != null) {
+                $query->where('name', 'like', '%' . $request->name  . '%');
+            }
+
+            if ($request->level_name != null) {
+                $query->where('level_name', 'like', '%' . $request->level_name  . '%');
+            }
+            $data = $query->get();
+
+
+
+            return view('operator::pages.search-certificate', compact('data', 'program', 'request'));
+        } else {
+            return view('operator::pages.search-certificate', compact('program'));
+        }
     }
 }

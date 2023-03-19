@@ -124,6 +124,12 @@
                         <i class="icon-book-open"></i> <span>Duplicate Old Certificate</span>
                     </a>
                 </li>
+
+                <li class="{{ (request()->is('operator/dashboard/search/certificate/students')) ? 'active':''  }}">
+                    <a href="{{route("search.lost.searchCertificateStudent")}}">
+                        <i class="icon-book-open"></i> <span>Certificate Search</span>
+                    </a>
+                </li>
             @endif
 
 

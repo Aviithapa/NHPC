@@ -105,3 +105,6 @@ Route::post('/certificate/back/update', [\Operator\Http\Controller\OperatorContr
 // Route::post('/certificate/history/update', [\Operator\Http\Controller\OperatorController::class, 'updateCertificateData'])->middleware(['auth'])->name('operator.certificateIndex.update');
 // Route::get('/certificate/history/add', [\Operator\Http\Controller\OperatorController::class, 'addPrintCertificate'])->middleware(['auth'])->name('operator.addPrintCertificate');
 // Route::get('/certificate/history/duplicate/{id}', [\Operator\Http\Controller\OperatorController::class, 'printDuplicateCertificate'])->middleware(['auth'])->name('operator.certificateIndex.duplicate');
+
+
+Route::match(['get', 'post'], '/search/certificate/students', [\Operator\Http\Controller\SearchController::class, "searchCertificateStudent"])->middleware(['auth'])->name('search.lost.searchCertificateStudent');
