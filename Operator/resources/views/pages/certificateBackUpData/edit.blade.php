@@ -85,7 +85,7 @@
                                 <input type="file" id="profile_picture_image" name="profile_picture_image"
                                        onclick="anyFileUploader('profile_picture')">
                                 <input type="hidden" id="profile_picture_path" name="profile_picture" class="form-control"
-                                       value="{{isset($data)?$data->profile_picture:''}}"/>
+                                       value="{{isset($detail_data)?$$detail_data->profile_picture:''}}"/>
                                 {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
                             </div>
                         </div>
