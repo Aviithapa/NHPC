@@ -73,21 +73,21 @@
                         <div class="col-lg-4" >
                             <label> Image *</label><br>
                            
-                            {{-- <div class="form-group col-md-12 col-lg-12">
-                                <small id="profile_photo_help_text" class="help-block"></small>
+                            <div class="form-group col-md-12 col-lg-12">
+                                <small id="profile_picture_help_text" class="help-block"></small>
                                 <div class="progress progress-striped active" role="progressbar" aria-valuemin="0"
                                      aria-valuemax="100"
                                      aria-valuenow="0">
-                                    <div id="profile_photo_progress" class="progress-bar progress-bar-success"
+                                    <div id="profile_picture_progress" class="progress-bar progress-bar-success"
                                          style="width: 0%">
                                     </div>
                                 </div><br>
-                                <input type="file" id="profile_photo_image" name="profile_photo_image"
-                                       onclick="anyFileUploader('profile_photo')">
-                                <input type="hidden" id="profile_photo_path" name="profile_photo" class="form-control"
-                                       value="{{isset($data)?$data->profile_photo:''}}"/>
+                                <input type="file" id="profile_picture_image" name="profile_picture_image"
+                                       onclick="anyFileUploader('profile_picture')">
+                                <input type="hidden" id="profile_picture_path" name="profile_picture" class="form-control"
+                                       value="{{isset($data)?$data->profile_picture:''}}"/>
                                 {!! $errors->first('image', '<div class="text-danger">:message</div>') !!}
-                            </div> --}}
+                            </div>
                         </div>
                     
                       
