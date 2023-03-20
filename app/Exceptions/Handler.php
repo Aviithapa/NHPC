@@ -42,9 +42,9 @@ class Handler extends ExceptionHandler
             return response()->view('errors.429', [], 429);
         });
 
-        // $this->renderable(function (QueryException $e, $request) {
-        //     return response()->view('errors.database', [], 500);
-        // });
+        $this->renderable(function (QueryException $e, $request) {
+            return response()->view('errors.database', [], 500);
+        });
 
         $this->renderable(function (HttpException $e, $request) {
             $statusCode = $e->getStatusCode();
