@@ -7,7 +7,7 @@
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __(" Thank you for signing up, before starting. Please, verify your email by entering the code sent in your email address. If any confusion, please contact to NHPC at Office hours") }}
+            {{ __(" Thank you for signing up, before starting. Please, verify your email by entering the code sent in your email address. If any confusion, please contact to NHPC at Office hours or for form fill you can contact to 986-1853588 or got to ") }} <a href='https://www.facebook.com/profile.php?id=100091224663594' style="color:red">Go to this link</a>
 
         </div>
         <div class="mb-4 text-sm text-gray-600">

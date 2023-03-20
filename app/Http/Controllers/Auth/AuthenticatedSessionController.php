@@ -37,7 +37,15 @@ class AuthenticatedSessionController extends Controller
             if (Auth::user()->mainRole()->name === 'administrator') {
                 dd("Student");
             } else if (Auth::user()->mainRole()->name === 'student') {
-                return  redirect()->route('student.dashboard');
+                if (Auth::user()->active()) {
+
+                    return  redirect()->route('student.dashboard');
+                } else {
+                    Auth::logout();
+                    return redirect()->back()->withErrors([
+                        'active' => 'You must be an active user or contact to whatsapp viber to 9809459051 / 9861853588 or mail to nhpcform2023@gmail.com '
+                    ]);
+                }
             } else if (Auth::user()->mainRole()->name === 'operator') {
                 return  redirect()->route('operator.dashboard');
             } else if (Auth::user()->mainRole()->name === 'officer') {
@@ -71,7 +79,6 @@ class AuthenticatedSessionController extends Controller
             //send them where they are going
 
         }
-        
     }
 
     /**
