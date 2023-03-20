@@ -51,9 +51,12 @@
         <h4>USEFUL RESOURCES</h4>
         <ul>
 
-{{--            <li> <a href="">--}}
-{{--                    >> मनसुन पूर्वतयारी र प्रतिकार्य राष्ट्रिय  कार्ययोजना-२०७८ खण्ड २--}}
-{{--                </a></li>--}}
+           <li>
+                   <a href='https://www.facebook.com/profile.php?id=100091224663594' style="color:red">facebook</a>
+            </li>
+            <li>
+                   <a href='https://www.facebook.com/profile.php?id=100090908720707' style="color:red">Facebook</a>
+            </li>
 {{--            <li> <a href="">--}}
 {{--                    >> मनसुन पूर्वतयारी र प्रतिकार्य राष्ट्रिय कार्ययोजना-२०७८ खण्ड १--}}
 {{--                </a></li>--}}
