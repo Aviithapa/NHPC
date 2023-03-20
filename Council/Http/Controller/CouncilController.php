@@ -177,7 +177,8 @@ class CouncilController extends BaseController
     public function changeDecisionDate()
     {
         if (Auth::user()->mainRole()->name === 'council') {
-            $certificates = Certificate::where('registrar', 'Like', '%' . 'Lila Nath Bhandari' . '%')->where('program_id', '=', '34')->get();
+            $certificates = ExamProcessing::get();
+
             // $srn = 9507;
             // foreach ($certificates as $certificate) {
             //     $data['srn'] = $srn++;
@@ -187,9 +188,8 @@ class CouncilController extends BaseController
 
             foreach ($certificates as $certificate) {
 
-                $data['insitutate'] = 'CTEVT, Nepal';
-                $certificateData = $this->certificateDataResponsitory->getAll()->where('profile_id', '=', $certificate->profile_id)->first();
-                $this->certificateDataResponsitory->update($data, $certificateData['id']);
+                $data['status'] = 'onhold';
+                $certificateData = $this->examProcessingRepository->update($data, $certificate['id']);
             }
 
             return redirect()->back();
