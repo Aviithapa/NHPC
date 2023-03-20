@@ -9,7 +9,7 @@
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
+        <a href='https://www.facebook.com/profile.php?id=100091224663594' style="color:red">Go to this link</a>
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
