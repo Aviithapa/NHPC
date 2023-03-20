@@ -43,7 +43,7 @@ class AuthenticatedSessionController extends Controller
                 } else {
                     Auth::logout();
                     return redirect()->back()->withErrors([
-                        'active' => 'You must be an active user or contact to whatsapp viber to 9809459051 / 9861853588 or mail to nhpcform2023@gmail.com '
+                        'active' => 'You must be an active user or contact to whatsapp viber to 9800677261  / 9861853588 or mail to nhpcform2023@gmail.com '
                     ]);
                 }
             } else if (Auth::user()->mainRole()->name === 'operator') {
