@@ -7,8 +7,7 @@
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __(" Thank you for signing up, before starting. Please, verify your email by entering the code sent in your email address. If any confusion, please contact to NHPC at Office hours") }} <a href='https://www.facebook.com/profile.php?id=100091224663594' style="color:red">Go to this link</a>
-
+            {{ __(" Thank you for signing up, before starting. Please, verify your email by entering the code sent in your email address. If any confusion, please contact to NHPC at Office hours") }} 
         </div>
         <div class="mb-4 text-sm text-gray-600">
             {{ __("परिषदको नाम दर्ता प्रक्रिया साईन अप गर्नु भएकोमा स्वागत छ । कृपया आफ्नो ईमेल ठेगानामा परिषदबाट पठाईएको कोड राखी आफ्नो ईमेल प्रमाणित गर्नुहोस ।यदि कुनै समस्या छ भने कार्यालय समयमा परिषद मा सम्पर्क गर्नुहोला ।") }}
