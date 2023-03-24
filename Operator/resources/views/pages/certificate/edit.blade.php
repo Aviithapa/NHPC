@@ -123,7 +123,7 @@
                                             <input type="text" name="date_of_birth"  value="{{ $data->date_of_birth }}" />
                                             a resident ward No. <span style="font-size: 26px;
         font-weight: 700;">  <input type="text" name="ward"  value="{{ $data->ward }}" /></span> of <span style="font-size: 26px;
-        font-weight: 700;">  <input type="text" name="municipality"  value="{{ $data->Municipality }} "/></span>
+        font-weight: 700;">  <input type="text" name="municipality"  value="{{ $data->municipality }} "/></span>
                                             Metropolitan City /Sub-Metropolitan City /Municipality /Rural Municipality
                                             <span style="font-size: 26px;
         font-weight: 700;">   <input type="text" name="district"  value="{{ $data->district }}" /></span> District <span style="font-size: 26px;

@@ -145,9 +145,9 @@
         font-size:18px ;
         float: left;">
                                                 Registration No: <span style="        font-size: 26px;
-"> <input type="text" name="registration_number" "/> </span><br>
+"> <input type="text" name="registration_number" /> </span><br>
                                                 Date of issue: <span style="        font-size: 22px;
-            "><input type="text" name="decision_date" /> </span><br>
+            "><input type="text" name="date_of_issue" /> </span><br>
             
            </span><br>
                                                 Seal of the Council:
