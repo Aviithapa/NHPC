@@ -51,7 +51,7 @@
                                                         <td>{{$exam->name}}</td>
                                                         <td>{{ $exam->dob }}</td>
                                                         <td>{{$exam->symbol_number}}</td>
-                                                        <td><img src="{{$exam->getProfilePicture()}}"</td>
+                                                        <td><img src="{{$exam->getProfileImage()}}" width="50px" height="50px"/></td>
                                                     
                                                         <td>
                                                             {{-- <a href="{{url("operator/dashboard/certificate/history/print/".$exam->id)}}"><span class="label label-success">Print</span></a>
