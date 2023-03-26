@@ -1,4 +1,12 @@
+<style>
+    .blink_me {
+  animation: blinker 1s linear infinite;
+}
 
+@keyframes blinker {  
+  50% { opacity: 0; }
+}
+</style>
 <header>
     <div class="top-nav">
         <div class="container">
@@ -19,7 +27,7 @@
                             <ul class="list-unstyled d-flex top-nav__language float-right">
                                 <li class=""><a href="{{ route('login') }}" >Login</a></li>
                                 <li class=""><a href="{{ route('register') }}">New Registrations</a></li>
-                                <li class=""><a href="{{ route('register') }}">KYC Update</a></li>
+                                <li class=""><a href="{{ route('register') }}" class="blink_me">KYC Update</a></li>
                                 {{-- <li class=""><a href="{{ route('admit.card.admitCardPrintSection')}}">Admit Card</a></li> --}}
                                {{-- <li class=""><a href="#">Admit Card</a></li> --}}
                             </ul>
