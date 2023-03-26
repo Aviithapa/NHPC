@@ -1867,4 +1867,10 @@ class OperatorController extends BaseController
 
         return view('operator::pages.kyc.index', compact('kycs'));
     }
+
+    public function allocate($certificate_id)
+    {
+        $kycs = $this->kycRepository->getAll();
+        return view('operator::pages.kyc.allocate', compact('kycs', 'certificate_id'));
+    }
 }

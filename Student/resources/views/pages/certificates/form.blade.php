@@ -49,7 +49,7 @@
 
                                             <div class="col-lg-4">
                                               
-
+                                                    <label>Profile Picture</label>
                                                 <div class="form-group col-md-12 col-lg-12">
                                                     <small>Below 1 mb</small><br>
                                                     <small id="profile_img_help_text" class="help-block"></small>

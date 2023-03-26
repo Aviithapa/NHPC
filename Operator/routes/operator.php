@@ -112,5 +112,8 @@ Route::match(['get', 'post'], '/search/certificate/students', [\Operator\Http\Co
 
 
 Route::get('/kyc', [\Operator\Http\Controller\OperatorController::class, 'kycIndex'])->middleware(['auth'])->name('operator.kyc');
+
+Route::get('/allocate/{id}', [\Operator\Http\Controller\OperatorController::class, 'allocate'])->middleware(['auth'])->name('operator.allocate');
+
 // Route::get('/certificate/edit/print/{id}', [\Operator\Http\Controller\OperatorController::class, 'editCertificateBackUpData'])->middleware(['auth'])->name('operator.editCertificateBackUpData');
 // Route::post('/certificate/back/update', [\Operator\Http\Controller\OperatorController::class, 'updateCertificateBackUpData'])->middleware(['auth'])->name('operator.updateCertificateBackUpData');

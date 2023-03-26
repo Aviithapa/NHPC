@@ -106,7 +106,9 @@
                                                 <td>{{date('Y-m-d',strtotime($exam->date_of_birth)) }}</td>
                                                 <td>
                                                  <a href="{{url('operator/dashboard/certificate/data/print/'. $exam->profile_id)}}"><span class="label label-success"> Print</span></a>   <br/>
-                                                 <a href="{{url('operator/dashboard/certificate/edit/print/'. $exam->profile_id)}}"><span class="label label-danger">Edit</span></a>   
+                                                 <a href="{{url('operator/dashboard/certificate/edit/print/'. $exam->profile_id)}}"><span class="label label-danger">Edit</span></a>  <br />
+                                                 <a href="{{url('operator/dashboard/allocate/'. $exam->profile_id)}}"><span class="label label-danger">Allocate</span></a>   
+
                                                 </td>
                                                 {{-- <td><a href={{url("operator/dashboard/deleteDuplicate/".$exam->profile_id)}}><span class="label label-danger">Delete</span></a> </td> --}}
 

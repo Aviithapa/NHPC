@@ -223,7 +223,7 @@
                                     <select class="form-control" name="level" id="level" onchange="getPracticular()" required>
                                         <option value="">Select Your Level </option>
                                         @foreach($level as $key => $value)
-                                             @if($value->id === 5 || $value->id === 3 )
+                                             @if($value->id === 5 )
 
                                                  @else
                                             <option value="{{$value->id}}">{{$value->name}}</option>
