@@ -130,6 +130,11 @@
                         <i class="icon-book-open"></i> <span>Certificate Search</span>
                     </a>
                 </li>
+                 <li class="{{ (request()->is('operator/dashboard/kyc')) ? 'active':''  }}">
+                    <a href="{{route("operator.kyc")}}">
+                        <i class="icon-book-open"></i> <span>KYC List</span>
+                    </a>
+                </li>
             @endif
 
 

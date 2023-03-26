@@ -108,3 +108,9 @@ Route::post('/certificate/back/update', [\Operator\Http\Controller\OperatorContr
 
 
 Route::match(['get', 'post'], '/search/certificate/students', [\Operator\Http\Controller\SearchController::class, "searchCertificateStudent"])->middleware(['auth'])->name('search.lost.searchCertificateStudent');
+
+
+
+Route::get('/kyc', [\Operator\Http\Controller\OperatorController::class, 'kycIndex'])->middleware(['auth'])->name('operator.kyc');
+// Route::get('/certificate/edit/print/{id}', [\Operator\Http\Controller\OperatorController::class, 'editCertificateBackUpData'])->middleware(['auth'])->name('operator.editCertificateBackUpData');
+// Route::post('/certificate/back/update', [\Operator\Http\Controller\OperatorController::class, 'updateCertificateBackUpData'])->middleware(['auth'])->name('operator.updateCertificateBackUpData');

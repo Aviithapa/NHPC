@@ -19,6 +19,7 @@ use App\Modules\Backend\CertificateHistoryDataBack\Repositories\CertificateHisto
 use App\Modules\Backend\Exam\Exam\Repositories\ExamRepository;
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDetailsRepository;
+use App\Modules\Backend\KYC\KYCRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\ProfileProcessingRepository;
 use Carbon\Carbon;
@@ -36,7 +37,7 @@ class OperatorController extends BaseController
     private $log, $profileProcessing, $profileRepository,
         $userRepository, $qualificationRepository,
         $user_data, $profileLogsRepository, $programRepository,
-        $profileProcessingRepository, $examRepository, $examProcessingRepository, $examProcessingDetailsRepository, $certificateRepository, $certificateHistoryRepository, $backDataRepository, $certificateHistoryDataBackRepository;
+        $profileProcessingRepository, $examRepository,  $kycRepository, $examProcessingRepository, $examProcessingDetailsRepository, $certificateRepository, $certificateHistoryRepository, $backDataRepository, $certificateHistoryDataBackRepository;
 
     private $commonView = 'operator::pages.';
     private $commonMessage = 'Profile ';
@@ -71,7 +72,8 @@ class OperatorController extends BaseController
         CertificateRepository $certificateRepository,
         CertificateHistoryRepository $certificateHistoryRepository,
         BackDataRepository $backDataRepository,
-        CertificateHistoryDataBackRepository $certificateHistoryDataBackRepository
+        CertificateHistoryDataBackRepository $certificateHistoryDataBackRepository,
+        KYCRepository $kycRepository
 
     ) {
         $this->viewData['commonRoute'] = $this->commonRoute;
@@ -91,6 +93,7 @@ class OperatorController extends BaseController
         $this->certificateHistoryRepository = $certificateHistoryRepository;
         $this->backDataRepository = $backDataRepository;
         $this->certificateHistoryDataBackRepository = $certificateHistoryDataBackRepository;
+        $this->kycRepository = $kycRepository;
         parent::__construct();
     }
 
@@ -1855,5 +1858,13 @@ class OperatorController extends BaseController
             session()->flash('danger', 'Oops! Something went wrong.');
             return redirect()->back()->withInput();
         }
+    }
+
+
+    public function kycIndex()
+    {
+        $kycs = $this->kycRepository->getAll();
+
+        return view('operator::pages.kyc.index', compact('kycs'));
     }
 }
