@@ -20,7 +20,7 @@
                     <div class="card-body">
 
 
-                        <h4 class="text-black">Information Related to  Licence Certificate </h4>
+                        <h4 class="text-black">Information Related to KYC </h4>
 
 
                             <div class="content">
@@ -29,8 +29,8 @@
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <fieldset class="form-group">
-                                                    <label>Certificate Number</label>
-                                                    <input name="certificate_number" class="form-control" id="basicInput" type="text" required>
+                                                    <label>Name</label>
+                                                    <input name="name" class="form-control" id="basicInput" type="text" required>
                                                 </fieldset>
                                             </div>
                                             <div class="col-lg-4">
@@ -39,10 +39,16 @@
                                                     <input name="dob" class="form-control" id="basicInput" type="date" step="1"   required/>
                                                 </fieldset>
                                             </div>
+                                            <div class="col-lg-4">
+                                                <fieldset class="form-group">
+                                                    <label>Symbol Number</label>
+                                                    <input name="symbol_number" class="form-control" id="basicInput" type="text"  required/>
+                                                </fieldset>
+                                            </div>
                                         </div>
 
                                         <button type="submit" class="btn btn-primary float-right mt-2"><i class="fa fa-check"></i>
-                                            Link</button>
+                                            Update KYC</button>
 
                                     </form>
 

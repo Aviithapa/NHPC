@@ -29,6 +29,8 @@ use App\Modules\Backend\Exam\ExamProcessing\Repositories\EloquentExamProcessingR
 use App\Modules\Backend\Exam\ExamProcessing\Repositories\ExamProcessingRepository;
 use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\EloquentExamProcessingDetailsRepository;
 use App\Modules\Backend\Exam\ExamProcessingDetails\Repositories\ExamProcessingDetailsRepository;
+use App\Modules\Backend\KYC\EloquentKYCRepository;
+use App\Modules\Backend\KYC\KYCRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\EloquentProfileLogsRepository;
 use App\Modules\Backend\Profile\Profilelogs\Repositories\ProfileLogsRepository;
 use App\Modules\Backend\Profile\ProfileProcessing\Repositories\EloquentProfileProcessingRepository;
@@ -174,6 +176,11 @@ class DependencyInjectionServiceProvider extends ServiceProvider
         $this->app->bind(
             CertificateHistoryDataBackRepository::class,
             EloquentCertificateHistoryDataBackRepository::class
+        );
+
+        $this->app->bind(
+            KYCRepository::class,
+            EloquentKYCRepository::class
         );
     }
 }
