@@ -12,6 +12,15 @@ class KYCData extends Model
 
     protected $table = 'kyc_data';
     protected $fillable = [
-        'name', 'profile_id', 'dob', 'symbol_number'
+        'name', 'profile_id', 'dob', 'symbol_number', 'profile_img'
     ];
+
+    public function getProfileImage()
+    {
+        if (isset($this->profile_img)) {
+            return Storage::url('documents/' . $this->profile_img);
+        } else {
+            return imageNotFound();
+        }
+    }
 }

@@ -57,6 +57,13 @@
                     <i class="icon-book-open"></i> <span>Profile Status</span>
                 </a>
             </li>
+
+             <li class="{{ (request()->is('student/dashboard/link/certificate/form')) ? 'active' : '' }}">
+                <a href=" {{route("certificate.edit")}}">
+                    <i class="icon-book-open"></i> <span>KYC Update</span>
+                </a>
+            </li>
+           
 {{--             
            @if(idCard())
             <li class="{{ (request()->is('student/dashboard/idCard')) ? 'active' : '' }}">
