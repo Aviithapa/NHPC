@@ -1903,7 +1903,7 @@ class OperatorController extends BaseController
     public function uploadAllocate(Request $request)
     {
         $data = $request->all();
-        $certificate = Certificate::where('profile_id', '=', $data['certificate_profile_id'])->first();
+        $certificate = Certificate::where('id', '=', $data['certificate_profile_id'])->first();
 
         dd($certificate);
         try {
