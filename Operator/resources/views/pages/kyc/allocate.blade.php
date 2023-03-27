@@ -30,9 +30,15 @@
                                             <div class="col-lg-4">
                                                 <input type="hidden" name="certificate_profile_id" class="form-control" value="{{ $certificate_id }}"/>
                                                 
+                                                 <fieldset class="form-group">
+                                                         <input type="text" id="profile-search"  class="form-control" placeholder="Search profiles...">
+
+                                                </fieldset>
+
                                                 <fieldset class="form-group">
                                                     <label>Allocate</label>
-                                                     <select class="form-control" name="profile_id" required>
+                                                  
+                                                     <select class="form-control" name="profile_id" id="category-filter" required>
                                                             @foreach($kycs  as $kyc)
                                                    
                                                             <option value="{{$kyc->profile_id}}">{{$kyc->name}}, {{ $kyc->dob }}, {{ $kyc->symbol_number }}, {{$kyc->profile_id}}</option>
@@ -46,7 +52,7 @@
                                         </div>
 
                                         <button type="submit" class="btn btn-primary float-right mt-2"><i class="fa fa-check"></i>
-                                            Print Certificate</button>
+                                            Allocate Certificate</button>
 
                                     </form>
 
@@ -77,4 +83,16 @@
         $('.dropify').dropify();
     </script>
     @include('student::parties.common.file-upload')
+   
+
+    <script>
+  $(document).ready(function() {
+    $('#profile-search').on('keyup', function() {
+      var value = $(this).val().toLowerCase();
+      $('#category-filter option').filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
 @endpush
