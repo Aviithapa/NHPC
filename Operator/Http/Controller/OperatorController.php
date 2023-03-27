@@ -1905,7 +1905,7 @@ class OperatorController extends BaseController
         $data = $request->all();
         $certificate = Certificate::where('id', '=', $data['certificate_profile_id'])->first();
 
-        dd($certificate);
+        dd($data, $certificate);
         try {
             $certificates = $this->certificateRepository->update($data, $certificate->id);
 
