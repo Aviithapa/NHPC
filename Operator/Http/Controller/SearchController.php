@@ -252,9 +252,6 @@ class SearchController extends BaseController
                 $query->where('level_name', 'like', '%' . $request->level_name  . '%');
             }
             $data = $query->get();
-
-
-
             return view('operator::pages.search-certificate', compact('data', 'program', 'request'));
         } else {
             return view('operator::pages.search-certificate', compact('program'));
