@@ -9,6 +9,7 @@ use App\Imports\OldFileImport;
 use App\Models\Address\Provinces;
 use App\Models\Certificate\Certificate;
 use App\Models\Certificate\CertificateHistory;
+use App\Models\Certificate\KYCData;
 use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
@@ -1834,11 +1835,6 @@ class OperatorController extends BaseController
 
     public function updateCertificateBackUpData(Request $request)
     {
-        // $data = Certificate::where('profile_id', '=', $id)->first();
-
-        // $detail_data = $this->certificateHistoryDataBackRepository->getAll()->where('profile_id', '=', $id)->first();
-        // // dd($detail_data);
-        // // return 
 
         $data = $request->all();
         $certificate_id = $data['certificate_id'];
@@ -1861,16 +1857,65 @@ class OperatorController extends BaseController
     }
 
 
-    public function kycIndex()
+    public function kycIndex(Request $request)
     {
-        $kycs = $this->kycRepository->getAll();
+        if ($request->isMethod('post')) {
 
-        return view('operator::pages.kyc.index', compact('kycs'));
+            $query = KYCData::query();
+
+            if ($request->name != null) {
+                $query->where('name', 'like', '%' . $request->name  . '%');
+            }
+
+
+            $kycs = $query->get();
+
+
+            return view('operator::pages.kyc.index', compact('kycs'));
+        } else {
+            $kycs = $this->kycRepository->getAll();
+
+            return view('operator::pages.kyc.index', compact('kycs'));
+        }
     }
 
     public function allocate($certificate_id)
     {
         $kycs = $this->kycRepository->getAll();
         return view('operator::pages.kyc.allocate', compact('kycs', 'certificate_id'));
+    }
+
+    public function deleteAllocate($id)
+    {
+        try {
+            $kyc =  $this->kycRepository->delete($id);
+            if ($kyc == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            return redirect()->back();
+        } catch (Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function uploadAllocate(Request $request)
+    {
+        $data = $request->all();
+        $certificate = Certificate::where('profile_id', '=', $data['certificate_profile_id'])->first();
+
+        try {
+            $certificates = $this->certificateRepository->update($data, $certificate->id);
+
+            if ($certificates == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            return redirect()->back();
+        } catch (Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
     }
 }

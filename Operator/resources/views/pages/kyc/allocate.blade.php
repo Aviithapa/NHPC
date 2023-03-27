@@ -24,10 +24,12 @@
 
 
                             <div class="content">
-                                    <form method="POST" action="{{route('certificate.validateCertificate')}}">
+                                    <form method="POST" action="{{route('operator.uploadAllocate')}}">
                                         @csrf
                                         <div class="row">
                                             <div class="col-lg-4">
+                                                <input type="hidden" name="certificate_profile_id" class="form-control" value="{{ $certificate_id }}"/>
+                                                
                                                 <fieldset class="form-group">
                                                     <label>Allocate</label>
                                                      <select class="form-control" name="profile_id" required>
@@ -44,7 +46,7 @@
                                         </div>
 
                                         <button type="submit" class="btn btn-primary float-right mt-2"><i class="fa fa-check"></i>
-                                            Update KYC</button>
+                                            Print Certificate</button>
 
                                     </form>
 

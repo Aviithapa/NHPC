@@ -16,7 +16,36 @@
 
                 <!-- Main content -->
                 <div class="content">
+ <div class="box box-info">
+                    <div class="box-header with-border p-t-1">
+                        <form method="POST" 
+                        action="{{url('operator/dashboard/kyc')}}">
+                            @csrf
 
+
+                            <div class="row">
+
+                              
+
+                                <div class="col-lg-3">
+                                    <fieldset class="form-group">
+                                        <input type="text" name="name" class = "form-control" placeholder="Enter Name" value={{ isset($request->name) ? $request->name : '' }}>
+                                    </fieldset>
+                                   
+                                </div>
+
+                               
+                            </div>
+                            <div class="row float-right">
+                                <div class="col-lg-4" >
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i>
+                                Search</button>
+                                </div>
+                                </div>
+
+                        </form>
+                    </div>
+                    </div>
                     <div class="row">
                         <div class="col-lg-12 m-b-3">
                             <div class="box box-info">
@@ -52,16 +81,11 @@
                                                         <td>{{ $exam->dob }}</td>
                                                         <td>{{$exam->symbol_number}}</td>
                                                         <td><img src="{{$exam->getProfileImage()}}" width="50px" height="50px"/></td>
-                                                    
-                                                        <td>
-                                                            {{-- <a href="{{url("operator/dashboard/certificate/history/print/".$exam->id)}}"><span class="label label-success">Print</span></a>
-                                                        <a href="{{url("operator/dashboard/certificate/history/edit/".$exam->id)}}"><span class="label label-success">Edit</span></a>
-                                                        <a href="{{url("operator/dashboard/certificate/history/duplicate/".$exam->id)}}"><span class="label label-success">Duplicate</span></a>
-                                                        <a href="{{url("operator/dashboard/certificate/back/".$exam->id)}}"><span class="label label-danger">Back Side Print</span></a> --}}
-                                                    </td>
-
-
-                                                        <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$exam->profile_id)}}"><span class="label label-success">View</span></a></td>
+                                                        <td> 
+                                                            <a href="{{url("operator/dashboard/operator/applicant-list-view/".$exam->profile_id)}}"><span class="label label-success">View</span></a>
+                                                            <a href="{{url("operator/dashboard/delete/allocate/".$exam->id)}}"><span class="label label-danger">Delete</span></a>
+                                                        
+                                                        </td>
                                                         {{-- <td><a href={{url("operator/dashboard/deleteDuplicate/".$exam->profile_id)}}><span class="label label-danger">Delete</span></a> </td> --}} 
 
                                                     </tr>

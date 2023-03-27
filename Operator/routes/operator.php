@@ -111,9 +111,12 @@ Route::match(['get', 'post'], '/search/certificate/students', [\Operator\Http\Co
 
 
 
-Route::get('/kyc', [\Operator\Http\Controller\OperatorController::class, 'kycIndex'])->middleware(['auth'])->name('operator.kyc');
+Route::match(['get', 'post'], '/kyc', [\Operator\Http\Controller\OperatorController::class, 'kycIndex'])->middleware(['auth'])->name('operator.kyc');
 
 Route::get('/allocate/{id}', [\Operator\Http\Controller\OperatorController::class, 'allocate'])->middleware(['auth'])->name('operator.allocate');
+Route::post('/delete/allocate/{id}', [\Operator\Http\Controller\OperatorController::class, 'deleteAllocate'])->middleware(['auth'])->name('operator.deleteAllocate');
+
+Route::post('/uploadAllocate', [\Operator\Http\Controller\OperatorController::class, 'uploadAllocate'])->middleware(['auth'])->name('operator.uploadAllocate');
 
 // Route::get('/certificate/edit/print/{id}', [\Operator\Http\Controller\OperatorController::class, 'editCertificateBackUpData'])->middleware(['auth'])->name('operator.editCertificateBackUpData');
 // Route::post('/certificate/back/update', [\Operator\Http\Controller\OperatorController::class, 'updateCertificateBackUpData'])->middleware(['auth'])->name('operator.updateCertificateBackUpData');
