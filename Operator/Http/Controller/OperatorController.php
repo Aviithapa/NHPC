@@ -1873,14 +1873,14 @@ class OperatorController extends BaseController
 
             return view('operator::pages.kyc.index', compact('kycs'));
         } else {
-            $kyces = $this->kycRepository->getAll();
-            $kycs = [];
-            foreach ($kyces as $kyc) {
-                $profile = $this->profileRepository->getAll()->where('id', '=', $kyc->profile_id)->first();
-                if ($profile->father_name) {
-                    $kycs[] = $kyc;
-                }
-            }
+            $kycs = $this->kycRepository->getAll();
+            // $kycs = [];
+            // foreach ($kyces as $kyc) {
+            //     $profile = $this->profileRepository->getAll()->where('id', '=', $kyc->profile_id)->first();
+            //     if ($profile->father_name) {
+            //         $kycs[] = $kyc;
+            //     }
+            // }
             return view('operator::pages.kyc.index', compact('kycs'));
         }
     }
