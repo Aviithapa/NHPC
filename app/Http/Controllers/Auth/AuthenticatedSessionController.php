@@ -37,15 +37,15 @@ class AuthenticatedSessionController extends Controller
             if (Auth::user()->mainRole()->name === 'administrator') {
                 dd("Student");
             } else if (Auth::user()->mainRole()->name === 'student') {
-                if (Auth::user()->active()) {
+                // if (Auth::user()->active()) {
 
-                    return  redirect()->route('student.dashboard');
-                } else {
-                    Auth::logout();
-                    return redirect()->back()->withErrors([
-                        'active' => 'You must be an active user'
-                    ]);
-                }
+                return  redirect()->route('student.dashboard');
+                // } else {
+                //     Auth::logout();
+                //     return redirect()->back()->withErrors([
+                //         'active' => 'You must be an active user'
+                //     ]);
+                // }
             } else if (Auth::user()->mainRole()->name === 'operator') {
                 return  redirect()->route('operator.dashboard');
             } else if (Auth::user()->mainRole()->name === 'officer') {

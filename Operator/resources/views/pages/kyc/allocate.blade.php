@@ -32,7 +32,6 @@
                                                 
                                                  <fieldset class="form-group">
                                                          <input type="text" id="profile-search"  class="form-control" placeholder="Search profiles...">
-
                                                 </fieldset>
 
                                                 <fieldset class="form-group">
