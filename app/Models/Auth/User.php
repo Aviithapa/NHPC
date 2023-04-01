@@ -40,7 +40,6 @@ class User extends Authenticatable
     public function isSuperAdmin()
     {
         return $this->hasRole(['administrator']) ? true : false;
-
     }
 
     /**

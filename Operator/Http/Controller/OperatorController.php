@@ -8,7 +8,6 @@ use App\Http\Controllers\MailController;
 use App\Imports\OldFileImport;
 use App\Models\Address\Provinces;
 use App\Models\Certificate\Certificate;
-use App\Models\Certificate\CertificateHistory;
 use App\Models\Certificate\KYCData;
 use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
