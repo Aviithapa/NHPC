@@ -320,7 +320,9 @@
         font-weight: bold;
         width: 80px;
 
-">{{$qualification->passed_year}}</td>
+">
+{{-- {{$qualification->passed_year}} --}}
+</td>
         </tr>
         <tr style=" border: 1px solid black;
         text-align: center;         height: 15px;
