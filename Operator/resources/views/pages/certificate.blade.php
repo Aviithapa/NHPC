@@ -312,7 +312,9 @@
         font-weight: bold;
         width: 200px;
 
-" >{{$qualification->board_university}}</td>
+" >
+{{-- {{$qualification->board_university}} --}}
+</td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
