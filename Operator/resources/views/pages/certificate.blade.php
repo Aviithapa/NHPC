@@ -313,7 +313,7 @@
         width: 200px;
 
 " >
-{{-- {{$qualification->board_university}} --}}
+{{$qualification->board_university}}
 </td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
@@ -321,7 +321,7 @@
         width: 80px;
 
 ">
-{{-- {{$qualification->passed_year}} --}}
+{{$qualification->passed_year}}
 </td>
         </tr>
         <tr style=" border: 1px solid black;
