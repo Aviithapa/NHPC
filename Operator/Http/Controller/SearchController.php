@@ -238,7 +238,7 @@ class SearchController extends BaseController
         $program = Program::get();
         if ($request->isMethod('post')) {
 
-            $query = Certificate::query()->where('decision_date', '=', '2023-02-12');
+            $query = Certificate::query();
 
             if ($request->program != null) {
                 $query->where('program_id', 'like', $request->program);
