@@ -228,7 +228,11 @@
             Registration No: <span style="        font-size: 26px;
 "> {{$certificate->cert_registration_number}}</span><br>
             Date of issue: <span style="        font-size: 22px;
-            "> {{date('d-m-Y',strtotime($certificate->issued_date))}}</span><br>
+            "> 
+            {{-- {{date('d-m-Y',strtotime($certificate->issued_date))}} --}}
+
+            05-03-2023
+        </span><br>
             Seal of the Council:
         </div>
         <div class="right" style="font-weight: 600;
@@ -239,7 +243,7 @@
         float: right;">
             <span style="font-size:20px; margin-right: 190px;">Signature:</span>  <br>
              Name: <span style="font-weight: 700; font-size: 20px;
-            ">{{ $certificate->registrar }}</span> <br>
+            ">Lila Nath Bhandari</span> <br>
             <span style="font-weight: 700; font-size: 20px;">Registrar</span>
 
         </div>
