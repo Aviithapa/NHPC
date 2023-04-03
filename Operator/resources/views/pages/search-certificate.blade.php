@@ -57,6 +57,26 @@
                                         </select>
                                     </fieldset>
                                 </div>
+
+                                 <div class="col-lg-4">
+                                        <fieldset class="form-group">
+                                            <select class="form-control" name="date"  id="date" >
+                                                <option value={{ isset($date) ?  $date : 0  }}>{{ isset($date) ?  $date : 'DECISION DATE'  }}</option>
+                                                <option value="2023-02-12">2023-02-12 (2079-10-29)</option>
+                                                <option value="2023-02-04">2023-02-04 (2079-10-21)</option>
+                                                <option value="2023-01-18">2023-01-18 (2079-10-04)</option>
+                                                <option value="2022-12-27">2022-12-27 (2079-09-11)</option>
+                                                <option value="2022-12-17">2022-12-17  (2079-09-02) </option>
+                                                <option value="2022-11-05">2022-11-05  (2079-07-20)</option>
+                                                <option value="2022-09-25">2022-09-25  (2079-06-09)</option>
+                                                <option value="2022-09-21">2022-09-21 (2079-06-05)</option>
+                                                <option value="2022-08-15">2022-08-15 (2079-04-30)</option>
+                                                <option value="2022-07-26">2022-07-26 (2079-04-10)</option>
+                                                <option value="2022-07-08">2022-07-08 (2079-03-24)</option>
+                                                <option value="2022-06-05">2022-06-05  (2079-02-22) </option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
                             </div>
                             <div class="row float-right">
                                 <div class="col-lg-4" >

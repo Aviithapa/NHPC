@@ -251,6 +251,11 @@ class SearchController extends BaseController
             if ($request->level_name != null) {
                 $query->where('level_name', 'like', '%' . $request->level_name  . '%');
             }
+
+            if ($request->date != null) {
+                $query->where('decision_date', 'like', $request->date);
+            }
+
             $data = $query->get();
             return view('operator::pages.search-certificate', compact('data', 'program', 'request'));
         } else {
