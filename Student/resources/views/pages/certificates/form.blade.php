@@ -41,7 +41,7 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <fieldset class="form-group">
-                                                    <label>Date of Birth (B.S.)</label>
+                                                    <label>Date of Birth</label>
                                                     <input name="dob" class="form-control" id="basicInput" type="date" step="1"   required/>
                                                 </fieldset>
                                             </div>
