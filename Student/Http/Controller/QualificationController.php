@@ -124,17 +124,16 @@ class QualificationController extends BaseController
                 $id = $this->profileRepository->findByFirst('user_id', Auth::user()->id, '=');
                 $profile_pro['status'] = 'progress';
                 $profile_processing_id = ProfileProcessing::get()->where('profile_id', '=', $id['id'])->last();
-                if($profile_processing_id === null){
+                if ($profile_processing_id === null) {
                     $profile_processing['current_state'] = 'computer_operator';
                     $profile_processing['status'] = 'progress';
                     $profile_processing['profile_id'] =  $id['id'];
                     $this->profileProcessingRepository->create($profile_processing);
-                }
-                else{
+                } else {
                     $profiles_processing = $this->profileProcessingRepository->update($profile_pro, $profile_processing_id['id']);
                 }
                 $profiles['profile_status'] = "Reviewing";
-                $profiles['profile_state'] = $profiles_processing['current_state'];
+                $profiles['profile_state'] = $profiles_processing ? $profiles_processing['current_state'] : 'computer_operator';
                 $profile = $this->profileRepository->update($profiles, $id['id']);
                 $exam['status'] = 'progress';
                 $examed = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id['id'])->first();
