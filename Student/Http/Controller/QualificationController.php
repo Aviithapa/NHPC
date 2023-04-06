@@ -133,7 +133,7 @@ class QualificationController extends BaseController
                     $profiles_processing = $this->profileProcessingRepository->update($profile_pro, $profile_processing_id['id']);
                 }
                 $profiles['profile_status'] = "Reviewing";
-                $profiles['profile_state'] = $profiles_processing ? $profiles_processing['current_state'] : 'computer_operator';
+                $profiles['profile_state'] = isset($profiles_processing) ? $profiles_processing['current_state'] : 'computer_operator';
                 $profile = $this->profileRepository->update($profiles, $id['id']);
                 $exam['status'] = 'progress';
                 $examed = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id['id'])->first();
