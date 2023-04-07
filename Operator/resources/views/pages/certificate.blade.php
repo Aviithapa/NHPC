@@ -231,9 +231,9 @@
             "> 
             {{-- {{date('d-m-Y',strtotime($certificate->issued_date))}} --}}
 
-            {{-- 05-03-2023 --}}
+            05-03-2023
 
-            08-07-2022
+            {{-- 08-07-2022 --}}
         </span><br>
             Seal of the Council:
         </div>
