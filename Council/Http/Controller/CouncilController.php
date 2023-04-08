@@ -574,8 +574,6 @@ class CouncilController extends BaseController
             ->orderBy('profiles.created_at', 'ASC')
             ->get(['profiles.*']);
 
-        dd($datas);
-
         $exam['state'] = 'council';
         $exam['status'] = 'progress';
 
