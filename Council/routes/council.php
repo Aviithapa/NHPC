@@ -27,3 +27,6 @@ Route::get('/FileChangeCouncilDate', [\Council\Http\Controller\CouncilController
 Route::get('/councilFile', [\Council\Http\Controller\CouncilController::class, 'getAll'])->middleware(['auth'])->name('council.councilFile');
 
 Route::get('/old/councilFile', [\Council\Http\Controller\CouncilController::class, 'oldCertificate'])->middleware(['auth'])->name('council.councilFile.old');
+
+
+Route::get('/old/moveCouncilPost', [\Council\Http\Controller\CouncilController::class, 'moveCouncilPost'])->middleware(['auth'])->name('council.councilFile.moveCouncilPost');

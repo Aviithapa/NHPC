@@ -560,4 +560,37 @@ class CouncilController extends BaseController
         $data = CertificateHistory::all()->where('decision_date', '=', '2023-01-18');
         return view('council::pages.old-certificate-list', compact('data'));
     }
+
+    public function moveCouncilPost(Request $request)
+    {
+
+        $average = 0;
+        $datas = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+            ->where('profile_processing.current_state', 'subject_committee')
+            ->where('profile_processing.status', 'progress')
+            ->where('exam_registration.level_id', '=', 4)
+            ->orderBy('profiles.created_at', 'ASC')
+            ->get(['profiles.*']);
+
+        $exam['state'] = 'council';
+        $exam['status'] = 'progress';
+
+        $profile_processing['current_state'] = 'council';
+        $profile_processing['status'] = 'progress';
+
+        $profile['profile_state'] = 'council';
+        $profile['profile_status'] = 'Reviewing';
+        foreach ($datas as $data) {
+            $exam_id = $this->examProcessingRepository->getAll()->where('profile_id', '=', $data->id)->first();
+            $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $data->id)->first();
+            $this->profileRepository->update($profile, $data->id);
+            $this->profileProcessingRepository->update($profile_processing, $profile_processing_id->id);
+            $this->examProcessingRepository->update($exam, $exam_id->id);
+            $this->ExamProcessingLog($exam, Auth::user()->id, $data->id);
+            $this->profileLog($profile_processing);
+        }
+        return redirect()->back();
+    }
 }
