@@ -177,20 +177,20 @@ class CouncilController extends BaseController
     public function changeDecisionDate()
     {
         if (Auth::user()->mainRole()->name === 'council') {
-            $certificates = ExamProcessing::where('status', '!=', 'accepted')->get();
-
+            // $certificates = ExamProcessing::where('status', '!=', 'accepted')->get();
+            $certificates = $this->certificateRepository->getAll()->where('decision_date', '=', '2023/04/08');
             // $srn = 9507;
-            // foreach ($certificates as $certificate) {
-            //     $data['srn'] = $srn++;
-            //     $data['cert_registration_number'] = 'B-' . $data['srn']  . ' MLT';
-            //     $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
-            // }
-
             foreach ($certificates as $certificate) {
-
-                $data['status'] = 'onhold';
-                $certificateData = $this->examProcessingRepository->update($data, $certificate['id']);
+                $data['decision_date'] = '2023-04-08';
+                $data['registrar'] = 'Lila Nath Bhandari';
+                $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
             }
+
+            // foreach ($certificates as $certificate) {
+
+            //     $data['status'] = 'onhold';
+            //     $certificateData = $this->examProcessingRepository->update($data, $certificate['id']);
+            // }
 
             return redirect()->back();
         } else {
