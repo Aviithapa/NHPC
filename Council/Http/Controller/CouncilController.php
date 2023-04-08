@@ -574,6 +574,8 @@ class CouncilController extends BaseController
             ->orderBy('profiles.created_at', 'ASC')
             ->get(['profiles.*']);
 
+        dd($datas);
+
         $exam['state'] = 'council';
         $exam['status'] = 'progress';
 
@@ -588,8 +590,6 @@ class CouncilController extends BaseController
             $this->profileRepository->update($profile, $data->id);
             $this->profileProcessingRepository->update($profile_processing, $profile_processing_id->id);
             $this->examProcessingRepository->update($exam, $exam_id->id);
-            $this->ExamProcessingLog($exam, Auth::user()->id, $data->id);
-            $this->profileLog($profile_processing);
         }
         return redirect()->back();
     }
