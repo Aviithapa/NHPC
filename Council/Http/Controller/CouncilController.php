@@ -178,11 +178,11 @@ class CouncilController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'council') {
             // $certificates = ExamProcessing::where('status', '!=', 'accepted')->get();
-            $certificates = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-04-08')->where('program_id', '=', '42');
-            $srn = 22395;
+            $certificates = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-04-08')->where('program_id', '=', '41');
+            $srn = 65885;
             foreach ($certificates as $certificate) {
                 $data['srn'] = $srn++;
-                $data['cert_registration_number'] = 'C-' . $data['srn']  . ' MLT';
+                $data['cert_registration_number'] = 'C-' . $data['srn']  . ' Med CMA';
                 $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
             }
 
