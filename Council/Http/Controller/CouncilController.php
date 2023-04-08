@@ -178,19 +178,19 @@ class CouncilController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'council') {
             // $certificates = ExamProcessing::where('status', '!=', 'accepted')->get();
-            $certificates = $this->certificateRepository->getAll()->where('decision_date', '=', '2023/04/08');
-            // $srn = 9507;
+            $certificates = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-04-08')->where('program_id', '=', '42');
+            $srn = 22394;
             foreach ($certificates as $certificate) {
-                $data['decision_date'] = '2023-04-08';
-                $data['registrar'] = 'Lila Nath Bhandari';
+                $data['srn'] = $srn++;
+                $data['cert_registration_number'] = 'C-' . $data['srn']  . ' MLT';
                 $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
             }
 
-            // foreach ($certificates as $certificate) {
+            foreach ($certificates as $certificate) {
 
-            //     $data['status'] = 'onhold';
-            //     $certificateData = $this->examProcessingRepository->update($data, $certificate['id']);
-            // }
+                $data['status'] = 'onhold';
+                $certificateData = $this->examProcessingRepository->update($data, $certificate['id']);
+            }
 
             return redirect()->back();
         } else {
@@ -573,6 +573,8 @@ class CouncilController extends BaseController
             ->where('exam_registration.level_id', '=', 4)
             ->orderBy('profiles.created_at', 'ASC')
             ->get(['profiles.*']);
+
+
 
         $exam['state'] = 'council';
         $exam['status'] = 'progress';
