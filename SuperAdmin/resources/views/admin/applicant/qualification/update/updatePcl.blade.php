@@ -68,7 +68,7 @@
                     <div class="col-lg-4">
                         <fieldset class="form-group">
                             <label>Passed Year </label>
-                            <input name="passed_year" class="form-control" id="pclPassedYear" type="number" min="2050" max="2078" value="{{$data->passed_year}}" step="1" placeholder="2075"/>
+                            <input name="passed_year" class="form-control" id="pclPassedYear" type="number"  value="{{$data->passed_year}}" step="1" placeholder="2075"/>
                         </fieldset>
                     </div>
                     <div class="col-lg-4">
@@ -163,7 +163,7 @@
 {{--                <div class="col-lg-4">--}}
 {{--                    <fieldset class="form-group">--}}
 {{--                        <label>Passed Year </label>--}}
-{{--                        <input name="passed_year" class="form-control" value="{{$data->passed_year}}" id="basicInput" type="number" min="2050" max="2078" step="1" placeholder="2075" required/>--}}
+{{--                        <input name="passed_year" class="form-control" value="{{$data->passed_year}}" id="basicInput" type="number"  step="1" placeholder="2075" required/>--}}
 {{--                    </fieldset>--}}
 {{--                </div>--}}
 {{--                <div class="col-lg-4">--}}

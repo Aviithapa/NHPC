@@ -132,7 +132,7 @@
                         <div class="col-lg-4">
                             <fieldset class="form-group">
                                 <label>Passed Year </label>
-                                <input name="passed_year" class="form-control" id="nebpassedYear" type="number" min="2050" max="2078" step="1" placeholder="2075" />
+                                <input name="passed_year" class="form-control" id="nebpassedYear" type="number"  step="1" placeholder="2075" />
                             </fieldset>
                         </div>
                         <div class="col-lg-4">
