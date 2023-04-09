@@ -229,9 +229,9 @@
 "> {{$certificate->cert_registration_number}}</span><br>
             Date of issue: <span style="        font-size: 22px;
             "> 
-            {{-- {{date('d-m-Y',strtotime($certificate->issued_date))}} --}}
+            {{date('d-m-Y',strtotime($certificate->issued_date))}}
 
-            05-03-2023
+            {{-- 05-03-2023 --}}
 
             {{-- 08-07-2022 --}}
         </span><br>
