@@ -126,61 +126,59 @@ class ApplicantController  extends BaseController
 
     public function search(Request $request)
     {
-      
-        try{
 
-        
+        try {
+
+
             $output = "";
-        if ($request->ajax()) {
-            $products = DB::table('profiles')->join('users','users.id','=','profiles.user_id')
-            ->select('profiles.first_name as first_name',
-            'profiles.last_name as last_name',
-            // 'profiles.middle_name as middle_name',
-             'profiles.dob_nep as dob_nep',
-            'profiles.profile_status as profile_status',
-            'profiles.citizenship_number as citizenship_number',
-             'users.email as email', 
-             'profiles.id as profile_id'
-             )
-                 ->where('first_name', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('last_name', 'LIKE', '%' . $request->search . "%")
-                // ->orwhere('middle_name', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('dob_nep', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('profile_status', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('citizenship_number', 'LIKE', '%' . $request->search . "%")
-                ->orWhere('email','LIKE', '%' . $request->search . "%")
-                ->paginate(15);
+            if ($request->ajax()) {
+                $products = DB::table('profiles')->join('users', 'users.id', '=', 'profiles.user_id')
+                    ->select(
+                        'profiles.first_name as first_name',
+                        'profiles.last_name as last_name',
+                        // 'profiles.middle_name as middle_name',
+                        'profiles.dob_nep as dob_nep',
+                        'profiles.profile_status as profile_status',
+                        'profiles.citizenship_number as citizenship_number',
+                        'users.email as email',
+                        'profiles.id as profile_id'
+                    )
+                    ->where('first_name', 'LIKE', '%' . $request->search . "%")
+                    ->orwhere('last_name', 'LIKE', '%' . $request->search . "%")
+                    // ->orwhere('middle_name', 'LIKE', '%' . $request->search . "%")
+                    ->orwhere('dob_nep', 'LIKE', '%' . $request->search . "%")
+                    ->orwhere('profile_status', 'LIKE', '%' . $request->search . "%")
+                    ->orwhere('citizenship_number', 'LIKE', '%' . $request->search . "%")
+                    ->orWhere('email', 'LIKE', '%' . $request->search . "%")
+                    ->paginate(15);
 
-            if ($products->isNotEmpty()) {
-                foreach ($products as $key => $product) {
+                if ($products->isNotEmpty()) {
+                    foreach ($products as $key => $product) {
+                        $output .= '<tr>' .
+                            '<td>' . $product->first_name . '</td>' .
+                            '<td>' . $product->citizenship_number . '</td>' .
+                            '<td>' . $product->dob_nep . '</td>' .
+                            '<td>' . $product->profile_status . '</td>' .
+                            '<td>' . $product->email . '</td>' .
+                            '<td><a href=' . url("superAdmin/dashboard/applicant-list-view/" . $product->profile_id) . '><span class="label label-success">View</span></a> <a href=' . url("superAdmin/dashboard/delete/" . $product->profile_id) . '><span class="label label-danger">Delete</span></a></td>' .
+                            '</tr>';
+                    }
+                    return Response($output);
+                } else {
                     $output .= '<tr>' .
-                        '<td>' . $product->first_name . '</td>' .
-                        '<td>' . $product->citizenship_number . '</td>' .
-                         '<td>' . $product->dob_nep . '</td>' .
-                        '<td>' . $product->profile_status . '</td>' .
-                        '<td>' . $product->email . '</td>' .
-                        '<td><a href=' . url("superAdmin/dashboard/applicant-list-view/" . $product->profile_id) . '><span class="label label-success">View</span></a> <a href=' . url("superAdmin/dashboard/delete/" . $product->profile_id) . '><span class="label label-danger">Delete</span></a></td>' .
+                        '<td>' . "No record Found" . '</td>' .
                         '</tr>';
+
+                    return Response($output);
                 }
-                return Response($output);
             }
-            else{
-                $output .= '<tr>' .
+        } catch (Exception $e) {
+            $output .= '<tr>' .
                 '<td>' . "No record Found" . '</td>' .
-                  '</tr>';
-        
-        return Response($output);
-            }
+                '</tr>';
+
+            return Response($output);
         }
-
-    }catch(Exception $e){
-        $output .= '<tr>' .
-        '<td>' . "No record Found" . '</td>' .
-          '</tr>';
-
-return Response($output);
-    }
-        
     }
 
     public function edit($id)
@@ -546,7 +544,7 @@ return Response($output);
             $data['srn'] = ++$srn;
             $data['program_certificate_code'] = $student['certificate_name'];
             $data['cert_registration_number'] = $this->certRegistrationNumber($student['level_code'], $data['srn'], $student['certificate_name']);
-            $data['registrar'] = 'puspa raj khanal';
+            $data['registrar'] = 'Lila Nath Bhandari';
             $data['decision_date'] =                    Carbon::today()->toDateString();
 
             //            $date;
@@ -612,7 +610,7 @@ return Response($output);
             $data['srn'] = ++$srn;
             $data['program_certificate_code'] = $student['certificate_name'];
             $data['cert_registration_number'] = $this->certRegistrationNumber($student['level_code'], $data['srn'], $student['certificate_name']);
-            $data['registrar'] = 'puspa raj khanal';
+            $data['registrar'] = 'Lila Nath Bhandari';
             $data['decision_date'] =
                 //                    $date;
                 Carbon::today()->toDateString();
@@ -735,7 +733,8 @@ return Response($output);
         }
     }
 
-    public function update($status , $id ,Request $request){
+    public function update($status, $id, Request $request)
+    {
         $data['status'] = $status;
 
         try {
@@ -752,69 +751,68 @@ return Response($output);
         }
     }
 
-    public function show($id){
+    public function show($id)
+    {
 
-        $appliedCount = ExamProcessing::all()->where('exam_id','=',$id);
-        $rejectedCount = ExamProcessing::all()->where('status','=','rejected')->where('exam_id','=',$id);
+        $appliedCount = ExamProcessing::all()->where('exam_id', '=', $id);
+        $rejectedCount = ExamProcessing::all()->where('status', '=', 'rejected')->where('exam_id', '=', $id);
         $failedCount =  DB::table('exam_registration')
-        ->select('profile_id','exam_id', DB::raw('COUNT(*) as `count`'))
-        ->groupBy('profile_id', 'exam_id')
-        ->havingRaw('COUNT(*) >= 2')
-        ->get();
-        return view('superAdmin::admin.applicant.exam.show',compact('appliedCount', 'rejectedCount','failedCount'));
-    
+            ->select('profile_id', 'exam_id', DB::raw('COUNT(*) as `count`'))
+            ->groupBy('profile_id', 'exam_id')
+            ->havingRaw('COUNT(*) >= 2')
+            ->get();
+        return view('superAdmin::admin.applicant.exam.show', compact('appliedCount', 'rejectedCount', 'failedCount'));
     }
 
-    public function studentCard(Request $request){
+    public function studentCard(Request $request)
+    {
 
         if ($request->isMethod('post')) {
 
             $query =  Certificate::query();
-           
-           
+
+
             if ($request->level != null) {
                 $query->where('level_name', 'Like', '%' . $request->level . '%');
             }
-            if($request->darta_number != null) {
+            if ($request->darta_number != null) {
                 $query->where('srn', 'like', $request->darta_number);
             }
 
-            if($request->first_name != null) {
-                $query->where('name', 'like', '%' . $request->first_name  .'%');
+            if ($request->first_name != null) {
+                $query->where('name', 'like', '%' . $request->first_name  . '%');
             }
 
- 
 
-            if($request->profile_id != null) {
-                $query->where('profile_id', '=',   $request->profile_id  );
-            } 
 
-            if($request->regratation_date != null){
-                $query->where('decision_date', '=',  $request->regratation_date );
+            if ($request->profile_id != null) {
+                $query->where('profile_id', '=',   $request->profile_id);
             }
 
-            
+            if ($request->regratation_date != null) {
+                $query->where('decision_date', '=',  $request->regratation_date);
+            }
+
+
             $data = $query->get();
 
             return view('superAdmin::admin.applicant.id-card-list', compact('data', 'request'));
-        }else{
-            $data  = Certificate::where('profile_id', '!=',  '')->where('level_name', 'Like', '%' . 'Specialization' . '%')->get(); 
+        } else {
+            $data  = Certificate::where('profile_id', '!=',  '')->where('level_name', 'Like', '%' . 'Specialization' . '%')->get();
             return view('superAdmin::admin.applicant.id-card-list', compact('data'));
         }
-      
-    
     }
 
-    public function studentCardShow($id){
+    public function studentCardShow($id)
+    {
         $data = Certificate::where('certificate_history.id', '=', $id)
-        ->get()->first();
+            ->get()->first();
         // dd($data);
-        $exam = ExamProcessing::where('profile_id','=', $data['profile_id'])->where('status','=','accepted')->where('state', '=','council')->first();
+        $exam = ExamProcessing::where('profile_id', '=', $data['profile_id'])->where('status', '=', 'accepted')->where('state', '=', 'council')->first();
 
         $profile = $this->profileRepository->findById($data['profile_id']);
 
-        return view('superAdmin::admin.applicant.id-card', compact('data','profile', 'exam'));
-    
+        return view('superAdmin::admin.applicant.id-card', compact('data', 'profile', 'exam'));
     }
 
     public function searchStudent(Request $request)
@@ -823,60 +821,60 @@ return Response($output);
         if ($request->isMethod('post')) {
 
             $query = Profile::query()->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
-            ->join('users','users.id','=','profiles.user_id');
-           
+                ->join('users', 'users.id', '=', 'profiles.user_id');
+
             if ($request->state != null) {
                 $query->where('exam_registration.state', 'like', $request->state);
             }
-            if ($request->status !=null) {
+            if ($request->status != null) {
                 $query->where('exam_registration.status', 'like', $request->status);
             }
             if ($request->level != null) {
                 $query->where('exam_registration.level_id', 'like', $request->level);
                 $program = Program::get()->where('level_id', '=',  $request->level);
             }
-            if($request->program != null) {
+            if ($request->program != null) {
                 $query->where('exam_registration.program_id', 'like', $request->program);
             }
-            if($request->darta_number != null) {
+            if ($request->darta_number != null) {
                 $query->where('exam_registration.profile_id', 'like', $request->darta_number);
             }
 
-            if($request->first_name != null) {
-                $query->where('profiles.first_name', 'like', '%' . $request->first_name  .'%');
+            if ($request->first_name != null) {
+                $query->where('profiles.first_name', 'like', '%' . $request->first_name  . '%');
             }
 
-            if($request->middle_name != null) {
-                $query->where('profiles.middle_name', 'like', '%' . $request->middle_name  .'%');
-            }
-            
-            if($request->last_name != null) {
-                $query->where('profiles.last_name', 'like', '%' . $request->last_name  .'%');
+            if ($request->middle_name != null) {
+                $query->where('profiles.middle_name', 'like', '%' . $request->middle_name  . '%');
             }
 
-            if($request->citizenship_number != null){
-                $query->where('profiles.citizenship_number', 'like', '%' . $request->last_name  .'%');
-            }
-            if($request->regratation_date != null){
-                $query->where('exam_registration.created_at', 'like', '%' . $request->regratation_date  .'%');
+            if ($request->last_name != null) {
+                $query->where('profiles.last_name', 'like', '%' . $request->last_name  . '%');
             }
 
-            if($request->profile_processing_state !=null){
+            if ($request->citizenship_number != null) {
+                $query->where('profiles.citizenship_number', 'like', '%' . $request->last_name  . '%');
+            }
+            if ($request->regratation_date != null) {
+                $query->where('exam_registration.created_at', 'like', '%' . $request->regratation_date  . '%');
+            }
+
+            if ($request->profile_processing_state != null) {
                 $query->where('profiles.profile_status', '=', $request->profile_processing_state);
             }
-            if($request->profile_processing_status !=null){
+            if ($request->profile_processing_status != null) {
                 $query->where('profiles.profile_state', '=', $request->profile_processing_status);
             }
-            if($request->email != null){
-                $query->where('users.email', 'like', '%' . $request->email . '%');   
+            if ($request->email != null) {
+                $query->where('users.email', 'like', '%' . $request->email . '%');
             }
-    
+
             $data = $query->distinct('profile_id')->get();
 
             // dd($data[0]);
             // dd(isset($data));
-            return view('superAdmin::admin.applicant.search-students', compact('data', 'program' ,'request'));
-        }else{
+            return view('superAdmin::admin.applicant.search-students', compact('data', 'program', 'request'));
+        } else {
             return view('superAdmin::admin.applicant.search-students', compact('program'));
         }
     }

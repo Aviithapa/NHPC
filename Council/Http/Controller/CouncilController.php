@@ -276,7 +276,7 @@ class CouncilController extends BaseController
             $data['srn'] = ++$srn;
             $data['program_certificate_code'] = $student['certificate_name'];
             $data['cert_registration_number'] = $this->certRegistrationNumber($data['srn'], $student['certificate_name'], $student['level_code']);
-            $data['registrar'] = 'puspa raj khanal';
+            $data['registrar'] = 'Lila Nath Bhandari';
             $data['decision_date'] = $date;
 
             //            $date;
@@ -348,7 +348,7 @@ class CouncilController extends BaseController
                 $data['srn'] = ++$srn;
                 $data['program_certificate_code'] = $student['certificate_name'];
                 $data['cert_registration_number'] = $this->certRegistrationNumber($data['srn'], $student['certificate_name'], $student['level_code']);
-                $data['registrar'] = 'puspa raj khanal';
+                $data['registrar'] = 'Lila Nath Bhandari';
                 $data['decision_date'] = '2023/04/08';
                 // Carbon::now()->format('YYYY/MM/DD');
 

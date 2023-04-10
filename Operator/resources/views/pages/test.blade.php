@@ -174,7 +174,7 @@
             </div>
             <div class="right" style="font-weight: 590;">
                 <span style="font-size:16px; margin-right: 200px;">Signature:</span>  <br>
-                Name: <span style="font-weight: 700;">Puspa Raj Khanal</span> <br>
+                Name: <span style="font-weight: 700;">Lila Nath Bhandari</span> <br>
                 <span>Registrar</span>
 
             </div>
