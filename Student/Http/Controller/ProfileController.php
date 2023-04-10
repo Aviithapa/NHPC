@@ -268,22 +268,43 @@ class ProfileController extends BaseController
                     $all_program = $this->programRepository->getAll()->where('level_id', '=', 4)->where('status', '=', 1);
                     return view('student::pages.apply-exam', compact('all_program', 'profile'));
                 } else {
-                    $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', '=', '4');
-                    if ($exam->isEmpty()) {
-                        $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', Auth::user()->id);
-                        if ($qualification != null) {
-                            foreach ($qualification as $quali)
-                                if (is_numeric($quali['program_id']))
-                                    $all_program[] = $this->programRepository->findById($quali['program_id']);
-                        }
-                        return view('student::pages.apply-exam', compact('all_program', 'profile'));
-                    } else {
-                        $specific_program = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('status', '=', 'rejected')->where('exam_id', '=', '4')->first();
-                        if ($specific_program == null) {
-                            session()->flash('success', 'You have already enrolled in licence Exam');
-                            return redirect()->back();
+                    if ($profile['level'] === 3) {
+                        $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', '=', '5');
+                        if ($exam->isEmpty()) {
+                            $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', Auth::user()->id);
+                            if ($qualification != null) {
+                                foreach ($qualification as $quali)
+                                    if (is_numeric($quali['program_id']))
+                                        $all_program[] = $this->programRepository->findById($quali['program_id']);
+                            }
+                            return view('student::pages.apply-exam', compact('all_program', 'profile'));
                         } else {
-                            return view('student::pages.update-apply-exam', compact('specific_program', 'profile'));
+                            $specific_program = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('status', '=', 'rejected')->where('exam_id', '=', '5')->first();
+                            if ($specific_program == null) {
+                                session()->flash('success', 'You have already enrolled in licence Exam');
+                                return redirect()->back();
+                            } else {
+                                return view('student::pages.update-apply-exam', compact('specific_program', 'profile'));
+                            }
+                        }
+                    } else {
+                        $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', '=', '4');
+                        if ($exam->isEmpty()) {
+                            $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', Auth::user()->id);
+                            if ($qualification != null) {
+                                foreach ($qualification as $quali)
+                                    if (is_numeric($quali['program_id']))
+                                        $all_program[] = $this->programRepository->findById($quali['program_id']);
+                            }
+                            return view('student::pages.apply-exam', compact('all_program', 'profile'));
+                        } else {
+                            $specific_program = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('status', '=', 'rejected')->where('exam_id', '=', '4')->first();
+                            if ($specific_program == null) {
+                                session()->flash('success', 'You have already enrolled in licence Exam');
+                                return redirect()->back();
+                            } else {
+                                return view('student::pages.update-apply-exam', compact('specific_program', 'profile'));
+                            }
                         }
                     }
                 }
