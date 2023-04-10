@@ -177,20 +177,24 @@ class CouncilController extends BaseController
     public function changeDecisionDate()
     {
         if (Auth::user()->mainRole()->name === 'council') {
+
+            $students = ExamProcessing::where('level_id', 3)->where('state', 'computer_operator')->where('status', 'progress')->where('exam_id', '4')->get();
+            dd($students);
             // $certificates = ExamProcessing::where('status', '!=', 'accepted')->get();
-            $certificates = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-04-08')->where('program_id', '=', '41');
-            $srn = 65885;
-            foreach ($certificates as $certificate) {
-                $data['srn'] = $srn++;
-                $data['cert_registration_number'] = 'C-' . $data['srn']  . ' Med CMA';
-                $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
-            }
 
-            foreach ($certificates as $certificate) {
+            // $certificates = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-04-08')->where('program_id', '=', '41');
+            // $srn = 65885;
+            // foreach ($certificates as $certificate) {
+            //     $data['srn'] = $srn++;
+            //     $data['cert_registration_number'] = 'C-' . $data['srn']  . ' Med CMA';
+            //     $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
+            // }
 
-                $data['status'] = 'onhold';
-                $certificateData = $this->examProcessingRepository->update($data, $certificate['id']);
-            }
+            // foreach ($certificates as $certificate) {
+
+            //     $data['status'] = 'onhold';
+            //     $certificateData = $this->examProcessingRepository->update($data, $certificate['id']);
+            // }
 
             return redirect()->back();
         } else {
