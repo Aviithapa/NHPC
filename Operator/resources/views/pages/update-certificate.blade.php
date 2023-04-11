@@ -126,7 +126,7 @@
                                                 Registration No: <span style="        font-size: 26px;
 "> <input type="text" name="cert_registration_number" value="{{$certificate->cert_registration_number}}"/> </span><br>
                                                 Date of issue: <span style="        font-size: 22px;
-            "><input type="text" name="decision_date" value="{{$certificate->decision_date}}"/> </span><br>
+            "><input type="text" name="issued_date" value="{{$certificate->issued_date}}"/> </span><br>
             
            </span><br>
                                                 Seal of the Council:
