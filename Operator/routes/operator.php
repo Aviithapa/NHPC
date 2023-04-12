@@ -120,3 +120,6 @@ Route::post('/uploadAllocate', [\Operator\Http\Controller\OperatorController::cl
 
 // Route::get('/certificate/edit/print/{id}', [\Operator\Http\Controller\OperatorController::class, 'editCertificateBackUpData'])->middleware(['auth'])->name('operator.editCertificateBackUpData');
 // Route::post('/certificate/back/update', [\Operator\Http\Controller\OperatorController::class, 'updateCertificateBackUpData'])->middleware(['auth'])->name('operator.updateCertificateBackUpData');
+
+
+Route::get('/exportCsvAsRegistrar', [\Operator\Http\Controller\OperatorController::class, 'exportCsvAsRegistrar'])->middleware(['auth'])->name('operator.exportCsvAsRegistrar');
