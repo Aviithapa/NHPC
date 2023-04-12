@@ -1930,8 +1930,6 @@ class OperatorController extends BaseController
         $fileName = 'tasks.csv';
 
         $tasks = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')->where('exam_registration.exam_id', '=', '4')
-            ->where('exam_registration.level_id', '=', 1)
-            ->where('exam_registration.level_id', '=', 2)
             ->get();
 
         $headers = array(
@@ -1959,7 +1957,7 @@ class OperatorController extends BaseController
                 $row['Gender'] = $task->sex;
                 $row['Citizenship'] = $task->citizenship_number;
                 $row['program_name'] = getProgramName($task->program_id);
-                $row['Level'] = $task->level_name;
+                $row['Level'] = $task->level_id;
                 $row['Email'] = $task->email;
                 $row['Phone Number'] = $task->phone_number;
                 $row['State'] = $task->state;
