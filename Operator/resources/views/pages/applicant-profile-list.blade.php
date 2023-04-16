@@ -75,7 +75,7 @@
 
                                     @else
                                         @foreach($data  as $key => $datas)
-                                                <tr>
+                                                <tr @if($data->created_at->toDateString() > '2023-04-06' && ($data->level == 1 || $data->level == 2)) style="color: red;" @endif>
                                                     <td>{{++$key}}</td>
                                                     <td>{{$datas->profile_id}}</td>
                                                     <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
