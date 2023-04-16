@@ -64,6 +64,7 @@
                                         <th>Status</th>
                                         <th>Registration Date</th>
                                         <th>Program Name</th>
+                                        <th>Level</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -75,7 +76,7 @@
 
                                     @else
                                         @foreach($data  as $key => $datas)
-                                                <tr @if($data->created_at->toDateString() > '2023-04-06' && ($data->level == 1 || $data->level == 2)) style="color: red;" @endif>
+                                                <tr @if($datas->created_at->toDateString() > '2023-04-06' && ($datas->level == 1 || $datas->level == 2)) style="color: red;" @endif>
                                                     <td>{{++$key}}</td>
                                                     <td>{{$datas->profile_id}}</td>
                                                     <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
@@ -83,6 +84,9 @@
                                                     <td>{{$datas->exam_registration_status}}</td>
                                                     <td>{{$datas->created_at->toDateString()}}</td>
                                                     <td> {{$datas->program_name}}</td>
+                                                    <td> {{$datas->level}}</td>
+                                                    <td> {{$datas->level_id}}</td>
+
                                                     <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->profile_id)}}"><span class="label label-success">View</span></a></td>
                                                     <td><a href={{url("operator/dashboard/deleteDuplicate/".$datas->profile_id)}}><span class="label label-danger">Delete</span></a> </td>
                                                
