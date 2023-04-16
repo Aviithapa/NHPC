@@ -183,7 +183,7 @@ class OperatorController extends BaseController
                     ->where('exam_registration.level_id', '=', $level)
                     //                    ->where('exam_registration.created_at', '>', '2022-07-16')
                     ->orderBy('profiles.created_at', 'ASC')
-                    ->get(['profiles.*', 'program.name as program_name', 'profiles.id as profile_id', 'profile_processing.*', 'exam_registration.state as exam_registration_state', 'exam_registration.status as exam_registration_status']);
+                    ->get(['profiles.*', 'program.name as program_name', 'profiles.id as profile_id', 'profile_processing.*', 'exam_registration.state as exam_registration_state', 'exam_registration.status as exam_registration_status', 'exam_registration.created_at as exam_registration_created_at']);
 
 
                 $countmaster = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
@@ -226,7 +226,7 @@ class OperatorController extends BaseController
                     ->where('exam_registration.level_id', '=', $level)
                     //                    ->where('exam_registration.created_at', '>', '2022-07-16')
                     ->orderBy('profiles.created_at', 'DESC')
-                    ->get(['profiles.*', 'program.name as program_name', 'profiles.id as profile_id', 'profile_processing.*', 'exam_registration.state as exam_registration_state', 'exam_registration.status as exam_registration_status'])
+                    ->get(['profiles.*', 'program.name as program_name', 'profiles.id as profile_id', 'profile_processing.*', 'exam_registration.state as exam_registration_state', 'exam_registration.status as exam_registration_status', 'exam_registration.created_at as exam_registration_created_at'])
                     ->unique('profile_id');
 
 
@@ -279,7 +279,7 @@ class OperatorController extends BaseController
                     ->where('exam_registration.level_id', '=', 4)
                     //                    ->where('exam_registration.created_at', '<', '2022-07-16')
                     ->orderBy('profiles.created_at', 'ASC')
-                    ->get(['profiles.*', 'program.name as program_name', 'profiles.id as profile_id', 'exam_registration.state as exam_registration_state', 'exam_registration.status as exam_registration_status']);
+                    ->get(['profiles.*', 'program.name as program_name', 'profiles.id as profile_id', 'exam_registration.state as exam_registration_state', 'exam_registration.status as exam_registration_status', 'exam_registration.created_at as exam_registration_created_at']);
 
 
                 $countmaster = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
@@ -340,7 +340,7 @@ class OperatorController extends BaseController
                     ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
                     //                    ->where('exam_registration.created_at', '>', '2022-07-16')
                     //                    ->orderBy('profiles.created_at', 'ASC')
-                    ->get(['profiles.*', 'program.name as program_name', 'profiles.id as profile_id', 'exam_registration.state as exam_registration_state', 'exam_registration.status as exam_registration_status']);
+                    ->get(['profiles.*', 'program.name as program_name', 'profiles.id as profile_id', 'exam_registration.state as exam_registration_state', 'exam_registration.status as exam_registration_status', 'exam_registration.created_at as exam_registration_created_at']);
 
                 //                dd($data);
                 $countmaster = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
