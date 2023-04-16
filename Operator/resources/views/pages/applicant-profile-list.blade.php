@@ -64,7 +64,6 @@
                                         <th>Status</th>
                                         <th>Registration Date</th>
                                         <th>Program Name</th>
-                                        <th>Level</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -84,8 +83,7 @@
                                                     <td>{{$datas->exam_registration_status}}</td>
                                                     <td>{{$datas->created_at->toDateString()}}</td>
                                                     <td> {{$datas->program_name}}</td>
-                                                    <td> {{$datas->level}}</td>
-                                                    <td> {{$datas->level_id}}</td>
+                                                  
 
                                                     <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->profile_id)}}"><span class="label label-success">View</span></a></td>
                                                     <td><a href={{url("operator/dashboard/deleteDuplicate/".$datas->profile_id)}}><span class="label label-danger">Delete</span></a> </td>
