@@ -2026,9 +2026,9 @@ class OperatorController extends BaseController
                     }
                     $profile_log['exam_processing_id'] = $examProcessing['id'];
                     $examlog = $this->examLog($profile_log);
-                    // if ($examlog) {
-                    //     MailController::sendprofileVerification($email["name"], $email['email'], $profile_log['remarks']);
-                    // }
+                    if ($examlog) {
+                        MailController::sendprofileVerification($email["name"], $email['email'], $profile_log['remarks']);
+                    }
                 }
             }
         }
