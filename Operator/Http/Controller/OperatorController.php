@@ -2014,7 +2014,7 @@ class OperatorController extends BaseController
                 } else {
                     $profileProcessings = $this->profileProcessingRepository->update($profile_processing, $profileProcessingId['id']);
                 }
-                $examProcessing = $this->examProcessingRepository->getAll()->where('state', '=', 'exam_committee')->where('profile_id', '=', $profile_id)->first();
+                $examProcessing = $this->examProcessingRepository->getAll()->where('id', '=',  $exam->id)->first();
                 if ($examProcessing) {
                     $exam_processing = $this->examProcessingRepository->update($examed, $examProcessing['id']);
                     if ($exam_processing === 'false') {
@@ -2022,9 +2022,9 @@ class OperatorController extends BaseController
                     }
                     $profile_log['exam_processing_id'] = $examProcessing['id'];
                     $examlog = $this->examLog($profile_log);
-                    if ($examlog) {
-                        MailController::sendprofileVerification($email["name"], $email['email'], $profile_log['remarks']);
-                    }
+                    // if ($examlog) {
+                    //     MailController::sendprofileVerification($email["name"], $email['email'], $profile_log['remarks']);
+                    // }
                 }
             }
         }
