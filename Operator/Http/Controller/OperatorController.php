@@ -1992,7 +1992,7 @@ class OperatorController extends BaseController
     public function rejectAll()
     {
 
-        $exams = ExamProcessing::all()->where('status', '=', 'progress')->where('state', '=', 'exam_committee');
+        $exams = ExamProcessing::all()->where('status', '=', 'progress')->where('state', '=', 'exam_committee')->where('level_id', '=', '2');
         dd($exams);
         foreach ($exams as $exam) {
             $profile = $this->profileRepository->findById($exam->profile_id);
