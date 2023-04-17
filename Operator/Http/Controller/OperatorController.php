@@ -1992,7 +1992,7 @@ class OperatorController extends BaseController
     public function rejectAll()
     {
 
-        $exams = ExamProcessing::all()->where('status', '=', 'rejected')->where('state', '=', 'exam_committee')->where('level_id', '=', '2');
+        $exams = ExamProcessing::all()->where('status', '=', 'progress')->where('state', '=', 'exam_committee')->where('level_id', '=', '1');
         // dd($exams);
         foreach ($exams as $exam) {
             $profile = $this->profileRepository->findById($exam->profile_id);
@@ -2009,28 +2009,28 @@ class OperatorController extends BaseController
             $examed['status'] = 'rejected';
 
             $logs = $this->profileLogs($profile_log);
-            // $email = $this->userRepository->findBy('id', '=', $profile['user_id'])->first();
+            $email = $this->userRepository->findBy('id', '=', $profile['user_id'])->first();
 
-            // if ($logs) {
-            //     $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile_id)->first();
-            //     if ($profileProcessingId === null) {
-            //         $profileProcessings = $this->profileProcessingRepository->create($profile_processing);
-            //     } else {
-            //         $profileProcessings = $this->profileProcessingRepository->update($profile_processing, $profileProcessingId['id']);
-            //     }
-            //     $examProcessing = $this->examProcessingRepository->getAll()->where('id', '=',  $exam->id)->first();
-            //     if ($examProcessing) {
-            //         $exam_processing = $this->examProcessingRepository->update($examed, $examProcessing['id']);
-            //         if ($exam_processing === 'false') {
-            //             session()->flash('error', 'Error Occured While Saving Data');
-            //         }
-            //         $profile_log['exam_processing_id'] = $examProcessing['id'];
-            //         $examlog = $this->examLog($profile_log);
-            //         // if ($examlog) {
-            //         //     MailController::sendprofileVerification($email["name"], $email['email'], $profile_log['remarks']);
-            //         // }
-            //     }
-            // }
+            if ($logs) {
+                $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile_id)->first();
+                if ($profileProcessingId === null) {
+                    $profileProcessings = $this->profileProcessingRepository->create($profile_processing);
+                } else {
+                    $profileProcessings = $this->profileProcessingRepository->update($profile_processing, $profileProcessingId['id']);
+                }
+                $examProcessing = $this->examProcessingRepository->getAll()->where('id', '=',  $exam->id)->first();
+                if ($examProcessing) {
+                    $exam_processing = $this->examProcessingRepository->update($examed, $examProcessing['id']);
+                    if ($exam_processing === 'false') {
+                        session()->flash('error', 'Error Occured While Saving Data');
+                    }
+                    $profile_log['exam_processing_id'] = $examProcessing['id'];
+                    $examlog = $this->examLog($profile_log);
+                    // if ($examlog) {
+                    //     MailController::sendprofileVerification($email["name"], $email['email'], $profile_log['remarks']);
+                    // }
+                }
+            }
         }
 
         return redirect()->back();
