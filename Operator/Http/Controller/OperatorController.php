@@ -2028,5 +2028,7 @@ class OperatorController extends BaseController
                 }
             }
         }
+
+        return redirect()->back;
     }
 }
