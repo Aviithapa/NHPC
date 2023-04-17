@@ -1998,6 +1998,8 @@ class OperatorController extends BaseController
             $profile_id = $exam->profile_id;
             $profile_log['profile_id'] = $exam->profile_id;
             $profile_log['status'] = 'rejected';
+            $profile_log['state'] = 'exam_committee';
+
             $profile_log['remarks'] =   'Upload all required document and Voucher';
             $profile_log['review_status'] = 'Rejected';
             $profile_log['created_by'] = Auth::user()->id;
