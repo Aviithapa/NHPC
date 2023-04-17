@@ -1992,14 +1992,15 @@ class OperatorController extends BaseController
     public function rejectAll()
     {
 
-        $exams = ExamProcessing::all()->where('status', '=', 'progress')->where('state', '=', 'exam_committee')->where('level_id', '=', '2');
+        $exams = ExamProcessing::all()->where('status', '=', 'rejceted')->where('state', '=', 'exam_committee')->where('level_id', '=', '2');
         foreach ($exams as $exam) {
             $profile = $this->profileRepository->findById($exam->profile_id);
             $profile_id = $exam->profile_id;
+            $profile_log['profile_id'] = $exam->profile_id;
             $profile_log['status'] = 'rejected';
             $profile_log['remarks'] =   'Upload all required document and Voucher';
             $profile_log['review_status'] = 'Rejected';
-
+            $profile_log['created_by'] = Auth::user()->id;
             $profile_processing['status'] = 'rejected';
 
             $examed['status'] = 'rejected';
