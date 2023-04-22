@@ -1931,7 +1931,7 @@ class OperatorController extends BaseController
 
         $tasks = ExamProcessing::where('exam_registration.created_at', '<=', '2023-04-06')
             ->where('exam_registration.created_at', '>=', '2023-03-20')
-            ->where('exam_registration.level_id', '>=', '3')
+            // ->where('exam_registration.level_id', '<=', '3')
             ->where('exam_registration.exam_id', '=', '4')
             ->where('exam_registration.status', '!=', 'rejected')
 

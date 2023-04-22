@@ -108,6 +108,7 @@ class  ExamCommitteeController extends BaseController
             $users = $this->examProcessingRepository->getAll()->where('status', '=', $status)
                 ->where('state', '=', $current_state)
                 ->where('program_id', '=', $program_id)
+                ->where('exam_id', '=', '4')
                 ->where('is_admit_card_generate', '!=', 'yes');
             if ($users->isEmpty()) {
                 session()->flash('success', 'Admit Card Already Been Generated');
@@ -142,13 +143,13 @@ class  ExamCommitteeController extends BaseController
 
     public function generateSymbolNumber($index, $level, $program)
     {
-        $now = Carbon::now();
-        $year = $now->year;
-        $year = substr($year, -2);
-        $month = $now->format('m');
+        // $now = Carbon::now();
+        // $year = $now->year;
+        // $year = substr($year, -2);
+        $month = 6;
         $level_id = str_pad($level, 2, "0", STR_PAD_LEFT);
         $program_id = str_pad($program, 2, "0", STR_PAD_LEFT);
-        $num = $year . $month . $level_id . $program_id . str_pad($index, 3, "0", STR_PAD_LEFT);
+        $num =  $month . $level_id . $program_id . $index;
         return $num;
     }
 
