@@ -1936,12 +1936,12 @@ class OperatorController extends BaseController
 
             ->get();
 
-        foreach ($tasks as $task) {
-            $data['exam_id'] = 4;
-            $this->examProcessingRepository->update($data, $task['id']);
-        }
+        // foreach ($tasks as $task) {
+        //     $data['exam_id'] = 4;
+        //     $this->examProcessingRepository->update($data, $task['id']);
+        // }
 
-        // dd($tasks);
+        dd($tasks);
 
         // $headers = array(
         //     "Content-type"        => "text/csv",
