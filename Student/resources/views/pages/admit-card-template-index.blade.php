@@ -107,7 +107,7 @@
 
                                                <div style="height:50px;  float:left; padding-left: 8%; padding-right: 8%;">
                                                    <div style="margin-top: -40px; z-index: 1000;position: absolute; height: 50px">
-                                                       <img src="http://103.175.192.52/storage/documents/tKtyJYTTE9JiesiME3bLts5EMNGQgL3IQV6BF5Qp.png" class="signature" width="150px" height="70px">
+                                                       <img src="http://10.5.21.24/storage/documents/22rNBHFiU672nRa7RGaOaDDqjmOYeDO0EnYyZDrn.png" class="signature" width="150px" height="70px">
                                                    </div>
                                                    <div>
                                                        ..................................................<br>
