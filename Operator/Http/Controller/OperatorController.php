@@ -1937,7 +1937,10 @@ class OperatorController extends BaseController
 
             ->get();
 
-        dd($tasks);
+        foreach ($tasks as $task) {
+            $data['exam_id'] = 4;
+            $this->examProcessingRepository->update($data, $task->id);
+        }
 
         // $headers = array(
         //     "Content-type"        => "text/csv",
