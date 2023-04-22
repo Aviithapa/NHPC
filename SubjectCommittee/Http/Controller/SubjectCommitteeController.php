@@ -843,56 +843,56 @@ class SubjectCommitteeController extends BaseController
 
 
 
-        $datas = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
-            ->join('program', 'program.id', '=', 'exam_registration.program_id')
-            ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
-            ->where('profile_processing.current_state', 'subject_committee')
-            ->where('profile_processing.status', 'progress')
-            ->where('exam_registration.level_id', '<', '3')
-            ->where('profile_processing.subject_committee_accepted_num', '>=', 2)
-            ->orderBy('profiles.created_at', 'ASC')
-            ->get(['profiles.*']);
-
-        $exam['state'] = 'exam_committee';
-        $exam['status'] = 'progress';
-
-        $profile_processing['current_state'] = 'exam_committee';
-        $profile_processing['status'] = 'progress';
-
-        $profile['profile_state'] = 'exam_committee';
-        $profile['profile_status'] = 'Reviewing';
-        foreach ($datas as $data) {
-            $exam_id = $this->examProcessingRepository->getAll()->where('profile_id', '=', $data->id)->first();
-            $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $data->id)->first();
-            $this->profileRepository->update($profile, $data->id);
-            $this->profileProcessingRepository->update($profile_processing, $profile_processing_id->id);
-            $this->examProcessingRepository->update($exam, $exam_id->id);
-            $this->ExamProcessingLog($exam, Auth::user()->id, $data->id);
-            $this->profileLog($profile_processing);
-        }
-        $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
-        return redirect()->back();
-
-
-
-        // $profiles = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+        // $datas = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+        //     ->join('program', 'program.id', '=', 'exam_registration.program_id')
+        //     ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
         //     ->where('profile_processing.current_state', 'subject_committee')
         //     ->where('profile_processing.status', 'progress')
+        //     ->where('exam_registration.level_id', '<', '3')
+        //     ->where('profile_processing.subject_committee_accepted_num', '>=', 2)
         //     ->orderBy('profiles.created_at', 'ASC')
-        //     ->get(['profiles.id as profile_id']);
+        //     ->get(['profiles.*']);
 
-        // foreach ($profiles as $profile) {
-        //     $logs = Profilelogs::all()->where('profile_id', '=', $profile->profile_id)
-        //         ->where('state', '=', 'subject_committee')
-        //         ->where('status', '=', 'progress')
-        //         ->count();
-        //     $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
-        //     $data['subject_committee_accepted_num'] = $logs;
-        //     $he = $this->profileProcessingRepository->update($data, $profile_processing_id->id);
+        // $exam['state'] = 'exam_committee';
+        // $exam['status'] = 'progress';
+
+        // $profile_processing['current_state'] = 'exam_committee';
+        // $profile_processing['status'] = 'progress';
+
+        // $profile['profile_state'] = 'exam_committee';
+        // $profile['profile_status'] = 'Reviewing';
+        // foreach ($datas as $data) {
+        //     $exam_id = $this->examProcessingRepository->getAll()->where('profile_id', '=', $data->id)->first();
+        //     $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $data->id)->first();
+        //     $this->profileRepository->update($profile, $data->id);
+        //     $this->profileProcessingRepository->update($profile_processing, $profile_processing_id->id);
+        //     $this->examProcessingRepository->update($exam, $exam_id->id);
+        //     $this->ExamProcessingLog($exam, Auth::user()->id, $data->id);
+        //     $this->profileLog($profile_processing);
         // }
-
-
-
+        // $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
         // return redirect()->back();
+
+
+
+        $profiles = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+            ->where('profile_processing.current_state', 'subject_committee')
+            ->where('profile_processing.status', 'progress')
+            ->orderBy('profiles.created_at', 'ASC')
+            ->get(['profiles.id as profile_id']);
+
+        foreach ($profiles as $profile) {
+            $logs = Profilelogs::all()->where('profile_id', '=', $profile->profile_id)
+                ->where('state', '=', 'subject_committee')
+                ->where('status', '=', 'progress')
+                ->count();
+            $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
+            $data['subject_committee_accepted_num'] = $logs;
+            $he = $this->profileProcessingRepository->update($data, $profile_processing_id->id);
+        }
+
+
+
+        return redirect()->back();
     }
 }
