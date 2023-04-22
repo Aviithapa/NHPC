@@ -1942,7 +1942,7 @@ class OperatorController extends BaseController
         //     $this->examProcessingRepository->update($data, $task['id']);
         // }
 
-        dd($tasks)
+        dd($tasks);
 
         // $headers = array(
         //     "Content-type"        => "text/csv",
