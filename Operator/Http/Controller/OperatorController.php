@@ -1929,21 +1929,21 @@ class OperatorController extends BaseController
     {
         $fileName = 'tasks.csv';
 
-        $tasks = ExamProcessing::where('exam_registration.created_at', '<=', '2023-04-06')
-            ->where('exam_registration.created_at', '>=', '2023-03-20')
-            ->where('exam_registration.level_id', '=', '3')
-            ->where('exam_registration.exam_id', '=', '4')
-            ->where('exam_registration.state', '=', 'exam_committee')
+        // $tasks = ExamProcessing::where('exam_registration.created_at', '<=', '2023-04-06')
+        //     ->where('exam_registration.created_at', '>=', '2023-03-20')
+        //     ->where('exam_registration.level_id', '=', '3')
+        //     ->where('exam_registration.exam_id', '=', '4')
+        //     ->where('exam_registration.state', '=', 'exam_committee')
 
 
-            ->get();
+        //     ->get();
 
-        foreach ($tasks as $task) {
-            $data['exam_id'] = 5;
-            $this->examProcessingRepository->update($data, $task['id']);
-        }
+        // foreach ($tasks as $task) {
+        //     $data['exam_id'] = 5;
+        //     $this->examProcessingRepository->update($data, $task['id']);
+        // }
 
-        dd($tasks);
+        // dd($tasks);
 
         // $headers = array(
         //     "Content-type"        => "text/csv",
