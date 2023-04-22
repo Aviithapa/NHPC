@@ -1939,8 +1939,10 @@ class OperatorController extends BaseController
 
         foreach ($tasks as $task) {
             $data['exam_id'] = 4;
-            $this->examProcessingRepository->update($data, $task->id);
+            $this->examProcessingRepository->update($data, $task['id']);
         }
+
+        dd($tasks)
 
         // $headers = array(
         //     "Content-type"        => "text/csv",
