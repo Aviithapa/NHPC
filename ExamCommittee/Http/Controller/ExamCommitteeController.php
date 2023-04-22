@@ -274,13 +274,14 @@ class  ExamCommitteeController extends BaseController
         //        return Excel::download(new ResultExport(), 'users-collection.xlsx');
     }
 
-    public function programWiseStudent($id)
+    public function programWiseStudent($id, $exam_id)
     {
         if (Auth::user()->mainRole()->name === 'exam_committee') {
             $data = ExamProcessing::all()->where('status', '=', 'progress')
                 ->where('state', '=', 'exam_committee')
                 ->where('program_id', '=', $id)
                 ->where('status', '!=', 'rejected')
+                ->where('exam_id', '=', $exam_id)
                 ->where('attempt', '=', 1);
 
 

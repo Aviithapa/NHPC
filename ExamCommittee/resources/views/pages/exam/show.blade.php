@@ -108,7 +108,7 @@
 
 
                             <div class="col-lg-3 col-xs-6 m-b-3">
-                                <a href="{{route("examCommittee.program.wise.student", ['program_id'=> $key])}}">
+                                <a href="{{route("examCommittee.program.wise.student", ['program_id'=> $key, 'exam_id' => 4])}}">
     
                                     <div class="card">
                                         <div class="card-body">
