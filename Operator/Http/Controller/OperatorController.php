@@ -1929,8 +1929,7 @@ class OperatorController extends BaseController
     {
         $fileName = 'tasks.csv';
 
-        $tasks = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-            ->where('exam_registration.created_at', '<=', '2023-04-06')
+        $tasks = ExamProcessing::where('exam_registration.created_at', '<=', '2023-04-06')
             ->where('exam_registration.created_at', '>=', '2023-03-20')
             ->where('exam_registration.level_id', '=', '1')
             ->where('exam_registration.exam_id', '!=', '4')
