@@ -21,9 +21,9 @@ Route::get('/verify', [RegisteredUserController::class, 'verifyUser'])
     ->middleware('guest')
     ->name('verify.user');
 
-// Route::get('/admit/card/print/index', [\Student\Http\Controller\ProfileController::class, 'admitCardPrintSection'])
-//     ->middleware('guest', 'throttle:200,1')
-//     ->name('admit.card.admitCardPrintSection');
+Route::get('/admit/card/print/index', [\Student\Http\Controller\ProfileController::class, 'admitCardPrintSection'])
+    ->middleware('guest', 'throttle:200,1')
+    ->name('admit.card.admitCardPrintSection');
 
 Route::post('/admit/card/print', [\Student\Http\Controller\ProfileController::class, 'admitCardRequestTemplate'])->middleware(['guest', 'throttle:200,1'])->name('admit.card.admitCardRequestTemplate');
 
