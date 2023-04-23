@@ -2,14 +2,14 @@
 
 use Student\Http\Controller\ProfileController;
 
-Route::get('/',  [\Student\Http\Controller\ProfileController::class, 'dashboard'])->middleware(['auth', 'throttle:400,1'])->name('student.dashboard');
+Route::get('/',  [\Student\Http\Controller\ProfileController::class, 'dashboard'])->middleware(['auth', 'throttle:1000,1'])->name('student.dashboard');
 Route::get('/student/{slug}', [\Student\Http\Controller\ProfileController::class, 'index'])->middleware(['auth'])->name('student.{slug}');
 Route::post('/save_image/{id?}', [\Student\Http\Controller\ProfileController::class, 'save_image'])->middleware(['auth'])->name('save_image');
 Route::post('/student/data', [\Student\Http\Controller\ProfileController::class, 'store'])->middleware(['auth'])->name('specific');
 Route::post('/student/data/update', [\Student\Http\Controller\ProfileController::class, 'update'])->middleware(['auth'])->name('information.update');
 Route::get('/apply/for/exam/{id?}', [\Student\Http\Controller\ProfileController::class, 'applyforExam'])->middleware(['auth'])->name('apply.for.exam');
 Route::post('/update/apply/exam', [\Student\Http\Controller\ProfileController::class, 'updateApplyExam'])->middleware(['auth'])->name('update.apply.exam');
-Route::get('/admit/card/template', [\Student\Http\Controller\ProfileController::class, 'admitCardTemplate'])->middleware(['auth', 'throttle:400,1'])->name('admit.card.template');
+Route::get('/admit/card/template', [\Student\Http\Controller\ProfileController::class, 'admitCardTemplate'])->middleware(['auth'])->name('admit.card.template');
 Route::post('/apply/exam', [\Student\Http\Controller\ProfileController::class, 'applyExam'])->middleware(['auth'])->name('apply.exam');
 Route::post('/student/update/data/{id}', [\Student\Http\Controller\ProfileController::class, 'updateInformation'])->middleware(['auth'])->name('profile.update');
 
@@ -35,7 +35,7 @@ Route::get('/link/certificate', [\Student\Http\Controller\CertificateController:
 Route::get('/link/certificate/form', [\Student\Http\Controller\CertificateController::class, 'edit'])->middleware(['auth'])->name('certificate.edit');
 Route::post('/link/certificate/validateCertificate', [\Student\Http\Controller\CertificateController::class, 'validateCertificate'])->middleware(['auth'])->name('certificate.validateCertificate');
 
-//Route::get('/admit/card/print/index', [\Student\Http\Controller\ProfileController::class, 'admitCardPrintSection'])->middleware(['auth'])->name('admit.card.admitCardPrintSection');
+Route::get('/admit/card/print/index', [\Student\Http\Controller\ProfileController::class, 'admitCardPrintSection'])->middleware(['auth'])->name('admit.card.admitCardPrintSection');
 //Route::post('/admit/card/print', [\Student\Http\Controller\ProfileController::class, 'admitCardRequestTemplate'])->middleware(['auth'])->name('admit.card.admitCardRequestTemplate');
 Route::get('/admit/admitCardProfileId/{id}', [\Student\Http\Controller\ProfileController::class, 'admitCardProfileId'])->middleware(['auth'])->name('admit.card.admitCardProfileId');
 
