@@ -869,7 +869,7 @@ class OperatorController extends BaseController
             $level_id = 5;
         }
         $certificate = Certificate::join('profiles', 'profiles.id', '=', 'certificate_history.profile_id')
-            ->join('program', 'program.id', '=', 'certificate_history.program_id')
+            // ->join('program', 'program.id', '=', 'certificate_history.program_id')
             ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
             ->join('registrant_qualification', 'registrant_qualification.user_id', '=', 'profiles.user_id')
             ->where('certificate_history.id', '=', $id)
