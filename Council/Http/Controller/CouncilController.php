@@ -333,7 +333,7 @@ class CouncilController extends BaseController
 
             foreach ($students as $student) {
                 $srn_number = 0;
-                $date = '2023/04/08';
+                $date = '2023/04/25';
                 $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
                 $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
                 $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
@@ -349,7 +349,7 @@ class CouncilController extends BaseController
                 $data['program_certificate_code'] = $student['certificate_name'];
                 $data['cert_registration_number'] = $this->certRegistrationNumber($data['srn'], $student['certificate_name'], $student['level_code']);
                 $data['registrar'] = 'Lila Nath Bhandari';
-                $data['decision_date'] = '2023/04/08';
+                $data['decision_date'] = '2023/04/25';
                 // Carbon::now()->format('YYYY/MM/DD');
 
                 //            $date;
