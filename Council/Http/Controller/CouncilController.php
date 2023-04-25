@@ -479,11 +479,14 @@ class CouncilController extends BaseController
 
     public function FileChangeCouncilDate()
     {
-        $date = '2023-02-03';
-        $passed_list = Certificate::all()->where('created_at', '>', $date);
+        $date = '2023/04/25';
+        $passed_list = Certificate::all()->where('decision_date', '=', $date)->where('program_id', '=', '42');
+        dd($passed_list);
+        $srn = 22532;
         foreach ($passed_list as $pass) {
 
-            $data['decision_date'] = '2023-02-04';
+            $data['cert_registration_number'] = 'C-' . $srn++ . ' MLT';
+            $data['srn'] = $srn++;
             $updatedDecisionDate = $this->certificateRepository->update($data, $pass['id']);
         }
         return redirect()->back();
