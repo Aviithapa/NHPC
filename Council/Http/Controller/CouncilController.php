@@ -481,7 +481,7 @@ class CouncilController extends BaseController
     {
         $date = '2023/04/25';
         $passed_list = Certificate::all()->where('decision_date', '=', $date)->where('program_id', '=', '42');
-        dd($passed_list);
+        // dd($passed_list);
         $srn = 22532;
         foreach ($passed_list as $pass) {
 
