@@ -79,7 +79,7 @@
                                                 @if($datas->exam_registration_created_at > '2023-04-06' && ($datas->level == 1 || $datas->level == 2)) 
                                                 style="color: red;"
                                                 @elseif($datas->level == 3) 
-                                                   @if($datas->exam_registration_created_at < '2023-04-24' && $datas->exam_registration_created_at > '2023-04-28')
+                                                   @if($datas->exam_registration_created_at > '2023-04-24' && $datas->exam_registration_created_at < '2023-04-28')
 
                                                 style="color: green;"
                                                  @endif
