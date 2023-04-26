@@ -161,7 +161,7 @@ class ApplicantController  extends BaseController
                             '<td>' . $product->profile_status . '</td>' .
                             '<td>' . $product->email . '</td>' .
                             '<td><a href=' . url("superAdmin/dashboard/applicant-list-view/" . $product->profile_id) . '><span class="label label-success">View</span></a> <a href=' . url("superAdmin/dashboard/delete/" . $product->profile_id) . '><span class="label label-danger">Delete</span></a></td>' .
-                            '<td><a href=' . url("student/dashboard/admit/admitCardProfileId/" . $product->profile_id) . '><span class="label label-success">Print Admit Card</span></a></td> ' .
+                            '<td><a href=' . url("student/dashboard/admit/admitCardProfileId/" . $product->profile_id) . ' target="_blank"><span class="label label-success">Print Admit Card</span></a></td> ' .
 
                             '</tr>';
                     }
