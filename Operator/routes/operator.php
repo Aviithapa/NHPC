@@ -126,4 +126,4 @@ Route::get('/exportCsvAsRegistrar', [\Operator\Http\Controller\OperatorControlle
 Route::get('/rejectAll', [\Operator\Http\Controller\OperatorController::class, 'rejectAll'])->middleware(['auth']);
 
 
-Route::get('/moveFileToSubjectCommittee', [\Operator\Http\Controller\OperatorController::class, ' moveFileToSubjectCommittee'])->middleware(['auth']);
+Route::get('/moveFileToSubjectCommittee', [\Operator\Http\Controller\OperatorController::class, 'moveFileToSubjectCommittee'])->middleware(['auth']);
