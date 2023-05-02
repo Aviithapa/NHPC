@@ -2080,4 +2080,41 @@ class OperatorController extends BaseController
 
         return redirect()->back();
     }
+
+    public function moveFileToSubjectCommittee()
+    {
+
+        $datas = $this->examProcessingRepository->getAll()->where('state', '=', 'registrar')->where('status', '=', 'progress');
+
+        dd($datas[0], $datas);
+        foreach ($datas as $profile) {
+            $data['profile_state'] = 'subject_committee';
+            $profile_log['status'] = 'progress';
+            $profile_log['remarks'] =  isset($data['remarks']) ? $data['remarks'] : 'Profile Verified and forwarded to Subject Committee';
+            $profile_log['review_status'] = 'Successfully Accepeted';
+            $profile_processing['current_state'] = 'subject_committee';
+            $profile_processing['status'] = 'progress';
+            $exam['state'] = 'subject_committee';
+            $exam['status'] = 'progress';
+            $logs = $this->profileLog($profile_log);
+            if ($logs) {
+                $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
+                if ($profileProcessingId === null) {
+                    $profile_processing['profile_id'] = $profile->profile_id;
+                    $this->profileProcessingRepository->create($profile_processing);
+                } else {
+                    $profileProcessings = $this->profileProcessingRepository->update($profile_processing, $profileProcessingId['id']);
+                }
+                $examProcessing = $this->examProcessingRepository->getAll()->where('state', '=', 'registrar')->where('profile_id', '=', $profile->profile_id)->first();
+                if ($examProcessing) {
+                    $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
+                    if ($exam_processing === 'false') {
+                        session()->flash('error', 'Error Occured While Saving Data');
+                    }
+                    $profile_log['exam_processing_id'] = $examProcessing['id'];
+                    $examlog = $this->examLog($profile_log);
+                }
+            }
+        }
+    }
 }

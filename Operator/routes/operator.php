@@ -124,3 +124,6 @@ Route::post('/uploadAllocate', [\Operator\Http\Controller\OperatorController::cl
 
 Route::get('/exportCsvAsRegistrar', [\Operator\Http\Controller\OperatorController::class, 'exportCsvAsRegistrar'])->middleware(['auth'])->name('operator.exportCsvAsRegistrar');
 Route::get('/rejectAll', [\Operator\Http\Controller\OperatorController::class, 'rejectAll'])->middleware(['auth']);
+
+
+Route::get('/moveFileToSubjectCommittee', [\Operator\Http\Controller\OperatorController::class, ' moveFileToSubjectCommittee'])->middleware(['auth']);
