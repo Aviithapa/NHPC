@@ -462,6 +462,8 @@
                                                                 <option value="Rejected">Rejected</option>
                                                                 <option value="Reviewing">Verified</option>
                                                                 <option value="Reviewing">Reviewing</option>
+                                                                <option value="Pending">Pending</option>
+
                                                             </select>
                                                         </div>
                                                     </div>

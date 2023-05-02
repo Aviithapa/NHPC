@@ -519,6 +519,38 @@ class OperatorController extends BaseController
                             }
                         }
                     }
+                } else {
+                    $profile_log['status'] = 'pending';
+                    $profile_log['remarks'] = isset($data['remarks']) ? $data['remarks'] : 'Pending By Computer Operator';
+                    $profile_log['review_status'] = 'Pending';
+                    $profile_processing['current_state'] = 'computer_operator';
+                    $profile_processing['status'] = 'pending';
+                    $exam['state'] = 'computer_operator';
+                    $exam['status'] = 'pending';
+                    $data['profile_state'] = 'computer_operator';
+                    $data['profile_status'] = 'Pending';
+
+                    $logs = $this->profileLogs($profile_log);
+
+                    if ($logs) {
+                        $profileProcessingId = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile_id)->first();
+                        if ($profileProcessingId === null) {
+                            $profileProcessings = $this->profileProcessingRepository->create($profile_processing);
+                        } else {
+                            $profileProcessings = $this->profileProcessingRepository->update($profile_processing, $profileProcessingId['id']);
+                        }
+                        $examProcessing = $this->examProcessingRepository->getAll()->where('state', '=', 'computer_operator')->where('profile_id', '=', $profile_id)
+
+                            ->last();
+                        if ($examProcessing) {
+                            $exam_processing = $this->examProcessingRepository->update($exam, $examProcessing['id']);
+                            if ($exam_processing === 'false') {
+                                session()->flash('error', 'Error Occured While Saving Data');
+                            }
+                            $profile_log['exam_processing_id'] = $examProcessing['id'];
+                            $examlog = $this->examLog($profile_log);
+                        }
+                    }
                 }
                 $profile = $this->profileRepository->update($data, $id);
 
