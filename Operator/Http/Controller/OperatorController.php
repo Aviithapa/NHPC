@@ -2087,7 +2087,6 @@ class OperatorController extends BaseController
         $datas = $this->examProcessingRepository->getAll()->where('state', '=', 'registrar')->where('status', '=', 'progress');
 
         foreach ($datas as $profile) {
-            dd($profile, $datas);
             $data['profile_state'] = 'subject_committee';
             $profile_log['status'] = 'progress';
             $profile_log['remarks'] =  isset($data['remarks']) ? $data['remarks'] : 'Profile Verified and forwarded to Subject Committee';
