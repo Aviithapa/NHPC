@@ -2086,7 +2086,7 @@ class OperatorController extends BaseController
 
         $datas = $this->examProcessingRepository->getAll()->where('state', '=', 'registrar')->where('status', '=', 'progress');
 
-        dd($datas[0], $datas);
+        dd($datas, $datas);
         foreach ($datas as $profile) {
             $data['profile_state'] = 'subject_committee';
             $profile_log['status'] = 'progress';
