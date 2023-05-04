@@ -89,6 +89,12 @@
                 </a>
             </li>
 
+             <li class="">
+                <a href="{{route("operator.moveFileToSubjectCommittee")}}">
+                    <i class="icon-book-open"></i> <span>Move Registrar file to subjectcommittee</span>
+                </a>
+            </li>
+
                 <li class="treeview {{ (request()->is('operator/dashboard/operator/applicant-list/*/*')) ? 'active':''  }}"> <a href="#"> <i class="icon-grid"></i> <span>Certificate</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
                     <ul class="treeview-menu">
                         <li class="{{ (request()->is('operator/dashboard/search/collage')) ? 'active':''  }}">
