@@ -37,6 +37,11 @@
                             <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantCount('progress','computer_operator')}}</span></span>
                         </a>
                     </li>
+                     <li class="{{ (request()->is('operator/dashboard/operator/applicant-profile-list/Reviewing/computer_operator/*')) ? 'active':''  }}">
+                        <a href="{{route("operator.applicant.profile.list", ['status'=> 'pending','state' => 'computer_operator','level'=>"1"])}}">
+                            <i class="icon-book-open"></i> <span>Pending Profile List  <span class="badge badge-pill badge-success"></span></span>
+                        </a>
+                    </li>
                     <li class="{{ (request()->is('operator/dashboard/operator/applicant-profile-list/Rejected/computer_operator/*')) ? 'active':''  }}">
                         <a href="{{route("operator.applicant.profile.list", ['status'=> 'rejected', 'state' => 'computer_operator','level'=>"1"])}}">
                             <i class="icon-ban"></i> <span>Reject Profile List <span class="badge badge-pill badge-danger"></span></span>
