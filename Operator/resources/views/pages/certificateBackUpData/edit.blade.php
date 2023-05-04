@@ -243,17 +243,17 @@
         text-align: center;  font-size: 20px;
         font-weight: bold;
 
-">  <input type="text" name="qualification"  value="{{ $detail_data->qualification}}" /></td>
+">  <input type="text" name="qualification"   /></td>
                                                 <td style=" border: 1px solid black;
         text-align: center;  font-size: 20px;
         font-weight: bold;
 
-" > <input type="text" name="insitutate" value="{{ $detail_data->insitutate}}" /></td>
+" > <input type="text" name="insitutate"  /></td>
                                                 <td style=" border: 1px solid black;
         text-align: center;  font-size: 20px;
         font-weight: bold;
 
-"> <input type="text" name="passed_year" value="{{ $detail_data->passed_year}}" /></td>
+"> <input type="text" name="passed_year"   /></td>
                                             </tr>
                                             <tr style=" border: 1px solid black;
         text-align: center;         padding: 10px;
