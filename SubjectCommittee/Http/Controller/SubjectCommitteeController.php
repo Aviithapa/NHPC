@@ -616,6 +616,7 @@ class SubjectCommitteeController extends BaseController
             ->where('profile_processing.status', 'progress')
             // ->where('profile_processing.subject_committee_accepted_num', '>', 2)
             ->orderBy('profiles.created_at', 'ASC')
+            ->limit(10)
             ->get(['profiles.*']);
 
         $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
