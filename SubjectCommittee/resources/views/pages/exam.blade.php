@@ -89,7 +89,9 @@
                                     </tbody>
 
                                 </table>
-                                {{ $datas ->links() }}
+                                  <div class="pagination-container" style="margin-top:20px;">
+                                         {{ $datas->appends(request()->except('page'))->links('subjectCommittee::vendor.pagination.bootstrap-4') }}
+                                    </div>
                                 <style>
                                     .pagination a {
                                         margin-top: 20px;
