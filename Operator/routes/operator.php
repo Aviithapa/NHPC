@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
-use Operator\Http\Controller\OperatorController;
 
 Route::get('/',  [\Operator\Http\Controller\OperatorController::class, 'dashboard'])->middleware(['auth'])->name('operator.dashboard');
 Route::get('/operator/applicant-list/{status}/{state}', [\Operator\Http\Controller\OperatorController::class, 'exam'])->middleware(['auth'])->name('operator.applicant.list');
@@ -129,5 +127,4 @@ Route::get('/rejectAll', [\Operator\Http\Controller\OperatorController::class, '
 
 
 Route::get('/moveFileToSubjectCommittee', [\Operator\Http\Controller\OperatorController::class, 'moveFileToSubjectCommittee'])->middleware(['auth'])->name('operator.moveFileToSubjectCommittee');
-// Route::get('/removeUnwantedFile', [\Operator\Http\Controller\OperatorController::class, 'removeUnwantedFile'])->middleware(['auth'])->name('operator.removeUnwantedFile');
 Route::get('/removeUnwantedFile', [\Operator\Http\Controller\OperatorController::class, 'removeUnwantedFile'])->middleware(['auth']);
