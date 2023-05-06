@@ -89,6 +89,7 @@
                                     </tbody>
 
                                 </table>
+                                {{ $datas ->links() }}
                                 <style>
                                     .pagination a {
                                         margin-top: 20px;
