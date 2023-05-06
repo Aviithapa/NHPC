@@ -617,6 +617,8 @@ class SubjectCommitteeController extends BaseController
             // ->where('profile_processing.subject_committee_accepted_num', '>', 2)
             ->orderBy('profiles.created_at', 'ASC')
             ->get(['profiles.*']);
+
+        dd($datas);
         $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
         $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
         return view('subjectCommittee::pages.exam', compact('datas', 'subject_committee'));
