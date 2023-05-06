@@ -108,7 +108,7 @@ class  ExamCommitteeController extends BaseController
             $users = $this->examProcessingRepository->getAll()->where('status', '=', $status)
                 ->where('state', '=', $current_state)
                 ->where('program_id', '=', $program_id)
-                ->where('exam_id', '=', '4')
+                ->where('exam_id', '=', '5')
                 ->where('is_admit_card_generate', '!=', 'yes');
             if ($users->isEmpty()) {
                 session()->flash('success', 'Admit Card Already Been Generated');

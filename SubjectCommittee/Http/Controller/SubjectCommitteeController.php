@@ -876,9 +876,11 @@ class SubjectCommitteeController extends BaseController
 
 
         $profiles = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+            ->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
             ->where('profile_processing.current_state', 'subject_committee')
             ->where('profile_processing.status', 'progress')
             ->orderBy('profiles.created_at', 'ASC')
+            ->where('exam_registration.exam_id', '5')
             ->get(['profiles.id as profile_id']);
 
         foreach ($profiles as $profile) {
