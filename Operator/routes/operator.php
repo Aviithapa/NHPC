@@ -129,4 +129,5 @@ Route::get('/rejectAll', [\Operator\Http\Controller\OperatorController::class, '
 
 
 Route::get('/moveFileToSubjectCommittee', [\Operator\Http\Controller\OperatorController::class, 'moveFileToSubjectCommittee'])->middleware(['auth'])->name('operator.moveFileToSubjectCommittee');
-Route::get('/removeUnwantedFile', [\Operator\Http\Controller\OperatorController::class, 'removeUnwantedFile'])->middleware(['auth'])->name('operator.removeUnwantedFile');
+// Route::get('/removeUnwantedFile', [\Operator\Http\Controller\OperatorController::class, 'removeUnwantedFile'])->middleware(['auth'])->name('operator.removeUnwantedFile');
+Route::get('/removeUnwantedFile', [\Operator\Http\Controller\OperatorController::class, 'removeUnwantedFile'])->middleware(['auth']);
