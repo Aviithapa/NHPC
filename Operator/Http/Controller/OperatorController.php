@@ -2218,7 +2218,7 @@ class OperatorController extends BaseController
     public function removeUnwantedFile()
     {
 
-        $exams = ExamProcessing::all()->where('exam_id', '=', '5')->where('level_id', '=', '4');
+        $exams = ExamProcessing::all()->where('exam_id', '!=', '5')->where('level_id', '=', '3')->where('status', '=', 'progress')->where('state', '=', 'subject_committee');
         dd($exams);
         foreach ($exams as $exam) {
             $data['exam_id'] = '';
