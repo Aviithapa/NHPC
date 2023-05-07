@@ -2219,7 +2219,7 @@ class OperatorController extends BaseController
     {
 
         $duplicates = ExamProcessing::select('profile_id')
-            ->groupBy('profile_id')
+            ->groupBy('profile_id', 'id', 'exam_id')
             ->where('status', 'progress')
             ->where('state', 'exam_committee')
             ->havingRaw('COUNT(*) > 1')
