@@ -2221,6 +2221,8 @@ class OperatorController extends BaseController
         $duplicates = DB::table('exam_processing')
             ->select('profile_id')
             ->groupBy('profile_id')
+            ->where('status', 'progress')
+            ->where('state', 'exam_committee')
             ->havingRaw('COUNT(*) > 1')
             ->get();
 
