@@ -2227,7 +2227,11 @@ class OperatorController extends BaseController
 
         foreach ($duplicates as $duplicate) {
             $exams = ExamProcessing::all()->where('profile_id', $duplicate->profile_id);
-            dd($exams);
+            foreach ($exams as $exam) {
+                $data['status'] = 'rejected';
+                $this->examProcessingRepository->update($data, $exam->id);
+            }
+            // dd($exams);
         }
         dd($duplicates);
         $exams = ExamProcessing::all()->where('exam_id', '!=', '5')->where('level_id', '=', '3')->where('status', '=', 'progress');
