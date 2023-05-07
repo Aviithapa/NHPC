@@ -2225,6 +2225,10 @@ class OperatorController extends BaseController
             ->havingRaw('COUNT(*) > 1')
             ->get();
 
+        foreach ($duplicates as $duplicate) {
+            $exams = ExamProcessing::all()->where('profile_id', $duplicate->profile_id)->where('exam_id', '5');
+            dd($exams);
+        }
         dd($duplicates);
         $exams = ExamProcessing::all()->where('exam_id', '!=', '5')->where('level_id', '=', '3')->where('status', '=', 'progress');
         dd($exams);
