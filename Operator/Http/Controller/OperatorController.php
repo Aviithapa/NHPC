@@ -2218,7 +2218,7 @@ class OperatorController extends BaseController
     public function removeUnwantedFile()
     {
 
-        $duplicates = ExamProcessing::select('profile_id')
+        $duplicates = ExamProcessing::select('profile_id', 'id', 'exam_id')
             ->groupBy('profile_id', 'id', 'exam_id')
             ->where('status', 'progress')
             ->where('state', 'exam_committee')
