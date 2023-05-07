@@ -349,7 +349,7 @@ class  ExamCommitteeController extends BaseController
             ->join('level', 'level.id', '=', 'program.level_id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
             ->where('exam_registration.status', '=', 'progress')
-            ->where('exam_registration.exam_id', '=', '4')
+            ->where('exam_registration.exam_id', '=', '5')
 
             // ->where('exam_registration.exam_id', '=', $id)
             // ->where('admit_card.created_at', 'Like', '%' . '2023-02-03' . '%')
