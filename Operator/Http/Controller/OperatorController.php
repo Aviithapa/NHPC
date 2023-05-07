@@ -2226,7 +2226,7 @@ class OperatorController extends BaseController
             ->get();
 
         foreach ($duplicates as $duplicate) {
-            $exams = ExamProcessing::all()->where('profile_id', $duplicate->profile_id)->where('exam_id', '5');
+            $exams = ExamProcessing::all()->where('profile_id', $duplicate->profile_id);
             dd($exams);
         }
         dd($duplicates);
