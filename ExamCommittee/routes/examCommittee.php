@@ -24,3 +24,5 @@ Route::get('/examCommittee/FileForwardCouncil', [\ExamCommittee\Http\Controller\
 
 
 Route::get('/exam/view/{id}', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'examDetails'])->middleware(['auth'])->name('examCommittee.exam.view');
+
+Route::get('/getAllStudentList', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'getAllStudentList']);

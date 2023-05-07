@@ -2219,9 +2219,9 @@ class OperatorController extends BaseController
     {
 
         $exams = ExamProcessing::all()->where('exam_id', '=', '5')->where('level_id', '=', '4');
-        // dd($exams);
+        dd($exams);
         foreach ($exams as $exam) {
-            $data['exam_id'] = 'null';
+            $data['exam_id'] = '';
             $this->examProcessingRepository->update($data, $exam->id);
         }
 
