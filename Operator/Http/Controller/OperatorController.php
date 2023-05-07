@@ -2218,11 +2218,11 @@ class OperatorController extends BaseController
     public function removeUnwantedFile()
     {
 
-        $duplicates = DB::table('exam_processing')
-            ->select('profile_id')
+        $duplicates = ExamProcessing::select('profile_id')
             ->groupBy('profile_id')
             ->where('status', 'progress')
             ->where('state', 'exam_committee')
+            ->havingRaw('COUNT(*) > 1')
             ->get();
 
         dd($duplicates);
