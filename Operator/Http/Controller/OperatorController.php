@@ -2223,7 +2223,6 @@ class OperatorController extends BaseController
             ->groupBy('profile_id')
             ->where('status', 'progress')
             ->where('state', 'exam_committee')
-            ->havingRaw('COUNT(*) > 1')
             ->get();
 
         dd($duplicates);
