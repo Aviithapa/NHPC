@@ -672,7 +672,7 @@ class  ExamCommitteeController extends BaseController
     public function getAllStudentList()
     {
 
-        $exams = $this->examProcessingRepository->getAll()->where('exam_id', '=', '6');
+        $exams = $this->examProcessingRepository->getAll()->where('exam_id', '=', '6')->where('status', '=', 'exam_committee')->where('state', '=', 'progress');
         dd($exams);
 
         // $fileName = 'StudentDetail.csv';
