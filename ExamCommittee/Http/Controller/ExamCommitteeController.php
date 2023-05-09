@@ -494,9 +494,8 @@ class  ExamCommitteeController extends BaseController
             ->where('exam_registration.status', '=', 'progress')
             ->where('exam_registration.is_admit_card_generate', '=', 'no');
 
-        $tasks = $query->get(['level.name as level_name', 'profiles.*', 'users.email as email', 'users.phone_number as phone_number', 'exam_registration.*', 'exam_registration.id as exam_regisration_id', 'profiles.id as profile_id']);;
+        $tasks = $query->get(['level.name as level_name', 'profiles.*', 'users.email as email', 'users.phone_number as phone_number', 'exam_registration.*', 'exam_registration.id as exam_regisration_id', 'profiles.id as profile_id']);
 
-        dd($tasks);
         $headers = array(
             "Content-type"        => "text/csv",
             "Content-Disposition" => "attachment; filename=$fileName",
@@ -509,6 +508,7 @@ class  ExamCommitteeController extends BaseController
             'id', 'Name', 'Father Name', 'Mother Name', 'Date of Birth',
             'Gender', 'Citizenship', 'Program Name', 'Level', 'Email', 'Phone Number', 'State', 'Status', 'Symbol Number'
         );
+        dd($tasks);
 
         $callback = function () use ($tasks, $columns) {
 
