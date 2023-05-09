@@ -522,7 +522,7 @@ class  ExamCommitteeController extends BaseController
                 $row['Date of Birth'] = $task->dob_nep;
                 $row['Gender'] = $task->sex;
                 $row['Citizenship'] = $task->citizenship_number;
-                $row['program_name'] = getProgramName($task->program_id);
+                // $row['program_name'] = getProgramName($task->program_id);
                 $row['Level'] = $task->level_name;
                 $row['Email'] = $task->email;
                 $row['Phone Number'] = $task->phone_number;
@@ -540,7 +540,7 @@ class  ExamCommitteeController extends BaseController
                     $row['Date of Birth'],
                     $row['Gender'],
                     $row['Citizenship'],
-                    $row['program_name'],
+                    // $row['program_name'],
                     $row['Level'],
                     $row['Email'],
                     $row['Phone Number'],
