@@ -516,7 +516,7 @@ class  ExamCommitteeController extends BaseController
             fputcsv($file, $columns);
             foreach ($tasks as $task) {
                 $row['id'] = $task->profile_id;
-                // $row['Name'] = $task->first_name . ' ' . $task->middle_name . '' . $task->last_name;
+                $row['Name'] = $task->first_name . ' ' . $task->middle_name . '' . $task->last_name;
                 // $row['Father Name'] = $task->father_name;
                 // $row['Mother Name'] = $task->mother_name;
                 // $row['Date of Birth'] = $task->dob_nep;
@@ -534,7 +534,7 @@ class  ExamCommitteeController extends BaseController
 
                 fputcsv($file, array(
                     $row['id'],
-                    // $row['Name'],
+                    $row['Name'],
                     // $row['Father Name'],
                     // $row['Mother Name'],
                     // $row['Date of Birth'],
