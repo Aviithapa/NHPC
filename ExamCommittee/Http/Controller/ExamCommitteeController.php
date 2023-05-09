@@ -490,7 +490,7 @@ class  ExamCommitteeController extends BaseController
             ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             ->where('exam_registration.state', '=', 'exam_committee')
             ->where('exam_registration.status', '=', 'progress')
-            ->where('is_admit_card_generate', '=', 'no');
+            ->where('exam_registration.is_admit_card_generate', '=', 'no');
 
         $tasks = $query->get(['level.name as level_name', 'profiles.*', 'users.email as email', 'users.phone_number as phone_number', 'exam_registration.*', 'exam_registration.id as exam_regisration_id', 'profiles.id as profile_id']);;
 
