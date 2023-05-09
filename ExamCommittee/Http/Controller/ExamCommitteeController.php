@@ -674,7 +674,10 @@ class  ExamCommitteeController extends BaseController
     {
 
         $exams = ExamProcessing::all()->where('state', '=', 'exam_committee')->where('status', '=', 'progress')->where('is_admit_card_generate', '=', 'no')->where('level_id', '=', '3');
-        dd($exams);
+        foreach ($exams as $exam) {
+            $data['exam_id'] = 5;
+            $this->examProcessingRepository->update($data, $exam->id);
+        }
 
         // $fileName = 'StudentDetail.csv';
         // $query =  ExamProcessing::query()
