@@ -508,7 +508,7 @@ class  ExamCommitteeController extends BaseController
             'id', 'Name', 'Father Name', 'Mother Name', 'Date of Birth',
             'Gender', 'Citizenship', 'Program Name', 'Level', 'Email', 'Phone Number', 'State', 'Status', 'Symbol Number'
         );
-        dd($tasks);
+        // dd($tasks);
 
         $callback = function () use ($tasks, $columns) {
 
