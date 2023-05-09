@@ -530,7 +530,7 @@ class  ExamCommitteeController extends BaseController
 
 
                 fputcsv($file, array(
-                    $row['id']
+                    $row['id'],
                     $row['Name'],
                     $row['Father Name'],
                     $row['Mother Name'],
