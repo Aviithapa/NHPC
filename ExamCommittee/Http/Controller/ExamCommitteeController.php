@@ -488,6 +488,8 @@ class  ExamCommitteeController extends BaseController
         $fileName = 'StudentDetail.csv';
         $query =  ExamProcessing::query()
             ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->join('level', 'level.id', '=', 'exam_registration.level_id')
+            ->join('users', 'users.id', '=', 'profiles.user_id')
             ->where('exam_registration.state', '=', 'exam_committee')
             ->where('exam_registration.status', '=', 'progress')
             ->where('exam_registration.is_admit_card_generate', '=', 'no');
