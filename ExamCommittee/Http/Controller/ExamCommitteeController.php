@@ -673,7 +673,7 @@ class  ExamCommitteeController extends BaseController
     public function getAllStudentList()
     {
 
-        $exams = ExamProcessing::all()->where('state', '=', 'exam_committee')->where('status', '=', 'progress')->where('is_admit_card_generate', '=', 'no')->where('level', '=', '3');
+        $exams = ExamProcessing::all()->where('state', '=', 'exam_committee')->where('status', '=', 'progress')->where('is_admit_card_generate', '=', 'no')->where('level_id', '=', '3');
         dd($exams);
 
         // $fileName = 'StudentDetail.csv';
