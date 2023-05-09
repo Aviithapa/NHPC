@@ -515,38 +515,38 @@ class  ExamCommitteeController extends BaseController
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
             foreach ($tasks as $task) {
-                // $row['id'] = $task->profile_id;
-                $row['Name'] = $task->first_name . ' ' . $task->middle_name . '' . $task->last_name;
-                $row['Father Name'] = $task->father_name;
-                $row['Mother Name'] = $task->mother_name;
-                $row['Date of Birth'] = $task->dob_nep;
-                $row['Gender'] = $task->sex;
-                $row['Citizenship'] = $task->citizenship_number;
+                $row['id'] = $task->profile_id;
+                // $row['Name'] = $task->first_name . ' ' . $task->middle_name . '' . $task->last_name;
+                // $row['Father Name'] = $task->father_name;
+                // $row['Mother Name'] = $task->mother_name;
+                // $row['Date of Birth'] = $task->dob_nep;
+                // $row['Gender'] = $task->sex;
+                // $row['Citizenship'] = $task->citizenship_number;
                 // $row['program_name'] = getProgramName($task->program_id);
-                $row['Level'] = $task->level_name;
-                $row['Email'] = $task->email;
-                $row['Phone Number'] = $task->phone_number;
-                $row['State'] = $task->state;
-                $row['Status'] = $task->status;
+                // $row['Level'] = $task->level_name;
+                // $row['Email'] = $task->email;
+                // $row['Phone Number'] = $task->phone_number;
+                // $row['State'] = $task->state;
+                // $row['Status'] = $task->status;
 
 
 
 
                 fputcsv($file, array(
-                    // $row['id'],
-                    $row['Name'],
-                    $row['Father Name'],
-                    $row['Mother Name'],
-                    $row['Date of Birth'],
-                    $row['Gender'],
-                    $row['Citizenship'],
+                    $row['id'],
+                    // $row['Name'],
+                    // $row['Father Name'],
+                    // $row['Mother Name'],
+                    // $row['Date of Birth'],
+                    // $row['Gender'],
+                    // $row['Citizenship'],
                     // $row['program_name'],
-                    $row['Level'],
-                    $row['Email'],
-                    $row['Phone Number'],
-                    $row['State'],
-                    $row['Status'],
-                    $row['Symbol Number']
+                    // $row['Level'],
+                    // $row['Email'],
+                    // $row['Phone Number'],
+                    // $row['State'],
+                    // $row['Status'],
+                    // $row['Symbol Number']
                 ));
             }
 
