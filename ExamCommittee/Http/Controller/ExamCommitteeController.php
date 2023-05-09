@@ -488,14 +488,11 @@ class  ExamCommitteeController extends BaseController
         $fileName = 'StudentDetail.csv';
         $query =  ExamProcessing::query()
             ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-            ->where('level_id', '<=', 3)
-            ->where('exam_id', '=', $id)
-            ->join('level', 'level.id', '=', 'exam_registration.level_id')
-            ->join('users', 'users.id', '=', 'profiles.user_id')
             ->where('exam_registration.state', '=', 'exam_committee')
-            ->where('exam_registration.status', '=', 'rejected');
+            ->where('exam_registration.status', '=', 'progress')
+            ->where('is_admit_card_generate', '=', 'no');
 
-        $tasks = $query->get(['level.name as level_name', 'profiles.*', 'users.email as email', 'users.phone_number as phone_number', 'exam_registration.*', 'exam_registration.id as exam_regisration_id']);;
+        $tasks = $query->get(['level.name as level_name', 'profiles.*', 'users.email as email', 'users.phone_number as phone_number', 'exam_registration.*', 'exam_registration.id as exam_regisration_id', 'profiles.id as profile_id']);;
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -506,7 +503,7 @@ class  ExamCommitteeController extends BaseController
         );
 
         $columns = array(
-            'Name', 'Father Name', 'Mother Name', 'Date of Birth',
+            'id', 'Name', 'Father Name', 'Mother Name', 'Date of Birth',
             'Gender', 'Citizenship', 'Program Name', 'Level', 'Email', 'Phone Number', 'State', 'Status', 'Symbol Number'
         );
 
@@ -515,6 +512,7 @@ class  ExamCommitteeController extends BaseController
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
             foreach ($tasks as $task) {
+                $row['id'] = $task->profile_id;
                 $row['Name'] = $task->first_name . ' ' . $task->middle_name . '' . $task->last_name;
                 $row['Father Name'] = $task->father_name;
                 $row['Mother Name'] = $task->mother_name;
@@ -527,12 +525,12 @@ class  ExamCommitteeController extends BaseController
                 $row['Phone Number'] = $task->phone_number;
                 $row['State'] = $task->state;
                 $row['Status'] = $task->status;
-                $row['Symbol Number'] = getSymbolNo($task->exam_regisration_id);
 
 
 
 
                 fputcsv($file, array(
+                    $row['id']
                     $row['Name'],
                     $row['Father Name'],
                     $row['Mother Name'],
