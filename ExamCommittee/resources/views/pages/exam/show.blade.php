@@ -34,7 +34,7 @@
                          <div class="col-lg-4 col-xs-6 m-b-3">
                             <div class="card">
                                 <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
-                                    <div class="info-box-content"> <span class="info-box-number"> 2528
+                                    <div class="info-box-content"> <span class="info-box-number"> 0
                                         {{-- {{ isset($passedCount) ? count($passedCount) : 'No Data Yet ' }} --}}
                                     </span>
                                         <span class="info-box-text">Total Passed Student</span></div>
@@ -44,7 +44,7 @@
                          <div class="col-lg-4 col-xs-6 m-b-3">
                             <div class="card">
                                 <div class="card-body"><span class="info-box-icon bg-green"><i class="icon-pencil"></i></span>
-                                    <div class="info-box-content"> <span class="info-box-number">3411</span>
+                                    <div class="info-box-content"> <span class="info-box-number">0</span>
                                         <span class="info-box-text">Total Failed Student</span></div>
                                 </div>
                             </div>
