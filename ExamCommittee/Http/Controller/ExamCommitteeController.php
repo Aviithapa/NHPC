@@ -491,11 +491,12 @@ class  ExamCommitteeController extends BaseController
             ->join('level', 'level.id', '=', 'exam_registration.level_id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
             ->where('exam_registration.created_at', '>', '2023-04-06')
-            ->where('exam_registration.created_at', '<', '2023-04-29');
+            ->where('exam_registration.created_at', '<', '2023-04-29')
+            ->where('level.id', '=', '3');
         // ->where('exam_registration.status', '=', 'progress')
         // ->where('exam_registration.is_admit_card_generate', '=', 'no');
 
-        $tasks = $query->get(['level.name as level_name', 'profiles.*', 'users.email as email', 'users.phone_number as phone_number', 'exam_registration.*', 'exam_registration.id as exam_regisration_id', 'profiles.id as profile_id']);
+        $tasks = $query->get(['level.name as level_name', 'profiles.*', 'users.email as email', 'users.phone_number as phone_number', 'exam_registration.*', 'exam_registration.id as exam_regisration_id', 'profiles.id as profile_id', 'exam_regsitration.state as exam_state', 'exam_registration.status as exam_status']);
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -527,8 +528,8 @@ class  ExamCommitteeController extends BaseController
                 // $row['Level'] = $task->level_name;
                 // $row['Email'] = $task->email;
                 // $row['Phone Number'] = $task->phone_number;
-                // $row['State'] = $task->state;
-                // $row['Status'] = $task->status;
+                $row['State'] = $task->exam_state;
+                $row['Status'] = $task->exam_status;
 
 
 
@@ -545,8 +546,8 @@ class  ExamCommitteeController extends BaseController
                     // $row['Level'],
                     // $row['Email'],
                     // $row['Phone Number'],
-                    // $row['State'],
-                    // $row['Status'],
+                    $row['State'],
+                    $row['Status'],
                     // $row['Symbol Number']
                 ));
             }
