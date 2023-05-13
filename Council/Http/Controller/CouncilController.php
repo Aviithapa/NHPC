@@ -261,7 +261,7 @@ class CouncilController extends BaseController
         foreach ($students as $student) {
             $srn_number = 0;
             $srn = 0;
-            $date = '2023-02-11';
+            $date = '2023-04-21';
             $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
             $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
             $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
