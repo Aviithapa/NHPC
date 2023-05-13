@@ -178,21 +178,21 @@ class CouncilController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'council') {
 
-            $students = ExamProcessing::where('level_id', 3)->where('state', 'computer_operator')->where('status', 'progress')->where('exam_id', '4')->get();
+            // $students = ExamProcessing::where('level_id', 3)->where('state', 'computer_operator')->where('status', 'progress')->where('exam_id', '4')->get();
 
 
-            foreach ($students as $student) {
-                $this->examProcessingRepository->delete($student->id);
-            }
+            // foreach ($students as $student) {
+            //     $this->examProcessingRepository->delete($student->id);
+            // }
             // $certificates = ExamProcessing::where('status', '!=', 'accepted')->get();
 
-            // $certificates = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-04-08')->where('program_id', '=', '41');
-            // $srn = 65885;
-            // foreach ($certificates as $certificate) {
-            //     $data['srn'] = $srn++;
-            //     $data['cert_registration_number'] = 'C-' . $data['srn']  . ' Med CMA';
-            //     $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
-            // }
+            $certificates = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-04-21')->where('program_id', '=', '25');
+            $srn = 1948;
+            foreach ($certificates as $certificate) {
+                $data['srn'] = $srn++;
+                $data['cert_registration_number'] = 'A-' . $data['srn']  . ' PHY';
+                $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
+            }
 
             // foreach ($certificates as $certificate) {
 
