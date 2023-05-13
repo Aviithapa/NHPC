@@ -40,7 +40,7 @@
 
                                         <select class="form-control" name="date"  id="date" >
                                             <option value={{ $selectedDate }}>{{ $selectedDate }}</option>
-                                            <option value="2023-05-12">2023-05-12 (2080-01-29)</option>
+                                            {{-- <option value="2023-05-12">2023-05-12 (2080-01-29)</option> --}}
                                             <option value="2023-04-21">2023-04-21 (2080-01-08)</option>
 
                                             <option value="2023-04-25">2023-04-25 (2080-01-12)</option>
