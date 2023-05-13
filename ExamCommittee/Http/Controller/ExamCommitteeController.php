@@ -194,7 +194,7 @@ class  ExamCommitteeController extends BaseController
         $data['state'] = 'council';
         $data['current_state'] = 'council';
         $data['isPassed'] = true;
-        $passed_list = ExamResult::all()->where('status', '=', 'PASSED')->where('remarks', '=', '5');
+        $passed_list = ExamResult::all()->where('status', '=', 'PASSED')->where('remarks', '=', '6');
         foreach ($passed_list as $pass) {
             $admit_card = AdmitCard::all()->where('symbol_number', '=', $pass['symbol_number']);
             foreach ($admit_card as $admit) {
@@ -208,7 +208,7 @@ class  ExamCommitteeController extends BaseController
     }
     public function absentStudentList()
     {
-        $failed_list = $this->examResultRepository->getAll()->where('status', '=', 'ABSENT')->where('remarks', '=', '5');
+        $failed_list = $this->examResultRepository->getAll()->where('status', '=', 'ABSENT')->where('remarks', '=', '6');
         foreach ($failed_list as $pass) {
             $admit_card = AdmitCard::all()->where('symbol_number', '=', $pass['symbol_number']);
             foreach ($admit_card as $admit) {
@@ -223,7 +223,7 @@ class  ExamCommitteeController extends BaseController
     }
     public function failedStudentList()
     {
-        $failed_list = $this->examResultRepository->getAll()->where('status', '=', 'FAILED')->where('remarks', '=', '5');
+        $failed_list = $this->examResultRepository->getAll()->where('status', '=', 'FAILED')->where('remarks', '=', '6');
         $data['isPassed'] = false;
         $data['status'] = 'rejected';
         $data['attempt'] = 2;
