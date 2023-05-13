@@ -190,7 +190,7 @@ class CouncilController extends BaseController
             $srn = 19;
             foreach ($certificates as $certificate) {
                 $data['srn'] = $srn++;
-                $data['cert_registration_number'] = 'A-' . $data['srn']  . ' OPT';
+                $data['cert_registration_number'] = 'A-' . $data['srn']  . ' OT. Tech';
                 $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
             }
 
