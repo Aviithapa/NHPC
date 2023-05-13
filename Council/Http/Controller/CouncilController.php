@@ -178,7 +178,7 @@ class CouncilController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'council') {
 
-            $students = ExamProcessing::where('level_id', 3)->where('state', 'council')->where('status', 'rejected')->where('exam_id', '4')->get();
+            $students = ExamProcessing::where('status', 'rejected')->where('status', 'council')->where('exam_id', '4')->get();
 
             dd($students);
 
