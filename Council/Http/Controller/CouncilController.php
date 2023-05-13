@@ -179,12 +179,13 @@ class CouncilController extends BaseController
         if (Auth::user()->mainRole()->name === 'council') {
 
             $students = ExamProcessing::where('state', 'council')->where('status', 'rejected')->get();
+            $data['status'] = 'progress';
+            foreach ($students as $student) {
+                $this->examProcessingRepository->update($data, $student->id);
+            }
 
             dd($students);
 
-            // foreach ($students as $student) {
-            //     $this->examProcessingRepository->delete($student->id);
-            // }
             // $certificates = ExamProcessing::where('status', '!=', 'accepted')->get();
 
             $certificates = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-04-21')->where('program_id', '=', '51');
