@@ -178,21 +178,21 @@ class CouncilController extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'council') {
 
-            $students = ExamProcessing::where('state', 'council')->where('status', 'rejected')->get();
-            $data['status'] = 'progress';
-            foreach ($students as $student) {
-                $this->examProcessingRepository->update($data, $student->id);
-            }
+            // $students = ExamProcessing::where('state', 'council')->where('status', 'rejected')->get();
+            // $data['status'] = 'progress';
+            // foreach ($students as $student) {
+            //     $this->examProcessingRepository->update($data, $student->id);
+            // }
 
-            dd($students);
+            // dd($students);
 
             // $certificates = ExamProcessing::where('status', '!=', 'accepted')->get();
 
-            $certificates = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-04-21')->where('program_id', '=', '51');
-            $srn = 70;
+            $certificates = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-04-21')->where('program_id', '=', '1');
+            $srn = 1606;
             foreach ($certificates as $certificate) {
                 $data['srn'] = $srn++;
-                $data['cert_registration_number'] =  $data['srn']  . ' OPT';
+                $data['cert_registration_number'] =  $data['srn']  . ' Jan PH';
                 $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
             }
 
