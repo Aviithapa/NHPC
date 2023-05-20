@@ -141,7 +141,7 @@
                                                 <td><span class="label label-success">{{ $exam->is_printed ? 'Printed' : 'Print' }}</span></td>
                                                 <td>{{date('Y-m-d',strtotime($exam->date_of_birth)) }}</td>
                                                 <td>
-                                                 <a href="{{url('operator/dashboard/certificate/data/print/'. $exam->profile_id)}}"><span class="label label-success"> Print</span></a>   <br/>
+                                                 {{-- <a href="{{url('operator/dashboard/certificate/data/print/'. $exam->profile_id)}}"><span class="label label-success"> Print</span></a>   <br/> --}}
                                                
                                                <a href="{{ url("operator/dashboard/update/certificate/".$exam->id .'/'. ($exam->level_name == "Specialization" ? 1 : ($exam->level_name == "First" ? 2 : ($exam->level_name == "Second" ? 3 : ($exam->level_name == "Third" ? 4 : ''))))) }}">
   <span class="label label-success">Edit</span>

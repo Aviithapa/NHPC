@@ -140,7 +140,9 @@
         height: 29.7cm;
         font-family: 'Arial Black';
         ">
+         <input type="hidden" id="certificateID" value ={{ $certificate->certificate_history_id }} />
     <div class="printLayout" style="padding: 2.5rem 2rem;">
+       
    <div class="header" style="text-align: center; font-weight: 500;">
        <span class="p" style="font-size: 22px   ;      font-weight: 700;
 ">Schedule -3 <br>
@@ -395,7 +397,14 @@
     <script>
         function printDiv() {
             var divContents = document.getElementById("printContent").innerHTML;
-            // var a = window.print()
+            var certificateID = document.getElementById("certificateID").value;
+            
+       
+            $.ajax({
+    url: '/operator/dashboard/certificate/isPrinted/' + certificateID,
+    type: 'GET',
+    success: function(response) {
+       // var a = window.print()
             // // window.open('', 'PRINT ADMIT CARD', 'height=700, width=700');
             // var divContents = document.getElementById("printdivcontent").innerHTML;
             var printWindow = window.open('', '', 'height=1000,width=700');
@@ -406,6 +415,14 @@
             // printWindow.document.close();
             // printWindow.print();
             a.document.write(divContents.outerHTML);
+    },
+    error: function(xhr) {
+        console.log(xhr.responseText); // Log any errors that occur
+    }
+});
+
+           
+
 
 
 

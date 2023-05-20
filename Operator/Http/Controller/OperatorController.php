@@ -1076,6 +1076,8 @@ class OperatorController extends BaseController
     {
         $data[] = $this->certificateRepository->findById($id);
         $data['is_printed'] = 1;
+        $data['printed_date'] = Carbon::now();
+        $data['printed_by'] = Auth::user()->id;
         try {
             $exam = $this->certificateRepository->update($data, $id);;
             if ($exam == false) {
