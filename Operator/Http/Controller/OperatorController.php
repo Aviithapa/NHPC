@@ -1210,16 +1210,30 @@ class OperatorController extends BaseController
             ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
             ->join('registrant_qualification', 'registrant_qualification.user_id', '=', 'profiles.user_id')
             ->where('certificate_history.id', '=', $certificate_id)
-            ->where('registrant_qualification.level', '=', $level)
+            // ->where('registrant_qualification.program_id', '=', 'certificate_history.program_name')
             ->orderBy('certificate_history.id', 'ASC')
-            ->get(['certificate_history.*', 'certificate_history.name as certificate_name', 'certificate_history.program_name as certificate_program_name', 'profiles.*', 'program.name as Name_program', 'registrant_qualification.*', 'provinces.province_name', 'certificate_history.id as certificate_history_id'])->first();
-
+            ->get(['certificate_history.*', 'certificate_history.name as certificate_name', 'certificate_history.program_name as certificate_program_name', 'profiles.*', 'program.name as Name_program', 'registrant_qualification.*', 'provinces.province_name', 'certificate_history.id as certificate_history_id', 'program.code_ as program_code', 'program.qualification as program_qualification', 'registrant_qualification.program_id as regis', 'certificate_history.program_id as certificate_program_id'])->first();
 
         if ($certificate != null) {
+
+            $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $certificate->user_id)->where('program_id', '=', $certificate->certificate_program_id)->first();
+
+            if ($qualification == null) {
+                $qualification = $this->qualificationRepository->getAll()->where('level', '=', $level)->where('user_id', '=', $certificate->user_id)->first();
+            }
+            //    dd($qualification, $certificate);
+            //        $this->certificateRepository->findById($id);
+            // $profile = $this->profileRepository->findById($certificate['profile_id']);
+            // //        $year= auth()->user()->created_at->format('Y');
+            // //        $month= auth()->user()->created_at->format('m');
+            // //        $day= auth()->user()->created_at->format('d');
+            // //        $date=($year,$month,$day);
+            // //        dd($certificate);
+            // return view('operator::pages.certificate', compact('certificate', 'profile', 'qualification'));
             $profile = $this->profileRepository->findById($certificate['profile_id']);
             $province = Provinces::all();
 
-            return view('operator::pages.update-certificate', compact('certificate', 'profile', 'province', 'level'));
+            return view('operator::pages.update-certificate', compact('certificate', 'profile', 'province', 'level', 'qualification'));
         }
 
         session()->flash('success', 'Please update kyc');
@@ -1235,8 +1249,7 @@ class OperatorController extends BaseController
             $profile = $this->certificateRepository->findById($id);
             $certificate = $this->certificateRepository->update($data, $id);
             $profileUpdate = $this->profileRepository->update($data, $profile['profile_id']);
-            $documents = $this->qualificationRepository->getAll()->where('user_id', '=', $profileUpdate['user_id'])
-                ->where('level', '=', $data['level'])->first();
+            $documents = $this->qualificationRepository->findById($data['qualification_id']);
             $updateDocuments =  $this->qualificationRepository->update($data, $documents['id']);
             $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['profile_id'])->first();
             $updateProgram = $this->programRepository->update($program, $exam['program_id']);

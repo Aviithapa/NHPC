@@ -261,6 +261,7 @@ class SearchController extends BaseController
             }
 
             $data = $query->get();
+
             return view('operator::pages.search-certificate', compact('data', 'program', 'request'));
         } else {
             return view('operator::pages.search-certificate', compact('program'));

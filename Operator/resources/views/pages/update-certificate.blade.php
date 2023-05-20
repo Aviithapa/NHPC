@@ -138,8 +138,8 @@
         line-height: 1;
         float: right;">
                                                 <span style="font-size:20px; margin-right: 190px;">Signature:</span>  <br>
-                                                Name: <span style="font-weight: 700; font-size: 20px;
-            ">Lila Nath Bhandari</span> <br>
+                                                Name:  <span style="font-weight: 700; font-size: 20px;
+            "><input type="text" name="registrar"  value="{{ $certificate->registrar}}" /></span> <br>
                                                 <span style="font-weight: 700; font-size: 20px;">Registrar</span>
 
                                             </div>
@@ -194,17 +194,19 @@
         text-align: center;  font-size: 20px;
         font-weight: bold;
 
-">  <input type="text" name="program_name" value="{{$certificate->certificate_program_name}}"/></td>
+">  
+<input type='hidden' name='qualification_id' value="{{ $qualification->id }}" />
+<input type="text" name="program_name" value="{{$certificate->certificate_program_name}}"/></td>
                                                 <td style=" border: 1px solid black;
         text-align: center;  font-size: 20px;
         font-weight: bold;
 
-" > <input type="text" name="board_university" value="{{$certificate->board_university}}"/></td>
+" > <input type="text" name="board_university" value="{{$qualification->board_university}}"/></td>
                                                 <td style=" border: 1px solid black;
         text-align: center;  font-size: 20px;
         font-weight: bold;
 
-"> <input type="text" name="passed_year" value="{{$certificate->passed_year}}"/></td>
+"> <input type="text" name="passed_year" value="{{$qualification->passed_year}}"/></td>
                                             </tr>
                                             <tr style=" border: 1px solid black;
         text-align: center;         height: 15px;

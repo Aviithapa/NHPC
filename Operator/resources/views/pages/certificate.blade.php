@@ -245,7 +245,7 @@
         float: right;">
             <span style="font-size:20px; margin-right: 190px;">Signature:</span>  <br>
              Name: <span style="font-weight: 700; font-size: 20px;
-            ">Lila Nath Bhandari</span> <br>
+            ">{{ $certificate->registrar }}</span> <br>
             <span style="font-weight: 700; font-size: 20px;">Registrar</span>
 
         </div>
