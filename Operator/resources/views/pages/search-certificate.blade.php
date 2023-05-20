@@ -58,6 +58,18 @@
                                     </fieldset>
                                 </div>
 
+                                 <div class="col-lg-3">
+                                    <fieldset class="form-group">
+                                        <select class="form-control" name="is_printed"   >
+                                          
+                                            <option value='0'>Print</option>
+                                            <option value='1'>Printed</option>
+
+                                        
+                                        </select>
+                                    </fieldset>
+                                </div>
+
                                  <div class="col-lg-4">
                                         <fieldset class="form-group">
                                             <select class="form-control" name="date"  id="date" >
@@ -111,8 +123,8 @@
                                             <td>Certificate Number</td>
                                             <td>Program Name</td>
                                             <td>Level</td>
-                                            <td>Date of Birth</td>
-                                     
+                                            <td>Printed Status</td>
+                                            <td> Date of Birth </td>
                                             <td>Action</td>
                                             </thead>
                                             <tbody>
@@ -121,17 +133,16 @@
                                             @foreach($data as $exam)
                                             <tr>
                                                 <td>{{ $exam->srn }}</td>
-                                                <td>{{ $exam->profile_id}}</td>
-
                                                 <td>{{ $exam->name }}</td>
                                                 <td>{{$exam->decision_date}}</td>
                                                 <td>{{$exam->cert_registration_number}}</td>
                                                 <td>{{ getProgramName($exam->program_id) }}
                                                 <td>{{$exam->level_name }}</td>
+                                                <td><span class="label label-success">{{ $exam->is_printed ? 'Printed' : 'Print' }}</span></td>
                                                 <td>{{date('Y-m-d',strtotime($exam->date_of_birth)) }}</td>
                                                 <td>
                                                  <a href="{{url('operator/dashboard/certificate/data/print/'. $exam->profile_id)}}"><span class="label label-success"> Print</span></a>   <br/>
-                                                <a href="{{url("operator/dashboard/certificate/history/edit/".$exam->id)}}"><span class="label label-success">Edit</span></a>
+                                                <a href="{{url("operator/dashboard/update/certificate/".$exam->id .'/'.$exam->level_name)}}"><span class="label label-success">Edit</span></a>
                                                  <a href="{{url('operator/dashboard/allocate/'. $exam->id)}}"><span class="label label-danger">Allocate</span></a>   
                                                  <a href="{{ url('operator/dashboard/view/certificate/'. $exam->id .'/'.$exam->level_name)}}"><span class="label label-success">View</span></a>
                                                 </td>

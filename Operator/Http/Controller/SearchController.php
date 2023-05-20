@@ -256,6 +256,10 @@ class SearchController extends BaseController
                 $query->where('decision_date', 'like', $request->date);
             }
 
+            if ($request->is_printed != null) {
+                $query->where('is_printed', 'like', $request->is_printed);
+            }
+
             $data = $query->get();
             return view('operator::pages.search-certificate', compact('data', 'program', 'request'));
         } else {
