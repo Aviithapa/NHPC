@@ -1859,6 +1859,7 @@ class OperatorController extends BaseController
     public function editCertificateData($id)
     {
         $data = $this->certificateHistoryRepository->findById($id);
+        dd($data);
         return view('operator::pages.certificate.edit', compact('data'));
     }
 

@@ -34,7 +34,7 @@
                                     <form method="POST" action="{{url('operator/dashboard/certificate/back/update')}}">
                                         @csrf
                                        <input type="hidden" name="certificate_id" value={{$data->id}} />
-                                       <input type="hidden" name="certificate_back_id" value={{$detail_data->id}} />
+                                       {{-- <input type="hidden" name="certificate_back_id" value={{isset$detail_data->id}} /> --}}
 
                                        
 {{--                                        <input type="hidden" name="exam_processing_id" value="{{$exam->id}}">--}}
