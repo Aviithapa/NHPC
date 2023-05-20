@@ -92,7 +92,7 @@ Route::get('/certificate/back/add/{id}', [\Operator\Http\Controller\OperatorCont
 
 
 
-Route::post('/old-applicant/import', [\Operator\Http\Controller\OperatorController::class, 'OldfileImport'])->middleware(['auth'])->name('operator.import.old.file');
+// Route::post('/old-applicant/import', [\Operator\Http\Controller\OperatorController::class, 'OldfileImport'])->middleware(['auth'])->name('operator.import.old.file');
 
 
 
