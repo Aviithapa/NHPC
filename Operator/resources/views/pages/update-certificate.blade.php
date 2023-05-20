@@ -36,7 +36,7 @@
 {{--                                        <input type="hidden" name="exam_id" value="1"/>--}}
                                         <input type="hidden" name="id" value="{{$profile->id}}">
                                         <input type="hidden" name="certificate_history_id" value="{{$certificate->certificate_history_id}}">
-                                        <input type="hidden" name="level" value="{{$level}}">
+                                        {{-- <input type="hidden" name="level" value="{{$level}}"> --}}
 {{--                                        <input type="hidden" name="exam_processing_id" value="{{$exam->id}}">--}}
 
 
@@ -109,7 +109,7 @@
                                                     </select></span>
 
                                             Province is registered as <span style="font-size: 26px;
-        font-weight: 700;"><input type="text" name="code" value="{{$certificate->certificate_program_name}}"/></td></span>
+        font-weight: 700;"><input type="text" name="code" value=" {{ $certificate->program_qualification}}"/></td></span>
                                             of <span style="font-size: 26px;
         font-weight: 700;">{{$certificate->level_name}}</span> Level
                                             in the registration book and this Registration Certificate is hereby
