@@ -62,7 +62,7 @@ class OldFileImport implements ToModel
         //     'updated_at' => $row[30],
         //     // certificate	type	remarks	is_printed	printed_date	printed_by	is_edited	issued_by	decision_date	certificate_status
         // ]);
-        return new Certificate([
+        return new CertificateHistory([
             'profile_photo' => $row[26],
             'name'     => $row[0],
             'date_of_birth'    => $row[1],
