@@ -29,8 +29,7 @@
                                 <div class="box-body">
                                     <a href="{{ url("operator/dashboard/certificate/history/add") }}" class="btn btn-primary" style="margin: 20px; color:white;">Add New Applicant </a>
 
-                                      <a href="" id="editCompany" data-toggle="modal" data-target='#practice_modal'><span class="btn btn-primary  mt-2"><i class="fa fa-book"></i>
-                                    Uploads Results</span> </a>
+                                     
                                     <div class="table-responsive">
                                         <table id="data-table" class="table no-margin">
                                             <thead>
@@ -90,7 +89,7 @@
                         </div>
                     </div>
                       <div class="modal fade" id="practice_modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        {{-- <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Upload Old Applicant Excel Data</h5>
@@ -120,7 +119,7 @@
 
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
                 </div>
 
