@@ -326,19 +326,26 @@
         <tr style=" border: 1px solid black;
         text-align: center;         height: 15px;
 ">
+               <td style=" border: 1px solid black;
+        text-align: center;  font-size: 16px;
+        font-weight: bold;
+        width: 30px;
+">2</td>
             <td style=" border: 1px solid black;
-        text-align: center;         padding: 10px;
-        height: 15px;
-"></td>
+        text-align: center;  font-size: 16px;
+        font-weight: bold;
+        width: 140px;
+">Sr.AHW</td>
+            <td style="border: 1px solid black;
+        text-align: center;  font-size: 16px;
+        font-weight: bold;
+        width: 200px;
+">NHTC, Nepal</td>
             <td style=" border: 1px solid black;
-        text-align: center;         padding: 10px;
-"></td>
-            <td style=" border: 1px solid black;
-        text-align: center;         padding: 10px;
-"></td>
-            <td style=" border: 1px solid black;
-        text-align: center;        padding: 10px;
-"></td>
+        text-align: center;  font-size: 16px;
+        font-weight: bold;
+        width: 80px;
+">2069</td>
         </tr>
         <tr style=" border: 1px solid black;
         text-align: center;         padding: 10px;
