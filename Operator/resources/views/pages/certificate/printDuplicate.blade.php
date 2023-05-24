@@ -330,22 +330,22 @@
         text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 30px;
-">2</td>
+"></td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 140px;
-">Sr.AHW</td>
+"></td>
             <td style="border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 200px;
-">NHTC, Nepal</td>
+"></td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 80px;
-">2067</td>
+"></td>
         </tr>
         <tr style=" border: 1px solid black;
         text-align: center;         padding: 10px;
