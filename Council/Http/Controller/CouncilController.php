@@ -190,7 +190,7 @@ class CouncilController extends BaseController
 
             $certificates = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-04-25')
                 ->where('program_id', '=', '42');
-            $srn = 196;
+            $srn = 22532;
             foreach ($certificates as $certificate) {
                 $data['srn'] = $srn++;
                 $data['cert_registration_number'] =  'C-' . $data['srn']  . ' MLT';
