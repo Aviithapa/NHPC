@@ -1527,7 +1527,7 @@ class OperatorController extends BaseController
             ->groupBy('profile_id', 'exam_id', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
             // ->where('level_id','!=', '4')
             ->where('exam_registration.state', '=', 'exam_committee')
-            ->where('exam_registration.status', '=', 're-exam')
+            ->where('exam_registration.status', '=', 'progress')
             ->where('exam_registration.exam_id', '=', $id)
             ->get();
 
