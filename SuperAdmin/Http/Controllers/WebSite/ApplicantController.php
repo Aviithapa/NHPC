@@ -880,4 +880,30 @@ class ApplicantController  extends BaseController
             return view('superAdmin::admin.applicant.search-students', compact('program'));
         }
     }
+
+
+
+    public function program()
+    {
+        return view('superAdmin::admin.applicant.program.program');
+    }
+
+    public function programStore(Request $request)
+    {
+        $data = $request->all();
+        $data['created_by'] = Auth::user()->id;
+        $data['category_id'] = 4;
+        try {
+            $exam = $this->programRepository->create($data);
+            if ($exam == false) {
+                session()->flash('error', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success', 'Program Has been Added Successfully');
+            return redirect()->to(route('superAdmin.program'));
+        } catch (Expectation $ex) {
+            session()->flash('error', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
 }

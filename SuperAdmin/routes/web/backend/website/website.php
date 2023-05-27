@@ -112,7 +112,7 @@ Route::group(['namespace' => 'WebSite'], function () {
             'edit' => 'dashboard.help.edit',
             'update' => 'dashboard.help.update',
             'destroy' => 'dashboard.help.destroy',
-            'show'=>'dashboard.help.show',
+            'show' => 'dashboard.help.show',
         ]
     ]);
     Route::resource('Clients', 'ClientsController', [
@@ -133,7 +133,7 @@ Route::group(['namespace' => 'WebSite'], function () {
             'edit' => 'dashboard.donor.edit',
             'update' => 'dashboard.donor.update',
             'destroy' => 'dashboard.donor.destroy',
-            'show'=>'dashboard.donor.show',
+            'show' => 'dashboard.donor.show',
         ]
     ]);
     Route::resource('donation', 'DonationController', [
@@ -144,10 +144,10 @@ Route::group(['namespace' => 'WebSite'], function () {
             'edit' => 'dashboard.donation.edit',
             'update' => 'dashboard.donation.update',
             'destroy' => 'dashboard.donation.destroy',
-            'show'=>'dashboard.donation.show',
+            'show' => 'dashboard.donation.show',
         ]
     ]);
-    Route::resource('product','ProductController',[
+    Route::resource('product', 'ProductController', [
         'names' => [
             'index' => 'dashboard.product.index',
             'create' => 'dashboard.product.create',
@@ -159,7 +159,7 @@ Route::group(['namespace' => 'WebSite'], function () {
 
         ]
     ]);
-    Route::resource('products','ProductsController',[
+    Route::resource('products', 'ProductsController', [
         'names' => [
             'index' => 'dashboard.products.index',
             'create' => 'dashboard.products.create',
@@ -169,7 +169,7 @@ Route::group(['namespace' => 'WebSite'], function () {
             'destroy' => 'dashboard.products.destroy',
         ]
     ]);
-    Route::resource('secondhand','SecondHandController',[
+    Route::resource('secondhand', 'SecondHandController', [
         'names' => [
             'index' => 'dashboard.secondhand.index',
             'create' => 'dashboard.secondhand.create',
@@ -180,7 +180,7 @@ Route::group(['namespace' => 'WebSite'], function () {
             'destroy' => 'dashboard.secondhand.destroy',
         ]
     ]);
-    Route::resource('order','OrderController',[
+    Route::resource('order', 'OrderController', [
         'names' => [
             'index' => 'dashboard.order.index',
             'create' => 'dashboard.order.create',
@@ -191,7 +191,7 @@ Route::group(['namespace' => 'WebSite'], function () {
             'destroy' => 'dashboard.order.destroy',
         ]
     ]);
-    Route::resource('semester','SemesterController',[
+    Route::resource('semester', 'SemesterController', [
         'names' => [
             'index' => 'dashboard.semester.index',
             'create' => 'dashboard.semester.create',
@@ -202,7 +202,7 @@ Route::group(['namespace' => 'WebSite'], function () {
             'destroy' => 'dashboard.semester.destroy',
         ]
     ]);
-    Route::resource('faculty','FacultyController',[
+    Route::resource('faculty', 'FacultyController', [
         'names' => [
             'index' => 'dashboard.faculty.index',
             'create' => 'dashboard.faculty.create',
@@ -228,7 +228,7 @@ Route::group(['namespace' => 'WebSite'], function () {
             'create' => 'dashboard.categories.create',
             'update' => 'dashboard.categories.update',
             'store'  => 'dashboard.categories.store',
-         ]
+        ]
     ]);
     Route::resource('mail', 'MailController', [
         'names' => [
@@ -259,24 +259,24 @@ Route::group(['namespace' => 'WebSite'], function () {
             'show'  => 'dashboard.cart.show',
         ]
     ]);
-    Route::resource('invoice','InvoiceController',[
+    Route::resource('invoice', 'InvoiceController', [
         'names' => [
             'show' => 'dashboard.invoice.show',
         ]
     ]);
-    Route::resource('coupons','CouponsController',[
+    Route::resource('coupons', 'CouponsController', [
         'names' => [
             'index' => 'dashboard.coupons.index',
             'create' => 'dashboard.coupons.create',
             'store' => 'dashboard.coupons.store',
             'edit' => 'dashboard.coupons.edit',
-           // 'show' => 'dashboard.coupons.show',
+            // 'show' => 'dashboard.coupons.show',
             'update' => 'dashboard.coupons.update',
             'destroy' => 'dashboard.coupons.destroy',
         ]
     ]);
     Route::get('/applicantList', 'ApplicantController@index')->name('admin.applicant.list');
-//    Route::get('/');
+    //    Route::get('/');
     Route::get('/search', 'ApplicantController@search')->middleware(['auth'])->name('search');
     Route::get('/user/list', 'ApplicantController@userIndex')->name('admin.user.list');
     Route::get('/loginSearch', 'ApplicantController@userSearch')->middleware(['auth'])->name('userSearch');
@@ -295,27 +295,27 @@ Route::group(['namespace' => 'WebSite'], function () {
 
 
 
-    Route::get('/applicant-list-view/{id}','ApplicantController@edit')->middleware(['auth'])->name('superAdmin.applicant.list.review');
-    Route::get('/active/{id}','ApplicantController@active')->middleware(['auth'])->name('superAdmin.active');
-    Route::get('/inactive/{id}','ApplicantController@inactive')->middleware(['auth'])->name('superAdmin.active');
-    Route::post('/applicant-profile-list','ApplicantController@status')->middleware(['auth'])->name('superAdmin.applicant.profile.list.status');
-    Route::post('/applicant-profile-list/level','ApplicantController@level')->middleware(['auth'])->name('superAdmin.applicant.profile.list.level');
+    Route::get('/applicant-list-view/{id}', 'ApplicantController@edit')->middleware(['auth'])->name('superAdmin.applicant.list.review');
+    Route::get('/active/{id}', 'ApplicantController@active')->middleware(['auth'])->name('superAdmin.active');
+    Route::get('/inactive/{id}', 'ApplicantController@inactive')->middleware(['auth'])->name('superAdmin.active');
+    Route::post('/applicant-profile-list', 'ApplicantController@status')->middleware(['auth'])->name('superAdmin.applicant.profile.list.status');
+    Route::post('/applicant-profile-list/level', 'ApplicantController@level')->middleware(['auth'])->name('superAdmin.applicant.profile.list.level');
     Route::match(['put', 'patch'], 'product/approve/{event}', 'ProductController@approve')->name('dashboard.product.approve');
 
-    Route::post('/update/apply/exam','ApplicantController@applyExam')->middleware(['auth'])->name('update.apply.exam');
+    Route::post('/update/apply/exam', 'ApplicantController@applyExam')->middleware(['auth'])->name('update.apply.exam');
     Route::get('/apply/exam/{id}', 'ApplicantController@editExamApply')->middleware(['auth'])->name('apply.exam');
     Route::get('/delete/certificate/{id}', 'ApplicantController@deleteCertificate')->middleware(['auth'])->name('delete.certificate');
 
     Route::get('/superAdmin/qualification/from/{id}', 'EditApplicantController@create')->middleware(['auth'])->name('superAdmin.qualificationForm');
 
-    Route::post('/delete/{id}','ApplicantController@delete')->middleware(['auth'])->name('superAdmin.delete');
-    Route::post('/mapUser','ApplicantController@mapUser')->middleware(['auth'])->name('superAdmin.mapUser');
-    Route::post('/assignRole','ApplicantController@attachRole')->middleware(['auth'])->name('superAdmin.attachRole');
-    Route::get('/mapUser/index/{id}','ApplicantController@mapUserIndex')->middleware(['auth'])->name('superAdmin.mapUser.index');
-    Route::get('/certificate/index','ApplicantController@generateCertificateIndex')->middleware(['auth'])->name('superAdmin.generateCertificate.index');
-    Route::get('/certificate/generateCertificate','ApplicantController@generateCertificate')->middleware(['auth'])->name('superAdmin.generateCertificate.generateCertificate');
-    Route::get('/generate/single/certificate/{id}','ApplicantController@generateSingleCertificate')->middleware(['auth'])->name('superAdmin.generateCertificate.generateSingleCertificate');
-    Route::get('/minute/data','ApplicantController@minuteData')->middleware(['auth'])->name('superAdmin.minuteData');
+    Route::post('/delete/{id}', 'ApplicantController@delete')->middleware(['auth'])->name('superAdmin.delete');
+    Route::post('/mapUser', 'ApplicantController@mapUser')->middleware(['auth'])->name('superAdmin.mapUser');
+    Route::post('/assignRole', 'ApplicantController@attachRole')->middleware(['auth'])->name('superAdmin.attachRole');
+    Route::get('/mapUser/index/{id}', 'ApplicantController@mapUserIndex')->middleware(['auth'])->name('superAdmin.mapUser.index');
+    Route::get('/certificate/index', 'ApplicantController@generateCertificateIndex')->middleware(['auth'])->name('superAdmin.generateCertificate.index');
+    Route::get('/certificate/generateCertificate', 'ApplicantController@generateCertificate')->middleware(['auth'])->name('superAdmin.generateCertificate.generateCertificate');
+    Route::get('/generate/single/certificate/{id}', 'ApplicantController@generateSingleCertificate')->middleware(['auth'])->name('superAdmin.generateCertificate.generateSingleCertificate');
+    Route::get('/minute/data', 'ApplicantController@minuteData')->middleware(['auth'])->name('superAdmin.minuteData');
     Route::post('/changeStateProfileLogs/{id}', 'ApplicantController@changeStateProfileLogs')->middleware(['auth'])->name('superAdmin.changeStateProfileLogs');
     Route::get('/stats', 'ApplicantController@stats')->middleware(['auth'])->name('superAdmin.stats');
 
@@ -327,10 +327,12 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::get('/exam/view/{id}', 'ApplicantController@show')->middleware(['auth'])->name('superAdmin.exam.view');
 
 
-    Route::match(['get','post'], '/student/card', 'ApplicantController@studentCard')->middleware(['auth'])->name('superAdmin.student.card');
+    Route::match(['get', 'post'], '/student/card', 'ApplicantController@studentCard')->middleware(['auth'])->name('superAdmin.student.card');
     Route::get('/student/card/{id}', 'ApplicantController@studentCardShow')->middleware(['auth'])->name('superAdmin.student.card.show');
 
-    Route::match(['get','post'],'/search/lost/student','ApplicantController@searchStudent')->middleware(['auth'])->name('search.lost.student');
+    Route::get('/program/view', 'ApplicantController@program')->middleware(['auth'])->name('superAdmin.program');
+    Route::post('/program/store', 'ApplicantController@programStore')->middleware(['auth'])->name('superAdmin.program.store');
 
 
+    Route::match(['get', 'post'], '/search/lost/student', 'ApplicantController@searchStudent')->middleware(['auth'])->name('search.lost.student');
 });

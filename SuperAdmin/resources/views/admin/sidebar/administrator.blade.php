@@ -53,6 +53,11 @@
                     <i class="icon-book-open"></i> <span>Add Collage</span>
                 </a>
             </li>
+             <li class="{{ (request()->is('superAdmin/dashboard/program/view')) ? 'active':''  }}">
+                <a href="{{route('superAdmin.program')}}">
+                    <i class="icon-book-open"></i> <span>Add Program</span>
+                </a>
+            </li>
             <li class="{{ (request()->is('superAdmin/dashboard/student/card')) ? 'active':''  }}">
                 <a href="{{route('superAdmin.student.card')}}">
                     <i class="icon-book-open"></i> <span>ID Card</span>
