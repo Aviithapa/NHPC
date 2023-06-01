@@ -84,9 +84,9 @@ class RegisteredUserController extends Controller
         if ($user != null) {
             try {
                 MailController::sendSignupEmail($data["name"], $data['email'], $data['verification_code']);
-                return view('auth.verify-email');
+                return view('auth.login');
             } catch (Exception $e) {
-                return view('auth.verify-email');
+                return view('auth.login');
             }
         }
 
