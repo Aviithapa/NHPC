@@ -189,11 +189,11 @@ class CouncilController extends BaseController
             // $certificates = ExamProcessing::where('status', '!=', 'accepted')->get();
 
             $certificates = $this->certificateRepository->getAll()->where('decision_date', '=', '2023-06-02')
-                ->where('program_id', '=', '47');
-            $srn =  2601;
+                ->where('program_id', '=', '38');
+            $srn =  1845;
             foreach ($certificates as $certificate) {
                 $data['srn'] = $srn++;
-                $data['cert_registration_number'] =  'B-' . $data['srn']  . ' RD';
+                $data['cert_registration_number'] =  'B-' . $data['srn']  . ' DH';
                 // $data['decision_date'] = '2023-06-02';
                 // $data['issued_date'] = '2023-06-02';
                 $updatedDecisionDate = $this->certificateRepository->update($data, $certificate['id']);
