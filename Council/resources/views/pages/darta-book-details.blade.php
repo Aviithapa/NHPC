@@ -51,7 +51,7 @@
                                             @if($certificates->profile_id != 0)
                                             <td> 
                                                 <a href="{{url("council/dashboard/student/view/".$certificates->profile_id)}}"><span class="label label-success">View</span></a>
-                                             <a href="{{url("superAdmin/dashboard/applicant-list-view/".$certificates->profile_id)}}"><span class="label label-success">View</span></a>
+                                             <a target='blank' href="{{url("superAdmin/dashboard/applicant-list-view/".$certificates->profile_id)}}"><span class="label label-success">View</span></a>
                                             </td>
                                             @else
                                             <td><span class="label label-success">Old Application</span></></td>
