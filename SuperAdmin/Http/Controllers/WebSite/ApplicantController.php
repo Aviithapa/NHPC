@@ -185,21 +185,18 @@ class ApplicantController  extends BaseController
 
     public function edit($id)
     {
-        if (Auth::user()->mainRole()->name === 'superadmin') {
-            $data = $this->profileRepository->findById($id);
-            $user_id = $data['user_id'];
-            $user_data = $this->userRepository->findById($user_id);
-            $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $data['user_id']);
-            $profile_logs = $this->profileLogsRepository->getAll()->where('profile_id', '=', $id);
-            $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
-            $exams = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id);
-            $certificate = DB::table('certificate_history')
-                ->where('profile_id', '=', $id)
-                ->get();
-            return view('superAdmin::admin.applicant.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams', 'certificate'));
-        } else {
-            return redirect()->route('login');
-        }
+
+        $data = $this->profileRepository->findById($id);
+        $user_id = $data['user_id'];
+        $user_data = $this->userRepository->findById($user_id);
+        $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $data['user_id']);
+        $profile_logs = $this->profileLogsRepository->getAll()->where('profile_id', '=', $id);
+        $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $id)->first();
+        $exams = $this->examProcessingRepository->getAll()->where('profile_id', '=', $id);
+        $certificate = DB::table('certificate_history')
+            ->where('profile_id', '=', $id)
+            ->get();
+        return view('superAdmin::admin.applicant.application-list-review', compact('data', 'user_data', 'qualification', 'profile_logs', 'profile_processing', 'exams', 'certificate'));
     }
 
     public function changeStateProfileLogs(Request $request, $id)
