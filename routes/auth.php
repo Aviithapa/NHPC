@@ -15,7 +15,7 @@ Route::get('/register', [RegisteredUserController::class, 'showRegistrationForm'
     ->name('register');
 
 Route::post('/register', [RegisteredUserController::class, 'registerNew'])
-    ->middleware('guest');
+    ->middleware('guest', 'throttle:200,1');
 
 Route::get('/verify', [RegisteredUserController::class, 'verifyUser'])
     ->middleware('guest')
@@ -33,15 +33,15 @@ Route::post('/verify-user', [RegisteredUserController::class, 'checkCode'])
     ->name('verify.user.code');
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
-    ->middleware('guest')
+    ->middleware(['guest', 'throttle:200,1'])
     ->name('login');
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-    ->middleware('guest')
+    ->middleware(['guest', 'throttle:200,1'])
     ->name('loginToAccount');
 
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
-    ->middleware('guest')
+    ->middleware(['guest', 'throttle:200,1'])
     ->name('password.request');
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
@@ -61,11 +61,11 @@ Route::get('/verify-email', [EmailVerificationPromptController::class, '__invoke
     ->name('verification.notice');
 
 Route::get('/verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
-    ->middleware(['auth', 'signed', 'throttle:6,1'])
+    ->middleware(['auth', 'signed', 'throttle:100,1'])
     ->name('verification.verify');
 
 Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-    ->middleware(['auth', 'throttle:6,1'])
+    ->middleware(['auth', 'throttle:100,1'])
     ->name('verification.send');
 
 Route::get('/confirm-password', [ConfirmablePasswordController::class, 'show'])
