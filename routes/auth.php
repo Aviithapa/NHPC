@@ -15,7 +15,7 @@ Route::get('/register', [RegisteredUserController::class, 'showRegistrationForm'
     ->name('register');
 
 Route::post('/register', [RegisteredUserController::class, 'registerNew'])
-    ->middleware('guest', 'throttle:200,1');
+    ->middleware('guest');
 
 Route::get('/verify', [RegisteredUserController::class, 'verifyUser'])
     ->middleware('guest')
@@ -25,7 +25,7 @@ Route::get('/admit/card/print/index', [\Student\Http\Controller\ProfileControlle
     ->middleware('guest')
     ->name('admit.card.admitCardPrintSection');
 
-Route::post('/admit/card/print', [\Student\Http\Controller\ProfileController::class, 'admitCardRequestTemplate'])->middleware(['guest', 'throttle:200,1'])->name('admit.card.admitCardRequestTemplate');
+Route::post('/admit/card/print', [\Student\Http\Controller\ProfileController::class, 'admitCardRequestTemplate'])->middleware(['guest'])->name('admit.card.admitCardRequestTemplate');
 
 
 Route::post('/verify-user', [RegisteredUserController::class, 'checkCode'])
@@ -33,15 +33,15 @@ Route::post('/verify-user', [RegisteredUserController::class, 'checkCode'])
     ->name('verify.user.code');
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
-    ->middleware(['guest', 'throttle:200,1'])
+    ->middleware(['guest'])
     ->name('login');
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-    ->middleware(['guest', 'throttle:200,1'])
+    ->middleware(['guest'])
     ->name('loginToAccount');
 
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
-    ->middleware(['guest', 'throttle:200,1'])
+    ->middleware(['guest'])
     ->name('password.request');
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
