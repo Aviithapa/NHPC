@@ -345,17 +345,17 @@ class  ExamCommitteeController extends BaseController
     {
         $fileName = 'StudentSymbolNumberList.csv';
 
-        $tasks = AdmitCard::join('profiles', 'profiles.id', '=', 'admit_card.profile_id')
-            ->join('exam_registration', 'exam_registration.id', '=', 'admit_card.exam_processing_id')
+        $tasks = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            // ->join('exam_registration', 'exam_registration.id', '=', 'admit_card.exam_processing_id')
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->join('level', 'level.id', '=', 'program.level_id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
             ->where('exam_registration.status', '=', 'progress')
-            ->where('exam_registration.exam_id', '=', '5')
+            ->where('exam_registration.exam_id', '=', '6')
 
             // ->where('exam_registration.exam_id', '=', $id)
             // ->where('admit_card.created_at', 'Like', '%' . '2023-02-03' . '%')
-            ->get(['level.name as level_name', 'admit_card.*', 'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number']);
+            ->get(['level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number']);
 
         $headers = array(
             "Content-type"        => "text/csv",
