@@ -330,25 +330,29 @@
         text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 30px;
-">2</td>
+">
+{{-- 2 --}}
+</td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 140px;
-"> Sr. AHW </td>
+"> 
+{{-- Sr. AHW  --}}
+</td>
             <td style="border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 200px;
 ">
-NHTC, Nepal
+{{-- NHTC, Nepal --}}
 </td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 80px;
 ">
-2066
+{{-- 2066 --}}
 </td>
         </tr>
         <tr style=" border: 1px solid black;
