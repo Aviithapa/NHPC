@@ -212,7 +212,7 @@
         Province is registered as <span style="font-size: 26px;
         font-weight: 700;">
            {{-- {!! htmlspecialchars_decode($certificate->certificate_program_name) !!} --}}
-           {{ $certificate->program_code}}
+           {{ $certificate->program_qualification}}
         </span>
         of <span style="font-size: 26px;
         font-weight: 700;">{{$certificate->level_name}}</span> Level
