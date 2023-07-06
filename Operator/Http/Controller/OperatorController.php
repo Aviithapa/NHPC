@@ -1747,36 +1747,38 @@ class OperatorController extends BaseController
         $query =  ExamProcessing::query()
             ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             ->where('level_id', '<=', 3)
-            ->where('exam_id', '=', $request->exam_id)
+            // ->where('exam_id', '=', $request->exam_id)
             ->join('level', 'level.id', '=', 'exam_registration.level_id')
-            ->join('users', 'users.id', '=', 'profiles.user_id');
-        if ($request->computer_operator != null) {
-            $query->where('exam_registration.state', '=', $request->computer_operator);
-        }
-        if ($request->officer != null) {
-            $query->where('exam_registration.state', '=', $request->officer);
-        }
-        if ($request->registrar != null) {
-            $query->where('exam_registration.state', '=',  $request->registar);
-        }
-        if ($request->subject_committee != null) {
-            $query->where('exam_registration.state', '=', $request->subject_committee);
-        }
-        if ($request->exam_committee != null) {
-            $query->where('exam_registration.state', '=',  $request->exam_committee);
-        }
-        if ($request->council != null) {
-            $query->where('exam_registration.state', '=', $request->council);
-        }
-        if ($request->rejected != null) {
-            $query->where('exam_registration.status', '=', $request->rejected);
-        }
-        if ($request->progress != null) {
-            $query->where('exam_registration.status', '=', $request->progress);
-        }
+            ->join('users', 'users.id', '=', 'profiles.user_id')
+            ->join('registrant_qualification', 'registrant_qualification.user_id', '=', 'profiles.user_id');
+        // if ($request->computer_operator != null) {
+        //     $query->where('exam_registration.state', '=', $request->computer_operator);
+        // }
+        // if ($request->officer != null) {
+        //     $query->where('exam_registration.state', '=', $request->officer);
+        // }
+        // if ($request->registrar != null) {
+        //     $query->where('exam_registration.state', '=',  $request->registar);
+        // }
+        // if ($request->subject_committee != null) {
+        //     $query->where('exam_registration.state', '=', $request->subject_committee);
+        // }
+        // if ($request->exam_committee != null) {
+        //     $query->where('exam_registration.state', '=',  $request->exam_committee);
+        // }
+        // if ($request->council != null) {
+        //     $query->where('exam_registration.state', '=', $request->council);
+        // }
+        // if ($request->rejected != null) {
+        //     $query->where('exam_registration.status', '=', $request->rejected);
+        // }
+        // if ($request->progress != null) {
+        //     $query->where('exam_registration.status', '=', $request->progress);
+        // }
 
 
-        $tasks = $query->get(['level.name as level_name', 'profiles.*', 'users.email as email', 'users.phone_number as phone_number', 'exam_registration.*', 'exam_registration.id as exam_regisration_id']);;
+        $tasks = $query->get(['level.name as level_name', 'profiles.*', 'users.email as email', 'users.phone_number as phone_number', 'exam_registration.*', 'exam_registration.id as exam_regisration_id', 'registrant_qualification.*']);;
+
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -1808,7 +1810,7 @@ class OperatorController extends BaseController
                 $row['Phone Number'] = $task->phone_number;
                 $row['State'] = $task->state;
                 $row['Status'] = $task->status;
-                $row['Symbol Number'] = getSymbolNo($task->exam_regisration_id);
+                $row['Symbol Number'] = $task->board_university;
 
 
 
