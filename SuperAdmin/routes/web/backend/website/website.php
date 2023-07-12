@@ -280,8 +280,23 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::get('/search', 'ApplicantController@search')->middleware(['auth'])->name('search');
     Route::get('/user/list', 'ApplicantController@userIndex')->name('admin.user.list');
     Route::get('/loginSearch', 'ApplicantController@userSearch')->middleware(['auth'])->name('userSearch');
+
+    //Muncipality add edit
+    Route::match(['get', 'post'], '/add/municipality/list', 'ApplicantController@municipalityList')->middleware(['auth'])->name('super.Admin.municipality.list');
     Route::get('/add/municipality', 'ApplicantController@municipality')->middleware(['auth'])->name('super.Admin.municipality');
     Route::post('/add/municipality/data', 'ApplicantController@municipalitySave')->middleware(['auth'])->name('super.Admin.municipality.save');
+    Route::get('/add/municipality/edit/{id}', 'ApplicantController@municipalityEdit')->middleware(['auth'])->name('super.Admin.municipality.edit');
+    Route::post('/add/municipality/update/{id}', 'ApplicantController@municipalityUpdate')->middleware(['auth'])->name('super.Admin.municipality.update');
+
+
+    //Program crud
+    Route::match(['get', 'post'], '/program/list', 'ApplicantController@programList')->middleware(['auth'])->name('superAdmin.program');
+    Route::get('/program/view', 'ApplicantController@program')->middleware(['auth'])->name('superAdmin.program.add');
+    Route::post('/program/store', 'ApplicantController@programStore')->middleware(['auth'])->name('superAdmin.program.store');
+    Route::get('/program/edit/{id}', 'ApplicantController@programEdit')->middleware(['auth'])->name('superAdmin.program.edit');
+    Route::post('/program/update/{id}', 'ApplicantController@programUpdate')->middleware(['auth'])->name('superAdmin.program.update');
+
+
 
     Route::get('/add/collage', 'ApplicantController@collage')->middleware(['auth'])->name('super.Admin.collage');
     Route::post('/add/collage/data', 'ApplicantController@collageSave')->middleware(['auth'])->name('super.Admin.collage.save');
@@ -330,8 +345,7 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::match(['get', 'post'], '/student/card', 'ApplicantController@studentCard')->middleware(['auth'])->name('superAdmin.student.card');
     Route::get('/student/card/{id}', 'ApplicantController@studentCardShow')->middleware(['auth'])->name('superAdmin.student.card.show');
 
-    Route::get('/program/view', 'ApplicantController@program')->middleware(['auth'])->name('superAdmin.program');
-    Route::post('/program/store', 'ApplicantController@programStore')->middleware(['auth'])->name('superAdmin.program.store');
+
 
 
     Route::match(['get', 'post'], '/search/lost/student', 'ApplicantController@searchStudent')->middleware(['auth'])->name('search.lost.student');

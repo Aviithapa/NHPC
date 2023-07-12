@@ -449,6 +449,95 @@ class ApplicantController  extends BaseController
     //    }
 
 
+    public function programList(Request $request)
+    {
+        $data = Program::all();
+        if ($request->isMethod('post')) {
+
+            $query = Program::query();
+
+
+            if ($request->name != null) {
+                $query->where('name', 'like', '%' . $request->name  . '%');
+            }
+            $data = $query->get();
+
+            return view('superAdmin::admin.applicant.program.index', compact("data", 'request'));
+        } else {
+            return view('superAdmin::admin.applicant.program.index', compact("data"));
+        }
+    }
+
+    public function programEdit($id)
+    {
+        $data = $this->programRepository->findById($id);
+        return view('superAdmin::admin.applicant.program.edit', compact("data"));
+    }
+
+
+    public function program()
+    {
+        return view('superAdmin::admin.applicant.program.program');
+    }
+
+    public function programStore(Request $request)
+    {
+        $data = $request->all();
+        $data['created_by'] = Auth::user()->id;
+        $data['category_id'] = 4;
+        try {
+            $exam = $this->programRepository->create($data);
+            if ($exam == false) {
+                session()->flash('error', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success', 'Program Has been Added Successfully');
+            return redirect()->to(route('superAdmin.program'));
+        } catch (Expectation $ex) {
+            session()->flash('error', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
+
+    public function programUpdate(Request $request, $id)
+    {
+        $data = $request->all();
+        $mun = $this->programRepository->update($data, $id);
+        if ($mun == false) {
+            session()->flash('error', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+        session()->flash('success', 'Program has been updated');
+        $data = Program::all();
+        return view('superAdmin::admin.applicant.program.index', compact("data"));
+    }
+
+    public function municipalityList(Request $request)
+    {
+        $data = Municipality::all();
+        if ($request->isMethod('post')) {
+
+            $query = Municipality::query();
+
+
+            if ($request->name != null) {
+                $query->where('name', 'like', '%' . $request->name  . '%');
+            }
+
+            $data = $query->get();
+
+            return view('superAdmin::admin.applicant.municipality.index', compact("data", 'request'));
+        } else {
+            return view('superAdmin::admin.applicant.municipality.index', compact("data"));
+        }
+    }
+
+    public function municipalityEdit($id)
+    {
+        $data = $this->municipalityRepository->findById($id);
+        return view('superAdmin::admin.applicant.municipality.edit', compact("data"));
+    }
+
 
     public function municipality()
     {
@@ -465,8 +554,24 @@ class ApplicantController  extends BaseController
         }
 
         session()->flash('success', 'New Municipality has been added');
-        return redirect()->back();
+        $data = Municipality::all();
+        return view('superAdmin::admin.applicant.municipality.index', compact("data"));
     }
+
+    public function municipalityUpdate(Request $request, $id)
+    {
+        $data = $request->all();
+        $mun = $this->municipalityRepository->update($data, $id);
+        if ($mun == false) {
+            session()->flash('error', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+
+        session()->flash('success', 'Municipality has been updated');
+        $data = Municipality::all();
+        return view('superAdmin::admin.applicant.municipality.index', compact("data"));
+    }
+
 
     public function collage()
     {
@@ -875,32 +980,6 @@ class ApplicantController  extends BaseController
             return view('superAdmin::admin.applicant.search-students', compact('data', 'program', 'request'));
         } else {
             return view('superAdmin::admin.applicant.search-students', compact('program'));
-        }
-    }
-
-
-
-    public function program()
-    {
-        return view('superAdmin::admin.applicant.program.program');
-    }
-
-    public function programStore(Request $request)
-    {
-        $data = $request->all();
-        $data['created_by'] = Auth::user()->id;
-        $data['category_id'] = 4;
-        try {
-            $exam = $this->programRepository->create($data);
-            if ($exam == false) {
-                session()->flash('error', 'Oops! Something went wrong.');
-                return redirect()->back()->withInput();
-            }
-            session()->flash('success', 'Program Has been Added Successfully');
-            return redirect()->to(route('superAdmin.program'));
-        } catch (Expectation $ex) {
-            session()->flash('error', 'Oops! Something went wrong.');
-            return redirect()->back()->withInput();
         }
     }
 }

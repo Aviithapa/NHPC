@@ -43,9 +43,9 @@
                     <i class="icon-book-open"></i> <span>Exam</span>
                 </a>
             </li>
-            <li class="{{ (request()->is('superAdmin/dashboard/add/municipality')) ? 'active':''  }}">
-                <a href="{{route('super.Admin.municipality')}}">
-                    <i class="icon-book-open"></i> <span>Add Municipality</span>
+            <li class="{{ (request()->is('superAdmin/dashboard/add/municipality/*')) ? 'active':''  }}">
+                <a href="{{route('super.Admin.municipality.list')}}">
+                    <i class="icon-book-open"></i> <span>Municipality</span>
                 </a>
             </li>
             <li class="{{ (request()->is('superAdmin/dashboard/add/collage')) ? 'active':''  }}">
@@ -53,9 +53,9 @@
                     <i class="icon-book-open"></i> <span>Add Collage</span>
                 </a>
             </li>
-             <li class="{{ (request()->is('superAdmin/dashboard/program/view')) ? 'active':''  }}">
+             <li class="{{ (request()->is('superAdmin/dashboard/program/*')) ? 'active':''  }}">
                 <a href="{{route('superAdmin.program')}}">
-                    <i class="icon-book-open"></i> <span>Add Program</span>
+                    <i class="icon-book-open"></i> <span>Program</span>
                 </a>
             </li>
             <li class="{{ (request()->is('superAdmin/dashboard/student/card')) ? 'active':''  }}">
