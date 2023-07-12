@@ -93,7 +93,7 @@
                                                     <td>{{$datas->exam_registration_state}}</td>
                                                     <td>{{$datas->exam_registration_status}}</td>
                                                     <td>{{$datas->created_at->toDateString()}}</td>
-                                                    <td>{{ $datas->exam_registration_created_at->toDateString() }} </td>
+                                                    <td>{{ $datas->exam_registration_created_at }} </td>
                                                     <td> {{$datas->program_name}}</td>
                                                   
 
