@@ -320,22 +320,24 @@
 
 ">{{$data->passed_year}}</td>
         </tr>
-        <tr style=" border: 1px solid black;
+       <tr style=" border: 1px solid black;
         text-align: center;         height: 15px;
 ">
-            <td style=" border: 1px solid black;
+               <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 30px;
 ">
 {{-- 2 --}}
+{{ isset($data->passed_year1) ?  2  : ''}}
 </td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
         font-weight: bold;
         width: 140px;
-">
- {{-- Sr. AHW  --}}
+"> 
+{{-- Sr. AHW  --}}
+{{ isset($data->passed_year1) ?   html_entity_decode($data->qualification1)   : ''}}
 </td>
             <td style="border: 1px solid black;
         text-align: center;  font-size: 16px;
@@ -343,6 +345,7 @@
         width: 200px;
 ">
 {{-- NHTC, Nepal --}}
+{{ isset($data->passed_year1) ?   $data->insitutate1   : ''}}
 </td>
             <td style=" border: 1px solid black;
         text-align: center;  font-size: 16px;
@@ -350,6 +353,8 @@
         width: 80px;
 ">
 {{-- 2066 --}}
+{{ isset($data->passed_year1) ?   $data->passed_year1  : ''}}
+
 </td>
         </tr>
         <tr style=" border: 1px solid black;
