@@ -33,7 +33,7 @@ abstract class RepositoryImplementation
      */
     public function getAll()
     {
-        return $this->getModel()->orderBy('created_at', 'asc')->get();
+        return $this->getModel()->orderBy('created_at', 'desc')->get();
     }
 
     /**
