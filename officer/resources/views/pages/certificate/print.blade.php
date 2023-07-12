@@ -136,6 +136,7 @@
     <button onclick="printDiv()" class="btn btn-primary">Print Certificate</button>
 </div>
 
+   <input type="hidden" id="certificateID" value ={{ $certificate->certificate_history_id }} />
 <page size="A4" id="printContent" style="width: 21cm;
         height: 29.7cm;
         font-family: 'Arial Black';
@@ -385,6 +386,27 @@
     <script>
         function printDiv() {
             var divContents = document.getElementById("printContent").innerHTML;
+        var certificateID = document.getElementById("certificateID").value;
+                        $.ajax({
+    url: '/operator/dashboard/certificate/isPrinted/' + certificateID,
+    type: 'GET',
+    success: function(response) {
+       // var a = window.print()
+            // // window.open('', 'PRINT ADMIT CARD', 'height=700, width=700');
+            // var divContents = document.getElementById("printdivcontent").innerHTML;
+            var printWindow = window.open('', '', 'height=1000,width=700');
+            // printWindow.document.write('<html><head><title>Print DIV Content</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            // printWindow.document.close();
+            // printWindow.print();
+            a.document.write(divContents.outerHTML);
+    },
+    error: function(xhr) {
+        console.log(xhr.responseText); // Log any errors that occur
+    }
+});
             // var a = window.print()
             // // window.open('', 'PRINT ADMIT CARD', 'height=700, width=700');
             // var divContents = document.getElementById("printdivcontent").innerHTML;

@@ -400,26 +400,26 @@
             var certificateID = document.getElementById("certificateID").value;
             
        
-//             $.ajax({
-//     url: '/operator/dashboard/certificate/isPrinted/' + certificateID,
-//     type: 'GET',
-//     success: function(response) {
-//        // var a = window.print()
-//             // // window.open('', 'PRINT ADMIT CARD', 'height=700, width=700');
-//             // var divContents = document.getElementById("printdivcontent").innerHTML;
-//             var printWindow = window.open('', '', 'height=1000,width=700');
-//             // printWindow.document.write('<html><head><title>Print DIV Content</title>');
-//             printWindow.document.write('</head><body >');
-//             printWindow.document.write(divContents);
-//             printWindow.document.write('</body></html>');
-//             // printWindow.document.close();
-//             // printWindow.print();
-//             a.document.write(divContents.outerHTML);
-//     },
-//     error: function(xhr) {
-//         console.log(xhr.responseText); // Log any errors that occur
-//     }
-// });
+            $.ajax({
+    url: '/operator/dashboard/certificate/isPrinted/' + certificateID,
+    type: 'GET',
+    success: function(response) {
+       // var a = window.print()
+            // // window.open('', 'PRINT ADMIT CARD', 'height=700, width=700');
+            // var divContents = document.getElementById("printdivcontent").innerHTML;
+            var printWindow = window.open('', '', 'height=1000,width=700');
+            // printWindow.document.write('<html><head><title>Print DIV Content</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            // printWindow.document.close();
+            // printWindow.print();
+            a.document.write(divContents.outerHTML);
+    },
+    error: function(xhr) {
+        console.log(xhr.responseText); // Log any errors that occur
+    }
+});
 
    var printWindow = window.open('', '', 'height=1000,width=700');
             // printWindow.document.write('<html><head><title>Print DIV Content</title>');
