@@ -30,6 +30,7 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use Mockery\Expectation;
 use Operator\Modules\Framework\Request;
@@ -300,12 +301,21 @@ class ApplicantController  extends BaseController
                         '<td>' . $product->password_reference . '</td>' .
                         '<td><a href=' . url("superAdmin/dashboard/active/" . $product->id) . '><span class="label label-success">Active</span></a> <a href=' . url("superAdmin/dashboard/inactive/" . $product->id) . '><span class="label label-danger">In Active</span></a></td>' .
                         '<td><a href=' . url("superAdmin/dashboard/mapUser/index/" . $product->id) . '><span class="label label-danger">Assign</span></a></td>' .
+                        '<td><a href=' . url("superAdmin/dashboard/edit/user/" . $product->id) . '><span class="label label-success">Edit</span></a></td>' .
                         '</tr>';
                 }
                 return Response($output);
             }
         }
     }
+
+    public function userEdit($id)
+    {
+        $data = $this->userRepository->findById($id);
+        return view('superAdmin::admin.applicant.user.edit', compact("data"));
+    }
+
+
 
     public function active($id)
     {
@@ -510,6 +520,32 @@ class ApplicantController  extends BaseController
         session()->flash('success', 'Program has been updated');
         $data = Program::all();
         return view('superAdmin::admin.applicant.program.index', compact("data"));
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        ]);
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $this->validator($request->all())->validate();
+        $data = $request->all();
+        if ($data['password']) {
+            $userDetail['password_reference'] = $data['password'];
+            $userDetail['password'] = bcrypt($data['password']);
+        }
+
+        $userDetail['email'] = $data['email'];
+        $mun = $this->userRepository->update($userDetail, $id);
+        if ($mun == false) {
+            session()->flash('error', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+        session()->flash('success', 'User has been updated');
+        return redirect()->back();
     }
 
     public function municipalityList(Request $request)

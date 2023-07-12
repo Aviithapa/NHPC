@@ -327,6 +327,10 @@ Route::group(['namespace' => 'WebSite'], function () {
     Route::post('/mapUser', 'ApplicantController@mapUser')->middleware(['auth'])->name('superAdmin.mapUser');
     Route::post('/assignRole', 'ApplicantController@attachRole')->middleware(['auth'])->name('superAdmin.attachRole');
     Route::get('/mapUser/index/{id}', 'ApplicantController@mapUserIndex')->middleware(['auth'])->name('superAdmin.mapUser.index');
+    Route::get('/edit/user/{id}', 'ApplicantController@userEdit')->middleware(['auth'])->name('superAdmin.userEdit.index');
+    Route::post('/update/user/{id}', 'ApplicantController@updateUser')->middleware(['auth'])->name('superAdmin.userUpdate.index');
+
+
     Route::get('/certificate/index', 'ApplicantController@generateCertificateIndex')->middleware(['auth'])->name('superAdmin.generateCertificate.index');
     Route::get('/certificate/generateCertificate', 'ApplicantController@generateCertificate')->middleware(['auth'])->name('superAdmin.generateCertificate.generateCertificate');
     Route::get('/generate/single/certificate/{id}', 'ApplicantController@generateSingleCertificate')->middleware(['auth'])->name('superAdmin.generateCertificate.generateSingleCertificate');
