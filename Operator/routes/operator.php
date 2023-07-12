@@ -24,7 +24,10 @@ Route::post('/collage/search', [\Operator\Http\Controller\SearchController::clas
 Route::get('/view/certificate/{id}/{level}',  [\Operator\Http\Controller\OperatorController::class, 'printCertificate'])->middleware(['auth'])->name('operator.dashboard.view');
 Route::get('/certificate/index/{status}/{program_id}',  [\Operator\Http\Controller\OperatorController::class, 'printCertificateIndex'])->middleware(['auth'])->name('operator.dashboard.printCertificateIndex');
 Route::get('/certificate/isPrinted/{id}',  [\Operator\Http\Controller\OperatorController::class, 'printedCertificate'])->middleware(['auth'])->name('operator.dashboard.printedCertificate');
-Route::get('/certificate/card/{status}',  [\Operator\Http\Controller\OperatorController::class, 'printCertificateDashboard'])->middleware(['auth'])->name('operator.dashboard.printCertificateDashboard');
+
+Route::get('/certificate/card/{status}/{level_name}',  [\Operator\Http\Controller\OperatorController::class, 'printCertificateDashboard'])->middleware(['auth'])->name('operator.dashboard.printCertificateDashboard');
+Route::get('/certificate/cards/{status}',  [\Operator\Http\Controller\OperatorController::class, 'printCertificateLevel'])->middleware(['auth'])->name('operator.dashboard.printCertificateLevel');
+
 Route::get('/view/printedCertificate/{id}/{level}',  [\Operator\Http\Controller\OperatorController::class, 'printed'])->middleware(['auth'])->name('operator.dashboard.view.printedCertificate');
 
 

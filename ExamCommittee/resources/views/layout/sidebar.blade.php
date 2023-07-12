@@ -28,7 +28,7 @@
 
             <li class="{{ (request()->is('examCommittee/dashboard/examCommittee/dashboard/examCommittee/admit-Card-Generated-Student')) ? 'active':''  }}">
                 <a href="{{route("examCommittee.admit.card.generated")}}">
-                    <i class="icon-book-open"></i> <span>Admit Card Students  <span class="badge badge-pill badge-danger heartbit" > 4914 
+                    <i class="icon-book-open"></i> <span>Admit Card Students  <span class="badge badge-pill badge-danger heartbit" > 
                         {{-- {{countAdmitGeneratedCard()}} --}}
                     </span>
                 </span>
@@ -37,6 +37,12 @@
                 <li class="{{ (request()->is('examCommittee/dashboard/examCommittee/search/student')) ? 'active':''  }}">
                     <a href="{{route("examCommittee.search.student")}}">
                         <i class="icon-book-open"></i> <span>Search applicant</span>
+                    </a>
+                </li>
+
+                 <li class="{{ (request()->is('exam/dashboard/subjectCommittee/dashboard')) ? 'active':''  }}">
+                    <a href="{{route("subjectCommittee.dashboard.exam")}}">
+                        <i class="icon-book-open"></i> <span>Subject Committee</span>
                     </a>
                 </li>
             {{-- <li class="">

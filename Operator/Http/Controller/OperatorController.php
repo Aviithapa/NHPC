@@ -1060,12 +1060,18 @@ class OperatorController extends BaseController
     }
 
 
-    public function printCertificateDashboard($status)
+    public function printCertificateLevel($status)
+    {
+        return view('operator::pages.certificate.printDesign.index', compact('status'));
+    }
+
+    public function printCertificateDashboard($status, $level_name)
     {
         $certificates = Certificate::select(\DB::raw("COUNT(*) as count"), \DB::raw("program_id as program_id"))
             ->groupBy('program_id')
             ->orderBy('count')
             ->where('is_printed', '=', $status)
+            ->where('level_name', '=', $level_name)
             ->where('profile_id', '!=', '')
             ->get();
 
