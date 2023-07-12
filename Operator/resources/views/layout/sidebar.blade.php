@@ -34,7 +34,7 @@
                 <ul class="treeview-menu">
                     <li class="{{ (request()->is('operator/dashboard/operator/applicant-profile-list/Reviewing/computer_operator/*')) ? 'active':''  }}">
                         <a href="{{route("operator.applicant.profile.list", ['status'=> 'progress','state' => 'computer_operator','level'=>"1"])}}">
-                            <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantCount('progress','computer_operator')}}</span></span>
+                            <i class="icon-book-open"></i> <span>Applicant Profile List  </span>
                         </a>
                     </li>
                      <li class="{{ (request()->is('operator/dashboard/operator/applicant-profile-list/Reviewing/computer_operator/*')) ? 'active':''  }}">
@@ -50,12 +50,12 @@
 
                     <li class="{{ (request()->is('operator/dashboard/operator/applicant-profile-list/accepted/officer/*')) ? 'active':''  }}">
                         <a href="{{route("operator.applicant.profile.list", ['status'=> 'accepted', 'state' => 'officer' ,'level'=>"1"])}}">
-                            <i class="icon-badge"></i> <span>Operator Verified Profile List <span class="badge badge-pill badge-danger">{{getApplicantCount('progress','officer')}}</span></span>
+                            <i class="icon-badge"></i> <span>Operator Verified Profile List </span>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class="treeview {{ (request()->is('operator/dashboard/operator/applicant-list/*/*')) ? 'active':''  }}"> <a href="#"> <i class="icon-grid"></i> <span>Exam Applied</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+            {{-- <li class="treeview {{ (request()->is('operator/dashboard/operator/applicant-list/*/*')) ? 'active':''  }}"> <a href="#"> <i class="icon-grid"></i> <span>Exam Applied</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
                 <ul class="treeview-menu">
                     <li class="{{ (request()->is('operator/dashboard/operator/applicant-list/progress/computer_operator')) ? 'active':''  }}">
                         <a href="{{route("operator.applicant.list", ['status'=> 'progress','state' => 'computer_operator'])}}">
@@ -74,7 +74,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
 
             <li class="{{ (request()->is('operator/dashboard/search/student')) ? 'active':''  }}">
                 <a href="{{route("search.student")}}">
