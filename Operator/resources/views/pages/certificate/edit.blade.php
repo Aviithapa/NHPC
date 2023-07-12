@@ -227,23 +227,33 @@
 
 "> <input type="text" name="passed_year" value="{{ $data->passed_year}}" /></td>
                                             </tr>
-                                            <tr style=" border: 1px solid black;
-        text-align: center;         height: 15px;
+                                                          <tr style="
+        text-align: center;
+
 ">
                                                 <td style=" border: 1px solid black;
-        text-align: center;         padding: 10px;
-        height: 15px;
-"></td>
+        text-align: center;  font-size: 20px;
+        font-weight: bold;
+
+">2</td>
                                                 <td style=" border: 1px solid black;
-        text-align: center;         padding: 10px;
-"></td>
+        text-align: center;  font-size: 20px;
+        font-weight: bold;
+
+">  <input type="text" name="qualification1"  value="{{ $data->qualification1}}" /></td>
                                                 <td style=" border: 1px solid black;
-        text-align: center;         padding: 10px;
-"></td>
+        text-align: center;  font-size: 20px;
+        font-weight: bold;
+
+" > <input type="text" name="insitutate1" value="{{ $data->insitutate1}}" /></td>
                                                 <td style=" border: 1px solid black;
-        text-align: center;        padding: 10px;
-"></td>
+        text-align: center;  font-size: 20px;
+        font-weight: bold;
+
+"> <input type="text" name="passed_year1" value="{{ $data->passed_year1}}" /></td>
                                             </tr>
+
+                                         
                                             <tr style=" border: 1px solid black;
         text-align: center;         padding: 10px;
 ">

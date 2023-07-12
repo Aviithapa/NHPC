@@ -17,7 +17,8 @@ class CertificateHistory extends Model
         'srn', 'ward', 'municipality', 'district', 'province', 'level', 'registration_number', 'date_of_issue', 'qualification', 'insitutate', 'passed_year',
         'registrar', 'valid_till', 'certificate', 'type',
         'remarks', 'is_printed', 'printed_date',
-        'printed_by', 'is_edited', 'issued_by', 'certificate_status', 'decision_date'
+        'printed_by', 'is_edited', 'issued_by', 'certificate_status', 'decision_date',
+        'qualification1', 'insitutate1', 'passed_year1',
     ];
 
     public function getProfileImage()
