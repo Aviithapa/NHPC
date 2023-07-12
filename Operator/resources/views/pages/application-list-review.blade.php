@@ -42,7 +42,7 @@
                         </div>
                         <div class="box-profile text-white">
                             <img class="profile-user-img img-responsive m-b-2" src="{{$data->getProfileImage()}}" alt="User profile picture">
-                            <h3 class="profile-username text-center">{{isset($user_data)?$user_data->name:''}}</h3>
+                            <h3 class="profile-username text-center">{{$data->first_name}} {{$data->middle_name}} {{$data->last_name}}</h3>
                             <p class="text-center">{{isset($user_data)?$user_data->email:''}}</p>
                         </div>
                     </div>
