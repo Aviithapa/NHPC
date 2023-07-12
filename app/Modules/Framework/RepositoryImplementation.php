@@ -33,7 +33,7 @@ abstract class RepositoryImplementation
      */
     public function getAll()
     {
-        return $this->getModel()->get();
+        return $this->getModel()->orderBy('created_at', 'asc')->get();
     }
 
     /**
@@ -71,13 +71,10 @@ abstract class RepositoryImplementation
     public function getAllForDataTable()
     {
         $user = Auth::user();
-        if($user->isSuperAdmin())
-        {
+        if ($user->isSuperAdmin()) {
             return $this->getModel()->query();
-        }
-        else {
+        } else {
             return $this->getModel()->query()->where('user_id', $user->id);
-
         }
     }
     /**find by data for data-table
@@ -89,13 +86,10 @@ abstract class RepositoryImplementation
     public function findByDataTable($key, $value, $operator = '=')
     {
         $user = Auth::user();
-        if($user->isSuperAdmin())
-        {
+        if ($user->isSuperAdmin()) {
             return $this->getModel()->query()->where($key, $operator, $value);
-        }
-        else {
+        } else {
             return $this->getModel()->query()->where('user_id', $user->id)->where($key, $operator, $value);
-
         }
     }
 
@@ -141,13 +135,13 @@ abstract class RepositoryImplementation
      * @param bool $paginate
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function findBy($key, $value, $operator = '=', $paginate = true,$limit = null)
+    public function findBy($key, $value, $operator = '=', $paginate = true, $limit = null)
     {
         if ($paginate) {
             return $this->getModel()->where($key, $operator, $value)->paginate($this->perPage());
         } else {
-            $query=$this->getModel()->where($key, $operator, $value);
-            if($limit){
+            $query = $this->getModel()->where($key, $operator, $value);
+            if ($limit) {
                 $query->limit($limit);
             }
             return $query->get();
@@ -163,7 +157,7 @@ abstract class RepositoryImplementation
      */
     public function findByFirst($key, $value, $operator = '=')
     {
-            return $this->getModel()->where($key, $operator, $value)->first();
+        return $this->getModel()->where($key, $operator, $value)->first();
     }
 
     /**
@@ -186,7 +180,6 @@ abstract class RepositoryImplementation
             $this->log->error($this->entity_name . ' create : ' . $e->getMessage());
             return false;
         }
-
     }
 
     /**
@@ -210,7 +203,6 @@ abstract class RepositoryImplementation
             $this->log->error($this->entity_name . ' update : ' . $e->getMessage());
             return false;
         }
-
     }
 
     /**
@@ -250,13 +242,10 @@ abstract class RepositoryImplementation
      * @param $slug
      * @return collection
      */
-    public function findBySlug($slug,$status=true)
+    public function findBySlug($slug, $status = true)
     {
-        if($status==true)
-        return $this->getModel()->where('status', 'published')->where('slug', $slug)->first();
+        if ($status == true)
+            return $this->getModel()->where('status', 'published')->where('slug', $slug)->first();
         return $this->getModel()->where('slug', $slug)->first();
-
     }
-
-
 }
