@@ -27,23 +27,23 @@
                 <ul class="treeview-menu">
                     <li class="{{ (request()->is('registrar/dashboard/registrar/applicant-profile-list/progress/registrar/*')) ? 'active':''  }}">
                         <a href="{{route("registrar.applicant.profile.list", ['status'=> 'progress','state' => 'registrar', 'level'=>'1'])}}">
-                            <i class="icon-book-open"></i> <span>Applicant Profile List  <span class="badge badge-pill badge-success">{{getApplicantProcessingCount('progress','registrar')}}</span></span>
+                            <i class="icon-book-open"></i> <span>Applicant Profile List  </span>
                         </a>
                     </li>
                     <li class="{{ (request()->is('registrar/dashboard/registrar/applicant-profile-list/rejected/registrar/*')) ? 'active':''  }}">
                         <a href="{{route("registrar.applicant.profile.list", ['status'=> 'rejected','state' => 'registrar', 'level'=>'1'])}}">
-                            <i class="icon-ban"></i> <span>Reject Profile List <span class="badge badge-pill badge-danger">{{getApplicantProcessingCount('rejected','registrar')}}</span></span>
+                            <i class="icon-ban"></i> <span>Reject Profile List </span>
                         </a>
                     </li>
 
                     <li class="{{ (request()->is('registrar/dashboard/registrar/applicant-profile-list/progress/subject_committee/*')) ? 'active':''  }}">
                         <a href="{{route("registrar.applicant.profile.list", ['status'=> 'progress','state' => 'subject_committee', 'level' => "1"])}}">
-                            <i class="icon-badge"></i> <span>Verified Profile List <span class="badge badge-pill badge-danger">{{getApplicantProcessingCount('progress','subject_committee')}}</span></span>
+                            <i class="icon-badge"></i> <span>Verified Profile List</span>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class="treeview {{ (request()->is('registrar/dashboard/registrar/applicant-list/*/*')) ? 'active':''  }}"> <a href="#"> <i class="icon-grid"></i> <span>Exam Applied</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
+            {{-- <li class="treeview {{ (request()->is('registrar/dashboard/registrar/applicant-list/*/*')) ? 'active':''  }}"> <a href="#"> <i class="icon-grid"></i> <span>Exam Applied</span> <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i> </span> </a>
                 <ul class="treeview-menu">
                     <li class="{{ (request()->is('registrar/dashboard/registrar/applicant-list/progress/registrar')) ? 'active':''  }}">
                         <a href="{{route("registrar.applicant.list", ['status'=> 'progress','current_state' => 'registrar'])}}">
@@ -62,7 +62,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             <li class="{{ (request()->is('registrar/dashboard/search/student')) ? 'active':''  }}">
                 <a href="{{route("registrar.search.student")}}">
                     <i class="icon-book-open"></i> <span>Search applicant</span>
