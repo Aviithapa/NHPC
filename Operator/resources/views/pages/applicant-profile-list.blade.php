@@ -63,6 +63,7 @@
                                         <th>State</th>
                                         <th>Status</th>
                                         <th>Registration Date</th>
+                                        <th>Exam Applied Date</th>
                                         <th>Program Name</th>
                                         <th>Action</th>
                                     </tr>
@@ -77,14 +78,14 @@
                                         @foreach($data  as $key => $datas)
                                                 <tr 
                                                 @if($datas->exam_registration_created_at > '2023-04-06' && ($datas->level == 1 || $datas->level == 2)) 
-                                                style="color: red;"
+                                                style="color: black;"
                                                 @elseif($datas->level == 3) 
                                                    @if($datas->exam_registration_created_at >= '2023-04-25' && $datas->exam_registration_created_at <= '2023-04-28')
 
                                                 style="color: green;"
                                                  @endif
                                                 @elseif($datas->exam_registration_created_at > '2023-04-27' && ($datas->level == 3))
-                                                                             style="color: red;"
+                                                                             style="color: black;"
                                                  @endif>
                                                     <td>{{++$key}}</td>
                                                     <td>{{$datas->profile_id}}</td>
@@ -92,6 +93,7 @@
                                                     <td>{{$datas->exam_registration_state}}</td>
                                                     <td>{{$datas->exam_registration_status}}</td>
                                                     <td>{{$datas->created_at->toDateString()}}</td>
+                                                    <td>{{ $datas->exam_registration_created_at->toDateString() }} </td>
                                                     <td> {{$datas->program_name}}</td>
                                                   
 

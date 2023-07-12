@@ -29,7 +29,7 @@
                             <div class="table-responsive">
                                 <table id="data-table" class="table no-margin" style=" font-size: 14px ;">
                                     <thead style=" font-size: 14px ; font-weight: bold;">
-                                        <td>S.N.</td>
+                                    <td>S.N.</td>
                                     <td>Darta Number</td>
                                     <td>Name</td>
                                     <td>Address</td>
@@ -42,7 +42,7 @@
                                     @foreach($data as $key => $certificates)
                                         <tr>
                                             <td> {{ ++ $key}} </td>
-                                            <td>{{$certificates->srn}}</td>
+                                            <td>{{$certificates->registration_number}}</td>
                                             <td>{{$certificates->name}}</td>
                                             <td>{{$certificates->address}}</td>
                                             <td>{{$certificates->qualification}}</td>
