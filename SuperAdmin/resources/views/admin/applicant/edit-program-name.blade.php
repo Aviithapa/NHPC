@@ -59,6 +59,14 @@
                                             </div>
                                         </div>
                                         <div class="row">
+                                            <div class="col-lg-4">
+                                                <fieldset class="form-group">
+                                                    <label>Date</label>
+                                                    <input  class="form-control" type="datetime" name="created_at" value="{{ $exam->created_at }}"/>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="row">
 
 
                                             <div class="col-lg-4">
