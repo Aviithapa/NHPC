@@ -440,7 +440,7 @@ class SubjectCommitteeController extends BaseController
                 $data['state'] = 'subject_committee';
                 if ($data['profile_status'] === "Verified" || $data['profile_status'] === "Reviewing") {
                     $data['status'] = 'progress';
-                    $data['remarks'] = 'Profile is Accepted by ' . Auth::user()->name;
+                    $data['remarks'] = 'Profile is Accepted by Subject Committee';
                     $data['review_status'] = 'Successful';
                     $this->profileLog($data);
                     $this->profileProcessing($id);
