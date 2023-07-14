@@ -64,6 +64,10 @@
                                             {{-- <input type="date" name="regratation_date" class = "form-control" placeholder="Enter Registration Date" value={{ isset($request->regratation_date) ? $request->regratation_date : '' }} > --}}
                                             <select class="form-control" name="regratation_date"  id="date" >
                                                 <option value={{ isset($request->regratation_date) ? $request->regratation_date : '' }}>{{ isset($request->regratation_date) ? $request->regratation_date : 'Select Decision Date' }}</option>
+                                                <option value="2023-04-25">2023-04-25 (2080-01-12)</option>
+                                                <option value="2023-04-08">2023-04-08 (2079-12-25)</option>
+                                                <option value="2023-02-12">2023-02-12 (2079-10-29)</option>
+                                                <option value="2023-02-04">2023-02-04 (2079-10-21)</option>
                                                 <option value="2023-01-18">2023-01-18 (2079-10-04)</option>
                                                 <option value="2022-12-27">2022-12-27 (2079-09-11)</option>
                                                 <option value="2022-12-17">2022-12-17  (2079-09-02) </option>
