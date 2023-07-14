@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="logo" style="width: 15%;float:left; justify-content:center; margin-top:10px;">
-                    {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(60)->generate('Name :- ' .  $data->name . ' Date of Birth :- ' .$profile->dob_nep .  ' Licence Number : -' . $data->cert_registration_number ) !!}
+                    {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(60)->generate('Name :- ' .  $data->name  .  ' Licence Number : -' . $data->cert_registration_number ) !!}
                 </div>
               </div>
               <div class= "body" style="width:100%; margin-top:20px;">
