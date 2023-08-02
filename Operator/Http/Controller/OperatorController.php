@@ -1537,14 +1537,13 @@ class OperatorController extends BaseController
             }, 'applied_exams_sub', function ($join) {
                 $join->on('profiles.id', '=', 'applied_exams_sub.profile_id');
             })
-            ->select('profiles.id as profile_id', 'applied_exams_sub.applied_exams', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
+            ->select('profiles.id as profile_id', 'applied_exams_sub.applied_exams', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id', 'voucher_image')
             ->where('exam_registration.state', '=', 'exam_committee')
             ->where('exam_registration.status', '=', 'progress')
             ->where('exam_registration.exam_id', '=', $id)
             ->get();
 
 
-        dd($students[0]);
 
         // $students = [];
         // foreach($datas as $data){

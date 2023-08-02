@@ -63,6 +63,8 @@
                         Program ID: {{ explode('-', $appliedExam)[1] }}<br>
                     @endforeach
                 </td>
+                                                                <td><img src="http://103.175.192.52/storage/documents/{{$datas->voucher_image}}" onclick="onClick(this)"  alt="Transcript Image" width="50" height="50"></td>
+
                                                 <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->profile_id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>
                                             @endif
@@ -89,5 +91,15 @@
 @endsection
 
 @push('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
+    <script>
+
+        function onClick(element) {
+            document.getElementById("img01").src = element.src;
+            document.getElementById("modal01").style.display = "block";
+        }
+
+    </script>
 @endpush
