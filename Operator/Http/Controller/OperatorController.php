@@ -1528,9 +1528,10 @@ class OperatorController extends BaseController
 
     public function failedStudentList($id)
     {
-        $students = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+        $students =
+            ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             ->joinSub(function ($query) {
-                $query->select('profile_id', DB::raw('GROUP_CONCAT(exam_id) as applied_exams'))
+                $query->select('profile_id', DB::raw('GROUP_CONCAT(CONCAT(exam_id, "-", program_id)) as applied_exams'))
                     ->from('exam_registration')
                     ->groupBy('profile_id');
             }, 'applied_exams_sub', function ($join) {
@@ -1539,7 +1540,6 @@ class OperatorController extends BaseController
             ->select('profiles.id as profile_id', 'applied_exams_sub.applied_exams', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
             ->where('exam_registration.state', '=', 'exam_committee')
             ->where('exam_registration.status', '=', 'progress')
-            ->where('exam_registration.exam_id', '=', $id)
             ->get();
 
 
