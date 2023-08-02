@@ -57,6 +57,12 @@
                                                 <td>{{$datas->dob_nep}}</td>
                                                 <td>{{$datas->status}}</td>
                                                 <td>{{$datas->state}}</td>
+                                                <td>
+                    @foreach (explode(',', $student->applied_exams) as $appliedExam)
+                        Exam ID: {{ explode('-', $appliedExam)[0] }},
+                        Program ID: {{ explode('-', $appliedExam)[1] }}<br>
+                    @endforeach
+                </td>
                                                 <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->profile_id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>
                                             @endif
