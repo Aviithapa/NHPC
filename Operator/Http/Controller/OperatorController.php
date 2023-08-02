@@ -1562,7 +1562,7 @@ class OperatorController extends BaseController
             ->get();
 
 
-        dd($profiles[0]);
+
 
 
 
@@ -1578,7 +1578,7 @@ class OperatorController extends BaseController
         //     }
 
         // }
-        return view('operator::pages.application-list-double', compact('students'));
+        return view('operator::pages.application-list-double', compact('students', 'profiles'));
     }
 
     public function moveToCommittee(Request $request)
