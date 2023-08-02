@@ -1551,7 +1551,7 @@ class OperatorController extends BaseController
 
 
 
-        // dd($students);
+        dd($students[0]);
 
 
 
