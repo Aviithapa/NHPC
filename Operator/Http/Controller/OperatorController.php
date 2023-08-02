@@ -1543,6 +1543,7 @@ class OperatorController extends BaseController
             ->get();
 
 
+        dd($students);
 
         // $students = [];
         // foreach($datas as $data){
