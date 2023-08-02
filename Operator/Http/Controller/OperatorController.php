@@ -1530,7 +1530,6 @@ class OperatorController extends BaseController
     {
         $students =
             ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-            // ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->select(
                 'profile_id',
                 'first_name',
@@ -1539,19 +1538,26 @@ class OperatorController extends BaseController
                 'dob_nep',
                 'status',
                 'state',
-                'level_id',
-                // 'programs.name as program_name',
-                'voucher_image'
+                'level_id'
             )
-            ->groupBy('profile_id', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id', 'voucher_image')
-            ->where('exam_registration.state', '=', 'exam_committee')
-            ->where('exam_registration.status', '=', 'progress')
-            ->where('exam_registration.exam_id', '=', $id)
+            ->with(['examRegistrations' => function ($query) use ($id) {
+                $query->where('state', 'exam_committee')
+                    ->where('status', 'progress')
+                    ->where('exam_id', $id);
+            }])
+            ->where('exam_registration.state', 'exam_committee')
+            ->where('exam_registration.status', 'progress')
+            ->where('exam_registration.exam_id', $id)
+            ->groupBy('profile_id', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
             ->get();
 
+        $profiles = Profile::with('examRegistrations')
+            ->where('state', '=', 'exam_committee')
+            ->get()
+            ->groupBy('profile_id');
 
 
-        dd($students[0]);
+        dd($profiles[0]);
 
 
 
