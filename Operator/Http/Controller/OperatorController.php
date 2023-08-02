@@ -1551,10 +1551,15 @@ class OperatorController extends BaseController
             ->groupBy('profile_id', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
             ->get();
 
-        $profiles = Profile::with('examRegistrations')
-            ->where('state', '=', 'exam_committee')
-            ->get()
-            ->groupBy('profile_id');
+        $profiles =
+            Profile::with(['examRegistrations' => function ($query) use ($id) {
+                $query->where(function ($subQuery) use ($id) {
+                    // Include both the current exam and any previous exam
+                    $subQuery->where('exam_id', '=', $id)
+                        ->orWhere('exam_id', '!=', $id);
+                });
+            }])
+            ->get();
 
 
         dd($profiles[0]);

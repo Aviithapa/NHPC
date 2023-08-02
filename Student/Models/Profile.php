@@ -4,6 +4,7 @@ namespace Student\Models;
 
 use App\Models\Address\Provinces;
 use App\Models\Admin\Level;
+use App\Models\Exam\ExamProcessing;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
