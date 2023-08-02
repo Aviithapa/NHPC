@@ -1530,6 +1530,8 @@ class OperatorController extends BaseController
     {
         $students =
             ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->join('programs', 'programs.id', '=', 'exam_registration.program_id')
+            ->leftJoin('vouchers', 'vouchers.id', '=', 'exam_registration.voucher_id')
             ->select(
                 'profile_id',
                 'first_name',
@@ -1539,12 +1541,13 @@ class OperatorController extends BaseController
                 'status',
                 'state',
                 'level_id',
-                DB::raw('GROUP_CONCAT(exam_id SEPARATOR ", ") as exam_ids')
+                'programs.name as program_name',
+                'vouchers.image_url as voucher_image'
             )
             ->groupBy('profile_id', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
             ->where('exam_registration.state', '=', 'exam_committee')
             ->where('exam_registration.status', '=', 'progress')
-            ->where('exam_registration.exam_id', '=', $id)
+            ->where('exam_registration.exam_id', '=', $examId)
             ->get();
 
 

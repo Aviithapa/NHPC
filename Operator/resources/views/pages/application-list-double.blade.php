@@ -49,18 +49,30 @@
                                     @else
                                     {{ $count = 0  }}
                                         @foreach($students as $datas)
-                                          @if($datas->state == "exam_committee")
-                                            <tr>
-                                                <td>{{++ $count}}</td>
-                                                <td>{{ $datas->profile_id }}</td>
-                                                <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
-                                                <td>{{$datas->dob_nep}}</td>
-                                                <td>{{$datas->status}}</td>
-                                                <td>{{$datas->state}}</td>
-                                                <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->profile_id)}}"><span class="label label-success">View</span></a></td>
-                                            </tr>
-                                            @endif
-                                        @endforeach
+            @if($datas->state == "exam_committee")
+                <tr>
+                    <td>{{++ $count}}</td>
+                    <td>{{ $datas->profile_id }}</td>
+                    <td>{{$datas->first_name}} {{$datas->middle_name}} {{ $datas->last_name}}</td>
+                    <td>{{$datas->dob_nep}}</td>
+                    <td>{{$datas->status}}</td>
+                    <td>{{$datas->state}}</td>
+                    <td>{{ $datas->program_name }}</td>
+                    <td>
+                        @if ($datas->voucher_image)
+                            <img src="{{ $datas->voucher_image }}" alt="Voucher Image" width="100">
+                        @else
+                            No Voucher Image
+                        @endif
+                    </td>
+                    <td>
+                        <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->profile_id)}}">
+                            <span class="label label-success">View</span>
+                        </a>
+                    </td>
+                </tr>
+            @endif
+        @endforeach
                                     @endif
 
                                     </tbody>
