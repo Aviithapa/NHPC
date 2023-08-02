@@ -1531,9 +1531,9 @@ class OperatorController extends BaseController
         $students =
             ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             ->joinSub(function ($query) {
-                $query->select('profile_id', 'program_id', DB::raw('GROUP_CONCAT(exam_id) as applied_exams'))
+                $query->select('profile_id', DB::raw('GROUP_CONCAT(CONCAT(exam_id, "-", program_id)) as applied_exams'))
                     ->from('exam_registration')
-                    ->groupBy('profile_id', 'program_id');
+                    ->groupBy('profile_id');
             }, 'applied_exams_sub', function ($join) {
                 $join->on('profiles.id', '=', 'applied_exams_sub.profile_id');
             })
