@@ -81,6 +81,27 @@
                 </div>
             </div>
         </div>
+        <style>
+            .modal-body {
+                max-height: 80vh;
+                overflow-y: auto;
+                max-width: 100vh;
+            }
+        </style>
+        <div class="modal" id="modal01">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" onclick="$('#modal01').css('display','none')" class="close"  aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="img01" style="max-width:100%">
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
     <!-- /.content -->
