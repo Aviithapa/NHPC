@@ -1547,7 +1547,7 @@ class OperatorController extends BaseController
             ->where('exam_registration.exam_id', '=', $id)
             ->get();
 
-        dd($students);
+
 
 
 
