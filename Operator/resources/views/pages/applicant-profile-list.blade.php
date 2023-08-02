@@ -54,6 +54,8 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
+                                <form id="studentForm" method="POST" action="{{ route('submit-selected-students') }}">
+    @csrf
                                 <table id="data-table" class="table no-margin">
                                     <thead>
                                     <tr>
@@ -87,6 +89,9 @@
                                                 @elseif($datas->exam_registration_created_at > '2023-04-27' && ($datas->level == 3))
                                                                              style="color: black;"
                                                  @endif>
+                                                    <td>
+                            <input type="checkbox" name="selectedStudents[]" value="{{ $datas->profile_id }}">
+                        </td>
                                                     <td>{{++$key}}</td>
                                                     <td>{{$datas->profile_id}}</td>
                                                     <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
@@ -106,6 +111,8 @@
 
                                     </tbody>
                                 </table>
+                                   <button type="submit">Submit Selected</button>
+</form>
 
                             </div>
                             <!-- /.table-responsive -->

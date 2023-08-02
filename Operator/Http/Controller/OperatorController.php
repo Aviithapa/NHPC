@@ -1528,14 +1528,27 @@ class OperatorController extends BaseController
 
     public function failedStudentList($id)
     {
-        $students = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-            ->select('profile_id', 'exam_id', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
-            ->groupBy('profile_id', 'exam_id', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
-            // ->where('level_id','!=', '4')
+        $students =
+            ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->select(
+                'profile_id',
+                'first_name',
+                'middle_name',
+                'last_name',
+                'dob_nep',
+                'status',
+                'state',
+                'level_id',
+                DB::raw('GROUP_CONCAT(exam_id SEPARATOR ", ") as exam_ids')
+            )
+            ->groupBy('profile_id', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
             ->where('exam_registration.state', '=', 'exam_committee')
             ->where('exam_registration.status', '=', 'progress')
             ->where('exam_registration.exam_id', '=', $id)
             ->get();
+
+        dd($students);
+
 
 
 

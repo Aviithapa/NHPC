@@ -14,124 +14,133 @@ use Student\Models\Profile;
 class ExamProcessing extends Model
 {
 
-     protected $table='exam_registration';
-     protected $fillable=['exam_id','profile_id','voucher_image','program_id','level_id','state',
-         'status','remarks','subject_committee_count','is_admit_card_generate','darta_number','isPassed','attempt','created_at','rejected'];
+    protected $table = 'exam_registration';
+    protected $fillable = [
+        'exam_id', 'profile_id', 'voucher_image', 'program_id', 'level_id', 'state',
+        'status', 'remarks', 'subject_committee_count', 'is_admit_card_generate', 'darta_number', 'isPassed', 'attempt', 'created_at', 'rejected'
+    ];
 
 
-    public function getExam(){
-        return $this->hasOne(Exam::class,'id','exam_id');
+    public function getExam()
+    {
+        return $this->hasOne(Exam::class, 'id', 'exam_id');
     }
 
-    public function getProgram(){
-        return $this->hasOne(Program::class,'id','program_id');
-
+    public function getProgram()
+    {
+        return $this->hasOne(Program::class, 'id', 'program_id');
     }
 
-    public function getExamName(){
-        if(isset($this->getExam->Exam_name)) {
+    public function getExamName()
+    {
+        if (isset($this->getExam->Exam_name)) {
             return $this->getExam->Exam_name;
-        }
-        else {
+        } else {
             return '';
         }
     }
 
-    public function getProfile(){
-        return $this->hasOne(Profile::class,'id','profile_id');
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::class, 'id', 'profile_id');
     }
 
-    public function getFirstName(){
-        if(isset($this->getProfile->first_name)) {
+    public function getFirstName()
+    {
+        if (isset($this->getProfile->first_name)) {
             return $this->getProfile->first_name;
-        }
-        else {
+        } else {
             return '';
         }
     }
 
-    public function getAdmitCard(){
-        return $this->hasOne(AdmitCard::class,'exam_processing_id','id');
+    public function getAdmitCard()
+    {
+        return $this->hasOne(AdmitCard::class, 'exam_processing_id', 'id');
     }
 
-    public function getSymbolNumber(){
-        if(isset($this->getAdmitCard->symbol_number)) {
+    public function getSymbolNumber()
+    {
+        if (isset($this->getAdmitCard->symbol_number)) {
             return $this->getAdmitCard->symbol_number;
-        }
-        else {
+        } else {
             return '';
         }
-
     }
 
-    public function getMiddleName(){
-        if(isset($this->getProfile->middle_name)) {
+    public function getMiddleName()
+    {
+        if (isset($this->getProfile->middle_name)) {
             return $this->getProfile->middle_name;
-        }
-        else {
+        } else {
             return '';
         }
     }
 
-    public function getLastName(){
-        if(isset($this->getProfile->last_name)) {
+    public function getLastName()
+    {
+        if (isset($this->getProfile->last_name)) {
             return $this->getProfile->last_name;
-        }
-        else {
+        } else {
             return '';
         }
     }
 
-    public function getGender(){
-        if(isset($this->getProfile->sex)) {
+    public function getGender()
+    {
+        if (isset($this->getProfile->sex)) {
             return $this->getProfile->sex;
-        }
-        else {
+        } else {
             return '';
         }
     }
 
-    public function level(){
-        $level = $this->hasOne(Level::class,'id','level_id');
+    public function level()
+    {
+        $level = $this->hasOne(Level::class, 'id', 'level_id');
         return $level;
     }
 
-    public  function  getLevelName(){
+    public  function  getLevelName()
+    {
         return isset($this->level->name);
-        if(isset($this->level->name)) {
+        if (isset($this->level->name)) {
             return $this->level->name;
-        }
-        else {
+        } else {
             return '';
         }
     }
 
 
-    public function program(){
-        $level = $this->hasOne(Program::class,'id','program_id');
+    public function program()
+    {
+        $level = $this->hasOne(Program::class, 'id', 'program_id');
         return $level;
     }
 
-    public  function  getProgramName(){
-        if(isset($this->program->name)) {
+    public  function  getProgramName()
+    {
+        if (isset($this->program->name)) {
             return $this->program->name;
-        }
-        else {
+        } else {
             return '';
         }
     }
-    public function getProfileImage(){
-        if(isset($this->getProfile->profile_picture)) {
-            return Storage::url('documents/' .$this->getProfile->profile_picture);
-        }
-        else {
+    public function getProfileImage()
+    {
+        if (isset($this->getProfile->profile_picture)) {
+            return Storage::url('documents/' . $this->getProfile->profile_picture);
+        } else {
             return imageNotFound();
         }
-
     }
-    public function getVoucherImage(){
-        return Storage::url('documents/' .$this->voucher_image);
+    public function getVoucherImage()
+    {
+        return Storage::url('documents/' . $this->voucher_image);
     }
 
-
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class);
+    }
 }

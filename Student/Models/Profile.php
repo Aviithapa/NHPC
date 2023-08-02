@@ -137,4 +137,9 @@ class Profile extends  Model
         $full_name = $first_name . ' ' . $middle_name . ' ' . $last_name;
         return $full_name;
     }
+
+    public function examRegistrations()
+    {
+        return $this->hasMany(ExamProcessing::class);
+    }
 }
