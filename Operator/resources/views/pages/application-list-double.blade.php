@@ -58,7 +58,7 @@
                                                 <td>{{$datas->status}}</td>
                                                 <td>{{$datas->state}}</td>
                                                 <td>
-                    @foreach (explode(',', $student->applied_exams) as $appliedExam)
+                    @foreach (explode(',', $datas->applied_exams) as $appliedExam)
                         Exam ID: {{ explode('-', $appliedExam)[0] }},
                         Program ID: {{ explode('-', $appliedExam)[1] }}<br>
                     @endforeach
