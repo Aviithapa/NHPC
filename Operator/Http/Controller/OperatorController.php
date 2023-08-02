@@ -1540,6 +1540,7 @@ class OperatorController extends BaseController
             ->select('profiles.id as profile_id', 'applied_exams_sub.applied_exams', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
             ->where('exam_registration.state', '=', 'exam_committee')
             ->where('exam_registration.status', '=', 'progress')
+            ->where('exam_registration.exam_id', '=', $id)
             ->get();
 
 
