@@ -1528,42 +1528,18 @@ class OperatorController extends BaseController
 
     public function failedStudentList($id)
     {
-        $students =
-            ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-            ->select(
-                'profile_id',
-                'first_name',
-                'middle_name',
-                'last_name',
-                'dob_nep',
-                'status',
-                'state',
-                'level_id'
-            )
-            ->with(['examRegistrations' => function ($query) use ($id) {
-                $query->where('state', 'exam_committee')
-                    ->where('status', 'progress')
-                    ->where('exam_id', $id);
-            }])
-            ->where('exam_registration.state', 'exam_committee')
-            ->where('exam_registration.status', 'progress')
-            ->where('exam_registration.exam_id', $id)
-            ->groupBy('profile_id', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
+        $subquery = DB::table('exam_registration')
+            ->select('profile_id')
+            ->groupBy('profile_id')
+            ->havingRaw('MAX(exam_id) = ?', [$id]);
+
+        $students = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->select('profile_id', 'exam_id', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
+            ->whereIn('profile_id', $subquery)
+            ->where('exam_registration.state', '=', 'exam_committee')
+            ->where('exam_registration.status', '=', 'progress')
+            ->where('exam_registration.exam_id', '=', $id)
             ->get();
-
-        $profiles =
-            Profile::with(['examRegistrations' => function ($query) use ($id) {
-                $query->where(function ($subQuery) use ($id) {
-                    // Include both the current exam and any previous exam
-                    $subQuery->where('exam_id', '=', $id)
-                        ->orWhere('exam_id', '!=', $id);
-                });
-            }])
-            ->get();
-
-
-
-
 
 
         // $students = [];
@@ -1578,7 +1554,7 @@ class OperatorController extends BaseController
         //     }
 
         // }
-        return view('operator::pages.application-list-double', compact('students', 'profiles'));
+        return view('operator::pages.application-list-double', compact('students'));
     }
 
     public function moveToCommittee(Request $request)
