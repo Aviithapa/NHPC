@@ -1530,7 +1530,7 @@ class OperatorController extends BaseController
     {
         $students =
             ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-            ->join('programs', 'programs.id', '=', 'exam_registration.program_id')
+            // ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->select(
                 'profile_id',
                 'first_name',
@@ -1540,10 +1540,10 @@ class OperatorController extends BaseController
                 'status',
                 'state',
                 'level_id',
-                'programs.name as program_name',
+                // 'programs.name as program_name',
                 'voucher_image'
             )
-            ->groupBy('profile_id', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id')
+            ->groupBy('profile_id', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id', 'voucher_image')
             ->where('exam_registration.state', '=', 'exam_committee')
             ->where('exam_registration.status', '=', 'progress')
             ->where('exam_registration.exam_id', '=', $id)
@@ -1551,7 +1551,7 @@ class OperatorController extends BaseController
 
 
 
-        dd($students);
+        // dd($students);
 
 
 
