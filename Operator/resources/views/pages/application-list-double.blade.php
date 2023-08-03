@@ -3,7 +3,7 @@
 @section('content')
 
 @php
-    use App\Models\Exam;
+    use App\Models\Exam\Exam;
     use App\Models\Admin\Program;
 @endphp
 
