@@ -1529,25 +1529,25 @@ class OperatorController extends BaseController
 
     public function failedStudentList($id)
     {
-        $profileLogs = Profilelogs::whereNull('state')
-            ->where('remarks', 'LIKE', 'Profile Verified and forwarded to Subject Committee')
-            ->get();
+        // $profileLogs = Profilelogs::whereNull('state')
+        //     ->where('remarks', 'LIKE', 'Profile Verified and forwarded to Subject Committee')
+        //     ->get();
 
-        // dd($profileLogs);
+        // // dd($profileLogs);
 
-        foreach ($profileLogs as $profileLog) {
-            $data['state'] = 'registrar';
-            $data['created_by'] = 32594;
+        // foreach ($profileLogs as $profileLog) {
+        //     $data['state'] = 'registrar';
+        //     $data['created_by'] = 32594;
 
-            $this->profileLogsRepository->update($data, $profileLog['id']);
-        }
+        //     $this->profileLogsRepository->update($data, $profileLog['id']);
+        // }
 
-        $examApplieds = ExamProcessing::all()->where('exam_id', $id)->where('status', 'progress')->where('state', 'exam_committee');
+        // $examApplieds = ExamProcessing::all()->where('exam_id', $id)->where('status', 'progress')->where('state', 'exam_committee');
 
-        foreach ($examApplieds as $examApplied) {
-            $exam['status'] = 're-exam';
-            $this->examProcessingRepository->update($exam, $examApplied['id']);
-        }
+        // foreach ($examApplieds as $examApplied) {
+        //     $exam['status'] = 're-exam';
+        //     $this->examProcessingRepository->update($exam, $examApplied['id']);
+        // }
         $students =
             ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             ->joinSub(function ($query) {
