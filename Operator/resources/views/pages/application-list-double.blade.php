@@ -67,7 +67,7 @@
         $exam = Exam::find($examId); // Assuming "Exam" is your model for the exams table
         $program = Program::find($programId); // Assuming "Program" is your model for the programs table
     @endphp
-    Exam Name: {{ $exam ? $exam->name : 'Unknown Exam' }},
+    Exam Name: {{ $exam ? $exam->Exam_name : 'Unknown Exam' }} <br />,
     Program Name: {{ $program ? $program->name : 'Unknown Program' }}<br>
 @endforeach
                 </td>
