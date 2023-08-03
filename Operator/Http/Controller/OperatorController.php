@@ -10,6 +10,7 @@ use App\Models\Address\Provinces;
 use App\Models\Certificate\Certificate;
 use App\Models\Certificate\KYCData;
 use App\Models\Exam\ExamProcessing;
+use App\Models\Profile\Profilelogs;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
 use App\Modules\Backend\BackDate\BackDataRepository;
@@ -1528,6 +1529,18 @@ class OperatorController extends BaseController
 
     public function failedStudentList($id)
     {
+        $profileLogs = Profilelogs::whereNull('state')
+            ->where('remarks', 'LIKE', 'Profile Verified and forwarded to Subject Committee')
+            ->get();
+
+        dd($profileLogs);
+
+        foreach ($profileLogs as $profileLog) {
+            $data['state'] = 'registrar';
+            $data['created_by'] = 32594;
+
+            $this->profileLogsRepository->update($data, $profileLog['id']);
+        }
 
         $examApplieds = ExamProcessing::all()->where('exam_id', $id)->where('status', 'progress')->where('state', 'exam_committee');
 
