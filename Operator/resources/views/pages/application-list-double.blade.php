@@ -70,6 +70,7 @@
     @endphp
     Exam Name: <span style="color: red, fontWeight: 700">{{ $exam ? $exam->Exam_name : 'Unknown Exam' }} </span><br />
     Program Name:<span style="color: green, fontWeight: 700"> {{ $program ? $program->name : 'Unknown Program' }} </span><br>
+    ----------------------------------------
 @endforeach
                 </td>
                                                                 <td><img src="http://103.175.192.52/storage/documents/{{$datas->voucher_image}}" onclick="onClick(this)"  alt="Transcript Image" width="50" height="50"></td>
