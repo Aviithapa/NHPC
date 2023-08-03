@@ -1533,7 +1533,7 @@ class OperatorController extends BaseController
             ->where('remarks', 'LIKE', 'Profile Verified and forwarded to Subject Committee')
             ->get();
 
-        dd($profileLogs);
+        // dd($profileLogs);
 
         foreach ($profileLogs as $profileLog) {
             $data['state'] = 'registrar';
