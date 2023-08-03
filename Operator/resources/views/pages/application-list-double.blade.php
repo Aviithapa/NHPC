@@ -32,9 +32,13 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="table-responsive">
+                                <form id="studentForm" method="POST" action="{{ route('submit-selected-students') }}">
+    @csrf
+          <button type="submit">Submit Selected</button>
                                 <table id="data-table" class="table no-margin">
                                     <thead>
                                     <tr>
+                                        <th></th>
                                         <th>S.N.</th>
                                         <th>Name</th>
                                         <th>Status</th>
@@ -54,6 +58,9 @@
                                         @foreach($students as $datas)
                                           @if($datas->state == "exam_committee")
                                             <tr>
+                                                      <td>
+                            <input type="checkbox" name="selectedStudents[]" value="{{ $datas->exam_registration_id }}">
+                        </td>
                                                 <td>{{++ $count}}</td>
                                                 {{-- <td>{{ $datas->profile_id }}</td> --}}
                                                 <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
@@ -83,6 +90,8 @@
 
                                     </tbody>
                                 </table>
+                              
+</form>
 
                             </div>
                             <!-- /.table-responsive -->
