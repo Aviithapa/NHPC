@@ -67,8 +67,8 @@
         $exam = Exam::find($examId); // Assuming "Exam" is your model for the exams table
         $program = Program::find($programId); // Assuming "Program" is your model for the programs table
     @endphp
-    Exam Name: {{ $exam ? $exam->Exam_name : 'Unknown Exam' }} <br />,
-    Program Name: {{ $program ? $program->name : 'Unknown Program' }}<br>
+    Exam Name: <span style="color: red, fontWeight: 700">{{ $exam ? $exam->Exam_name : 'Unknown Exam' }} </span><br />
+    Program Name:<span style="color: green, fontWeight: 700"> {{ $program ? $program->name : 'Unknown Program' }} </span><br>
 @endforeach
                 </td>
                                                                 <td><img src="http://103.175.192.52/storage/documents/{{$datas->voucher_image}}" onclick="onClick(this)"  alt="Transcript Image" width="50" height="50"></td>
