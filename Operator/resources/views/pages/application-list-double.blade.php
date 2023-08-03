@@ -2,6 +2,10 @@
 
 @section('content')
 
+@php
+    use App\Models\Exam;
+    use App\Models\Admin\Program;
+@endphp
 
 
     <!-- Content Wrapper. Contains page content -->
