@@ -1550,20 +1550,6 @@ class OperatorController extends BaseController
             ->where('exam_registration.exam_id', '=', $id)
             ->get();
 
-
-
-        // $students = [];
-        // foreach($datas as $data){
-        //     $exams = $this->examProcessingRepository->getAll()->where('profile_id','=', $data->profile_id);
-        //     foreach($exams as $exam){
-        //         if($exam->exam_id == 1){
-        //             $students = ExamProcessing::join('profiles', 'profiles.id', '=','exam_registration.profile_id')
-        //                            ->where('profiles.id','=', $data->profile_id)
-        //                            ->where('exam_registration.state','=', 'computer_operator')->get();
-        //         }
-        //     }
-
-        // }
         return view('operator::pages.application-list-double', compact('students'));
     }
 

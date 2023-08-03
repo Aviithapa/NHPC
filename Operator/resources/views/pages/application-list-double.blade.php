@@ -32,9 +32,7 @@
                                     <thead>
                                     <tr>
                                         <th>S.N.</th>
-                                        <th>Registration Number</th>
                                         <th>Name</th>
-                                        <th>Registration Date</th>
                                         <th>Status</th>
                                         <th>State</th>
                                         <th>Action</th>
@@ -54,14 +52,20 @@
                                                 <td>{{++ $count}}</td>
                                                 <td>{{ $datas->profile_id }}</td>
                                                 <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
-                                                <td>{{$datas->dob_nep}}</td>
                                                 <td>{{$datas->status}}</td>
                                                 <td>{{$datas->state}}</td>
                                                 <td>
-                    @foreach (explode(',', $datas->applied_exams) as $appliedExam)
-                        Exam ID: {{ explode('-', $appliedExam)[0] }},
-                        Program ID: {{ explode('-', $appliedExam)[1] }}<br>
-                    @endforeach
+                                             @foreach (explode(',', $datas->applied_exams) as $appliedExam)
+                                            @php
+                                             list($examId, $programId) = explode('-', $appliedExam);
+
+        // Fetch exam name and program name from your database using the IDs
+        $exam = Exam::find($examId); // Assuming "Exam" is your model for the exams table
+        $program = Program::find($programId); // Assuming "Program" is your model for the programs table
+    @endphp
+    Exam Name: {{ $exam ? $exam->name : 'Unknown Exam' }},
+    Program Name: {{ $program ? $program->name : 'Unknown Program' }}<br>
+@endforeach
                 </td>
                                                                 <td><img src="http://103.175.192.52/storage/documents/{{$datas->voucher_image}}" onclick="onClick(this)"  alt="Transcript Image" width="50" height="50"></td>
 
