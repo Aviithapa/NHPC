@@ -1528,6 +1528,9 @@ class OperatorController extends BaseController
 
     public function failedStudentList($id)
     {
+
+        $examApplied = ExamProcessing::all()->where('exam_id', $id)->where('status', 'progress')->where('state', 'exam_committee');
+        dd($examApplied);
         $students =
             ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             ->joinSub(function ($query) {
