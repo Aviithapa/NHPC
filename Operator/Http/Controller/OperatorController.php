@@ -1529,8 +1529,12 @@ class OperatorController extends BaseController
     public function failedStudentList($id)
     {
 
-        $examApplied = ExamProcessing::all()->where('exam_id', $id)->where('status', 'progress')->where('state', 'exam_committee');
-        dd($examApplied);
+        $examApplieds = ExamProcessing::all()->where('exam_id', $id)->where('status', 'progress')->where('state', 'exam_committee');
+
+        foreach ($examApplieds as $examApplied) {
+            $exam['status'] = 're-exam';
+            $this->examProcessingRepository->update($exam, $examApplied['id']);
+        }
         $students =
             ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             ->joinSub(function ($query) {
@@ -1542,7 +1546,7 @@ class OperatorController extends BaseController
             })
             ->select('profiles.id as profile_id', 'applied_exams_sub.applied_exams', 'first_name', 'middle_name', 'last_name', 'dob_nep', 'status', 'state', 'level_id', 'voucher_image')
             ->where('exam_registration.state', '=', 'exam_committee')
-            ->where('exam_registration.status', '=', 'progress')
+            ->where('exam_registration.status', '=', 're-exam')
             ->where('exam_registration.exam_id', '=', $id)
             ->get();
 
