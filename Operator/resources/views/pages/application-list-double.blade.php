@@ -39,6 +39,7 @@
                                         <th>Name</th>
                                         <th>Status</th>
                                         <th>State</th>
+                                        <th>Exam History with program</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -54,7 +55,7 @@
                                           @if($datas->state == "exam_committee")
                                             <tr>
                                                 <td>{{++ $count}}</td>
-                                                <td>{{ $datas->profile_id }}</td>
+                                                {{-- <td>{{ $datas->profile_id }}</td> --}}
                                                 <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
                                                 <td>{{$datas->status}}</td>
                                                 <td>{{$datas->state}}</td>
