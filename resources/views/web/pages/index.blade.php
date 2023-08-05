@@ -125,7 +125,7 @@
 {{--        </div>--}}
 {{--    </section>--}}
 
-    <section class="pt-5 pb-5 mt-5">
+    {{-- <section class="pt-5 pb-5 mt-5">
         <div class="container-fluid" style="height: 650px; margin-top: 10px">
             <h2 class="text-center">Messages</h2>
             <hr class="midline">
@@ -211,7 +211,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     {{--        <section class="bipad-notice section-padding mt-3">--}}
 {{--            <div class="row">--}}
 {{--                <div class="col-sm-12">--}}

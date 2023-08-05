@@ -14,12 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('web.pages.index');
-});
+// Route::get('/', function () {
+//     return view('web.pages.index');
+// });
 
 
 Route::get('reload-captcha', [CaptchaValidationController::class, 'reloadCaptcha']);
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
