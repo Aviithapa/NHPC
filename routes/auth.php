@@ -36,8 +36,8 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])
     ->middleware(['guest'])
     ->name('login');
 
-Route::get('/', [AuthenticatedSessionController::class, 'create'])
-    ->middleware(['guest']);
+// Route::get('/', [AuthenticatedSessionController::class, 'create'])
+//     ->middleware(['guest']);
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
     ->middleware(['guest'])
