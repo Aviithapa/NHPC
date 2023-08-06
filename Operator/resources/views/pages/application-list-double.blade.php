@@ -34,7 +34,7 @@
                             <div class="table-responsive">
                                 <form id="studentForm" method="POST" action="{{ route('submit-selected-students') }}">
     @csrf
-          <button type="submit">Submit Selected</button>
+          <button type="submit">Move to Exam Committee</button>
                                 <table id="data-table" class="table no-margin">
                                     <thead>
                                     <tr>

@@ -2291,4 +2291,14 @@ class OperatorController extends BaseController
 
         return redirect()->back();
     }
+
+    public function moveToExamCommittee(Request $request)
+    {
+        $datas = $request->all();
+        foreach ($datas['selectedStudents'] as $data) {
+            dd($data);
+            $exam['status'] = 'progress';
+            $this->examProcessingRepository->update($exam, $data);
+        }
+    }
 }

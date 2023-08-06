@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Operator\Http\Controller\OperatorController;
 
 Route::get('/',  [\Operator\Http\Controller\OperatorController::class, 'dashboard'])->middleware(['auth'])->name('operator.dashboard');
 Route::get('/operator/applicant-list/{status}/{state}', [\Operator\Http\Controller\OperatorController::class, 'exam'])->middleware(['auth'])->name('operator.applicant.list');
@@ -133,9 +134,4 @@ Route::get('/rejectAll', [\Operator\Http\Controller\OperatorController::class, '
 Route::get('/moveFileToSubjectCommittee', [\Operator\Http\Controller\OperatorController::class, 'moveFileToSubjectCommittee'])->middleware(['auth'])->name('operator.moveFileToSubjectCommittee');
 Route::get('/removeUnwantedFile', [\Operator\Http\Controller\OperatorController::class, 'removeUnwantedFile'])->middleware(['auth']);
 
-Route::post('/submit-selected-students', function (Request $request) {
-    $datas = $request->all();
-    foreach ($datas['selectedStudents'] as $data) {
-        dd($data);
-    }
-})->name('submit-selected-students');
+Route::post('/submit-selected-students', [OperatorController::class, 'moveToExamCommittee'])->name('submit-selected-students');
