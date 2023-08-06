@@ -66,10 +66,10 @@
                                                 <td>{{$datas->first_name   }} {{$datas->middle_name}} {{ $datas->last_name}}</td>
                                                 <td>{{$datas->status}}</td>
                                                 <td>{{$datas->state}}</td>
-                                                <>
+                                                <td>
                                              @foreach (explode(',', $datas->applied_exams) as $appliedExam)
                                             @php
-                                             list($examId, $programId, $voucherImage) = explode('-', $appliedExam);
+                                             list($examId, $programId) = explode('-', $appliedExam);
 
         // Fetch exam name and program name from your database using the IDs
         $exam = Exam::find($examId); // Assuming "Exam" is your model for the exams table
@@ -77,7 +77,6 @@
     @endphp
     Exam Name: <span style="color: red, fontWeight: 700">{{ $exam ? $exam->Exam_name : 'Unknown Exam' }} </span><br />
     Program Name:<span style="color: green, fontWeight: 700"> {{ $program ? $program->name : 'Unknown Program' }} </span><br>
-    Voucher Image: <img src="http://103.175.192.52/storage/documents/{{$voucherImage}}" onclick="onClick(this)"  alt="Voucher Image" width="50" height="50"> <br />
     ---------------------------------------- <br />
 @endforeach
                 </td>
