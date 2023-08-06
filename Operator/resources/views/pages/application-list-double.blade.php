@@ -82,7 +82,7 @@
     ---------------------------------------- <br />
 @endforeach
                 </td>
-                                                                <td><img src="http://103.175.192.52/storage/documents/{{$datas->voucher_image}}" onclick="onClick(this)"  alt="Transcript Image" width="50" height="50"></td>
+                                                                {{-- <td><img src="http://103.175.192.52/storage/documents/{{$datas->voucher_image}}" onclick="onClick(this)"  alt="Transcript Image" width="50" height="50"></td> --}}
 
                                                 <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$datas->profile_id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>

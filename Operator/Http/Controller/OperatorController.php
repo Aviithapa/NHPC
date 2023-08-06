@@ -2296,9 +2296,9 @@ class OperatorController extends BaseController
     {
         $datas = $request->all();
         foreach ($datas['selectedStudents'] as $data) {
-            dd($data);
             $exam['status'] = 'progress';
             $this->examProcessingRepository->update($exam, $data);
         }
+        return redirect()->route('operator.failedStudentList', ['id' => 6]);
     }
 }
