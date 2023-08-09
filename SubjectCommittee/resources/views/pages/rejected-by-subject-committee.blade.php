@@ -50,7 +50,7 @@
                                     @else
                                         @foreach($datas as $key => $data)
                                             <tr>
-                                                    <td> {{$key}} </td>
+                                                    <td> {{++ $key}} </td>
                                                     <td>{{$data->profile_id}}</td>
                                                     <td style="text-transform: capitalize">{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
 {{--                                                    <td>{{$data->citizenship_number}}</td>--}}
