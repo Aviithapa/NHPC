@@ -887,9 +887,9 @@ class SubjectCommitteeController extends BaseController
                 ->where('state', '=', 'subject_committee')
                 ->where('status', '=', 'progress')
                 ->count();
-            dd($logs);
+            // dd($logs);
             $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
-            $data['subject_committee_accepted_num'] = 3;
+            $data['subject_committee_accepted_num'] = $logs;
             $he = $this->profileProcessingRepository->update($data, $profile_processing_id->id);
         }
 
