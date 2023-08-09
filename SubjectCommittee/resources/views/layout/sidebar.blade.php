@@ -41,6 +41,13 @@
                             <i class="icon-badge"></i> <span>Accepted By Me <span class="badge badge-pill badge-danger"></span></span>
                         </a>
                     </li>
+
+
+                    <li class="{{ (request()->is('subjectCommittee/dashboard/subjectCommittee/rejected')) ? 'active':''  }}">
+                        <a href="{{route("subjectCommittee.rejectedBySubjectCommittee")}}">
+                            <i class="icon-badge"></i> <span>Rejected By Subject Committee <span class="badge badge-pill badge-danger"></span></span>
+                        </a>
+                    </li>
                 </ul>
             </li>
 

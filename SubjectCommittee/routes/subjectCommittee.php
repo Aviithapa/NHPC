@@ -21,18 +21,21 @@ Route::get('/subjectCommittee/moveCouncilPost', [\SubjectCommittee\Http\Controll
 Route::get('/search/student', [\SubjectCommittee\Http\Controller\SearchController::class, "index"])->middleware(['auth'])->name('subjectCommittee.search.student');
 Route::get('/search', [\SubjectCommittee\Http\Controller\SearchController::class, "search"])->middleware(['auth'])->name('search');
 Route::get('/countSubjectCom', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "countSubjectCom"])->middleware(['auth'])->name('countSubjectCom');
-Route::get('/changeStatus',[\SubjectCommittee\Http\Controller\SubjectCommitteeController::class,"chnageStatus"])->middleware(['auth'])->name('changeStatus');
+Route::get('/changeStatus', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "chnageStatus"])->middleware(['auth'])->name('changeStatus');
 Route::get('/backSubjectCommittee', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "backSubjectCommittee"])->middleware(['auth'])->name('backSubjectCommittee');
 Route::get('/rejectProfileName', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "rejectProfileName"])->middleware(['auth'])->name('rejectProfileName');
 
-Route::get('/changeState',[\SubjectCommittee\Http\Controller\SubjectCommitteeController::class,"changeState"])->middleware(['auth'])->name('rejectProfileName');
+Route::get('/changeState', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "changeState"])->middleware(['auth'])->name('rejectProfileName');
 
-Route::get('/ajax',[\SubjectCommittee\Http\Controller\SubjectCommitteeController::class,"ajaxIndex"]);
-Route::get('/employees/getEmployees/',[\SubjectCommittee\Http\Controller\SubjectCommitteeController::class,"ajaxProfile"])->name('employees.getEmployees');
-Route::get('/acceptedByMeSubmitCSV',[\SubjectCommittee\Http\Controller\SubjectCommitteeController::class,"acceptedByMeSubmitCSV"])->name('employees.acceptedByMeSubmitCSV');
+Route::get('/ajax', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "ajaxIndex"]);
+Route::get('/employees/getEmployees/', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "ajaxProfile"])->name('employees.getEmployees');
+Route::get('/acceptedByMeSubmitCSV', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "acceptedByMeSubmitCSV"])->name('employees.acceptedByMeSubmitCSV');
 
 
 
 Route::get('/subjectCommittee/moveExamPost', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "moveExamPost"])->middleware(['auth'])->name('subjectCommittee.application.list.moveExamPost');
 Route::get('/subjectCommittee/moveExamById/{id}', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "moveExamById"])->middleware(['auth'])->name('subjectCommittee.application.list.moveExamById');
 
+
+
+Route::get('/subjectCommittee/rejected', [\SubjectCommittee\Http\Controller\SubjectCommitteeController::class, "rejectedBySubjectCommittee"])->middleware(['auth'])->name('subjectCommittee.rejectedBySubjectCommittee');

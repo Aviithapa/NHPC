@@ -898,4 +898,22 @@ class SubjectCommitteeController extends BaseController
 
         return redirect()->back();
     }
+
+    public function rejectedBySubjectCommittee()
+    {
+        $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
+        $subject_committee = $this->subjectCommitteeRepository->findById($data['subjecr_committee_id']);
+        $subject_Committee_id = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
+
+        $datas = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+            ->where('profile_processing.current_state', '=', 'subject_committee')
+            ->where('profile_processing.status', '=', 'rejected')
+            ->where('program.subject-committee_id', '=', $subject_Committee_id)
+            ->get(['profiles.*', 'program.name as program_name', 'profile_processing.*', 'profiles.id as profile_id']);
+
+
+        return view('subjectCommittee::pages.rejected-by-subject-committee', compact('datas'));
+    }
 }
