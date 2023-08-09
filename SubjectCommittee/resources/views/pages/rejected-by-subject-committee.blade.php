@@ -36,7 +36,7 @@
                                         <th>Registration Number</th>
                                         <th>Name</th>
 {{--                                        <th>Citizenship</th>--}}
-                                        <th>Accepted Date</th>
+                                        {{-- <th></th> --}}
                                         <th>Program Name</th>
                                         <th>Action</th>
                                     </tr>
@@ -54,8 +54,8 @@
                                                     <td>{{$data->profile_id}}</td>
                                                     <td style="text-transform: capitalize">{{$data->first_name   }} {{$data->middle_name}} {{ $data->last_name}}</td>
 {{--                                                    <td>{{$data->citizenship_number}}</td>--}}
-                                                    <td>{{$data->profiles_logs}}</td>
-                                                    <td> {{$data->program}}</td>
+                                                    {{-- <td>{{$data->profiles_logs}}</td> --}}
+                                                    <td> {{$data->program_name}}</td>
                                                     <td> <a href="{{url("subjectCommittee/dashboard/subjectCommittee/applicant-list-view/".$data->profile_id)}}"><span class="label label-success">View</span></a></td>
                                             </tr>
                                         @endforeach
