@@ -611,10 +611,10 @@ class SubjectCommitteeController extends BaseController
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
             ->where('profile_processing.current_state', 'subject_committee')
-            ->where('exam_registration.exam_id', '=', '5')
+            ->where('exam_registration.exam_id', '=', '6')
             ->where('program.subject-committee_id', $subject_Committee['subjecr_committee_id'])
             ->where('profile_processing.status', 'progress')
-            // ->where('profile_processing.subject_committee_accepted_num', '>', 2)
+            ->where('profile_processing.subject_committee_accepted_num', '>', 2)
             ->orderBy('profiles.created_at', 'ASC')
             ->get(['profiles.*']);
 
@@ -659,9 +659,9 @@ class SubjectCommitteeController extends BaseController
             ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
             ->where('profile_processing.current_state', 'subject_committee')
             ->where('profile_processing.status', 'progress')
-            ->where('exam_registration.exam_id', '=', '5')
+            ->where('exam_registration.exam_id', '=', '6')
             ->where('program.subject-committee_id', $subject_Committee['subjecr_committee_id'])
-            // ->where('profile_processing.subject_committee_accepted_num', '>=', 2)
+            ->where('profile_processing.subject_committee_accepted_num', '>=', 2)
             ->orderBy('profiles.created_at', 'ASC')
             ->get(['profiles.*']);
 
@@ -842,8 +842,6 @@ class SubjectCommitteeController extends BaseController
     {
 
 
-
-
         // $datas = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
         //     ->join('program', 'program.id', '=', 'exam_registration.program_id')
         //     ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
@@ -885,10 +883,11 @@ class SubjectCommitteeController extends BaseController
             ->get(['profiles.id as profile_id']);
 
         foreach ($profiles as $profile) {
-            // $logs = Profilelogs::all()->where('profile_id', '=', $profile->profile_id)
-            //     ->where('state', '=', 'subject_committee')
-            //     ->where('status', '=', 'progress')
-            //     ->count();
+            $logs = Profilelogs::all()->where('profile_id', '=', $profile->profile_id)
+                ->where('state', '=', 'subject_committee')
+                ->where('status', '=', 'progress')
+                ->count();
+            dd($logs);
             $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
             $data['subject_committee_accepted_num'] = 3;
             $he = $this->profileProcessingRepository->update($data, $profile_processing_id->id);
