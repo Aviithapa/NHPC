@@ -879,7 +879,7 @@ class SubjectCommitteeController extends BaseController
             ->where('profile_processing.current_state', 'subject_committee')
             ->where('profile_processing.status', 'progress')
             ->orderBy('profiles.created_at', 'ASC')
-            ->where('exam_registration.exam_id', '5')
+            ->where('exam_registration.exam_id', '6')
             ->get(['profiles.id as profile_id']);
 
         foreach ($profiles as $profile) {
