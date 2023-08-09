@@ -62,13 +62,13 @@
                     <div class="col-lg-4">
                         <fieldset class="form-group">
                             <label>Admission Year </label>
-                            <input name="admission_year" class="form-control" id="basicInput" type="number" min="2050" value="{{$data->admission_year}}" step="1" placeholder="2075"/>
+                            <input name="admission_year" class="form-control" id="basicInput" type="number"  value="{{$data->admission_year}}" step="1" placeholder="2075"/>
                         </fieldset>
                     </div>
                     <div class="col-lg-4">
                         <fieldset class="form-group">
                             <label>Passed Year </label>
-                            <input name="passed_year" class="form-control" id="pclPassedYear" type="number" min="2050"  value="{{$data->passed_year}}" step="1" placeholder="2075"/>
+                            <input name="passed_year" class="form-control" id="pclPassedYear" type="number"   value="{{$data->passed_year}}" step="1" placeholder="2075"/>
                         </fieldset>
                     </div>
                     <div class="col-lg-4">
