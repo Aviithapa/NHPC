@@ -879,7 +879,7 @@ class SubjectCommitteeController extends BaseController
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->where('profile_processing.current_state', 'subject_committee')
             ->where('profile_processing.status', 'progress')
-            ->where('profile_processing.subject_committee_accepted_num', '>=', '2')
+            ->where('profile_processing.subject_committee_accepted_num', '<=', '2')
             ->where('program.subject-committee_id', '=', $sub['subjecr_committee_id'])
             ->orderBy('profiles.created_at', 'ASC')
             ->where('exam_registration.exam_id', '6')
