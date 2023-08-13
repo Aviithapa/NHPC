@@ -888,6 +888,8 @@ class SubjectCommitteeController extends BaseController
         $profiles =
             $data->chunk(300);
 
+        dd($profiles);
+
         foreach ($profiles as $profile) {
             $logs = Profilelogs::all()->where('profile_id', '=', $profile->profile_id)
                 ->where('state', '=', 'subject_committee')
