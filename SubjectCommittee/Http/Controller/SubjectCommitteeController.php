@@ -874,7 +874,7 @@ class SubjectCommitteeController extends BaseController
 
         $sub = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
 
-        $profiles = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+        $data = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
             ->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->where('profile_processing.current_state', 'subject_committee')
@@ -884,6 +884,9 @@ class SubjectCommitteeController extends BaseController
             ->orderBy('profiles.created_at', 'ASC')
             ->where('exam_registration.exam_id', '6')
             ->get(['profiles.id as profile_id']);
+
+        $profiles =
+            $data->chunk(300);
 
         foreach ($profiles as $profile) {
             $logs = Profilelogs::all()->where('profile_id', '=', $profile->profile_id)
