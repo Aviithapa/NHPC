@@ -900,8 +900,7 @@ class SubjectCommitteeController extends BaseController
                     ->count();
                 // dd($logs);
                 $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
-                $data['subject_committee_accepted_num'] = $logs;
-                $he = $this->profileProcessingRepository->update($data, $profile_processing_id->id);
+                $this->profileProcessingRepository->update(['subject_committee_accepted_num' => $logs], $profile_processing_id->id);
             }
         }
 
