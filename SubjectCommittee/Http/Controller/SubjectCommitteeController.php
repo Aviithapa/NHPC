@@ -886,13 +886,12 @@ class SubjectCommitteeController extends BaseController
             ->get(['profiles.id as profile_id']);
 
         $profiles =
-            $data->chunk(300);
+            $data->chunk(100);
 
 
         foreach ($profiles as $ps) {
 
             foreach ($ps as $profile) {
-                dd($profile);
 
 
                 $logs = Profilelogs::all()->where('profile_id', '=', $profile->profile_id)
