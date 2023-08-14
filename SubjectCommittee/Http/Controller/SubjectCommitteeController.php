@@ -877,6 +877,9 @@ class SubjectCommitteeController extends BaseController
 
         $exam = $this->examProcessingRepository->getAll()->where('level_id', '4')->where('exam_id', '6')->where('state', 'subject_committee');
 
+        foreach ($exam as $ps) {
+            $this->examProcessingRepository->update(['exam_id' => null], $ps->id);
+        }
         dd($exam);
 
         $sub = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
