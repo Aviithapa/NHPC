@@ -874,6 +874,9 @@ class SubjectCommitteeController extends BaseController
         // $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
         // return redirect()->back();
 
+        $exam = $this->examProcessingRepository->getAll()->where('state', 'subject_committee')->where('status', 'progress')->where('exam_id', '!=', '6');
+        dd($exam);
+
         $sub = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
 
         $data = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
