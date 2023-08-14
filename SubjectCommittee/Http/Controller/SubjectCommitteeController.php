@@ -877,12 +877,14 @@ class SubjectCommitteeController extends BaseController
         $exam = $this->examProcessingRepository->getAll()->where('state', 'subject_committee')->where('status', 'progress')->where('exam_id', '!=', '6');
 
         foreach ($exam as $ps) {
+            $data['exam_id'] = 6;
+            dd($ps->id);
 
-            $this->examProcessingRepository->update(['exam_id' => 6], $ps->id);
+
+            $this->examProcessingRepository->update($data, $ps->id);
         }
 
         dd($exam);
-
         $sub = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
 
         $data = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
