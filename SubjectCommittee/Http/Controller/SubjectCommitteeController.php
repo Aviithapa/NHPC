@@ -884,7 +884,7 @@ class SubjectCommitteeController extends BaseController
             ->where('profile_processing.subject_committee_accepted_num', '<=', '2')
             ->where('program.subject-committee_id', '=', $sub['subjecr_committee_id'])
             ->orderBy('profiles.created_at', 'ASC')
-            ->where('exam_registration.exam_id', '6')
+            ->whereIn('exam_registration.exam_id', [5, 6])
             ->get(['profiles.id as profile_id']);
 
         $profiles =
