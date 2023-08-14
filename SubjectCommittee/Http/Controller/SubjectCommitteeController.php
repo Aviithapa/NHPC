@@ -873,7 +873,11 @@ class SubjectCommitteeController extends BaseController
         // }
         // $data = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
         // return redirect()->back();
+        // 4992
 
+        $exam = $this->examProcessingRepository->getAll()->where('level_id', '4')->where('exam_id', '6')->where('state', 'subject_committee');
+
+        dd($exam);
 
         $sub = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
 
