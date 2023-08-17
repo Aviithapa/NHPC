@@ -496,7 +496,8 @@ class  ExamCommitteeController extends BaseController
             // ->where('exam_registration.created_at', '>', '2023-04-06')
             // ->where('exam_registration.created_at', '<', '2023-04-29')
             ->where('exam_registration.status', '=', 'progress')
-            ->where('exam_registration.state', '=', 'exam_committee');;
+            ->where('exam_registration.state', '=', 'exam_committee')
+            ->where('exam_registration.exam_id', '=', 6);
         // ->where('exam_registration.status', '=', 'progress')
         // ->where('exam_registration.is_admit_card_generate', '=', 'no');
 
