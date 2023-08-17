@@ -875,12 +875,12 @@ class SubjectCommitteeController extends BaseController
         // return redirect()->back();
         // 4992
 
-        $exam = $this->examProcessingRepository->getAll()->where('status', 'progress')->where('state', 'subject_committee');
+        // $exam = $this->examProcessingRepository->getAll()->where('status', 'progress')->where('state', 'subject_committee');
 
-        foreach ($exam as $ps) {
-            $this->examProcessingRepository->update(['exam_id' => 6], $ps->id);
-        }
-        dd($exam);
+        // foreach ($exam as $ps) {
+        //     $this->examProcessingRepository->update(['exam_id' => 6], $ps->id);
+        // }
+        // dd($exam);
 
         $sub = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
 
