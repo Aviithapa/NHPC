@@ -352,7 +352,7 @@ class  ExamCommitteeController extends BaseController
             ->join('users', 'users.id', '=', 'profiles.user_id')
             ->where('exam_registration.status', '=', 'progress')
             ->where('exam_registration.status', '=', 'exam_committee')
-            ->where('exam_registration.exam_id', '=', '6')
+            ->where('exam_registration.exam_id', '=', $id)
 
             // ->where('exam_registration.exam_id', '=', $id)
             // ->where('admit_card.created_at', 'Like', '%' . '2023-02-03' . '%')
@@ -493,9 +493,10 @@ class  ExamCommitteeController extends BaseController
             ->join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             ->join('level', 'level.id', '=', 'exam_registration.level_id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
-            ->where('exam_registration.created_at', '>', '2023-04-06')
-            ->where('exam_registration.created_at', '<', '2023-04-29')
-            ->where('level.id', '=', '3');
+            // ->where('exam_registration.created_at', '>', '2023-04-06')
+            // ->where('exam_registration.created_at', '<', '2023-04-29')
+            ->where('exam_registration.status', '=', 'progress')
+            ->where('exam_registration.state', '=', 'exam_committee');;
         // ->where('exam_registration.status', '=', 'progress')
         // ->where('exam_registration.is_admit_card_generate', '=', 'no');
 
