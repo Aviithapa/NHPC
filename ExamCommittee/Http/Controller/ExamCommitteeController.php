@@ -374,7 +374,7 @@ class  ExamCommitteeController extends BaseController
 
             // ->where('exam_registration.exam_id', '=', $id)
             // ->where('admit_card.created_at', 'Like', '%' . '2023-02-03' . '%')
-            ->get(['level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number']);
+            ->get(['level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number', 'admit_card.*']);
 
         $headers = array(
             "Content-type"        => "text/csv",
