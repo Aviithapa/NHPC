@@ -153,7 +153,7 @@ class  ExamCommitteeController extends BaseController
         $month = 7;
         $level_id = str_pad($level, 2, "0", STR_PAD_LEFT);
         $program_id = str_pad($program, 2, "0", STR_PAD_LEFT);
-        $num =  $month . $level_id . $program_id . str_pad($index, 3, "0", STR_PAD_LEFT) . $subjectCode['code'];
+        $num =  $month . $level_id . $program_id . str_pad($index, 3, "0", STR_PAD_LEFT) . '-' . $subjectCode['code'];
         return $num;
     }
 
