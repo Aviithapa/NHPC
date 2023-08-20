@@ -95,7 +95,7 @@ class SearchController extends BaseController
                 ->select(
                     'profiles.first_name as first_name',
                     'profiles.last_name as last_name',
-                    // 'profiles.middle_name as middle_name',
+                    'profiles.middle_name as middle_name',
                     'profiles.dob_nep as dob_nep',
                     'profiles.profile_status as profile_status',
                     'profiles.citizenship_number as citizenship_number',
