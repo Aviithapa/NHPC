@@ -1105,7 +1105,7 @@ class OperatorController extends BaseController
 
     public function subjectCommitteeDashboardList(Request $request, $level = 1, $status = "progress", $subject_commitee_id = 1, $page = 0)
     {
-        $take = 0;
+        $take = 20;
         $data = $request->all();
         if ($data != null) {
             if ($data['level_id'] != null)
