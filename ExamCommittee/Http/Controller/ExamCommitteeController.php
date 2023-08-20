@@ -108,13 +108,13 @@ class  ExamCommitteeController extends BaseController
             $users = $this->examProcessingRepository->getAll()->where('status', '=', $status)
                 ->where('state', '=', $current_state)
                 ->where('program_id', '=', $program_id)
-                ->where('exam_id', '=', '5')
+                ->where('exam_id', '=', '6')
                 ->where('is_admit_card_generate', '!=', 'yes');
             if ($users->isEmpty()) {
                 session()->flash('success', 'Admit Card Already Been Generated');
                 return redirect()->back()->withInput();
             } else {
-                $i = 88;
+                $i = 0;
                 $index = ExamProcessing::orderBy('darta_number', 'desc')->first();
                 $darta_number = $index['darta_number'];
                 foreach ($users as $user) {
