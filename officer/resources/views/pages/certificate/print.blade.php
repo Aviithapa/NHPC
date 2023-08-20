@@ -410,14 +410,14 @@
             // var a = window.print()
             // // window.open('', 'PRINT ADMIT CARD', 'height=700, width=700');
             // var divContents = document.getElementById("printdivcontent").innerHTML;
-            var printWindow = window.open('', '', 'height=1000,width=700');
-            // printWindow.document.write('<html><head><title>Print DIV Content</title>');
-            printWindow.document.write('</head><body >');
-            printWindow.document.write(divContents);
-            printWindow.document.write('</body></html>');
-            // printWindow.document.close();
-            // printWindow.print();
-            a.document.write(divContents.outerHTML);
+            // var printWindow = window.open('', '', 'height=1000,width=700');
+            // // printWindow.document.write('<html><head><title>Print DIV Content</title>');
+            // printWindow.document.write('</head><body >');
+            // printWindow.document.write(divContents);
+            // printWindow.document.write('</body></html>');
+            // // printWindow.document.close();
+            // // printWindow.print();
+            // a.document.write(divContents.outerHTML);
 
 
 
