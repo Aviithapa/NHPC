@@ -115,7 +115,7 @@ class  ExamCommitteeController extends BaseController
                 session()->flash('success', 'Admit Card Already Been Generated');
                 return redirect()->back()->withInput();
             } else {
-                $i = 1;
+                $i = 43;
                 $index = ExamProcessing::orderBy('darta_number', 'desc')->first();
                 $darta_number = $index['darta_number'];
                 foreach ($users as $user) {
