@@ -345,6 +345,20 @@ class  ExamCommitteeController extends BaseController
     {
         $fileName = 'StudentSymbolNumberList.csv';
 
+        $duplicateCitizenshipQuery = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->join('level', 'level.id', '=', 'program.level_id')
+            ->join('users', 'users.id', '=', 'profiles.user_id')
+            ->where('exam_registration.status', '=', 'progress')
+            ->where('exam_registration.state', '=', 'exam_committee')
+            ->where('exam_registration.exam_id', '=', 6)
+            ->select('profiles.citizenship_number')
+            ->groupBy('profiles.citizenship_number')
+            ->havingRaw('COUNT(profiles.citizenship_number) > 1')
+            ->get();
+
+        dd($duplicateCitizenshipQuery);
+
         $tasks = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             // ->join('exam_registration', 'exam_registration.id', '=', 'admit_card.exam_processing_id')
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
