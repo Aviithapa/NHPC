@@ -1261,9 +1261,14 @@ class OperatorController extends BaseController
             $documents = $this->qualificationRepository->findById($data['qualification_id']);
             $updateDocuments =  $this->qualificationRepository->update($data, $documents['id']);
             $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['profile_id'])->first();
+
             $updateProgram = $this->programRepository->update($program, $exam['program_id']);
             session()->flash('success', 'Certificate data has been changed successfully');
-            return redirect()->back();
+
+            return redirect()->route("operator.dashboard.printCertificateIndex", [
+                'status' => $certificate['is_printed'],
+                'program_id' =>    $exam['program_id']
+            ]);
             //
         } catch (\Exception $e) {
             session()->flash('danger', 'Oops! Something went wrong.');
