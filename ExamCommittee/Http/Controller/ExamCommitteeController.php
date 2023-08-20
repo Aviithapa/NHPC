@@ -364,7 +364,7 @@ class  ExamCommitteeController extends BaseController
         // // dd($duplicateCitizenshipQuery[0]);
 
         $tasks = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-            ->join('exam_registration', 'exam_registration.id', '=', 'admit_card.exam_processing_id')
+            ->join('admit_card', 'admit_card.exam_processing_id', '=', 'exam_registration.id')
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->join('level', 'level.id', '=', 'program.level_id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
