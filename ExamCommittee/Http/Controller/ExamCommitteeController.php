@@ -699,10 +699,10 @@ class  ExamCommitteeController extends BaseController
     {
 
         $exams = ExamProcessing::all()->where('state', '=', 'exam_committee')->where('status', '=', 'progress')->where('is_admit_card_generate', '=', 'no');
-        dd($exams);
+        // dd($exams);
         foreach ($exams as $exam) {
-            $data['exam_id'] = 1;
-            $data['state'] = 'subject_committee';
+            $data['exam_id'] = 6;
+            // $data['state'] = 'subject_committee';
             $this->examProcessingRepository->update($data, $exam->id);
         }
 
