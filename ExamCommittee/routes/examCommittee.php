@@ -33,3 +33,4 @@ Route::get('/getAllStudentList', [\ExamCommittee\Http\Controller\ExamCommitteeCo
 Route::get('/subjectCommittee/dashboard', [ExamCommitteeController::class, 'subjectCommitteeDashboard'])->middleware(['auth'])->name('subjectCommittee.dashboard.exam');
 Route::get('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}', [ExamCommitteeController::class, 'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.exam.list');
 Route::post('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}', [ExamCommitteeController::class, 'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.exam.list');
+
