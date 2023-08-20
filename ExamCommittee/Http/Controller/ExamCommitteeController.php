@@ -357,7 +357,7 @@ class  ExamCommitteeController extends BaseController
             ->havingRaw('COUNT(profiles.citizenship_number) > 1')
             ->get();
 
-        dd($duplicateCitizenshipQuery);
+        dd($duplicateCitizenshipQuery[0]);
 
         $tasks = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             // ->join('exam_registration', 'exam_registration.id', '=', 'admit_card.exam_processing_id')
