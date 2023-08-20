@@ -126,11 +126,11 @@ class  ExamCommitteeController extends BaseController
                     $symbol_number =  $this->generateSymbolNumber($index, $user['level_id'], $program_id);
                     $data['symbol_number'] = $symbol_number;
                     $data['created_by'] = Auth::user()->id;
-                    dd($symbol_number);
-                    // $this->admitCardRepository->create($data);
+                    // dd($symbol_number);
+                    $this->admitCardRepository->create($data);
                     $exam_data['is_admit_card_generate'] = 'yes';
                     $exam_data['darta_number'] = $darta;
-                    // $this->examProcessingRepository->update($exam_data, $user['id']);
+                    $this->examProcessingRepository->update($exam_data, $user['id']);
                 }
                 session()->flash('success', 'Admit Card Successfully Generated');
                 return redirect()->back()->withInput();
