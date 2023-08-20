@@ -130,7 +130,7 @@ class  ExamCommitteeController extends BaseController
                     $this->admitCardRepository->create($data);
                     $exam_data['is_admit_card_generate'] = 'yes';
                     $exam_data['darta_number'] = $darta;
-                    // $this->examProcessingRepository->update($exam_data, $user['id']);
+                    $this->examProcessingRepository->update($exam_data, $user['id']);
                 }
                 session()->flash('success', 'Admit Card Successfully Generated');
                 return redirect()->back()->withInput();
