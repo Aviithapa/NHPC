@@ -698,7 +698,7 @@ class  ExamCommitteeController extends BaseController
     public function getAllStudentList()
     {
 
-        $exams = ExamProcessing::all()->where('state', '=', 'exam_committee')->where('status', '=', 'progress')->where('is_admit_card_generated', 'Like', 'no');
+        $exams = ExamProcessing::all()->where('state', '=', 'exam_committee')->where('status', '=', 'progress')->where('is_admit_card_generate', '=', 'no');
         dd($exams);
         foreach ($exams as $exam) {
             $data['exam_id'] = 1;
