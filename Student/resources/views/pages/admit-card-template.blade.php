@@ -51,7 +51,7 @@
                         <div class="box-body container mt-2">
                             @if($admit_card)
                               @if($admit_card->created_by == 39569)
-<span>छैटौं नाम दर्ता  प्रमाण पत्र परीक्षाको  प्रवेश पत्र</span>
+<span>सातौं नाम दर्ता  प्रमाण पत्र परीक्षाको  प्रवेश पत्र</span>
                               @else
 <span>
 चौथो नाम दर्ता  प्रमाण पत्र परीक्षाको  प्रवेश पत्र</span>
