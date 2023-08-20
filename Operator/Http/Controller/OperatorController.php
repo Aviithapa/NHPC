@@ -2239,7 +2239,7 @@ class OperatorController extends BaseController
             $profile_log['exam_id'] = $profile->id;
             $profile_log['profile_id'] = $profile->profile_id;
 
-            $profile_log['remarks'] =  isset($data['remarks']) ? $data['remarks'] : 'Profile Verified and forwarded to Subject Committee';
+            $profile_log['remarks'] = 'Profile Verified and forwarded to Subject Committee';
             $profile_log['review_status'] = 'Successfully Accepeted';
             $profile_processing['current_state'] = 'subject_committee';
             $profile_processing['status'] = 'progress';
