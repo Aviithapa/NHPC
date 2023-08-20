@@ -385,7 +385,7 @@ class  ExamCommitteeController extends BaseController
         );
 
         $columns = array(
-            'registration_id', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'update_by', 'deleted_by',
+            // 'registration_id', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'update_by', 'deleted_by',
             'first_name',
             'middle_name',
             'last_name',
@@ -400,13 +400,13 @@ class  ExamCommitteeController extends BaseController
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
             foreach ($tasks as $task) {
-                $row['registration_id'] = $task->citizenship_number;
-                $row['created_at'] = "2023-02-03 09:51:53";
-                $row['updated_at'] = "2023-02-03 09:51:53";
-                $row['deleted_at'] = null;
-                $row['created_by'] = 1;
-                $row['updated_by'] = 1;
-                $row['deleted_by'] = 0;
+                // $row['registration_id'] = $task->citizenship_number;
+                // $row['created_at'] = "2023-02-03 09:51:53";
+                // $row['updated_at'] = "2023-02-03 09:51:53";
+                // $row['deleted_at'] = null;
+                // $row['created_by'] = 1;
+                // $row['updated_by'] = 1;
+                // $row['deleted_by'] = 0;
                 $row['first_name']  = $task->first_name;
                 $row['middle_name']  =  $task->middle_name;
                 $row['last_name']  = $task->last_name;
@@ -437,13 +437,13 @@ class  ExamCommitteeController extends BaseController
 
 
                 fputcsv($file, array(
-                    $row['registration_id'],
-                    $row['created_at'],
-                    $row['updated_at'],
-                    $row['deleted_at'],
-                    $row['created_by'],
-                    $row['updated_by'],
-                    $row['deleted_by'],
+                    // $row['registration_id'],
+                    // $row['created_at'],
+                    // $row['updated_at'],
+                    // $row['deleted_at'],
+                    // $row['created_by'],
+                    // $row['updated_by'],
+                    // $row['deleted_by'],
                     $row['first_name'],
                     $row['middle_name'],
                     $row['last_name'],
