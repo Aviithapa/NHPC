@@ -284,7 +284,7 @@ class  ExamCommitteeController extends BaseController
                 ->where('state', '=', 'exam_committee')
                 ->where('program_id', '=', $id)
                 ->where('status', '!=', 'rejected')
-                ->where('exam_id', '=', 5)
+                ->where('exam_id', '=', $id)
                 ->where('attempt', '=', 1);
 
 
@@ -351,7 +351,7 @@ class  ExamCommitteeController extends BaseController
             ->join('level', 'level.id', '=', 'program.level_id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
             ->where('exam_registration.status', '=', 'progress')
-            ->where('exam_registration.status', '=', 'exam_committee')
+            ->where('exam_registration.state', '=', 'exam_committee')
             ->where('exam_registration.exam_id', '=', $id)
 
             // ->where('exam_registration.exam_id', '=', $id)
