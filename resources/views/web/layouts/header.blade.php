@@ -28,7 +28,7 @@
                                 <li class=""><a href="{{ route('login') }}" >Login</a></li>
                                 <li class=""><a href="{{ route('register') }}">New Registrations</a></li>
                                 <li class=""><a href="{{ route('register') }}" class="blink_me">KYC Update</a></li>
-                                {{-- <li class=""><a href="{{ route('admit.card.admitCardPrintSection')}}">Admit Card</a></li> --}}
+                                <li class=""><a href="{{ route('admit.card.admitCardPrintSection')}}">Admit Card</a></li>
                                {{-- <li class=""><a href="#">Admit Card</a></li> --}}
                             </ul>
                         </div>
