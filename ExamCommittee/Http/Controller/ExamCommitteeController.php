@@ -150,7 +150,7 @@ class  ExamCommitteeController extends BaseController
         // $year = substr($year, -2);
         $subjectCommittee = $this->programRepository->findById($program);
         $subjectCode = SubjectCommittee::where('id', $subjectCommittee['subject-committee_id'])->first();
-        dd($subjectCode);
+        dd($subjectCode['code']);
         $month = 7;
         $level_id = str_pad($level, 2, "0", STR_PAD_LEFT);
         $program_id = str_pad($program, 2, "0", STR_PAD_LEFT);
