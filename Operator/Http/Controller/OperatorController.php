@@ -1123,7 +1123,6 @@ class OperatorController extends BaseController
             ->skip($page * $take)
             ->take($take)
             ->get(['profiles.*', 'program.name as program_name', 'profile_processing.*', 'profiles.id as profile_id']);
-        dd($datas);
         $page = (int)$page;
 
 
