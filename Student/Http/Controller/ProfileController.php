@@ -446,7 +446,7 @@ class ProfileController extends BaseController
                 $exam_applied = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->first();
             }
 
-            dd($profile);
+            // dd($profile);
 
             return view('student::pages.admit-card-template-index', compact('profile', 'admit_card', 'exam_applied'));
         } catch (Exception $e) {
