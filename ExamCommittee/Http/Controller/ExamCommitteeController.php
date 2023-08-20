@@ -11,6 +11,7 @@ use App\Models\Admin\Program;
 use App\Models\AdmitCard\AdmitCard;
 use App\Models\AdmitCard\ExamResult;
 use App\Models\Exam\ExamProcessing;
+use App\Models\SubjectCommittee\SubjectCommittee;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
 use App\Modules\Backend\AdmitCard\Repositories\AdmitCardRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
@@ -125,10 +126,11 @@ class  ExamCommitteeController extends BaseController
                     $symbol_number =  $this->generateSymbolNumber($index, $user['level_id'], $program_id);
                     $data['symbol_number'] = $symbol_number;
                     $data['created_by'] = Auth::user()->id;
-                    $this->admitCardRepository->create($data);
+                    dd($symbol_number);
+                    // $this->admitCardRepository->create($data);
                     $exam_data['is_admit_card_generate'] = 'yes';
                     $exam_data['darta_number'] = $darta;
-                    $this->examProcessingRepository->update($exam_data, $user['id']);
+                    // $this->examProcessingRepository->update($exam_data, $user['id']);
                 }
                 session()->flash('success', 'Admit Card Successfully Generated');
                 return redirect()->back()->withInput();
@@ -146,7 +148,10 @@ class  ExamCommitteeController extends BaseController
         // $now = Carbon::now();
         // $year = $now->year;
         // $year = substr($year, -2);
-        $month = 6;
+        $subjectCommittee = $this->programRepository->findById($program);
+        $subjectCode = SubjectCommittee::where('id', $subjectCommittee['subject-committee_id'])->first();
+        dd($subjectCode);
+        $month = 7;
         $level_id = str_pad($level, 2, "0", STR_PAD_LEFT);
         $program_id = str_pad($program, 2, "0", STR_PAD_LEFT);
         $num =  $month . $level_id . $program_id . str_pad($index, 3, "0", STR_PAD_LEFT);
