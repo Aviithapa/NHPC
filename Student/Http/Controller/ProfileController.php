@@ -460,8 +460,11 @@ class ProfileController extends BaseController
     {
         try {
             $data = $request->all();
-            $profile = $this->profileRepository->getAll()->where('dob_nep', 'Like', '%' . $data['dob']  . '%')
-                ->where('first_name', 'Like', '%' .  $data['first_name'] . '%')->first();
+            $profile = $this->profileRepository->getAll()->where('dob_nep', 'LIKE', '%' . $data['dob']  . '%')
+                ->where('first_name', 'LIKE', '%' .  $data['first_name'] . '%')->first();
+
+
+            dd($profile);
 
             if ($profile === null) {
                 $data = "Error";
