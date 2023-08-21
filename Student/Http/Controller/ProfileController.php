@@ -464,7 +464,7 @@ class ProfileController extends BaseController
                 ->where('first_name', 'LIKE', '%' .  $data['first_name'] . '%')->first();
 
 
-            dd($profile, $data['first_name']);
+            // dd($profile, $data['first_name']);
 
             if ($profile === null) {
                 $data = "Error";
