@@ -411,9 +411,10 @@ class ProfileController extends BaseController
     {
         try {
             $profile = $this->profileRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
-            $admit_card = $this->admitCardRepository->getAll()->where('profile_id', '=', $profile['id'])->last();
+            $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', 6)->first();
+            $admit_card = $this->admitCardRepository->getAll()->where('exam_processing_id', '=', $exam['id'])->first();
             if ($admit_card != null) {
-                $exam_applied = $this->examProcessingRepository->getAll()->where('id', '=', $admit_card['exam_processing_id'])
+                $exam_applied = $this->examProcessingRepository->getAll()->where('id', '=', $exam['id'])
                     ->where('profile_id', '=', $profile['id'])->first();
             } else {
                 $exam_applied = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->first();
