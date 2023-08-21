@@ -459,8 +459,8 @@ class ProfileController extends BaseController
     {
         try {
             $data = $request->all();
-            $profile = $this->profileRepository->getAll()->where('dob_nep', '=', $data['dob'])
-                ->where('first_name', '=', $data['first_name'])->first();
+            $profile = $this->profileRepository->getAll()->where('dob_nep', 'Like', '%' . $data['dob']  . '%')
+                ->where('first_name', 'Like', '%' .  $data['first_name'] . '%')->first();
 
             if ($profile === null) {
                 $data = "Error";
@@ -477,8 +477,7 @@ class ProfileController extends BaseController
                 return view('student::pages.admit-download', compact('data'));
             }
             if ($admit_card != null) {
-                $exam_applied = $this->examProcessingRepository->getAll()->where('id', '=', $admit_card['exam_processing_id'])
-                    ->where('profile_id', '=', $profile['id'])->first();
+                $exam_applied = $this->examProcessingRepository->getAll()->where('id', '=', $exam['id'])->first();
             } else {
                 $exam_applied = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->first();
             }
