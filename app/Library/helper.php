@@ -909,7 +909,7 @@ if (!function_exists('getExamStatus')) {
     {
 
         $exam = ExamProcessing::all()->where('id', '=', $exam_id)->first();
-        if ($exam['isPassed'] == 0 && $exam['is_admit_card_generate'] == 'yes' && $exam['exam_id'] != 3)
+        if ($exam['isPassed'] == 0 && $exam['is_admit_card_generate'] == 'yes' && $exam['exam_id'] != 6)
             return 'Failed';
         elseif ($exam['isPassed'] = 0 && $exam['attempt'] == '2')
             return 'Re Exam';
