@@ -187,25 +187,38 @@ class  ExamCommitteeController extends BaseController
 
     public function fileImport(Request $request)
     {
+        dd('you are here');
         Excel::import(new ResultImport(), $request->file('file')->store('temp'));
-        $this->FileForwardCouncil();
+        // $this->FileForwardCouncil();
         return back();
     }
 
     public function FileForwardCouncil()
     {
-        $date = '2022-09-25';
-        $data['state'] = 'council';
-        $data['current_state'] = 'council';
-        $data['isPassed'] = true;
-        $passed_list = ExamResult::all()->where('status', '=', 'PASSED')->where('remarks', '=', '6');
-        foreach ($passed_list as $pass) {
-            $admit_card = AdmitCard::all()->where('symbol_number', '=', $pass['symbol_number']);
-            foreach ($admit_card as $admit) {
-                $examProcesing = $this->examProcessingRepository->update($data, $admit['exam_processing_id']);
-                $profileProcessing = $this->profileRepository->update($data, $admit['profile_id']);
-            }
+
+        $data = [
+            'state' => 'council',
+            'current_state' => 'council',
+            'isPassed' => true,
+        ];
+
+        $passed_symbol_numbers = ExamResult::where('status', 'PASSED')
+            ->where('remarks', '6')
+            ->pluck('symbol_number')
+            ->toArray();
+
+        if (!empty($passed_symbol_numbers)) {
+            AdmitCard::whereIn('symbol_number', $passed_symbol_numbers)->update($data);
+
+            // Assuming you have 'exam_processing_id' and 'profile_id' columns in the AdmitCard table
+            DB::table('exam_registration')
+                ->whereIn('symbol_number', $passed_symbol_numbers)
+                ->update($data);
+            DB::table('profiles')
+                ->whereIn('symbol_number', $passed_symbol_numbers)
+                ->update($data);
         }
+
         $this->failedStudentList();
 
         // $this->absentStudentList();
