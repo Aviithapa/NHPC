@@ -575,9 +575,10 @@ class CouncilController extends BaseController
         $levelCode = $data['level_code'];
         $passed_list = Certificate::all()->where('decision_date', '=', $date)->where('program_id', '=', $programId);
         foreach ($passed_list as $pass) {
+            $srn =  $srn++;
             $exam['cert_registration_number'] =
-                isset($levelCode) ? $levelCode . '-' . $srn++ . ' ' . $subjectCode :  $srn++ . ' ' . $subjectCode;
-            $exam['srn'] = $srn++;
+                isset($levelCode) ? $levelCode . '-' . $srn . ' ' . $subjectCode :  $srn . ' ' . $subjectCode;
+            $exam['srn'] = $srn;
             $updatedDecisionDate = $this->certificateRepository->update($exam, $pass['id']);
         }
         return redirect()->back();
