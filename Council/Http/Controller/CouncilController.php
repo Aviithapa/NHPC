@@ -313,13 +313,13 @@ class CouncilController extends BaseController
 
             $studentsData[] = $studentData;
 
-            $profilesProcessing = $this->profileProcessingRepository->getAll()
-                ->where('profile_id', $student['profile_id'])
-                ->first();
+            // $profilesProcessing = $this->profileProcessingRepository->getAll()
+            //     ->where('profile_id', $student['profile_id'])
+            //     ->first();
 
-            $data['current_state'] = 'council';
-            $data['status'] = 'accepted';
-            $this->profileProcessingRepository->update($data, $profilesProcessing['id']);
+            // $data['current_state'] = 'council';
+            // $data['status'] = 'accepted';
+            // $this->profileProcessingRepository->update($data, $profilesProcessing['id']);
         }
 
         $exam_data = [
