@@ -324,6 +324,7 @@ class CouncilController extends BaseController
 
         $exam_data = [
             'status' => 'accepted',
+            'certificate_generate' => 'yes'
         ];
         // Bulk insert the student data
         Certificate::insert($studentsData);
