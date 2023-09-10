@@ -565,6 +565,24 @@ class CouncilController extends BaseController
         return redirect()->back();
     }
 
+    public function FileChangeCouncilDateApi(Request $request)
+    {
+        $data = $request->all();
+        $date = $data['date'];
+        $programId = $data['program_id'];
+        $srn = $data['srn'];
+        $subjectCode = $data['subject_code'];
+        $levelCode = $data['level_code'];
+        $passed_list = Certificate::all()->where('decision_date', '=', $date)->where('program_id', '=', $programId);
+        foreach ($passed_list as $pass) {
+            $exam['cert_registration_number'] =
+                isset($levelCode) ? $levelCode . '-' . $srn++ . ' ' . $subjectCode :  $srn++ . ' ' . $subjectCode;
+            $exam['srn'] = $srn++;
+            $updatedDecisionDate = $this->certificateRepository->update($exam, $pass['id']);
+        }
+        return redirect()->back();
+    }
+
     public function exportAllExamPassedList()
     {
         if (Auth::user()->mainRole()->name === 'council') {

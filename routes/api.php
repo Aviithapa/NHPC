@@ -26,3 +26,4 @@ Route::post('/result/import', [ExamCommitteeController::class, 'fileImport'])->n
 Route::get('/forward/council', [ExamCommitteeController::class, 'FileForwardCouncil'])->name('forward.council');
 
 Route::get('/dartaBook/council', [CouncilController::class, 'moveToDartaBookAPI'])->name('forward.moveToDartaBookAPI');
+Route::post('/change/council/number', [CouncilController::class, 'FileChangeCouncilDateApi'])->name('forward.FileChangeCouncilDateApi');
