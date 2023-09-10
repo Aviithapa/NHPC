@@ -187,10 +187,10 @@ class  ExamCommitteeController extends BaseController
 
     public function fileImport(Request $request)
     {
-        dd('you are here');
+        // dd('you are here');
         Excel::import(new ResultImport(), $request->file('file')->store('temp'));
         // $this->FileForwardCouncil();
-        return back();
+        return 'Result has been successfully imported';
     }
 
     public function FileForwardCouncil()
