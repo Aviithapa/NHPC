@@ -21,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('/result/import', [ExamCommitteeController::class, 'fileImport'])->name('result.import');
+
+Route::get('/forward/council', [ExamCommitteeController::class, 'FileForwardCouncil'])->name('forward.council');

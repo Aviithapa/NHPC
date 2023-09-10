@@ -196,30 +196,50 @@ class  ExamCommitteeController extends BaseController
     public function FileForwardCouncil()
     {
 
-        $data = [
+        $exam_data = [
             'state' => 'council',
-            'current_state' => 'council',
             'isPassed' => true,
         ];
 
+        $profile_data = [
+            'current_state' => 'council'
+        ];
+
+        $data = [
+            'profile_state' => 'council',
+        ];
+
         $passed_symbol_numbers = ExamResult::where('status', 'PASSED')
-            ->where('remarks', '6')
+            ->where('remarks', '7')
             ->pluck('symbol_number')
             ->toArray();
 
+
         if (!empty($passed_symbol_numbers)) {
-            AdmitCard::whereIn('symbol_number', $passed_symbol_numbers)->update($data);
+            $admitCardsToUpdate = AdmitCard::whereIn('symbol_number', $passed_symbol_numbers)->get();
+
+            // Extract profile_id and exam_processing_id
+            $profileIds = $admitCardsToUpdate->pluck('profile_id')->toArray();
+            $examProcessingIds = $admitCardsToUpdate->pluck('exam_processing_id')->toArray();
+
+
 
             // Assuming you have 'exam_processing_id' and 'profile_id' columns in the AdmitCard table
-            DB::table('exam_registration')
-                ->whereIn('symbol_number', $passed_symbol_numbers)
-                ->update($data);
-            DB::table('profiles')
-                ->whereIn('symbol_number', $passed_symbol_numbers)
-                ->update($data);
-        }
+            DB::table('profile_processing')
+                ->whereIn('profile_id', $profileIds) // Assuming 'id' is the primary key of the 'profiles' table
+                ->update($profile_data);
 
-        $this->failedStudentList();
+            // Update exam_processing table
+            DB::table('exam_registration')
+                ->whereIn('id', $examProcessingIds) // Assuming 'id' is the primary key of the 'exam_processing' table
+                ->update($exam_data);
+
+            DB::table('profiles')
+                ->whereIn('id', $examProcessingIds) // Assuming 'id' is the primary key of the 'exam_processing' table
+                ->update($data);
+
+            dd($examProcessingIds);
+        }
 
         // $this->absentStudentList();
     }
