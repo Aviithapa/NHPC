@@ -313,10 +313,6 @@ class CouncilController extends BaseController
 
             $studentsData[] = $studentData;
 
-            $examupdate['status'] = "accepted";
-            $examupdate['state'] = "council";
-            $this->examProcessingRepository->update($examupdate, $student['exam_registration_id']);
-
             $profilesProcessing = $this->profileProcessingRepository->getAll()
                 ->where('profile_id', $student['profile_id'])
                 ->first();
@@ -326,9 +322,15 @@ class CouncilController extends BaseController
             $this->profileProcessingRepository->update($data, $profilesProcessing['id']);
         }
 
-        dd($studentsData);
+        $exam_data = [
+            'status' => 'accepted',
+        ];
         // Bulk insert the student data
         Certificate::insert($studentsData);
+        $examProcessingIds = $students->pluck('exam_registration_id')->toArray();
+        DB::table('exam_registration')
+            ->whereIn('id', $examProcessingIds) // Assuming 'id' is the primary key of the 'exam_processing' table
+            ->update($exam_data);
 
         return redirect()->back();
     }
