@@ -239,6 +239,100 @@ class CouncilController extends BaseController
         }
     }
 
+    public function moveToDartaBookAPI()
+    {
+
+
+        // try {
+        //code...
+        $limit = 1000;
+        $students = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->join('level', 'level.id', '=', 'program.level_id')
+            ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
+            ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+            ->where('exam_registration.status', "=", 'progress')
+            ->where('exam_registration.state', "=", 'council')
+            ->where('exam_registration.level_id', "!=", '4')
+            ->where('exam_registration.attempt', "=", '1')
+            ->where('exam_registration.exam_id', "=", 6)
+            ->where('exam_registration.certificate_generate', '=', 'No')
+            ->orderBy('profiles.created_at', 'ASC')
+            ->limit($limit)
+            ->get([
+                'profiles.*', 'profiles.id as profile_id', 'profiles.created_at as profile_created_at', 'program.name as program_name', 'program.*',
+                'program.id as program_id', 'level.*', 'provinces.province_name', 'exam_registration.id as exam_registration_id'
+            ]);
+
+        foreach ($students as $student) {
+            $srn_number = 0;
+            $srn = 0;
+            $date = '2023-09-20';
+
+            $srn_number = Certificate::where('program_id', $student['program_id'])
+                ->orderBy('srn', 'desc')
+                ->first();
+
+            $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
+
+            $qualification = $this->qualificationRepository->getAll()
+                ->where('user_id', $student['user_id'])
+                ->where('program_id', $student['program_id'])
+                ->first();
+
+            if ($srn_number) {
+                $srn = $srn_number['srn'];
+            }
+
+            $registration_id = $registration_number['registration_id'];
+
+            $studentData = [
+                'registration_id' => ++$registration_id,
+                'category_id' => $student['level_code'], // Please specify the correct field name
+                'profile_id' => $student['profile_id'],
+                'program_id' => $student['program_id'],
+                'srn' => ++$srn,
+                'program_certificate_code' => $student['certificate_name'],
+                'cert_registration_number' => $this->certRegistrationNumber($srn, $student['certificate_name'], $student['level_code']),
+                'registrar' => 'Lila Nath Bhandari',
+                'decision_date' => $date,
+                'name' => $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'],
+                'date_of_birth' => $student['dob_nep'],
+                'address' => $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'],
+                'program_name' => $student['qualification'],
+                'level_name' => $student['level_'],
+                'qualification' => $student['program_name'] . ':' . $student['board_university'] . ':' . $student['passed_year'],
+                'issued_year' => Carbon::today()->year,
+                'issued_date' => $date,
+                'valid_till' => Carbon::now()->addYears(5),
+                'certificate' => 'new',
+                'issued_by' => 24,
+                'certificate_status' => 1,
+                'type' => 'new'
+            ];
+
+            $studentsData[] = $studentData;
+
+            $examupdate['status'] = "accepted";
+            $examupdate['state'] = "council";
+            $this->examProcessingRepository->update($examupdate, $student['exam_registration_id']);
+
+            $profilesProcessing = $this->profileProcessingRepository->getAll()
+                ->where('profile_id', $student['profile_id'])
+                ->first();
+
+            $data['current_state'] = 'council';
+            $data['status'] = 'accepted';
+            $this->profileProcessingRepository->update($data, $profilesProcessing['id']);
+        }
+
+        dd($studentsData);
+        // Bulk insert the student data
+        Certificate::insert($studentsData);
+
+        return redirect()->back();
+    }
+
     public function moveToDartaBook()
     {
 
@@ -254,7 +348,7 @@ class CouncilController extends BaseController
             ->where('exam_registration.state', "=", 'council')
             ->where('exam_registration.level_id', "!=", '4')
             ->where('exam_registration.attempt', "=", '1')
-            //            ->where('exam_registration.isPassed',"=",true)
+            ->where('exam_registration.exam_id', "=", 6)
             ->where('exam_registration.certificate_generate', '=', 'No')
             ->orderBy('profiles.created_at', 'ASC')
             ->get([
@@ -262,7 +356,7 @@ class CouncilController extends BaseController
                 'program.id as program_id', 'level.*', 'provinces.province_name', 'exam_registration.id as exam_registration_id'
             ]);
 
-        // dd($students);
+        dd($students);
         foreach ($students as $student) {
             $srn_number = 0;
             $srn = 0;

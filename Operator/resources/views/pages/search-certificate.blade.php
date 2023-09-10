@@ -74,7 +74,7 @@
                                         <fieldset class="form-group">
                                             <select class="form-control" name="date"  id="date" >
                                                 <option value={{ isset($request->date) ?  $request->date : "2023-04-21"  }}>{{ isset($request->date) ?  $request->date : 'DECISION DATE'  }}</option>
-                                                  <option value="2023-06-02">2023-06-02 (2080-02-19)</option>
+                                                <option value="2023-06-02">2023-06-02 (2080-02-19)</option>
                                                 <option value="2023-04-26">2023-04-26 (2080-01-13)</option>
                                                 <option value="2023-04-25">2023-04-25 (2080-01-12)</option>
                                                 <option value="2023-04-08">2023-04-08 (2079-12-25)</option>

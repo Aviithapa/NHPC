@@ -1,5 +1,6 @@
 <?php
 
+use Council\Http\Controller\CouncilController;
 use ExamCommittee\Http\Controller\ExamCommitteeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/result/import', [ExamCommitteeController::class, 'fileImport'])->name('result.import');
 
 Route::get('/forward/council', [ExamCommitteeController::class, 'FileForwardCouncil'])->name('forward.council');
+
+Route::get('/dartaBook/council', [CouncilController::class, 'moveToDartaBookAPI'])->name('forward.moveToDartaBookAPI');

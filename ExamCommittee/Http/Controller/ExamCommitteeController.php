@@ -238,7 +238,7 @@ class  ExamCommitteeController extends BaseController
                 ->whereIn('id', $examProcessingIds) // Assuming 'id' is the primary key of the 'exam_processing' table
                 ->update($data);
 
-            dd($examProcessingIds);
+            // dd($examProcessingIds);
         }
 
         // $this->absentStudentList();
