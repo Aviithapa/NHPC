@@ -27,3 +27,5 @@ Route::get('/forward/council', [ExamCommitteeController::class, 'FileForwardCoun
 
 Route::get('/dartaBook/council', [CouncilController::class, 'moveToDartaBookAPI'])->name('forward.moveToDartaBookAPI');
 Route::post('/change/council/number', [CouncilController::class, 'FileChangeCouncilDateApi'])->name('forward.FileChangeCouncilDateApi');
+
+Route::post('/change/council/date', [CouncilController::class, 'ChangeCouncilDateApi'])->name('forward.ChangeCouncilDateApi');

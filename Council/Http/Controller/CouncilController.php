@@ -700,4 +700,20 @@ class CouncilController extends BaseController
         }
         return redirect()->back();
     }
+
+
+    public function ChangeCouncilDateApi(Request $request)
+    {
+        $data = $request->all();
+        $date = $data['old_decision_date'];
+        $new_date = $data['new_decision_date'];
+        $passed_list = Certificate::all()->where('decision_date', '=', $date);
+
+        foreach ($passed_list as $pass) {
+            $exam['decision_date'] = $new_date;
+            $exam['issued_date'] = $new_date;
+            $updatedDecisionDate = $this->certificateRepository->update($exam, $pass['id']);
+        }
+        return redirect()->back();
+    }
 }
