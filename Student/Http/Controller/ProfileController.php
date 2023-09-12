@@ -269,7 +269,7 @@ class ProfileController extends BaseController
                     return view('student::pages.apply-exam', compact('all_program', 'profile'));
                 } else {
                     if ($profile['level'] === 3) {
-                        $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', '=', '6');
+                        $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', '=', '7');
                         if ($exam->isEmpty()) {
                             $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', Auth::user()->id);
                             if ($qualification != null) {
@@ -279,7 +279,7 @@ class ProfileController extends BaseController
                             }
                             return view('student::pages.apply-exam', compact('all_program', 'profile'));
                         } else {
-                            $specific_program = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('status', '=', 'rejected')->where('exam_id', '=', '6')->first();
+                            $specific_program = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('status', '=', 'rejected')->where('exam_id', '=', '7')->first();
                             if ($specific_program == null) {
                                 session()->flash('success', 'You have already enrolled in licence Exam');
                                 return redirect()->back();
@@ -288,7 +288,7 @@ class ProfileController extends BaseController
                             }
                         }
                     } else {
-                        $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', '=', '6');
+                        $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', '=', '7');
                         if ($exam->isEmpty()) {
                             $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', Auth::user()->id);
                             if ($qualification != null) {
@@ -298,7 +298,7 @@ class ProfileController extends BaseController
                             }
                             return view('student::pages.apply-exam', compact('all_program', 'profile'));
                         } else {
-                            $specific_program = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('status', '=', 'rejected')->where('exam_id', '=', '6')->first();
+                            $specific_program = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('status', '=', 'rejected')->where('exam_id', '=', '7')->first();
                             if ($specific_program == null) {
                                 session()->flash('success', 'You have already enrolled in licence Exam');
                                 return redirect()->back();
@@ -411,7 +411,7 @@ class ProfileController extends BaseController
     {
         try {
             $profile = $this->profileRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
-            $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', 6)->first();
+            $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', 7)->first();
             $admit_card = $this->admitCardRepository->getAll()->where('exam_processing_id', '=', $exam['id'])->first();
             if ($admit_card != null) {
                 $exam_applied = $this->examProcessingRepository->getAll()->where('id', '=', $exam['id'])
@@ -434,7 +434,7 @@ class ProfileController extends BaseController
                 $data = "Error";
                 return view('student::pages.admit-download', compact('data'));
             }
-            $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', 6)->first();
+            $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', 7)->first();
             $admit_card = $this->admitCardRepository->getAll()->where('exam_processing_id', '=', $exam['id'])->first();
             if ($admit_card === null) {
                 $data = "Error";
@@ -470,7 +470,7 @@ class ProfileController extends BaseController
                 $data = "Error";
                 return view('student::pages.admit-download', compact('data'));
             }
-            $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', 6)->first();
+            $exam = $this->examProcessingRepository->getAll()->where('profile_id', '=', $profile['id'])->where('exam_id', 7)->first();
             if ($exam === null) {
                 $data = "Error";
                 return view('student::pages.admit-download', compact('data'));
