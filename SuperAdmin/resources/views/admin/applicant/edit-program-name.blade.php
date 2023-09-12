@@ -44,7 +44,7 @@
                                                     <select class="form-control" name="exam_id" required>
                                                         <option value="{{ $exam->exam_id }}">{{ $exam->exam_id }}</option>
                                                         @foreach($exams  as $ex)
-                                                        <option value="{{$ex->id}}">{{$ex->name}}</option>
+                                                        <option value="{{$ex->id}}">{{$ex->Exam_name}}</option>
                                                      @endforeach
                                                     </select>
                                                 </fieldset>
