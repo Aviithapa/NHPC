@@ -4,6 +4,7 @@ use App\Models\Admin\Level;
 use App\Models\AdmitCard\AdmitCard;
 use App\Models\Certificate\Certificate;
 use App\Models\Certificate\CertificateHistory;
+use App\Models\Exam\Exam;
 use App\Models\Exam\ExamProcessing;
 use App\Models\Profile\ProfileProcessing;
 use Carbon\Carbon;
@@ -1028,5 +1029,20 @@ if (!function_exists('idCard')) {
             }
         }
         return false;
+    }
+}
+
+
+if (!function_exists('getExamName')) {
+    function getExamName($id)
+    {
+        $profile = Exam::all()->where('id', '=', $id)->first();
+
+        if (isset($profile)) {
+
+            return $profile['Exam_name'];
+        } else {
+            return $id;
+        }
     }
 }
