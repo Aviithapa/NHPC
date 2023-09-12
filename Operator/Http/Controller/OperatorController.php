@@ -9,6 +9,7 @@ use App\Imports\OldFileImport;
 use App\Models\Address\Provinces;
 use App\Models\Certificate\Certificate;
 use App\Models\Certificate\KYCData;
+use App\Models\Exam\Exam;
 use App\Models\Exam\ExamProcessing;
 use App\Models\Profile\Profilelogs;
 use App\Modules\Backend\Admin\Program\Repositories\ProgramRepository;
@@ -951,11 +952,12 @@ class OperatorController extends BaseController
     {
 
 
+        $exams = Exam::all();
         $exam = $this->examProcessingRepository->findById($id);
         $profile = $this->profileRepository->findById($exam->profile_id);
         $all_program = $this->programRepository->getAll();
         //                        dd($all_program);
-        return view('superAdmin::admin.applicant.edit-program-name', compact('all_program', "profile", 'exam'));
+        return view('superAdmin::admin.applicant.edit-program-name', compact('all_program', "profile", 'exam', 'exams'));
     }
 
     public function applyExam(Request $request)

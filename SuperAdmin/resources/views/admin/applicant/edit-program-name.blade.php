@@ -40,6 +40,19 @@
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <fieldset class="form-group">
+                                                    <label>Licence Exam</label>
+                                                    <select class="form-control" name="exam_id" required>
+                                                        <option value="{{ $exam->exam_id }}">{{ $exam->exam_id }}</option>
+                                                        @foreach($exams  as $ex)
+                                                        <option value="{{$ex->id}}">{{$ex->name}}</option>
+                                                     @endforeach
+                                                    </select>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <fieldset class="form-group">
                                                     <label>Program Name</label>
                                                     <select class="form-control" name="program_id" required>
                                                         <option value="{{ $exam->program_id }}">{{ $exam->program_id }}</option>
