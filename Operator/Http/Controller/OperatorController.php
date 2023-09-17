@@ -1949,7 +1949,6 @@ class OperatorController extends BaseController
 
     public function OldfileImport(Request $request)
     {
-        dd($request);
         Excel::import(new OldFileImport(), $request->file('file')->store('temp'));
         return back();
     }
