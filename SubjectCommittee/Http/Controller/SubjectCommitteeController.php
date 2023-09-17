@@ -736,7 +736,7 @@ class SubjectCommitteeController extends BaseController
         $subject_Committee = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
         $subject_Committee_number = SubjectCommitteeUser::where('subjecr_committee_id', '=', $subject_Committee['subjecr_committee_id'])->get();
         $subjectCommitteeCount = $subject_Committee_number->count();
-        $average = 0;
+        $average = 1;
         $datas = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
@@ -889,10 +889,11 @@ class SubjectCommitteeController extends BaseController
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->where('profile_processing.current_state', 'subject_committee')
             ->where('profile_processing.status', 'progress')
-            ->where('profile_processing.subject_committee_accepted_num', '<=', '3')
+            ->where('profile_processing.subject_committee_accepted_num', '<=', '2')
             ->where('program.subject-committee_id', '=', $sub['subjecr_committee_id'])
             ->orderBy('profiles.created_at', 'ASC')
-            ->where('exam_registration.exam_id', 6)
+            // ->where('exam_registration.exam_id', 6)
+            ->where('exam_registration.level_id', '=', '4')
             ->get(['profiles.id as profile_id']);
 
         $profiles =

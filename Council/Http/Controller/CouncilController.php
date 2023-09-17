@@ -395,7 +395,7 @@ class CouncilController extends BaseController
                 ->where('exam_registration.status', "=", 'progress')
                 ->where('exam_registration.state', "=", 'council')
                 ->where('exam_registration.level_id', "=", '4')
-                ->where('exam_registration.attempt', "=", '1')
+                // ->where('exam_registration.attempt', "=", '1')
                 //            ->where('exam_registration.isPassed',"=",true)
                 ->where('exam_registration.certificate_generate', '=', 'No')
                 ->orderBy('profiles.created_at', 'ASC')
@@ -405,8 +405,7 @@ class CouncilController extends BaseController
                 ]);
 
             foreach ($students as $student) {
-                $srn_number = 0;
-                $date = '2023-06-02';
+                $date = '2023-09-13';
                 $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
                 $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
                 $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
@@ -422,7 +421,7 @@ class CouncilController extends BaseController
                 $data['program_certificate_code'] = $student['certificate_name'];
                 $data['cert_registration_number'] = $this->certRegistrationNumber($data['srn'], $student['certificate_name'], $student['level_code']);
                 $data['registrar'] = 'Lila Nath Bhandari';
-                $data['decision_date'] = '2023-06-02';
+                $data['decision_date'] = '2023-09-13';
                 // Carbon::now()->format('YYYY/MM/DD');
 
                 //            $date;
