@@ -89,7 +89,8 @@ class OldFileImport implements ToModel
             'is_edited' => $row[22],
             'issued_by' => $row[23],
             'decision_date' => $row[24],
-            'certificate_status' => $row[25]
+            'certificate_status' => $row[25],
+            'decision_date' => '2023-01-18'
             // certificate	type	remarks	is_printed	printed_date	printed_by	is_edited	issued_by	decision_date	certificate_status
 
         ]);
