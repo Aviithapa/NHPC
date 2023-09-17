@@ -5,7 +5,8 @@
 
 <div style="width:60%; margin-left:25%; margin-right:25%; text-align:center;"> 
     {{-- <img src= "https://thumbs.dreamstime.com/b/liquid-error-page-not-found-design-graphic-template-website-white-background-98082973.jpg"> --}}
-   <h1 style="margin-top: 50px; font-weight:700">Welcome to Nepal Health Professional Council Exam Section</h1>
+   <h1 style="margin-top: 50px; font-weight:700">Welcome to <br /> 
+      Nepal Health Professional Council Bansbari, Kathmandu</h1>
  </div>
   {{-- <div style="width:60%; margin-left:25%; margin-right:25%; text-align:center;"> 
     <img src= "https://demiliani.files.wordpress.com/2020/08/retrypattern_02.jpg?w=1024">

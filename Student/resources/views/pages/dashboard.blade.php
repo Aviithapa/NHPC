@@ -119,15 +119,17 @@
                                 <table class="table no-margin">
                                     <thead>
                                     <tr>
-                                        <th>Exam ID</th>
-                                        <th>Exam Name</th>
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td><a href="#">OR9842</a></td>
-                                        <td>TSLC Licence Exam</td>
+                                        <td><a href="#">TSLC</a></td>
+                                        <td>TSLC Licence</td>
+                                        <td>यो TSLC स्तरको Licence लागि मात्र हो यदि तपाईंले यहाँबाट आवेदन गर्नुभयो भने तपाईं Licence परीक्षाको लागि योग्य हुनुहुनेछैन</td>
                                         <td>
                                             <a href="{{route('apply.for.exam')}}"><span class="label label-success">Apply</span></a>
                                         </td>
