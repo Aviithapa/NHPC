@@ -665,7 +665,7 @@ class CouncilController extends BaseController
     {
         $data =
             CertificateHistory::where('decision_date', 'like', '18-01-2023')
-            ->orWhere('decision_date', 'like', '2023-01-2023')
+            ->orWhere('decision_date', 'like', '2023-01-18')
             ->get();
         return view('council::pages.old-certificate-list', compact('data'));
     }
