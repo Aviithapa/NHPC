@@ -50,7 +50,7 @@
                 <div class="logo" style="width: 20%;float:left; text-align:center; font-size:11px;">
                    <span style="z-index: 2000;"> <img src="https://nhpc.gov.np/beta//assets/img/nhpc_logo.jpg" class="logo" width="25px" height="25px" style="position: absolute; margin-bottom: -15px; margin-top:10px; z-index: 10000;"></span></br>
                     <img class="img-responsive" width="90" height="90" src={{ $profile->getProfileImage() }}></br>
-                    <span style="z-index: 2000; "> <img src="http://103.175.192.52/storage/documents/tKtyJYTTE9JiesiME3bLts5EMNGQgL3IQV6BF5Qp.png" class="signature" width="50px" height="25px" style="position: absolute; margin-top: -20px; z-index: 10000; margin-left: -15px;"></span></br>
+                    <span style="z-index: 2000; "> <img src="http://103.175.192.52/storage/documents/h3RQ2mnKFhjEIuTFBzkizisymD8v38gK7SqJWRsI.png" class="signature" width="50px" height="25px" style="position: absolute; margin-top: -20px; z-index: 10000; margin-left: -15px;"></span></br>
                      <span>Registrar</span>
                 </div>
               </div>
