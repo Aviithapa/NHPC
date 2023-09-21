@@ -171,12 +171,12 @@
 ">
             <img src="{{$data->getProfileImage()}}" height="120">
         </div>
-        <div class="col" id="col2" style="flex: 2; background-color: red;
+        <div class="col" id="col2" style="flex: 2; background-color: blue;
         justify-content: center;
         padding-left: 0.3rem;
         font-size: 30px;
         font-weight: 600;
-        border: 2px solid black;"> Registration Certificate </div>
+        border: 2px solid black;color:white;"> Registration Certificate </div>
         <div class="col-side" id="col3" style="        flex: 0 0 122px;width: 22px !important;
         height: 122px;
         border: 1px solid black;
