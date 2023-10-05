@@ -28,7 +28,14 @@
                                     <form method="POST" action="{{url('superAdmin/dashboard/add/municipality/update/' .$data->id )}}">
                                         @csrf
                                         <div class="row">
-                                           
+                                               
+                                            <div class="col-lg-4">
+                                                <fieldset class="form-group">
+                                                    <label>District </label>
+                                                    <input name="district_name" class="form-control" id="basicInput" type="text" value={{ $data->district_name }} required/>
+                                                </fieldset>
+                                            </div>
+
                                             <div class="col-lg-4">
                                                 <fieldset class="form-group">
                                                     <label>Municipality / Gaupalika  Name </label>
