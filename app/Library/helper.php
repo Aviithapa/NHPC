@@ -910,7 +910,7 @@ if (!function_exists('getExamStatus')) {
     {
 
         $exam = ExamProcessing::all()->where('id', '=', $exam_id)->first();
-        if ($exam['isPassed'] == 0 && $exam['is_admit_card_generate'] == 'yes' && $exam['exam_id'] != 6)
+        if ($exam['isPassed'] == 0 && $exam['is_admit_card_generate'] == 'yes' && $exam['exam_id'] != 7)
             return 'Failed';
         elseif ($exam['exam_id'] == 3 || $exam['exam_id'] == 4 || $exam['exam_id'] == 5)
             return 'Failed';
