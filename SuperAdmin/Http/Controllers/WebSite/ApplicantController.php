@@ -300,7 +300,7 @@ class ApplicantController  extends BaseController
                         '<td>' . $product->phone_number . '</td>' .
                         '<td>' . $product->password_reference . '</td>' .
                         '<td><a href=' . url("superAdmin/dashboard/active/" . $product->id) . '><span class="label label-success">Active</span></a> <a href=' . url("superAdmin/dashboard/inactive/" . $product->id) . '><span class="label label-danger">In Active</span></a>
-                        <a href=' . url("superAdmin/dashboard/user/delete/" . $product->product_id) . '><span class="label label-danger">Delete</span></a>
+                        <a href=' . url("superAdmin/dashboard/user/delete/" . $product->id) . '><span class="label label-danger">Delete</span></a>
                         </td>' .
                         '<td><a href=' . url("superAdmin/dashboard/mapUser/index/" . $product->id) . '><span class="label label-danger">Assign</span></a></td>' .
                         '<td><a href=' . url("superAdmin/dashboard/edit/user/" . $product->id) . '><span class="label label-success">Edit</span></a></td>' .
