@@ -59,7 +59,7 @@
                 </a>
             </li>
              <li class="{{ (request()->is('superAdmin/dashboard/university/*')) ? 'active':''  }}">
-                <a href="{{route('superAdmin.university.index')}}">
+                <a href="{{route('superAdmin.university')}}">
                     <i class="icon-book-open"></i> <span>University</span>
                 </a>
             </li>
