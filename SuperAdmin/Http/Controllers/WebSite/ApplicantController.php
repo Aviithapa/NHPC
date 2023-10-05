@@ -1044,7 +1044,7 @@ class ApplicantController  extends BaseController
         return view('superAdmin::admin.applicant.university.form');
     }
 
-    public function universitySave(Request $request)
+    public function universityStore(Request $request)
     {
         $data = $request->all();
         $university = new University();
