@@ -916,7 +916,7 @@ if (!function_exists('getExamStatus')) {
             return 'Failed';
         elseif ($exam['isPassed'] == 0 && $exam['attempt'] == '2')
             return 'Re Exam';
-        elseif ($exam['status'] == 'progress' && $exam['state'] == 'exam-committee' && $exam['exam_id'] == 7)
+        elseif ($exam['status'] == 'progress' && $exam['state'] == 'exam_committee' && $exam['exam_id'] == 7)
             return 'Re Exam';
         else
             return 'New Applied';
