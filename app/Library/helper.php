@@ -912,9 +912,11 @@ if (!function_exists('getExamStatus')) {
         $exam = ExamProcessing::all()->where('id', '=', $exam_id)->first();
         if ($exam['isPassed'] == 0 && $exam['is_admit_card_generate'] == 'yes' && $exam['exam_id'] != 7)
             return 'Failed';
-        elseif ($exam['exam_id'] == 3 || $exam['exam_id'] == 4 || $exam['exam_id'] == 5)
+        elseif ($exam['exam_id'] == 3 || $exam['exam_id'] == 4 || $exam['exam_id'] == 5 || $exam['exam_id'] == 6 && $exam['status'] == 'rejected')
             return 'Failed';
-        elseif ($exam['isPassed'] = 0 && $exam['attempt'] == '2')
+        elseif ($exam['isPassed'] == 0 && $exam['attempt'] == '2')
+            return 'Re Exam';
+        elseif ($exam['status'] == 'progress' && $exam['state'] == 'exam-committee' && $exam['exam_id'] == 7)
             return 'Re Exam';
         else
             return 'New Applied';
