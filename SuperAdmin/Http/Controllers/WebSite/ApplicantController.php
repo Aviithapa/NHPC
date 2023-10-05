@@ -5,6 +5,7 @@ namespace SuperAdmin\Http\Controllers\WebSite;
 use App\Http\Controllers\Admin\BaseController;
 use App\Models\Address\Municipality;
 use App\Models\Admin\Program;
+use App\Models\Admin\University;
 use App\Models\Certificate\Certificate;
 use App\Models\Certificate\CertificateHistory;
 use App\Models\Exam\ExamProcessing;
@@ -1030,5 +1031,54 @@ class ApplicantController  extends BaseController
         } else {
             return view('superAdmin::admin.applicant.search-students', compact('program'));
         }
+    }
+
+    public function university()
+    {
+        $data = University::all();
+        return view('superAdmin::admin.applicant.collage', compact("data"));
+    }
+
+    public function universityCreate()
+    {
+        return view('superAdmin::admin.applicant.university.form');
+    }
+
+    public function universitySave(Request $request)
+    {
+        $data = $request->all();
+        $university = new University();
+        $university->fill($data);
+
+        // Save the data to the database
+        $university->save();
+        if ($university == false) {
+            session()->flash('error', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+
+        session()->flash('success', 'New Collage has been added');
+        return redirect()->back();
+    }
+    public function universityEdit($id)
+    {
+        $data = University::find($id);
+        return view('superAdmin::admin.applicant.university.edit', compact("data"));
+    }
+
+    public function universityUpdate(Request $request, $id)
+    {
+        $data = $request->all();
+        $university = University::find($id); // Replace $id with the ID of the model you want to update
+        $university->name = $data['name'];
+        $university->save();
+
+        if ($university == false) {
+            session()->flash('error', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+
+        session()->flash('success', 'New Collage has been added');
+        return redirect()->back();
     }
 }

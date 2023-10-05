@@ -58,12 +58,17 @@
                     <i class="icon-book-open"></i> <span>Program</span>
                 </a>
             </li>
+             <li class="{{ (request()->is('superAdmin/dashboard/university/*')) ? 'active':''  }}">
+                <a href="{{route('superAdmin.university.index')}}">
+                    <i class="icon-book-open"></i> <span>University</span>
+                </a>
+            </li>
             <li class="{{ (request()->is('superAdmin/dashboard/student/card')) ? 'active':''  }}">
                 <a href="{{route('superAdmin.student.card')}}">
                     <i class="icon-book-open"></i> <span>ID Card</span>
                 </a>
             </li>
-           
+            
             {{-- <li class="{{ (request()->is('superAdmin/dashboard/certificate/index')) ? 'active':''  }}">
                 <a href="{{route('superAdmin.generateCertificate.index')}}">
                     <i class="icon-book-open"></i> <span>Ready to Generate Certificate</span>

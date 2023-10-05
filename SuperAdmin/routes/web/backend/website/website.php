@@ -351,6 +351,13 @@ Route::group(['namespace' => 'WebSite'], function () {
 
 
 
+    Route::get('/university', 'ApplicantController@university')->middleware(['auth'])->name('superAdmin.university');
+    Route::get('/university/create', 'ApplicantController@universityCreate')->middleware(['auth'])->name('superAdmin.university.create');
+    Route::post('/university/store', 'ApplicantController@universityStore')->middleware(['auth'])->name('superAdmin.university.store');
+    Route::get('/university/edit/{id}', 'ApplicantController@universityEdit')->middleware(['auth'])->name('superAdmin.university.edit');
+    Route::post('/university/update/{id}', 'ApplicantController@universityUpdate')->middleware(['auth'])->name('superAdmin.university.update');
+
+
 
     Route::match(['get', 'post'], '/search/lost/student', 'ApplicantController@searchStudent')->middleware(['auth'])->name('search.lost.student');
 });
