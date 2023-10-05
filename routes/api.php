@@ -32,3 +32,4 @@ Route::post('/change/council/date', [CouncilController::class, 'ChangeCouncilDat
 
 Route::post('/reject/exam_committee', [CouncilController::class, 'RejectExamCommitteeFileApi'])->name('forward.RejectExamCommitteeFileApi');
 Route::post('/old-applicant/import', [\Operator\Http\Controller\OperatorController::class, 'OldfileImport'])->name('operator.import.old.file');
+Route::post('/re-exam/exam_committee', [CouncilController::class, 'ReExamCommitteeFileApi'])->name('forward.ReExamCommitteeFileApi');

@@ -733,4 +733,15 @@ class CouncilController extends BaseController
 
         return $exam_progress;
     }
+
+    public function ReExamCommitteeFileApi(Request $request)
+    {
+        $data = $request->all();
+        $exam_progress = $this->examProcessingRepository->getAll()->where('exam_id', $data['exam_id'])->where('status', 'progress')->where('state', 'exam_committee');
+        $examData['status'] = 're-exam';
+        foreach ($exam_progress as $exam) {
+            $this->examProcessingRepository->update($examData, $exam->id);
+        }
+        return $exam_progress;
+    }
 }
