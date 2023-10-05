@@ -51,7 +51,7 @@
                                             <td><a href="#">{{++$key}}</a></td>
                                                
                                                     <td>{{$qualification->name}}</td>
-                                                    <td><a href="{{route('super.Admin.university.edit',["id" => $qualification->id])}}"><span class="label label-success">Edit</span></a></td>
+                                                    <td><a href="{{route('superAdmin.university.edit',["id" => $qualification->id])}}"><span class="label label-success">Edit</span></a></td>
                                               
                                                 </tr>
                                                 @endforeach
