@@ -1036,7 +1036,7 @@ class ApplicantController  extends BaseController
     public function university()
     {
         $data = University::all();
-        return view('superAdmin::admin.applicant.collage', compact("data"));
+        return view('superAdmin::admin.applicant.university.index', compact("data"));
     }
 
     public function universityCreate()
