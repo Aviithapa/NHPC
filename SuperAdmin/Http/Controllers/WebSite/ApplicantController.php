@@ -299,7 +299,9 @@ class ApplicantController  extends BaseController
                         '<td>' . $product->email . '</td>' .
                         '<td>' . $product->phone_number . '</td>' .
                         '<td>' . $product->password_reference . '</td>' .
-                        '<td><a href=' . url("superAdmin/dashboard/active/" . $product->id) . '><span class="label label-success">Active</span></a> <a href=' . url("superAdmin/dashboard/inactive/" . $product->id) . '><span class="label label-danger">In Active</span></a></td>' .
+                        '<td><a href=' . url("superAdmin/dashboard/active/" . $product->id) . '><span class="label label-success">Active</span></a> <a href=' . url("superAdmin/dashboard/inactive/" . $product->id) . '><span class="label label-danger">In Active</span></a>
+                        <a href=' . url("superAdmin/dashboard/user/delete/" . $product->product_id) . '><span class="label label-danger">Delete</span></a>
+                        </td>' .
                         '<td><a href=' . url("superAdmin/dashboard/mapUser/index/" . $product->id) . '><span class="label label-danger">Assign</span></a></td>' .
                         '<td><a href=' . url("superAdmin/dashboard/edit/user/" . $product->id) . '><span class="label label-success">Edit</span></a></td>' .
                         '</tr>';
@@ -347,6 +349,17 @@ class ApplicantController  extends BaseController
     {
         if (Auth::user()->mainRole()->name === 'superadmin') {
             $this->profileRepository->hardDelete($id);
+            session()->flash('success', 'User has been deleted successfully');
+            return redirect()->back();
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function userDelete($id)
+    {
+        if (Auth::user()->mainRole()->name === 'superadmin') {
+            $this->userRepository->hardDelete($id);
             session()->flash('success', 'User has been deleted successfully');
             return redirect()->back();
         } else {
