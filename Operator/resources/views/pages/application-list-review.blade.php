@@ -257,6 +257,7 @@
                                                                 <td>{{$qualifications->getLevelName()}}</td>
                                                                 <td>{{$qualifications->board_university}}</td>
                                                                 <td>{{$qualifications->getProgramName()}}</td>
+                                                                <td>{{$qualifications->collage_name}}</td>
                                                                 <td>{{$qualifications->passed_year}}</td>
                                                             </tr>
                                                         @endforeach
