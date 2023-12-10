@@ -143,6 +143,18 @@
                                         </select>
                                     </fieldset>
                                 </div>
+
+                                 <div class="col-lg-3">
+                                    <fieldset class="form-group">
+                                        <select class="form-control" name="exam_id"  id="date" >
+                                            <option value={{ isset($request->exam_id) ? $request->exam_id : '' }}>{{ isset($request->exam_id) ? getExamName($request->exam_id) : 'Select Exam' }}</option>
+                                            @foreach($exams as $programs)
+                                            <option value={{ $programs->id }}>{{ $programs->Exam_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </fieldset>
+                                </div>
+
                                 <div class="col-lg-3">
                                     <fieldset class="form-group">
                                         <input type="date" name="regratation_date" class = "form-control" placeholder="Enter Registration Date" value={{ isset($request->regratation_date) ? $request->regratation_date : '' }} >

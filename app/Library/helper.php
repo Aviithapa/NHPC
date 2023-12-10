@@ -386,6 +386,19 @@ if (!function_exists('getProgramName')) {
     }
 }
 
+if (!function_exists('getExamName')) {
+    /**
+     * @param null $type
+     * @return string
+     */
+    function getExamName($id)
+    {
+        $data = Exam::query()->where('id', '=', $id)->first();
+        return isset($data['Exam_name']) ? $data['Exam_name'] : '';
+    }
+}
+
+
 if (!function_exists('getLevelName')) {
     /**
      * @param null $type

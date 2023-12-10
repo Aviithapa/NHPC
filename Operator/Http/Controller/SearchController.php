@@ -6,6 +6,7 @@ namespace Operator\Http\Controller;
 use App\Models\Admin\Program;
 use App\Models\Certificate\Certificate;
 use App\Models\Certificate\CertificateHistory;
+use App\Models\Exam\Exam;
 use App\Models\Exam\ExamProcessing;
 use App\Modules\Backend\Admin\College\Repositories\CollegeRepository;
 use App\Modules\Backend\Authentication\User\Repositories\UserRepository;
@@ -160,12 +161,16 @@ class SearchController extends BaseController
     public function searchStudent(Request $request)
     {
         $program = Program::get();
+        $exams = Exam::get();
         if ($request->isMethod('post')) {
 
             $query = Profile::query()->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
                 ->join('users', 'users.id', '=', 'profiles.user_id');
             if ($request->state != null) {
-                $query->where('exam_registration.state', 'like', $request->state)->where('exam_registration.exam_id', '!=', 3)->where('exam_registration.is_admit_card_generate', '=', 'no');
+                $query->where('exam_registration.state', 'like', $request->state);
+            }
+            if ($request->exam_id != null) {
+                $query->where('exam_registration.exam_id', 'like', $request->exam_id);
             }
             if ($request->status != null) {
                 $query->where('exam_registration.status', 'like', $request->status);
@@ -212,9 +217,9 @@ class SearchController extends BaseController
 
             $data = $query->distinct('profile_id')->get();
 
-            return view('operator::pages.search-students', compact('data', 'program', 'request'));
+            return view('operator::pages.search-students', compact('data', 'program', 'request', 'exams'));
         } else {
-            return view('operator::pages.search-students', compact('program'));
+            return view('operator::pages.search-students', compact('program', 'exams'));
         }
     }
 
