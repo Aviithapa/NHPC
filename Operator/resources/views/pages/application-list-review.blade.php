@@ -247,6 +247,7 @@
                                                         <td>Program Name</td>
                                                         <td>Collage Name</td>
                                                         <td>Passed Year</td>
+                                                        <td>Action</td>
 
                                                         </thead>
                                                         <tbody>
@@ -259,6 +260,7 @@
                                                                 <td>{{$qualifications->getProgramName()}}</td>
                                                                 <td>{{$qualifications->collage_name}}</td>
                                                                 <td>{{$qualifications->passed_year}}</td>
+                                                                <td><a href="{{url('operator/dashboard/getQualification',$qualifications->id)}}" ><span class="label label-success">Edit</span> </a></td>
                                                             </tr>
                                                         @endforeach
                                                         </tbody>

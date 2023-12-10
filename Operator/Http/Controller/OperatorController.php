@@ -2240,7 +2240,6 @@ class OperatorController extends BaseController
             $profile_log['status'] = 'progress';
             $profile_log['exam_id'] = $profile->id;
             $profile_log['profile_id'] = $profile->profile_id;
-
             $profile_log['remarks'] = 'Profile Verified and forwarded to Subject Committee';
             $profile_log['review_status'] = 'Successfully Accepeted';
             $profile_processing['current_state'] = 'subject_committee';
@@ -2307,5 +2306,33 @@ class OperatorController extends BaseController
             $this->examProcessingRepository->update($exam, $data);
         }
         return redirect()->route('operator.failedStudentList', ['id' => 6]);
+    }
+
+
+    public function getQualification($id)
+    {
+        $qualification = $this->qualificationRepository->findById($id);
+        $master_program = $this->programRepository->getAll();
+        // dd($qualification);
+        return view('operator::pages.qualification.qualification', compact('qualification', 'master_program'));
+    }
+
+
+    public function updateQualification(Request $request, $id)
+    {
+        $data = $request->all();
+        try {
+            $post = $this->qualificationRepository->update($data, $id);
+            if ($post == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            session()->flash('success', 'Qualification updated successfully');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            dd($e);
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
     }
 }

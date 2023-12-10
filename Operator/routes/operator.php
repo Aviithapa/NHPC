@@ -135,3 +135,8 @@ Route::get('/moveFileToSubjectCommittee', [\Operator\Http\Controller\OperatorCon
 Route::get('/removeUnwantedFile', [\Operator\Http\Controller\OperatorController::class, 'removeUnwantedFile'])->middleware(['auth']);
 
 Route::post('/submit-selected-students', [OperatorController::class, 'moveToExamCommittee'])->name('submit-selected-students');
+
+
+Route::get('/getQualification/{id}', [OperatorController::class, 'getQualification'])->middleware(['auth'])->name('operator.qualification');
+
+Route::post('/updateQualification/{id}', [OperatorController::class, 'updateQualification'])->middleware(['auth'])->name('operator.updateQualification');
