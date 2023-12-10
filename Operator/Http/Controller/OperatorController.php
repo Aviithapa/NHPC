@@ -2392,7 +2392,8 @@ class OperatorController extends BaseController
     public function updateRegistrarApproveLogs()
     {
 
-        $datas = $this->profileLogsRepository->getAll()->where('state', NULL)->where('created_by', NULL)->where('remarks', 'Like', '% Profile Verified and forwarded to Subject Committee %');
+        $datas = $this->profileLogsRepository->getAll()->where('remarks', 'Like', '% Profile Verified and forwarded to Subject Committee %');
+        dd($datas);
         foreach ($datas as $da) {
 
             $data['state'] = 'registrar';
