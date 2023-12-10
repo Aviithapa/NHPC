@@ -187,7 +187,9 @@
                                                         <tbody>
                                                         @foreach($profile_logs as $profile_log)
                                                             <tr>
-                                                                <td>{{isset($profile_log->state) ? $profile_log->state : if($profile_log->remarks == 'Profile Verified and forwarded to Subject Committee') 'Registrar'}}</td>
+                                                                <td>
+                                                                     {{ isset($profile_log->state) ? $profile_log->state : ($profile_log->remarks == 'Profile Verified and forwarded to Subject Committee' ? 'Registrar' : '') }}
+                                                                    </td>
                                                                 <td>{{$profile_log->status}}</td>
                                                                 <td>{{$profile_log->remarks}}</td>
                                                                 <td>{{$profile_log->created_at->toDateString()}}</td>
