@@ -82,7 +82,8 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs profile-tab table-responsive" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-expanded="true">Details Information</a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#review" role="tab">Review Details</a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#review" role="tab">Review Details</a>
+                                               <li class="nav-item"> <a class="nav-link"  href="{{url('superAdmin/dashboard/edit/applicant/'.$data->id)}}" role="tab">Edit Profile Details</a> </li> </li>
 
                             </ul>
                             <!-- Tab panes -->
