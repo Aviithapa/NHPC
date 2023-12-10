@@ -187,7 +187,7 @@
                                                         <tbody>
                                                         @foreach($profile_logs as $profile_log)
                                                             <tr>
-                                                                <td>{{$profile_log->state}}</td>
+                                                                <td>{{$profile_log->state || 'registrar'}}</td>
                                                                 <td>{{$profile_log->status}}</td>
                                                                 <td>{{$profile_log->remarks}}</td>
                                                                 <td>{{$profile_log->created_at->toDateString()}}</td>
