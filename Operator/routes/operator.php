@@ -143,6 +143,7 @@ Route::post('/updateQualification/{id}', [OperatorController::class, 'updateQual
 Route::get('/deleteQualification/{id}', [OperatorController::class, 'deleteQualification'])->middleware(['auth'])->name('operator.deleteQualification');
 
 Route::get('deleteDuplicateCertificate/{id}', [OperatorController::class, 'deleteDuplicateCertificate'])->middleware(['auth'])->name('operator.deleteDuplicateCertificate');
+Route::get('/updateRegistrarApproveLogs', [OperatorController::class, 'updateRegistrarApproveLogs'])->middleware(['auth'])->name('operator.updateRegistrarApproveLogs');
 
 
 

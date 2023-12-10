@@ -2387,4 +2387,19 @@ class OperatorController extends BaseController
 
         return redirect()->back();
     }
+
+
+    public function updateRegistrarApproveLogs()
+    {
+
+        $datas = $this->profileLogsRepository->getAll()->where('state', NULL)->where('created_by', NULL)->where('remarks', 'Like', '% Profile Verified and forwarded to Subject Committee %');
+        foreach ($datas as $da) {
+
+            $data['state'] = 'registrar';
+            $data['created_by'] = 32594;
+            $this->profileProcessingRepository->update($data, $da['id']);
+        }
+
+        return redirect()->back();
+    }
 }
