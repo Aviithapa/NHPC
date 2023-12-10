@@ -248,6 +248,8 @@
                                                         <td>Collage Name</td>
                                                         <td>Passed Year</td>
                                                         <td>Action</td>
+                                                        <td>Delete</td>
+
 
                                                         </thead>
                                                         <tbody>
@@ -261,6 +263,9 @@
                                                                 <td>{{$qualifications->collage_name}}</td>
                                                                 <td>{{$qualifications->passed_year}}</td>
                                                                 <td><a href="{{url('operator/dashboard/getQualification',$qualifications->id)}}" ><span class="label label-success">Edit</span> </a></td>
+
+                                                                <td><a href="{{url('operator/dashboard/deleteQualification',$qualifications->id)}}" ><span class="label label-danger">Delete</span> </a></td>
+                                                                
                                                             </tr>
                                                         @endforeach
                                                         </tbody>

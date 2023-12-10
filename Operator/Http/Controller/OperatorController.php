@@ -2336,6 +2336,20 @@ class OperatorController extends BaseController
         }
     }
 
+    public function deleteQualification($id)
+    {
+        try {
+            $certificate = $this->qualificationRepository->delete($id);
+            if ($certificate == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            return redirect()->back();
+        } catch (Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
 
     public function deleteDuplicateCertificate($id)
     {
@@ -2352,6 +2366,8 @@ class OperatorController extends BaseController
             return redirect()->back()->withInput();
         }
     }
+
+
 
 
     public function examPendingList()
