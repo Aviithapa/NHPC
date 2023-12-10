@@ -41,6 +41,8 @@
                                             <td>Program Code</td>
         
                                             <td>Action</td>
+                                            <td>Delete</td>
+
                                             </thead>
                                             <tbody>
                                             @if($data === null)
@@ -61,7 +63,9 @@
                                                         <a href="{{url("operator/dashboard/certificate/history/edit/".$exam->id)}}"><span class="label label-success">Edit</span></a>
                                                         <a href="{{url("operator/dashboard/certificate/history/duplicate/".$exam->id)}}"><span class="label label-success">Duplicate</span></a>
                                                         <a href="{{url("operator/dashboard/certificate/back/".$exam->id)}}"><span class="label label-danger">Back Side Print</span></a></td>
-
+                                                         <td>
+                                                        <a href="{{route("operator.deleteDuplicateCertificate", ['id' => $exam->id])}}"><span class="label label-danger">Delete Certificate</span></a></td>
+                                                         </td>
 
                                                         {{-- <td> <a href="{{url("operator/dashboard/operator/applicant-list-view/".$exam->profile_id)}}"><span class="label label-success">View</span></a></td>
                                                         <td><a href={{url("operator/dashboard/deleteDuplicate/".$exam->profile_id)}}><span class="label label-danger">Delete</span></a> </td> --}}

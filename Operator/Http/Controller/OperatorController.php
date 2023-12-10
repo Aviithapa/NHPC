@@ -2335,4 +2335,21 @@ class OperatorController extends BaseController
             return redirect()->back()->withInput();
         }
     }
+
+
+    public function deleteDuplicateCertificate($id)
+    {
+
+        try {
+            $certificate = $this->certificateHistoryRepository->delete($id);
+            if ($certificate == false) {
+                session()->flash('danger', 'Oops! Something went wrong.');
+                return redirect()->back()->withInput();
+            }
+            return redirect()->route("operator.certificateIndex");
+        } catch (Exception $e) {
+            session()->flash('danger', 'Oops! Something went wrong.');
+            return redirect()->back()->withInput();
+        }
+    }
 }

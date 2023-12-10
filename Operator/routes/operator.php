@@ -140,3 +140,5 @@ Route::post('/submit-selected-students', [OperatorController::class, 'moveToExam
 Route::get('/getQualification/{id}', [OperatorController::class, 'getQualification'])->middleware(['auth'])->name('operator.qualification');
 
 Route::post('/updateQualification/{id}', [OperatorController::class, 'updateQualification'])->middleware(['auth'])->name('operator.updateQualification');
+
+Route::get('deleteDuplicateCertificate/{id}', [OperatorController::class, 'deleteDuplicateCertificate'])->middleware(['auth'])->name('operator.deleteDuplicateCertificate');
