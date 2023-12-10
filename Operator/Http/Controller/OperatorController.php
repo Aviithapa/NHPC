@@ -222,8 +222,8 @@ class OperatorController extends BaseController
             } else if ($status === 'pending') {
                 $data = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
                     ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
-                    ->where('exam_registration.state', '=', 'computer_operator')
-                    ->where('exam_registration.status', '=', $status)
+                    ->where('profile_processing.current_state', '=', $state)
+                    ->where('profile_processing.status', '=', $status)
                     ->join('program', 'program.id', '=', 'exam_registration.program_id')
                     ->where('exam_registration.level_id', '=', $level)
                     //                    ->where('exam_registration.created_at', '>', '2022-07-16')
