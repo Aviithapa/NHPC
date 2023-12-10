@@ -2352,4 +2352,23 @@ class OperatorController extends BaseController
             return redirect()->back()->withInput();
         }
     }
+
+
+    public function examPendingList()
+    {
+        $datas = $this->examProcessingRepository->getAll()->where('status', 'pending')->where('state', 'computer_operator');
+        foreach ($datas as $da) {
+            $profile_processing = $this->profileProcessingRepository->getAll()->where('profile_id', $da['profile_id'])->first();
+            if (!$profile_processing) {
+                $data['status'] = 'pending';
+                $data['profile_id'] = $da['profile_id'];
+                $data['remarks'] = 'Pending';
+                $data['review_status'] = 'Pending';
+                $data['current_state'] = 'computer_operator';
+                $this->profileProcessingRepository->create($data);
+            }
+        }
+
+        return redirect()->back();
+    }
 }

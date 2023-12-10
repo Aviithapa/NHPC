@@ -142,3 +142,7 @@ Route::get('/getQualification/{id}', [OperatorController::class, 'getQualificati
 Route::post('/updateQualification/{id}', [OperatorController::class, 'updateQualification'])->middleware(['auth'])->name('operator.updateQualification');
 
 Route::get('deleteDuplicateCertificate/{id}', [OperatorController::class, 'deleteDuplicateCertificate'])->middleware(['auth'])->name('operator.deleteDuplicateCertificate');
+
+
+
+Route::get('/examPendingList', [OperatorController::class, 'examPendingList'])->middleware(['auth'])->name('operator.examPendingList');
