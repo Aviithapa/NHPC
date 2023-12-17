@@ -25,7 +25,14 @@ Route::post('/result/import', [ExamCommitteeController::class, 'fileImport'])->n
 
 Route::get('/forward/council', [ExamCommitteeController::class, 'FileForwardCouncil'])->name('forward.council');
 
-Route::get('/dartaBook/council', [CouncilController::class, 'moveToDartaBookAPI'])->name('forward.moveToDartaBookAPI');
+Route::get('/dartaBook/council', [CouncilController::class, 'moveToDartaBookAPI'])->name('forward.moveToDartaBookAPI'); // For bachelor, pcl, master
+Route::get('/dartaBook/tslc', [CouncilController::class, 'moveTSLCToDartaBookAPI'])->name('forward.moveTSLCToDartaBookAPI'); // For TSLC
+
+
+
+
+
+
 Route::post('/change/council/number', [CouncilController::class, 'FileChangeCouncilDateApi'])->name('forward.FileChangeCouncilDateApi');
 
 Route::post('/change/council/date', [CouncilController::class, 'ChangeCouncilDateApi'])->name('forward.ChangeCouncilDateApi');

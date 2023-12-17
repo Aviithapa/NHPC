@@ -307,6 +307,69 @@ class CouncilController extends BaseController
         return redirect()->back();
     }
 
+
+
+
+    public function moveTSLCToDartaBookAPI()
+    {
+
+        $students = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->join('level', 'level.id', '=', 'program.level_id')
+            ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
+            ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+            ->where('exam_registration.status', "=", 'progress')
+            ->where('exam_registration.state', "=", 'council')
+            ->where('exam_registration.level_id', "=", '4')
+            ->orderBy('profiles.created_at', 'ASC')
+            ->get([
+                'profiles.*', 'profiles.id as profile_id', 'profiles.created_at as profile_created_at', 'program.name as program_name', 'program.*',
+                'program.id as program_id', 'level.*', 'provinces.province_name', 'exam_registration.id as exam_registration_id'
+            ]);
+
+        foreach ($students as $student) {
+            $srn_number = 0;
+            $srn = 0;
+            $date = '2023-12-17';
+            $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
+            $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
+            if ($srn_number)
+                $srn = $srn_number['srn'];
+            $registration_id = $registration_number['registration_id'];
+            $data['registration_id'] = ++$registration_id;
+            $data['category_id'] = $student[''];
+            $data['profile_id'] = $student['profile_id'];
+            $data['program_id'] = $student['program_id'];
+            $data['srn'] = ++$srn;
+            $data['program_certificate_code'] = $student['certificate_name'];
+            $data['cert_registration_number'] = $this->certRegistrationNumber($data['srn'], $student['certificate_name'], $student['level_code']);
+            $data['registrar'] = 'Lila Nath Bhandari';
+            $data['decision_date'] = $date;
+            $data['name'] = $student['first_name'] . ' ' . $student['middle_name'] . ' ' . $student['last_name'];
+            $data['date_of_birth'] = $student['dob_nep'];
+            $data['address'] = $student['province_name'] . ':' . $student['district'] . ':' . $student['vdc_municiplality'] . ':' . $student['ward_no'];
+            $data['program_name'] = $student['qualification'];
+            $data['level_name'] = $student['level_'];
+            $data['qualification'] = $student['program_name'] . ':' . $student['board_university'] . ':'  . $student['passed_year'];
+            $data['issued_year'] = Carbon::today()->year;
+            $data['issued_date'] = $date;
+            $data['valid_till'] = Carbon::now()->addYears(5);
+            $data['certificate'] = 'new';
+            $data['issued_by'] = 29;
+            $data['certificate_status'] = 1;
+            $certificate = $this->certificateRepository->create($data);
+            $examupdate['status'] = "accepted";
+            $examupdate['state'] = "council";
+            $this->examProcessingRepository->update($examupdate, $student['exam_registration_id']);
+            $profilesProcessing = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $student['profile_id'])->first();
+            $data['current_state'] = 'council';
+            $data['status'] = 'accepted';
+            $this->profileProcessingRepository->update($data, $profilesProcessing['id']);
+        }
+
+        return redirect()->back();
+    }
+
     public function moveToDartaBook()
     {
 
@@ -387,7 +450,7 @@ class CouncilController extends BaseController
 
         try {
             //code...
-            $students = $profiles = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            $students =  Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
                 ->join('program', 'program.id', '=', 'exam_registration.program_id')
                 ->join('level', 'level.id', '=', 'program.level_id')
                 ->join('provinces', 'provinces.id', '=', 'profiles.development_region')
