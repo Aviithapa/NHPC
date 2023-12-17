@@ -2403,4 +2403,10 @@ class OperatorController extends BaseController
 
         return redirect()->back();
     }
+
+    public function allTslcStudent()
+    {
+        $exam = $this->examProcessingRepository->getAll()->where('state', 'subject_committee')->where('status', 'progress')->where('level_id', '4')->whereIn('program_id', ['41', '42', '44', '45', '127']);
+        dd($exam);
+    }
 }

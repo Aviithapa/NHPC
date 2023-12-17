@@ -148,3 +148,5 @@ Route::get('/updateRegistrarApproveLogs', [OperatorController::class, 'updateReg
 
 
 Route::get('/examPendingList', [OperatorController::class, 'examPendingList'])->middleware(['auth'])->name('operator.examPendingList');
+
+Route::get('/allTslcStudent', [OperatorController::class, 'allTslcStudent'])->name('operator.allTslcStudent');
