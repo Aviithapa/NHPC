@@ -2406,7 +2406,16 @@ class OperatorController extends BaseController
 
     public function allTslcStudent()
     {
-        $exam = $this->examProcessingRepository->getAll()->where('state', 'subject_committee')->where('status', 'progress')->where('level_id', '4')->whereIn('program_id', ['41', '42', '44', '45', '127']);
-        dd($exam);
+        $examIdsToUpdate = $this->examProcessingRepository
+            ->getAll()
+            ->where('state', 'subject_committee')
+            ->where('status', 'progress')
+            ->where('level_id', '4')
+            ->whereIn('program_id', ['41', '42', '44', '45', '127'])
+            ->pluck('id'); // Assuming 'id' is the primary key of your table
+
+        // Update the status to 'council'
+        ExamProcessing::whereIn('id', $examIdsToUpdate)->update(['state' => 'council']);
+        dd($examIdsToUpdate);
     }
 }
