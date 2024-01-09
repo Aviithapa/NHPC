@@ -553,6 +553,7 @@ class ApplicantController  extends BaseController
         }
 
         $userDetail['email'] = $data['email'];
+        $userDetail['name'] = $data['name'];
         $mun = $this->userRepository->update($userDetail, $id);
         if ($mun == false) {
             session()->flash('error', 'Oops! Something went wrong.');
