@@ -1890,6 +1890,14 @@ class OperatorController extends BaseController
         return view('operator::pages.certificate.print', compact('data'));
     }
 
+
+    public function printForeignCertificate($id)
+    {
+        $data = $this->certificateHistoryRepository->findById($id);
+        return view('operator::pages.certificate.foreign', compact('data'));
+    }
+
+
     public function addPrintCertificate()
     {
         return view('operator::pages.certificate.form');
@@ -2009,7 +2017,6 @@ class OperatorController extends BaseController
         $data = Certificate::where('profile_id', '=', $id)->first();
 
         $detail_data = $this->certificateHistoryDataBackRepository->getAll()->where('profile_id', '=', $id)->first();
-        // dd($detail_data);
         return view('operator::pages.certificateBackUpData.edit', compact('data', 'detail_data'));
     }
 

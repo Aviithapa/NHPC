@@ -88,6 +88,12 @@ Route::get('/certificate/history/edit/{id}', [\Operator\Http\Controller\Operator
 Route::post('/certificate/history/update', [\Operator\Http\Controller\OperatorController::class, 'updateCertificateData'])->middleware(['auth'])->name('operator.certificateIndex.update');
 Route::get('/certificate/history/add', [\Operator\Http\Controller\OperatorController::class, 'addPrintCertificate'])->middleware(['auth'])->name('operator.addPrintCertificate');
 Route::get('/certificate/history/duplicate/{id}', [\Operator\Http\Controller\OperatorController::class, 'printDuplicateCertificate'])->middleware(['auth'])->name('operator.certificateIndex.duplicate');
+Route::get('/certificate/history/print/{id}', [\Operator\Http\Controller\OperatorController::class, 'printPartilipiCertificate'])->middleware(['auth'])->name('operator.certificateIndex.print');
+Route::get('/certificate/history/print/{id}', [\Operator\Http\Controller\OperatorController::class, 'printPartilipiCertificate'])->middleware(['auth'])->name('operator.certificateIndex.print');
+Route::get('/certificate/history/foreign/{id}', [\Operator\Http\Controller\OperatorController::class, 'printForeignCertificate'])->middleware(['auth'])->name('operator.certificateIndex.print');
+
+
+
 
 Route::get('/certificate/back/{id}', [\Operator\Http\Controller\OperatorController::class, 'backCertificate'])->middleware(['auth'])->name('operator.certificateIndex.backCertificate');
 Route::post('/certificate/storebackData', [\Operator\Http\Controller\OperatorController::class, 'storeBackData'])->middleware(['auth'])->name('operator.storeCertificateData');
