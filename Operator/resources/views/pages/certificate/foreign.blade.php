@@ -162,13 +162,13 @@
 
         <div class="col-side" id="col1" style="        flex: 0 0 122px;  width: 22px !important;
         height: 122px;
-    
+        border: 1px solid black;
         margin-right: 22px;
         display: flex;
         justify-content: center;
         align-items: center;
 ">
-           
+           <img src="{{$data->getProfileImage()}}" height="120">
         </div>
   <div class="col" id="col2" style="
         /* flex: 2; */
@@ -194,7 +194,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-"> <img src="{{$data->getProfileImage()}}" height="120"></div>
+"> </div>
     </div>
 
     <p class="body" style=" text-align: justify;
