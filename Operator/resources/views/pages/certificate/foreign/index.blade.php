@@ -27,7 +27,7 @@
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <a href="{{ url("operator/dashboard/certificate/history/add") }}" class="btn btn-primary" style="margin: 20px; color:white;">Add New Applicant </a>
+                                    <a href="{{ url("operator/dashboard/certificate/history/add/foreign") }}" class="btn btn-primary" style="margin: 20px; color:white;">Add New Applicant </a>
 
                                      
                                     <div class="table-responsive">
