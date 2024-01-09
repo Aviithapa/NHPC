@@ -18,7 +18,7 @@ class CertificateHistory extends Model
         'registrar', 'valid_till', 'certificate', 'type',
         'remarks', 'is_printed', 'printed_date',
         'printed_by', 'is_edited', 'issued_by', 'certificate_status', 'decision_date',
-        'qualification1', 'insitutate1', 'passed_year1',
+        'qualification1', 'insitutate1', 'passed_year1', 'is_foreign', 'time'
     ];
 
     public function getProfileImage()
