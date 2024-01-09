@@ -170,12 +170,23 @@
 ">
            
         </div>
-        <div class="col" id="col2" style="flex: 2; background-color: blue;
-        justify-content: center;
+  <div class="col" id="col2" style="
+        /* flex: 2; */
+        /* background-color: blue; */
+        /* justify-content: center; */
         padding-left: 0.3rem;
         font-size: 30px;
         font-weight: 600;
-        border: 2px solid black; color:white; text-align:center;">  Foreign Citizen <br /> Temporary <br/>Registration Certificate  </div>
+        /* border: 2px solid black; */
+        color:white;
+        text-align:center;
+        width: fit-content;
+        line-height: 1.4;
+        "> <span style="background-color: blue; padding: 0px 5px;">Foreign Citizen</span>  <span style="
+    background: blue; padding: 0px 5px;
+"> Temporary</span><br>  <span style="
+    background: blue; padding: 0px 5px;
+">Registration Certificate</span>  </div>
         <div class="col-side" id="col3" style="        flex: 0 0 122px;width: 22px !important;
         height: 122px;
         border: 1px solid black;
@@ -197,9 +208,9 @@
         {{-- 08-07-2022 --}}
         of the Council, the name of
         <span style="font-size: 26px;
-        font-weight: 600;"> {{ucwords(strtolower($data->name))}}</span> date of birth
-        {{ $data->date_of_birth}}
-        a resident ward No. <span style="font-size: 26px;
+        font-weight: 600;"> {{ucwords(strtolower($data->name))}}</span> aged
+        {{ $data->date_of_birth}} years
+        a resident of . <span style="font-size: 26px;
         font-weight: 700;">{{$data->ward}}</span> of <span style="font-size: 26px;
         font-weight: 700;">{{$data->municipality}}</span>
         Metropolitan City /Sub-Metropolitan City /Municipality /Rural Municipality
