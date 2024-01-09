@@ -33,7 +33,7 @@
                                 <div class="card-body">
                                     <form method="POST" action="{{url('operator/dashboard/certificate/storeCertificateData')}}">
                                         @csrf
-                                       <input type="hidden" name="is_foreign" value="true"/>
+                                       <input type="hidden" name="is_foreign" value="1"/>
                                        
 {{--                                        <input type="hidden" name="exam_processing_id" value="{{$exam->id}}">--}}
 
@@ -119,9 +119,9 @@
                                             Pursuant to the decision dated 
                                             <input type="text" name="decision_date" /> of the Council, the name of
                                             <span style="font-size: 26px;
-        font-weight: 600;">  <input type="text" name="name" /></span> date of birth
+        font-weight: 600;">  <input type="text" name="name" /></span> age
                                             <input type="text" name="date_of_birth" />
-                                            a resident ward No. <span style="font-size: 26px;
+                                            a resident of <span style="font-size: 26px;
         font-weight: 700;">  <input type="text" name="ward"/></span> of <span style="font-size: 26px;
         font-weight: 700;">  <input type="text" name="municipality"/></span>
                                             Metropolitan City /Sub-Metropolitan City /Municipality /Rural Municipality

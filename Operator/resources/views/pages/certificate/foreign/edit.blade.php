@@ -35,7 +35,7 @@
                                         @csrf
                                        <input type="hidden" name="id" value={{$data->id}} />
                                        
-                                       <input type="hidden" name="is_foreign" value="true">
+                                       <input type="hidden" name="is_foreign" value="1">
 
 
                                         <div class="header" style="text-align: center; font-weight: 500;">
