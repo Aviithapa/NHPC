@@ -194,7 +194,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-"> </div>
+"> Photo</div>
     </div>
 
     <p class="body" style=" text-align: justify;
