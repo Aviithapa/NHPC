@@ -1880,7 +1880,7 @@ class OperatorController extends BaseController
     public function certificateIndex()
     {
 
-        $data = $this->certificateHistoryRepository->getAll();
+        $data = $this->certificateHistoryRepository->getAll()->where('is_foreign', false);
         return view('operator::pages.certificate.index', compact('data'));
     }
 
@@ -1894,13 +1894,30 @@ class OperatorController extends BaseController
     public function printForeignCertificate($id)
     {
         $data = $this->certificateHistoryRepository->findById($id);
-        return view('operator::pages.certificate.foreign', compact('data'));
+        return view('operator::pages.certificate.foreign.print', compact('data'));
+    }
+
+    public function editForeignCertificate($id)
+    {
+        $data = $this->certificateHistoryRepository->findById($id);
+        return view('operator::pages.certificate.foreign.edit', compact('data'));
+    }
+
+    public function indexForeignCertificate()
+    {
+        $data = $this->certificateHistoryRepository->getAll()->where('is_foreign', true);
+        return view('operator::pages.certificate.foreign.index', compact('data'));
     }
 
 
     public function addPrintCertificate()
     {
         return view('operator::pages.certificate.form');
+    }
+
+    public function addForeignPrintCertificate()
+    {
+        return view('operator::pages.certificate.foreign.form');
     }
 
     public function storeCertificateData(Request $request)

@@ -136,6 +136,13 @@
                     </a>
                 </li>
 
+                 <li class="{{ (request()->is('operator/dashboard/certificate/history/foreign/index')) ? 'active':''  }}">
+                    <a href="{{route("operator.certificateIndex.foreign.index")}}">
+                        <i class="icon-book-open"></i> <span>Foreign Certificate</span>
+                    </a>
+                </li>
+  
+
                 <li class="{{ (request()->is('operator/dashboard/search/certificate/students')) ? 'active':''  }}">
                     <a href="{{route("search.lost.searchCertificateStudent")}}">
                         <i class="icon-book-open"></i> <span>Certificate Search</span>

@@ -27,7 +27,7 @@
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <a href="{{ url("operator/dashboard/certificate/history/add/foreign") }}" class="btn btn-primary" style="margin: 20px; color:white;">Add New Applicant </a>
+                                    <a href="{{ url("operator/dashboard/certificate/history/add") }}" class="btn btn-primary" style="margin: 20px; color:white;">Add New Applicant </a>
 
                                      
                                     <div class="table-responsive">
@@ -59,11 +59,10 @@
                                                         <td>{{$exam->registration_number}}</td>
                                                         <td>{{$exam->qualification}}</td>
                                                         <td>{{$exam->program_code}}</td>
-                                                        <td><a href="{{url("operator/dashboard/certificate/history/print/".$exam->id)}}"><span class="label label-success">Print</span></a>
                                                         <td><a href="{{url("operator/dashboard/certificate/history/foreign/".$exam->id)}}"><span class="label label-success">Foreign Print</span></a>
-                                                        <a href="{{url("operator/dashboard/certificate/history/edit/".$exam->id)}}"><span class="label label-success">Edit</span></a>
-                                                        <a href="{{url("operator/dashboard/certificate/history/duplicate/".$exam->id)}}"><span class="label label-success">Duplicate</span></a>
-                                                        <a href="{{url("operator/dashboard/certificate/back/".$exam->id)}}"><span class="label label-danger">Back Side Print</span></a></td>
+                                                        <a href="{{url("operator/dashboard/certificate/history/foreign/edit/".$exam->id)}}"><span class="label label-success">Edit</span></a>
+                                                        {{-- <a href="{{url("operator/dashboard/certificate/history/duplicate/".$exam->id)}}"><span class="label label-success">Duplicate</span></a>
+                                                        <a href="{{url("operator/dashboard/certificate/back/".$exam->id)}}"><span class="label label-danger">Back Side Print</span></a></td> --}}
                                                          <td>
                                                         <a href="{{route("operator.deleteDuplicateCertificate", ['id' => $exam->id])}}"><span class="label label-danger">Delete Certificate</span></a></td>
                                                          </td>

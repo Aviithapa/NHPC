@@ -90,7 +90,10 @@ Route::get('/certificate/history/add', [\Operator\Http\Controller\OperatorContro
 Route::get('/certificate/history/duplicate/{id}', [\Operator\Http\Controller\OperatorController::class, 'printDuplicateCertificate'])->middleware(['auth'])->name('operator.certificateIndex.duplicate');
 Route::get('/certificate/history/print/{id}', [\Operator\Http\Controller\OperatorController::class, 'printPartilipiCertificate'])->middleware(['auth'])->name('operator.certificateIndex.print');
 Route::get('/certificate/history/print/{id}', [\Operator\Http\Controller\OperatorController::class, 'printPartilipiCertificate'])->middleware(['auth'])->name('operator.certificateIndex.print');
-Route::get('/certificate/history/foreign/{id}', [\Operator\Http\Controller\OperatorController::class, 'printForeignCertificate'])->middleware(['auth'])->name('operator.certificateIndex.print');
+Route::get('/certificate/history/foreign/{id}', [\Operator\Http\Controller\OperatorController::class, 'printForeignCertificate'])->middleware(['auth'])->name('operator.certificateIndex.foreign');
+Route::get('/certificate/history/foreign/edit/{id}', [\Operator\Http\Controller\OperatorController::class, 'editForeignCertificate'])->middleware(['auth'])->name('operator.certificateIndex.foreign.edit');
+Route::get('/certificate/history/foreign/index', [\Operator\Http\Controller\OperatorController::class, 'indexForeignCertificate'])->middleware(['auth'])->name('operator.certificateIndex.foreign.index');
+Route::get('/certificate/history/add/foreign', [\Operator\Http\Controller\OperatorController::class, 'addForeignPrintCertificate'])->middleware(['auth'])->name('operator.addForeignPrintCertificate');
 
 
 
