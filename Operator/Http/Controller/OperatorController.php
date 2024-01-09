@@ -1929,6 +1929,9 @@ class OperatorController extends BaseController
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
             }
+            if ($data['is_foreign']) {
+                return redirect()->route("operator.certificateIndex.foreign.index");
+            }
             return redirect()->route("operator.certificateIndex");
         } catch (Exception $e) {
             session()->flash('danger', 'Oops! Something went wrong.');
@@ -1952,6 +1955,9 @@ class OperatorController extends BaseController
             if ($certificate == false) {
                 session()->flash('danger', 'Oops! Something went wrong.');
                 return redirect()->back()->withInput();
+            }
+            if ($data['is_foreign']) {
+                return redirect()->route("operator.certificateIndex.foreign.index");
             }
             return redirect()->route("operator.certificateIndex");
         } catch (Exception $e) {
