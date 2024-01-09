@@ -405,7 +405,7 @@
     <hr style=" margin-top: 45px;
         border: 1px solid black;">
     <div class="footer" style="text-align: center;">
-        <span style="text-align: center; font-weight: 600; font-size: 16px; word-spacing: 1.6;">Note: - This certificate shall remain valid for "One Year" only from date of issue.</span>
+        <span style="text-align: center; font-weight: 600; font-size: 16px; word-spacing: 1.6;">Note: - This certificate shall remain valid for "Six Month" only from date of issue.</span>
     </div>
     </div>
 </page>
