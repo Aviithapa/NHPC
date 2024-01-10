@@ -39,7 +39,7 @@
                                             <td>Registration Number</td>
                                             <td>Qualification</td>
                                             <td>Program Code</td>
-        
+                                            <td>Print Date</td>
                                             <td>Action</td>
                                             <td>Delete</td>
 
@@ -59,6 +59,7 @@
                                                         <td>{{$exam->registration_number}}</td>
                                                         <td>{{$exam->qualification}}</td>
                                                         <td>{{$exam->program_code}}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($exam->updated_at)->format('Y-m-d') }}</td>
                                                         <td><a href="{{url("operator/dashboard/certificate/history/foreign/".$exam->id)}}"><span class="label label-success">Foreign Print</span></a>
                                                         <a href="{{url("operator/dashboard/certificate/history/foreign/edit/".$exam->id)}}"><span class="label label-success">Edit</span></a>
                                                         {{-- <a href="{{url("operator/dashboard/certificate/history/duplicate/".$exam->id)}}"><span class="label label-success">Duplicate</span></a>
