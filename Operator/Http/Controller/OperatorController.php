@@ -2448,4 +2448,17 @@ class OperatorController extends BaseController
         ExamProcessing::whereIn('id', $examIdsToUpdate)->update(['state' => 'council']);
         dd($examIdsToUpdate);
     }
+
+
+    public function allProgressList()
+    {
+        $data =
+            DB::table('exam_registration')
+            ->select('state', DB::raw('count(*) as application_count'))
+            ->where('exam_id', 7)
+            ->groupBy('state')
+            ->get();
+
+        dd($data);
+    }
 }
