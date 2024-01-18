@@ -554,7 +554,7 @@ class  ExamCommitteeController extends BaseController
 
         $tasks = $query->get([
             'level.name as level_name', 'profiles.*', 'users.email as email', 'users.phone_number as phone_number', 'exam_registration.*', 'exam_registration.id as exam_regisration_id', 'profiles.id as profile_id', 'exam_registration.state as exam_state', 'exam_registration.status as exam_status',
-            'profile.program_name as program_name'
+            'profiles.program_name as program_name'
         ]);
 
         $headers = array(
