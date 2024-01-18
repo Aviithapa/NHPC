@@ -583,7 +583,7 @@ class  ExamCommitteeController extends BaseController
                 $row['program_name'] = getProgramName($task->program_id);
                 // $row['Level'] = $task->level_name;
                 // $row['Email'] = $task->email;
-                // $row['Phone Number'] = $task->phone_number;
+                $row['Phone Number'] = getProgramName($task->program_name);
                 $row['State'] = $task->exam_state;
                 $row['Status'] = $task->exam_status;
 
