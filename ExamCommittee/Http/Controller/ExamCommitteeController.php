@@ -728,14 +728,14 @@ class  ExamCommitteeController extends BaseController
         // return response()->stream($callback, 200, $headers);
     }
 
-    public function getAllStudentList()
+    public function getAllStudentList($id)
     {
 
         $exams = ExamProcessing::all()->where('state', '=', 'exam_committee')->where('status', '=', 'progress')->where('is_admit_card_generate', '=', 'no')
-            ->where('exam_id', '!=', '7');
+            ->where('exam_id', '!=', $id);
         // dd($exams);
         foreach ($exams as $exam) {
-            $data['exam_id'] = 7;
+            $data['exam_id'] = $id;
             // $data['state'] = 'subject_committee';
             $this->examProcessingRepository->update($data, $exam->id);
         }

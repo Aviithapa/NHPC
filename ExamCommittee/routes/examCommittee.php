@@ -27,10 +27,9 @@ Route::get('/examCommittee/FileForwardCouncil', [\ExamCommittee\Http\Controller\
 
 Route::get('/exam/view/{id}', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'examDetails'])->middleware(['auth'])->name('examCommittee.exam.view');
 
-Route::get('/getAllStudentList', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'getAllStudentList']);
+Route::get('/getAllStudentList/{id}', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'getAllStudentList']);
 
 
 Route::get('/subjectCommittee/dashboard', [ExamCommitteeController::class, 'subjectCommitteeDashboard'])->middleware(['auth'])->name('subjectCommittee.dashboard.exam');
 Route::get('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}', [ExamCommitteeController::class, 'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.exam.list');
 Route::post('/subjectCommittee/dashboard/list/{level?}/{status?}/{subject_committee_id?}/{page?}', [ExamCommitteeController::class, 'subjectCommitteeDashboardList'])->middleware(['auth'])->name('subjectCommittee.dashboard.exam.list');
-
