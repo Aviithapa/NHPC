@@ -403,7 +403,7 @@ class  ExamCommitteeController extends BaseController
             ->join('users', 'users.id', '=', 'profiles.user_id')
             ->where('exam_registration.status', '=', 'progress')
             ->where('exam_registration.state', '=', 'exam_committee')
-            ->where('exam_registration.exam_id', '=', 6)
+            ->where('exam_registration.exam_id', '=', 7)
 
             // ->where('exam_registration.exam_id', '=', $id)
             // ->where('admit_card.created_at', 'Like', '%' . '2023-02-03' . '%')
@@ -548,7 +548,7 @@ class  ExamCommitteeController extends BaseController
             // ->where('exam_registration.created_at', '<', '2023-04-29')
             ->where('exam_registration.status', '=', 'progress')
             ->where('exam_registration.state', '=', 'exam_committee')
-            ->where('exam_registration.exam_id', '=', 6);
+            ->where('exam_registration.exam_id', '=', 7);
         // ->where('exam_registration.status', '=', 'progress')
         // ->where('exam_registration.is_admit_card_generate', '=', 'no');
 
@@ -734,7 +734,7 @@ class  ExamCommitteeController extends BaseController
         $exams = ExamProcessing::all()->where('state', '=', 'exam_committee')->where('status', '=', 'progress')->where('is_admit_card_generate', '=', 'no');
         // dd($exams);
         foreach ($exams as $exam) {
-            $data['exam_id'] = 6;
+            $data['exam_id'] = 7;
             // $data['state'] = 'subject_committee';
             $this->examProcessingRepository->update($data, $exam->id);
         }
