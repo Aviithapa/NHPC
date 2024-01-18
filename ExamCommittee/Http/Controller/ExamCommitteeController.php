@@ -567,7 +567,7 @@ class  ExamCommitteeController extends BaseController
 
         $columns = array(
             'id', 'Name', 'Father Name', 'Mother Name', 'Date of Birth',
-            'Gender', 'Citizenship', 'Program Name', 'Level', 'Email', 'Phone Number', 'State', 'Status', 'Symbol Number'
+            'Program Name', 'Level', 'State', 'Status'
         );
         // dd($tasks);
 
@@ -581,12 +581,8 @@ class  ExamCommitteeController extends BaseController
                 $row['Father Name'] = $task->father_name;
                 $row['Mother Name'] = $task->mother_name;
                 $row['Date of Birth'] = $task->dob_nep;
-                // $row['Gender'] = $task->sex;
-                // $row['Citizenship'] = $task->citizenship_number;
                 $row['program_name'] = getProgramName($task->program_id);
-                // $row['Level'] = $task->level_name;
-                // $row['Email'] = $task->email;
-                $row['Phone Number'] = getProgramName($task->program_name);
+                $row['phone_number'] = getProgramName($task->program_name);
                 $row['State'] = $task->exam_state;
                 $row['Status'] = $task->exam_status;
 
@@ -604,7 +600,7 @@ class  ExamCommitteeController extends BaseController
                     $row['program_name'],
                     // $row['Level'],
                     // $row['Email'],
-                    // $row['Phone Number'],
+                    $row['phone_number'],
                     $row['State'],
                     $row['Status'],
                     // $row['Symbol Number']
