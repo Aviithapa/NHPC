@@ -162,3 +162,7 @@ Route::get('/allTslcStudent', [OperatorController::class, 'allTslcStudent'])->na
 
 
 Route::get('/allProgressList', [OperatorController::class, 'allProgressList'])->name('operator.allProgressList');
+
+
+
+Route::get('/distantProgramName', [OperatorController::class, 'distantProgramName'])->name('operator.distantProgramName');

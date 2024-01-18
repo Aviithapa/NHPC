@@ -2461,4 +2461,15 @@ class OperatorController extends BaseController
 
         dd($data);
     }
+
+    public function distantProgramName()
+    {
+        $profilesWithChanges = ExamProcessing::select('profile_id')
+            ->selectRaw('COUNT(DISTINCT program_id) as program_count')
+            ->groupBy('profile_id')
+            ->having('program_count', '>', 1)
+            ->get();
+
+        dd($profilesWithChanges);
+    }
 }
