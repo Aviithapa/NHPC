@@ -925,7 +925,7 @@ class SubjectCommitteeController extends BaseController
                 ['profile_processing.current_state', 'subject_committee'],
                 ['profile_processing.status', 'progress'],
                 ['profile_processing.subject_committee_accepted_num', '<=', 2],
-                ['program.subject_committee_id', '=', $sub['subject_committee_id']],
+                ['program.subject-committee_id', '=', $sub['subject_committee_id']],
                 ['exam_registration.exam_id', 7],
             ])
             ->orderBy('profiles.created_at', 'ASC')
@@ -940,7 +940,7 @@ class SubjectCommitteeController extends BaseController
                     ->get();
 
                 foreach ($logs as $log) {
-                    $this->profileProcessingRepository->where('profile_id', $log->profile_id)
+                    $this->profileProcessingRepository->findByFirst('profile_id', $log->profile_id)
                         ->update(['subject_committee_accepted_num' => $log->log_count]);
                 }
             });
