@@ -2468,6 +2468,7 @@ class OperatorController extends BaseController
             ->selectRaw('COUNT(DISTINCT program_id) as program_count')
             ->groupBy('profile_id')
             ->having('program_count', '>', 1)
+            ->where('exam_id', 7)
             ->get();
 
         dd($profilesWithChanges);
