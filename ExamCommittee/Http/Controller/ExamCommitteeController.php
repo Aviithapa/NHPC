@@ -321,7 +321,7 @@ class  ExamCommitteeController extends BaseController
                 ->where('state', '=', 'exam_committee')
                 ->where('program_id', '=', $id)
                 ->where('status', '!=', 'rejected')
-                ->where('exam_id', '=', 6)
+                ->where('exam_id', '=', 7)
                 ->where('attempt', '=', 1);
 
 
