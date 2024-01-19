@@ -886,7 +886,7 @@ class SubjectCommitteeController extends BaseController
 
         $data = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
             ->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
-            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            // ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->where('profile_processing.current_state', 'subject_committee')
             ->where('profile_processing.status', 'progress')
             ->where('profile_processing.subject_committee_accepted_num', '<=', '2')
@@ -966,5 +966,30 @@ class SubjectCommitteeController extends BaseController
 
 
         return view('subjectCommittee::pages.rejected-by-subject-committee', compact('datas'));
+    }
+
+    public function updateCount()
+    {
+        $profiles = $this->getSubjectCommitteeProfiles();
+
+        if ($profiles->isNotEmpty()) {
+            $profileIds = $profiles->pluck('profile_id')->toArray();
+
+            ProfileProcessing::whereIn('profile_id', $profileIds)
+                ->update(['subject_committee_accepted_num' => 3]);
+        }
+    }
+
+    private function getSubjectCommitteeProfiles()
+    {
+        return Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+            ->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            ->where('profile_processing.current_state', 'subject_committee')
+            ->where('profile_processing.status', 'progress')
+            ->where('profile_processing.subject_committee_accepted_num', '<=', 2)
+            ->orderBy('profiles.created_at', 'ASC')
+            ->where('exam_registration.exam_id', 7)
+            ->take(2000) // Limit to 2000 records
+            ->get(['profiles.id as profile_id']);
     }
 }
