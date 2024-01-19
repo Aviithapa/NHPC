@@ -971,7 +971,7 @@ class SubjectCommitteeController extends BaseController
     public function updateCount()
     {
         $profiles = $this->getSubjectCommitteeProfiles();
-        dd($profiles);
+        // dd($profiles);
 
         if ($profiles->isNotEmpty()) {
             $profileIds = $profiles->pluck('profile_id')->toArray();
