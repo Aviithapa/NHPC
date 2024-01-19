@@ -882,68 +882,68 @@ class SubjectCommitteeController extends BaseController
         // }
         // dd($exam[0]);
 
-        // $sub = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
-
-        // $data = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
-        //     ->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
-        //     ->join('program', 'program.id', '=', 'exam_registration.program_id')
-        //     ->where('profile_processing.current_state', 'subject_committee')
-        //     ->where('profile_processing.status', 'progress')
-        //     ->where('profile_processing.subject_committee_accepted_num', '<=', '2')
-        //     ->where('program.subject-committee_id', '=', $sub['subjecr_committee_id'])
-        //     ->orderBy('profiles.created_at', 'ASC')
-        //     ->where('exam_registration.exam_id', 7)
-        //     // ->where('exam_registration.level_id', '=', '4')
-        //     ->get(['profiles.id as profile_id']);
-
-        // $profiles =
-        //     $data->chunk(100);
-
-
-        // foreach ($profiles as $ps) {
-
-        //     foreach ($ps as $profile) {
-
-
-        //         $logs = Profilelogs::all()->where('profile_id', '=', $profile->profile_id)
-        //             ->where('state', '=', 'subject_committee')
-        //             ->where('status', '=', 'progress')
-        //             ->count();
-        //         // dd($logs);
-        //         $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
-        //         $this->profileProcessingRepository->update(['subject_committee_accepted_num' => $logs], $profile_processing_id->id);
-        //     }
-        // }
-
-
         $sub = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
 
-        $profiles = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+        $data = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
             ->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
-            ->where([
-                ['profile_processing.current_state', 'subject_committee'],
-                ['profile_processing.status', 'progress'],
-                ['profile_processing.subject_committee_accepted_num', '<=', 2],
-                // ['program.subject-committee_id', '=', $sub['subject_committee_id']],
-                ['exam_registration.exam_id', 7],
-            ])
+            ->where('profile_processing.current_state', 'subject_committee')
+            ->where('profile_processing.status', 'progress')
+            ->where('profile_processing.subject_committee_accepted_num', '<=', '2')
+            // ->where('program.subject-committee_id', '=', $sub['subjecr_committee_id'])
             ->orderBy('profiles.created_at', 'ASC')
-            ->select('profiles.id as profile_id')
-            ->chunk(100, function ($profiles) {
-                $profileIds = $profiles->pluck('profile_id')->toArray();
-                $logs = Profilelogs::whereIn('profile_id', $profileIds)
-                    ->where('state', 'subject_committee')
-                    ->where('status', 'progress')
-                    ->groupBy('profile_id')
-                    ->selectRaw('profile_id, count(*) as log_count')
-                    ->get();
+            ->where('exam_registration.exam_id', 7)
+            // ->where('exam_registration.level_id', '=', '4')
+            ->get(['profiles.id as profile_id']);
 
-                foreach ($logs as $log) {
-                    $this->profileProcessingRepository->findByFirst('profile_id', $log->profile_id)
-                        ->update(['subject_committee_accepted_num' => $log->log_count]);
-                }
-            });
+        $profiles =
+            $data->chunk(100);
+
+
+        foreach ($profiles as $ps) {
+
+            foreach ($ps as $profile) {
+
+
+                $logs = Profilelogs::all()->where('profile_id', '=', $profile->profile_id)
+                    ->where('state', '=', 'subject_committee')
+                    ->where('status', '=', 'progress')
+                    ->count();
+                // dd($logs);
+                $profile_processing_id = $this->profileProcessingRepository->getAll()->where('profile_id', '=', $profile->profile_id)->first();
+                $this->profileProcessingRepository->update(['subject_committee_accepted_num' => $logs], $profile_processing_id->id);
+            }
+        }
+
+
+        // $sub = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
+
+        // $profiles = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+        //     ->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+        //     ->join('program', 'program.id', '=', 'exam_registration.program_id')
+        //     ->where([
+        //         ['profile_processing.current_state', 'subject_committee'],
+        //         ['profile_processing.status', 'progress'],
+        //         ['profile_processing.subject_committee_accepted_num', '<=', 2],
+        //         // ['program.subject-committee_id', '=', $sub['subject_committee_id']],
+        //         ['exam_registration.exam_id', 7],
+        //     ])
+        //     ->orderBy('profiles.created_at', 'ASC')
+        //     ->select('profiles.id as profile_id')
+        //     ->chunk(100, function ($profiles) {
+        //         $profileIds = $profiles->pluck('profile_id')->toArray();
+        //         $logs = Profilelogs::whereIn('profile_id', $profileIds)
+        //             ->where('state', 'subject_committee')
+        //             ->where('status', 'progress')
+        //             ->groupBy('profile_id')
+        //             ->selectRaw('profile_id, count(*) as log_count')
+        //             ->get();
+
+        //         foreach ($logs as $log) {
+        //             $this->profileProcessingRepository->findByFirst('profile_id', $log->profile_id)
+        //                 ->update(['subject_committee_accepted_num' => $log->log_count]);
+        //         }
+        //     });
 
 
 
