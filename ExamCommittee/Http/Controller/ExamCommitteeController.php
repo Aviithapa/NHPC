@@ -105,17 +105,16 @@ class  ExamCommitteeController extends BaseController
     {
         try {
 
-
             $users = $this->examProcessingRepository->getAll()->where('status', '=', $status)
                 ->where('state', '=', $current_state)
                 ->where('program_id', '=', $program_id)
-                ->where('exam_id', '=', '6')
+                ->where('exam_id', '=', '7')
                 ->where('is_admit_card_generate', '!=', 'yes');
             if ($users->isEmpty()) {
                 session()->flash('success', 'Admit Card Already Been Generated');
                 return redirect()->back()->withInput();
             } else {
-                $i = 551;
+                $i = 1;
                 $index = ExamProcessing::orderBy('darta_number', 'desc')->first();
                 $darta_number = $index['darta_number'];
                 foreach ($users as $user) {
@@ -150,7 +149,7 @@ class  ExamCommitteeController extends BaseController
         // $year = substr($year, -2);
         $subjectCommittee = $this->programRepository->findById($program);
         $subjectCode = SubjectCommittee::where('id', $subjectCommittee['subject-committee_id'])->first();
-        $month = 7;
+        $month = 1;
         $level_id = str_pad($level, 2, "0", STR_PAD_LEFT);
         $program_id = str_pad($program, 2, "0", STR_PAD_LEFT);
         $num =  $month . '-' . $level_id . $program_id . str_pad($index, 3, "0", STR_PAD_LEFT) . '-' . $subjectCode['code'];
