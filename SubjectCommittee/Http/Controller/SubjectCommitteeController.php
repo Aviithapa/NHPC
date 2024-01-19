@@ -607,7 +607,7 @@ class SubjectCommitteeController extends BaseController
         $subject_Committee_number = SubjectCommitteeUser::where('subjecr_committee_id', '=', $subject_Committee['subjecr_committee_id'])->get();
         $subjectCommitteeCount = 4;
         $average = $subjectCommitteeCount / 2;
-        $perPage = 500;
+        $perPage = 100;
         $datas = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
@@ -655,7 +655,7 @@ class SubjectCommitteeController extends BaseController
         $subject_Committee_number = SubjectCommitteeUser::where('subjecr_committee_id', '=', $subject_Committee['subjecr_committee_id'])->get();
         $subjectCommitteeCount = 4;
         $average = $subjectCommitteeCount / 2;
-        $perPage = 500;
+        $perPage = 100;
         $datas = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
