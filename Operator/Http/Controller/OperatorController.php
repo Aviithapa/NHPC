@@ -2492,13 +2492,10 @@ class OperatorController extends BaseController
             ->get(['profiles.id as profile_id']);
 
 
-        foreach ($datas as $ps) {
 
-            foreach ($ps as $profile) {
-                dd($profile);
-            }
-        }
+        dd('here');
         foreach ($datas as $data) {
+            dd($data);
             $profile['state'] = 'subject_committee';
             $profile['status'] = 'progress';
             $profile['remarks'] = 'Profile is Accepted by Subject Committee';
