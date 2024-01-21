@@ -444,7 +444,7 @@ class  ExamCommitteeController extends BaseController
                 $row['first_name']  = $task->first_name;
                 $row['middle_name']  =  $task->middle_name;
                 $row['last_name']  = $task->last_name;
-                // $row['symbol']    = $task->symbol_number;
+                $row['symbol']    = $task->symbol_number;
                 $row['gender']    = $task->sex;
                 $row['program']  = $task->name;
                 $row['level'] = $task->level_name;
