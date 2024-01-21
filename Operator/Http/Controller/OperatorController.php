@@ -2487,7 +2487,7 @@ class OperatorController extends BaseController
             ->where('profile_processing.subject_committee_accepted_num', '<=', '2')
             ->where('program.subject-committee_id', '=', 2)
             ->orderBy('profiles.created_at', 'ASC')
-            ->where('exam_registration.exam_id', 7)
+            // ->where('exam_registration.exam_id', 7)
             // ->where('exam_registration.level_id', '=', '4')
             ->get(['profiles.id as profile_id']);
 
