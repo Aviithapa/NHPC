@@ -2484,25 +2484,25 @@ class OperatorController extends BaseController
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->where('profile_processing.current_state', 'subject_committee')
             ->where('profile_processing.status', 'progress')
-            ->where('profile_processing.subject_committee_accepted_num', '<=', '2')
+            // ->where('profile_processing.subject_committee_accepted_num', '<=', '2')
             ->where('program.subject-committee_id', '=', 2)
             ->orderBy('profiles.created_at', 'ASC')
-            // ->where('exam_registration.exam_id', 7)
+            ->where('exam_registration.exam_id', '!=', 7)
             // ->where('exam_registration.level_id', '=', '4')
             ->get(['profiles.id as profile_id']);
 
 
 
         // dd('here');
-        foreach ($datas as $data) {
-            // dd($data->profile_id);
-            $profile['state'] = 'subject_committee';
-            $profile['status'] = 'progress';
-            $profile['remarks'] = 'Profile is Accepted by Subject Committee';
-            $profile['created_by'] = '39779';
-            $profile['profile_id'] = $data->profile_id;
-            $logs = $this->profileLogsRepository->create($profile);
-        }
-        dd($data);
+        // foreach ($datas as $data) {
+        //     // dd($data->profile_id);
+        //     $profile['state'] = 'subject_committee';
+        //     $profile['status'] = 'progress';
+        //     $profile['remarks'] = 'Profile is Accepted by Subject Committee';
+        //     $profile['created_by'] = '39779';
+        //     $profile['profile_id'] = $data->profile_id;
+        //     $logs = $this->profileLogsRepository->create($profile);
+        // }
+        dd($datas);
     }
 }
