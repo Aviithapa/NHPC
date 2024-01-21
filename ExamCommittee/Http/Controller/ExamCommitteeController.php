@@ -395,7 +395,7 @@ class  ExamCommitteeController extends BaseController
         // // dd($duplicateCitizenshipQuery[0]);
 
         $tasks = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-            ->join('admit_card', 'admit_card.exam_processing_id', '=', 'exam_registration.id')
+            // ->join('admit_card', 'admit_card.exam_processing_id', '=', 'exam_registration.id')
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->join('level', 'level.id', '=', 'program.level_id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
@@ -405,7 +405,10 @@ class  ExamCommitteeController extends BaseController
 
             // ->where('exam_registration.exam_id', '=', $id)
             // ->where('admit_card.created_at', 'Like', '%' . '2023-02-03' . '%')
-            ->get(['level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number', 'admit_card.*']);
+            ->get([
+                'level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number'
+                // 'admit_card.*'
+            ]);
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -441,7 +444,7 @@ class  ExamCommitteeController extends BaseController
                 $row['first_name']  = $task->first_name;
                 $row['middle_name']  =  $task->middle_name;
                 $row['last_name']  = $task->last_name;
-                $row['symbol']    = $task->symbol_number;
+                // $row['symbol']    = $task->symbol_number;
                 $row['gender']    = $task->sex;
                 $row['program']  = $task->name;
                 $row['level'] = $task->level_name;
