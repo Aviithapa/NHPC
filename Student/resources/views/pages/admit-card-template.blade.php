@@ -82,7 +82,7 @@
                                                         {{$exam_applied->getLevelName()}}
                                                         </span>
                                                     </p>
-                                                    <p>परीक्षा केन्द्र <span style="padding-left:1em;">: Pulchowk Engineering College</span>
+                                                    <p>परीक्षा केन्द्र <span style="padding-left:1em;">: Advance Education & Innovative Research Center (AEIRC)</span>
                                                     </p>
 
                                                     <div style="float:left;">परीक्षार्थीको हस्ताक्षर : <br>
@@ -208,7 +208,7 @@
                                     <p>विषयको नाम <span style="padding-left:1em;">:  {{$exam_applied->getProgramName()}} || तह :
                                                         {{$exam_applied->getLevelName()}} </span>
                                     </p>
-                                    <p>परीक्षा केन्द्र <span style="padding-left:1em;">: Pulchowk Engineering College</span>
+                                    <p>परीक्षा केन्द्र <span style="padding-left:1em;">: Advance Education & Innovative Research Center (AEIRC)</span>
                                     </p>
                                     <div style="">परीक्षार्थीको हस्ताक्षर : <br>
                                         <div style="border-width: 1px; height: 60px; width:300px; border-style: dashed;"></div>
