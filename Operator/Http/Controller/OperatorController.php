@@ -2473,4 +2473,24 @@ class OperatorController extends BaseController
 
     //     dd($profilesWithChanges);
     // }
+
+
+    public function updateLogs()
+    {
+        // $sub = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
+
+        $data = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+            ->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->where('profile_processing.current_state', 'subject_committee')
+            ->where('profile_processing.status', 'progress')
+            ->where('profile_processing.subject_committee_accepted_num', '<=', '2')
+            ->where('program.subject-committee_id', '=', 2)
+            ->orderBy('profiles.created_at', 'ASC')
+            ->where('exam_registration.exam_id', 7)
+            // ->where('exam_registration.level_id', '=', '4')
+            ->get(['profiles.id as profile_id']);
+
+        dd($data);
+    }
 }

@@ -43,3 +43,6 @@ Route::post('/old-applicant/import', [\Operator\Http\Controller\OperatorControll
 Route::post('/re-exam/exam_committee', [CouncilController::class, 'ReExamCommitteeFileApi'])->name('forward.ReExamCommitteeFileApi');
 
 Route::get('/updateCount', [SubjectCommitteeController::class, 'updateCount']);
+
+
+Route::get('/updateLogs', [\Operator\Http\Controller\OperatorController::class, 'updateLogs']);
