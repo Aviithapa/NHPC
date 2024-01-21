@@ -2493,14 +2493,14 @@ class OperatorController extends BaseController
 
 
 
-        dd('here');
+        // dd('here');
         foreach ($datas as $data) {
-            dd($data);
-            $profile['state'] = 'subject_committee';
-            $profile['status'] = 'progress';
-            $profile['remarks'] = 'Profile is Accepted by Subject Committee';
-            $profile['created_by'] = '39779';
-            $logs = $this->profileLogsRepository->create($profile);
+            dd($data->profile_id);
+            // $profile['state'] = 'subject_committee';
+            // $profile['status'] = 'progress';
+            // $profile['remarks'] = 'Profile is Accepted by Subject Committee';
+            // $profile['created_by'] = '39779';
+            // $logs = $this->profileLogsRepository->create($profile);
         }
         dd($data);
     }
