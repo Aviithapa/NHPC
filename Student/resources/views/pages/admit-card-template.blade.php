@@ -51,7 +51,7 @@
                         <div class="box-body container mt-2">
                             @if($admit_card)
                               @if($admit_card->created_by == 39569)
-<span>सातौं नाम दर्ता  प्रमाण पत्र परीक्षाको  प्रवेश पत्र</span>
+<span>आठौं नाम दर्ता  प्रमाण पत्र परीक्षाको  प्रवेश पत्र</span>
                               @else
 <span>
 चौथो नाम दर्ता  प्रमाण पत्र परीक्षाको  प्रवेश पत्र</span>
@@ -65,7 +65,7 @@
 {{--                                               {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(100)->generate($profile->getFullName() , $admit_card->symbol_number, $profile->dob_nep) !!}--}}
 {{--                                                   <img src="https://nhpc.gov.np/beta/uploads/qrcode/Name:Amit T-Qrcode55.png">--}}
 
-                                               {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(100)->generate('Name : '.$profile->getFullName(). 'Symbol Number'  . $admit_card->symbol_number. ' Dob' . $profile->dob_nep )!!}
+                                               {!! \SimpleSoftwareIO\QrCode\Facades\QrCode::size(100)->generate('Name : '.$profile->getFullName(). 'Symbol Number'  . $admit_card->symbol_number )!!}
 
                                                <p>रोल नम्बर<span style="padding-left:1em;">:
                                                            @if($admit_card)

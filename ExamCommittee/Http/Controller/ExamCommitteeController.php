@@ -125,7 +125,6 @@ class  ExamCommitteeController extends BaseController
                     $symbol_number =  $this->generateSymbolNumber($index, $user['level_id'], $program_id);
                     $data['symbol_number'] = $symbol_number;
                     $data['created_by'] = Auth::user()->id;
-                    // dd($symbol_number);
                     $this->admitCardRepository->create($data);
                     $exam_data['is_admit_card_generate'] = 'yes';
                     $exam_data['darta_number'] = $darta;
@@ -149,7 +148,7 @@ class  ExamCommitteeController extends BaseController
         // $year = substr($year, -2);
         $subjectCommittee = $this->programRepository->findById($program);
         $subjectCode = SubjectCommittee::where('id', $subjectCommittee['subject-committee_id'])->first();
-        $month = 1;
+        $month = 8;
         $level_id = str_pad($level, 2, "0", STR_PAD_LEFT);
         $program_id = str_pad($program, 2, "0", STR_PAD_LEFT);
         $num =  $month . '-' . $level_id . $program_id . str_pad($index, 3, "0", STR_PAD_LEFT) . '-' . $subjectCode['code'];
