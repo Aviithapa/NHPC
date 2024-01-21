@@ -39,7 +39,7 @@ class AuthenticatedSessionController extends Controller
             } else if (Auth::user()->mainRole()->name === 'student') {
                 // if (Auth::user()->active()) {
 
-                return  redirect()->route('student.dashboard');
+                // return  redirect()->route('student.dashboard');
                 // } else {
                 //     Auth::logout();
                 //     return redirect()->back()->withErrors([
