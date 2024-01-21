@@ -2479,7 +2479,7 @@ class OperatorController extends BaseController
     {
         // $sub = $this->subjectCommitteeUserRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
 
-        $data = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
+        $datas = Profile::join('profile_processing', 'profile_processing.profile_id', '=', 'profiles.id')
             ->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->where('profile_processing.current_state', 'subject_committee')
@@ -2491,6 +2491,20 @@ class OperatorController extends BaseController
             // ->where('exam_registration.level_id', '=', '4')
             ->get(['profiles.id as profile_id']);
 
+
+        foreach ($datas as $ps) {
+
+            foreach ($ps as $profile) {
+                dd($profile);
+            }
+        }
+        foreach ($datas as $data) {
+            $profile['state'] = 'subject_committee';
+            $profile['status'] = 'progress';
+            $profile['remarks'] = 'Profile is Accepted by Subject Committee';
+            $profile['created_by'] = '39779';
+            $logs = $this->profileLogsRepository->create($profile);
+        }
         dd($data);
     }
 }
