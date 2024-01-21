@@ -125,6 +125,7 @@ class  ExamCommitteeController extends BaseController
                     $symbol_number =  $this->generateSymbolNumber($index, $user['level_id'], $program_id);
                     $data['symbol_number'] = $symbol_number;
                     $data['created_by'] = Auth::user()->id;
+                    // dd($symbol_number);
                     $this->admitCardRepository->create($data);
                     $exam_data['is_admit_card_generate'] = 'yes';
                     $exam_data['darta_number'] = $darta;
@@ -395,7 +396,7 @@ class  ExamCommitteeController extends BaseController
         // // dd($duplicateCitizenshipQuery[0]);
 
         $tasks = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
-            // ->join('admit_card', 'admit_card.exam_processing_id', '=', 'exam_registration.id')
+            ->join('admit_card', 'admit_card.exam_processing_id', '=', 'exam_registration.id')
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->join('level', 'level.id', '=', 'program.level_id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
@@ -405,10 +406,7 @@ class  ExamCommitteeController extends BaseController
 
             // ->where('exam_registration.exam_id', '=', $id)
             // ->where('admit_card.created_at', 'Like', '%' . '2023-02-03' . '%')
-            ->get([
-                'level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number'
-                // 'admit_card.*'
-            ]);
+            ->get(['level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number', 'admit_card.*']);
 
         $headers = array(
             "Content-type"        => "text/csv",
