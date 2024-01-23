@@ -11,7 +11,7 @@ Route::get('examCommittee/dashboard/examCommittee/generate-admit-card/{status}/{
 Route::get('examCommittee/dashboard/examCommittee/view-admit-card/{id}', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'viewAdmitCardDetails'])->middleware(['auth'])->name('examCommittee.view.admit.card');
 Route::get('examCommittee/dashboard/examCommittee/admit-Card-Generated-Student', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'admitCardGeneratedStudent'])->middleware(['auth'])->name('examCommittee.admit.card.generated');
 Route::get('examCommittee/dashboard/examCommittee/view-program-wise-registered-student/{program_id}', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'programWiseStudent'])->middleware(['auth'])->name('examCommittee.program.wise.student');
-Route::get('/export/{id}', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'exportCsv'])->middleware(['auth'])->name('examCommittee.export');
+Route::get('/export/{id}', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'exportCsv'])->name('examCommittee.export');
 
 Route::get('/exportAllExamCommitteeStudent/{id}', [\ExamCommittee\Http\Controller\ExamCommitteeController::class, 'exportAllExamCommitteeStudent'])->middleware(['auth'])->name('examCommittee.exportAllExamCommitteeStudent');
 
