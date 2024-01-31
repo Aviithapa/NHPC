@@ -209,7 +209,7 @@ class  ExamCommitteeController extends BaseController
         ];
 
         $passed_symbol_numbers = ExamResult::where('status', 'PASSED')
-            ->where('remarks', '7')
+            ->where('remarks', '8')
             ->pluck('symbol_number')
             ->toArray();
 
