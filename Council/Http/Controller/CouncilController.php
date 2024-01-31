@@ -251,7 +251,7 @@ class CouncilController extends BaseController
             ->where('exam_registration.state', "=", 'council')
             ->where('exam_registration.level_id', "!=", '4')
             ->where('exam_registration.attempt', "=", '1')
-            ->where('exam_registration.exam_id', "=", 6)
+            ->where('exam_registration.exam_id', "=", 7)
             ->where('exam_registration.certificate_generate', '=', 'No')
             ->orderBy('profiles.created_at', 'ASC')
             ->get([
@@ -262,7 +262,7 @@ class CouncilController extends BaseController
         foreach ($students as $student) {
             $srn_number = 0;
             $srn = 0;
-            $date = '2023-09-20';
+            $date = '2024-01-28';
             $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
             $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
             $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
@@ -330,7 +330,7 @@ class CouncilController extends BaseController
         foreach ($students as $student) {
             $srn_number = 0;
             $srn = 0;
-            $date = '2023-12-17';
+            $date = '2023-12-20';
             $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
             $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
             if ($srn_number)
@@ -385,7 +385,7 @@ class CouncilController extends BaseController
             ->where('exam_registration.state', "=", 'council')
             ->where('exam_registration.level_id', "!=", '4')
             ->where('exam_registration.attempt', "=", '1')
-            ->where('exam_registration.exam_id', "=", 6)
+            ->where('exam_registration.exam_id', "=", 7)
             ->where('exam_registration.certificate_generate', '=', 'No')
             ->orderBy('profiles.created_at', 'ASC')
             ->get([
@@ -393,11 +393,10 @@ class CouncilController extends BaseController
                 'program.id as program_id', 'level.*', 'provinces.province_name', 'exam_registration.id as exam_registration_id'
             ]);
 
-        dd($students);
         foreach ($students as $student) {
             $srn_number = 0;
             $srn = 0;
-            $date = '2023-04-21';
+            $date = '2024-01-28';
             $srn_number = Certificate::where('program_id', '=', $student['program_id'])->orderBy('srn', 'desc')->first();
             $registration_number = Certificate::orderBy('registration_id', 'desc')->first();
             $qualification = $this->qualificationRepository->getAll()->where('user_id', '=', $student['user_id'])
