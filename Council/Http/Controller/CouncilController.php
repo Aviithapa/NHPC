@@ -800,7 +800,10 @@ class CouncilController extends BaseController
     {
         $data = $request->all();
         $exam_progress = $this->examProcessingRepository->getAll()->where('exam_id', $data['exam_id'])->where('status', 'progress')->where('state', 'exam_committee');
-        $examData['status'] = 're-exam';
+        $examData['status'] = 'rejected';
+        $examData['rejected'] = true;
+        $examData['remarks'] = 'FAILED';
+
         foreach ($exam_progress as $exam) {
             $this->examProcessingRepository->update($examData, $exam->id);
         }
