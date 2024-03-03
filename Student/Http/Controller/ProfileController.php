@@ -349,10 +349,10 @@ class ProfileController extends BaseController
         }
         $profile_id = $this->profileRepository->getAll()->where('user_id', '=', Auth::user()->id)->first();
         $re_exam  = ExamProcessing::orderBy('created_at', 'desc')->where('profile_id', '=', $profile_id['id'])->where('is_admit_card_generate', '=', 'yes')
-            ->where('attempt', '=', '2')->where('isPassed', '=', '0')->first();
+            ->where('isPassed', '=', '0')->first();
 
         if ($re_exam) {
-            $data["status"] = 'progress';
+            $data["status"] = 're-exam';
             $data["state"] = 'exam_committee';
         } else {
             $data["status"] = 'progress';
