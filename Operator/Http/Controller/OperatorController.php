@@ -2513,7 +2513,7 @@ class OperatorController extends BaseController
 
         $exam = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
-            ->join('exam_registration.exam_id', '=', 7)
+            ->where('exam_registration.exam_id', '=', 7)
             ->get();
         dd($exam);
         $tasks = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
