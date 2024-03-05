@@ -2520,6 +2520,7 @@ class OperatorController extends BaseController
 
         foreach ($exams as $exam) {
             $qualification = Qualification::all()->where('user_id', '=', $exam->user_id)->where('program_id', '=', $exam->program_id)->first();
+            dd($qualification);
             $exams['collage'] = $qualification->collage_name;
         }
         dd($exams[0]);
