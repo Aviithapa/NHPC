@@ -2524,6 +2524,7 @@ class OperatorController extends BaseController
             ->where('exam_registration.exam_id', '=', 7)
             ->get(['level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number', 'admit_card.*', 'registrant_qualification.collage_name as collage_name']);
 
+        dd($tasks);
         $headers = array(
             "Content-type"        => "text/csv",
             "Content-Disposition" => "attachment; filename=$fileName",
