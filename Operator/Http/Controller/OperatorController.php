@@ -2511,7 +2511,10 @@ class OperatorController extends BaseController
     {
         $fileName = 'StudentSymbolNumberList.csv';
 
-        $exam = ExamProcessing::all()->where('exam_id', 8);
+        $exam = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+            ->join('users', 'users.id', '=', 'profiles.user_id')
+            ->join('exam_registration.exam_id', '=', 7)
+            ->get();
         dd($exam);
         $tasks = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             ->join('admit_card', 'admit_card.exam_processing_id', '=', 'exam_registration.id')
