@@ -2517,10 +2517,10 @@ class OperatorController extends BaseController
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->join('level', 'level.id', '=', 'program.level_id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
-            // ->join('registrant_qualification', function ($join) {
-            //     $join->on('registrant_qualification.user_id', '=', 'users.id')
-            //         ->where('registrant_qualification.program_id', '=', 'exam_registration.program_id'); // Filter based on program_id
-            // })
+            ->join('registrant_qualification', function ($join) {
+                $join->on('registrant_qualification.user_id', '=', 'users.id')
+                    ->whereColumn('registrant_qualification.program_id', '=', 'exam_registration.program_id'); // Compare columns
+            })
             ->where('exam_registration.exam_id', '=', 7)
             ->get(['level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number', 'admit_card.*']);
 
