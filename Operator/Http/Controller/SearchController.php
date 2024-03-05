@@ -165,7 +165,8 @@ class SearchController extends BaseController
         if ($request->isMethod('post')) {
 
             $query = Profile::query()->join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
-                ->join('users', 'users.id', '=', 'profiles.user_id');
+                ->join('users', 'users.id', '=', 'profiles.user_id')
+                ->join('registrant_qualification', 'registrant_qualification.user_id', '=', 'profiles.user_id');
             if ($request->state != null) {
                 $query->where('exam_registration.state', 'like', $request->state);
             }
@@ -215,7 +216,10 @@ class SearchController extends BaseController
                 $query->where('users.email', 'like', '%' . $request->email . '%');
             }
 
+            $query->where('registrant_qualification.program_id', '=', 'exam_registration.program_id');
+
             $data = $query->distinct('profile_id')->get();
+            dd($data);
 
             return view('operator::pages.search-students', compact('data', 'program', 'request', 'exams'));
         } else {
