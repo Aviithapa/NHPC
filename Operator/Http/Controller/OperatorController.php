@@ -2523,7 +2523,7 @@ class OperatorController extends BaseController
                     ->where('registrant_qualification.program_id', '=', DB::raw('exam_registration.program_id'));
             })
             ->where('exam_registration.exam_id', '=', 7)
-            ->get(['level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number', 'admit_card.*', 'registration_qualification.collage_name as collage_name']);
+            ->get(['level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number', 'admit_card.*', 'registrant_qualification.collage_name as collage_name']);
 
         $headers = array(
             "Content-type"        => "text/csv",
