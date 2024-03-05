@@ -2514,7 +2514,6 @@ class OperatorController extends BaseController
 
         $tasks = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             ->join('admit_card', 'admit_card.exam_processing_id', '=', 'exam_registration.id')
-            ->join('exam_result', 'exam_result.symbol_number', '=', 'admit_card.symbol_number')
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
             ->join('level', 'level.id', '=', 'program.level_id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
@@ -2523,7 +2522,7 @@ class OperatorController extends BaseController
                     ->where('registrant_qualification.program_id', '=', 'exam_registration.program_id'); // Filter based on program_id
             })
             ->where('exam_registration.exam_id', '=', 7)
-            ->get(['level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number', 'admit_card.*', 'registrant_qualification.collage_name as collage_name', 'exam_result.status as result']);
+            ->get(['level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number', 'admit_card.*', 'registrant_qualification.collage_name as collage_name']);
 
         $headers = array(
             "Content-type"        => "text/csv",
@@ -2579,7 +2578,7 @@ class OperatorController extends BaseController
                 $row['thumb2'] = null;
                 $row['email'] = $task->email;
                 $row['phone_no'] = $task->phone_number;
-                $row['result'] = $task->result;
+                $row['result'] = null;
                 $row['percentage'] = null;
                 $row['year'] = null;
                 $row['month'] = null;
