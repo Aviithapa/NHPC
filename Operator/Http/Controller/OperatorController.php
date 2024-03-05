@@ -2507,7 +2507,7 @@ class OperatorController extends BaseController
     }
 
 
-    public function exportCsvWithUniversity($id)
+    public function exportCsvWithUniversity()
     {
         $fileName = 'StudentSymbolNumberList.csv';
 
