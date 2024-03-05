@@ -33,6 +33,7 @@ use Student\Modules\Profile\Repositories\ProfileRepository;
 use Student\Modules\Qualification\Repositories\QualificationRepository;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use Student\Models\Qualification;
 
 class OperatorController extends BaseController
 {
@@ -2511,11 +2512,17 @@ class OperatorController extends BaseController
     {
         $fileName = 'StudentSymbolNumberList.csv';
 
-        $exam = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
+        $data = [];
+        $exams = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
             ->where('exam_registration.exam_id', '=', 7)
             ->get();
-        dd($exam);
+
+        foreach ($exams as $exam) {
+            $qualification = Qualification::all()->where('user_id', '=', $exam->user_id)->where('program_id', '=', $exam->program_id)->first();
+            $exams['collage'] = $qualification->collage_name;
+        }
+        dd($exams[0]);
         $tasks = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             ->join('admit_card', 'admit_card.exam_processing_id', '=', 'exam_registration.id')
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
