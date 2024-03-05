@@ -2505,4 +2505,127 @@ class OperatorController extends BaseController
         // }
         dd($datas);
     }
+
+
+    public function exportCsvWithUniversity($id)
+    {
+        $fileName = 'StudentSymbolNumberList.csv';
+
+
+        $tasks = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
+            ->join('admit_card', 'admit_card.exam_processing_id', '=', 'exam_registration.id')
+            ->join('exam_result', 'exam_result.symbol_number', '=', 'admit_card.symbol_number')
+            ->join('program', 'program.id', '=', 'exam_registration.program_id')
+            ->join('level', 'level.id', '=', 'program.level_id')
+            ->join('users', 'users.id', '=', 'profiles.user_id')
+            ->join('registrant_qualification', function ($join) {
+                $join->on('registrant_qualification.user_id', '=', 'users.id')
+                    ->where('registrant_qualification.program_id', '=', 'exam_registration.program_id'); // Filter based on program_id
+            })
+            ->where('exam_registration.exam_id', '=', 7)
+            ->get(['level.name as level_name',  'profiles.*', 'program.*', 'users.email as email', 'users.phone_number as phone_number', 'admit_card.*', 'registrant_qualification.collage_name as collage_name', 'exam_result.status as result']);
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array(
+            'registration_id', 'created_at', 'updated_at', 'deleted_at', 'created_by', 'update_by', 'deleted_by',
+            'first_name',
+            'middle_name',
+            'last_name',
+            'symbol_number', 'gender', 'program', 'level', 'photo_link',
+            'barcode', 'exam_center', 'vdc_municipality_english', 'phone_id', 'DOB', 'year_dob_nepali_data', 'month_dob_nepali_data',
+            'day_dob_nepali_data', 'student_signature', 'collage', 'webcam', 'thumb', 'thumb2', 'email',
+            'phone_no', 'result', 'percentage', 'year', 'month'
+        );
+
+        $callback = function () use ($tasks, $columns) {
+
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+            foreach ($tasks as $task) {
+                $row['registration_id'] = $task->citizenship_number;
+                $row['created_at'] = "2023-02-03 09:51:53";
+                $row['updated_at'] = "2023-02-03 09:51:53";
+                $row['deleted_at'] = null;
+                $row['created_by'] = 1;
+                $row['updated_by'] = 1;
+                $row['deleted_by'] = 0;
+                $row['first_name']  = $task->first_name;
+                $row['middle_name']  =  $task->middle_name;
+                $row['last_name']  = $task->last_name;
+                $row['symbol']    = $task->symbol_number;
+                $row['gender']    = $task->sex;
+                $row['program']  = $task->name;
+                $row['level'] = $task->level_name;
+                $row['photo_link'] = 'http://103.175.192.52/storage/documents/' . $task->profile_picture;
+                $row['bar_code'] = null;
+                $row['exam_center'] = null;
+                $row['vdc'] = $task->vdc_municiplality;
+                $row['phone_id'] = null;
+                $row['dob']    = $task->dob_nep;
+                $row['year_dob_nepali_data'] = null;
+                $row['month_dob_nepali_data'] = null;
+                $row['day_dob_nepali_data'] = null;
+                $row['student_signature'] = null;
+                $row['collage'] = $task->collage_name;
+                $row['webcam'] = null;
+                $row['thumb'] = null;
+                $row['thumb2'] = null;
+                $row['email'] = $task->email;
+                $row['phone_no'] = $task->phone_number;
+                $row['result'] = $task->result;
+                $row['percentage'] = null;
+                $row['year'] = null;
+                $row['month'] = null;
+
+
+                fputcsv($file, array(
+                    $row['registration_id'],
+                    $row['created_at'],
+                    $row['updated_at'],
+                    $row['deleted_at'],
+                    $row['created_by'],
+                    $row['updated_by'],
+                    $row['deleted_by'],
+                    $row['first_name'],
+                    $row['middle_name'],
+                    $row['last_name'],
+                    $row['symbol'],
+                    $row['gender'],
+                    $row['program'],
+                    $row['level'],
+                    $row['photo_link'],
+                    $row['bar_code'],
+                    $row['exam_center'],
+                    $row['vdc'],
+                    $row['phone_id'],
+                    $row['dob'],
+                    $row['year_dob_nepali_data'],
+                    $row['month_dob_nepali_data'],
+                    $row['day_dob_nepali_data'],
+                    $row['student_signature'],
+                    $row['collage'],
+                    $row['webcam'],
+                    $row['thumb'],
+                    $row['thumb2'],
+                    $row['email'],
+                    $row['phone_no'],
+                    $row['result'],
+                    $row['percentage'],
+                    $row['year'],
+                    $row['month']
+                ));
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
 }

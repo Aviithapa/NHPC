@@ -4,6 +4,8 @@ use Council\Http\Controller\CouncilController;
 use ExamCommittee\Http\Controller\ExamCommitteeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Matrix\Operators\Operator;
+use Operator\Http\Controller\OperatorController;
 use SubjectCommittee\Http\Controller\SubjectCommitteeController;
 
 /*
@@ -46,3 +48,5 @@ Route::get('/updateCount', [SubjectCommitteeController::class, 'updateCount']);
 
 
 Route::get('/updateLogs', [\Operator\Http\Controller\OperatorController::class, 'updateLogs']);
+
+Route::get('/exportCsvWithUniversity', [OperatorController::class, 'exportCsvWithUniversity']);
