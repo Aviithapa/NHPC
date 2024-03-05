@@ -2515,14 +2515,14 @@ class OperatorController extends BaseController
         $data = [];
         $exams = Profile::join('exam_registration', 'exam_registration.profile_id', '=', 'profiles.id')
             ->join('users', 'users.id', '=', 'profiles.user_id')
+            ->leftJoin('registrant_qualification', function ($join) {
+                $join->on('registrant_qualification.user_id', '=', 'profiles.user_id')
+                    ->where('registrant_qualification.program_id', '=', DB::raw('exam_registration.program_id'));
+            })
             ->where('exam_registration.exam_id', '=', 7)
+            ->select('profiles.*', 'registrant_qualification.collage_name', 'registrant_qualification.board_university')
             ->get();
-
-        foreach ($exams as $exam) {
-            $qualification = Qualification::all()->where('user_id', '=', $exam->user_id)->where('program_id', '=', $exam->program_id)->first();
-            $exams['collage'] = $qualification->collage_name || $qualification->board_university;
-        }
-        dd($exams[0]);
+        dd($exams);
         $tasks = ExamProcessing::join('profiles', 'profiles.id', '=', 'exam_registration.profile_id')
             ->join('admit_card', 'admit_card.exam_processing_id', '=', 'exam_registration.id')
             ->join('program', 'program.id', '=', 'exam_registration.program_id')
