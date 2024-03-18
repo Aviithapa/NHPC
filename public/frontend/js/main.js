@@ -51,7 +51,9 @@ $(window).scroll(function () {
     }
 });
 
-// new WOW().init();
+$(document).ready(function () {
+    new WOW().init();
+});
 
 //Get the button
 var mybutton = document.getElementById("myBtn");
