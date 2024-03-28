@@ -208,7 +208,7 @@
         {{-- 08-07-2022 --}}
         of the Council, the name of
         <span style="font-size: 26px;
-        font-weight: 600;"> {{ucwords(strtolower($data->name))}}</span> aged
+        font-weight: 600;"> {{ucwords(strtolower($data->name))}}</span> date of birth
         {{ $data->date_of_birth}} years
         a resident of . <span style="font-size: 26px;
         font-weight: 700;">{{$data->ward}}</span> of <span style="font-size: 26px;
