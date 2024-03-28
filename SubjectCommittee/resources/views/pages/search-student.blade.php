@@ -74,9 +74,13 @@
             var value=$(this).val();
             console.log(value);
             $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+            var baseUrl = window.location.protocol + '//' + window.location.host;
+
+                   // Construct the full URL for the AJAX request
+                  var searchUrl = baseUrl + '/subjectCommittee/dashboard/search';
             $.ajax({
                 type : 'Get',
-                url : '{{URL::to('subjectCommittee/dashboard/search')}}',
+                url : searchUrl,
                 data:{'search':value},
                 success:function(data){
                     console.log(" The data is" + data);

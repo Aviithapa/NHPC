@@ -398,10 +398,14 @@
         function printDiv() {
             var divContents = document.getElementById("printContent").innerHTML;
             var certificateID = document.getElementById("certificateID").value;
-            
+            var baseUrl = window.location.protocol + '//' + window.location.host;
+
+                   // Construct the full URL for the AJAX request
+                  var searchUrl = baseUrl + '/operator/dashboard/certificate/isPrinted';
        
             $.ajax({
-    url: '/operator/dashboard/certificate/isPrinted/' + certificateID,
+                  
+    url: searchUrl + certificateID,
     type: 'GET',
     success: function(response) {
        // var a = window.print()

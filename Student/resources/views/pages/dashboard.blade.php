@@ -372,9 +372,13 @@
         function getPracticular(){
             var level_id = document.getElementById("level").value;
             $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+            var baseUrl = window.location.protocol + '//' + window.location.host;
+
+                   // Construct the full URL for the AJAX request
+                  var searchUrl = baseUrl + '/student/dashboard/level/program';
             $.ajax({
                 type : 'Get',
-                url : '{{URL::to('student/dashboard/level/program')}}',
+                url : searchUrl,
                 data:{'level_id':level_id},
                 success:function(data){
                     console.log(" The data is" + data);

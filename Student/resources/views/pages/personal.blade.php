@@ -434,9 +434,13 @@
             var province_id = document.getElementById("province").value;
             console.log(province_id);
             $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+            var baseUrl = window.location.protocol + '//' + window.location.host;
+
+                   // Construct the full URL for the AJAX request
+                  var searchUrl = baseUrl + '/student/dashboard/address/district';
             $.ajax({
                 type : 'Get',
-                url : '{{URL::to('student/dashboard/address/district')}}',
+                url : searchUrl,
                 data:{'province_id':province_id},
                 success:function(data){
                     console.log(" The data is" + data);
@@ -449,9 +453,13 @@
             var district_name = document.getElementById("district").value;
 
             $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+            var baseUrl = window.location.protocol + '//' + window.location.host;
+
+                   // Construct the full URL for the AJAX request
+                  var searchUrl = baseUrl + '/student/dashboard/address/municipality';
             $.ajax({
                 type : 'Get',
-                url : '{{URL::to('student/dashboard/address/municipality')}}',
+                url : searchUrl,
                 data:{'district_name':district_name},
                 success:function(data){
                     console.log(" The data is" + data);

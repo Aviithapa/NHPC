@@ -73,9 +73,13 @@
         $('#search').on('keyup',function(){
             var value=$(this).val();
             $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+                 var baseUrl = window.location.protocol + '//' + window.location.host;
+
+                   // Construct the full URL for the AJAX request
+                  var searchUrl = baseUrl + '/examCommittee/dashboard/examCommittee/search';
             $.ajax({
                 type : 'Get',
-                url : '{{URL::to('examCommittee/dashboard/examCommittee/search')}}',
+                url : searchUrl,
                 data:{'search':value},
                 success:function(data){
                     $('#tbody').html(data);
