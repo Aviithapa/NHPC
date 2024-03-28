@@ -7,9 +7,12 @@
 
     function anyFileUploader(id){
 
+           var baseUrl = window.location.protocol + '//' + window.location.host;
+           // Construct the full URL for the AJAX request
+           var searchUrl = baseUrl + '/student/dashboard/save_image';
         $('input[name$="'+id+'_image"]').fileupload({
 
-            url: '{{ url('student/dashboard/save_image') }}' + '/' + id,
+            url: searchUrl + '/' + id,
             done: function(e, data) {
                 $('#'+id+'_img').attr('src', data.result.full_url);
                 $('#'+id+'_path').val(data.result.image_name);

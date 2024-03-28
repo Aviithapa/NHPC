@@ -28,8 +28,11 @@
 
     function anyFileUploader(id) {
         $('#'+ id +'_progress').css('width','0%');
+        var baseUrl = window.location.protocol + '//' + window.location.host;
+           // Construct the full URL for the AJAX request
+           var searchUrl = baseUrl + '/dashboard/ajax/any-file-upload';
         $('#'+id).fileupload({
-            url: '{{ url('dashboard/ajax/any-file-upload') }}' + '/' + id,
+            url: searchUrl + '/' + id,
             done: function(e, data) {
                 $('#'+id+'_help_text').text('File Upload Successfully');
                     $('#'+id+'_path').val(data.result.image_name);
